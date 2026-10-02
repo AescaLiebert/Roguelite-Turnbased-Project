@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9ad1cdb4878bd4787c7185e9af84d4, type: 3}
+  m_Name: king94_Ultimate
+  m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
+  ultimateName: "King 94 \xB7 Ultimate"
+  icon: {fileID: 21300000, guid: 931adeeb22052a544855e40cf884acaf, type: 3}
+  levels:
+  - level: 0
+    description: Inflict damage equal to 630% of ATK, Depletes enemy ult gauge by
+      3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 6.3
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 630% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    provenance: Supplied
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0
+  - level: 1
+    description: Inflict damage equal to 661.5% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 6.6150002
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 661.5% of ATK, Depletes enemy ult
+      gauge by 3 gauges
+    provenance: GeneratedStartingValue
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0
+  - level: 2
+    description: Inflict damage equal to 693% of ATK, Depletes enemy ult gauge by
+      3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 6.9300003
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 693% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    provenance: GeneratedStartingValue
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0
+  - level: 3
+    description: Inflict damage equal to 724.5% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 7.2450004
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 724.5% of ATK, Depletes enemy ult
+      gauge by 3 gauges
+    provenance: GeneratedStartingValue
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0
+  - level: 4
+    description: Inflict damage equal to 756% of ATK, Depletes enemy ult gauge by
+      3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 7.5600004
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 756% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    provenance: GeneratedStartingValue
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0
+  - level: 5
+    description: Inflict damage equal to 787.5% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 7.875
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 787.5% of ATK, Depletes enemy ult
+      gauge by 3 gauges
+    provenance: GeneratedStartingValue
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0
+  - level: 6
+    description: Inflict damage equal to 819% of ATK, Depletes enemy ult gauge by
+      3 gauges
+    targetType: 0
+    damageScalingType: 0
+    damageMultiplier: 8.190001
+    ultimatePrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 819% of ATK, Depletes enemy ult gauge
+      by 3 gauges
+    provenance: GeneratedStartingValue
+    damageKeyword: 
+    effects:
+    - kind: 7
+      statusId: 
+      statId: 
+      disabledCardType: 0
+      targetType: 0
+      magnitude: 3
+      durationTurns: 0
+      stackCount: 1
+      stackCap: 0

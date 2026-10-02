@@ -1,0 +1,102 @@
+# Weekly Sprint Report Generator
+#
+# Runs every Monday at 9 AM UTC.
+# Generates an AI-formatted sprint report from git log data and opens a PR.
+#
+# Required secret:
+#   AI_API_KEY or OPENAI_API_KEY-compatible value
+#
+# Optional variable:
+#   OPENAI_MODEL, defaults in the script to gpt-4.1-mini
+
+name: Weekly Sprint Report
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate raw sprint data
+        run: |
+          REPORT_DATE=$(date +%Y-%m-%d)
+          echo "REPORT_DATE=$REPORT_DATE" >> "$GITHUB_ENV"
+
+          echo "# Raw Git Log - Week of $REPORT_DATE" > /tmp/raw_log.md
+          echo "" >> /tmp/raw_log.md
+
+          echo "## Features (feat)" >> /tmp/raw_log.md
+          git log --since="7 days ago" --pretty=format:"- %s (%h, %an, %ar)" --no-merges --grep="^feat" >> /tmp/raw_log.md || echo "- None" >> /tmp/raw_log.md
+          echo "" >> /tmp/raw_log.md
+
+          echo "## Bug Fixes (fix)" >> /tmp/raw_log.md
+          git log --since="7 days ago" --pretty=format:"- %s (%h, %an, %ar)" --no-merges --grep="^fix" >> /tmp/raw_log.md || echo "- None" >> /tmp/raw_log.md
+          echo "" >> /tmp/raw_log.md
+
+          echo "## Refactors (refactor)" >> /tmp/raw_log.md
+          git log --since="7 days ago" --pretty=format:"- %s (%h, %an, %ar)" --no-merges --grep="^refactor" >> /tmp/raw_log.md || echo "- None" >> /tmp/raw_log.md
+          echo "" >> /tmp/raw_log.md
+
+          echo "## Polish (juice)" >> /tmp/raw_log.md
+          git log --since="7 days ago" --pretty=format:"- %s (%h, %an, %ar)" --no-merges --grep="^juice" >> /tmp/raw_log.md || echo "- None" >> /tmp/raw_log.md
+          echo "" >> /tmp/raw_log.md
+
+          echo "## Other" >> /tmp/raw_log.md
+          git log --since="7 days ago" --pretty=format:"- %s (%h, %an, %ar)" --no-merges --grep="^docs\|^chore\|^style\|^test" >> /tmp/raw_log.md || echo "- None" >> /tmp/raw_log.md
+          echo "" >> /tmp/raw_log.md
+
+          echo "## Stats" >> /tmp/raw_log.md
+          echo "- Total commits: $(git rev-list --count --since='7 days ago' HEAD --no-merges)" >> /tmp/raw_log.md
+          echo "- Contributors: $(git log --since='7 days ago' --pretty=format:'%an' --no-merges | sort -u | wc -l)" >> /tmp/raw_log.md
+
+          echo "" >> /tmp/raw_log.md
+          echo "## DevLog Entries" >> /tmp/raw_log.md
+          find 3_Outputs/DevLog -type f -name "*.md" -mtime -8 -print 2>/dev/null | sort | while read -r file; do
+            echo "- $file" >> /tmp/raw_log.md
+            sed -n '1,80p' "$file" >> /tmp/raw_log.md
+            echo "" >> /tmp/raw_log.md
+          done
+ 
+          echo "" >> /tmp/raw_log.md
+          echo "## ADR Updates" >> /tmp/raw_log.md
+          find 3_Outputs/ADRs -type f -name "*.md" -mtime -8 -print 2>/dev/null | sort | while read -r file; do
+            echo "- $file" >> /tmp/raw_log.md
+            sed -n '1,60p' "$file" >> /tmp/raw_log.md
+            echo "" >> /tmp/raw_log.md
+          done
+ 
+      - name: Format report with AI
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+        run: |
+          python 2_System_Files/Scripts/format_sprint_report.py \
+            --input /tmp/raw_log.md \
+            --template 1_Inputs_Templates/PM_Report_Template.md \
+            --output "3_Outputs/PM_Reports/${{ env.REPORT_DATE }}-sprint-report.md"
+ 
+      - name: Create PR with report
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs(reports): add sprint report ${{ env.REPORT_DATE }}"
+          title: "Sprint Report - ${{ env.REPORT_DATE }}"
+          body: |
+            Auto-generated AI-formatted sprint report for the week ending ${{ env.REPORT_DATE }}.
+ 
+            Review the report in `3_Outputs/PM_Reports/${{ env.REPORT_DATE }}-sprint-report.md`.
+          branch: report/${{ env.REPORT_DATE }}
+          base: main

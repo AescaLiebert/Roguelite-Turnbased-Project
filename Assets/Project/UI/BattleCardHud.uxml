@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/BattleCardHud.uss?fileID=7433441132597879392&amp;guid=b51f3b08657e4af9ab8610c92c24b7e2&amp;type=3#BattleCardHud"/>
+    <ui:VisualElement name="battle-card-root" class="battle-card-root">
+        <ui:VisualElement name="battle-card-tray" class="battle-card-tray" style="background-color: rgba(8, 13, 21, 0);">
+            <ui:Label name="card-tooltip" class="card-tooltip" style="display: none;"/>
+            <ui:VisualElement name="action-row" class="action-row">
+                <ui:VisualElement name="action-slot-0" class="card-slot action-slot">
+                    <ui:Label name="action-marker-0" text="+" class="slot-marker"/>
+                    <ui:VisualElement name="action-content-0" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="action-slot-1" class="card-slot action-slot">
+                    <ui:Label name="action-marker-1" text="+" class="slot-marker"/>
+                    <ui:VisualElement name="action-content-1" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="action-slot-2" class="card-slot action-slot">
+                    <ui:Label name="action-marker-2" text="+" class="slot-marker"/>
+                    <ui:VisualElement name="action-content-2" class="slot-content"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="deck-row" class="deck-row">
+                <ui:VisualElement name="deck-slot-0" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-0" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="deck-slot-1" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-1" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="deck-slot-2" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-2" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="deck-slot-3" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-3" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="deck-slot-4" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-4" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="deck-slot-5" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-5" class="slot-content"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="deck-slot-6" class="card-slot deck-slot">
+                    <ui:VisualElement name="deck-content-6" class="slot-content"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="tray-controls">
+                <ui:Button name="reset-button" text="Reset" class="reset-button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

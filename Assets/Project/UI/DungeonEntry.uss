@@ -1,0 +1,14 @@
+.entry-root { width: 100%; max-width: 820px; align-self: center; justify-content: center; flex-grow: 1; padding: 28px; background-color: rgb(13, 17, 26); color: rgb(238, 242, 248); }
+.eyebrow { color: rgb(110, 194, 210); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
+.entry-title { margin-top: 8px; font-size: 28px; -unity-font-style: bold; }
+.entry-copy { margin-top: 7px; color: rgb(155, 170, 190); font-size: 12px; white-space: normal; }
+.profile-list { flex-direction: row; margin-top: 24px; }
+.profile-button { flex-grow: 1; min-height: 78px; margin-right: 8px; padding: 10px; background-color: rgb(30, 42, 59); color: rgb(230, 237, 246); white-space: normal; font-size: 12px; border-bottom-width: 2px; border-bottom-color: rgb(77, 131, 158); }
+.difficulty-panel { margin-top: 23px; padding: 16px; background-color: rgb(23, 29, 41); }
+.section-title { color: rgb(155, 170, 190); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
+#difficulty-slider { margin-top: 12px; }
+.reward-preview { margin-top: 10px; color: rgb(223, 197, 130); font-size: 14px; -unity-font-style: bold; }
+.entry-footer { flex-direction: row; justify-content: space-between; align-items: center; margin-top: 18px; }
+.entry-status { flex-grow: 1; color: rgb(155, 170, 190); font-size: 11px; white-space: normal; }
+.primary-button { min-height: 38px; padding: 8px 18px; background-color: rgb(49, 128, 146); color: white; -unity-font-style: bold; }
+Button:disabled { opacity: 0.4; }

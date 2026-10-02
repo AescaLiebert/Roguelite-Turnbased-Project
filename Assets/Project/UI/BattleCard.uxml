@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="BattleCard.uss" />
+    <ui:Button name="card-button" class="card-face">
+        <ui:Image name="artwork" class="card-artwork" />
+        <ui:Label name="card-rank" class="card-rank" />
+    </ui:Button>
+</ui:UXML>

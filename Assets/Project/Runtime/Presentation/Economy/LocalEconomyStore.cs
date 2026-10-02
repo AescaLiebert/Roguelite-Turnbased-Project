@@ -1,0 +1,112 @@
+using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using FightingAllstar.Core.Economy;
+using FightingAllstar.Adapters;
+using UnityEngine;
+
+namespace FightingAllstar.Presentation.Economy
+{
+    /// <summary>Offline profile persistence. The authenticated subject is the storage key when an auth adapter is connected.</summary>
+    public sealed class LocalEconomyStore
+    {
+        private readonly string _path;
+        public LocalEconomyStore(string fileName = "fighting-allstar-local-economy.json")
+        {
+            _path = Path.Combine(Application.persistentDataPath, "FightingAllstar", "Profiles", GetSubjectKey(), fileName);
+        }
+
+        public void Save(LocalEconomyState state)
+        {
+            if (state == null) throw new ArgumentNullException(nameof(state));
+            var directory = Path.GetDirectoryName(_path);
+            if (string.IsNullOrEmpty(directory)) throw new InvalidOperationException("Local economy profile path has no parent directory.");
+            Directory.CreateDirectory(directory);
+            var temp = _path + ".tmp";
+            var backup = _path + ".bak";
+            File.WriteAllText(temp, JsonUtility.ToJson(state));
+            if (!File.Exists(_path)) { File.Move(temp, _path); return; }
+            if (File.Exists(backup)) File.Delete(backup);
+            File.Replace(temp, _path, backup);
+            try { if (File.Exists(backup)) File.Delete(backup); }
+            catch (IOException) { /* The committed snapshot is valid; a stale backup is safe. */ }
+        }
+
+        public bool TryLoad(out LocalEconomyState state)
+        {
+            state = null;
+            foreach (var candidate in new[] { _path, _path + ".bak" })
+            {
+                if (!File.Exists(candidate)) continue;
+                try
+                {
+                    state = JsonUtility.FromJson<LocalEconomyState>(File.ReadAllText(candidate));
+                    if (state != null && state.SchemaVersion == 1) return true;
+                    state = null;
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogWarning("Local economy snapshot could not be read from " + candidate + ": " + exception.Message);
+                }
+            }
+            return false;
+        }
+
+        public LocalEconomyState LoadOrCreateLocalProfile()
+        {
+            if (TryLoad(out var state))
+            {
+                state.SubjectId = LocalPlayerAccountContext.SubjectId;
+                EnsureStarterRoster(state);
+                Save(state);
+                return state;
+            }
+            state = LocalEconomyState.CreateLocalProfile(LocalPlayerAccountContext.SubjectId, 1600, 1);
+            EnsureStarterRoster(state);
+            Save(state);
+            return state;
+        }
+
+        public LocalEconomyLedgerEntry GrantRunCompletion(string runId, int amount)
+        {
+            if (string.IsNullOrWhiteSpace(runId)) throw new ArgumentException("A run ID is required.", nameof(runId));
+            if (amount < 0) throw new ArgumentOutOfRangeException(nameof(amount));
+            var state = LoadOrCreateLocalProfile();
+            var operationId = "run-completion:" + runId;
+            var existing = state.Ledger.Find(x => x != null && x.OperationId == operationId);
+            if (existing != null)
+            {
+                if (existing.Amount != amount) throw new InvalidOperationException("Run completion ID was reused with a different reward quote.");
+                return existing.Clone();
+            }
+            state.Diamonds += amount;
+            var entry = new LocalEconomyLedgerEntry { OperationId = operationId, Kind = "RunCompletion",
+                Amount = amount, BalanceAfter = state.Diamonds };
+            state.Ledger.Add(entry.Clone());
+            state.Revision++;
+            Save(state);
+            return entry;
+        }
+
+        private static void EnsureStarterRoster(LocalEconomyState state)
+        {
+            var starters = new[] { "fighter.kyo94", "fighter.chin94", "fighter.kensou94", "fighter.king94" };
+            state.Roster = state.Roster ?? new System.Collections.Generic.List<LocalOwnedCharacter>();
+            foreach (var id in starters)
+                if (!state.Roster.Exists(owned => owned != null && owned.DefinitionId == id))
+                    state.Roster.Add(new LocalOwnedCharacter { DefinitionId = id, ConstellationTier = 0 });
+            if (state.FormationDefinitionIds == null || state.FormationDefinitionIds.Count != 4)
+                state.FormationDefinitionIds = new System.Collections.Generic.List<string>(starters);
+        }
+
+        private static string GetSubjectKey()
+        {
+            using (var sha = SHA256.Create())
+            {
+                var digest = sha.ComputeHash(Encoding.UTF8.GetBytes(LocalPlayerAccountContext.SubjectId));
+                return BitConverter.ToString(digest).Replace("-", string.Empty).ToLowerInvariant();
+            }
+        }
+    }
+}

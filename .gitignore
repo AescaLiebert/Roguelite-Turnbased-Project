@@ -35,6 +35,9 @@
 ExportedObj/
 .consulo/
 *.csproj
+!Shared/FightingAllstar.Core/FightingAllstar.Core.csproj
+Shared/**/obj/
+Shared/**/bin/
 *.unityproj
 *.sln
 *.suo

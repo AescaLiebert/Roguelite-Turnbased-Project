@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="KofBanner.uss" />
+    <ui:VisualElement class="economy-root">
+        <ui:VisualElement class="header-row">
+            <ui:VisualElement>
+                <ui:Label text="FIGHTING ALLSTAR" class="eyebrow" />
+                <ui:Label text="KOF Fighters" class="page-title" />
+                <ui:Label text="LOCAL PROFILE · OFFLINE SAVE" class="local-badge" />
+            </ui:VisualElement>
+            <ui:VisualElement class="wallet-panel">
+                <ui:Label name="economy-wallet" text="LOCAL WALLET · — Diamonds" class="wallet-value" />
+                <ui:Label name="economy-tokens" text="Collection Tokens · 0" class="small-copy" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:Label text="Build your roster, choose a four-fighter formation, then take it into the local dungeon. Progress is saved on this device." class="warning-copy" />
+
+        <ui:VisualElement class="summary-row">
+            <ui:Label name="economy-guarantee" text="Featured guarantee · 0 / 300" class="summary-chip" />
+            <ui:Label name="economy-selector-count" text="Selectors · 0" class="summary-chip" />
+        </ui:VisualElement>
+
+        <ui:VisualElement class="tabs">
+            <ui:Button name="tab-banner" text="Banner" class="tab-button" />
+            <ui:Button name="tab-rates" text="Rates &amp; rules" class="tab-button" />
+            <ui:Button name="tab-collection" text="Collection" class="tab-button" />
+            <ui:Button name="tab-formation" text="Formation" class="tab-button" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="banner-pool" class="content-panel" />
+        <ui:VisualElement name="banner-actions" class="banner-actions">
+            <ui:Label text="Featured guarantee: X / 300. Choose a featured SSR every 300 paid pulls; an early SSR does not reset progress. This is the proposed selector policy." class="policy-copy" />
+            <ui:VisualElement class="summon-buttons">
+                <ui:Button name="summon-single" text="1 pull · 160 Diamonds" class="primary-button" />
+                <ui:Button name="summon-ten" text="10 pulls · 1600 Diamonds" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="purchase-review" class="modal-panel" style="display: none;">
+            <ui:Label text="Review summon" class="panel-title" />
+            <ui:Label name="purchase-review-summary" text="" class="body-copy" />
+            <ui:VisualElement class="modal-actions">
+                <ui:Button name="cancel-summon" text="Cancel" class="secondary-button" />
+                <ui:Button name="confirm-summon" text="Confirm purchase" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="summon-results-panel" class="content-panel results-panel">
+            <ui:Label text="Latest receipt" class="panel-title" />
+            <ui:Label name="summon-results" text="Summons, duplicates and balance changes appear here." class="body-copy" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="rates-panel" class="content-panel" style="display: none;" />
+
+        <ui:VisualElement name="formation-panel" class="content-panel" style="display: none;">
+            <ui:Label text="Battle formation · 3 active + 1 reserve" class="panel-title" />
+            <ui:Label text="Choose four unique characters you own. The fourth fighter enters when an active fighter is defeated." class="small-copy" />
+            <ui:VisualElement name="formation-list" class="formation-list" />
+            <ui:Button name="play-dungeon" text="Enter dungeon" class="primary-button" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="collection-panel" class="content-panel" style="display: none;">
+            <ui:Label text="KOF fighters · ownership and C0–C6" class="panel-title" />
+            <ui:VisualElement name="collection-list" class="collection-list" />
+            <ui:Label text="Capped C6 duplicates become Collection Tokens. Token exchange is not implemented yet." class="small-copy" />
+            <ui:Label text="Featured selectors" class="panel-title selector-heading" />
+            <ui:VisualElement name="selector-list" class="selector-list" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="upgrade-review" class="modal-panel" style="display: none;">
+            <ui:Label text="Confirm constellation upgrade" class="panel-title" />
+            <ui:Label name="upgrade-review-summary" text="" class="body-copy" />
+            <ui:VisualElement class="modal-actions">
+                <ui:Button name="cancel-upgrade" text="Cancel" class="secondary-button" />
+                <ui:Button name="confirm-upgrade" text="Spend crest" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="selector-review" class="modal-panel" style="display: none;">
+            <ui:Label text="Confirm featured choice" class="panel-title" />
+            <ui:Label name="selector-review-summary" text="" class="body-copy" />
+            <ui:VisualElement class="modal-actions">
+                <ui:Button name="cancel-selector" text="Leave unclaimed" class="secondary-button" />
+                <ui:Button name="confirm-selector" text="Claim choice" class="primary-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:Label name="economy-notice" text="Local profile begins with 1600 Diamonds and four starter fighters. Local play does not grant online entitlements." class="notice-copy" />
+    </ui:VisualElement>
+</ui:UXML>

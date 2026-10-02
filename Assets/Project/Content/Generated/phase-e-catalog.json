@@ -1,0 +1,3649 @@
+{
+    "SchemaVersion": 1,
+    "ContentVersion": "phase-e-local-v1",
+    "ContentHash": "d35185a3e74e6aa7dec1118808ef07b07a9c3682b515ed8dd668485409ae5783",
+    "Characters": [
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.kyo94",
+            "SourceId": "source.1",
+            "SourceRecord": 2,
+            "DisplayName": "Kusanagi Kyo 94",
+            "FamilyId": "family.kyo",
+            "Role": "Glass Attacker",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.green",
+            "RarityId": "rarity.sr",
+            "TraitIds": [
+                "trait.japan",
+                "trait.fire-elements",
+                "trait.sacred-treasure",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 290,
+                "Defense": 320,
+                "MaxHealth": 4700,
+                "CombatClass": 2794,
+                "PierceBp": 2000,
+                "ResistanceBp": 500,
+                "RegenerationBp": 500,
+                "CritChanceBp": 3000,
+                "CritDamageBp": 15200,
+                "CritResistanceBp": 0,
+                "CritDefenseBp": 1500,
+                "RecoveryBp": 11200,
+                "BlockChanceBp": 0,
+                "BlockPowerBp": 2000,
+                "LifeStealBp": 500,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.kyo94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Weakpoint",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 10000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Weakpoint",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Weakpoint damage equal to 100% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 20000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Weakpoint",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Weakpoint damage equal to 200% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Weakpoint",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Weakpoint damage equal to 300% of ATK",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.kyo94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Shatter",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 15000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Shatter",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Shatter damage equal to 150% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Shatter",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Shatter damage equal to 300% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 45000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Shatter",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Shatter damage equal to 450% of ATK",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.kyo94.passive.source",
+            "PassiveSource": {
+                "SourceType": "On-Field",
+                "Description": "Increase own attack power by 3% for each Ignites effect on the field. (Maximum 30%)",
+                "Restriction": "Own",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "Randomly applies 3 Ignites effects to the enemy every turn for 3 turns",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [
+                "Ignite ultimate duration missing: propose 3 owner turns. Relic disabled until unlock design exists."
+            ],
+            "SourceTraits": [
+                "Japan",
+                "Fire Elements",
+                "Sacred Treasure"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 2794.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 2794.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 290.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 290.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 320.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 320.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 4700.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 4700.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 5.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 5.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 30.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 3000.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 152.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 15200.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 112.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 11200.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 5.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Inflicts 500% of ATK, applies 2 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 50000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Inflicts 525% of ATK, applies 3 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 52500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Inflicts 550% of ATK, applies 4 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 55000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Inflicts 575% of ATK, applies 5 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 57500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Inflicts 600% of ATK, applies 6 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 60000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Inflicts 625% of ATK, applies 7 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 62500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Inflicts 650% of ATK, applies 8 Ignites effects.",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 65000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.chin94",
+            "SourceId": "source.13",
+            "SourceRecord": 14,
+            "DisplayName": "Chin Gentsai 94",
+            "FamilyId": "family.chin",
+            "Role": "4th Slot Support (Sub)",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.green",
+            "RarityId": "rarity.r",
+            "TraitIds": [
+                "trait.psycho-soldier",
+                "trait.chinese",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 320,
+                "Defense": 120,
+                "MaxHealth": 4400,
+                "CombatClass": 2630,
+                "PierceBp": 1000,
+                "ResistanceBp": 1000,
+                "RegenerationBp": 500,
+                "CritChanceBp": 1000,
+                "CritDamageBp": 15000,
+                "CritResistanceBp": 2000,
+                "CritDefenseBp": 1000,
+                "RecoveryBp": 10000,
+                "BlockChanceBp": 0,
+                "BlockPowerBp": 0,
+                "LifeStealBp": 0,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.chin94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Ignites",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 15000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Ignites",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts damage equal to 150% of ATK applies Ignite enemy for 1 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Ignites",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts damage equal to 300% of ATK applies Ignite enemy for 2 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 45000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Ignites",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts damage equal to 450% of ATK applies Ignite enemy for 3 turns",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.chin94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Debuff",
+                    "SourceEffectTags": "Remove Buff, Ignites",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 12000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Remove Buff, Ignites",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts damage equal to 120% of ATK Removes Buff and applies 1 ignite to enemy for 1 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 24000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Remove Buff, Ignites",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts damage equal to 240% of ATK Removes Buff and applies 2 ignite to enemy for 2 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 36000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Remove Buff, Ignites",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts damage equal to 360% of ATK Removes Buff and applies 3 ignite to enemy for 3 turns",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.chin94.passive.source",
+            "PassiveSource": {
+                "SourceType": "SUB",
+                "Description": "Increases Green Attribute Team's  HP-related stats by 20%",
+                "Restriction": "Green attribute",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [],
+            "SourceTraits": [
+                "Psycho Soldier",
+                "Chinese"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 2630.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 2630.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 320.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 320.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 120.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 120.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 4400.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 4400.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 5.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 150.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 15000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 210% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 21000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 220.5% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 22050,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 231% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 23100,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 241.5% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 24150,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 252% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 25200,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 262.5% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 26250,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Inflicts Weakpoint damage equal to 273% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 27300,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.kensou94",
+            "SourceId": "source.12",
+            "SourceRecord": 13,
+            "DisplayName": "Sie Kensou 94",
+            "FamilyId": "family.kensou",
+            "Role": "4th Slot Support (Sub)",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.blue",
+            "RarityId": "rarity.r",
+            "TraitIds": [
+                "trait.chinese",
+                "trait.psycho-soldier",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 260,
+                "Defense": 120,
+                "MaxHealth": 3200,
+                "CombatClass": 2761,
+                "PierceBp": 3000,
+                "ResistanceBp": 0,
+                "RegenerationBp": 3000,
+                "CritChanceBp": 4000,
+                "CritDamageBp": 13000,
+                "CritResistanceBp": 0,
+                "CritDefenseBp": 0,
+                "RecoveryBp": 13500,
+                "BlockChanceBp": 0,
+                "BlockPowerBp": 0,
+                "LifeStealBp": 2000,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.kensou94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Sever",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 15000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Sever",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts Sever damage equal to 150% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Sever",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts Sever damage equal to 300% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 45000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Sever",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts Sever damage equal to 450% of ATK",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.kensou94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Heal",
+                    "SourceEffectTags": "Cleanses",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 0,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Cleanses",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Heals diminished HP of all allies by 16.67% and Removes Debuffs",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 0,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Cleanses",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Heals diminished HP of all allies by 33.33% and Removes Debuffs",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 0,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Cleanses",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Heals diminished HP of all allies by 50% and Removes Debuffs",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.kensou94.passive.source",
+            "PassiveSource": {
+                "SourceType": "SUB",
+                "Description": "Increases allies's Recovery Rate by 40%",
+                "Restriction": "All",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [
+                "Skill 2 says Single target but description all allies: follow all allies. Ultimate target field Heal is a category; propose SelectedAlly. Ultimate stat buff duration proposed 3 turns."
+            ],
+            "SourceTraits": [
+                "Chinese",
+                "Psycho Soldier"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 2761.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 2761.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 260.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 260.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 120.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 120.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 3200.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 3200.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 30.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 3000.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 30.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 3000.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 40.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 4000.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 130.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 13000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 135.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 13500.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Restores 50% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Restores 52.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Restores 55% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Restores 57.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Restores 60% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Restores 62.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Restores 65% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 0,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.king94",
+            "SourceId": "source.5",
+            "SourceRecord": 6,
+            "DisplayName": "King 94",
+            "FamilyId": "family.king",
+            "Role": "4th Slot Support (Sub)",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.red",
+            "RarityId": "rarity.sr",
+            "TraitIds": [
+                "trait.women",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 300,
+                "Defense": 250,
+                "MaxHealth": 3650,
+                "CombatClass": 3100,
+                "PierceBp": 4000,
+                "ResistanceBp": 0,
+                "RegenerationBp": 2000,
+                "CritChanceBp": 0,
+                "CritDamageBp": 11000,
+                "CritResistanceBp": 1500,
+                "CritDefenseBp": 2000,
+                "RecoveryBp": 12000,
+                "BlockChanceBp": 0,
+                "BlockPowerBp": 0,
+                "LifeStealBp": 200,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.king94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Pierce",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 15000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Pierce",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Pierce damage equal to 150% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Pierce",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Pierce damage equal to 300% of ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 45000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Pierce",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Pierce damage equal to 450% of ATK",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.king94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "AOE",
+                    "SourceType": "Debuff",
+                    "SourceEffectTags": "Poison",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 12500,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Poison",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 125% of ATK, applies Poison to enemy for 1 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 25000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Poison",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 250% of ATK, applies Poison to enemy for 2 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 37500,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Poison",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 375% of ATK, applies Poison to enemy for 3 turns",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.king94.passive.source",
+            "PassiveSource": {
+                "SourceType": "SUB",
+                "Description": "Increase the alies's Pierce Rate by 8% at the end of every turn. (Maximum 40%)",
+                "Restriction": "All",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "Increase own Pierce Rate by 80%",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [],
+            "SourceTraits": [
+                "Women"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 3100.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 3100.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 300.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 300.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 250.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 250.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 3650.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 3650.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 40.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 4000.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 110.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 11000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 120.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 12000.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 2.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 200.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Inflict damage equal to 630% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 63000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Inflict damage equal to 661.5% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 66150,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Inflict damage equal to 693% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 69300,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Inflict damage equal to 724.5% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 72450,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Inflict damage equal to 756% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 75600,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Inflict damage equal to 787.5% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 78750,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Inflict damage equal to 819% of ATK, Depletes enemy ult gauge by 3 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 81900,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.mai94",
+            "SourceId": "source.3",
+            "SourceRecord": 4,
+            "DisplayName": "Mai Shiranui 94",
+            "FamilyId": "family.mai",
+            "Role": "Crowd Control",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.green",
+            "RarityId": "rarity.sr",
+            "TraitIds": [
+                "trait.women",
+                "trait.fire-elements",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 175,
+                "Defense": 190,
+                "MaxHealth": 5000,
+                "CombatClass": 2790,
+                "PierceBp": 3000,
+                "ResistanceBp": 2000,
+                "RegenerationBp": 1000,
+                "CritChanceBp": 1000,
+                "CritDamageBp": 11000,
+                "CritResistanceBp": 0,
+                "CritDefenseBp": 2000,
+                "RecoveryBp": 11000,
+                "BlockChanceBp": 3000,
+                "BlockPowerBp": 4000,
+                "LifeStealBp": 1300,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.mai94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Rupture",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 13333,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Rupture",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Rupture damage of 133.33% ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 26667,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Rupture",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Rupture damage of 266.67% ATK",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 40000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Rupture",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict Rupture damage of 400% ATK",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.mai94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "AOE",
+                    "SourceType": "Debuff",
+                    "SourceEffectTags": "Disable Attack card",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 9167,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Disable Attack card",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts 91.67% of ATK, Disable enemy from using recovery cards for 1 turns.",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 18333,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Disable Attack card",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts 183.33% of ATK, Disable enemy from using recovery cards for 2 turns.",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 27500,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Disable Attack card",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflicts 275% of ATK, Disable enemy from using recovery cards for 2 turns.",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.mai94.passive.source",
+            "PassiveSource": {
+                "SourceType": "On-Field",
+                "Description": "Decrease enemy's Recovery Rate equal to own Regeneration",
+                "Restriction": "All",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "Increase own Resistance by 80%",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [
+                "Card 2 description disables Recovery; effect tag says Attack. Draft follows description."
+            ],
+            "SourceTraits": [
+                "Women",
+                "Fire Elements"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 2790.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 2790.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 175.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 175.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 190.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 190.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 5000.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 5000.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 30.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 3000.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 110.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 11000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 110.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 11000.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 30.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 3000.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 40.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 4000.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 13.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1300.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Inflicts 375% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 37500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Inflicts 393.75% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 39375,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Inflicts 412.5% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 41250,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Inflicts 431.25% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 43125,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Inflicts 450% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 45000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Inflicts 468.75% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 46875,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Inflicts 487.5% of ATK, increase own card rank",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 48750,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.shingo97",
+            "SourceId": "source.10",
+            "SourceRecord": 11,
+            "DisplayName": "Ibuki Shingo 97",
+            "FamilyId": "family.shingo",
+            "Role": "Crowd Control",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.blue",
+            "RarityId": "rarity.sr",
+            "TraitIds": [
+                "trait.japan",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 300,
+                "Defense": 230,
+                "MaxHealth": 4400,
+                "CombatClass": 2850,
+                "PierceBp": 1500,
+                "ResistanceBp": 1500,
+                "RegenerationBp": 1000,
+                "CritChanceBp": 2500,
+                "CritDamageBp": 14000,
+                "CritResistanceBp": 1500,
+                "CritDefenseBp": 2000,
+                "RecoveryBp": 11500,
+                "BlockChanceBp": 1000,
+                "BlockPowerBp": 2000,
+                "LifeStealBp": 500,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.shingo97.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Depletes",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 15000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Depletes",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 150% of ATK, Depletes enemy ult gauge by 1 gauges",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Depletes",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 300% of ATK, Depletes enemy ult gauge by 2 gauges",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 45000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Depletes",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 450% of ATK, Depletes enemy ult gauge by 3 gauges",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.shingo97.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Debuff",
+                    "SourceEffectTags": "Decrease Defense",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 11667,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Decrease Defense",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 116.67% of ATK, decrease defense power 20% 1 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 23333,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Decrease Defense",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 233.33% of ATK, decrease defense power 40% 2 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 35000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Decrease Defense",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 350% of ATK, decrease defense power 60% 2 turns",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.shingo97.passive.source",
+            "PassiveSource": {
+                "SourceType": "On-Field",
+                "Description": "Upon Decreasing enemy's reduced ult gauge will increase fighter's ult gauge (excluding Ultimate Card Skill)",
+                "Restriction": "Own",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [
+                "All stats generated. PG gain proposed equal to actual PG removed, once per card; excludes ultimate."
+            ],
+            "SourceTraits": [
+                "Japan"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 2850.0,
+                    "Unit": "points",
+                    "Provenance": "generated-starting-value",
+                    "Value": 2850.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 300.0,
+                    "Unit": "points",
+                    "Provenance": "generated-starting-value",
+                    "Value": 300.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 230.0,
+                    "Unit": "points",
+                    "Provenance": "generated-starting-value",
+                    "Value": 230.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 4400.0,
+                    "Unit": "points",
+                    "Provenance": "generated-starting-value",
+                    "Value": 4400.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 25.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 2500.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 140.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 14000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 115.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 11500.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 10.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 1000.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 5.0,
+                    "Unit": "percent",
+                    "Provenance": "generated-starting-value",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Inflict damage equal to 550% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 55000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Inflict damage equal to 577.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 57750,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Inflict damage equal to 605% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 60500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Inflict damage equal to 632.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 63250,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Inflict damage equal to 660% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 66000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Inflict damage equal to 687.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 68750,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Inflict damage equal to 715% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 71500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 3
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.benimaru94",
+            "SourceId": "source.7",
+            "SourceRecord": 8,
+            "DisplayName": "Benimaru 94",
+            "FamilyId": "family.benimaru",
+            "Role": "4th Slot Support (Sub)",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.red",
+            "RarityId": "rarity.r",
+            "TraitIds": [
+                "trait.japan",
+                "trait.chinese",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 178,
+                "Defense": 110,
+                "MaxHealth": 2721,
+                "CombatClass": 2368,
+                "PierceBp": 500,
+                "ResistanceBp": 1500,
+                "RegenerationBp": 2000,
+                "CritChanceBp": 0,
+                "CritDamageBp": 11000,
+                "CritResistanceBp": 0,
+                "CritDefenseBp": 1500,
+                "RecoveryBp": 11000,
+                "BlockChanceBp": 1200,
+                "BlockPowerBp": 2500,
+                "LifeStealBp": 600,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.benimaru94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Debuff",
+                    "SourceEffectTags": "Cancel Stance,Disable Stance Cards",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 12000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Cancel Stance,Disable Stance Cards",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 120% of ATK, Cancel Stance and prevent enemy to use stance for 1 turns.",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 24000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Cancel Stance,Disable Stance Cards",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 240% of ATK, Cancel Stance and prevent enemy to use stance for 2 turns.",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 36000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Cancel Stance,Disable Stance Cards",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 360% of ATK, Cancel Stance and prevent enemy to use stance for 2 turns.",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.benimaru94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Debuff",
+                    "SourceEffectTags": "Depletes",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 15000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Depletes",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 150% of ATK, Depletes enemy ult gauge by 1 gauges",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 30000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Depletes",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 300% of ATK, Depletes enemy ult gauge by 2 gauges",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 45000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Depletes",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 450% of ATK, Depletes enemy ult gauge by 3 gauges",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.benimaru94.passive.source",
+            "PassiveSource": {
+                "SourceType": "SUB",
+                "Description": "Increase Red attribute allies Attack-related stats by 10%",
+                "Restriction": "Red attribute",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "When attacking, apply 1 Shock to target(s) for 3 turns",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [],
+            "SourceTraits": [
+                "Japan",
+                "Chinese"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 2368.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 2368.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 178.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 178.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 110.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 110.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 2721.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 2721.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 5.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 110.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 11000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 110.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 11000.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 12.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1200.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 25.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2500.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 6.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 600.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 500% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 50000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 525% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 52500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 550% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 55000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 575% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 57500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 600% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 60000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 625% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 62500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Cancel Buff and Stance on enemy, Inflict damage equal to 650% of ATK then Paralyze for 1 turn(s)",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 65000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        },
+        {
+            "SchemaVersion": 1,
+            "RuntimeReady": true,
+            "Id": "fighter.athena94",
+            "SourceId": "source.11",
+            "SourceRecord": 12,
+            "DisplayName": "Asumiya Athena 94",
+            "FamilyId": "family.athena",
+            "Role": "4th Slot Support (Sub)",
+            "SeriesId": "series.kof",
+            "AttributeId": "attribute.yellow",
+            "RarityId": "rarity.ssr",
+            "TraitIds": [
+                "trait.women",
+                "trait.chinese",
+                "trait.psycho-soldier",
+                "trait.series-kof"
+            ],
+            "BaseStats": {
+                "Attack": 500,
+                "Defense": 370,
+                "MaxHealth": 5900,
+                "CombatClass": 3501,
+                "PierceBp": 2000,
+                "ResistanceBp": 2000,
+                "RegenerationBp": 5000,
+                "CritChanceBp": 1500,
+                "CritDamageBp": 13000,
+                "CritResistanceBp": 4000,
+                "CritDefenseBp": 3000,
+                "RecoveryBp": 14000,
+                "BlockChanceBp": 0,
+                "BlockPowerBp": 0,
+                "LifeStealBp": 0,
+                "EvadeBp": 0,
+                "PerceptionBp": 10000,
+                "ControlBp": 10000,
+                "AvoidanceBp": 0
+            },
+            "Skills": [
+                {
+                    "Id": "fighter.athena94.card.1",
+                    "Slot": 1,
+                    "SourceTarget": "Single-Target",
+                    "SourceType": "Attack",
+                    "SourceEffectTags": "Decrease Recovery Rate",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 13333,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Decrease Recovery Rate",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 133.33% of ATK, Decrease enemy recovery rate by 26.67% 1 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 26667,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Decrease Recovery Rate",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 266.67% of ATK, Decrease enemy recovery rate by 53.33% 2 turns",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 40000,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Decrease Recovery Rate",
+                                "Target": "Single-Target",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Inflict damage equal to 400% of ATK, Decrease enemy recovery rate by 80% 2 turns",
+                            "Provenance": 2
+                        }
+                    ]
+                },
+                {
+                    "Id": "fighter.athena94.card.2",
+                    "Slot": 2,
+                    "SourceTarget": "AOE",
+                    "SourceType": "Heal",
+                    "SourceEffectTags": "Rejuvenates",
+                    "Ranks": [
+                        {
+                            "Rank": 1,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 0,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Rejuvenates",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Heal the entire team for 108.33% of own ATK and apply a Rejuvenates to alias (healing effect that restores 20% of the recovered HP for 1 turns)",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 2,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 0,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Rejuvenates",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Heal the entire team for 216.67% of own ATK and apply a Rejuvenates to alias (healing effect that restores 40% of the recovered HP for 2 turns)",
+                            "Provenance": 2
+                        },
+                        {
+                            "Rank": 3,
+                            "Effect": {
+                                "Family": 0,
+                                "Scaling": 0,
+                                "Magnitude": 0,
+                                "CoefficientBp": 0,
+                                "KeywordFactorBp": 10000,
+                                "KeywordId": "Rejuvenates",
+                                "Target": "AOE",
+                                "TriggerWindow": "PreAction",
+                                "Provenance": 2
+                            },
+                            "DescriptionKey": "",
+                            "SourceDescription": "Heal the entire team for 325% of own ATK and apply a Rejuvenates to alias (healing effect that restores 60% of the recovered HP for 2 turns)",
+                            "Provenance": 2
+                        }
+                    ]
+                }
+            ],
+            "PassiveId": "fighter.athena94.passive.source",
+            "PassiveSource": {
+                "SourceType": "SUB",
+                "Description": "Increase Women allies's Attack-related stats by 15%",
+                "Restriction": "Women",
+                "Provenance": "source"
+            },
+            "HolyRelicSource": {
+                "Description": "",
+                "EnabledInPrototype": false,
+                "Provenance": "source"
+            },
+            "ReviewNotes": [
+                "Ultimate is composite: heal all allies, cleanse Women allies, damage all enemies. Separate target queries."
+            ],
+            "SourceTraits": [
+                "Women",
+                "Chinese",
+                "Psycho Soldier"
+            ],
+            "SourceStats": [
+                {
+                    "StatId": "CombatClass",
+                    "SourceField": "Class_Combat",
+                    "SourceValue": 3501.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 3501.0
+                },
+                {
+                    "StatId": "Attack",
+                    "SourceField": "Attack",
+                    "SourceValue": 500.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 500.0
+                },
+                {
+                    "StatId": "Defense",
+                    "SourceField": "Defense",
+                    "SourceValue": 370.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 370.0
+                },
+                {
+                    "StatId": "MaxHealth",
+                    "SourceField": "Health",
+                    "SourceValue": 5900.0,
+                    "Unit": "points",
+                    "Provenance": "source",
+                    "Value": 5900.0
+                },
+                {
+                    "StatId": "PierceBp",
+                    "SourceField": "Pierce_Rate",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "ResistanceBp",
+                    "SourceField": "Resistance",
+                    "SourceValue": 20.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 2000.0
+                },
+                {
+                    "StatId": "RegenerationBp",
+                    "SourceField": "Regeneration",
+                    "SourceValue": 50.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 5000.0
+                },
+                {
+                    "StatId": "CritChanceBp",
+                    "SourceField": "Critical_Chance",
+                    "SourceValue": 15.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 1500.0
+                },
+                {
+                    "StatId": "CritDamageBp",
+                    "SourceField": "Critical_Damage",
+                    "SourceValue": 130.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 13000.0
+                },
+                {
+                    "StatId": "CritResistanceBp",
+                    "SourceField": "Critical_Resistance",
+                    "SourceValue": 40.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 4000.0
+                },
+                {
+                    "StatId": "CritDefenseBp",
+                    "SourceField": "Critical_Defense",
+                    "SourceValue": 30.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 3000.0
+                },
+                {
+                    "StatId": "RecoveryBp",
+                    "SourceField": "Recovery_Rate",
+                    "SourceValue": 140.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 14000.0
+                },
+                {
+                    "StatId": "BlockChanceBp",
+                    "SourceField": "Block_Chance",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "BlockPowerBp",
+                    "SourceField": "Block_Power",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "LifeStealBp",
+                    "SourceField": "Lifesteal",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "source",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "AvoidanceBp",
+                    "SourceField": "Avoidance_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "EvadeBp",
+                    "SourceField": "Evade_Rate",
+                    "SourceValue": 0.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 0.0
+                },
+                {
+                    "StatId": "ControlBp",
+                    "SourceField": "Control_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                },
+                {
+                    "StatId": "PerceptionBp",
+                    "SourceField": "Perception_Rate",
+                    "SourceValue": 100.0,
+                    "Unit": "percent",
+                    "Provenance": "guide-page-6-default",
+                    "Value": 10000.0
+                }
+            ],
+            "UltimateTiers": [
+                {
+                    "Tier": 0,
+                    "SourceLabel": "C0/6",
+                    "SourceDescription": "Heal the entire team for 300% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 375% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 37500,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 1,
+                    "SourceLabel": "C1/6",
+                    "SourceDescription": "Heal the entire team for 315% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 393.75% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 39375,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 2,
+                    "SourceLabel": "C2/6",
+                    "SourceDescription": "Heal the entire team for 330% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 412.5% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 41250,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 3,
+                    "SourceLabel": "C3/6",
+                    "SourceDescription": "Heal the entire team for 345% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 431.25% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 43125,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 4,
+                    "SourceLabel": "C4/6",
+                    "SourceDescription": "Heal the entire team for 360% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 450% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 45000,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 5,
+                    "SourceLabel": "C5/6",
+                    "SourceDescription": "Heal the entire team for 375% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 468.75% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 46875,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                },
+                {
+                    "Tier": 6,
+                    "SourceLabel": "C6/6",
+                    "SourceDescription": "Heal the entire team for 390% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 487.5% of ATK",
+                    "Effect": {
+                        "Family": 0,
+                        "Scaling": 0,
+                        "Magnitude": 0,
+                        "CoefficientBp": 48750,
+                        "KeywordFactorBp": 10000,
+                        "KeywordId": "ultimate",
+                        "Target": "SelectedEnemy",
+                        "TriggerWindow": "PreAction",
+                        "Provenance": 2
+                    },
+                    "Provenance": 2
+                }
+            ],
+            "StatsProvenance": 0
+        }
+    ]
+}

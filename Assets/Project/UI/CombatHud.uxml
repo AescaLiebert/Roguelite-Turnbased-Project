@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="CombatHud.uss" />
+    <ui:VisualElement name="safe-area-root" class="safe-area-root">
+        <ui:VisualElement name="top-bar" class="top-bar">
+            <ui:Label text="LOCAL PRACTICE" class="eyebrow" />
+            <ui:Label name="battle-status" text="Loading battle…" class="battle-status" />
+            <ui:Button name="skip-button" text="Skip playback" class="quiet-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="arena" class="arena">
+            <ui:Label text="OPPONENT" class="side-label opponent-label" />
+            <ui:VisualElement name="opponent-formation" class="formation opponent-formation" />
+            <ui:VisualElement class="arena-divider"><ui:Label text="VS" class="versus" /></ui:VisualElement>
+            <ui:VisualElement name="player-formation" class="formation player-formation" />
+            <ui:Label text="YOUR TEAM" class="side-label player-label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="planning-panel" class="planning-panel">
+            <ui:VisualElement class="section-heading">
+                <ui:Label text="ACTION QUEUE" class="section-title" />
+                <ui:VisualElement name="action-queue" class="action-queue" />
+            </ui:VisualElement>
+            <ui:VisualElement class="hand-heading">
+                <ui:Label text="SHARED HAND · 7 SLOTS" class="section-title" />
+                <ui:Button name="move-mode-button" text="Move card" class="quiet-button" />
+            </ui:VisualElement>
+            <ui:ScrollView name="hand-tray" class="hand-tray" mode="Horizontal" />
+            <ui:VisualElement class="planning-controls">
+                <ui:Button name="reset-button" text="Reset" class="quiet-button" />
+                <ui:Button name="undo-button" text="Undo last" class="quiet-button" />
+                <ui:Button name="confirm-button" text="Confirm turn" class="confirm-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

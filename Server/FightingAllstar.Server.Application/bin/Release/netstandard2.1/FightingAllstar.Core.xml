@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FightingAllstar.Core</name>
+    </assembly>
+    <members>
+        <member name="T:FightingAllstar.Core.Combat.BattleProjectionBuilder">
+            <summary>Creates a recipient-scoped view without exposing the authoritative snapshot or the other hand.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.DamageResolver.Resolve(FightingAllstar.Core.Content.DamagePacket,FightingAllstar.Core.Content.StatBlock,FightingAllstar.Core.Content.StatBlock,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>Uses exact basis-point fractions and floors once, after all calculation stages.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.DeterministicRandom">
+            <summary>Versioned xorshift64* stream. A stream is copied with state and draw count for replay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.IBattleSession">
+            <summary>Transport boundary shared by disposable local practice and future remote sessions.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.LocalBattleSession">
+            <summary>Development-only authority host. It is intentionally not an economy or run-reward service.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PlanDraft">
+            <summary>A disposable preview. Reset rebuilds from the captured authority snapshot and never advances RNG.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StatBlock">
+            <summary>All ratios are stored as basis points. 10,000 basis points equals 100%.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.ContentAuthoringValidator">
+            <summary>Checks WIP authoring completeness without pretending that source prose is executable gameplay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Economy.LocalEconomyService">
+            <summary>Disposable offline economy simulation. It grants no online entitlement or trusted currency.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.DungeonRunEngine">
+            <summary>Deterministic local run state machine. A trusted service must own this state for online rewards.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.RunBattleBridge">
+            <summary>Maps a frozen route encounter to the disposable shared battle engine and back to run HP.</summary>
+        </member>
+    </members>
+</doc>

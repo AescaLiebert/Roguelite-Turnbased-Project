@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="DungeonRouteMap.uss" />
+    <ui:VisualElement name="route-root" class="route-root">
+        <ui:VisualElement class="route-header">
+            <ui:VisualElement>
+                <ui:Label text="DUNGEON JOURNEY" class="eyebrow" />
+                <ui:Label name="route-title" text="No active run" class="route-title" />
+                <ui:Label name="route-summary" text="Choose a profile and roster to begin." class="route-summary" />
+            </ui:VisualElement>
+            <ui:VisualElement class="route-header-actions">
+                <ui:Button name="abandon-button" text="Abandon run" class="quiet-button" />
+                <ui:Button name="return-loadout-button" text="Return to formation" class="quiet-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="run-hp-strip" class="run-hp-strip" />
+        <ui:ScrollView name="route-rows" class="route-rows" />
+        <ui:VisualElement name="node-actions" class="node-actions" />
+        <ui:Label name="route-error" text="" class="route-error" />
+    </ui:VisualElement>
+</ui:UXML>

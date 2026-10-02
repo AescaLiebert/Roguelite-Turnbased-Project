@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="DungeonEntry.uss" />
+    <ui:VisualElement class="entry-root">
+        <ui:Label text="DUNGEON ENTRY" class="eyebrow" />
+        <ui:Label text="Choose your route" class="entry-title" />
+        <ui:Label text="Your four-fighter roster is frozen for this run. Difficulty cannot change after entry." class="entry-copy" />
+        <ui:VisualElement class="profile-list">
+            <ui:Button name="profile-open" text="Open Circuit&#10;Any legal roster" class="profile-button" />
+            <ui:Button name="profile-green" text="Green Accord&#10;At least two Green fighters" class="profile-button" />
+            <ui:Button name="profile-women" text="Women Exhibition&#10;At least two Women traits" class="profile-button" />
+        </ui:VisualElement>
+        <ui:Label name="profile-description" text="Select a profile to see its restriction." class="entry-copy" />
+        <ui:VisualElement class="difficulty-panel">
+            <ui:Label text="ENTRY DIFFICULTY" class="section-title" />
+            <ui:SliderInt name="difficulty-slider" low-value="0" high-value="100" value="0" page-size="5" />
+            <ui:Label name="reward-preview" text="Run completion reward · 320 Diamonds" class="reward-preview" />
+            <ui:Label text="At +100% enemy ATK, DEF and Max HP are doubled. Other stats do not scale." class="entry-copy" />
+        </ui:VisualElement>
+        <ui:VisualElement class="entry-footer">
+            <ui:Label name="entry-status" text="Load a valid roster to enable entry." class="entry-status" />
+            <ui:Button name="start-run-button" text="Enter dungeon" class="primary-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

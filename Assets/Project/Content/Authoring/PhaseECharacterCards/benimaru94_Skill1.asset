@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
+  m_Name: benimaru94_Skill1
+  m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
+  cardName: "Benimaru 94 \xB7 Skill 1"
+  cardIcon: {fileID: 21300000, guid: 3634a0d27c4f87746a5eca6bc2b3cc28, type: 3}
+  ranks:
+  - rankLevel: 1
+    description: Inflict damage equal to 120% of ATK, Cancel Stance and prevent enemy
+      to use stance for 1 turns.
+    targetType: 0
+    skillType: 2
+    damageScalingType: 0
+    damageMultiplier: 1.2
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 120% of ATK, Cancel Stance and prevent
+      enemy to use stance for 1 turns.
+    provenance: GeneratedStartingValue
+    damageKeyword: Cancel Stance,Disable Stance Cards
+    effects:
+    - kind: 6
+      statusId: 
+      statId: 
+      disabledCardType: 3
+      targetType: 0
+      magnitude: 0
+      durationTurns: 1
+      stackCount: 1
+      stackCap: 0
+  - rankLevel: 2
+    description: Inflict damage equal to 240% of ATK, Cancel Stance and prevent enemy
+      to use stance for 2 turns.
+    targetType: 0
+    skillType: 2
+    damageScalingType: 0
+    damageMultiplier: 2.4
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 240% of ATK, Cancel Stance and prevent
+      enemy to use stance for 2 turns.
+    provenance: GeneratedStartingValue
+    damageKeyword: Cancel Stance,Disable Stance Cards
+    effects:
+    - kind: 6
+      statusId: 
+      statId: 
+      disabledCardType: 3
+      targetType: 0
+      magnitude: 0
+      durationTurns: 2
+      stackCount: 1
+      stackCap: 0
+  - rankLevel: 3
+    description: Inflict damage equal to 360% of ATK, Cancel Stance and prevent enemy
+      to use stance for 2 turns.
+    targetType: 0
+    skillType: 2
+    damageScalingType: 0
+    damageMultiplier: 3.6
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 360% of ATK, Cancel Stance and prevent
+      enemy to use stance for 2 turns.
+    provenance: Supplied
+    damageKeyword: Cancel Stance,Disable Stance Cards
+    effects:
+    - kind: 6
+      statusId: 
+      statId: 
+      disabledCardType: 3
+      targetType: 0
+      magnitude: 0
+      durationTurns: 2
+      stackCount: 1
+      stackCap: 0

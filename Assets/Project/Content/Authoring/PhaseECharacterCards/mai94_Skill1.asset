@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
+  m_Name: mai94_Skill1
+  m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
+  cardName: "Mai Shiranui 94 \xB7 Skill 1"
+  cardIcon: {fileID: 21300000, guid: c95b46d50a30c8f46a00b56c7effa27f, type: 3}
+  ranks:
+  - rankLevel: 1
+    description: Inflict Rupture damage of 133.33% ATK
+    targetType: 0
+    skillType: 0
+    damageScalingType: 0
+    damageMultiplier: 1.3333
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict Rupture damage of 133.33% ATK
+    provenance: GeneratedStartingValue
+    damageKeyword: Rupture
+    effects: []
+  - rankLevel: 2
+    description: Inflict Rupture damage of 266.67% ATK
+    targetType: 0
+    skillType: 0
+    damageScalingType: 0
+    damageMultiplier: 2.6667
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict Rupture damage of 266.67% ATK
+    provenance: GeneratedStartingValue
+    damageKeyword: Rupture
+    effects: []
+  - rankLevel: 3
+    description: Inflict Rupture damage of 400% ATK
+    targetType: 0
+    skillType: 0
+    damageScalingType: 0
+    damageMultiplier: 4
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict Rupture damage of 400% ATK
+    provenance: Supplied
+    damageKeyword: Rupture
+    effects: []
