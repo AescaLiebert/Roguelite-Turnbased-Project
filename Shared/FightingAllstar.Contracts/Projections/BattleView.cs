@@ -54,6 +54,8 @@ namespace FightingAllstar.Contracts.Projections
         public string SkillId;
         public int Rank;
         public string Kind;
+        public string Category;
+        public string TargetScope;
         public int UltimateTier;
     }
 
@@ -65,9 +67,17 @@ namespace FightingAllstar.Contracts.Projections
         public string SourceId;
         public string TargetId;
         public string CardId;
+        public List<string> TargetIds = new List<string>();
         public int Amount;
         public int HealthAfter;
         public int ShieldAfter;
+        public int ShieldLost;
+        public int EffectiveMaxHealth;
+        public int PowerGaugeAfter = -1;
+        public string RootActionId;
+        public bool WasCritical;
+        public bool WasBlocked;
+        public bool WasEndured;
         public string Message;
     }
 }

@@ -28,6 +28,12 @@ namespace FightingAllstar.Presentation.Combat
         [SerializeField] private Transform handContainer;
         [SerializeField] private Transform actionSlotContainer;
 
+        public void HideCoreIntro()
+        {
+            StopAllCoroutines();
+            if (combatPowerPanel != null) combatPowerPanel.SetActive(false);
+        }
+
         /// <summary>Runs the existing CC intro for the Core-owned battle state.</summary>
         public void PlayCoreStartSequence(float playerCC, float enemyCC, bool isPlayerFirst,
             Sprite playerIcon, Sprite opponentIcon, System.Action onComplete)
@@ -35,8 +41,8 @@ namespace FightingAllstar.Presentation.Combat
             gameObject.SetActive(true);
             PrepareIcon(player1Icon, playerIcon);
             PrepareIcon(enemy1Icon, opponentIcon);
-            StartCoroutine(AnimateSequence(playerCC, enemyCC, isPlayerFirst));
-            StartCoroutine(NotifyCoreSequenceComplete(onComplete));
+            StopAllCoroutines();
+            StartCoroutine(AnimateSequence(playerCC, enemyCC, isPlayerFirst, onComplete));
         }
 
         private static void PrepareIcon(Image icon, Sprite sprite)
@@ -47,13 +53,7 @@ namespace FightingAllstar.Presentation.Combat
             icon.transform.localScale = Vector3.zero;
         }
 
-        private IEnumerator NotifyCoreSequenceComplete(System.Action onComplete)
-        {
-            yield return new WaitForSeconds(Mathf.Max(0f, countDuration) * 2f + 2.5f);
-            onComplete?.Invoke();
-        }
-
-        private IEnumerator AnimateSequence(float playerCC, float enemyCC, bool isPlayerFirst)
+        private IEnumerator AnimateSequence(float playerCC, float enemyCC, bool isPlayerFirst, System.Action onComplete)
         {
             if (combatPowerPanel != null) combatPowerPanel.SetActive(true);
             if (turnDecisionText != null) turnDecisionText.gameObject.SetActive(false);
@@ -70,6 +70,7 @@ namespace FightingAllstar.Presentation.Combat
             }
             yield return new WaitForSeconds(1.5f);
             if (combatPowerPanel != null) combatPowerPanel.SetActive(false);
+            onComplete?.Invoke();
         }
 
         private IEnumerator CountUpTo(TextMeshProUGUI textComponent, float targetValue)

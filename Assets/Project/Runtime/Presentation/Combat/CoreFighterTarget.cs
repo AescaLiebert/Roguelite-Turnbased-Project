@@ -15,10 +15,17 @@ namespace FightingAllstar.Presentation.Combat
             _onSelected = onSelected;
         }
 
-        private void OnMouseDown()
+        public string FighterId => _fighterId;
+
+        public void Select()
         {
             if (enabled && gameObject.activeInHierarchy && !string.IsNullOrEmpty(_fighterId))
                 _onSelected?.Invoke(_fighterId);
+        }
+
+        private void OnMouseDown()
+        {
+            Select();
         }
     }
 }

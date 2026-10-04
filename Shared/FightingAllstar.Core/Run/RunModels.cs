@@ -107,7 +107,7 @@ namespace FightingAllstar.Core.Run
             new RunBoonDefinition { Id = "boon.lingering-venom", Name = "Lingering Venom", Description = "+25% Poison, Bleed, and Shock damage.", EffectKind = RunBoonEffectKind.StatusDamageIncrease, MagnitudeBp = 2500 },
             new RunBoonDefinition { Id = "boon.restorative-rhythm", Name = "Restorative Rhythm", Description = "After the first cleanse each owner turn, grant a shield equal to 60% of caster ATK.", EffectKind = RunBoonEffectKind.FirstCleanseShield, MagnitudeBp = 6000 },
             new RunBoonDefinition { Id = "boon.mirror-sigil", Name = "Mirror Sigil", Description = "Reflect 15% of direct HP loss from the first enemy root action after owner TurnStart.", EffectKind = RunBoonEffectKind.ReflectFirstRootAction, MagnitudeBp = 1500 },
-            new RunBoonDefinition { Id = "boon.opening-plan", Name = "Opening Plan", Description = "The lowest-slot active fighter starts each battle with +1 PG.", EffectKind = RunBoonEffectKind.StartPowerGauge, MagnitudePoints = 1 }
+            new RunBoonDefinition { Id = "boon.opening-plan", Name = "Opening Plan", Description = "If the enemy takes the first turn, your lowest-slot active fighter starts with +1 PG.", EffectKind = RunBoonEffectKind.StartPowerGauge, MagnitudePoints = 1 }
         };
     }
 

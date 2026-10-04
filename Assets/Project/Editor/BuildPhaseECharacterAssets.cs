@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using FightingAllstar.Core.Content;
+using FightingAllstar.Core.Combat;
 using FightingAllstar.Presentation.Combat;
 using UnityEditor;
 using UnityEngine;
@@ -13,8 +14,8 @@ public static class BuildPhaseECharacterAssets
 {
     private const string DraftCatalogPath = "Assets/Project/Content/WipCharacterCatalog.json";
     private const string CharacterOutput = "Assets/Resources/Character_WIP-Phase";
-    private const string CardOutput = "Assets/Project/Content/Authoring/PhaseECharacterCards";
-    private const string PublishedCatalogOutput = "Assets/Project/Content/Generated/phase-e-catalog.json";
+    private const string CardOutput = "Assets/Project/Content/Authoring/WipPhaseCharacterCards";
+    private const string PublishedCatalogOutput = "Assets/Project/Content/Generated/wip-phase-character-catalog.json";
     private const string ModelPath = "Assets/Project/Prefabs/In-Game-CharacterPrefab.prefab";
     private static readonly string[] PhaseEIds =
     {
@@ -22,7 +23,7 @@ public static class BuildPhaseECharacterAssets
         "fighter.mai94", "fighter.shingo97", "fighter.benimaru94", "fighter.athena94"
     };
 
-    [MenuItem("Fighting Allstar/Content/Build Phase E Runtime Characters")]
+    [MenuItem("Fighting Allstar/Content/Build WIP Phase Character Assets")]
     public static void Build()
     {
         if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The preserved source catalog is missing.", DraftCatalogPath);
@@ -42,10 +43,281 @@ public static class BuildPhaseECharacterAssets
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log("Built eight account-owned Phase E character definitions from the source data: " + string.Join(", ", PhaseEIds));
+        Debug.Log("Built eight WIP Phase Character definitions from the WIP catalog: " + string.Join(", ", PhaseEIds));
     }
 
-    [MenuItem("Fighting Allstar/Content/Build Phase E Runtime Catalog")]
+    [MenuItem("Fighting Allstar/Content/Migrate Phase E Effects Into WIP Character Catalog")]
+    public static void MigrateRuntimeContentIntoWipCatalog()
+    {
+        if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The WIP character catalog is missing.", DraftCatalogPath);
+        var catalog = JsonUtility.FromJson<ContentCatalog>(File.ReadAllText(DraftCatalogPath));
+        if (catalog?.Characters == null) throw new InvalidOperationException("The WIP character catalog could not be read.");
+        foreach (var id in PhaseEIds)
+        {
+            var character = catalog.Characters.Find(item => item != null && item.Id == id);
+            if (character == null) throw new InvalidOperationException("WIP character is missing: " + id);
+            if (character.Passive == null || string.IsNullOrWhiteSpace(character.Passive.Id))
+                character.Passive = StandardCharacterPassives.Create(id);
+            foreach (var skill in character.Skills)
+            {
+                skill.Category = ResolvePhaseECategory(character, skill);
+                skill.TargetScope = ResolvePhaseETargetScope(character, skill);
+                foreach (var rank in skill.Ranks)
+                {
+                    if (rank.Effect != null && (rank.Provenance != SourceProvenance.Proposal ||
+                        rank.Effect.Provenance != SourceProvenance.Proposal)) continue;
+                    rank.Effect = CreatePhaseESkillEffect(character, skill, rank.Rank);
+                    rank.Provenance = SourceProvenance.Proposal;
+                }
+            }
+            foreach (var tier in character.UltimateTiers)
+                if (tier.Effect == null || (tier.Provenance == SourceProvenance.Proposal &&
+                    tier.Effect.Provenance == SourceProvenance.Proposal))
+                {
+                    tier.Effect = CreatePhaseEUltimateEffect(character, tier.Tier);
+                    tier.Provenance = SourceProvenance.Proposal;
+                }
+        }
+        catalog.StatusRecipes = catalog.StatusRecipes != null && catalog.StatusRecipes.Count > 0
+            ? catalog.StatusRecipes : StandardEffectDatabase.CreateStatusRecipes();
+        catalog.AttackEffectRecipes = catalog.AttackEffectRecipes != null && catalog.AttackEffectRecipes.Count > 0
+            ? catalog.AttackEffectRecipes : StandardEffectDatabase.CreateAttackEffects();
+        catalog.ContentVersion = "wip-phase-character-content-v2";
+        catalog.ContentHash = string.Empty;
+        var canonical = JsonUtility.ToJson(catalog);
+        using (var sha = SHA256.Create())
+            catalog.ContentHash = BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(canonical))).Replace("-", string.Empty).ToLowerInvariant();
+        File.WriteAllText(DraftCatalogPath, JsonUtility.ToJson(catalog, true));
+        AssetDatabase.ImportAsset(DraftCatalogPath, ImportAssetOptions.ForceUpdate);
+        Debug.Log("Migrated eight Phase E kits, skill-rank effects, status recipes, attack recipes, and Core passives into WipCharacterCatalog.json.");
+    }
+
+    private static CardCategory ResolvePhaseECategory(CharacterDefinition character, SkillDefinition skill)
+    {
+        var type = (skill.SourceType ?? string.Empty).Trim();
+        if (string.Equals(type, "Heal", StringComparison.OrdinalIgnoreCase)) return CardCategory.Recovery;
+        if (string.Equals(type, "Buff", StringComparison.OrdinalIgnoreCase)) return CardCategory.Buff;
+        if (string.Equals(type, "Stance", StringComparison.OrdinalIgnoreCase)) return CardCategory.Stance;
+        if (string.Equals(type, "DebuffAtk", StringComparison.OrdinalIgnoreCase)) return CardCategory.AttackDebuff;
+        if (string.Equals(type, "Debuff", StringComparison.OrdinalIgnoreCase) && SkillMultiplier(character.Id, skill.Slot, 1) > 0)
+            return CardCategory.AttackDebuff;
+        return CardCategory.Attack;
+    }
+
+    private static EffectTargetScope ResolvePhaseETargetScope(CharacterDefinition character, SkillDefinition skill)
+    {
+        if (string.Equals(skill.SourceTarget, "AOE", StringComparison.OrdinalIgnoreCase)) return EffectTargetScope.AllEnemies;
+        if (string.Equals(skill.SourceTarget, "Self", StringComparison.OrdinalIgnoreCase)) return EffectTargetScope.Self;
+        if (string.Equals(skill.SourceTarget, "AllAllies", StringComparison.OrdinalIgnoreCase) ||
+            character.Id == "fighter.kensou94" && skill.Slot == 2 ||
+            character.Id == "fighter.athena94" && skill.Slot == 2) return EffectTargetScope.AllAllies;
+        return EffectTargetScope.SelectedEnemy;
+    }
+
+    private static EffectDefinition CreatePhaseESkillEffect(CharacterDefinition character, SkillDefinition skill, int rank)
+    {
+        var authored = AuthorSkillEffects(character.Id, skill.Slot, rank);
+        var scope = ResolvePhaseETargetScope(character, skill);
+        var multiplier = SkillMultiplier(character.Id, skill.Slot, rank);
+        if (string.Equals(skill.SourceType, "Heal", StringComparison.OrdinalIgnoreCase))
+        {
+            var heal = authored.Find(item => item.kind == CharacterCardEffectKind.HealAttackMultiplier ||
+                item.kind == CharacterCardEffectKind.HealMissingHealthPercent || item.kind == CharacterCardEffectKind.HealMaxHealthPercent);
+            if (heal != null)
+            {
+                authored.Remove(heal);
+                var rootHeal = ConvertPhaseEUtility(heal, scope);
+                AppendUtilitySequence(rootHeal, authored, CardEffectTiming.AfterAction, scope);
+                return rootHeal;
+            }
+        }
+        var effect = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
+            Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(multiplier * 10000f),
+            KeywordFactorBp = 10000, KeywordId = ResolveAttackKeyword(skill.SourceEffectTags),
+            Target = ScopeName(scope), Provenance = SourceProvenance.Proposal };
+        AppendUtilitySequence(effect, authored, CardEffectTiming.AfterDamage, scope);
+        return effect;
+    }
+
+    private static EffectDefinition CreatePhaseEUltimateEffect(CharacterDefinition character, int tier)
+    {
+        var authored = AuthorUltimateEffects(character.Id, tier);
+        if (character.Id == "fighter.athena94")
+        {
+            var area = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
+                Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(UltimateMultiplier(character.Id, tier) * 10000f),
+                Target = "AllEnemies", KeywordId = "ultimate", Provenance = SourceProvenance.Proposal };
+            AppendUtilitySequence(area, authored, CardEffectTiming.AfterAction, EffectTargetScope.AllAllies);
+            return area;
+        }
+        var scope = character.Id == "fighter.kensou94" ? EffectTargetScope.SelectedAlly : EffectTargetScope.SelectedEnemy;
+        var multiplier = UltimateMultiplier(character.Id, tier);
+        var heal = authored.Find(item => item.kind == CharacterCardEffectKind.HealAttackMultiplier ||
+            item.kind == CharacterCardEffectKind.HealMissingHealthPercent || item.kind == CharacterCardEffectKind.HealMaxHealthPercent);
+        EffectDefinition effect;
+        if (heal != null)
+        {
+            authored.Remove(heal);
+            effect = ConvertPhaseEUtility(heal, scope);
+            AppendUtilitySequence(effect, authored, CardEffectTiming.AfterAction, scope);
+        }
+        else
+        {
+            effect = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
+                Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(multiplier * 10000f),
+                KeywordId = "ultimate", Target = ScopeName(scope), Provenance = SourceProvenance.Proposal };
+            AppendUtilitySequence(effect, authored, CardEffectTiming.AfterDamage, scope);
+        }
+        return effect;
+    }
+
+    private static void AppendUtilitySequence(EffectDefinition root, List<CharacterCardEffect> authored,
+        CardEffectTiming timing, EffectTargetScope defaultScope)
+    {
+        foreach (var source in authored)
+        {
+            var effect = ConvertPhaseEUtility(source, defaultScope);
+            if (effect != null) root.Sequence.Add(new CardEffectStep { Timing = timing, Effect = effect });
+        }
+    }
+
+    private static EffectDefinition ConvertPhaseEUtility(CharacterCardEffect source, EffectTargetScope defaultScope)
+    {
+        if (source == null) return null;
+        var target = source.targetType == SkillTargetType.AllAllies ? EffectTargetScope.AllAllies :
+            source.targetType == SkillTargetType.AOE ? EffectTargetScope.AllEnemies :
+            source.targetType == SkillTargetType.Self ? EffectTargetScope.Self : defaultScope;
+        var result = new EffectDefinition { Target = ScopeName(target), StatusStackCount = Math.Max(1, source.stackCount),
+            StatusDurationOverride = Math.Max(0, source.durationTurns), Provenance = SourceProvenance.Proposal };
+        switch (source.kind)
+        {
+            case CharacterCardEffectKind.ApplyStatus:
+                result.Kind = EffectKind.ApplyStatus;
+                result.StatusRecipe = CreatePhaseEStatusRecipe(source.statusId, source.stackCap);
+                break;
+            case CharacterCardEffectKind.HealAttackMultiplier:
+                result.Kind = EffectKind.Heal;
+                result.HealValue = new EffectValueDefinition { Source = EffectValueSource.SourceAttack,
+                    CoefficientBp = Mathf.RoundToInt(source.magnitude * 10000f) };
+                break;
+            case CharacterCardEffectKind.HealMissingHealthPercent:
+                result.Kind = EffectKind.Heal;
+                result.HealValue = new EffectValueDefinition { Source = EffectValueSource.TargetMissingHealth,
+                    CoefficientBp = Mathf.RoundToInt(source.magnitude * 100f) };
+                break;
+            case CharacterCardEffectKind.HealMaxHealthPercent:
+                result.Kind = EffectKind.Heal;
+                result.HealValue = new EffectValueDefinition { Source = EffectValueSource.TargetMaxHealth,
+                    CoefficientBp = Mathf.RoundToInt(source.magnitude * 100f) };
+                break;
+            case CharacterCardEffectKind.CleanseDebuffs:
+                result.Kind = EffectKind.Cleanse;
+                break;
+            case CharacterCardEffectKind.RemoveBuffs:
+                result.Kind = EffectKind.RemoveBuffs;
+                break;
+            case CharacterCardEffectKind.DisableCardType:
+                result.Kind = EffectKind.ApplyStatus;
+                result.StatusRecipe = DisableCardRecipe(source.disabledCardType);
+                break;
+            case CharacterCardEffectKind.DrainPowerGauge:
+                result.Kind = EffectKind.ChangePowerGauge;
+                result.PowerGaugeAmount = -Mathf.RoundToInt(source.magnitude);
+                break;
+            case CharacterCardEffectKind.ModifyStat:
+                result.Kind = EffectKind.ApplyStatus;
+                result.StatusRecipe = StatCardRecipe(source.statId, source.magnitude);
+                break;
+            case CharacterCardEffectKind.IncreaseCardRank:
+                result.Kind = EffectKind.ModifyCardRank;
+                result.Magnitude = 1;
+                break;
+            default:
+                return null;
+        }
+        return result;
+    }
+
+    private static StatusRecipeDefinition CreatePhaseEStatusRecipe(string statusId, int stackCap)
+    {
+        var normalized = (statusId ?? string.Empty).Trim().ToLowerInvariant();
+        if (normalized == "ignite")
+            return StandardEffectDatabase.CreateStatusRecipes().Find(item => item.Id == "status.debuff.ignite");
+        if (normalized == "poison")
+            return StandardEffectDatabase.CreateStatusRecipes().Find(item => item.Id == "status.debuff.poison");
+        if (normalized == "paralyze")
+            return StandardEffectDatabase.CreateStatusRecipes().Find(item => item.Id == "status.debuff.paralyze");
+        var polarity = normalized == "debuffimmunity" || normalized == "rejuvenation"
+            ? StatusPolarity.Buff : StatusPolarity.Debuff;
+        var maxStacks = normalized == "rejuvenation" ? 3 : Math.Max(1, stackCap);
+        var recipe = new StatusRecipeDefinition { Id = "status." + polarity.ToString().ToLowerInvariant() + "." + normalized,
+            Polarity = polarity, Behavior = StatusBehavior.Stat,
+            Stacking = maxStacks > 1 ? StatusStackingPolicy.AddStacks : StatusStackingPolicy.RefreshStronger,
+            MaxStacks = maxStacks, DefaultDuration = 2,
+            Tags = new List<string> { "status." + normalized } };
+        if (normalized == "debuffimmunity") recipe.DebuffImmunity = true;
+        if (normalized == "rejuvenation")
+        {
+            recipe.Color = StatusColor.Blue;
+            recipe.Modifiers.Add(new StatModifierDefinition { Target = ModifierTarget.Stat, Stat = StatId.Regeneration,
+                Operation = ModifierOperation.PercentagePoints, Amount = 1000 });
+        }
+        return recipe;
+    }
+
+    private static StatusRecipeDefinition DisableCardRecipe(SkillType disabledType)
+    {
+        var mask = disabledType switch
+        {
+            SkillType.Attack => CardCategoryMask.Attack,
+            SkillType.Buff => CardCategoryMask.Buff,
+            SkillType.Debuff => CardCategoryMask.Debuff,
+            SkillType.DebuffAtk => CardCategoryMask.Attack | CardCategoryMask.Debuff,
+            SkillType.Heal => CardCategoryMask.Recovery,
+            SkillType.Stance => CardCategoryMask.Stance | CardCategoryMask.ReceiveStances,
+            _ => CardCategoryMask.None
+        };
+        return new StatusRecipeDefinition { Id = "status.debuff.disable-" + disabledType.ToString().ToLowerInvariant(),
+            Polarity = StatusPolarity.Debuff, Behavior = StatusBehavior.Disable, DisableMask = mask,
+            DefaultDuration = 1, Tags = new List<string> { "status.disable" } };
+    }
+
+    private static StatusRecipeDefinition StatCardRecipe(string statName, float magnitude)
+    {
+        if (!Enum.TryParse(ContentAliases.NormalizeStat(statName), true, out StatId stat)) return null;
+        var statBase = stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth;
+        var amount = Mathf.RoundToInt(magnitude * 100f);
+        return new StatusRecipeDefinition { Id = "status." + (magnitude < 0 ? "debuff" : "buff") + "." + stat.ToString().ToLowerInvariant(),
+            Polarity = magnitude < 0 ? StatusPolarity.Debuff : StatusPolarity.Buff,
+            Behavior = StatusBehavior.Stat, DefaultDuration = 2, Tags = new List<string> { "status.stat" },
+            Modifiers = { new StatModifierDefinition { Target = ModifierTarget.Stat, Stat = stat,
+                Operation = statBase ? ModifierOperation.PercentOfBase : ModifierOperation.PercentagePoints,
+                Amount = amount } } };
+    }
+
+    private static string ResolveAttackKeyword(string sourceTags)
+    {
+        if (string.IsNullOrWhiteSpace(sourceTags)) return string.Empty;
+        var available = StandardEffectDatabase.CreateAttackEffects();
+        var tokens = sourceTags.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var token in tokens)
+        {
+            var candidate = "attack." + token.Trim().ToLowerInvariant().Replace(" ", "-").Replace("_", "-");
+            if (available.Exists(item => item.Id == candidate)) return candidate;
+        }
+        return string.Empty;
+    }
+
+    private static string ScopeName(EffectTargetScope scope) => scope switch
+    {
+        EffectTargetScope.Self => "Self",
+        EffectTargetScope.SelectedAlly => "SelectedAlly",
+        EffectTargetScope.AllAllies => "AllAllies",
+        EffectTargetScope.AllEnemies => "AllEnemies",
+        _ => "SelectedEnemy"
+    };
+
+    [MenuItem("Fighting Allstar/Content/Build WIP Phase Character Runtime Catalog")]
     public static void BuildRuntimeCatalog()
     {
         if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The preserved source catalog is missing.", DraftCatalogPath);
@@ -55,49 +327,64 @@ public static class BuildPhaseECharacterAssets
         var published = new ContentCatalog
         {
             SchemaVersion = source.SchemaVersion,
-            ContentVersion = "phase-e-local-v1",
-            Characters = new List<CharacterDefinition>()
+            ContentVersion = "wip-phase-character-v2",
+            Characters = new List<CharacterDefinition>(),
+            StatusRecipes = source.StatusRecipes != null && source.StatusRecipes.Count > 0
+                ? source.StatusRecipes : StandardEffectDatabase.CreateStatusRecipes(),
+            AttackEffectRecipes = source.AttackEffectRecipes != null && source.AttackEffectRecipes.Count > 0
+                ? source.AttackEffectRecipes : StandardEffectDatabase.CreateAttackEffects(),
+            CardEffectRecipes = source.CardEffectRecipes
         };
         foreach (var id in PhaseEIds)
         {
             var character = source.Characters.Find(item => item != null && item.Id == id);
             if (character == null) throw new InvalidOperationException("Source character is missing: " + id);
             var playable = character.Clone();
+            if (playable.Passive == null || string.IsNullOrWhiteSpace(playable.Passive.Id))
+                playable.Passive = StandardCharacterPassives.Create(playable.Id);
             playable.RuntimeReady = true;
             foreach (var skill in playable.Skills)
             {
+                skill.Category = CardRules.ResolveCategory(skill);
+                skill.TargetScope = CardRules.ResolveTargetScope(skill);
                 foreach (var rank in skill.Ranks)
                 {
-                    rank.Effect = new EffectDefinition
+                    if (rank.Effect == null)
                     {
-                        Family = DamageFamily.Normal,
-                        Scaling = StatScaling.Attack,
-                        CoefficientBp = Mathf.RoundToInt(SkillMultiplier(playable.Id, skill.Slot, rank.Rank) * 10000f),
-                        KeywordId = skill.SourceEffectTags,
-                        Target = string.IsNullOrWhiteSpace(skill.SourceTarget) ? "SelectedEnemy" : skill.SourceTarget,
-                        Provenance = SourceProvenance.Proposal
-                    };
-                    rank.Provenance = SourceProvenance.Proposal;
+                        rank.Effect = new EffectDefinition
+                        {
+                            Family = DamageFamily.Normal,
+                            Scaling = StatScaling.Attack,
+                            CoefficientBp = Mathf.RoundToInt(SkillMultiplier(playable.Id, skill.Slot, rank.Rank) * 10000f),
+                            KeywordId = skill.SourceEffectTags,
+                            Target = string.IsNullOrWhiteSpace(skill.SourceTarget) ? "SelectedEnemy" : skill.SourceTarget,
+                            Provenance = SourceProvenance.Proposal
+                        };
+                        rank.Provenance = SourceProvenance.Proposal;
+                    }
                 }
             }
             foreach (var tier in playable.UltimateTiers)
             {
-                tier.Effect = new EffectDefinition
+                if (tier.Effect == null)
                 {
-                    Family = DamageFamily.Normal,
-                    Scaling = StatScaling.Attack,
-                    CoefficientBp = Mathf.RoundToInt(UltimateMultiplier(playable.Id, tier.Tier) * 10000f),
-                    KeywordId = "ultimate",
-                    Target = "SelectedEnemy",
-                    Provenance = SourceProvenance.Proposal
-                };
-                tier.Provenance = SourceProvenance.Proposal;
+                    tier.Effect = new EffectDefinition
+                    {
+                        Family = DamageFamily.Normal,
+                        Scaling = StatScaling.Attack,
+                        CoefficientBp = Mathf.RoundToInt(UltimateMultiplier(playable.Id, tier.Tier) * 10000f),
+                        KeywordId = "ultimate",
+                        Target = "SelectedEnemy",
+                        Provenance = SourceProvenance.Proposal
+                    };
+                    tier.Provenance = SourceProvenance.Proposal;
+                }
             }
             published.Characters.Add(playable);
         }
 
         var errors = ContentValidator.Validate(published);
-        if (errors.Count > 0) throw new InvalidOperationException("The Phase E catalog is invalid: " + string.Join("; ", errors));
+        if (errors.Count > 0) throw new InvalidOperationException("The WIP Phase Character catalog is invalid: " + string.Join("; ", errors));
         published.ContentHash = string.Empty;
         var canonical = JsonUtility.ToJson(published);
         using (var sha = SHA256.Create())
@@ -118,7 +405,7 @@ public static class BuildPhaseECharacterAssets
             EditorUtility.SetDirty(sourceAsset);
         }
         AssetDatabase.SaveAssets();
-        Debug.Log("Published eight runtime-ready Phase E definitions to " + PublishedCatalogOutput + " (source WIP catalog remains unchanged).");
+        Debug.Log("Published eight runtime-ready WIP Phase Character definitions to " + PublishedCatalogOutput + ".");
     }
 
     private static CharacterObject BuildCharacter(CharacterDefinition source, GameObject model)
@@ -478,3 +765,4 @@ public static class BuildPhaseECharacterAssets
     private static void Set(SerializedProperty property, float value) { if (property != null) property.floatValue = value; }
     private static void Set(SerializedProperty property, bool value) { if (property != null) property.boolValue = value; }
 }
+

@@ -237,7 +237,7 @@ Run HP persists exactly through victorious battles, including defeated fighters 
 
 Entry difficulty0..100% is frozen: enemy ATK/DEF/MaxHP multiplied by1+d/100, reaching2× at100%. Substats/skill coefficients/PG remain unchanged. Proposed completion reward320×(1+d/100) Diamonds; grant only on final victory, once. First-clear/grants are not multiplied. Display exact stats/reward before entry; reward slope/base are starting values.
 
-Run boons remain temporary: proposed Lingering Venom +25%Poison/Bleed/Shock; Restorative Rhythm60%casterATK shield after first cleanse/owner turn; Mirror Sigil15%actual directHP-loss reflect for first enemy root action after ownerTurnStart; Opening Plan+1startPG to lowest-slot active. Boon nodes/elite victories offer3 distinct unowned compatible choices. No recursive self-trigger. These starting values require tests for meaningful choices and readability.
+Run boons remain temporary: proposed Lingering Venom +25%Poison/Bleed/Shock; Restorative Rhythm60%casterATK shield after first cleanse/owner turn; Mirror Sigil15%actual directHP-loss reflect for first enemy root action after ownerTurnStart; Opening Plan+1startPG to the lowest-slot active player fighter only when the player takes their first turn second. Boon nodes/elite victories offer3 distinct unowned compatible choices. No recursive self-trigger. These starting values require tests for meaningful choices and readability.
 
 <!-- @tag:ai -->
 ## Tactical AI and measurable intelligence

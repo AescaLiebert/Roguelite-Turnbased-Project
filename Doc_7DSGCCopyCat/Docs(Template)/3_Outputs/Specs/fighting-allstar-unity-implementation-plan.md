@@ -145,3 +145,13 @@ No giant rewrite of legacy scripts in place. One authority per new scene. Mainta
 - PhaseA can be implemented without waiting on all29 kits, production authentication or image assets.
 - Review-sensitive choices remain visible: guarantee reset/carryover, Rest/revive amount, reward slope/base, True/Destructive interactions and SUB scope.
 - Required tests are listed per phase. Documentation validation does not count as a Unity build or gameplay test.
+
+## 10. Battle-session continuation — 2026-10-03
+
+The requested Phase C battle presentation slice is implemented in the current `Assets/Project` layout. See [battle-session continuation](battle-session-presentation-task-card.md) for reference timing, ownership, validation, and remaining game-feel review.
+
+Delivered: hidden HUD during CC comparison; ordered opening deal and interleaved rank merges; animated draft moves, card-to-slot travel, reset and auto-commit; explicit CardExecution presentation with ordered slot UI; turn and attacker/target cameras; damage/critical/block/shield/readiness combat text; placeholder attack/hurt/death; reserve deployment; seeded random retargeting after death; skip-to-authority; persistent result screen and existing route return. Enemy AI decisions remain unchanged.
+
+Core validation passes 6,940 assertions. Automated Unity scene runs finish both initiative paths with zero gameplay runtime errors in the main repository. With the user's explicit approval, the unavailable `com.unity.modules.physicscore2d` entry was removed from the manifest and lock file, resolving the original launch blocker. Use **Fighting Allstar → Preview Battle → Player First / Enemy First** for a disposable local demonstration.
+
+This advances the battle-session slice of Phase C. It does not mark the complete A–G roadmap, production character effects, reconnect/remote UI, device acceptance, or owner game-feel approval complete.

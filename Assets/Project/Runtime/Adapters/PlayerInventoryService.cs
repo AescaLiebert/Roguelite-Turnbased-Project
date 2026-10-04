@@ -24,6 +24,13 @@ public sealed class FormationSelection
 }
 
 [Serializable]
+public sealed class DungeonFormationSave
+{
+    public string dungeonId;
+    public List<string> formation = new List<string> { "", "", "", "" };
+}
+
+[Serializable]
 public sealed class PlayerInventorySnapshot
 {
     public int schemaVersion = 1;
@@ -34,6 +41,7 @@ public sealed class PlayerInventorySnapshot
     public int duplicateTokens;
     public List<OwnedCharacterRecord> characters = new List<OwnedCharacterRecord>();
     public List<string> formation = new List<string> { "", "", "", "" };
+    public List<DungeonFormationSave> dungeonFormations = new List<DungeonFormationSave>();
     public List<string> claimedRunRewards = new List<string>();
 
     public OwnedCharacterRecord FindOwned(string instanceId) => characters.Find(x => x != null && x.instanceId == instanceId);
@@ -238,6 +246,80 @@ public sealed class PlayerInventoryService : MonoBehaviour
         SaveCurrent();
     }
 
+    public IReadOnlyList<string> GetDungeonFormation(string dungeonId)
+    {
+        NormalizeSnapshot();
+        if (string.IsNullOrEmpty(dungeonId)) return snapshot.formation;
+        var saved = snapshot.dungeonFormations.Find(x => x != null && string.Equals(x.dungeonId, dungeonId, StringComparison.OrdinalIgnoreCase));
+        if (saved != null && saved.formation != null && saved.formation.Count == 4)
+            return saved.formation;
+        return snapshot.formation;
+    }
+
+    public void SaveDungeonFormation(string dungeonId, IReadOnlyList<string> instanceIds)
+    {
+        if (string.IsNullOrEmpty(dungeonId))
+        {
+            SaveFormation(instanceIds);
+            return;
+        }
+        if (instanceIds == null || instanceIds.Count != 4)
+            throw new ArgumentException("Dungeon formation must contain four slots.", nameof(instanceIds));
+
+        NormalizeSnapshot();
+        var saved = snapshot.dungeonFormations.Find(x => x != null && string.Equals(x.dungeonId, dungeonId, StringComparison.OrdinalIgnoreCase));
+        if (saved == null)
+        {
+            saved = new DungeonFormationSave { dungeonId = dungeonId };
+            snapshot.dungeonFormations.Add(saved);
+        }
+        saved.formation = new List<string>(4);
+        var seen = new HashSet<string>(StringComparer.Ordinal);
+        for (var i = 0; i < instanceIds.Count; i++)
+        {
+            var id = instanceIds[i];
+            if (string.IsNullOrEmpty(id)) { saved.formation.Add(string.Empty); continue; }
+            if (snapshot.FindOwned(id) == null || !seen.Add(id))
+            {
+                saved.formation.Add(string.Empty);
+                continue;
+            }
+            saved.formation.Add(id);
+        }
+        while (saved.formation.Count < 4) saved.formation.Add(string.Empty);
+        SaveCurrent();
+    }
+
+    public List<string> GetDefinitionFormation(IReadOnlyList<string> instanceIds)
+    {
+        NormalizeSnapshot();
+        var defs = new List<string>(4);
+        if (instanceIds == null) return defs;
+        for (var i = 0; i < instanceIds.Count; i++)
+        {
+            var inst = instanceIds[i];
+            if (string.IsNullOrEmpty(inst)) { defs.Add(string.Empty); continue; }
+            var owned = snapshot.FindOwned(inst);
+            defs.Add(owned == null ? string.Empty : owned.definitionId);
+        }
+        return defs;
+    }
+
+    public List<string> GetInstanceFormation(IReadOnlyList<string> definitionIds)
+    {
+        NormalizeSnapshot();
+        var insts = new List<string>(4);
+        if (definitionIds == null) return insts;
+        for (var i = 0; i < definitionIds.Count; i++)
+        {
+            var def = definitionIds[i];
+            if (string.IsNullOrEmpty(def)) { insts.Add(string.Empty); continue; }
+            var owned = snapshot.FindDefinition(def);
+            insts.Add(owned == null ? string.Empty : owned.instanceId);
+        }
+        return insts;
+    }
+
     public bool GrantRunReward(string runId, int amount)
     {
         if (string.IsNullOrWhiteSpace(runId)) throw new ArgumentException("A run ID is required.", nameof(runId));
@@ -312,9 +394,17 @@ public sealed class PlayerInventoryService : MonoBehaviour
         if (snapshot == null) snapshot = new PlayerInventorySnapshot { subjectId = _loadedSubjectId };
         if (snapshot.characters == null) snapshot.characters = new List<OwnedCharacterRecord>();
         if (snapshot.formation == null) snapshot.formation = new List<string>();
+        if (snapshot.dungeonFormations == null) snapshot.dungeonFormations = new List<DungeonFormationSave>();
         if (snapshot.claimedRunRewards == null) snapshot.claimedRunRewards = new List<string>();
         while (snapshot.formation.Count < 4) snapshot.formation.Add(string.Empty);
         if (snapshot.formation.Count > 4) snapshot.formation.RemoveRange(4, snapshot.formation.Count - 4);
+        foreach (var df in snapshot.dungeonFormations)
+        {
+            if (df == null) continue;
+            if (df.formation == null) df.formation = new List<string>();
+            while (df.formation.Count < 4) df.formation.Add(string.Empty);
+            if (df.formation.Count > 4) df.formation.RemoveRange(4, df.formation.Count - 4);
+        }
     }
 
     private void EnsureCatalog()

@@ -55,7 +55,11 @@ namespace FightingAllstar.Presentation.Route
                 try
                 {
                     run = JsonUtility.FromJson<RunState>(File.ReadAllText(candidate));
-                    if (run != null && !string.IsNullOrWhiteSpace(run.RunId)) return true;
+                    if (run != null && !string.IsNullOrWhiteSpace(run.RunId))
+                    {
+                        SanitizeLoadedRun(run);
+                        return true;
+                    }
                     run = null;
                 }
                 catch (Exception exception)
@@ -68,9 +72,42 @@ namespace FightingAllstar.Presentation.Route
 
         public void Clear()
         {
-            if (File.Exists(_path)) File.Delete(_path);
-            if (File.Exists(_path + ".bak")) File.Delete(_path + ".bak");
-            if (File.Exists(_path + ".tmp")) File.Delete(_path + ".tmp");
+            try
+            {
+                if (File.Exists(_path)) File.Delete(_path);
+                if (File.Exists(_path + ".bak")) File.Delete(_path + ".bak");
+                if (File.Exists(_path + ".tmp")) File.Delete(_path + ".tmp");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("Could not completely clear local run snapshot: " + ex.Message);
+            }
+        }
+
+        private static void SanitizeLoadedRun(RunState run)
+        {
+            if (run?.Roster != null)
+            {
+                foreach (var fighter in run.Roster)
+                {
+                    if (fighter?.Definition != null && (fighter.Definition.Passive == null || string.IsNullOrWhiteSpace(fighter.Definition.Passive.Id)))
+                        fighter.Definition.Passive = FightingAllstar.Core.Content.StandardCharacterPassives.Create(fighter.Definition.Id);
+                }
+            }
+            if (run?.Nodes != null)
+            {
+                foreach (var node in run.Nodes)
+                {
+                    if (node?.EnemyTeamSnapshot != null)
+                    {
+                        foreach (var enemy in node.EnemyTeamSnapshot)
+                        {
+                            if (enemy?.Definition != null && (enemy.Definition.Passive == null || string.IsNullOrWhiteSpace(enemy.Definition.Passive.Id)))
+                                enemy.Definition.Passive = FightingAllstar.Core.Content.StandardCharacterPassives.Create(enemy.Definition.Id);
+                        }
+                    }
+                }
+            }
         }
     }
 }

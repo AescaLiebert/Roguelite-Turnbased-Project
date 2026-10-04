@@ -115,7 +115,7 @@ namespace FightingAllstar.Presentation.Combat
                 _status.text = _playback ? "Resolving committed actions…" : _snapshot.Phase == BattlePhase.Complete
                     ? (_snapshot.IsDraw ? "Draw" : _snapshot.Winner == TeamSide.Player ? "Victory" : "Defeat")
                     : _snapshot.ActingSide + " turn · " + _snapshot.ActionBudget + " actions";
-            RefreshFormation(root.Q<VisualElement>("player-formation"), _snapshot.Player, TeamSide.Player);
+            RefreshFormation(root.Q<VisualElement>("player-formation"), _draft != null ? _draft.Preview : _snapshot.Player, TeamSide.Player);
             RefreshFormation(root.Q<VisualElement>("opponent-formation"), _snapshot.Opponent, TeamSide.Opponent);
             RefreshHand();
             RefreshQueue();
@@ -137,7 +137,7 @@ namespace FightingAllstar.Presentation.Combat
                 if (!fighter.IsAlive) card.AddToClassList("fighter-defeated");
                 if (fighter.IsReserve) card.AddToClassList("fighter-reserve");
                 card.Add(new Label(fighter.Definition.Id.Replace("fighter.", string.Empty)) { name = "fighter-name" });
-                card.Add(new Label(fighter.IsAlive ? "HP " + fighter.Health + " / " + fighter.Stats.MaxHealth : "DEFEATED") { name = "fighter-hp" });
+                card.Add(new Label(fighter.IsAlive ? "HP " + fighter.Health + " / " + StatusSystem.GetEffectiveStats(fighter).MaxHealth : "DEFEATED") { name = "fighter-hp" });
                 card.Add(new Label("PG " + fighter.PowerGauge + " / 5") { name = "fighter-pg" });
                 card.RegisterCallback<ClickEvent>(_ => SelectTarget(fighter, side));
                 container.Add(card);

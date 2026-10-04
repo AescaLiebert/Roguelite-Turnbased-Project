@@ -32,14 +32,19 @@ namespace FightingAllstar.Core.Run
             }
 
             var battle = BattleEngine.Create(encounter.BattleId, playerDefinitions, playerTiers,
-                enemyDefinitions, enemyTiers, seed, firstSide, encounter.ChosenBoons);
+                enemyDefinitions, enemyTiers, seed, firstSide, encounter.ChosenBoons,
+                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam));
             MapFighterIds(battle, battle.Player, encounter.PlayerTeam);
             MapFighterIds(battle, battle.Opponent, encounter.EnemyTeam);
-            for (var i = 0; i < encounter.PlayerTeam.Count; i++)
-                battle.Player.Fighters[i].Health = encounter.PlayerTeam[i].CurrentHealth;
-            for (var i = 0; i < encounter.EnemyTeam.Count; i++)
-                battle.Opponent.Fighters[i].Health = encounter.EnemyTeam[i].CurrentHealth;
+            CharacterPassiveRuntime.Refresh(battle);
             return battle;
+        }
+
+        private static List<int> CurrentHealth(List<EncounterFighterSnapshot> fighters)
+        {
+            var result = new List<int>(fighters.Count);
+            foreach (var fighter in fighters) result.Add(fighter.CurrentHealth);
+            return result;
         }
 
         public static List<BattleFighterResult> BuildRunResults(RunState run, BattleState battle)
@@ -50,7 +55,8 @@ namespace FightingAllstar.Core.Run
             foreach (var fighter in run.Roster)
             {
                 var battleFighter = battle.Player.FindFighter(fighter.RunFighterId);
-                var hp = fighter.IsDefeated || battleFighter == null ? 0 : Math.Max(0, battleFighter.Health);
+                // Battle-only MaxHP contributions are not permanent run-stat upgrades.
+                var hp = fighter.IsDefeated || battleFighter == null ? 0 : Math.Max(0, Math.Min(fighter.Stats.MaxHealth, battleFighter.Health));
                 results.Add(new BattleFighterResult { RunFighterId = fighter.RunFighterId,
                     CurrentHealth = hp, IsDefeated = hp == 0 });
             }
@@ -62,6 +68,8 @@ namespace FightingAllstar.Core.Run
             if (source == null || stats == null) throw new ArgumentException("Encounter fighter definition and stats are required.");
             var resolved = source.Clone();
             resolved.BaseStats = stats.Clone();
+            if (resolved.Passive == null || string.IsNullOrWhiteSpace(resolved.Passive.Id))
+                resolved.Passive = StandardCharacterPassives.Create(resolved.Id);
             return resolved;
         }
 
@@ -79,10 +87,30 @@ namespace FightingAllstar.Core.Run
             }
             foreach (var card in team.Hand)
                 if (replacements.TryGetValue(card.OwnerFighterId, out var ownerId)) card.OwnerFighterId = ownerId;
+            RemapSources(battle.Player, replacements);
+            RemapSources(battle.Opponent, replacements);
             foreach (var item in battle.Events)
             {
                 if (replacements.TryGetValue(item.SourceId ?? string.Empty, out var sourceId)) item.SourceId = sourceId;
                 if (replacements.TryGetValue(item.TargetId ?? string.Empty, out var targetId)) item.TargetId = targetId;
+                if (item.Card != null && replacements.TryGetValue(item.Card.OwnerFighterId, out var cardOwnerId))
+                    item.Card.OwnerFighterId = cardOwnerId;
+                foreach (var contribution in item.PassiveContributions)
+                    if (replacements.TryGetValue(contribution.OwnerId, out var passiveOwner)) contribution.OwnerId = passiveOwner;
+            }
+        }
+
+        private static void RemapSources(BattleTeamState team, Dictionary<string, string> replacements)
+        {
+            foreach (var fighter in team.Fighters)
+            {
+                foreach (var contribution in fighter.PassiveContributions)
+                    if (replacements.TryGetValue(contribution.OwnerId, out var owner)) contribution.OwnerId = owner;
+                foreach (var status in fighter.Statuses.Instances)
+                {
+                    if (replacements.TryGetValue(status.SourceFighterId ?? string.Empty, out var source)) status.SourceFighterId = source;
+                    if (replacements.TryGetValue(status.TargetFighterId ?? string.Empty, out var target)) status.TargetFighterId = target;
+                }
             }
         }
     }

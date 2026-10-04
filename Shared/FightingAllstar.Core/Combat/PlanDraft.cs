@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FightingAllstar.Core.Content;
 
 namespace FightingAllstar.Core.Combat
 {
@@ -10,6 +11,8 @@ namespace FightingAllstar.Core.Combat
         private readonly TeamPlanDraft _view;
         private readonly List<PlannedAction> _actions = new List<PlannedAction>();
         public IReadOnlyList<PlannedAction> Actions => _actions;
+        private readonly List<BattleEvent> _lastEvents = new List<BattleEvent>();
+        public IReadOnlyList<BattleEvent> LastEvents => _lastEvents;
         public BattleTeamState Preview => _view.Team;
         public int RemainingActions => Math.Max(0, _baseSnapshot.ActionBudget - _actions.Count);
 
@@ -21,6 +24,7 @@ namespace FightingAllstar.Core.Combat
 
         public bool QueuePlay(string cardId, string targetId, out string reason)
         {
+            _lastEvents.Clear();
             reason = null;
             if (RemainingActions == 0) { reason = "No actions remain this turn."; return false; }
             var card = _view.Team.Hand.Find(c => c.Id == cardId);
@@ -29,24 +33,65 @@ namespace FightingAllstar.Core.Combat
             if (owner == null || !owner.IsAlive || owner.IsReserve) { reason = "Card owner is not an active fighter."; return false; }
             if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost)
             { reason = "Ultimate requires five PG."; return false; }
-            var target = _baseSnapshot.OtherTeam(_baseSnapshot.ActingSide).FindFighter(targetId);
-            if (target == null || !target.IsAlive || target.IsReserve) { reason = "Choose a living active opponent."; return false; }
-            _actions.Add(new PlannedAction { CardId = cardId, TargetFighterId = targetId });
+            EffectDefinition effect;
+            var hasEffect = card.Kind == CardKind.Skill
+                ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
+                : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+            if (hasEffect && StatusSystem.IsCardUseBlocked(owner,
+                card.Kind == CardKind.Ultimate ? CardCategory.Attack : card.Category, card.Rank,
+                card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0))
+            { reason = "A status prevents this card category or effect from being used."; return false; }
+            var target = ResolveDraftTarget(card, owner, targetId);
+            if (target == null) { reason = card.TargetScope == EffectTargetScope.SelectedAlly
+                ? "Choose a living active ally." : "Choose a living active opponent."; return false; }
+            _actions.Add(new PlannedAction { CardId = cardId, TargetFighterId = target.Id });
             _view.Team.Hand.Remove(card);
             if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
             else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
-            CardRules.MergeAdjacent(_view.Team, null, true);
+            _lastEvents.Add(new BattleEvent { Kind = BattleEventKind.CardPlayed, SourceId = owner.Id,
+                TargetId = target.Id, CardId = card.Id, Card = card.Clone(), PowerGaugeAfter = owner.PowerGauge,
+                TargetIds = ResolveDraftTargets(card, owner, target).ConvertAll(item => item.Id) });
+            CardRules.MergeAdjacent(_view.Team, null, _lastEvents);
             return true;
         }
 
         public bool QueueMove(string cardId, int destination, out string reason)
         {
+            _lastEvents.Clear();
             reason = null;
             if (RemainingActions == 0) { reason = "No actions remain this turn."; return false; }
             var from = _view.Team.Hand.FindIndex(c => c.Id == cardId);
-            if (!CardRules.TryMove(_view.Team, from, destination, true, out reason)) return false;
+            if (!CardRules.TryMove(_view.Team, from, destination, true, out reason, null, _lastEvents)) return false;
             _actions.Add(new PlannedAction { IsMove = true, CardId = cardId, DestinationIndex = destination });
             return true;
+        }
+
+        private FighterState ResolveDraftTarget(CardState card, FighterState owner, string requestedTargetId)
+        {
+            var friendly = _baseSnapshot.Team(owner.Side);
+            var enemy = _baseSnapshot.OtherTeam(owner.Side);
+            switch (card.TargetScope)
+            {
+                case EffectTargetScope.Self: return owner;
+                case EffectTargetScope.SelectedAlly:
+                    var ally = friendly.FindFighter(requestedTargetId);
+                    return ally != null && ally.IsAlive && !ally.IsReserve ? ally : null;
+                case EffectTargetScope.AllAllies: return friendly.LivingActive().Count > 0 ? friendly.LivingActive()[0] : null;
+                case EffectTargetScope.AllEnemies: return enemy.LivingActive().Count > 0 ? enemy.LivingActive()[0] : null;
+                default:
+                    var target = enemy.FindFighter(requestedTargetId);
+                    return target != null && target.IsAlive && !target.IsReserve ? target : null;
+            }
+        }
+
+        private List<FighterState> ResolveDraftTargets(CardState card, FighterState owner, FighterState anchor)
+        {
+            switch (card.TargetScope)
+            {
+                case EffectTargetScope.AllAllies: return _baseSnapshot.Team(owner.Side).LivingActive();
+                case EffectTargetScope.AllEnemies: return _baseSnapshot.OtherTeam(owner.Side).LivingActive();
+                default: return new List<FighterState> { anchor };
+            }
         }
 
         public bool UndoLast()
@@ -59,6 +104,7 @@ namespace FightingAllstar.Core.Combat
 
         public void Reset()
         {
+            _lastEvents.Clear();
             _actions.Clear();
             RebuildPreview();
         }
@@ -80,7 +126,7 @@ namespace FightingAllstar.Core.Combat
                     var owner = _view.Team.FindFighter(card.OwnerFighterId);
                     if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
                     else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
-                    CardRules.MergeAdjacent(_view.Team, null, true);
+                    CardRules.MergeAdjacent(_view.Team, null);
                 }
             }
         }

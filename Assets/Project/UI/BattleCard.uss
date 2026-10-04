@@ -2,35 +2,96 @@
     width: 100%;
     height: 100%;
     padding: 0;
-    background-color: rgb(24, 29, 38);
+    background-color: rgb(22, 26, 35);
     border-width: 2px;
     border-color: rgb(184, 139, 55);
     overflow: hidden;
+    border-radius: 6px;
+    transition-property: scale, translate, border-color;
+    transition-duration: 160ms;
+    transition-timing-function: ease-out;
 }
 
 .card-face:hover {
-    border-color: rgb(255, 220, 119);
+    border-color: rgb(255, 230, 130);
+    scale: 1.05 1.05;
+    translate: 0 -8px;
 }
 
 .card-artwork {
     position: absolute;
-    left: 3px;
-    right: 3px;
-    top: 3px;
-    bottom: 3px;
-}
-
-.card-rank {
-    position: absolute;
     left: 2px;
     right: 2px;
+    top: 2px;
     bottom: 2px;
+    border-radius: 4px;
+}
+
+.card-rank-frame {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.card-skill-slot {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    min-width: 20px;
     height: 20px;
-    padding-left: 3px;
-    padding-right: 3px;
-    color: rgb(255, 218, 109);
-    background-color: rgba(6, 9, 14, 0.82);
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 10px;
+    background-color: rgba(12, 17, 26, 0.92);
+    border-width: 1px;
+    border-color: rgba(255, 215, 120, 0.6);
+    color: rgb(255, 245, 220);
     font-size: 11px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.95);
+    white-space: nowrap;
+}
+
+.card-skill-type {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 24px;
+    height: 24px;
+    scale-mode: scale-to-fit;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* 7DSGC-style Holographic / Golden Aura on Ultimate Cards */
+.ultimate-card .card-face {
+    border-width: 2.5px;
+    border-color: rgb(255, 220, 90);
+    background-color: rgb(38, 26, 12);
+}
+
+.ultimate-card .card-skill-slot {
+    background-color: rgba(220, 130, 15, 0.95);
+    border-color: rgb(255, 235, 160);
+    color: rgb(255, 255, 255);
+}
+
+.card-holo-glow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(255, 215, 60, 0.18);
+    border-width: 2px;
+    border-color: rgba(255, 240, 170, 0.7);
+    border-radius: 4px;
+}
+
+.ultimate-card .card-holo-glow {
+    display: flex;
 }

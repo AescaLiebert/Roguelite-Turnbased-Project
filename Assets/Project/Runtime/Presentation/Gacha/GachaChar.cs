@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 [Serializable]
 public class RarityUIAssets
@@ -49,9 +50,11 @@ public class GachaChar : MonoBehaviour
     [SerializeField] private AttributeUIAssets[] attributeConfigurations;
 
     [SerializeField] private InventoryObject playerInventory;
+    [SerializeField] private bool isEmptySlotCommand;
     
     public void Start()
     {
+        if (isEmptySlotCommand) return;
         if (character == null || (charIcon == null && (charIcon = GetComponent<Image>()) == null) || character.FighterIcon == null)
         {
             Debug.LogError("Required components are missing!");
@@ -153,8 +156,58 @@ public class GachaChar : MonoBehaviour
         }
     }
 
+    public void SetAsEmptySlotCommand()
+    {
+        isEmptySlotCommand = true;
+        character = null;
+
+        if (rarityIcon != null) rarityIcon.gameObject.SetActive(false);
+        if (attributeIcon != null) attributeIcon.gameObject.SetActive(false);
+        if (charIcon != null) charIcon.gameObject.SetActive(false);
+        if (backgroundIcon != null)
+        {
+            backgroundIcon.gameObject.SetActive(true);
+            backgroundIcon.color = new Color(0.18f, 0.2f, 0.25f, 0.95f);
+        }
+        if (frameIcon != null)
+        {
+            frameIcon.gameObject.SetActive(true);
+            frameIcon.color = new Color(0.7f, 0.7f, 0.75f, 0.8f);
+        }
+
+        var label = GetComponentInChildren<TextMeshProUGUI>();
+        if (label == null)
+        {
+            var textObj = new GameObject("EmptyCommandLabel", typeof(RectTransform));
+            textObj.transform.SetParent(transform, false);
+            var rect = textObj.GetComponent<RectTransform>();
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            label = textObj.AddComponent<TextMeshProUGUI>();
+        }
+
+        if (label != null)
+        {
+            label.gameObject.SetActive(true);
+            label.text = "EMPTY\nSLOT";
+            label.alignment = TextAlignmentOptions.Center;
+            label.fontSize = 24;
+            label.fontStyle = FontStyles.Bold;
+            label.color = new Color(0.95f, 0.45f, 0.45f, 1f);
+        }
+    }
+
     public void OnCharacterClicked()
     {
+        if (isEmptySlotCommand)
+        {
+            if (CharacterSelectionManager.Instance != null)
+                CharacterSelectionManager.Instance.ClearCurrentSelectedSlot();
+            return;
+        }
+
         if (character == null)
         {
             Debug.LogWarning("No character selected!");

@@ -408,9 +408,8 @@ namespace FightingAllstar.Presentation.Economy
         {
             try
             {
-                _service.SaveFormation(_state.FormationDefinitionIds);
                 _store.Save(_state);
-                SceneManager.LoadScene("Combat");
+                SceneManager.LoadScene("Scene-CharacterLoadOut");
             }
             catch (Exception exception) { SetNotice(exception.Message); }
         }

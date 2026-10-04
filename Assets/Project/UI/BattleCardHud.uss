@@ -37,7 +37,7 @@
     border-left-width: 3px;
     border-left-color: rgb(218, 180, 91);
     font-size: 13px;
-    white-space: normal;
+    white-space: nowrap;
     display: none;
 }
 
@@ -50,10 +50,22 @@
 }
 
 .deck-row {
-    height: 126px;
+    height: 132px;
+    width: 100%;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+}
+
+.hand-card {
+    transition-property: left, width, opacity, scale, translate;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+}
+
+.hand-card:hover {
+    scale: 1.05 1.05;
+    translate: 0 -8px;
 }
 
 .card-slot {
@@ -97,6 +109,31 @@
     -unity-text-align: middle-center;
 }
 
+.slot-marker.move-marker {
+    color: rgb(255, 218, 109);
+    background-color: rgba(8, 12, 18, 0.78);
+    font-size: 14px;
+    -unity-font-style: bold;
+}
+
+.action-target-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 2px;
+    background-color: rgba(200, 45, 30, 0.92);
+    border-radius: 4px;
+    border-width: 1px;
+    border-color: rgba(255, 215, 120, 0.95);
+    color: rgb(255, 255, 255);
+    font-size: 11px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
 .tray-controls {
     height: 34px;
     margin-top: 4px;
@@ -113,8 +150,328 @@
     background-color: rgba(43, 55, 72, 0.96);
     border-width: 1px;
     border-color: rgba(148, 162, 181, 0.52);
+    border-radius: 4px;
 }
 
 .reset-button:disabled {
     opacity: 0.38;
+}
+
+/* 7DSGC-style Phase Crest Pill Header */
+.phase-container {
+    position: absolute;
+    top: 2.2%;
+    left: 20%;
+    right: 20%;
+    height: 34px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(10, 16, 26, 0.88);
+    border-width: 1px;
+    border-color: rgba(224, 186, 102, 0.75);
+    border-radius: 17px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+.battle-phase-turn {
+    color: rgb(255, 216, 108);
+    font-size: 14px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.phase-divider {
+    width: 2px;
+    height: 14px;
+    background-color: rgba(224, 186, 102, 0.5);
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.battle-phase {
+    color: rgb(245, 238, 224);
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(15, 20, 30);
+}
+
+/* 7DSGC-style Cinematic Turn Banner */
+.turn-banner {
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    top: 36%;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(10, 36, 68, 0.94);
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    border-color: rgb(90, 210, 255);
+}
+
+.turn-banner.enemy {
+    background-color: rgba(72, 14, 30, 0.94);
+    border-color: rgb(255, 90, 125);
+}
+
+.turn-banner-title {
+    color: rgb(255, 250, 235);
+    font-size: 38px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(10, 16, 26);
+}
+
+.turn-banner-sub {
+    color: rgb(255, 218, 115);
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-top: 2px;
+}
+
+.turn-banner.enemy .turn-banner-sub {
+    color: rgb(255, 175, 190);
+}
+
+.execution-label {
+    min-height: 32px;
+    max-height: 65px;
+    padding: 6px 14px;
+    margin-bottom: 8px;
+    background-color: rgba(8, 12, 20, 0.88);
+    border-left-width: 3px;
+    border-left-color: rgb(235, 195, 103);
+    color: rgb(255, 239, 195);
+    font-size: 14px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.action-slot.executing {
+    border-color: rgb(255, 229, 128);
+    background-color: rgba(197, 130, 31, 0.8);
+    scale: 1.09 1.09;
+}
+
+.hand-card.rank-up .card-face {
+    border-color: rgb(255, 250, 194);
+    background-color: rgb(255, 219, 94);
+}
+
+.card-face:disabled { opacity: 1; }
+.deck-row:disabled { opacity: 1; }
+
+.battle-effects {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+/* 7DSGC-style Juicy, Bold Floating Combat Text */
+.combat-text {
+    position: absolute;
+    width: 320px;
+    color: rgb(255, 255, 255);
+    font-size: 42px;
+    -unity-font-style: bold-and-italic;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 3.5px;
+    -unity-text-outline-color: rgba(10, 6, 4, 0.98);
+    white-space: normal;
+}
+
+.combat-text.critical {
+    color: rgb(255, 222, 50);
+    font-size: 54px;
+    -unity-text-outline-width: 4px;
+    -unity-text-outline-color: rgb(150, 20, 0);
+}
+
+.combat-text.damage {
+    color: rgb(255, 255, 255);
+    font-size: 42px;
+    -unity-text-outline-width: 3.5px;
+    -unity-text-outline-color: rgb(35, 20, 12);
+}
+
+.combat-text.blocked {
+    color: rgb(135, 235, 255);
+    font-size: 34px;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(10, 30, 60);
+}
+
+.combat-text.heal {
+    color: rgb(85, 255, 135);
+    font-size: 40px;
+    -unity-text-outline-width: 3.5px;
+    -unity-text-outline-color: rgb(10, 55, 20);
+}
+
+.combat-text.status {
+    color: rgb(245, 150, 255);
+    font-size: 26px;
+    -unity-text-outline-width: 2.5px;
+    -unity-text-outline-color: rgb(45, 10, 55);
+}
+
+.combat-text.passive {
+    color: rgb(255, 220, 100);
+    font-size: 28px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2.5px;
+    -unity-text-outline-color: rgb(75, 45, 10);
+}
+
+.card-caption {
+    position: absolute;
+    width: 170px;
+    color: rgb(255, 230, 127);
+    font-size: 19px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(25, 20, 12);
+}
+
+.battle-result {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(7, 12, 22, 0.85);
+}
+
+.result-title {
+    font-size: 68px;
+    color: rgb(255, 222, 143);
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(97, 56, 16);
+}
+
+.result-subtitle {
+    font-size: 20px;
+    color: rgb(225, 232, 243);
+    margin-bottom: 24px;
+}
+
+.result-continue {
+    width: 220px;
+    height: 48px;
+    font-size: 20px;
+    color: rgb(255, 237, 191);
+    background-color: rgb(36, 44, 62);
+    border-width: 2px;
+    border-color: rgb(201, 160, 86);
+    border-radius: 4px;
+}
+
+.skip-animation {
+    position: absolute;
+    top: 2.2%;
+    right: 3%;
+    height: 32px;
+    padding-left: 14px;
+    padding-right: 14px;
+    color: rgb(211, 221, 234);
+    background-color: rgba(17, 25, 39, 0.85);
+    border-width: 1px;
+    border-color: rgba(140, 160, 190, 0.4);
+    border-radius: 16px;
+    font-size: 13px;
+}
+
+.cc-comparison {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 18%;
+    bottom: 20%;
+    justify-content: center;
+    background-color: rgba(7, 14, 24, 0.68);
+}
+
+.cc-heading, .cc-decision {
+    color: rgb(255, 231, 174);
+    font-size: 26px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.cc-lanes {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.cc-lane {
+    width: 35%;
+    height: 180px;
+    padding-right: 18px;
+    padding-left: 18px;
+    justify-content: center;
+    align-items: flex-end;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+}
+
+.cc-player {
+    background-color: rgba(20, 86, 151, 0.94);
+    border-color: rgb(94, 220, 255);
+}
+
+.cc-enemy {
+    background-color: rgba(134, 29, 62, 0.94);
+    border-color: rgb(255, 107, 139);
+}
+
+.cc-icon {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width: 42%;
+    height: 90%;
+}
+
+.cc-team {
+    color: rgb(225, 235, 249);
+    font-size: 15px;
+    -unity-font-style: bold;
+}
+
+.cc-value {
+    color: rgb(255, 255, 243);
+    font-size: 36px;
+    -unity-font-style: bold;
+}
+
+.cc-vs {
+    width: 70px;
+    color: rgb(255, 227, 141);
+    font-size: 28px;
+    -unity-text-align: middle-center;
+}
+
+.initiative-winner {
+    border-color: rgb(255, 228, 111);
+    scale: 1.04 1.04;
 }

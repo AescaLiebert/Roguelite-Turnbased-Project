@@ -51,23 +51,21 @@ namespace FightingAllstar.Presentation.Route
 
         private List<RunFighterSeed> BuildRoster(ContentCatalog catalog, PlayerInventoryService inventory)
         {
-            if (inventory == null || inventory.Snapshot == null || inventory.Snapshot.formation == null || inventory.Snapshot.formation.Count != 4)
-                throw new InvalidOperationException("CharacterLoadOut formation data is unavailable.");
             var fighters = new List<RunFighterSeed>(4);
-            for (var slot = 0; slot < inventory.Snapshot.formation.Count; slot++)
+            if (inventory == null || inventory.Snapshot == null || inventory.Snapshot.formation == null)
+                return fighters;
+            for (var slot = 0; slot < Math.Min(4, inventory.Snapshot.formation.Count); slot++)
             {
                 var instanceId = inventory.Snapshot.formation[slot];
                 if (string.IsNullOrWhiteSpace(instanceId)) continue;
                 var owned = inventory.Snapshot.FindOwned(instanceId);
-                if (owned == null) throw new InvalidOperationException("The selected character instance is not owned by this account: " + instanceId);
-                var definition = catalog.Characters.Find(character => character.Id == owned.definitionId && character.RuntimeReady);
-                if (definition == null) throw new InvalidOperationException("Published catalog has no runtime definition " + owned.definitionId + ".");
+                if (owned == null) continue;
+                var definition = catalog?.Characters?.Find(character => character != null && character.Id == owned.definitionId && character.RuntimeReady);
+                if (definition == null) continue;
                 fighters.Add(new RunFighterSeed { OwnedFighterId = owned.instanceId,
-                    Definition = definition.Clone(), ResolvedStats = definition.BaseStats.Clone(),
+                    Definition = definition.Clone(), ResolvedStats = definition.BaseStats?.Clone(),
                     ConstellationTier = owned.constellationTier, FormationSlot = slot, IsReserve = slot == 3 });
             }
-            if (!fighters.Exists(fighter => !fighter.IsReserve))
-                throw new InvalidOperationException("Assign at least one fighter to an active position in CharacterLoadOut.");
             return fighters;
         }
     }

@@ -19,7 +19,8 @@ namespace FightingAllstar.EditorTools
             var errors = ContentAuthoringValidator.ValidateDrafts(catalog);
             errors.AddRange(BannerDefinition.CreateKofPhaseE().Validate(catalog, false));
             if (errors.Count > 0) throw new InvalidOperationException("WIP character catalog is invalid: " + string.Join("; ", errors));
-            Debug.Log("WIP catalog and KOF pool are valid: 29 source characters, eight pool entries, 174 card ranks, 203 constellation tiers. Runtime effects remain un-authored.");
+            Debug.Log("WIP catalog and KOF pool are valid: 29 source characters, eight pool entries, 174 card ranks, 203 constellation tiers. Core passives, rank effects, status recipes, and attack-effect recipes are authored for the eight WIP runtime fighters.");
         }
     }
 }
+

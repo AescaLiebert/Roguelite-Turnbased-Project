@@ -10,7 +10,7 @@
             </ui:VisualElement>
             <ui:VisualElement class="route-header-actions">
                 <ui:Button name="abandon-button" text="Abandon run" class="quiet-button" />
-                <ui:Button name="return-loadout-button" text="Return to formation" class="quiet-button" />
+                <ui:Button name="return-loadout-button" text="Return to Dungeon Select" class="quiet-button" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="run-hp-strip" class="run-hp-strip" />

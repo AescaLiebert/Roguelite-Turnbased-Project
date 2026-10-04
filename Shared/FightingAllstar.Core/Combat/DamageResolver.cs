@@ -100,7 +100,7 @@ namespace FightingAllstar.Core.Combat
 
             return new DamageResult { CalculatedDamage = damage, ShieldLost = shieldLost, HealthLost = healthLost,
                 RemainingHealth = health, RemainingShield = shield, WasCritical = critical, WasBlocked = blocked,
-                Executed = executes && health == 0, WasCapped = capped };
+                WasEndured = damage == 0, Executed = executes && health == 0, WasCapped = capped };
         }
 
         private static void Multiply(ref BigInteger numerator, ref BigInteger denominator, long factor, long scale)

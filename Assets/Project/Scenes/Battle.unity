@@ -3704,6 +3704,11 @@ MonoBehaviour:
   eventDelay: 0.25
   battleDocument: {fileID: 2110000012}
   cardTemplate: {fileID: 9197481963319205126, guid: c61f3b08657e4af9ab8610c92c24b7e3, type: 3}
+  rankOneFrameTexture: {fileID: 2800000, guid: 730d2d85e012acf41ae69b213f9a1090, type: 3}
+  rankTwoFrameTexture: {fileID: 2800000, guid: 16447786b09ddc24591864ca96109896, type: 3}
+  rankThreeFrameTexture: {fileID: 2800000, guid: f677aba8e5d37fc4992ab8f028fa790d, type: 3}
+  damageTotalPanel: {fileID: 1864970112}
+  damageTotalValue: {fileID: 1864970114}
 --- !u!1 &2077946071
 GameObject:
   m_ObjectHideFlags: 0

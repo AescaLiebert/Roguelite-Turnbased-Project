@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
+  m_Name: shingo97_Skill2
+  m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
+  cardName: "Ibuki Shingo 97 \xB7 Skill 2"
+  cardIcon: {fileID: 0}
+  ranks:
+  - rankLevel: 1
+    description: Inflict damage equal to 116.67% of ATK, decrease defense power 20%
+      1 turns
+    targetType: 0
+    skillType: 2
+    damageScalingType: 0
+    damageMultiplier: 1.1667
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 116.67% of ATK, decrease defense power
+      20% 1 turns
+    provenance: GeneratedStartingValue
+    damageKeyword: Decrease Defense
+    effects:
+    - kind: 9
+      statusId: 
+      statId: Defense
+      disabledCardType: 0
+      targetType: 0
+      magnitude: -20
+      durationTurns: 1
+      stackCount: 1
+      stackCap: 0
+  - rankLevel: 2
+    description: Inflict damage equal to 233.33% of ATK, decrease defense power 40%
+      2 turns
+    targetType: 0
+    skillType: 2
+    damageScalingType: 0
+    damageMultiplier: 2.3333
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 233.33% of ATK, decrease defense power
+      40% 2 turns
+    provenance: GeneratedStartingValue
+    damageKeyword: Decrease Defense
+    effects:
+    - kind: 9
+      statusId: 
+      statId: Defense
+      disabledCardType: 0
+      targetType: 0
+      magnitude: -40
+      durationTurns: 2
+      stackCount: 1
+      stackCap: 0
+  - rankLevel: 3
+    description: Inflict damage equal to 350% of ATK, decrease defense power 60%
+      2 turns
+    targetType: 0
+    skillType: 2
+    damageScalingType: 0
+    damageMultiplier: 3.5
+    skillPrefab: {fileID: 0}
+    sourceDescription: Inflict damage equal to 350% of ATK, decrease defense power
+      60% 2 turns
+    provenance: Supplied
+    damageKeyword: Decrease Defense
+    effects:
+    - kind: 9
+      statusId: 
+      statId: Defense
+      disabledCardType: 0
+      targetType: 0
+      magnitude: -60
+      durationTurns: 2
+      stackCount: 1
+      stackCap: 0

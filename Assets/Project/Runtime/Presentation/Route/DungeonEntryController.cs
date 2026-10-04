@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FightingAllstar.Core.Content;
 using FightingAllstar.Core.Run;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace FightingAllstar.Presentation.Route
@@ -119,50 +120,37 @@ namespace FightingAllstar.Presentation.Route
                 return;
             }
 
-            var hasValidRoster = _catalog != null && string.IsNullOrEmpty(_catalogValidationError) &&
-                _roster != null && _roster.Count >= 1 && _roster.Count <= 4 && _roster.Exists(fighter => fighter != null && !fighter.IsReserve);
-            if (hasValidRoster)
-            {
-                var ownedIds = new HashSet<string>(StringComparer.Ordinal);
-                var definitionIds = new HashSet<string>(StringComparer.Ordinal);
-                var formationSlots = new HashSet<int>();
-                foreach (var fighter in _roster)
-                    if (fighter == null || fighter.Definition == null || !fighter.Definition.RuntimeReady ||
-                        fighter.ResolvedStats == null && fighter.Definition.BaseStats == null ||
-                        (fighter.ResolvedStats ?? fighter.Definition.BaseStats).Attack < 0 ||
-                        (fighter.ResolvedStats ?? fighter.Definition.BaseStats).Defense < 0 ||
-                        (fighter.ResolvedStats ?? fighter.Definition.BaseStats).MaxHealth <= 0 ||
-                        string.IsNullOrWhiteSpace(fighter.OwnedFighterId) || !ownedIds.Add(fighter.OwnedFighterId) ||
-                        !definitionIds.Add(fighter.Definition.Id) ||
-                        fighter.FormationSlot < 0 || fighter.FormationSlot > 3 || !formationSlots.Add(fighter.FormationSlot) ||
-                        fighter.IsReserve != (fighter.FormationSlot == 3) ||
-                        !_catalog.Exists(character => character != null && character.Id == fighter.Definition.Id && character.RuntimeReady))
-                    { hasValidRoster = false; break; }
-            }
-
             var open = DungeonProfile.OpenCircuit();
             var green = DungeonProfile.GreenAccord();
             var women = DungeonProfile.WomenExhibition();
-            var canOpen = hasValidRoster && MeetsRestrictions(open) && CatalogCanServe(open);
-            var canGreen = hasValidRoster && MeetsRestrictions(green) && CatalogCanServe(green);
-            var canWomen = hasValidRoster && MeetsRestrictions(women) && CatalogCanServe(women);
+            var canOpen = CatalogCanServe(open);
+            var canGreen = CatalogCanServe(green);
+            var canWomen = CatalogCanServe(women);
             if (_openCircuit != null) _openCircuit.SetEnabled(canOpen);
             if (_greenAccord != null) _greenAccord.SetEnabled(canGreen);
             if (_womenExhibition != null) _womenExhibition.SetEnabled(canWomen);
 
-            var selectedIsReady = _profile != null && hasValidRoster && MeetsRestrictions(_profile) && CatalogCanServe(_profile);
-            if (_start != null) _start.SetEnabled(selectedIsReady);
-            if (_status != null && !string.IsNullOrEmpty(_catalogValidationError))
-                _status.text = "Dungeon catalog is unavailable: " + _catalogValidationError;
-            else if (_status != null && !hasValidRoster)
-                _status.text = "Dungeon entry needs at least one active owned fighter with runtime-ready combat content.";
-            else if (_status != null && _profile != null && !selectedIsReady)
-                _status.text = CatalogCanServe(_profile) ? "The frozen roster does not meet this profile's restrictions." :
-                    "The pinned catalog needs four runtime-ready enemy definitions eligible for this profile.";
-            else if (_status != null && selectedIsReady)
-                _status.text = "Roster is valid. Difficulty and reward preview are ready.";
-            else if (_status != null && hasValidRoster && _profile == null)
-                _status.text = "Choose an available dungeon profile.";
+            var canProceed = _profile != null && CatalogCanServe(_profile);
+            if (_start != null)
+            {
+                _start.SetEnabled(canProceed);
+                _start.text = "Configure Team";
+            }
+
+            if (_status != null)
+            {
+                if (!string.IsNullOrEmpty(_catalogValidationError))
+                    _status.text = "Dungeon catalog is unavailable: " + _catalogValidationError;
+                else if (_profile == null)
+                    _status.text = "Choose an available dungeon profile.";
+                else if (!canProceed)
+                    _status.text = "The pinned catalog needs four runtime-ready enemy definitions eligible for this profile.";
+                else
+                {
+                    var restrictionDesc = _profile.Restrictions.Count == 0 ? "Any legal roster" : _profile.Restrictions[0].Description;
+                    _status.text = $"{_profile.DisplayName}: {restrictionDesc}. Proceed to configure your team.";
+                }
+            }
         }
 
         private bool CatalogCanServe(DungeonProfile profile)
@@ -229,16 +217,12 @@ namespace FightingAllstar.Presentation.Route
         private void StartRun()
         {
             if (_profile == null) { ShowError("Choose a dungeon profile first."); return; }
-            if (_catalog == null || _roster == null) { ShowError("Roster and pinned content are not loaded yet."); return; }
+            if (_catalog == null) { ShowError("Pinned dungeon catalog is not loaded yet."); return; }
             try
             {
                 var difficulty = _difficulty == null ? 0 : _difficulty.value;
-                var run = DungeonRunEngine.CreateRun(Guid.NewGuid().ToString("N"), _userId,
-                    Guid.NewGuid().ToString("N"), _profile, difficulty, _seed, _contentVersion, _contentHash,
-                    _roster, _catalog, baseCompletionDiamonds);
-                new LocalRunStateStore().Save(run);
-                if (_status != null) _status.text = "Run created. Difficulty and route are now locked.";
-                RunStarted?.Invoke(run.Clone());
+                DungeonFlowContext.BeginDungeonFlow(_profile, difficulty, _userId, _seed, _contentVersion, _contentHash, _catalog, baseCompletionDiamonds);
+                SceneManager.LoadScene("Scene-CharacterLoadOut");
             }
             catch (Exception exception) { ShowError(exception.Message); }
         }

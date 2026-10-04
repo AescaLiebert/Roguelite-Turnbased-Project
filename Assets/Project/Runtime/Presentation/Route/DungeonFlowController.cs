@@ -18,13 +18,27 @@ namespace FightingAllstar.Presentation.Route
         private void Awake()
         {
             if (entry != null) entry.RunStarted += OnRunStarted;
-            if (routeMap != null) routeMap.EncounterReady += OnEncounterReady;
+            if (routeMap != null)
+            {
+                routeMap.EncounterReady += OnEncounterReady;
+                routeMap.ReturnToEntryRequested += OnReturnToEntry;
+            }
         }
 
         private void OnDestroy()
         {
             if (entry != null) entry.RunStarted -= OnRunStarted;
-            if (routeMap != null) routeMap.EncounterReady -= OnEncounterReady;
+            if (routeMap != null)
+            {
+                routeMap.EncounterReady -= OnEncounterReady;
+                routeMap.ReturnToEntryRequested -= OnReturnToEntry;
+            }
+        }
+
+        private void OnReturnToEntry()
+        {
+            if (entry != null) entry.gameObject.SetActive(true);
+            if (routeMap != null) routeMap.gameObject.SetActive(false);
         }
 
         private void Start()
@@ -93,8 +107,9 @@ namespace FightingAllstar.Presentation.Route
         {
             var run = routeMap.GetRunSnapshot();
             if (run == null) return;
-            LocalEncounterContext.Begin(encounter, run.Seed ^ (ulong)run.Revision);
-            SceneManager.LoadScene(battleScene);
+            var profile = DungeonFlowContext.GetProfileForId(run.ProfileId);
+            DungeonFlowContext.BeginDungeonFlowForEncounter(profile, run, encounter);
+            SceneManager.LoadScene("Scene-CharacterLoadOut");
         }
 
         private void ClaimCompletedRunRewardIfNeeded()
@@ -109,7 +124,7 @@ namespace FightingAllstar.Presentation.Route
             }
             var granted = inventory.GrantRunReward(run.RunId, run.RewardQuoteDiamonds);
             run.RewardClaimed = true;
-            store.Save(run);
+            store.Clear();
             Debug.Log("Account run reward " + run.RunId + (granted ? " granted " + run.RewardQuoteDiamonds + " Diamonds." : " was already claimed."), this);
         }
     }

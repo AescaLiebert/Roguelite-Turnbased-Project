@@ -58,8 +58,7 @@ namespace FightingAllstar.Core.Combat
                         IsReserve = fighter.IsReserve,
                         IsAlive = fighter.IsAlive,
                         Health = fighter.Health,
-                        MaxHealth = fighter.Definition == null || fighter.Definition.BaseStats == null
-                            ? 0 : fighter.Definition.BaseStats.MaxHealth,
+                        MaxHealth = StatusSystem.GetEffectiveStats(fighter).MaxHealth,
                         Shield = fighter.Shield,
                         PowerGauge = fighter.PowerGauge
                     });
@@ -75,6 +74,8 @@ namespace FightingAllstar.Core.Combat
                         SkillId = card.SkillId,
                         Rank = card.Rank,
                         Kind = card.Kind.ToString(),
+                        Category = card.Category.ToString(),
+                        TargetScope = card.TargetScope.ToString(),
                         UltimateTier = card.UltimateTier
                     });
                 }
@@ -91,10 +92,19 @@ namespace FightingAllstar.Core.Combat
                 Kind = battleEvent.Kind.ToString(),
                 SourceId = battleEvent.SourceId,
                 TargetId = battleEvent.TargetId,
+                TargetIds = battleEvent.TargetIds == null ? new System.Collections.Generic.List<string>() :
+                    new System.Collections.Generic.List<string>(battleEvent.TargetIds),
                 CardId = privateCardDraw ? null : battleEvent.CardId,
                 Amount = battleEvent.Amount,
                 HealthAfter = battleEvent.HealthAfter,
                 ShieldAfter = battleEvent.ShieldAfter,
+                ShieldLost = battleEvent.ShieldLost,
+                EffectiveMaxHealth = battleEvent.EffectiveMaxHealth,
+                PowerGaugeAfter = battleEvent.PowerGaugeAfter,
+                RootActionId = battleEvent.RootActionId,
+                WasCritical = battleEvent.WasCritical,
+                WasBlocked = battleEvent.WasBlocked,
+                WasEndured = battleEvent.WasEndured,
                 Message = battleEvent.Message
             };
         }

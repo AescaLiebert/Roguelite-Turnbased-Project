@@ -1,7 +1,35 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/BattleCardHud.uss?fileID=7433441132597879392&amp;guid=b51f3b08657e4af9ab8610c92c24b7e2&amp;type=3#BattleCardHud"/>
     <ui:VisualElement name="battle-card-root" class="battle-card-root">
-        <ui:VisualElement name="battle-card-tray" class="battle-card-tray" style="background-color: rgba(8, 13, 21, 0);">
+        <ui:VisualElement name="phase-container" class="phase-container" picking-mode="Ignore">
+            <ui:Label name="battle-phase-turn" class="battle-phase-turn" text="TURN 1" picking-mode="Ignore"/>
+            <ui:VisualElement class="phase-divider" picking-mode="Ignore"/>
+            <ui:Label name="battle-phase" class="battle-phase" text="COMBAT CLASS" picking-mode="Ignore"/>
+        </ui:VisualElement>
+        <ui:Button name="skip-animation" text="Skip animation »" class="skip-animation"/>
+        <ui:VisualElement name="cc-comparison" class="cc-comparison" style="display: none;" picking-mode="Ignore">
+            <ui:Label text="COMBAT CLASS" class="cc-heading"/>
+            <ui:VisualElement class="cc-lanes">
+                <ui:VisualElement name="cc-player" class="cc-lane cc-player">
+                    <ui:Image name="cc-player-icon" class="cc-icon"/>
+                    <ui:Label text="YOUR TEAM" class="cc-team"/>
+                    <ui:Label name="cc-player-value" text="0" class="cc-value"/>
+                </ui:VisualElement>
+                <ui:Label text="VS" class="cc-vs"/>
+                <ui:VisualElement name="cc-enemy" class="cc-lane cc-enemy">
+                    <ui:Image name="cc-enemy-icon" class="cc-icon"/>
+                    <ui:Label text="ENEMY TEAM" class="cc-team"/>
+                    <ui:Label name="cc-enemy-value" text="0" class="cc-value"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="cc-decision" class="cc-decision"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="turn-banner" class="turn-banner" style="display: none;" picking-mode="Ignore">
+            <ui:Label name="turn-banner-title" class="turn-banner-title" text="YOUR TURN" picking-mode="Ignore"/>
+            <ui:Label name="turn-banner-sub" class="turn-banner-sub" text="COMMAND PHASE" picking-mode="Ignore"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="battle-card-tray" class="battle-card-tray" style="background-color: rgba(8, 13, 21, 0); border-top-color: rgba(0, 0, 0, 0);">
+            <ui:Label name="execution-label" class="execution-label" style="display: none;" picking-mode="Ignore"/>
             <ui:Label name="card-tooltip" class="card-tooltip" style="display: none;"/>
             <ui:VisualElement name="action-row" class="action-row">
                 <ui:VisualElement name="action-slot-0" class="card-slot action-slot">
@@ -17,32 +45,18 @@
                     <ui:VisualElement name="action-content-2" class="slot-content"/>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="deck-row" class="deck-row">
-                <ui:VisualElement name="deck-slot-0" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-0" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="deck-slot-1" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-1" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="deck-slot-2" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-2" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="deck-slot-3" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-3" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="deck-slot-4" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-4" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="deck-slot-5" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-5" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="deck-slot-6" class="card-slot deck-slot">
-                    <ui:VisualElement name="deck-content-6" class="slot-content"/>
-                </ui:VisualElement>
-            </ui:VisualElement>
+            <ui:VisualElement name="deck-row" class="deck-row"/>
             <ui:VisualElement class="tray-controls">
+                <ui:Button name="commit-button" text="End Turn" class="reset-button"/>
                 <ui:Button name="reset-button" text="Reset" class="reset-button"/>
+                <ui:Button name="surrender-button" text="Abandon Run" class="reset-button" style="margin-left: 8px;"/>
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="battle-effects" class="battle-effects" picking-mode="Ignore"/>
+        <ui:VisualElement name="battle-result" class="battle-result" style="display: none;">
+            <ui:Label name="result-title" class="result-title"/>
+            <ui:Label text="Battle complete" class="result-subtitle"/>
+            <ui:Button name="result-continue" text="Continue" class="result-continue"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

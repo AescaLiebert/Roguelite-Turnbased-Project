@@ -11,6 +11,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             if (catalogJson == null) throw new System.InvalidOperationException("Combat content catalog is not assigned.");
             var catalog = JsonUtility.FromJson<ContentCatalog>(catalogJson.text);
+            StandardCharacterPassives.AttachMissing(catalog);
             var errors = ContentValidator.Validate(catalog);
             if (errors.Count > 0) throw new System.InvalidOperationException("Combat content is invalid: " + string.Join("; ", errors));
             return catalog;

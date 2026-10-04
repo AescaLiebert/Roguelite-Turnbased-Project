@@ -20,6 +20,7 @@ namespace FightingAllstar.Presentation.Economy
         public void Save(LocalEconomyState state)
         {
             if (state == null) throw new ArgumentNullException(nameof(state));
+            SyncToPlayerInventory(state);
             var directory = Path.GetDirectoryName(_path);
             if (string.IsNullOrEmpty(directory)) throw new InvalidOperationException("Local economy profile path has no parent directory.");
             Directory.CreateDirectory(directory);
@@ -59,13 +60,65 @@ namespace FightingAllstar.Presentation.Economy
             {
                 state.SubjectId = LocalPlayerAccountContext.SubjectId;
                 EnsureStarterRoster(state);
+                SyncFromPlayerInventory(state);
                 Save(state);
                 return state;
             }
             state = LocalEconomyState.CreateLocalProfile(LocalPlayerAccountContext.SubjectId, 1600, 1);
             EnsureStarterRoster(state);
+            SyncFromPlayerInventory(state);
             Save(state);
             return state;
+        }
+
+        private static void SyncFromPlayerInventory(LocalEconomyState state)
+        {
+            var inventory = PlayerInventoryService.Instance;
+            if (inventory == null || inventory.Snapshot == null) return;
+            state.Diamonds = inventory.Diamonds;
+            if (inventory.Snapshot.formation != null && inventory.Snapshot.formation.Count == 4)
+            {
+                state.FormationDefinitionIds = inventory.GetDefinitionFormation(inventory.Snapshot.formation);
+            }
+            if (inventory.Snapshot.characters != null)
+            {
+                state.Roster = state.Roster ?? new System.Collections.Generic.List<LocalOwnedCharacter>();
+                foreach (var owned in inventory.Snapshot.characters)
+                {
+                    if (owned == null) continue;
+                    var existing = state.Roster.Find(x => x != null && x.DefinitionId == owned.definitionId);
+                    if (existing != null)
+                    {
+                        existing.ConstellationTier = Math.Max(existing.ConstellationTier, owned.constellationTier);
+                    }
+                    else
+                    {
+                        state.Roster.Add(new LocalOwnedCharacter
+                        {
+                            DefinitionId = owned.definitionId,
+                            ConstellationTier = owned.constellationTier,
+                            CrestCount = 0
+                        });
+                    }
+                }
+            }
+        }
+
+        private static void SyncToPlayerInventory(LocalEconomyState state)
+        {
+            var inventory = PlayerInventoryService.Instance;
+            if (inventory == null || inventory.Snapshot == null) return;
+            if (state.FormationDefinitionIds != null && state.FormationDefinitionIds.Count == 4)
+            {
+                var instanceIds = inventory.GetInstanceFormation(state.FormationDefinitionIds);
+                if (instanceIds != null && instanceIds.Count == 4 && instanceIds.Exists(id => !string.IsNullOrEmpty(id)))
+                {
+                    for (var i = 0; i < 4; i++)
+                    {
+                        inventory.Snapshot.formation[i] = instanceIds[i];
+                    }
+                }
+            }
         }
 
         public LocalEconomyLedgerEntry GrantRunCompletion(string runId, int amount)

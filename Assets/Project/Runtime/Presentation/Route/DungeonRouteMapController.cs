@@ -15,6 +15,7 @@ namespace FightingAllstar.Presentation.Route
     {
         public event Action<RunState> RunChanged;
         public event Action<EncounterProjection> EncounterReady;
+        public event Action ReturnToEntryRequested;
 
         private UIDocument _document;
         private LocalRunStateStore _store;
@@ -49,8 +50,8 @@ namespace FightingAllstar.Presentation.Route
             _error = root.Q<Label>("route-error");
             _abandonButton = root.Q<Button>("abandon-button");
             if (_abandonButton != null) _abandonButton.clicked += Abandon;
-            _returnLoadoutButton = root.Q<Button>("return-loadout-button");
-            if (_returnLoadoutButton != null) _returnLoadoutButton.clicked += ReturnToLoadout;
+            _returnLoadoutButton = root.Q<Button>("return-dungeon-button") ?? root.Q<Button>("return-loadout-button");
+            if (_returnLoadoutButton != null) _returnLoadoutButton.clicked += ReturnToDungeonSelect;
             Refresh();
         }
 
@@ -129,8 +130,12 @@ namespace FightingAllstar.Presentation.Route
                 _abandonButton.text = _confirmAbandon ? "Confirm abandon" : "Abandon run";
             }
             if (_returnLoadoutButton != null)
-                _returnLoadoutButton.style.display = _run.Status == RunStatus.Completed || _run.Status == RunStatus.Defeated || _run.Status == RunStatus.Abandoned
-                    ? DisplayStyle.Flex : DisplayStyle.None;
+            {
+                var runEnded = _run.Status == RunStatus.Completed || _run.Status == RunStatus.Defeated || _run.Status == RunStatus.Abandoned;
+                _returnLoadoutButton.style.display = runEnded ? DisplayStyle.Flex : DisplayStyle.None;
+                if (runEnded)
+                    _returnLoadoutButton.text = "Return to Dungeon Select";
+            }
         }
 
         private void RenderSelectedNode()
@@ -239,14 +244,35 @@ namespace FightingAllstar.Presentation.Route
             if (DungeonRunEngine.TryAbandon(_run, _run.Revision, NextRequest("abandon"), out var next, out var error))
             {
                 _confirmAbandon = false;
-                _run = next;
-                PersistAndNotify();
-                Refresh();
+                _run = null;
+                _store.Clear();
+                DungeonFlowContext.Clear();
+                if (ReturnToEntryRequested != null)
+                {
+                    ReturnToEntryRequested.Invoke();
+                }
+                else
+                {
+                    SceneManager.LoadScene("Combat");
+                }
             }
             else { _confirmAbandon = false; ShowError(error); }
         }
 
-        private void ReturnToLoadout() => SceneManager.LoadScene("Scene-CharacterLoadOut");
+        private void ReturnToDungeonSelect()
+        {
+            _store.Clear();
+            _run = null;
+            DungeonFlowContext.Clear();
+            if (ReturnToEntryRequested != null)
+            {
+                ReturnToEntryRequested.Invoke();
+            }
+            else
+            {
+                SceneManager.LoadScene("Combat");
+            }
+        }
 
         private void PersistAndNotify()
         {

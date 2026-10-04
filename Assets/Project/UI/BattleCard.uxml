@@ -3,6 +3,9 @@
     <ui:Style src="BattleCard.uss" />
     <ui:Button name="card-button" class="card-face">
         <ui:Image name="artwork" class="card-artwork" />
-        <ui:Label name="card-rank" class="card-rank" />
+        <ui:VisualElement name="card-holo-glow" class="card-holo-glow" picking-mode="Ignore" />
+        <ui:Image name="card-rank-frame" class="card-rank-frame" picking-mode="Ignore" />
+        <ui:Label name="card-skill-slot" class="card-skill-slot" picking-mode="Ignore" />
+        <ui:Image name="card-skill-type" class="card-skill-type" picking-mode="Ignore" />
     </ui:Button>
 </ui:UXML>
