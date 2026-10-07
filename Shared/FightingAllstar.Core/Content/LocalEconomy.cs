@@ -367,7 +367,7 @@ namespace FightingAllstar.Core.Economy
             }
             var owned = FindOwned(characterId);
             if (owned == null) throw new InvalidOperationException("Character is not owned.");
-            if (owned.ConstellationTier >= 6) throw new InvalidOperationException("Character is already at C6.");
+            if (owned.ConstellationTier >= 5) throw new InvalidOperationException("Character is already at C5.");
             if (owned.CrestCount < 1) throw new InvalidOperationException("One character-specific crest is required for the next tier.");
             var receipt = new LocalEconomyProgressionReceipt { RequestId = requestId, CharacterId = characterId,
                 TierBefore = owned.ConstellationTier, TierAfter = owned.ConstellationTier + 1 };
@@ -438,7 +438,7 @@ namespace FightingAllstar.Core.Economy
             var owned = FindOwned(characterId);
             if (owned == null) return new CharacterGrantOutcome { CharacterId = characterId, Kind = CharacterGrantKind.NewCharacter,
                 ConstellationTier = 0, CrestCount = 0, CollectionTokens = _state.CollectionTokens };
-            if (owned.ConstellationTier >= 6) return new CharacterGrantOutcome { CharacterId = characterId,
+            if (owned.ConstellationTier >= 5) return new CharacterGrantOutcome { CharacterId = characterId,
                 Kind = CharacterGrantKind.CollectionToken, ConstellationTier = owned.ConstellationTier,
                 CrestCount = owned.CrestCount, CollectionTokens = _state.CollectionTokens + 1 };
             return new CharacterGrantOutcome { CharacterId = characterId, Kind = CharacterGrantKind.DuplicateCrest,

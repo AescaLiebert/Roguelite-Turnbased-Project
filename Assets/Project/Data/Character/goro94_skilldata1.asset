@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 63f09e83b7360894191706f11031de50, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Reduces enemy's defense by 20% for 2 turns
+  - description: Reduces enemy's defense by 20% for 2 turns
     skillType: 2
     runtimeEffect:
       Id: 
@@ -98,7 +97,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -187,12 +185,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 2
-    description: Reduces enemy's defense by 40% for 2 turns
+  - description: Reduces enemy's defense by 40% for 2 turns
     skillType: 2
     runtimeEffect:
       Id: 
@@ -273,7 +267,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -362,12 +355,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 3
-    description: Reduces enemy's defense by 60% for 3 turns
+  - description: Reduces enemy's defense by 60% for 3 turns
     skillType: 2
     runtimeEffect:
       Id: 
@@ -448,7 +437,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -537,7 +525,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0

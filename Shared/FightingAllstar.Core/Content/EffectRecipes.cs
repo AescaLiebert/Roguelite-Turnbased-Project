@@ -74,7 +74,7 @@ namespace FightingAllstar.Core.Content
 
     public enum CardCategory { Attack, Debuff, Buff, Recovery, Stance, AttackDebuff, Ultimate }
     public enum EffectTargetScope { Self, SelectedEnemy, SelectedAlly, AllEnemies, AllAllies, TriggerActor, TriggerTarget, StatusOwner }
-    public enum CardEffectOperationKind { Damage, ApplyStatus, RemoveStatus, Cleanse, Heal, ChangePowerGauge, RemoveCard, ModifyCardRank }
+    public enum CardEffectOperationKind { Damage, ApplyStatus, RemoveStatus, Cleanse, Heal, ChangePowerGauge, RemoveCard, ModifyCardRank, TransferStats }
     public enum CardEffectWindow { BeforeAction, Damaging, Damage, AfterDamage, AfterAction }
     public enum EffectConditionKind
     {
@@ -98,7 +98,8 @@ namespace FightingAllstar.Core.Content
         CounterAtLeast, TargetTraitIs, TargetSeriesIs, RosterCountAtLeast, TargetIsAlive,
         ActorWasNotDamagedSincePreviousTurnStart,
         ActorWasDamagedDuringPreviousEnemyTurn,
-        ActorWasNotDamagedDuringPreviousEnemyTurn
+        ActorWasNotDamagedDuringPreviousEnemyTurn,
+        TargetIsLowestHealthEnemy
     }
     public enum ConditionLogic { Leaf, All, Any, Not }
     public enum ConditionSubject { OperationTarget, Owner, Actor, EventTarget }
@@ -407,6 +408,7 @@ namespace FightingAllstar.Core.Content
         public string RemoveRecipeId;
         public bool RemoveAll = true;
         public int Magnitude;
+        public int StatusDurationOverride;
         public EffectValueDefinition Value;
 
         public CardEffectOperationDefinition Clone()

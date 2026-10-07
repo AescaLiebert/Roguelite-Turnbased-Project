@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: yuri98_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Id: fighter.yuri98.passive.source
+    Auras: []
+    Reactions:
+    - Id: queue-pg-drain-on-enemy-defeat
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: 3
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Trigger: 8
+      OwnTeamTurnOnly: 0
+      ActorRelation: 0
+      TargetRelation: 3
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions: []
+      Commands:
+      - Kind: 0
+        CounterKey: pending-enemy-pg-drain
+        CounterCap: 2147483647
+        ValueSource: 0
+        Amount: 1
+    - Id: drain-enemy-pg-at-team-turn-end
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: 3
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Trigger: 2
+      OwnTeamTurnOnly: 1
+      ActorRelation: 0
+      TargetRelation: 0
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions:
+      - Kind: 17
+        StringValue: pending-enemy-pg-drain
+        Threshold: 1
+      Commands:
+      - Kind: 2
+        Effect:
+          Id: drain-all-enemy-pg
+          Order: 0
+          Window: 0
+          Kind: 5
+          Target: 3
+          Conditions: []
+          Magnitude: -2
+      - Kind: 3
+        CounterKey: pending-enemy-pg-drain
+        CounterCap: 2147483647
+        ValueSource: 0
+        Amount: 0
+    Triggers: []

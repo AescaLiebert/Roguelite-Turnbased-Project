@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 0da1d70afe745514ab00864767829a0c, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict Blaze damage equal to 100% of ATK
+  - description: Inflict Blaze damage equal to 100% of ATK
     skillType: 0
     runtimeEffect:
       Id: 
@@ -108,11 +107,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict Blaze damage equal to 150% of ATK
+  - description: Inflict Blaze damage equal to 150% of ATK
     skillType: 0
     runtimeEffect:
       Id: 
@@ -203,11 +199,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict Blaze damage equal to 250% of ATK
+  - description: Inflict Blaze damage equal to 250% of ATK
     skillType: 0
     runtimeEffect:
       Id: 
@@ -298,6 +291,4 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0

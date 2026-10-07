@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Heals diminished HP of 1 ally by 20%
+  - description: Heals diminished HP of 1 ally by 20%
     skillType: 4
     runtimeEffect:
       Attack:
@@ -114,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 2
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -212,12 +210,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 2
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Heals diminished HP of 1 ally by 35%
+  - description: Heals diminished HP of 1 ally by 35%
     skillType: 4
     runtimeEffect:
       Attack:
@@ -314,7 +308,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 2
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -412,12 +405,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 2
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Heals diminished HP of 1 ally by 65%
+  - description: Heals diminished HP of 1 ally by 65%
     skillType: 4
     runtimeEffect:
       Attack:
@@ -514,7 +503,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 2
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -612,7 +600,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 2
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

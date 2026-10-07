@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: ralf94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.ralf94
+  runtimeReady: 1
+  sourceId: 20
+  sourceRecord: 21
+  familyId: family.ralf
+  seriesId: series.kof
+  role: 4th Slot Support (Sub)
+  traitIds:
+  - trait.ikari
+  - trait.series-kof
+  passiveSourceDescription: Increases allies's Ultimate Card damage by 40%
+  passiveSourceType: 2
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: 38291e988642bb44dae86feb8d58d065, type: 2}
+  id: 1020
+  fighterName: Ralf Jone 94
+  fighterTag: Ralf
+  fighterPic: {fileID: 21300000, guid: bfd9eb6751b44654ca792be38c8110bd, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 5b9f2b48085f5c64fbf293f34183e794, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 66960b47fa630864ebccb9944d106728, type: 2}
+  Skill1: {fileID: 11400000, guid: 95e9768d5a0c83a4b9ffd9574678e41f, type: 2}
+  Skill2: {fileID: 11400000, guid: 706f1c0ee9ae96646b88943617ec3208, type: 2}
+  Ultimate: {fileID: 11400000, guid: a9ffb1dc493cb0f46b1432bc2ae5a1eb, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2520
+  attack: 150
+  defense: 300
+  health: 5100
+  SecondaryStats:
+    PierceRate: 0
+    Resistance: 15
+    Regenerate: 0
+    CritChance: 5
+    CritDmg: 120
+    CritResistance: 20
+    CritDefense: 20
+    RecoveryRate: 110
+    BlockChance: 5
+    BlockPower: 0
+    LifeSteal: 5
+    AvoidanceRate: 0
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

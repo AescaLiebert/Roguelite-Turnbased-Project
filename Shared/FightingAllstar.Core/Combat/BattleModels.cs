@@ -24,6 +24,8 @@ namespace FightingAllstar.Core.Combat
         public int Health;
         public int Shield;
         public int PowerGauge;
+        public bool PowerGaugeDisabled;
+        public bool CannotDie;
         public int ConstellationTier;
         public int OwnerTurnsCompleted;
         public StatusContainer Statuses = new StatusContainer();
@@ -34,7 +36,8 @@ namespace FightingAllstar.Core.Combat
         {
             var copy = new FighterState { Id = Id, Side = Side, Definition = Definition?.Clone(), TeamIndex = TeamIndex,
             FormationSlot = FormationSlot, IsReserve = IsReserve, IsAlive = IsAlive, Health = Health, Shield = Shield,
-            PowerGauge = PowerGauge, ConstellationTier = ConstellationTier, OwnerTurnsCompleted = OwnerTurnsCompleted,
+            PowerGauge = PowerGauge, PowerGaugeDisabled = PowerGaugeDisabled, CannotDie = CannotDie,
+            ConstellationTier = ConstellationTier, OwnerTurnsCompleted = OwnerTurnsCompleted,
             Statuses = Statuses?.Clone() ?? new StatusContainer() };
             foreach (var counter in PassiveCounters) copy.PassiveCounters.Add(counter.Clone());
             foreach (var contribution in PassiveContributions) copy.PassiveContributions.Add(contribution.Clone());
@@ -65,12 +68,13 @@ namespace FightingAllstar.Core.Combat
         public TeamSide Side;
         public long NextCardSequence;
         public int HandCapacity;
+        public bool TrainingDeck;
         public List<FighterState> Fighters = new List<FighterState>();
         public List<CardState> Hand = new List<CardState>();
 
         public BattleTeamState Clone()
         {
-            var copy = new BattleTeamState { Side = Side, NextCardSequence = NextCardSequence, HandCapacity = HandCapacity };
+            var copy = new BattleTeamState { Side = Side, NextCardSequence = NextCardSequence, HandCapacity = HandCapacity, TrainingDeck = TrainingDeck };
             foreach (var f in Fighters) copy.Fighters.Add(f.Clone());
             foreach (var c in Hand) copy.Hand.Add(c.Clone());
             return copy;
@@ -98,6 +102,7 @@ namespace FightingAllstar.Core.Combat
         public int ActionBudget;
         public TeamSide? Winner;
         public bool IsDraw;
+        public bool IsTraining;
         public BattleModeMask Mode = BattleModeMask.PvE;
         public long PassiveEventSequence;
         public BattleTeamState Player = new BattleTeamState { Side = TeamSide.Player };
@@ -109,21 +114,48 @@ namespace FightingAllstar.Core.Combat
         public List<BattleEvent> Events = new List<BattleEvent>();
         public List<RunBoonDefinition> RunBoons = new List<RunBoonDefinition>();
         public List<string> ActivePassiveAuras = new List<string>();
+        public List<PendingPassiveEffect> PendingPassiveEffects = new List<PendingPassiveEffect>();
 
         public BattleState Clone()
         {
             var copy = new BattleState { MatchId = MatchId, Revision = Revision, TurnNumber = TurnNumber, CompletedTurnCount = CompletedTurnCount,
                 ActingSide = ActingSide, Phase = Phase, ActionBudget = ActionBudget, Winner = Winner, IsDraw = IsDraw,
-                Mode = Mode, PassiveEventSequence = PassiveEventSequence,
+                Mode = Mode, IsTraining = IsTraining, PassiveEventSequence = PassiveEventSequence,
                 Player = Player.Clone(), Opponent = Opponent.Clone(), RngState = RngState, RngDrawCount = RngDrawCount,
                 CardRngState = CardRngState, CardRngDrawCount = CardRngDrawCount };
             foreach (var e in Events) copy.Events.Add(e.Clone());
             foreach (var boon in RunBoons) copy.RunBoons.Add(boon.Clone());
             foreach (var aura in ActivePassiveAuras) copy.ActivePassiveAuras.Add(aura);
+            foreach (var pending in PendingPassiveEffects)
+                copy.PendingPassiveEffects.Add(pending?.Clone());
             return copy;
         }
         public BattleTeamState Team(TeamSide side) => side == TeamSide.Player ? Player : Opponent;
         public BattleTeamState OtherTeam(TeamSide side) => side == TeamSide.Player ? Opponent : Player;
+    }
+
+    [Serializable]
+    public sealed class PendingPassiveEffect
+    {
+        public string EffectOwnerId;
+        public string ActorId;
+        public string SelectedTargetId;
+        public string RootActionId;
+        public string ReactionId;
+        public CardCategory CardCategory;
+        public int CardRank;
+        public bool IsUltimate;
+        public DamageFamily DamageFamily;
+        public bool WasCritical;
+        public bool WasBlocked;
+        public CardEffectOperationDefinition Operation;
+
+        public PendingPassiveEffect Clone() => new PendingPassiveEffect {
+            EffectOwnerId = EffectOwnerId, ActorId = ActorId, SelectedTargetId = SelectedTargetId,
+            RootActionId = RootActionId, ReactionId = ReactionId,
+            CardCategory = CardCategory, CardRank = CardRank,
+            IsUltimate = IsUltimate, DamageFamily = DamageFamily, WasCritical = WasCritical,
+            WasBlocked = WasBlocked, Operation = Operation?.Clone() };
     }
 
     [Serializable]
@@ -142,6 +174,7 @@ namespace FightingAllstar.Core.Combat
         public List<StatusInstance> StatusesAfter;
         public string StatusInstanceId;
         public string StatusRecipeId;
+        public StatusApplyOutcome StatusOutcome;
         public int Amount;
         public int HealthAfter;
         public int ShieldAfter;

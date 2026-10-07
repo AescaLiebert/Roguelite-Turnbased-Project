@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FightingAllstar.Server.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0034d1575dd92438785d5139069d47a7afe0d1f9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a00eb4d982fe6ef8c1fc67d6b7ef109ea6b2b8c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("FightingAllstar.Server.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FightingAllstar.Server.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

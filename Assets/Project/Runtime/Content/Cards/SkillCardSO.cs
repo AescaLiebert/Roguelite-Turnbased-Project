@@ -10,9 +10,11 @@ public class SkillCardSO : ScriptableObject
     public string cardName;
     public Sprite cardIcon;
 
-    [Header("Rank Data")]
+    [Header("Status Visuals")]
     public List<FightingAllstar.Presentation.Combat.StatusVisualData> statusVisuals = new List<FightingAllstar.Presentation.Combat.StatusVisualData>();
     private void OnEnable() { foreach (var visual in statusVisuals) FightingAllstar.Presentation.Combat.StatusVisualData.Register(visual); }
+    [Header("Rank Effects")]
+    [Tooltip("Card art is shared by every rank. This list stores only the description, category, and runtime effect that can change by rank.")]
     public List<CardRankData> ranks = new List<CardRankData>();
 
     [ContextMenu("Stance Examples/Immunity, Evade, 80% Recovery")]
@@ -99,9 +101,9 @@ public enum SkillTargetType
 [Serializable]
 public class CardRankData
 {
-    public int rankLevel; // 1, 2, 3
     [TextArea]
     public string description;
+    [Tooltip("The category may change by rank, for example when a higher rank adds a debuff.")]
     public SkillType skillType;
     [Header("Runtime Effect")]
     [Tooltip("The combat definition used by battle. Put all card effects, including follow-up effects, in this definition's Sequence.")]

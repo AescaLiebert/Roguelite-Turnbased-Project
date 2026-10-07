@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: andy94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: "If self not damaged in that turn, gains 1 point ult gauge to self"
-  sourceType: "On-Field"
-  sourceRestriction: "Own"
   definition:
     Id: fighter.andy94.passive.source
     Auras: []
@@ -23,7 +20,7 @@ MonoBehaviour:
     - Id: undamaged-turn-ult-gauge
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 1
         AllowDefeatedOwner: 0
@@ -62,5 +59,4 @@ MonoBehaviour:
         CounterCap: 2147483647
         ValueSource: 0
         Amount: 1
-        DelayOwnerTurns: 0
     Triggers: []

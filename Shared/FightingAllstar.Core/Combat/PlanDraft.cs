@@ -38,7 +38,7 @@ namespace FightingAllstar.Core.Combat
             var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner,
                 CardRules.GetEffectCategory(card), card.Rank,
                 card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
-            if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost && !disabled)
+            if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost && !disabled && !_view.Team.TrainingDeck)
             {
                 reason = "Ultimate requires five PG.";
                 return false;
@@ -51,6 +51,7 @@ namespace FightingAllstar.Core.Combat
             if (disabled) owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
             else if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
             else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
+            if (owner.PowerGaugeDisabled) owner.PowerGauge = 0;
             _lastEvents.Add(new BattleEvent { Kind = BattleEventKind.CardPlayed, SourceId = owner.Id,
                 TargetId = target.Id, CardId = card.Id, Card = card.Clone(), PowerGaugeAfter = owner.PowerGauge,
                 TargetIds = ResolveDraftTargets(card, owner, target).ConvertAll(item => item.Id) });
@@ -131,6 +132,7 @@ namespace FightingAllstar.Core.Combat
                     var owner = _view.Team.FindFighter(card.OwnerFighterId);
                     if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
                     else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
+                    if (owner.PowerGaugeDisabled) owner.PowerGauge = 0;
                     CardRules.MergeAdjacent(_view.Team, null);
                 }
             }

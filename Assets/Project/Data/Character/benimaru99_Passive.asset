@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: benimaru99_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: Reduces the Avoidance rate of enemy Women Trait by 20%
-  sourceType: On-Field
-  sourceRestriction: Women
   definition:
     Id: fighter.benimaru99.passive.source
     Auras:
     - Id: women-avoidance
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: -1
         Presence: 0
         AllowDefeatedOwner: 0
@@ -47,11 +44,16 @@ MonoBehaviour:
         Amount: -3500
         ScaleByStatusPotency: 0
         PotencyCoefficientBp: 10000
+        SerializedTarget: -1
+        SerializedStat: -1
+        SerializedBundle: -1
+        SerializedFamily: -1
+        SerializedOperation: -1
     Reactions:
     - Id: apply-debuff-women-defense-down
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: -1
         Presence: 0
         AllowDefeatedOwner: 0
@@ -60,7 +62,7 @@ MonoBehaviour:
       ActorRelation: 3
       TargetRelation: 1
       CardOriginOnly: 0
-      ExcludeUltimate: 0
+      ExcludeUltimate: 1
       RequireGaugeLoss: 0
       RequireCritical: 0
       RequireBlocked: 0
@@ -227,6 +229,5 @@ MonoBehaviour:
             FixedAmount: 0
             CoefficientBp: 0
             MaximumAmount: 0
-        DelayOwnerTurns: 0
       ElseCommands: []
     Triggers: []

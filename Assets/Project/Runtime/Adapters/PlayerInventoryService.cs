@@ -173,7 +173,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
             owned = new OwnedCharacterRecord { instanceId = Guid.NewGuid().ToString("N"), definitionId = definition.DefinitionId };
             snapshot.characters.Add(owned);
         }
-        else if (owned.constellationTier < 6)
+        else if (owned.constellationTier < 5)
         {
             owned.constellationTier++;
         }
@@ -234,7 +234,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
                 results.Add(character);
                 var owned = snapshot.FindDefinition(character.DefinitionId);
                 if (owned == null) snapshot.characters.Add(new OwnedCharacterRecord { instanceId = Guid.NewGuid().ToString("N"), definitionId = character.DefinitionId });
-                else if (owned.constellationTier < 6) owned.constellationTier++;
+                else if (owned.constellationTier < 5) owned.constellationTier++;
                 else snapshot.duplicateTokens++;
                 snapshot.featuredGuaranteeProgress++;
                 if (snapshot.featuredGuaranteeProgress >= GuaranteeThreshold)
@@ -511,6 +511,8 @@ public sealed class PlayerInventoryService : MonoBehaviour
             while (df.formation.Count < 4) df.formation.Add(string.Empty);
             if (df.formation.Count > 4) df.formation.RemoveRange(4, df.formation.Count - 4);
         }
+        foreach (var owned in snapshot.characters)
+            if (owned != null) owned.constellationTier = Mathf.Clamp(owned.constellationTier, 0, 5);
     }
 
     private void EnsureCatalog()

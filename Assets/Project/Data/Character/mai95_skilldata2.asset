@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: ba8917f0d7a12ba418d0e205627ce9dc, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflicts 150% of ATK
+  - description: Inflicts 150% of ATK
     skillType: 0
     runtimeEffect:
       Id: fighter.mai95.skill.2.rank.1
@@ -98,11 +97,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 3
-  - rankLevel: 2
-    description: Inflicts 225% of ATK
+  - description: Inflicts 225% of ATK
     skillType: 0
     runtimeEffect:
       Id: fighter.mai95.skill.2.rank.2
@@ -183,11 +179,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 3
-  - rankLevel: 3
-    description: Inflicts 375% of ATK
+  - description: Inflicts 375% of ATK
     skillType: 0
     runtimeEffect:
       Id: fighter.mai95.skill.2.rank.3
@@ -268,6 +261,4 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0

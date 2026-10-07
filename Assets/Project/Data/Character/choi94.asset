@@ -22,10 +22,11 @@ MonoBehaviour:
   traitIds:
   - trait.korea-justice
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: Reduces the attack-related stats of Women Trait enemy
     by 15%
-  passiveSourceType: SUB
-  passiveRestriction: Women
+  passiveSourceType: 2
+  passiveRestriction: 5
   passiveDefinition: {fileID: 11400000, guid: 8092412b78c94b40b76c69326627789e, type: 2}
   id: 1025
   fighterName: Choi Bouge 94
@@ -37,7 +38,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: 1e6f460503b21374eaf156f390a95c26, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 5a078724d50caf247a4f2fe6788a3f56, type: 2}
   Skill1: {fileID: 11400000, guid: b23c6ea5cad14a718ccd14cec49bf638, type: 2}
   Skill2: {fileID: 11400000, guid: f289d982464b4018a0e594f787702c94, type: 2}
   Ultimate: {fileID: 11400000, guid: 5c31e40715cd4e83b2898da656416f04, type: 2}

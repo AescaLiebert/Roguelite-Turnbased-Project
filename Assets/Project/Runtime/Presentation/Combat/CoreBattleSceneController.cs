@@ -8,6 +8,7 @@ using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Content;
 using FightingAllstar.Core.Run;
 using FightingAllstar.Presentation.Route;
+using FightingAllstar.Presentation.Navigation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,6 +35,7 @@ namespace FightingAllstar.Presentation.Combat
         [SerializeField] private TMP_Text damageTotalValue;
 
         private IBattleSession _session;
+        private bool _trainingMode;
         [NonSerialized] private CoreBattleState _snapshot;
         private PlanDraft _draft;
         private VisualElement _handRow;
@@ -95,8 +97,10 @@ namespace FightingAllstar.Presentation.Combat
 
         private void Start()
         {
+            _trainingMode = SceneManager.GetActiveScene().name == "Training";
             FightingAllstar.Core.Combat.AI.EnemyAiPlanner.LogCallback = msg => Debug.Log(msg, this);
             BindBattleHud();
+            if (_trainingMode) BindTrainingControls();
             if (damageTotalPanel != null) damageTotalPanel.SetActive(false);
             if (damageTotalValue != null)
             {
@@ -106,7 +110,11 @@ namespace FightingAllstar.Presentation.Combat
                 damageTotalValue.textWrappingMode = TextWrappingModes.NoWrap;
                 damageTotalValue.overflowMode = TextOverflowModes.Truncate;
             }
-            if (!LocalEncounterContext.TryConsumeEncounter(out var encounter, out var seed))
+            EncounterProjection encounter;
+            ulong seed;
+            var hasEncounter = _trainingMode ? TrainingContext.TryCreateEncounter(out encounter, out seed) :
+                LocalEncounterContext.TryConsumeEncounter(out encounter, out seed);
+            if (!hasEncounter)
             {
                 Debug.LogWarning("No battle encounter is pending. Open Gacha, set CharacterLoadOut, then enter a Dungeon.", this);
                 SetControls(false);
@@ -118,9 +126,9 @@ namespace FightingAllstar.Presentation.Combat
                 EnsureFighterAttributes(encounter);
                 var playerCC = encounter.PlayerTeam.Sum(fighter => fighter.Stats == null ? 0 : fighter.Stats.CombatClass);
                 var opponentCC = encounter.EnemyTeam.Sum(fighter => fighter.Stats == null ? 0 : fighter.Stats.CombatClass);
-                var playerFirst = playerCC >= opponentCC;
+                var playerFirst = _trainingMode || playerCC >= opponentCC;
                 var initialState = RunBattleBridge.CreateLocalBattle(encounter, seed,
-                    playerFirst ? TeamSide.Player : TeamSide.Opponent);
+                    playerFirst ? TeamSide.Player : TeamSide.Opponent, training: _trainingMode);
                 _session = new LocalBattleSession(initialState);
                 // LocalBattleSession may already have resolved an enemy-first turn. Display the opening state first.
                 _snapshot = initialState.Clone();
@@ -216,6 +224,16 @@ namespace FightingAllstar.Presentation.Combat
                 var view = character != null && character.Fighter3DPrefab != null
                     ? Instantiate(character.Fighter3DPrefab, position, rotation)
                     : CreatePlaceholder(fighter, position, rotation);
+                if (character != null)
+                {
+                    var meshFilter = view.GetComponent<MeshFilter>();
+                    if (meshFilter != null && character.Fighter3DMesh != null)
+                        meshFilter.sharedMesh = character.Fighter3DMesh;
+
+                    var meshRenderer = view.GetComponent<MeshRenderer>();
+                    if (meshRenderer != null && character.Fighter3DMaterial != null)
+                        meshRenderer.sharedMaterial = character.Fighter3DMaterial;
+                }
                 view.name = "CoreFighter_" + fighter.Id;
                 WireOpponentTarget(view, fighter.Id);
                 if (fighter.IsReserve) view.SetActive(false);
@@ -756,6 +774,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void FinishBattle()
         {
+            if (_trainingMode) { ExitTraining(); return; }
             if (ExitPreview()) return;
             LocalEncounterContext.StoreResult(_session.GetSnapshot());
             SceneManager.LoadScene(returnScene);
@@ -763,6 +782,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void SurrenderRun()
         {
+            if (_trainingMode) { ExitTraining(); return; }
             if (ExitPreview()) return;
             var store = new LocalRunStateStore();
             store.Clear();
@@ -803,6 +823,7 @@ namespace FightingAllstar.Presentation.Combat
 
                     billboard.gameObject.SetActive(visible && _hudRevealed);
                     billboard.SetCoreHealth(fighter.Health, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
+                    billboard.SetPowerGaugeVisible(!fighter.PowerGaugeDisabled);
                     billboard.SetShield(fighter.Shield, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
                     if (isPlayerDraft)
                     {
@@ -1085,7 +1106,7 @@ namespace FightingAllstar.Presentation.Combat
             return false;
         }
 
-        private static bool IsCardUnavailableByRules(CardState card, FighterState owner)
+        private bool IsCardUnavailableByRules(CardState card, FighterState owner)
         {
             if (card == null || owner == null || !owner.IsAlive || owner.IsReserve) return true;
             EffectDefinition effect;
@@ -1094,7 +1115,8 @@ namespace FightingAllstar.Presentation.Combat
                 : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
             var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner, CardRules.GetEffectCategory(card), card.Rank,
                 card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
-            return card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost && !disabled;
+            return card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost && !disabled &&
+                !(_trainingMode && owner.Side == TeamSide.Player);
         }
 
         private static readonly Dictionary<SkillType, Sprite> _skillTypeSprites = new Dictionary<SkillType, Sprite>();
@@ -1284,7 +1306,7 @@ namespace FightingAllstar.Presentation.Combat
             result.Skill = owner.Definition.Skills?.Find(item => item != null && item.Id == card.SkillId);
             if (result.Skill != null)
                 result.SkillAsset = result.Skill.Slot == 2 ? character?.Skill2 : character?.Skill1;
-            result.AssetRank = result.SkillAsset?.ranks?.Find(item => item != null && item.rankLevel == card.Rank);
+            result.AssetRank = result.SkillAsset?.GetRankData(card.Rank);
             result.SkillRank = result.Skill?.Ranks?.Find(item => item != null && item.Rank == card.Rank);
             result.Effect = result.SkillRank?.Effect ?? result.AssetRank?.runtimeEffect;
             result.Description = result.SkillRank?.Description;

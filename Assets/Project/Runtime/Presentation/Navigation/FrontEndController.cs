@@ -37,6 +37,7 @@ namespace FightingAllstar.Presentation.Navigation
             _guarantee = QueryLabel("guarantee", "economy-guarantee");
             _banner = _root.Q("banner-screen"); _results = _root.Q("result-screen");
             BindIfPresent("battle", () => Navigate("Combat"));
+            BindIfPresent("training", () => TrainingCharacterPicker.Show(_root));
             BindIfPresent("summon", () => Navigate("Scene-Gacha"));
             BindIfPresent("back", () => Navigate("MainMenu"));
             BindFirst(new[] { "summon-one", "summon-single" }, () => Summon(1));
@@ -158,7 +159,7 @@ namespace FightingAllstar.Presentation.Navigation
                     if (receipt != null)
                         receipt.text = "Summoned: " + string.Join(", ", draws.Select(x => x.FighterRarity + " " + x.FighterName));
                 }
-                SetNotice("Fighters added to your collection. Duplicates advance constellation up to C6, then grant tokens.");
+                SetNotice("Fighters added to your collection. Duplicates advance constellation up to C5, then grant tokens.");
                 Debug.Log("Summon completed successfully: " + draws.Count + " fighter(s).", this);
                 Refresh();
             }

@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 7aaf8d87698a8f94c8eb5b2744b28740, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Taunts enemies and increases HP-related stats by 8% for 2 turns
+  - description: "Taunts enemies and increases HP-related stats by 8% for 2 turns"
     skillType: 1
     runtimeEffect:
       Attack:
@@ -166,7 +165,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 0
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -316,14 +314,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 2
-    description: Taunts enemies and increases HP-related stats by 12% for 3 turns,
-      If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2
-      turns
+  - description: "Taunts enemies and increases HP-related stats by 12% for 3 turns, If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2 turns"
     skillType: 1
     runtimeEffect:
       Attack:
@@ -472,7 +464,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 0
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -622,9 +613,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
       - Timing: 2
         Effect:
           Attack:
@@ -721,14 +710,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 6
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 3
-    description: Taunts enemies and increases HP-related stats by 20% for 3 turns,
-      If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2
-      turns
+  - description: "Taunts enemies and increases HP-related stats by 20% for 3 turns, If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2 turns"
     skillType: 1
     runtimeEffect:
       Attack:
@@ -877,7 +860,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 0
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -1027,9 +1009,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
       - Timing: 2
         Effect:
           Attack:
@@ -1126,7 +1106,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 6
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0

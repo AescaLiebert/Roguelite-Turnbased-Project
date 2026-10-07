@@ -25,8 +25,8 @@ MonoBehaviour:
   - trait.psycho-soldier
   - trait.series-kof
   passiveSourceDescription: Increase Women allies's Attack-related stats by 15%
-  passiveSourceType: SUB
-  passiveRestriction: Women
+  passiveSourceType: 2
+  passiveRestriction: 5
   passiveDefinition: {fileID: 11400000, guid: 8e462954b86dc844db29948c39b6c01a, type: 2}
   id: 1011
   fighterName: Asumiya Athena 94
@@ -38,7 +38,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: 760f392a3867c864d90086b06b79f8b7, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: a9ca6b9ed08c4934b8c32e7204538af5, type: 2}
   Skill1: {fileID: 11400000, guid: 88da62ff54f7ddd468a3dc530598eac2, type: 2}
   Skill2: {fileID: 11400000, guid: 38cbf7ee74dbfd7449f03f03ea3ec7c2, type: 2}
   Ultimate: {fileID: 11400000, guid: 99310103b0e41ba44b5cecbb788a6ca3, type: 2}

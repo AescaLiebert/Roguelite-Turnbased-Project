@@ -10,7 +10,7 @@ namespace FightingAllstar.Presentation.Route
     {
         public CharacterObject Character;
         public bool OverrideConstellationTier;
-        [Range(0, 6)] public int ConstellationTier;
+        [Range(0, 5)] public int ConstellationTier;
     }
 
     [Serializable]

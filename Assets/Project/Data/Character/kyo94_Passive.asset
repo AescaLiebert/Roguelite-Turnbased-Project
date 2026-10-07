@@ -13,17 +13,13 @@ MonoBehaviour:
   m_Name: kyo94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: For each Ignites effect on enemy, Increase own ATK by 5%(Maximum
-    50%)
-  sourceType: 
-  sourceRestriction: 
   definition:
     Id: fighter.kyo94.passive.source
     Auras:
     - Id: ignite-attack
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 1
         AllowDefeatedOwner: 0

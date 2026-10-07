@@ -25,7 +25,7 @@ Fighting Allstar is a 3D card battle RPG about assembling a team whose fighters 
 
 The completed documents are review inputs. Runtime implementation, dependency changes, scene/build changes, and deployment are later work. This GDD is the design reference; [the architecture plan](../3_Outputs/Specs/fighting-allstar-prototype-arch-plan.md) describes the implementation boundary and [the test plan](../3_Outputs/TestPlans/fighting-allstar-prototype-test-plan.md) defines verification. There is no claim that the new design is already implemented.
 
-**Confirmed owner clarifications:** constellation starts at **C0/6** and advances through six upgrades to **C6/6**. Dungeons have **linear stages with randomized opposing character teams drawn from the same shared character catalog**. Opponents use ordinary character skills, passives, progression snapshots, and combat rules. Account sign-in uses **Firebase Authentication with third-party providers**. The specific providers and platform integration remain implementation choices for review.
+**Current owner clarification:** constellation starts at **C0/5** and advances through five upgrades to **C5/5**. Dungeons have **linear stages with randomized opposing character teams drawn from the same shared character catalog**. Opponents use ordinary character skills, passives, progression snapshots, and combat rules. Account sign-in uses **Firebase Authentication with third-party providers**. The specific providers and platform integration remain implementation choices for review.
 
 <!-- @tag:identity -->
 ## Project identity
@@ -109,7 +109,7 @@ Touch cancellation and Reset affect only the unsubmitted draft. Input during pla
 <!-- @tag:core-loop -->
 ## Core game loop
 
-**Confirmed loop:** receive starter **Kyo94**, enter linear dungeons, face randomly generated character teams, win Diamonds, use Diamonds for character gacha, expand the roster, and use eligible fighters in restricted dungeons. Defeat preserves owned characters and permanent inventory. Ultimate/constellation progression advances from **C0/6 through C6/6**.
+**Confirmed loop:** receive starter **Kyo94**, enter linear dungeons, face randomly generated character teams, win Diamonds, use Diamonds for character gacha, expand the roster, and use eligible fighters in restricted dungeons. Defeat preserves owned characters and permanent inventory. Ultimate/constellation progression advances from **C0/5 through C5/5**.
 
 **Proposed complete session:**
 
@@ -165,9 +165,9 @@ Confirmed featured guarantee threshold300 pulls. Proposed review policy: every30
 
 Server atomically debits/grants and stores an immutable summon receipt; retries use the same requestID and return the same results. Reveals/skips cannot spend or grant again. Six character-specific crests upgrade C0 throughC6; proposed capped duplicates become Collection Tokens with no prototype exchange. Full states, receipt recovery and economy starting values are in the linked economy design.
 
-**Confirmed constellation model:** ownership is **C0/6**, followed by **C1/6, C2/6, C3/6, C4/6, C5/6, C6/6**. This is six upgrades and seven displayed states. A constellation changes ultimate parameters and a visible ultimate-related synergy; it does not unlock a fighter's essential role. The initial eight-fighter balance test runs all fighters at C0/6. Mandatory cleanse, guard, or anti-stall answers cannot require duplicates.
+**Confirmed constellation model:** ownership is **C0/5**, followed by **C1/5, C2/5, C3/5, C4/5, C5/5**. This is five upgrades and six displayed states. A constellation changes ultimate parameters and a visible ultimate-related synergy; it does not unlock a fighter's essential role. The initial eight-fighter balance test runs all fighters at C0/5. Mandatory cleanse, guard, or anti-stall answers cannot require duplicates.
 
-The separate roster provides explicit C0–C6 drafts. Default generated ultimate ATK potency grows non-compoundingly by5% of baseline per upgrade; source Kyo Ignite and Robert critical-chance riders keep their stated per-level steps. No universal invented C6 unlock. Relics and equipment are deferred.
+The separate roster provides explicit C0–C5 drafts. Default generated ultimate ATK potency grows non-compoundingly by5% of baseline per upgrade; source Kyo Ignite and Robert critical-chance riders keep their stated per-level steps. Relics and equipment are deferred.
 
 <!-- @tag:enemies -->
 ## Canonical gameplay content — opposing character teams
@@ -183,7 +183,7 @@ The detailed [actual-source combat contract](../3_Outputs/Specs/fighting-allstar
 
 ### Team build and initiative
 
-Three active fighters and one reserve; no duplicate definition IDs within a team. Different variants are allowed for the prototype; family restrictions are future rules. Validate ownership, dungeon eligibility and C0–C6; freeze the versioned loadout. Proposed initiative sums authored Class_Combat across the selected roster, including reserve, before transient passives; a server-recorded coin flip breaks ties. CC is an estimate, not the AI evaluation. Existing source CC is retained; there is no invented HP+ATK formula overriding it.
+Three active fighters and one reserve; no duplicate definition IDs within a team. Different variants are allowed for the prototype; family restrictions are future rules. Validate ownership, dungeon eligibility and C0–C5; freeze the versioned loadout. Proposed initiative sums authored Class_Combat across the selected roster, including reserve, before transient passives; a server-recorded coin flip breaks ties. CC is an estimate, not the AI evaluation. Existing source CC is retained; there is no invented HP+ATK formula overriding it.
 
 ### Cards, planning and PG
 
@@ -220,7 +220,7 @@ Batch damage is simultaneous for its target set. Lifesteal uses actual HP remove
 
 The actual WIP catalog contains **29 characters**. Full character tables are intentionally external: [roster and generated ranks/constellations](../3_Outputs/Specs/CharacterData/character-roster.md), [structured authoring drafts](../3_Outputs/Specs/CharacterData/wip-character-drafts.json), and [unmodified source rows](../3_Outputs/Specs/CharacterData/source-catalog.json).
 
-First four proposed runtime kits: **Kyo94, Chin94, Kensou94, King94**. First complete eight-kit slice adds **Mai94, Shingo97, Benimaru94, Athena94**. Remaining21 are planned catalog content, not required to prove the first loop. Missing stats are generated only for the five incomplete source characters; all 29 receive draft R1/R2 and C0–C6 entries. Holy Relics are preserved but disabled initially.
+First four proposed runtime kits: **Kyo94, Chin94, Kensou94, King94**. First complete eight-kit slice adds **Mai94, Shingo97, Benimaru94, Athena94**. Remaining21 are planned catalog content, not required to prove the first loop. Missing stats are generated only for the five incomplete source characters; all 29 receive draft R1/R2 and C0–C5 entries. Holy Relics are preserved but disabled initially.
 
 Kyo94 benefits from Chin's Ignite setup, Kensou supplies recovery/cleanse, and reserve King builds Pierce support before entering with Poison and drain. Moving King active trades immediate access to those cards against another active role. Mai supplies anti-recovery/Rupture; Shingo supplies gauge denial; Athena supplies Women support and healing; Benimaru supports Red stats and stance disruption. Team inspection explains active reserve effects and trait/mode mismatches.
 
@@ -273,7 +273,7 @@ Source numerical anchors: hand7; PG5; source rank3 and baseline stats; attribute
 | T-TIME / T-PACE | Planning45s; cap40 owner turns; battle2–4min; run12–25min | Timed new-player run; simplify reading/playback before cutting thinking time |
 | T-UI / T-DEVICE | Feedback≤100ms; Android30FPS / PC60FPS | Record target devices; 9/10 intended selections; enlarge targets before changing rules |
 | T-DAMAGE / T-STATUS | Source-contract formulas, variance95–105%; default unspecified duration2, Ignite cap10 | Golden vectors and cap/control abuse tests; narrow variance/stack duration if prediction or agency fails |
-| T-BASE / T-SKILL / T-CONST | Actual source stat/rank3 anchors; generated ranks and C0–C6 outside GDD | Compare action efficiency and C0 counter access; reduce generated progression if it erases counterplay |
+| T-BASE / T-SKILL / T-CONST | Actual source stat/rank3 anchors; generated ranks and C0–C5 outside GDD | Compare action efficiency and C0 counter access; reduce generated progression if it erases counterplay |
 | T-ATTR | Source cycle±20%; neutral1; Light/Darkness10% aura | Paired attribute swaps; report domination before proposing a source-rule change |
 | T-CC | Sum authored Class_Combat; tie recorded random | Matched teams first-side win target45–55%; revise initiative if advantage persists |
 | T-ECON | Confirmed160/1600 pulls;4%featuredSSR/36%SR/60%R;300-pull featured guarantee. Proposed selector milestone,320 base completion Diamonds and1600 one-time onboarding grant | Receipt, rate and boundary tests; measure runs/time per chosen featured; improve deterministic acquisition if restrictions stall |
@@ -391,7 +391,7 @@ The local mode is a development/practice mode with separate storage. It can gran
 - Fighting Allstar; 3D tactical turn based cards; mobile/PC and PC/APK outputs.
 - Full 3+1 formations, team synergy, multiple meta triangles, and strong tactical opponents.
 - Starter Kyo94, dungeons, victory Diamonds, character gacha, and persistent ownership on loss.
-- Restricted dungeons that give roster breadth value; ultimate/constellation progression ends at C6/6.
+- Restricted dungeons that give roster breadth value; ultimate/constellation progression ends at C5/5.
 - MainMenu and Combat target scenes; Unity, UI Toolkit, LeanTween, UnityMCP tooling, Firebase, Cloudflare.
 - Card movement/merge/reset, PG/ultimates, statuses, critical/block, additional damage, lifesteal, counters/follow-ups, DOT, and reserve-aware passive registration.
 - Online outcomes derive from server execution; local AI tests can swap backend without changing combat rules.
@@ -441,7 +441,7 @@ The prototype is a complete small version of the loop, not the full collection/l
 | --- | --- | --- |
 | **P0-A — Rules and portability** | A reproducible full 3+1 test battle with four distinct archetypes available on both sides | Headless replay/legality tests, versioned data and early Windows/Android core parity |
 | **P0-B — Playable card battle** | Touch/mouse plan, move, merge, reset, confirm, PG, ultimate, reserve entry; readable 3D playback and a legal baseline AI | MainMenu/Combat wiring, local backend and manual combat checklist |
-| **P0-C — Dungeon and roster loop** | Eight kits, Kyo tutorial, guaranteed allies, three linear dungeon profiles, randomized character teams, four reusable boons, first-clear selector, Diamonds, gacha, C0–C6 | Fresh profile completes dungeon-to-summon-to-revised-team loop; selector unlocks Women Exhibition; loss retains holdings; generation and reward fixtures pass |
+| **P0-C — Dungeon and roster loop** | Eight kits, Kyo tutorial, guaranteed allies, three linear dungeon profiles, randomized character teams, four reusable boons, first-clear selector, Diamonds, gacha, C0–C5 | Fresh profile completes dungeon-to-summon-to-revised-team loop; selector unlocks Women Exhibition; loss retains holdings; generation and reward fixtures pass |
 | **P0-D — Online authority** | Firebase third-party login, online PvE, reconnect and private-room two-client 3+1 battle on PC/APK | Trusted outcomes, private projections, duplicate-request/settlement tests and restart recovery |
 | **P0-E — AI and delivery acceptance** | Expert search, demonstrated team counterplay, finished prototype UI and tested Windows/APK artifacts | Tactical/fairness fixtures, paired matchup report, measured search/device budgets and owner game-feel review |
 
@@ -453,4 +453,4 @@ Expand the roster and arena library after the eight-fighter matchup report demon
 
 ### Ready for review, not yet implemented
 
-This GDD defines the requested battle lifecycle, a finite prototype roster, C0–C6 progression, linear generated character-team encounters, fair tactical AI, and acceptance criteria. Review priorities are the300-pull guarantee policy, Rest/reward starting values, detailed battle states and phaseA implementation ticket. Architecture changes should make those choices reproducible and understandable to the player.
+This GDD defines the requested battle lifecycle, a finite prototype roster, C0–C5 progression, linear generated character-team encounters, fair tactical AI, and acceptance criteria. Review priorities are the300-pull guarantee policy, Rest/reward starting values, detailed battle states and phaseA implementation ticket. Architecture changes should make those choices reproducible and understandable to the player.

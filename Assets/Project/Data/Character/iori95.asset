@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: iori95
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.iori95
+  runtimeReady: 1
+  sourceId: 6
+  sourceRecord: 7
+  familyId: family.iori
+  seriesId: series.kof
+  role: Tanky Attacker
+  traitIds:
+  - trait.orochi
+  - trait.fire-elements
+  - trait.japan
+  - trait.sacred-treasure
+  - trait.series-kof
+  passiveSourceDescription: Increases own damage dealt by 14% for each Ignite stack
+    on enemies. When the enemy team has Kyo, deals bonus damage equal to 5% of the
+    target's Max HP.
+  passiveSourceType: 1
+  passiveRestriction: 2
+  passiveDefinition: {fileID: 11400000, guid: 4d24608e12e5cda40909a1c0efdd3b68, type: 2}
+  id: 1006
+  fighterName: Yagami Iori 95
+  fighterTag: Iori
+  fighterPic: {fileID: 21300000, guid: eff1c514bfebf914588e680919556933, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 17fd06f2ae5ddb54eb8463a667d0eee5, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 6fd2cb74720c0894983371567d44b09e, type: 2}
+  Skill1: {fileID: 11400000, guid: 9c8287bf42eb31e48aa5e8698be7828e, type: 2}
+  Skill2: {fileID: 11400000, guid: b0977b9d8b865514f8e6d04993ae1a41, type: 2}
+  Ultimate: {fileID: 11400000, guid: f82898bb5d302c64a986d54d604b6168, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 4105
+  attack: 560
+  defense: 260
+  health: 6100
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 40
+    Regenerate: 25
+    CritChance: 65
+    CritDmg: 165
+    CritResistance: 30
+    CritDefense: 35
+    RecoveryRate: 110
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 20
+    AvoidanceRate: 0
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

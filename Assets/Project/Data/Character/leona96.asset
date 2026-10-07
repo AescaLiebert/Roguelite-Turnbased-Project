@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: leona96
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.leona96
+  runtimeReady: 1
+  sourceId: 18
+  sourceRecord: 0
+  familyId: family.leona
+  seriesId: series.kof
+  role: Glass Attacker
+  traitIds:
+  - trait.orochi
+  - trait.Ikari
+  - trait.series-kof
+  - trait.women
+  passiveSourceDescription: Increases own LifeSteal by 25%. Deals 40% more damage to enemies below 35% HP.
+  passiveSourceType: 1
+  passiveRestriction: 2
+  passiveDefinition: {fileID: 11400000, guid: 94ebcad408bb87846807b68310d8443b, type: 2}
+  id: 1018
+  fighterName: Leona Heidern 96
+  fighterTag: Leona
+  fighterPic: {fileID: 21300000, guid: 3525fd5530c0adc40a13f9f6d6c00024, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 2fe7778e05e27034aa4c87465091e41d, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: e27e23818e9befe41add98e76c9e1854, type: 2}
+  Skill1: {fileID: 11400000, guid: ad73cf89f78f21849a5f26bdd4743668, type: 2}
+  Skill2: {fileID: 11400000, guid: 276f934c5cb59c44dad6e8c27fc8f943, type: 2}
+  Ultimate: {fileID: 11400000, guid: 1e07c83f8afded845b9ae2f89faf0fef, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 4000
+  attack: 560
+  defense: 290
+  health: 5500
+  SecondaryStats:
+    PierceRate: 25
+    Resistance: 25
+    Regenerate: 20
+    CritChance: 25
+    CritDmg: 160
+    CritResistance: 25
+    CritDefense: 25
+    RecoveryRate: 100
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 10
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

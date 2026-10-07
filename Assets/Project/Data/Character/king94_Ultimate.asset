@@ -101,7 +101,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -115,7 +114,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -199,7 +197,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -213,13 +210,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 1
-    description: Inflict damage equal to 661.5% of ATK, Depletes enemy ult gauge
-      by 3 gauges
+    description: Inflict damage equal to 680% of ATK, Depletes enemy ult gauge by
+      3 gauges
     skillType: 0
     runtimeEffect:
       Attack:
@@ -231,7 +224,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 66150
+      CoefficientBp: 68000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -302,7 +295,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -316,7 +308,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -400,7 +391,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -414,12 +404,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 2
-    description: Inflict damage equal to 693% of ATK, Depletes enemy ult gauge by
+    description: Inflict damage equal to 730% of ATK, Depletes enemy ult gauge by
       3 gauges
     skillType: 0
     runtimeEffect:
@@ -432,7 +418,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 69300
+      CoefficientBp: 73000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -503,7 +489,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -517,7 +502,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -601,7 +585,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -615,13 +598,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 3
-    description: Inflict damage equal to 724.5% of ATK, Depletes enemy ult gauge
-      by 3 gauges
+    description: Inflict damage equal to 780% of ATK, Depletes enemy ult gauge by
+      3 gauges
     skillType: 0
     runtimeEffect:
       Attack:
@@ -633,7 +612,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 72450
+      CoefficientBp: 78000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -704,7 +683,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -718,7 +696,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -802,7 +779,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -816,12 +792,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 4
-    description: Inflict damage equal to 756% of ATK, Depletes enemy ult gauge by
+    description: Inflict damage equal to 830% of ATK, Depletes enemy ult gauge by
       3 gauges
     skillType: 0
     runtimeEffect:
@@ -834,7 +806,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 75600
+      CoefficientBp: 83000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -905,7 +877,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -919,7 +890,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -1003,7 +973,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1017,213 +986,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 5
-    description: Inflict damage equal to 787.5% of ATK, Depletes enemy ult gauge
-      by 3 gauges
-    skillType: 0
-    runtimeEffect:
-      Attack:
-        HitCount: 10
-        Range: 0
-      Id: 
-      Kind: 0
-      Family: 0
-      Scaling: 0
-      ScalingStat: 0
-      Magnitude: 0
-      CoefficientBp: 78750
-      KeywordFactorBp: 10000
-      KeywordId: 
-      Tags: []
-      Conditions: []
-      StatusRecipe:
-        Id: 
-        NameKey: 
-        Polarity: 0
-        Color: 0
-        Behavior: 0
-        Stacking: 0
-        Identity: 0
-        DurationClock: 1
-        DefaultDuration: 2
-        MaxStacks: 1
-        DefaultPotencyBp: 0
-        BypassDebuffImmunity: 0
-        BreakRule: 0
-        DisableMask: 0
-        Tags: []
-        Modifiers: []
-        PeriodicDamage:
-          Family: 3
-          Timing: 2
-          Scaling: 1
-          CoefficientBp: 10000
-          FixedAmount: 0
-          ConsumeOnTrigger: 0
-        PeriodicHealing:
-          Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
-          FixedAmount: 0
-        DebuffImmunity: 0
-        AdditionalDamageImmunity: 0
-        Taunt: 0
-        EvadeAttacks: 0
-        StanceChildren: []
-        RecoverDamageTakenBp: 0
-        CounterEnabled: 0
-        CounterCategory: 0
-        CounterTarget: 1
-        CounterConditions: []
-        CounterEffect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Kind: 0
-          Target: 1
-          Family: 0
-          Scaling: 0
-          CoefficientBp: 10000
-          Magnitude: 0
-          KeywordId: 
-          Timing: 3
-          HealSource: 3
-          HealAmount: 0
-          HealCoefficientBp: 10000
-          StatusRecipeId: 
-          StatusPolarity: 1
-          StatusApplyChanceBp: 10000
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          PowerGaugeAmount: 0
-          Sequence: []
-        SurviveLethalCharges: 0
-        IgnoreCritResistanceBp: 0
-        IgnoreCritDefenseBp: 0
-        ImmuneStatusTags: []
-        Reactions: []
-      StatusDurationOverride: 0
-      StatusStackCount: 1
-      StatusPotencyBp: 0
-      StatusApplyChanceBp: 10000
-      HealValue:
-        Source: 0
-        FixedAmount: 0
-        CoefficientBp: 10000
-        MaximumAmount: 2147483647
-      HealScalingStat: 0
-      HealCoefficientBp: 0
-      PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
-      Sequence:
-      - Timing: 2
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Id: 
-          Kind: 6
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 10000
-          KeywordFactorBp: 10000
-          KeywordId: 
-          Tags: []
-          Conditions: []
-          StatusRecipe:
-            Id: 
-            NameKey: 
-            Polarity: 0
-            Color: 0
-            Behavior: 0
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 1
-            DefaultPotencyBp: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 10000
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 1
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-              Kind: 0
-              Target: 1
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 10000
-              Magnitude: 0
-              KeywordId: 
-              Timing: 3
-              HealSource: 3
-              HealAmount: 0
-              HealCoefficientBp: 10000
-              StatusRecipeId: 
-              StatusPolarity: 1
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 1
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 10000
-            MaximumAmount: 2147483647
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: -3
-          Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - level: 6
-    description: Inflict damage equal to 819% of ATK, Depletes enemy ult gauge by
+    description: Inflict damage equal to 880% of ATK, Depletes enemy ult gauge by
       3 gauges
     skillType: 0
     runtimeEffect:
@@ -1236,7 +1000,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 81900
+      CoefficientBp: 88000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1307,7 +1071,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1321,7 +1084,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -1405,7 +1167,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1419,7 +1180,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0

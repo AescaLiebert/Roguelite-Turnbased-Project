@@ -22,7 +22,7 @@ MonoBehaviour:
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 7
+        HitCount: 5
         Range: 0
       Id: 
       Kind: 0
@@ -101,7 +101,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -115,7 +114,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 1
         Effect:
@@ -199,7 +197,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -213,9 +210,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 1
         Effect:
           Attack:
@@ -300,7 +294,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -314,9 +307,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 2
         Effect:
           Attack:
@@ -401,7 +391,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -415,17 +404,13 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 1
-    description: Cancel Buff and Stance on enemy, Inflict damage equal to 525% of
+    description: Cancel Buff and Stance on enemy, Inflict damage equal to 540% of
       ATK then Paralyze for 1 turn(s)
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 7
+        HitCount: 5
         Range: 0
       Id: 
       Kind: 0
@@ -433,7 +418,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 52500
+      CoefficientBp: 54000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -504,7 +489,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -518,7 +502,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -602,7 +585,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -616,9 +598,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 2
         Effect:
           Attack:
@@ -703,7 +682,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -717,17 +695,13 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 2
-    description: Cancel Buff and Stance on enemy, Inflict damage equal to 550% of
+    description: Cancel Buff and Stance on enemy, Inflict damage equal to 580% of
       ATK then Paralyze for 1 turn(s)
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 7
+        HitCount: 5
         Range: 0
       Id: 
       Kind: 0
@@ -735,7 +709,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 55000
+      CoefficientBp: 58000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -806,7 +780,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -820,7 +793,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -904,7 +876,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -918,9 +889,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 2
         Effect:
           Attack:
@@ -1005,7 +973,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1019,12 +986,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 3
-    description: Cancel Buff and Stance on enemy, Inflict damage equal to 575% of
+    description: Cancel Buff and Stance on enemy, Inflict damage equal to 620% of
       ATK then Paralyze for 1 turn(s)
     skillType: 0
     runtimeEffect:
@@ -1037,7 +1000,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 57500
+      CoefficientBp: 62000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1108,7 +1071,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1122,7 +1084,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -1206,7 +1167,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1220,9 +1180,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 2
         Effect:
           Attack:
@@ -1307,7 +1264,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1321,17 +1277,13 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 4
-    description: Cancel Buff and Stance on enemy, Inflict damage equal to 600% of
+    description: Cancel Buff and Stance on enemy, Inflict damage equal to 660% of
       ATK then Paralyze for 1 turn(s)
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 7
+        HitCount: 5
         Range: 0
       Id: 
       Kind: 0
@@ -1339,7 +1291,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 60000
+      CoefficientBp: 66000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1410,7 +1362,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1424,7 +1375,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -1508,7 +1458,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1522,9 +1471,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 2
         Effect:
           Attack:
@@ -1609,7 +1555,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1623,17 +1568,13 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
   - level: 5
-    description: Cancel Buff and Stance on enemy, Inflict damage equal to 625% of
+    description: Cancel Buff and Stance on enemy, Inflict damage equal to 700% of
       ATK then Paralyze for 1 turn(s)
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 7
+        HitCount: 5
         Range: 0
       Id: 
       Kind: 0
@@ -1641,7 +1582,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 62500
+      CoefficientBp: 70000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1712,7 +1653,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1726,7 +1666,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -1810,7 +1749,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1824,9 +1762,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
       - Timing: 2
         Effect:
           Attack:
@@ -1911,7 +1846,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1925,309 +1859,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - level: 6
-    description: Cancel Buff and Stance on enemy, Inflict damage equal to 650% of
-      ATK then Paralyze for 1 turn(s)
-    skillType: 0
-    runtimeEffect:
-      Attack:
-        HitCount: 7
-        Range: 0
-      Id: 
-      Kind: 0
-      Family: 0
-      Scaling: 0
-      ScalingStat: 0
-      Magnitude: 0
-      CoefficientBp: 65000
-      KeywordFactorBp: 10000
-      KeywordId: 
-      Tags: []
-      Conditions: []
-      StatusRecipe:
-        Id: 
-        NameKey: 
-        Polarity: 0
-        Color: 0
-        Behavior: 0
-        Stacking: 0
-        Identity: 0
-        DurationClock: 1
-        DefaultDuration: 2
-        MaxStacks: 1
-        DefaultPotencyBp: 0
-        BypassDebuffImmunity: 0
-        BreakRule: 0
-        DisableMask: 0
-        Tags: []
-        Modifiers: []
-        PeriodicDamage:
-          Family: 3
-          Timing: 2
-          Scaling: 1
-          CoefficientBp: 10000
-          FixedAmount: 0
-          ConsumeOnTrigger: 0
-        PeriodicHealing:
-          Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
-          FixedAmount: 0
-        DebuffImmunity: 0
-        AdditionalDamageImmunity: 0
-        Taunt: 0
-        EvadeAttacks: 0
-        StanceChildren: []
-        RecoverDamageTakenBp: 0
-        CounterEnabled: 0
-        CounterCategory: 0
-        CounterTarget: 1
-        CounterConditions: []
-        CounterEffect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Kind: 0
-          Target: 1
-          Family: 0
-          Scaling: 0
-          CoefficientBp: 10000
-          Magnitude: 0
-          KeywordId: 
-          Timing: 3
-          HealSource: 3
-          HealAmount: 0
-          HealCoefficientBp: 10000
-          StatusRecipeId: 
-          StatusPolarity: 1
-          StatusApplyChanceBp: 10000
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          PowerGaugeAmount: 0
-          Sequence: []
-        SurviveLethalCharges: 0
-        IgnoreCritResistanceBp: 0
-        IgnoreCritDefenseBp: 0
-        ImmuneStatusTags: []
-        Reactions: []
-      StatusDurationOverride: 0
-      StatusStackCount: 1
-      StatusPotencyBp: 0
-      StatusApplyChanceBp: 10000
-      HealValue:
-        Source: 0
-        FixedAmount: 0
-        CoefficientBp: 10000
-        MaximumAmount: 2147483647
-      HealScalingStat: 0
-      HealCoefficientBp: 0
-      PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
-      Sequence:
-      - Timing: 2
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Id: 
-          Kind: 4
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 10000
-          KeywordFactorBp: 10000
-          KeywordId: 
-          Tags: []
-          Conditions: []
-          StatusRecipe:
-            Id: 
-            NameKey: 
-            Polarity: 0
-            Color: 0
-            Behavior: 0
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 1
-            DefaultPotencyBp: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 10000
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 1
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-              Kind: 0
-              Target: 1
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 10000
-              Magnitude: 0
-              KeywordId: 
-              Timing: 3
-              HealSource: 3
-              HealAmount: 0
-              HealCoefficientBp: 10000
-              StatusRecipeId: 
-              StatusPolarity: 1
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 1
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 10000
-            MaximumAmount: 2147483647
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      - Timing: 2
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Id: 
-          Kind: 1
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 10000
-          KeywordFactorBp: 10000
-          KeywordId: 
-          Tags: []
-          Conditions: []
-          StatusRecipe:
-            Id: status.debuff.paralyze
-            NameKey: 
-            Polarity: 1
-            Color: 0
-            Behavior: 4
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 1
-            DefaultPotencyBp: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 63
-            Tags:
-            - control.paralyze
-            - status.disable
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 10000
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 1
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-              Kind: 0
-              Target: 1
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 10000
-              Magnitude: 0
-              KeywordId: 
-              Timing: 3
-              HealSource: 3
-              HealAmount: 0
-              HealCoefficientBp: 10000
-              StatusRecipeId: 
-              StatusPolarity: 1
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 1
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 1
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 10000
-            MaximumAmount: 2147483647
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 1
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 2
-      Provenance: 0

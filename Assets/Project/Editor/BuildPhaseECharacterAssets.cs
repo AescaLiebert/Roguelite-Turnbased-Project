@@ -95,15 +95,13 @@ public static class BuildPhaseECharacterAssets
                 skill.TargetScope = ResolvePhaseETargetScope(character, skill);
                 foreach (var rank in skill.Ranks)
                 {
-                    if (rank.Effect != null && (rank.Provenance != SourceProvenance.Proposal ||
-                        rank.Effect.Provenance != SourceProvenance.Proposal)) continue;
+                    if (rank.Effect != null && rank.Provenance != SourceProvenance.Proposal) continue;
                     rank.Effect = CreatePhaseESkillEffect(character, skill, rank.Rank);
                     rank.Provenance = SourceProvenance.Proposal;
                 }
             }
             foreach (var tier in character.UltimateTiers)
-                if (tier.Effect == null || (tier.Provenance == SourceProvenance.Proposal &&
-                    tier.Effect.Provenance == SourceProvenance.Proposal))
+                if (tier.Effect == null || tier.Provenance == SourceProvenance.Proposal)
                 {
                     tier.Effect = CreatePhaseEUltimateEffect(character, tier.Tier);
                     tier.Provenance = SourceProvenance.Proposal;
@@ -165,7 +163,7 @@ public static class BuildPhaseECharacterAssets
         var effect = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
             Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(multiplier * 10000f),
             KeywordFactorBp = 10000, KeywordId = ResolveAttackKeyword(skill.SourceEffectTags),
-            Target = scope, Provenance = SourceProvenance.Proposal };
+            Target = scope };
         AppendUtilitySequence(effect, authored, CardEffectTiming.AfterDamage, scope);
         return effect;
     }
@@ -177,7 +175,7 @@ public static class BuildPhaseECharacterAssets
         {
             var area = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
                 Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(UltimateMultiplier(character.Id, tier) * 10000f),
-                Target = EffectTargetScope.AllEnemies, KeywordId = "ultimate", Provenance = SourceProvenance.Proposal };
+                Target = EffectTargetScope.AllEnemies, KeywordId = "ultimate" };
             AppendUtilitySequence(area, authored, CardEffectTiming.AfterAction, EffectTargetScope.AllAllies);
             return area;
         }
@@ -196,7 +194,7 @@ public static class BuildPhaseECharacterAssets
         {
             effect = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
                 Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(multiplier * 10000f),
-                KeywordId = "ultimate", Target = scope, Provenance = SourceProvenance.Proposal };
+                KeywordId = "ultimate", Target = scope };
             AppendUtilitySequence(effect, authored, CardEffectTiming.AfterDamage, scope);
         }
         return effect;
@@ -221,8 +219,7 @@ public static class BuildPhaseECharacterAssets
             source.targetType == SkillTargetType.Self ? EffectTargetScope.Self : defaultScope;
         var result = new EffectDefinition { Target = target, StatusStackCount = Math.Max(1, source.stackCount),
             StatusDurationOverride = Math.Max(0, source.durationTurns),
-            StatusApplyChanceBp = Mathf.RoundToInt(Mathf.Clamp(source.applyChancePercent, 0f, 100f) * 100f),
-            Provenance = SourceProvenance.Proposal };
+            StatusApplyChanceBp = Mathf.RoundToInt(Mathf.Clamp(source.applyChancePercent, 0f, 100f) * 100f) };
         switch (source.kind)
         {
             case CharacterCardEffectKind.ApplyStatus:
@@ -464,7 +461,7 @@ public static class BuildPhaseECharacterAssets
                 if (card?.ranks == null) continue;
                 foreach (var rank in definition.Ranks)
                 {
-                    var cardRank = card.ranks.Find(item => item != null && item.rankLevel == rank.Rank);
+                    var cardRank = card.GetRankData(rank.Rank);
                     if (cardRank == null || cardRank.runtimeEffect != null || rank.Effect == null) continue;
                     cardRank.runtimeEffect = rank.Effect.Clone();
                     EditorUtility.SetDirty(card);
@@ -505,8 +502,10 @@ public static class BuildPhaseECharacterAssets
         Set(serialized, "role", source.Role);
         Set(serialized, "traitIds", source.TraitIds == null ? Array.Empty<string>() : source.TraitIds.ToArray());
         Set(serialized, "passiveSourceDescription", source.PassiveSource == null ? string.Empty : source.PassiveSource.Description);
-        Set(serialized, "passiveSourceType", source.PassiveSource == null ? string.Empty : source.PassiveSource.SourceType);
-        Set(serialized, "passiveRestriction", source.PassiveSource == null ? string.Empty : source.PassiveSource.Restriction);
+        Set(serialized, "passiveSourceType", CharacterPassiveMetadata.ParseSourceType(
+            source.PassiveSource == null ? string.Empty : source.PassiveSource.SourceType));
+        Set(serialized, "passiveRestriction", CharacterPassiveMetadata.ParseRestriction(
+            source.PassiveSource == null ? string.Empty : source.PassiveSource.Restriction));
         Set(serialized, "id", 1000 + ParseSourceId(source.SourceId));
         Set(serialized, "fighterName", source.DisplayName);
         Set(serialized, "fighterTag", source.FamilyId);
@@ -520,6 +519,12 @@ public static class BuildPhaseECharacterAssets
         Set(serialized, "defense", (float)source.BaseStats.Defense);
         Set(serialized, "health", (float)source.BaseStats.MaxHealth);
         Set(serialized, "fighter3DPrefab", model);
+        var authoredVisual = AssetDatabase.LoadAssetAtPath<CharacterObject>("Assets/Project/Data/Character/" + safeName + ".asset");
+        var sharedMeshFilter = model == null ? null : model.GetComponent<MeshFilter>();
+        Set(serialized, "fighter3DMesh", authoredVisual != null && authoredVisual.Fighter3DMesh != null
+            ? authoredVisual.Fighter3DMesh
+            : sharedMeshFilter == null ? null : sharedMeshFilter.sharedMesh);
+        Set(serialized, "fighter3DMaterial", authoredVisual == null ? null : authoredVisual.Fighter3DMaterial);
         Set(serialized, "fighterPic", LoadPortrait(source.Id));
         Set(serialized, "fighterIcon", LoadIcon(source.Id));
         SetSecondaryStats(serialized.FindProperty("SecondaryStats"), source.BaseStats);
@@ -564,9 +569,12 @@ public static class BuildPhaseECharacterAssets
         var card = LoadOrCreate<SkillCardSO>(path);
         var existingRuntimeEffects = new Dictionary<int, EffectDefinition>();
         if (card.ranks != null)
-            foreach (var existingRank in card.ranks)
+            for (var rankIndex = 0; rankIndex < card.ranks.Count; rankIndex++)
+            {
+                var existingRank = card.ranks[rankIndex];
                 if (existingRank != null && existingRank.runtimeEffect != null)
-                    existingRuntimeEffects[existingRank.rankLevel] = existingRank.runtimeEffect;
+                    existingRuntimeEffects[rankIndex + 1] = existingRank.runtimeEffect;
+            }
         card.cardName = character.DisplayName + " · Skill " + slot;
         card.cardIcon = LoadIcon(character.Id);
         card.ranks = new List<CardRankData>();
@@ -574,7 +582,6 @@ public static class BuildPhaseECharacterAssets
         {
             var cardRank = new CardRankData
             {
-                rankLevel = rank.Rank,
                 description = string.IsNullOrWhiteSpace(rank.Description) ? rank.SourceDescription : rank.Description,
                 skillType = ParseSkillType(skill.SourceType),
                 runtimeEffect = existingRuntimeEffects.TryGetValue(rank.Rank, out var existingEffect)
@@ -588,8 +595,8 @@ public static class BuildPhaseECharacterAssets
 
     private static UltimateCardSO BuildUltimate(CharacterDefinition character)
     {
-        if (character.UltimateTiers == null || character.UltimateTiers.Count != 7)
-            throw new InvalidOperationException(character.Id + " is missing C0-C6 ultimate data.");
+        if (character.UltimateTiers == null || character.UltimateTiers.Count != 6)
+            throw new InvalidOperationException(character.Id + " is missing C0-C5 ultimate data.");
         var path = CardOutput + "/" + character.Id.Replace("fighter.", string.Empty) + "_Ultimate.asset";
         var card = LoadOrCreate<UltimateCardSO>(path);
         var existingRuntimeEffects = new Dictionary<int, EffectDefinition>();
@@ -822,4 +829,3 @@ public static class BuildPhaseECharacterAssets
     private static void Set(SerializedProperty property, float value) { if (property != null) property.floatValue = value; }
     private static void Set(SerializedProperty property, bool value) { if (property != null) property.boolValue = value; }
 }
-

@@ -85,6 +85,11 @@ namespace FightingAllstar.Presentation.Combat
             EnsureSegments();
         }
 
+        public void SetPowerGaugeVisible(bool visible)
+        {
+            if (powerGaugeSlider != null) powerGaugeSlider.gameObject.SetActive(visible);
+        }
+
         private void Update()
         {
             UpdateDraftFlicker();
@@ -108,6 +113,7 @@ namespace FightingAllstar.Presentation.Combat
                     StopCoroutine(entry.Routine);
                     entry.Routine = null;
                 }
+                ResetStatusFeedbackVisual(entry);
             }
         }
 
@@ -661,6 +667,29 @@ namespace FightingAllstar.Presentation.Combat
             return entry.Rect;
         }
 
+        public void PlayStatusRefreshFeedback(string recipeId, bool succeeded)
+        {
+            if (string.IsNullOrEmpty(recipeId)) return;
+            foreach (var entry in _statusViews.Values)
+            {
+                if (entry == null || entry.Root == null ||
+                    !string.Equals(entry.RecipeId, recipeId, StringComparison.OrdinalIgnoreCase)) continue;
+                if (entry.Routine != null) StopCoroutine(entry.Routine);
+                ResetStatusFeedbackVisual(entry);
+                entry.Routine = StartCoroutine(AnimateStatusRefresh(entry, succeeded));
+            }
+        }
+
+        private static void ResetStatusFeedbackVisual(StatusViewEntry entry)
+        {
+            if (entry?.Rect != null)
+            {
+                entry.Rect.localScale = Vector3.one;
+                entry.Rect.localRotation = Quaternion.identity;
+            }
+            if (entry?.IconImage != null) entry.IconImage.color = Color.white;
+        }
+
         private StatusViewEntry CreateStatusView(StatusInstance status, int stackIndex)
         {
             GameObject obj = null;
@@ -857,6 +886,41 @@ namespace FightingAllstar.Presentation.Combat
                 yield return null;
             }
             rect.localScale = Vector3.one;
+        }
+
+        private IEnumerator AnimateStatusRefresh(StatusViewEntry entry, bool succeeded)
+        {
+            if (entry?.Rect == null) yield break;
+            var rect = entry.Rect;
+            var icon = entry.IconImage;
+            var duration = succeeded ? 0.34f : 0.38f;
+            var elapsed = 0f;
+
+            rect.localScale = Vector3.one;
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                var t = Mathf.Clamp01(elapsed / duration);
+                var pulse = Mathf.Sin(t * Mathf.PI);
+                if (succeeded)
+                {
+                    rect.localScale = Vector3.one * (1f + pulse * 0.32f);
+                    if (icon != null)
+                        icon.color = Color.Lerp(Color.white, new Color(0.45f, 1f, 0.58f, 1f), pulse);
+                }
+                else
+                {
+                    var shake = Mathf.Sin(t * Mathf.PI * 8f) * (1f - t);
+                    rect.localRotation = Quaternion.Euler(0f, 0f, shake * 12f);
+                    rect.localScale = Vector3.one * (1f - pulse * 0.12f);
+                    if (icon != null)
+                        icon.color = Color.Lerp(Color.white, new Color(1f, 0.25f, 0.2f, 1f), pulse);
+                }
+                yield return null;
+            }
+
+            ResetStatusFeedbackVisual(entry);
+            entry.Routine = null;
         }
 
         private IEnumerator AnimateStatusExit(GameObject root, RectTransform rect)

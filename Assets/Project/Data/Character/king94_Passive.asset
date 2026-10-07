@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: king94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: 
-  sourceType: 
-  sourceRestriction: 
   definition:
     Id: fighter.king94.passive.source
     Auras:
     - Id: team-pierce
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 0
         AllowDefeatedOwner: 0
@@ -49,7 +46,7 @@ MonoBehaviour:
     - Id: turn-stack
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 0
         AllowDefeatedOwner: 0
@@ -167,5 +164,4 @@ MonoBehaviour:
             FixedAmount: 0
             CoefficientBp: 10000
             MaximumAmount: 2147483647
-        DelayOwnerTurns: 0
     Triggers: []

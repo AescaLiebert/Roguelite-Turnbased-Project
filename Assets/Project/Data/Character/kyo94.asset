@@ -24,10 +24,12 @@ MonoBehaviour:
   - trait.fire-elements
   - trait.sacred-treasure
   - trait.series-kof
+  - trait.male
+  - trait.kyo
   passiveSourceDescription: Increase own attack power by 3% for each Ignites effect
     on the field. (Maximum 30%)
-  passiveSourceType: On-Field
-  passiveRestriction: Own
+  passiveSourceType: 1
+  passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: f648936a229990443bc3379dcc890e43, type: 2}
   id: 1001
   fighterName: Kusanagi Kyo 94
@@ -39,7 +41,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: 0989b266fbe115945a4527c8a8549021, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 8e5574fc00e47f74c9f090416b488b9b, type: 2}
   Skill1: {fileID: 11400000, guid: 4bbc9925fffeacc40a17c1611691c98b, type: 2}
   Skill2: {fileID: 11400000, guid: 2f5c6bffa23724d449ffce9b12a5a339, type: 2}
   Ultimate: {fileID: 11400000, guid: d80875dd60a0f604dbb36061d169e4b6, type: 2}

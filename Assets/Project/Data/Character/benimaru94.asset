@@ -23,10 +23,11 @@ MonoBehaviour:
   - trait.japan
   - trait.chinese
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: Increase Red attribute allies Attack-related stats by
     10%
-  passiveSourceType: SUB
-  passiveRestriction: Red attribute
+  passiveSourceType: 2
+  passiveRestriction: 4
   passiveDefinition: {fileID: 11400000, guid: d591c73cbea3d2348a38fdd110d53ec1, type: 2}
   id: 1007
   fighterName: Benimaru 94
@@ -38,7 +39,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: d889e95f477cd4549ba9065444f1e26f, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 3c85ba81d129a264484cc15b3833bf63, type: 2}
   Skill1: {fileID: 11400000, guid: 006db768f5c03624fb5c7c6092218736, type: 2}
   Skill2: {fileID: 11400000, guid: 5701170493541614ab87504c5e8d88a6, type: 2}
   Ultimate: {fileID: 11400000, guid: 18180542dfe25e049866123678d6f33e, type: 2}

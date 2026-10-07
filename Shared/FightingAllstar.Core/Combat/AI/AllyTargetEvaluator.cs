@@ -247,6 +247,7 @@ namespace FightingAllstar.Core.Combat.AI
                 if (recipe.Modifiers != null && recipe.Modifiers.Any(m =>
                     m.Stat == StatId.Attack || m.Stat == StatId.Pierce || m.Stat == StatId.CritChance ||
                     m.Stat == StatId.CritDamage || m.Target == ModifierTarget.AnyDamageDealt ||
+                    m.Target == ModifierTarget.UltimateDamageDealt ||
                     m.Target == ModifierTarget.FamilyDamageDealt))
                 {
                     return true;

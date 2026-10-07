@@ -107,7 +107,7 @@ namespace FightingAllstar.Core.Run
                 throw new InvalidOperationException("First route row must contain one Start node.");
             if (profile.Rows[8].Choices.Length == 0) throw new InvalidOperationException("Final route row must contain a Boss.");
             foreach (var type in profile.Rows[8].Choices) if (type != RouteNodeType.Boss) throw new InvalidOperationException("Final route row only accepts Boss nodes.");
-            if (profile.EnemyConstellationTier < 0 || profile.EnemyConstellationTier > 6) throw new InvalidOperationException("Enemy constellation tier must be 0-6.");
+            if (profile.EnemyConstellationTier < 0 || profile.EnemyConstellationTier > 5) throw new InvalidOperationException("Enemy constellation tier must be 0-5.");
             if (profile.PresetTeamChancePercent < 0 || profile.PresetTeamChancePercent > 100)
                 throw new InvalidOperationException("Preset team chance must be 0-100 percent.");
             if (profile.DifficultyIncreasePerRowPercent < 0 || profile.DifficultyIncreasePerRowPercent > 100 ||
@@ -150,8 +150,8 @@ namespace FightingAllstar.Core.Run
                 {
                     if (member == null || string.IsNullOrWhiteSpace(member.FighterId) || !seen.Add(member.FighterId))
                         throw new InvalidOperationException("Enemy formation templates need four distinct fighter ids.");
-                    if (member.ConstellationTier < -1 || member.ConstellationTier > 6)
-                        throw new InvalidOperationException("Formation member constellation tier must be -1-6.");
+                    if (member.ConstellationTier < -1 || member.ConstellationTier > 5)
+                        throw new InvalidOperationException("Formation member constellation tier must be -1-5.");
                     var definition = candidates.Find(character => character.Id == member.FighterId);
                     if (definition == null)
                         throw new InvalidOperationException("Formation template fighter is not eligible for policy " + profile.Id + ": " + member.FighterId);
@@ -226,7 +226,7 @@ namespace FightingAllstar.Core.Run
                 stats.CombatClass = ScaleBasicStat(stats.CombatClass, difficultyForNode);
                 result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
                     DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
-                    ConstellationTier = rng.Next(7), FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
+                    ConstellationTier = rng.Next(6), FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
             }
             return result;
         }
@@ -270,7 +270,7 @@ namespace FightingAllstar.Core.Run
                 stats.CombatClass = ScaleBasicStat(stats.CombatClass, difficulty);
                 result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
                     DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
-                    ConstellationTier = member.ConstellationTier < 0 ? rng.Next(7) : member.ConstellationTier,
+                    ConstellationTier = member.ConstellationTier < 0 ? rng.Next(6) : member.ConstellationTier,
                     FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
             }
             return result;

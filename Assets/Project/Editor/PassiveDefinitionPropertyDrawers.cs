@@ -203,7 +203,6 @@ public sealed class PassiveCommandDefinitionPropertyDrawer : PropertyDrawer
         if (kind == PassiveCommandKind.ExecuteEffect)
         {
             fields.Add("Effect");
-            fields.Add("DelayOwnerTurns");
         }
         return fields.ToArray();
     }
@@ -213,15 +212,32 @@ public sealed class PassiveCommandDefinitionPropertyDrawer : PropertyDrawer
 public sealed class PassiveEffectDefinitionPropertyDrawer : PropertyDrawer
 {
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
-        PassiveDrawerFields.Height(property, label, GetFields(property));
+        PassiveDrawerFields.Height(property, label, EffectDrawerFields.GetFields(property, includeSequence: true));
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
-        PassiveDrawerFields.Draw(position, property, label, GetFields(property));
+        PassiveDrawerFields.Draw(position, property, label, EffectDrawerFields.GetFields(property, includeSequence: true));
+}
 
-    private static string[] GetFields(SerializedProperty property)
+[CustomPropertyDrawer(typeof(EffectOperationDefinition))]
+public sealed class EffectOperationDefinitionPropertyDrawer : PropertyDrawer
+{
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Height(property, label, EffectDrawerFields.GetFields(property, includeSequence: false));
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Draw(position, property, label, EffectDrawerFields.GetFields(property, includeSequence: false));
+}
+
+internal static class EffectDrawerFields
+{
+    public static string[] GetFields(SerializedProperty property, bool includeSequence)
     {
         var kind = PassiveDrawerFields.EnumValue<EffectKind>(property, "Kind");
-        var fields = new List<string> { "Id", "Kind", "Target", "Conditions" };
+        var fields = new List<string> { "Id", "Kind" };
+        if (kind == EffectKind.None) return fields.ToArray();
+
+        fields.Add("Target");
+        fields.Add("Conditions");
         if (kind == EffectKind.Damage)
         {
             fields.Add("Attack");
@@ -234,7 +250,6 @@ public sealed class PassiveEffectDefinitionPropertyDrawer : PropertyDrawer
             fields.Add("CoefficientBp");
             fields.Add("KeywordFactorBp");
             fields.Add("KeywordId");
-            fields.Add("Tags");
         }
         else if (kind == EffectKind.ApplyStatus)
         {
@@ -247,8 +262,6 @@ public sealed class PassiveEffectDefinitionPropertyDrawer : PropertyDrawer
         else if (kind == EffectKind.Heal)
         {
             fields.Add("HealValue");
-            fields.Add("HealScalingStat");
-            fields.Add("HealCoefficientBp");
         }
         else if (kind == EffectKind.ChangePowerGauge)
         {
@@ -258,7 +271,47 @@ public sealed class PassiveEffectDefinitionPropertyDrawer : PropertyDrawer
         {
             fields.Add("Magnitude");
         }
-        fields.Add("Sequence");
+        if (includeSequence) fields.Add("Sequence");
+        return fields.ToArray();
+    }
+}
+
+[CustomPropertyDrawer(typeof(CardEffectOperationDefinition))]
+public sealed class CardEffectOperationDefinitionPropertyDrawer : PropertyDrawer
+{
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Height(property, label, GetFields(property));
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Draw(position, property, label, GetFields(property));
+
+    private static string[] GetFields(SerializedProperty property)
+    {
+        var kind = PassiveDrawerFields.EnumValue<CardEffectOperationKind>(property, "Kind");
+        var fields = new List<string> { "Id", "Window", "Kind", "Target", "Conditions" };
+        switch (kind)
+        {
+            case CardEffectOperationKind.Damage:
+                fields.Add("Damage");
+                break;
+            case CardEffectOperationKind.ApplyStatus:
+                fields.Add("Status");
+                break;
+            case CardEffectOperationKind.RemoveStatus:
+                fields.Add("RemovePolarity");
+                break;
+            case CardEffectOperationKind.Heal:
+                fields.Add("Value");
+                break;
+            case CardEffectOperationKind.ChangePowerGauge:
+            case CardEffectOperationKind.ModifyCardRank:
+                fields.Add("Magnitude");
+                break;
+            case CardEffectOperationKind.TransferStats:
+                fields.Add("Magnitude");
+                fields.Add("StatusDurationOverride");
+                break;
+        }
         return fields.ToArray();
     }
 }
@@ -552,9 +605,19 @@ internal static class PassiveDrawerFields
                 y += Spacing;
                 var childHeight = EditorGUI.GetPropertyHeight(child, true);
                 var childRect = new Rect(position.x, y, position.width, childHeight);
-                if (name == "StatusApplyChanceBp")
+                if (name == "StatusApplyChanceBp" || name == "ProcChanceBp")
+                {
+                    var percent = child.intValue / 100f;
+                    EditorGUI.BeginChangeCheck();
+                    percent = EditorGUI.Slider(childRect,
+                        new GUIContent("Apply Chance (%)", "100 = 100% before Control and Avoidance modifiers."),
+                        percent, 0f, 100f);
+                    if (EditorGUI.EndChangeCheck())
+                        child.intValue = Mathf.RoundToInt(percent * 100f);
+                }
+                else if (name == "KeywordFactorBp")
                     EditorGUI.PropertyField(childRect, child,
-                        new GUIContent("Apply Chance (basis points)", "10,000 = 100%. The resolved chance is also affected by Control and Avoidance."), true);
+                        new GUIContent("Keyword Factor Bp", "10,000 = normal keyword scaling."), true);
                 else if (name == "Modifiers")
                     EditorGUI.PropertyField(childRect, child,
                         new GUIContent("Modifiers", "Requires Behavior to include Stat. Add a modifier with Target = Stat to change any stat, including Defense."), true);
@@ -576,7 +639,19 @@ internal static class PassiveDrawerFields
                         new GUIContent("Condition Value", "For traits, attributes, and series you may enter either the short value (women) or the full content ID (trait.women)."), true);
                 else if (name == "Conditions")
                     EditorGUI.PropertyField(childRect, child,
-                        new GUIContent("Conditions (all required)", "This effect only resolves when every condition passes for its resolved target."), true);
+                        new GUIContent("Conditions (all required)", "Optional runtime gates. The effect resolves only when every condition passes for its resolved target."), true);
+                else if (name == "Timing")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Timing", "Selects when this sequence step runs. This is the single timing authority for sequence effects."), true);
+                else if (name == "StatusRecipe")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Status Recipe", "Defines the status being applied. Tags inside the recipe classify that status for conditions and immunity checks."), true);
+                else if (name == "Tags" && property.type == "StatusRecipeDefinition")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Status Tags", "Stable status classifications used by conditions, passives, AI, and immunity checks."), true);
+                else if (name == "Target")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Target", "The target for this operation. Sequence steps may target a different fighter or team than the root effect."), true);
                 else if (name == "CounterConditions")
                     EditorGUI.PropertyField(childRect, child,
                         new GUIContent("Counter Conditions (all required)", "The reactive status counter only fires when every condition passes. Operation Target is the attacker."), true);

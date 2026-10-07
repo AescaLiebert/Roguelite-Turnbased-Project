@@ -183,6 +183,8 @@ namespace FightingAllstar.Core.Combat
                     return RosterCount(context, condition) >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetIsAlive:
                     return subject != null && subject.IsAlive && subject.Health > 0;
+                case EffectConditionKind.TargetIsLowestHealthEnemy:
+                    return IsLowestHealthEnemy(context?.Battle, source, subject);
                 case EffectConditionKind.ActorWasNotDamagedSincePreviousTurnStart:
                     return !WasDamagedSincePreviousTeamTurnStart(context?.Battle, source);
                 case EffectConditionKind.ActorWasDamagedDuringPreviousEnemyTurn:
@@ -203,6 +205,19 @@ namespace FightingAllstar.Core.Combat
                 ConditionSubject.EventTarget => context?.SelectedTarget,
                 _ => operationTarget
             };
+        }
+
+        private static bool IsLowestHealthEnemy(BattleState battle, FighterState actor, FighterState target)
+        {
+            if (battle == null || actor == null || target == null || target.Side == actor.Side ||
+                !target.IsAlive || target.Health <= 0) return false;
+            var enemies = battle.OtherTeam(actor.Side).LivingActive();
+            if (enemies == null || enemies.Count == 0) return false;
+            var lowestHealth = int.MaxValue;
+            foreach (var enemy in enemies)
+                if (enemy != null && enemy.IsAlive && enemy.Health > 0)
+                    lowestHealth = Math.Min(lowestHealth, enemy.Health);
+            return target.Health == lowestHealth;
         }
 
         private static string FirstValue(params string[] values)

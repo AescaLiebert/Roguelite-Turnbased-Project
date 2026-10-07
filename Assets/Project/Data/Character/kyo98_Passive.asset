@@ -13,17 +13,13 @@ MonoBehaviour:
   m_Name: kyo98_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: For each Ignites effect on enemy, Decrease allies's Damage Received
-    by 5%(Maximum 50%)
-  sourceType: On-Field
-  sourceRestriction: All
   definition:
     Id: fighter.kyo98.passive.source
     Auras:
     - Id: field.ignite.damage.reduction
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: -1
         Presence: 0
         AllowDefeatedOwner: 0

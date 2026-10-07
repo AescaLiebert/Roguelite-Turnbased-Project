@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
   m_Name: mai94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
   definition:
     Id: fighter.mai94.passive.source
     Auras:
     - Id: enemy-recovery
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 1
         AllowDefeatedOwner: 0
@@ -31,15 +32,22 @@ MonoBehaviour:
         SeriesId: 
       Scaling: 3
       ScalingKey: 
+      ScalingRelation: 0
       SourceStat: 6
       MaximumUnits: 2147483647
       Modifiers:
       - Target: 0
         Stat: 11
+        Bundle: 0
         Family: 0
         Operation: 2
         Amount: -10000
         ScaleByStatusPotency: 0
         PotencyCoefficientBp: 10000
+        SerializedTarget: -1
+        SerializedStat: -1
+        SerializedBundle: -1
+        SerializedFamily: -1
+        SerializedOperation: -1
     Reactions: []
     Triggers: []

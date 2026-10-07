@@ -10,6 +10,7 @@
                 <ui:Label text="Build a team and take on a new dungeon route." class="body-copy" />
                 <ui:Button name="battle" text="BATTLE  →" class="battle-button" />
                 <ui:Button name="summon" text="SUMMON FIGHTERS" class="secondary-button" />
+                <ui:Button name="training" text="TRAINING MODE" class="secondary-button" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label text="Your collection stays with you. Each dungeon is a fresh run." class="footer-copy" />

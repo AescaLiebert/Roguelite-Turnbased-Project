@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 63f09e83b7360894191706f11031de50, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict damage equal to 200% of ATK to single target
+  - description: Inflict damage equal to 200% of ATK to single target
     skillType: 0
     runtimeEffect:
       Id: 
@@ -98,11 +97,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict damage equal to 250% of ATK, Removes stance
+  - description: Inflict damage equal to 250% of ATK, Removes stance
     skillType: 0
     runtimeEffect:
       Id: 
@@ -183,7 +179,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 1
         Effect:
@@ -265,12 +260,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict damage equal to 400% of ATK and Removes buff and stance
+  - description: Inflict damage equal to 400% of ATK and Removes buff and stance
     skillType: 0
     runtimeEffect:
       Id: 
@@ -351,7 +342,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 1
         Effect:
@@ -433,9 +423,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
       - Timing: 1
         Effect:
           Id: 
@@ -516,7 +504,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0

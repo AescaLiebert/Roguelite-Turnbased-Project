@@ -73,6 +73,9 @@ namespace FightingAllstar.Presentation.Economy
 
         private static void SyncFromPlayerInventory(LocalEconomyState state)
         {
+            state.Roster = state.Roster ?? new System.Collections.Generic.List<LocalOwnedCharacter>();
+            foreach (var existing in state.Roster)
+                if (existing != null) existing.ConstellationTier = Math.Max(0, Math.Min(5, existing.ConstellationTier));
             var inventory = PlayerInventoryService.Instance;
             if (inventory == null || inventory.Snapshot == null) return;
             state.Diamonds = inventory.Diamonds;
@@ -87,21 +90,20 @@ namespace FightingAllstar.Presentation.Economy
             }
             if (inventory.Snapshot.characters != null)
             {
-                state.Roster = state.Roster ?? new System.Collections.Generic.List<LocalOwnedCharacter>();
                 foreach (var owned in inventory.Snapshot.characters)
                 {
                     if (owned == null) continue;
                     var existing = state.Roster.Find(x => x != null && x.DefinitionId == owned.definitionId);
                     if (existing != null)
                     {
-                        existing.ConstellationTier = Math.Max(existing.ConstellationTier, owned.constellationTier);
+                        existing.ConstellationTier = Math.Min(5, Math.Max(existing.ConstellationTier, owned.constellationTier));
                     }
                     else
                     {
                         state.Roster.Add(new LocalOwnedCharacter
                         {
                             DefinitionId = owned.definitionId,
-                            ConstellationTier = owned.constellationTier,
+                            ConstellationTier = Math.Max(0, Math.Min(5, owned.constellationTier)),
                             CrestCount = 0
                         });
                     }

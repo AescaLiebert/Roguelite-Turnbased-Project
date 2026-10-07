@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: joe94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: Increases allies's Damage Dealt in PvP by 15%
-  sourceType: SUB
-  sourceRestriction: All
   definition:
     Id: fighter.joe94.passive.source
     Auras:
     - Id: joe94.passive
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 2
         Presence: 0
         AllowDefeatedOwner: 0

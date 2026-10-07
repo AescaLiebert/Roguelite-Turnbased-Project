@@ -562,7 +562,8 @@ namespace FightingAllstar.Core.Combat
             modifier.ResolvedTarget == ModifierTarget.Stat ? modifier.ResolvedStat == stat :
             modifier.ResolvedTarget == ModifierTarget.StatBundle && StatBundleRules.Contains(modifier.ResolvedBundle, stat);
 
-        public static DamagePolicy BuildDamagePolicy(FighterState attacker, FighterState defender, DamageFamily family)
+        public static DamagePolicy BuildDamagePolicy(FighterState attacker, FighterState defender,
+            DamageFamily family, bool isUltimate = false)
         {
             var policy = new DamagePolicy { Family = family,
                 BypassDefense = family == DamageFamily.True, BypassResistance = family == DamageFamily.True,
@@ -574,12 +575,13 @@ namespace FightingAllstar.Core.Combat
                 var affinity = AttributeRules.GetAffinity(attacker?.Definition?.AttributeId, defender?.Definition?.AttributeId);
                 policy.AttributeFactorBp = AttributeRules.GetFactorBp(affinity);
             }
-            Accumulate(attacker, family, true, policy);
-            Accumulate(defender, family, false, policy);
+            Accumulate(attacker, family, true, isUltimate, policy);
+            Accumulate(defender, family, false, isUltimate, policy);
             return policy;
         }
 
-        private static void Accumulate(FighterState fighter, DamageFamily family, bool dealt, DamagePolicy policy)
+        private static void Accumulate(FighterState fighter, DamageFamily family, bool dealt,
+            bool isUltimate, DamagePolicy policy)
         {
             if (fighter?.PassiveContributions != null)
                 foreach (var contribution in fighter.PassiveContributions)
@@ -590,6 +592,9 @@ namespace FightingAllstar.Core.Combat
                     switch (modifier.ResolvedTarget)
                     {
                         case ModifierTarget.AnyDamageDealt when dealt:
+                            if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount;
+                            break;
+                        case ModifierTarget.UltimateDamageDealt when dealt && isUltimate:
                             if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount;
                             break;
                         case ModifierTarget.AnyDamageReceived when !dealt:
@@ -624,6 +629,8 @@ namespace FightingAllstar.Core.Combat
                     switch (modifier.ResolvedTarget)
                     {
                         case ModifierTarget.AnyDamageDealt when dealt:
+                            if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount; break;
+                        case ModifierTarget.UltimateDamageDealt when dealt && isUltimate:
                             if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount; break;
                         case ModifierTarget.AnyDamageReceived when !dealt:
                             if (amount >= 0) policy.IncomingIncreaseBp += amount; else policy.IncomingDecreaseBp += -amount; break;

@@ -1,3 +1,4 @@
+param([switch]$TrainingOnly)
 $ErrorActionPreference = 'Stop'
 $battleRepo = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $battleScratch = Join-Path $battleRepo 'Temp/BattlePlaybackChecks'
@@ -10,5 +11,9 @@ $battleChecks = Join-Path $PSScriptRoot '*.cs'
   <ItemGroup><ProjectReference Include="$battleCore"/><Compile Include="$battleChecks"/></ItemGroup>
 </Project>
 "@ | Set-Content (Join-Path $battleScratch 'Checks.csproj')
-dotnet run --project (Join-Path $battleScratch 'Checks.csproj') --configuration Release --nologo
+if ($TrainingOnly) {
+    dotnet run --project (Join-Path $battleScratch 'Checks.csproj') --configuration Release --nologo -- --training
+} else {
+    dotnet run --project (Join-Path $battleScratch 'Checks.csproj') --configuration Release --nologo
+}
 if ($LASTEXITCODE -ne 0) { throw 'Battle playback checks failed.' }

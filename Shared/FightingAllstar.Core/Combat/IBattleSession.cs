@@ -57,7 +57,7 @@ namespace FightingAllstar.Core.Combat
             error = null;
             while (_state != null && _state.Phase == BattlePhase.Planning && _state.ActingSide == TeamSide.Opponent)
             {
-                var aiPlan = AI.EnemyAiPlanner.CreatePlan(_state) ?? LegalAi.CreatePlan(_state);
+                var aiPlan = _state.IsTraining ? LegalAi.CreatePlan(_state) : AI.EnemyAiPlanner.CreatePlan(_state) ?? LegalAi.CreatePlan(_state);
                 if (!BattleEngine.TryResolvePlan(_state, aiPlan, out var next, out error)) return false;
                 _state = next;
             }

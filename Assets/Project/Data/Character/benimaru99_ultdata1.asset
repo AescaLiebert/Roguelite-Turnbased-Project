@@ -101,7 +101,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -115,7 +114,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -199,7 +197,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 4
           StatusStackCount: 10
           StatusPotencyBp: 0
@@ -213,9 +210,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
       - Timing: 0
         Effect:
           Attack:
@@ -240,7 +234,6 @@ MonoBehaviour:
             Negate: 0
             Logic: 0
             Subject: 0
-            Children: []
             RosterFilter:
               Relation: 0
               IncludeOwner: 0
@@ -315,7 +308,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -329,13 +321,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 1
     description: If the target is a female fighter, paralyzes for 1 turn and Inflict
-      damage equal to 367.5% of ATK, applying "Shock" debuff for 3 turns
+      damage equal to 370% of ATK, applying "Shock" debuff for 3 turns
     skillType: 6
     runtimeEffect:
       Attack:
@@ -347,7 +335,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 37000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -418,7 +406,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -431,8 +418,7 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
+      Target: 3
       Sequence:
       - Timing: 3
         Effect:
@@ -516,7 +502,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 4
           StatusStackCount: 10
           StatusPotencyBp: 0
@@ -530,9 +515,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
       - Timing: 0
         Effect:
           Attack:
@@ -557,7 +539,6 @@ MonoBehaviour:
             Negate: 0
             Logic: 0
             Subject: 0
-            Children: []
             RosterFilter:
               Relation: 0
               IncludeOwner: 0
@@ -632,7 +613,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -646,13 +626,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 2
     description: If the target is a female fighter, paralyzes for 1 turn and Inflict
-      damage equal to 385% of ATK, applying "Shock" debuff for 3 turns
+      damage equal to 390% of ATK, applying "Shock" debuff for 3 turns
     skillType: 6
     runtimeEffect:
       Attack:
@@ -664,7 +640,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 39000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -735,7 +711,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -748,8 +723,7 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
+      Target: 3
       Sequence:
       - Timing: 3
         Effect:
@@ -833,7 +807,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 4
           StatusStackCount: 10
           StatusPotencyBp: 0
@@ -847,9 +820,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
       - Timing: 0
         Effect:
           Attack:
@@ -874,7 +844,6 @@ MonoBehaviour:
             Negate: 0
             Logic: 0
             Subject: 0
-            Children: []
             RosterFilter:
               Relation: 0
               IncludeOwner: 0
@@ -949,7 +918,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -963,13 +931,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 3
     description: If the target is a female fighter, paralyzes for 1 turn and Inflict
-      damage equal to 402.5% of ATK, applying "Shock" debuff for 3 turns
+      damage equal to 410% of ATK, applying "Shock" debuff for 3 turns
     skillType: 6
     runtimeEffect:
       Attack:
@@ -981,7 +945,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 41000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1052,7 +1016,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1065,8 +1028,7 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
+      Target: 3
       Sequence:
       - Timing: 3
         Effect:
@@ -1150,7 +1112,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 4
           StatusStackCount: 10
           StatusPotencyBp: 0
@@ -1164,9 +1125,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
       - Timing: 0
         Effect:
           Attack:
@@ -1191,7 +1149,6 @@ MonoBehaviour:
             Negate: 0
             Logic: 0
             Subject: 0
-            Children: []
             RosterFilter:
               Relation: 0
               IncludeOwner: 0
@@ -1266,7 +1223,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1280,13 +1236,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 4
     description: If the target is a female fighter, paralyzes for 1 turn and Inflict
-      damage equal to 420% of ATK, applying "Shock" debuff for 3 turns
+      damage equal to 430% of ATK, applying "Shock" debuff for 3 turns
     skillType: 6
     runtimeEffect:
       Attack:
@@ -1298,7 +1250,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 43000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1369,7 +1321,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1382,8 +1333,7 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
+      Target: 3
       Sequence:
       - Timing: 3
         Effect:
@@ -1467,7 +1417,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 4
           StatusStackCount: 10
           StatusPotencyBp: 0
@@ -1481,9 +1430,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
       - Timing: 0
         Effect:
           Attack:
@@ -1508,7 +1454,6 @@ MonoBehaviour:
             Negate: 0
             Logic: 0
             Subject: 0
-            Children: []
             RosterFilter:
               Relation: 0
               IncludeOwner: 0
@@ -1583,7 +1528,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1597,13 +1541,9 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 5
     description: If the target is a female fighter, paralyzes for 1 turn and Inflict
-      damage equal to 437.5% of ATK, applying "Shock" debuff for 3 turns
+      damage equal to 450% of ATK, applying "Shock" debuff for 3 turns
     skillType: 6
     runtimeEffect:
       Attack:
@@ -1615,7 +1555,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 45000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1686,7 +1626,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1699,8 +1638,7 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
+      Target: 3
       Sequence:
       - Timing: 3
         Effect:
@@ -1784,7 +1722,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 4
           StatusStackCount: 10
           StatusPotencyBp: 0
@@ -1798,9 +1735,6 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
       - Timing: 0
         Effect:
           Attack:
@@ -1825,7 +1759,6 @@ MonoBehaviour:
             Negate: 0
             Logic: 0
             Subject: 0
-            Children: []
             RosterFilter:
               Relation: 0
               IncludeOwner: 0
@@ -1900,7 +1833,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1914,324 +1846,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - level: 6
-    description: If the target is a female fighter, paralyzes for 1 turn and Inflict
-      damage equal to 455% of ATK, applying "Shock" debuff for 3 turns
-    skillType: 6
-    runtimeEffect:
-      Attack:
-        HitCount: 10
-        Range: 1
-      Id: 
-      Kind: 0
-      Family: 0
-      Scaling: 0
-      ScalingStat: 0
-      Magnitude: 0
-      CoefficientBp: 10000
-      KeywordFactorBp: 10000
-      KeywordId: 
-      Tags: []
-      Conditions: []
-      StatusRecipe:
-        Id: 
-        NameKey: 
-        Polarity: 0
-        Color: 0
-        Behavior: 0
-        Stacking: 0
-        Identity: 0
-        DurationClock: 1
-        DefaultDuration: 2
-        MaxStacks: 1
-        DefaultPotencyBp: 0
-        BypassDebuffImmunity: 0
-        BreakRule: 0
-        DisableMask: 0
-        Tags: []
-        Modifiers: []
-        PeriodicDamage:
-          Family: 3
-          Timing: 2
-          Scaling: 1
-          CoefficientBp: 10000
-          FixedAmount: 0
-          ConsumeOnTrigger: 0
-        PeriodicHealing:
-          Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
-          FixedAmount: 0
-        DebuffImmunity: 0
-        AdditionalDamageImmunity: 0
-        Taunt: 0
-        EvadeAttacks: 0
-        StanceChildren: []
-        RecoverDamageTakenBp: 0
-        CounterEnabled: 0
-        CounterCategory: 0
-        CounterTarget: 1
-        CounterConditions: []
-        CounterEffect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Kind: 0
-          Target: 1
-          Family: 0
-          Scaling: 0
-          CoefficientBp: 10000
-          Magnitude: 0
-          KeywordId: 
-          Timing: 3
-          HealSource: 3
-          HealAmount: 0
-          HealCoefficientBp: 10000
-          StatusRecipeId: 
-          StatusPolarity: 1
-          StatusApplyChanceBp: 10000
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          PowerGaugeAmount: 0
-          Sequence: []
-        SurviveLethalCharges: 0
-        IgnoreCritResistanceBp: 0
-        IgnoreCritDefenseBp: 0
-        ImmuneStatusTags: []
-        Reactions: []
-      StatusDurationOverride: 0
-      StatusStackCount: 1
-      StatusPotencyBp: 0
-      StatusApplyChanceBp: 10000
-      HealValue:
-        Source: 0
-        FixedAmount: 0
-        CoefficientBp: 10000
-        MaximumAmount: 2147483647
-      HealScalingStat: 0
-      HealCoefficientBp: 0
-      PowerGaugeAmount: 0
-      Target: 1
-      TriggerWindow: PreAction
-      Sequence:
-      - Timing: 3
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Id: 
-          Kind: 1
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 0
-          KeywordFactorBp: 0
-          KeywordId: 
-          Tags: []
-          Conditions: []
-          StatusRecipe:
-            Id: status.debuff.shock
-            NameKey: status.debuff.shock
-            Polarity: 1
-            Color: 0
-            Behavior: 2
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 4
-            MaxStacks: 0
-            DefaultPotencyBp: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 4500
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 0
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-              Kind: 0
-              Target: 0
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 0
-              Magnitude: 0
-              KeywordId: 
-              Timing: 0
-              HealSource: 0
-              HealAmount: 0
-              HealCoefficientBp: 0
-              StatusRecipeId: 
-              StatusPolarity: 0
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 0
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 4
-          StatusStackCount: 10
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 0
-            MaximumAmount: 0
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      - Timing: 0
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Id: 
-          Kind: 1
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 0
-          KeywordFactorBp: 0
-          KeywordId: 
-          Tags: []
-          Conditions:
-          - Kind: 18
-            RecipeId: 
-            Tag: 
-            StringValue: trait.women
-            Threshold: 0
-            Negate: 0
-            Logic: 0
-            Subject: 0
-            Children: []
-            RosterFilter:
-              Relation: 0
-              IncludeOwner: 0
-              IncludeReserve: 0
-              AttributeId: 
-              TraitId: 
-              SeriesId: 
-            InitialRoster: 0
-          StatusRecipe:
-            Id: status.debuff.paralyze
-            NameKey: status.debuff.paralyze
-            Polarity: 1
-            Color: 0
-            Behavior: 4
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 1
-            MaxStacks: 0
-            DefaultPotencyBp: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 63
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 4500
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 0
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-              Kind: 0
-              Target: 0
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 0
-              Magnitude: 0
-              KeywordId: 
-              Timing: 0
-              HealSource: 0
-              HealAmount: 0
-              HealCoefficientBp: 0
-              StatusRecipeId: 
-              StatusPolarity: 0
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 0
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 1
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 0
-            MaximumAmount: 0
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0

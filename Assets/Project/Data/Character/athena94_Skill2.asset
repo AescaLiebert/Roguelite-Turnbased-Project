@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Heal the entire team for 120% of own ATK and apply Rejuvenation
-      for 2 turns. Each stack adds healing equal to 60% of HP recovered at turn start.
+  - description: "Heal the entire team for 120% of own ATK and apply Rejuvenation for 2 turns. Each stack adds healing equal to 60% of HP recovered at turn start."
     skillType: 4
     runtimeEffect:
       Attack:
@@ -115,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 4
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -213,9 +210,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 4
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
       - Timing: 3
         Effect:
           Attack:
@@ -313,13 +308,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 4
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Heal the entire team for 220% of own ATK and apply Rejuvenation
-      for 2 turns. Each stack adds healing equal to 60% of HP recovered at turn start.
+  - description: "Heal the entire team for 220% of own ATK and apply Rejuvenation for 2 turns. Each stack adds healing equal to 60% of HP recovered at turn start."
     skillType: 4
     runtimeEffect:
       Attack:
@@ -416,7 +406,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 4
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -514,9 +503,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 4
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
       - Timing: 3
         Effect:
           Attack:
@@ -614,13 +601,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 4
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Heal the entire team for 325% of own ATK and apply Rejuvenation
-      for 2 turns. Each stack adds healing equal to 60% of HP recovered at turn start.
+  - description: "Heal the entire team for 325% of own ATK and apply Rejuvenation for 2 turns. Each stack adds healing equal to 60% of HP recovered at turn start."
     skillType: 4
     runtimeEffect:
       Attack:
@@ -717,7 +699,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 4
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -815,9 +796,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 4
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
       - Timing: 3
         Effect:
           Attack:
@@ -915,7 +894,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 4
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

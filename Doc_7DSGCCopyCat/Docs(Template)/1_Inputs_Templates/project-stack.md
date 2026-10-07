@@ -13,7 +13,7 @@ blocked_by: []
 Design: [GDD_Fighting_Allstar.md](GDD_Fighting_Allstar.md); load relevant tags.
 
 - Online 3D card roguelite; PC/Android; 3 active + 1 reserve per side.
-- Confirmed: Kyo94; linear dungeons vs randomized character teams; persistent ownership; C0/6–C6/6; Firebase third-party login.
+- Confirmed: Kyo94; linear dungeons vs randomized character teams; persistent ownership; C0/5–C5/5; Firebase third-party login.
 - Current: Unity 6000.3.4f1, Built-in, Input System 1.17/Both, uGUI/TMP, LeanTween source.
 - Prototypes: `Assets/Script/Gameplay/`, `Card/`, `Character/`, `Gacha/`; roster empty, online authority absent.
 - Target: UI Toolkit, MainMenu/Combat, shared C# core, Firebase/Firestore, Cloudflare gateway, C# host; UnityMCP tooling.

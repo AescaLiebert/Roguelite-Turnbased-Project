@@ -17,19 +17,23 @@ MonoBehaviour:
   statusVisuals: []
   levels:
   - level: 0
-    description: Inflict damage equal to 600% of ATK
+    description: Inflict damage equal to 550% of ATK
     skillType: 0
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 60000
+      CoefficientBp: 55000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -54,6 +58,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -63,7 +72,11 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -77,18 +90,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -98,13 +113,14 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
   - level: 1
     description: Inflict damage equal to 600% of ATK
     skillType: 0
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
       Id: 
       Kind: 0
       Family: 0
@@ -115,6 +131,7 @@ MonoBehaviour:
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -139,6 +156,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -148,7 +170,11 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -162,18 +188,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -183,23 +211,25 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
   - level: 2
-    description: Inflict damage equal to 600% of ATK
+    description: Inflict damage equal to 650% of ATK
     skillType: 0
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 60000
+      CoefficientBp: 65000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -224,6 +254,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -233,7 +268,11 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -247,18 +286,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -268,23 +309,25 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
   - level: 3
-    description: Inflict damage equal to 600% of ATK
+    description: Inflict damage equal to 700% of ATK
     skillType: 0
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 60000
+      CoefficientBp: 70000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -309,6 +352,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -318,7 +366,11 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -332,18 +384,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -353,23 +407,25 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
   - level: 4
-    description: Inflict damage equal to 600% of ATK
+    description: Inflict damage equal to 750% of ATK
     skillType: 0
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 60000
+      CoefficientBp: 75000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -394,6 +450,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -403,7 +464,11 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -417,18 +482,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -438,23 +505,25 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
   - level: 5
-    description: Inflict damage equal to 600% of ATK
+    description: Inflict damage equal to 800% of ATK
     skillType: 0
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 60000
+      CoefficientBp: 80000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -479,91 +548,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
-        DebuffImmunity: 0
-        AdditionalDamageImmunity: 0
-        Taunt: 0
-        EvadeAttacks: 0
-        StanceChildren: []
-        RecoverDamageTakenBp: 0
-        CounterEnabled: 0
-        CounterCategory: 0
-        CounterTarget: 1
-        CounterEffect:
-          Kind: 0
-          Target: 1
-          Family: 0
+        PeriodicHealing:
+          Timing: 1
           Scaling: 0
-          CoefficientBp: 10000
-          Magnitude: 0
-          KeywordId: 
-          Timing: 3
-          HealSource: 3
-          HealAmount: 0
-          HealCoefficientBp: 10000
-          StatusRecipeId: 
-          StatusPolarity: 1
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          PowerGaugeAmount: 0
-          Sequence: []
-        SurviveLethalCharges: 0
-        IgnoreCritResistanceBp: 0
-        IgnoreCritDefenseBp: 0
-        ImmuneStatusTags: []
-        Reactions: []
-      StatusDurationOverride: 0
-      StatusStackCount: 1
-      StatusPotencyBp: 0
-      HealValue:
-        Source: 0
-        FixedAmount: 0
-        CoefficientBp: 10000
-        MaximumAmount: 2147483647
-      HealScalingStat: 0
-      HealCoefficientBp: 0
-      PowerGaugeAmount: 0
-      Target: 3
-      TriggerWindow: PreAction
-      Sequence: []
-      Provenance: 0
-  - level: 6
-    description: Inflict damage equal to 600% of ATK
-    skillType: 0
-    runtimeEffect:
-      Id: 
-      Kind: 0
-      Family: 0
-      Scaling: 0
-      ScalingStat: 0
-      Magnitude: 0
-      CoefficientBp: 60000
-      KeywordFactorBp: 10000
-      KeywordId: 
-      Tags: []
-      StatusRecipe:
-        Id: 
-        NameKey: 
-        Polarity: 0
-        Color: 0
-        Behavior: 0
-        Stacking: 0
-        Identity: 0
-        DurationClock: 1
-        DefaultDuration: 2
-        MaxStacks: 1
-        DefaultPotencyBp: 0
-        BypassDebuffImmunity: 0
-        BreakRule: 0
-        DisableMask: 0
-        Tags: []
-        Modifiers: []
-        PeriodicDamage:
-          Family: 3
-          Timing: 2
-          Scaling: 1
           CoefficientBp: 10000
           FixedAmount: 0
-          ConsumeOnTrigger: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -573,7 +562,11 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -587,18 +580,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -608,6 +603,4 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0

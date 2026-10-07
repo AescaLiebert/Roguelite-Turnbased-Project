@@ -61,7 +61,7 @@
         </ui:VisualElement>
 
         <ui:VisualElement name="collection-panel" class="content-panel" style="display: none;">
-            <ui:Label text="KOF fighters · ownership and C0–C6" class="panel-title" />
+            <ui:Label text="KOF fighters · ownership and C0–C5" class="panel-title" />
             <ui:VisualElement name="collection-list" class="collection-list" />
             <ui:Label text="Capped C6 duplicates become Collection Tokens. Token exchange is not implemented yet." class="small-copy" />
             <ui:Label text="Featured selectors" class="panel-title selector-heading" />

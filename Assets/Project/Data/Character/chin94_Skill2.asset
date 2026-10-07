@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflicts damage equal to 120% of ATK, applies 1 ignite to enemy
-      for 2 turns
+  - description: "Inflicts damage equal to 120% of ATK, applies 1 ignite to enemy for 2 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -115,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -222,13 +219,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflicts damage equal to 240% of ATK Removes Buff and applies 2
-      ignite to enemy for 2 turns
+  - description: "Inflicts damage equal to 240% of ATK Removes Buff and applies 2 ignite to enemy for 2 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -325,7 +317,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 1
         Effect:
@@ -423,9 +414,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
       - Timing: 3
         Effect:
           Attack:
@@ -531,13 +520,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflicts damage equal to 360% of ATK Removes Buff and applies 3
-      ignite to enemy for 3 turns
+  - description: "Inflicts damage equal to 360% of ATK Removes Buff and applies 3 ignite to enemy for 3 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -634,7 +618,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 1
         Effect:
@@ -732,9 +715,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
       - Timing: 3
         Effect:
           Attack:
@@ -840,7 +821,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

@@ -239,9 +239,9 @@ namespace FightingAllstar.Presentation.Economy
                 {
                     var upgrade = new Button(() => ReviewUpgrade(entry.CharacterId))
                     {
-                        text = owned.ConstellationTier >= 6 ? "C6 · capped" : "Upgrade to C" + (owned.ConstellationTier + 1)
+                        text = owned.ConstellationTier >= 5 ? "C5 · capped" : "Upgrade to C" + (owned.ConstellationTier + 1)
                     };
-                    upgrade.SetEnabled(owned.ConstellationTier < 6 && owned.CrestCount > 0);
+                    upgrade.SetEnabled(owned.ConstellationTier < 5 && owned.CrestCount > 0);
                     upgrade.AddToClassList("secondary-button");
                     row.Add(upgrade);
                 }
@@ -267,7 +267,7 @@ namespace FightingAllstar.Presentation.Economy
         private void ReviewUpgrade(string characterId)
         {
             var owned = _state.Roster.Find(x => x != null && x.DefinitionId == characterId);
-            if (owned == null || owned.CrestCount < 1 || owned.ConstellationTier >= 6) return;
+            if (owned == null || owned.CrestCount < 1 || owned.ConstellationTier >= 5) return;
             _pendingUpgradeCharacter = characterId;
             var fighter = FindCharacter(characterId);
             if (_upgradeSummary != null) _upgradeSummary.text = string.Format("{0}\nC{1} → C{2}\nCost: 1 {3} crest.",

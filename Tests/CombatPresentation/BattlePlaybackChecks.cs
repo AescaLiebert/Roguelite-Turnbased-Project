@@ -15,8 +15,10 @@ internal static partial class BattlePlaybackChecks
         if (!condition) throw new Exception(message);
     }
 
-    public static void Main()
+    public static void Main(string[] args)
     {
+        TrainingChecks();
+        if (args.Contains("--training")) { Console.WriteLine("PASS: " + _assertions + " training assertions."); return; }
         MultiHitChecks();
         ReserveEntryRefillChecks();
         InspectorPassiveChecks();

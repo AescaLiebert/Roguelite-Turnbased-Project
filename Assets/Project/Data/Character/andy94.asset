@@ -23,10 +23,11 @@ MonoBehaviour:
   - trait.fatal-fury
   - trait.american
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: If self not damaged in that turn, gains 1 point ult gauge
     to self
-  passiveSourceType: On-Field
-  passiveRestriction: Own
+  passiveSourceType: 1
+  passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 88198d0c51f84b5fbd37a79de8b2f0f5, type: 2}
   id: 1017
   fighterName: Andy Bogard 94
@@ -38,7 +39,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: 94d3bcec43b8fb84a97d59a8fae0e9c3, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 39000bdc1202c7347b72919671d31d21, type: 2}
   Skill1: {fileID: 11400000, guid: f2e6130c993847c38f15a1f3c31a4fe4, type: 2}
   Skill2: {fileID: 11400000, guid: 4af93a549ce04d2eb246e7240299be0a, type: 2}
   Ultimate: {fileID: 11400000, guid: 839d3efc02894ae8853bb8324a8a29a7, type: 2}

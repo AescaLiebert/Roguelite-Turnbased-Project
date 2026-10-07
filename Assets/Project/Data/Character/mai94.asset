@@ -24,8 +24,8 @@ MonoBehaviour:
   - trait.fire-elements
   - trait.series-kof
   passiveSourceDescription: Decrease enemy's Recovery Rate equal to own Regeneration
-  passiveSourceType: On-Field
-  passiveRestriction: All
+  passiveSourceType: 1
+  passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 2ea00c52e373cae489821d63d3acfed1, type: 2}
   id: 1003
   fighterName: Mai Shiranui 94
@@ -37,7 +37,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: 509fbbe4b35c251418007e98d8759be0, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 3e09a2c807734dd49a2044b4334ab6f1, type: 2}
   Skill1: {fileID: 11400000, guid: 5502fb563c00a534f9924509785b21d3, type: 2}
   Skill2: {fileID: 11400000, guid: 21520b6a81ac3e54c90cec5cc95b1aa1, type: 2}
   Ultimate: {fileID: 11400000, guid: ec62352458f022148990013158d76568, type: 2}

@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict damage equal to 120% of ATK, decrease defense power 20%
-      1 turns
+  - description: "Inflict damage equal to 120% of ATK, decrease defense power 20% 1 turns"
     skillType: 5
     runtimeEffect:
       Id: 
@@ -99,7 +97,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -189,13 +186,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict damage equal to 210% of ATK, decrease defense power 40%
-      2 turns
+  - description: "Inflict damage equal to 210% of ATK, decrease defense power 40% 2 turns"
     skillType: 5
     runtimeEffect:
       Id: 
@@ -276,7 +268,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -366,13 +357,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict damage equal to 350% of ATK, decrease defense power 60%
-      2 turns
+  - description: "Inflict damage equal to 350% of ATK, decrease defense power 60% 2 turns"
     skillType: 5
     runtimeEffect:
       Id: 
@@ -453,7 +439,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -543,7 +528,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

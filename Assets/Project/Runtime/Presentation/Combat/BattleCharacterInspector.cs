@@ -195,13 +195,13 @@ namespace FightingAllstar.Presentation.Combat
             Heading(content,"CHARACTER CARDS");
             var hint=Text(content,"Select a card to compare its ranks or ultimate levels.",18,Muted);Height(hint.rectTransform,32);
             foreach(var skill in selected.Definition.Skills.OrderBy(s=>s.Slot)) CardEntry(content,skill.Slot,"SKILL "+skill.Slot,"Ranks 1–3");
-            CardEntry(content,0,"ULTIMATE","Levels 0–6");
+            CardEntry(content,0,"ULTIMATE","Levels 0–5");
         }
         private string CardName(int slot)
         { var name=cardName?.Invoke(selected,slot);return string.IsNullOrWhiteSpace(name)?slot==0?"Ultimate":"Skill "+slot:name; }
         private void CardEntry(RectTransform content,int slot,string label,string levels)
         {
-            var row=Button(content,"Card "+slot,"",()=>ShowCard(slot,slot==0?Mathf.Clamp(selected.ConstellationTier,0,6):1));Height(row,125);
+            var row=Button(content,"Card "+slot,"",()=>ShowCard(slot,slot==0?Mathf.Clamp(selected.ConstellationTier,0,5):1));Height(row,125);
             var art=Picture(row,"Card artwork",cardArt?.Invoke(selected,slot));Place(art,16,10,76,104);
             var type=Text(row,label,14,Accent);Place(type.rectTransform,112,16,-150,23);
             var name=Text(row,CardName(slot),25);Place(name.rectTransform,112,43,-150,34);
@@ -215,7 +215,7 @@ namespace FightingAllstar.Presentation.Combat
             var title=Text(card,CardName(slot),22);Place(title.rectTransform,24,18,-98,40);
             var close=Button(card,"Close card","×",DismissCard);Place(close,-66,20,42,40,true);
             var choices=Box(card,"Card levels",Color.clear);Place(choices,24,78,-48,42);Horizontal(choices,6);
-            for(int i=slot==0?0:1;i<=(slot==0?6:3);i++)
+            for(int i=slot==0?0:1;i<=(slot==0?5:3);i++)
             {
                 int level=i;var choice=Button(choices,(slot==0?"Level ":"Rank ")+i,(slot==0?"Lv ":"Rank ")+i,()=>ShowCard(slot,level),i==rank);
                 choice.gameObject.AddComponent<LayoutElement>().flexibleWidth=1;

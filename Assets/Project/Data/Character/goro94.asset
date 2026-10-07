@@ -22,9 +22,10 @@ MonoBehaviour:
   traitIds:
   - trait.japan
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: Reduces damage taken by the team in PvP by 10%
-  passiveSourceType: SUB, PVP-Only
-  passiveRestriction: All
+  passiveSourceType: 3
+  passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 1e9e7ffc2b1247b3ba61611157cff3cd, type: 2}
   id: 1009
   fighterName: Goro Daimon 94
@@ -36,7 +37,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: d3922c9d24e0bda49b5c6b21acfdc991, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 56847f4e7a1225f478214194111b1883, type: 2}
   Skill1: {fileID: 11400000, guid: 98c7eb8f5e60cbd42876efebf135103e, type: 2}
   Skill2: {fileID: 11400000, guid: 7adc851d0cd12ff45ad9af2f3a25b7cf, type: 2}
   Ultimate: {fileID: 11400000, guid: 6c04accdc86b3a04e9a99edbc2129673, type: 2}

@@ -81,7 +81,9 @@ namespace FightingAllstar.Core.Combat
                         rule.CardOriginOnly && !cardOrigin || rule.ExcludeUltimate && isUltimate ||
                         rule.RequireCritical || rule.RequireBlocked ||
                         rule.FilterDamageFamily && rule.DamageFamily != family ||
-                        rule.FilterCategory && (card == null || CardRules.GetEffectCategory(card) != rule.Category || card.Rank < rule.MinimumRank) ||
+                        rule.FilterCategory && (card == null ||
+                            !MatchesCategory(rule.Category, CardRules.GetEffectCategory(card), isUltimate) ||
+                            card.Rank < rule.MinimumRank) ||
                         !Related(owner, actor, rule.ActorRelation) || !Related(owner, target, rule.TargetRelation)) continue;
 
                     var context = new CardEffectContext
@@ -257,6 +259,17 @@ namespace FightingAllstar.Core.Combat
             Dispatch(state, new PassiveFact { Kind = kind, TurnSide = state.ActingSide });
         }
 
+        internal static void NotifyFighterDefeated(BattleState state, FighterState defeated,
+            FighterState source = null, string rootActionId = null, bool cardOrigin = false,
+            bool isUltimate = false, CardCategory category = CardCategory.Attack, int cardRank = 0)
+        {
+            if (state == null || defeated == null) return;
+            Dispatch(state, new PassiveFact { Kind = PassiveEventKind.FighterDefeated,
+                TurnSide = state.ActingSide, ActorId = source?.Id, TargetId = defeated.Id,
+                RootActionId = rootActionId, CardOrigin = cardOrigin, IsUltimate = isUltimate,
+                CardCategory = category, CardRank = cardRank });
+        }
+
         public static void NotifyDamageResolved(BattleState state, FighterState source, FighterState target, int damageAmount,
             string rootActionId = null, bool cardOrigin = false, bool isUltimate = false,
             DamageFamily family = DamageFamily.Normal, CardCategory category = CardCategory.Attack, int cardRank = 0,
@@ -282,7 +295,7 @@ namespace FightingAllstar.Core.Combat
         private static PassiveFact CommitGauge(BattleState state, FighterState actor, FighterState target, int delta,
             string rootActionId, bool cardOrigin, bool ultimate)
         {
-            if (state == null || target == null || !target.IsAlive || target.Health <= 0) return null;
+            if (state == null || target == null || !target.IsAlive || target.Health <= 0 || target.PowerGaugeDisabled) return null;
             var before = target.PowerGauge;
             target.PowerGauge = (int)Math.Max(0, Math.Min(CardRules.UltimateGaugeCost, (long)before + delta));
             var actual = target.PowerGauge - before;
@@ -345,11 +358,13 @@ namespace FightingAllstar.Core.Combat
                             rule.ExcludeUltimate && fact.IsUltimate || rule.RequireGaugeLoss && fact.GaugeDelta >= 0 ||
                             rule.RequireCritical && !fact.WasCritical || rule.RequireBlocked && !fact.WasBlocked ||
                             rule.FilterDamageFamily && rule.DamageFamily != fact.DamageFamily ||
-                            rule.FilterCategory && (rule.Category != fact.CardCategory || fact.CardRank < rule.MinimumRank) ||
+                            rule.FilterCategory && (!MatchesCategory(rule.Category, fact.CardCategory, fact.IsUltimate) ||
+                                fact.CardRank < rule.MinimumRank) ||
                             !Related(owner, factActor, rule.ActorRelation) ||
                             !Related(owner, factTarget, rule.TargetRelation)) continue;
                         var context = new CardEffectContext { Battle = state, EffectOwner = owner,
                             Actor = factActor ?? owner, SelectedTarget = factTarget ?? owner,
+                            RootActionId = fact.RootActionId,
                             CardCategory = fact.CardCategory, CardRank = fact.CardRank, IsUltimate = fact.IsUltimate,
                             DamageFamily = fact.DamageFamily, WasCritical = fact.WasCritical, WasBlocked = fact.WasBlocked };
                         var passed = CardEffectSystem.ConditionsPass(rule.Conditions, context, context.SelectedTarget);
@@ -385,7 +400,8 @@ namespace FightingAllstar.Core.Combat
                             else if (command.Kind == PassiveCommandKind.ExecuteEffect)
                             {
                                 if (command.Effect == null) continue;
-                                BattleEngine.ExecutePassiveOperation(state, owner, context, command.Effect, fact.RootActionId);
+                                BattleEngine.ExecutePassiveOperation(state, owner, context, command.Effect,
+                                    fact.RootActionId, binding.SourceId + ":" + rule.Id);
                             }
                             else
                             {
@@ -407,6 +423,9 @@ namespace FightingAllstar.Core.Combat
 
         private static FighterState Find(BattleState state, string id) => string.IsNullOrEmpty(id) ? null :
             state.Player.FindFighter(id) ?? state.Opponent.FindFighter(id);
+
+        private static bool MatchesCategory(CardCategory requested, CardCategory actual, bool isUltimate) =>
+            requested == CardCategory.Ultimate ? isUltimate : requested == actual;
 
         private static bool ReactionAvailable(BattleState state, FighterState owner, ReactionBinding binding)
         {

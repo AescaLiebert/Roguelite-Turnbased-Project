@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: leona96_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Id: fighter.leona96.passive.source
+    Auras:
+    - Id: lifesteal
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: -1
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Targets:
+        Relation: 1
+        IncludeOwner: 1
+        IncludeReserve: 1
+        AttributeId: 
+        TraitId: 
+        SeriesId: 
+      Scaling: 0
+      ScalingKey: 
+      ScalingRelation: 0
+      SourceStat: 0
+      MaximumUnits: 1
+      Modifiers:
+      - Target: 0
+        Stat: 0
+        Bundle: 0
+        Family: 0
+        Operation: 0
+        Amount: 2500
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 0
+        SerializedTarget: 0
+        SerializedStat: 14
+        SerializedBundle: 0
+        SerializedFamily: 0
+        SerializedOperation: 2
+    Reactions:
+    - Id: low-health-damage-bonus
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: -1
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Trigger: 5
+      OwnTeamTurnOnly: 0
+      ActorRelation: 1
+      TargetRelation: 3
+      CardOriginOnly: 0
+      ExcludeUltimate: 0
+      RequireGaugeLoss: 0
+      RequireCritical: 0
+      RequireBlocked: 0
+      AllowReactionOrigin: 0
+      FilterDamageFamily: 0
+      DamageFamily: 0
+      FilterCategory: 0
+      Category: 0
+      MinimumRank: 0
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions:
+      - Kind: 16
+        Threshold: 3499
+        Subject: 0
+      Commands:
+      - Kind: 5
+        CounterCap: 2147483647
+        ValueSource: 0
+        Amount: 4000
+    - Id: lowest-health-ultimate-bonus
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: -1
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Trigger: 5
+      OwnTeamTurnOnly: 0
+      ActorRelation: 1
+      TargetRelation: 3
+      CardOriginOnly: 1
+      ExcludeUltimate: 0
+      RequireGaugeLoss: 0
+      RequireCritical: 0
+      RequireBlocked: 0
+      AllowReactionOrigin: 0
+      FilterDamageFamily: 0
+      DamageFamily: 0
+      FilterCategory: 1
+      Category: 6
+      MinimumRank: 0
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions:
+      - Kind: 25
+        Subject: 0
+      Commands:
+      - Kind: 5
+        CounterCap: 2147483647
+        ValueSource: 0
+        Amount: 4000
+    - Id: ultimate-kill-heal
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: -1
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Trigger: 8
+      OwnTeamTurnOnly: 0
+      ActorRelation: 1
+      TargetRelation: 3
+      CardOriginOnly: 1
+      ExcludeUltimate: 0
+      RequireGaugeLoss: 0
+      RequireCritical: 0
+      RequireBlocked: 0
+      AllowReactionOrigin: 0
+      FilterDamageFamily: 0
+      DamageFamily: 0
+      FilterCategory: 1
+      Category: 6
+      MinimumRank: 0
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions: []
+      Commands:
+      - Kind: 2
+        CounterCap: 2147483647
+        ValueSource: 0
+        Amount: 1
+        Effect:
+          Id: leona96.ultimate.kill-heal
+          Order: 0
+          Window: 1
+          Kind: 4
+          Target: 0
+          Conditions: []
+          Value:
+            Source: 4
+            FixedAmount: 0
+            CoefficientBp: 800
+            MaximumAmount: 2147483647
+    Triggers: []

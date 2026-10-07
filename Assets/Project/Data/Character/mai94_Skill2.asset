@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflicts 120% of ATK to all enemies
+  - description: "Inflicts 120% of ATK to all enemies"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -114,12 +113,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflicts 120% of ATK, Disable enemy from using recovery cards for
-      2 turns.
+  - description: "Inflicts 120% of ATK, Disable enemy from using recovery cards for 2 turns."
     skillType: 5
     runtimeEffect:
       Attack:
@@ -216,7 +211,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -315,13 +309,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflicts 180% of ATK, Disable enemy from using recovery cards for
-      2 turns.
+  - description: "Inflicts 180% of ATK, Disable enemy from using recovery cards for 2 turns."
     skillType: 5
     runtimeEffect:
       Attack:
@@ -418,7 +407,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -517,7 +505,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

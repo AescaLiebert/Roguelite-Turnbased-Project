@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: choi94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: Reduces the attack-related stats of Women Trait enemy by 15%
-  sourceType: SUB
-  sourceRestriction: Women
   definition:
     Id: fighter.choi94.passive.source
     Auras:
     - Id: women-attack-down
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 0
         AllowDefeatedOwner: 0

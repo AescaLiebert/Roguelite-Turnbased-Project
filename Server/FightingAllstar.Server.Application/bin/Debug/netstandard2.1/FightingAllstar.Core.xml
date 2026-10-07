@@ -38,6 +38,23 @@
             a blended set of weights that reflect the team's natural playstyle.
             </summary>
         </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.AllyTargetEvaluator">
+            <summary>
+            Specialized tactical decision evaluator for single-target ally buffs and heals.
+            Determines who is the best ally to receive a heal, shield, buff, or cleanse card.
+            </summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.AI.AllyTargetEvaluator.SelectBestAllyForCard(FightingAllstar.Core.Combat.CardState,FightingAllstar.Core.Combat.AI.BattleSituation,FightingAllstar.Core.Combat.FighterState,System.Collections.Generic.List{FightingAllstar.Core.Combat.PlannedAction})">
+            <summary>
+            Selects the best ally ID for a given card based on tactical priorities.
+            </summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.AI.AllyTargetEvaluator.EvaluateAllyFitness(FightingAllstar.Core.Combat.CardState,FightingAllstar.Core.Combat.AI.FighterProfile,FightingAllstar.Core.Combat.AI.BattleSituation,System.Collections.Generic.List{FightingAllstar.Core.Combat.PlannedAction})">
+            <summary>
+            Scores how suitable a specific ally is to receive this card.
+            Higher score = much better recipient.
+            </summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.AI.BoardAnalyzer">
             <summary>
             Phase 1: Reads BattleState and produces a <see cref="T:FightingAllstar.Core.Combat.AI.BattleSituation"/> snapshot.
@@ -87,6 +104,12 @@
         <member name="T:FightingAllstar.Core.Combat.AttackEffectSystem">
             <summary>Builds a local damage-calculation view for source-backed attack keywords.</summary>
         </member>
+        <member name="M:FightingAllstar.Core.Combat.BattleEngine.ExecutePassiveOperation(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.CardEffectContext,FightingAllstar.Core.Content.CardEffectOperationDefinition,System.String,System.String)">
+            <summary>Resolves supported effect operations emitted by passive reactions against their authored targets.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.BattleEntropy">
+            <summary>Creates unpredictable seeds for battle-local random streams.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.BattlePlaybackState">
             <summary>Display-only event reducer. Never submitted back to the battle authority.</summary>
         </member>
@@ -105,10 +128,7 @@
         <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ApplyBeforeDamageReactions(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Content.DamageFamily,FightingAllstar.Core.Combat.CardState,FightingAllstar.Core.Combat.AttackEffectCalculation)">
             <summary>Applies Before Damage reaction commands to the local hit calculation.</summary>
         </member>
-        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ReflectDamageBp(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState)">
-            <summary>Returns the active self-targeted reflect rate from the owner's passive.</summary>
-        </member>
-        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.Refresh(FightingAllstar.Core.Combat.BattleState,System.Collections.Generic.ISet{System.String})">
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.Refresh(FightingAllstar.Core.Combat.BattleState,System.Collections.Generic.ISet{System.String},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Int32})">
             <summary>Rebuild derived contributions after authoritative mutations. Never adds/removes real statuses.</summary>
         </member>
         <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ChangePowerGauge(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,System.Int32,System.String,System.Boolean,System.Boolean)">
@@ -144,11 +164,20 @@
         <member name="T:FightingAllstar.Core.Content.StatBlock">
             <summary>All ratios are stored as basis points. 10,000 basis points equals 100%.</summary>
         </member>
-        <member name="F:FightingAllstar.Core.Content.EffectDefinition.StatusApplyChanceBp">
+        <member name="T:FightingAllstar.Core.Content.EffectOperationDefinition">
+            <summary>Non-recursive effect payload shared by root effects and sequence steps.</summary>
+        </member>
+        <member name="F:FightingAllstar.Core.Content.EffectOperationDefinition.StatusApplyChanceBp">
             <summary>Authored status proc chance in basis points; 10000 is 100% and zero is 0%.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StatBundleRules">
+            <summary>Defines which stats a bundle modifier affects and the operation used for each member.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.ContentAuthoringValidator">
             <summary>Checks WIP authoring completeness without pretending that source prose is executable gameplay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.DamageAnimationTemplate">
+            <summary>Reusable choreography presets. Hit count remains editable from 1 through 10.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.SnapshotJson">
             <summary>Serializes plain combat snapshots, including recursive effect-condition trees.</summary>
@@ -167,6 +196,9 @@
         </member>
         <member name="T:FightingAllstar.Core.Run.RunBattleBridge">
             <summary>Maps a frozen route encounter to the disposable shared battle engine and back to run HP.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.EnemyFormationTemplate">
+            <summary>A complete, authored enemy formation owned by one dungeon policy.</summary>
         </member>
     </members>
 </doc>

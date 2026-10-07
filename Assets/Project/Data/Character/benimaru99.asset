@@ -23,9 +23,10 @@ MonoBehaviour:
   - trait.japan
   - trait.chinese
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: Reduces the Avoidance rate of enemy Women Trait by 20%
-  passiveSourceType: On-Field
-  passiveRestriction: Women
+  passiveSourceType: 1
+  passiveRestriction: 5
   passiveDefinition: {fileID: 11400000, guid: 19f6b1f390e14b44a1dbfb064005419b, type: 2}
   id: 1008
   fighterName: Benimaru 99
@@ -37,7 +38,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: 63c77a4f894cc134683864d6b399267f, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: e14c6c37c9e86a149b48e056983d238d, type: 2}
   Skill1: {fileID: 11400000, guid: 1499be1d8eff4d499c168794602b6f9e, type: 2}
   Skill2: {fileID: 11400000, guid: 9e7ba3dcfbca407a8cefbcfb0977d21a, type: 2}
   Ultimate: {fileID: 11400000, guid: 7a31324f5a064a049be2c7fe4fd4c87f, type: 2}

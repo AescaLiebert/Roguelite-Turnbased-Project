@@ -22,10 +22,11 @@ MonoBehaviour:
   traitIds:
   - trait.korea-justice
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: "Increases the defense of the \u201CGreen attribute team\u201D
     by 60%"
-  passiveSourceType: SUB
-  passiveRestriction: Green attribute
+  passiveSourceType: 2
+  passiveRestriction: 3
   passiveDefinition: {fileID: 11400000, guid: 2bcb2dc68470440bb347ad3c14d547b0, type: 2}
   id: 1026
   fighterName: Chang Koehan 94
@@ -37,7 +38,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: f044b91054dccad408453075de7ec4ef, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: e20359cc985f29d4f95aa193ac6cbf68, type: 2}
   Skill1: {fileID: 11400000, guid: c5bd1fade2354c9a8e954f46dd654586, type: 2}
   Skill2: {fileID: 11400000, guid: 4617cba671eb4bde8386a87a9ee24c7d, type: 2}
   Ultimate: {fileID: 11400000, guid: f815581b9dfa48d6847c27c9a96c3be9, type: 2}

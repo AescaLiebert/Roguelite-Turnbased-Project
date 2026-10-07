@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: mai95_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: When own attacks an Ignites enemy, Attack increases by 20% and
-    Damage Dealt increases by 20%
-  sourceType: On-Field
-  sourceRestriction: All
   definition:
     Id: fighter.mai95.passive.source
     Auras: []
@@ -24,7 +20,7 @@ MonoBehaviour:
     - Id: ignite-hit-bonus
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 1
         AllowDefeatedOwner: 0
@@ -77,7 +73,6 @@ MonoBehaviour:
           Kind: 0
           Target: 0
           Conditions: []
-        DelayOwnerTurns: 0
       - Kind: 5
         CounterKey: 
         CounterCap: 2147483647
@@ -90,5 +85,4 @@ MonoBehaviour:
           Kind: 0
           Target: 0
           Conditions: []
-        DelayOwnerTurns: 0
     Triggers: []

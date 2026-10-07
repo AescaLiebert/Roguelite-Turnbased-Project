@@ -22,9 +22,10 @@ MonoBehaviour:
   traitIds:
   - trait.fatal-fury
   - trait.series-kof
+  - trait.male
   passiveSourceDescription: Increases allies's Damage Dealt in PvP by 15%
-  passiveSourceType: SUB
-  passiveRestriction: All
+  passiveSourceType: 2
+  passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: f338b077b599406bb1cd6055d252b186, type: 2}
   id: 1015
   fighterName: Joe Higashi 94
@@ -36,7 +37,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: a3dec3113d7b1864ebe8733aa0881d07, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 0bd224301a8aa9e47b8927f1d96cf9c0, type: 2}
   Skill1: {fileID: 11400000, guid: 1b762e563b5e4328a3c95e6157ad99a0, type: 2}
   Skill2: {fileID: 11400000, guid: a4a21108da2148adaced2f8114e1c9b9, type: 2}
   Ultimate: {fileID: 11400000, guid: fae8fab58e16436ab5c965c55326e00a, type: 2}

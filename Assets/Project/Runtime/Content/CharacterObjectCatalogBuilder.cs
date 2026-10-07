@@ -85,8 +85,8 @@ namespace FightingAllstar.Presentation.Content
                 PassiveSource = new PassiveSourceDefinition
                 {
                     Description = character.PassiveSourceDescription,
-                    SourceType = character.PassiveSourceType,
-                    Restriction = character.PassiveRestriction,
+                    SourceType = CharacterPassiveMetadata.SourceTypeLabel(character.PassiveSourceType),
+                    Restriction = CharacterPassiveMetadata.RestrictionLabel(character.PassiveRestriction),
                     Provenance = "CharacterObject"
                 },
                 Passive = passive,
@@ -128,18 +128,18 @@ namespace FightingAllstar.Presentation.Content
             for (var i = 0; i < card.ranks.Count; i++)
             {
                 var rank = card.ranks[i];
-                if (rank == null || rank.rankLevel != i + 1)
+                if (rank == null)
                     throw new InvalidOperationException(character.DefinitionId + " Skill " + slot + " has invalid rank data at rank " + (i + 1) + ".");
                 var effect = BuildRuntimeEffect(rank.runtimeEffect,
-                    character.DefinitionId + " Skill " + slot + " rank " + rank.rankLevel);
+                    character.DefinitionId + " Skill " + slot + " rank " + (i + 1));
                 skill.Ranks.Add(new SkillRankDefinition
                 {
-                    Rank = rank.rankLevel,
+                    Rank = i + 1,
                     HasCardKind = true, Category = Category(rank.skillType), TargetScope = Target(effect),
                     Effect = effect,
                     Description = rank.description,
                     SourceDescription = rank.description,
-                    Provenance = effect.Provenance
+                    Provenance = SourceProvenance.Supplied
                 });
             }
             return skill;
@@ -152,8 +152,8 @@ namespace FightingAllstar.Presentation.Content
                 foreach (var visual in card.statusVisuals)
                     FightingAllstar.Presentation.Combat.StatusVisualData.Register(visual);
             }
-            if (card.levels == null || card.levels.Count != 7)
-                throw new InvalidOperationException(card.ultimateName + " must define C0-C6.");
+            if (card.levels == null || card.levels.Count != 6)
+                throw new InvalidOperationException(card.ultimateName + " must define C0-C5.");
             for (var i = 0; i < card.levels.Count; i++)
             {
                 var level = card.levels[i];
@@ -168,7 +168,7 @@ namespace FightingAllstar.Presentation.Content
                     Description = level.description,
                     SourceDescription = level.description,
                     Effect = effect,
-                    Provenance = effect.Provenance
+                    Provenance = SourceProvenance.Supplied
                 });
             }
         }

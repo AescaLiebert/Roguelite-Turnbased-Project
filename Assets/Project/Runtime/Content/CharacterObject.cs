@@ -26,6 +26,69 @@ public enum FighterRarity
         LR
 }
 
+public enum PassiveSourceType
+{
+        Unknown,
+        [InspectorName("On-Field")] OnField,
+        [InspectorName("SUB")] Sub,
+        [InspectorName("SUB, PVP-Only")] SubPvpOnly
+}
+
+public enum PassiveRestriction
+{
+        Unknown,
+        All,
+        Own,
+        [InspectorName("Green attribute")] GreenAttribute,
+        [InspectorName("Red attribute")] RedAttribute,
+        Women
+}
+
+public static class CharacterPassiveMetadata
+{
+        public static PassiveSourceType ParseSourceType(string value)
+        {
+                switch ((value ?? string.Empty).Trim().ToUpperInvariant())
+                {
+                        case "ON-FIELD": return PassiveSourceType.OnField;
+                        case "SUB": return PassiveSourceType.Sub;
+                        case "SUB, PVP-ONLY": return PassiveSourceType.SubPvpOnly;
+                        default: return PassiveSourceType.Unknown;
+                }
+        }
+
+        public static PassiveRestriction ParseRestriction(string value)
+        {
+                switch ((value ?? string.Empty).Trim().ToUpperInvariant())
+                {
+                        case "ALL": return PassiveRestriction.All;
+                        case "OWN": return PassiveRestriction.Own;
+                        case "GREEN ATTRIBUTE": return PassiveRestriction.GreenAttribute;
+                        case "RED ATTRIBUTE": return PassiveRestriction.RedAttribute;
+                        case "WOMEN": return PassiveRestriction.Women;
+                        default: return PassiveRestriction.Unknown;
+                }
+        }
+
+        public static string SourceTypeLabel(PassiveSourceType value) => value switch
+        {
+                PassiveSourceType.OnField => "On-Field",
+                PassiveSourceType.Sub => "SUB",
+                PassiveSourceType.SubPvpOnly => "SUB, PVP-Only",
+                _ => string.Empty
+        };
+
+        public static string RestrictionLabel(PassiveRestriction value) => value switch
+        {
+                PassiveRestriction.All => "All",
+                PassiveRestriction.Own => "Own",
+                PassiveRestriction.GreenAttribute => "Green attribute",
+                PassiveRestriction.RedAttribute => "Red attribute",
+                PassiveRestriction.Women => "Women",
+                _ => string.Empty
+        };
+}
+
 
 [CreateAssetMenu(fileName = "New Character", menuName = "Character System/Character Object")] 
     public class CharacterObject : ScriptableObject, IEquatable<CharacterObject>
@@ -40,8 +103,8 @@ public enum FighterRarity
         [SerializeField] private string role;
         [SerializeField] private string[] traitIds = Array.Empty<string>();
         [SerializeField, TextArea] private string passiveSourceDescription;
-        [SerializeField] private string passiveSourceType;
-        [SerializeField] private string passiveRestriction;
+        [SerializeField] private PassiveSourceType passiveSourceType;
+        [SerializeField] private PassiveRestriction passiveRestriction;
         [Header("Passive")]
         [SerializeField] private PassiveDefinitionSO passiveDefinition;
 
@@ -61,6 +124,8 @@ public enum FighterRarity
 
         [Header("3D Model")] 
         [SerializeField] private GameObject fighter3DPrefab;
+        [SerializeField] private Mesh fighter3DMesh;
+        [SerializeField] private Material fighter3DMaterial;
 
         [Header("Card Data")]
         public SkillCardSO Skill1;
@@ -94,8 +159,8 @@ public enum FighterRarity
         public string Role => role;
         public string[] TraitIds => traitIds;
         public string PassiveSourceDescription => passiveSourceDescription;
-        public string PassiveSourceType => passiveSourceType;
-        public string PassiveRestriction => passiveRestriction;
+        public PassiveSourceType PassiveSourceType => passiveSourceType;
+        public PassiveRestriction PassiveRestriction => passiveRestriction;
         public PassiveDefinitionSO PassiveDefinition => passiveDefinition;
         public PassiveDefinition GetPassiveDefinition() => passiveDefinition == null ? null : passiveDefinition.CreateDefinition();
         public string FighterName => fighterName;
@@ -103,6 +168,8 @@ public enum FighterRarity
         public Sprite FighterIcon => fighterIcon;
 
         public GameObject Fighter3DPrefab => fighter3DPrefab;
+        public Mesh Fighter3DMesh => fighter3DMesh;
+        public Material Fighter3DMaterial => fighter3DMaterial;
         public int FighterLevel => fighterLevel;
 
         // Implement IEquatable for more robust comparison

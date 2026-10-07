@@ -24,8 +24,8 @@ MonoBehaviour:
   - trait.series-kof
   passiveSourceDescription: Increase the alies's Pierce Rate by 8% at the end of
     every turn. (Maximum 40%)
-  passiveSourceType: SUB
-  passiveRestriction: All
+  passiveSourceType: 2
+  passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 1c99fc89c7f1d3140864e4207d87f539, type: 2}
   id: 1005
   fighterName: King 94
@@ -37,7 +37,9 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: fb21fe517675a684f8bdc32d5f6810db, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: ed9905bc96b04e34492725e6a3fd4a3f, type: 2}
   Skill1: {fileID: 11400000, guid: c3ba3874edfbbf04bb51102f84fb698b, type: 2}
   Skill2: {fileID: 11400000, guid: fce45365a7330cb499d6858f4c471f80, type: 2}
   Ultimate: {fileID: 11400000, guid: 12aa3b03f35b35841ba12698c29cee9d, type: 2}

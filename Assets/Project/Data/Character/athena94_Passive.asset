@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: athena94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: 
-  sourceType: 
-  sourceRestriction: 
   definition:
     Id: fighter.athena94.passive.source
     Auras:
     - Id: women-attack
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: -1
         Presence: 0
         AllowDefeatedOwner: 0

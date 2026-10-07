@@ -22,7 +22,7 @@ namespace FightingAllstar.Core.Content
     public sealed class PassiveGate
     {
         public int MinimumTier;
-        public int MaximumTier = 6;
+        public int MaximumTier = 5;
         public BattleModeMask Modes = BattleModeMask.All;
         public PassivePresence Presence = PassivePresence.LivingRoster;
         public bool AllowDefeatedOwner;
@@ -74,7 +74,6 @@ namespace FightingAllstar.Core.Content
         public PassiveValueSource ValueSource;
         public int Amount = 1;
         public CardEffectOperationDefinition Effect;
-        public int DelayOwnerTurns;
         public PassiveCommandDefinition Clone()
         {
             var copy = (PassiveCommandDefinition)MemberwiseClone();
@@ -153,7 +152,8 @@ namespace FightingAllstar.Core.Content
                 ValidateRule(rule.Id, rule.Gate, ids, errors);
                 if (rule.Targets == null || !Enum.IsDefined(typeof(PassiveRelation), rule.Targets.Relation))
                     errors.Add(rule.Id + ": target filter required.");
-                if (!Enum.IsDefined(typeof(PassiveScaling), rule.Scaling) || rule.MaximumUnits <= 0)
+                if (!Enum.IsDefined(typeof(PassiveScaling), rule.Scaling) ||
+                    rule.Scaling != PassiveScaling.Constant && rule.MaximumUnits <= 0)
                     errors.Add(rule.Id + ": invalid scaling.");
                 if (rule.Scaling == PassiveScaling.OwnerCounter && !counters.Contains(rule.ScalingKey ?? ""))
                     errors.Add(rule.Id + ": counter has no writer.");
@@ -174,7 +174,8 @@ namespace FightingAllstar.Core.Content
                     var bundleModifier = modifier != null && modifier.ResolvedTarget == ModifierTarget.StatBundle &&
                         Enum.IsDefined(typeof(StatBundleKind), modifier.ResolvedBundle) && modifier.ResolvedBundle != StatBundleKind.None;
                     var damageModifier = modifier != null &&
-                        (modifier.ResolvedTarget == ModifierTarget.AnyDamageDealt || modifier.ResolvedTarget == ModifierTarget.AnyDamageReceived ||
+                        (modifier.ResolvedTarget == ModifierTarget.AnyDamageDealt || modifier.ResolvedTarget == ModifierTarget.UltimateDamageDealt ||
+                         modifier.ResolvedTarget == ModifierTarget.AnyDamageReceived ||
                          modifier.ResolvedTarget == ModifierTarget.FamilyDamageDealt || modifier.ResolvedTarget == ModifierTarget.FamilyDamageReceived) &&
                         modifier.ResolvedOperation == ModifierOperation.PercentagePoints;
                     var finalReduction = modifier != null && modifier.ResolvedTarget == ModifierTarget.FinalDamageReduction &&
@@ -191,7 +192,7 @@ namespace FightingAllstar.Core.Content
             HashSet<string> counters, List<string> errors)
         {
             if (command == null || !Enum.IsDefined(typeof(PassiveCommandKind), command.Kind) ||
-                !Enum.IsDefined(typeof(PassiveValueSource), command.ValueSource) || command.Amount < 0 || command.DelayOwnerTurns < 0)
+                !Enum.IsDefined(typeof(PassiveValueSource), command.ValueSource) || command.Amount < 0)
             { errors.Add(rule.Id + ": invalid command."); return; }
             if (command.ValueSource == PassiveValueSource.ActualGaugeLost &&
                 (rule.Trigger != PassiveEventKind.GaugeChanged || !rule.RequireGaugeLoss))
@@ -216,7 +217,7 @@ namespace FightingAllstar.Core.Content
             // Unity's Flags enum field serializes its Everything selection as -1.
             var modes = gate == null ? (BattleModeMask)0 : gate.Modes;
             if (modes == (BattleModeMask)(-1)) modes = BattleModeMask.All;
-            if (gate == null || gate.MinimumTier < 0 || gate.MaximumTier > 6 || gate.MinimumTier > gate.MaximumTier ||
+            if (gate == null || gate.MinimumTier < 0 || gate.MaximumTier > 5 || gate.MinimumTier > gate.MaximumTier ||
                 modes == 0 || (modes & ~BattleModeMask.All) != 0 ||
                 !Enum.IsDefined(typeof(PassivePresence), gate.Presence))
                 errors.Add(id + ": invalid availability gate.");

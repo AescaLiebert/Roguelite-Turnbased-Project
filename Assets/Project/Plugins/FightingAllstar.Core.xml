@@ -104,7 +104,7 @@
         <member name="T:FightingAllstar.Core.Combat.AttackEffectSystem">
             <summary>Builds a local damage-calculation view for source-backed attack keywords.</summary>
         </member>
-        <member name="M:FightingAllstar.Core.Combat.BattleEngine.ExecutePassiveOperation(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.CardEffectContext,FightingAllstar.Core.Content.CardEffectOperationDefinition,System.String)">
+        <member name="M:FightingAllstar.Core.Combat.BattleEngine.ExecutePassiveOperation(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.CardEffectContext,FightingAllstar.Core.Content.CardEffectOperationDefinition,System.String,System.String)">
             <summary>Resolves supported effect operations emitted by passive reactions against their authored targets.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Combat.BattleEntropy">

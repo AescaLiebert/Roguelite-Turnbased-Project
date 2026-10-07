@@ -17,7 +17,7 @@ public class UltimateCardSO : ScriptableObject
 
     public UltimateLevelData GetLevelData(int constellationTier)
     {
-        // Source progression is C0-C6, so tier is the list index.
+        // Ultimate progression is C0-C5, so tier is the list index.
         if (levels == null || levels.Count == 0) return null;
 
         int index = Mathf.Clamp(constellationTier, 0, levels.Count - 1);
@@ -28,7 +28,7 @@ public class UltimateCardSO : ScriptableObject
 [Serializable]
 public class UltimateLevelData
 {
-    public int level; // Constellation tier C0 to C6
+    public int level; // Constellation tier C0 to C5
     [TextArea]
     public string description;
     public SkillType skillType;

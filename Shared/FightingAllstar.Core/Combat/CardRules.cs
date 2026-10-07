@@ -12,6 +12,7 @@ namespace FightingAllstar.Core.Combat
             List<CardState> drawnCards = null, List<string> mergedCardIds = null, List<BattleEvent> timeline = null)
         {
             // Deterministic opening cards are appended in active formation order.
+            if (team.TrainingDeck) { DealTrainingHand(team, drawnCards, timeline); return; }
             var openingOrder = team.LivingActive();
             foreach (var fighter in openingOrder)
             {
@@ -28,6 +29,7 @@ namespace FightingAllstar.Core.Combat
         public static void StartTurn(BattleTeamState team, DeterministicRandom rng,
             List<CardState> drawnCards = null, List<string> mergedCardIds = null, List<BattleEvent> timeline = null)
         {
+            if (team.TrainingDeck) { DealTrainingHand(team, drawnCards, timeline); return; }
             var capacity = GetHandCapacity(team);
             foreach (var fighter in team.LivingActive())
             {
@@ -44,6 +46,16 @@ namespace FightingAllstar.Core.Combat
         // Once only the SUB survives and enters the field, the cap is therefore 1 + 3 = 4.
         public static int GetHandCapacity(BattleTeamState team)
         {
+            if (team?.TrainingDeck == true)
+            {
+                var count = 0;
+                foreach (var fighter in team.LivingActive())
+                {
+                    foreach (var skill in fighter.Definition.Skills) count += skill.Ranks.Count;
+                    count++;
+                }
+                return count;
+            }
             var survivingFormationSize = 0;
             if (team?.Fighters != null)
                 foreach (var fighter in team.Fighters)
@@ -66,7 +78,7 @@ namespace FightingAllstar.Core.Combat
             if (grantGauge)
             {
                 var owner = team.FindFighter(card.OwnerFighterId);
-                if (owner != null && owner.IsAlive && !owner.IsReserve) owner.PowerGauge = Math.Min(UltimateGaugeCost, owner.PowerGauge + 1);
+                if (owner != null && owner.IsAlive && !owner.IsReserve && !owner.PowerGaugeDisabled) owner.PowerGauge = Math.Min(UltimateGaugeCost, owner.PowerGauge + 1);
             }
             timeline?.Add(new BattleEvent { Kind = BattleEventKind.CardMoved, SourceId = card.OwnerFighterId,
                 CardId = card.Id, Card = card.Clone(), DestinationIndex = to,
@@ -91,7 +103,7 @@ namespace FightingAllstar.Core.Combat
                     team.Hand.RemoveAt(i + 1);
                     mergedCardIds?.Add(left.Id);
                     var owner = team.FindFighter(left.OwnerFighterId);
-                    if (grantGauge && owner != null && owner.IsAlive && !owner.IsReserve)
+                    if (grantGauge && owner != null && owner.IsAlive && !owner.IsReserve && !owner.PowerGaugeDisabled)
                     {
                         owner.PowerGauge = Math.Min(UltimateGaugeCost, owner.PowerGauge + 1);
                     }
@@ -127,6 +139,21 @@ namespace FightingAllstar.Core.Combat
             if (entry == null) return false;
             effect = entry.Effect;
             return effect != null;
+        }
+
+        private static void DealTrainingHand(BattleTeamState team, List<CardState> drawnCards, List<BattleEvent> timeline)
+        {
+            foreach (var card in team.Hand)
+                timeline?.Add(new BattleEvent { Kind = BattleEventKind.CardRemoved, SourceId = card.OwnerFighterId,
+                    CardId = card.Id, Message = "Training hand refreshed." });
+            team.Hand.Clear();
+            foreach (var fighter in team.LivingActive())
+            {
+                foreach (var skill in OrderedSkills(fighter.Definition))
+                    foreach (var rank in skill.Ranks)
+                        RecordDraw(AddCard(team, fighter, skill, rank.Rank, CardKind.Skill, 0), drawnCards, timeline);
+                RecordDraw(AddCard(team, fighter, null, 1, CardKind.Ultimate, fighter.ConstellationTier), drawnCards, timeline);
+            }
         }
 
         private static List<SkillDefinition> OrderedSkills(CharacterDefinition definition)

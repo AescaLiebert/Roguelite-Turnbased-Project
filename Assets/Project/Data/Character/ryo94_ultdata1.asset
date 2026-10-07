@@ -101,7 +101,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -115,7 +114,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -152,32 +150,56 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 4
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 7
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 8
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 0
               Timing: 0
@@ -227,7 +249,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -241,12 +262,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 1
-    description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 330% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
     skillType: 0
     runtimeEffect:
@@ -259,7 +276,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 33000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -330,7 +347,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -344,7 +360,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -381,32 +396,56 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 4
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 7
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 8
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 0
               Timing: 0
@@ -456,7 +495,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -470,12 +508,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 2
-    description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 360% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
     skillType: 0
     runtimeEffect:
@@ -488,7 +522,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 36000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -559,7 +593,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -573,7 +606,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -610,32 +642,56 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 4
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 7
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 8
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 0
               Timing: 0
@@ -685,7 +741,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -699,12 +754,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 3
-    description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 390% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
     skillType: 0
     runtimeEffect:
@@ -717,7 +768,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 39000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -788,7 +839,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -802,7 +852,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -839,32 +888,56 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 4
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 7
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 8
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 0
               Timing: 0
@@ -914,7 +987,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -928,12 +1000,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 4
-    description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 420% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
     skillType: 0
     runtimeEffect:
@@ -946,7 +1014,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 42000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1017,7 +1085,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1031,7 +1098,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -1068,32 +1134,56 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 4
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 7
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 8
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 0
               Timing: 0
@@ -1143,7 +1233,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1157,12 +1246,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
   - level: 5
-    description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 450% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
     skillType: 0
     runtimeEffect:
@@ -1175,7 +1260,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 45000
       KeywordFactorBp: 10000
       KeywordId: 
       Tags: []
@@ -1246,7 +1331,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -1260,7 +1344,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -1297,32 +1380,56 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 4
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 7
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             - Target: 0
               Stat: 8
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 0
               Timing: 0
@@ -1372,7 +1479,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1386,236 +1492,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - level: 6
-    description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
-      stats by 40% for 2 turns
-    skillType: 0
-    runtimeEffect:
-      Attack:
-        HitCount: 4
-        Range: 1
-      Id: 
-      Kind: 0
-      Family: 0
-      Scaling: 0
-      ScalingStat: 0
-      Magnitude: 0
-      CoefficientBp: 30000
-      KeywordFactorBp: 10000
-      KeywordId: 
-      Tags: []
-      Conditions: []
-      StatusRecipe:
-        Id: 
-        NameKey: 
-        Polarity: 0
-        Color: 0
-        Behavior: 0
-        Stacking: 0
-        Identity: 0
-        DurationClock: 1
-        DefaultDuration: 2
-        MaxStacks: 1
-        DefaultPotencyBp: 0
-        BypassDebuffImmunity: 0
-        BreakRule: 0
-        DisableMask: 0
-        Tags: []
-        Modifiers: []
-        PeriodicDamage:
-          Family: 3
-          Timing: 2
-          Scaling: 1
-          CoefficientBp: 10000
-          FixedAmount: 0
-          ConsumeOnTrigger: 0
-        PeriodicHealing:
-          Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
-          FixedAmount: 0
-        DebuffImmunity: 0
-        AdditionalDamageImmunity: 0
-        Taunt: 0
-        EvadeAttacks: 0
-        StanceChildren: []
-        RecoverDamageTakenBp: 0
-        CounterEnabled: 0
-        CounterCategory: 0
-        CounterTarget: 1
-        CounterConditions: []
-        CounterEffect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Kind: 0
-          Target: 1
-          Family: 0
-          Scaling: 0
-          CoefficientBp: 10000
-          Magnitude: 0
-          KeywordId: 
-          Timing: 3
-          HealSource: 3
-          HealAmount: 0
-          HealCoefficientBp: 10000
-          StatusRecipeId: 
-          StatusPolarity: 1
-          StatusApplyChanceBp: 10000
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          PowerGaugeAmount: 0
-          Sequence: []
-        SurviveLethalCharges: 0
-        IgnoreCritResistanceBp: 0
-        IgnoreCritDefenseBp: 0
-        ImmuneStatusTags: []
-        Reactions: []
-      StatusDurationOverride: 0
-      StatusStackCount: 1
-      StatusPotencyBp: 0
-      StatusApplyChanceBp: 10000
-      HealValue:
-        Source: 0
-        FixedAmount: 0
-        CoefficientBp: 10000
-        MaximumAmount: 2147483647
-      HealScalingStat: 0
-      HealCoefficientBp: 0
-      PowerGaugeAmount: 0
-      Target: 3
-      TriggerWindow: PreAction
-      Sequence:
-      - Timing: 3
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-          Id: status.decrease.atk
-          Kind: 1
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 0
-          KeywordFactorBp: 0
-          KeywordId: 
-          Tags: []
-          Conditions: []
-          StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
-            Polarity: 1
-            Color: 0
-            Behavior: 1
-            Stacking: 0
-            Identity: 0
-            DurationClock: 0
-            DefaultDuration: 2
-            MaxStacks: 0
-            DefaultPotencyBp: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers:
-            - Target: 0
-              Stat: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-            - Target: 0
-              Stat: 4
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-            - Target: 0
-              Stat: 7
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-            - Target: 0
-              Stat: 8
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-            PeriodicDamage:
-              Family: 0
-              Timing: 0
-              Scaling: 0
-              CoefficientBp: 0
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 0
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-              Kind: 0
-              Target: 0
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 0
-              Magnitude: 0
-              KeywordId: 
-              Timing: 0
-              HealSource: 0
-              HealAmount: 0
-              HealCoefficientBp: 0
-              StatusRecipeId: 
-              StatusPolarity: 0
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 0
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 2
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 0
-            MaximumAmount: 0
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 3
-          TriggerWindow: 
-          Sequence: []
-          Provenance: 0
-      Provenance: 0

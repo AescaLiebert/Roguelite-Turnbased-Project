@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9666d9fe4691a054dae7deae827391e9, type: 3}
+  m_Name: IncreaseCritDamage
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
+  id: status.increase.crit-damage
+  displayName: Increase Crit Damage
+  icon: {fileID: 21300000, guid: 1308a55da8a664f4f9ec4a95a7db9c49, type: 3}
+  polarity: 0
+  keywords:
+  - Increase Crit Damage
+  - status.increase.crit-damage
+  description: 

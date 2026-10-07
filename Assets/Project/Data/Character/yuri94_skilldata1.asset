@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 40092470c462d9d4291b1a90ab51fbd4, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflicts damage equal to 120% of Attack on all targets.
+  - description: "Inflicts damage equal to 120% of Attack on all targets."
     skillType: 0
     runtimeEffect:
       Attack:
@@ -114,12 +113,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflicts damage equal to 120% of Attack on all targets. Disables
-      Attack Skills for 1 turn.
+  - description: "Inflicts damage equal to 120% of Attack on all targets. Disables Attack Skills for 1 turn."
     skillType: 5
     runtimeEffect:
       Attack:
@@ -216,7 +211,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -314,13 +308,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflicts damage equal to 180% of Attack on all targets. Disables
-      Attack Skills for 2 turn.
+  - description: "Inflicts damage equal to 180% of Attack on all targets. Disables Attack Skills for 2 turn."
     skillType: 5
     runtimeEffect:
       Attack:
@@ -417,7 +406,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -515,7 +503,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          TriggerWindow: 
           Sequence: []
-          Provenance: 0
-      Provenance: 0

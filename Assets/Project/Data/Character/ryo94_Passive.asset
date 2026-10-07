@@ -13,16 +13,13 @@ MonoBehaviour:
   m_Name: ryo94_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
-  sourceDescription: Reflects 15% of damage received
-  sourceType: On-Field
-  sourceRestriction: Own
   definition:
     Id: fighter.ryo94.passive.source
     Auras:
     - Id: reflect-damage
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 1
         AllowDefeatedOwner: 0

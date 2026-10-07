@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict damage equal to 150% of ATK, Depletes enemy ult gauge by
-      1 gauges
+  - description: "Inflict damage equal to 150% of ATK, Depletes enemy ult gauge by 1 gauges"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -115,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -213,13 +210,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -1
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict damage equal to 300% of ATK, Depletes enemy ult gauge by
-      2 gauges
+  - description: "Inflict damage equal to 300% of ATK, Depletes enemy ult gauge by 2 gauges"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -316,7 +308,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -414,13 +405,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -2
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict damage equal to 450% of ATK, Depletes enemy ult gauge by
-      3 gauges
+  - description: "Inflict damage equal to 450% of ATK, Depletes enemy ult gauge by 3 gauges"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -517,7 +503,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 2
         Effect:
@@ -615,7 +600,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

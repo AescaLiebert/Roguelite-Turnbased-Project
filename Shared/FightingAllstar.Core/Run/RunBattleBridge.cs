@@ -8,7 +8,7 @@ namespace FightingAllstar.Core.Run
     /// <summary>Maps a frozen route encounter to the disposable shared battle engine and back to run HP.</summary>
     public static class RunBattleBridge
     {
-        public static BattleState CreateLocalBattle(EncounterProjection encounter, ulong seed, TeamSide firstSide = TeamSide.Player)
+        public static BattleState CreateLocalBattle(EncounterProjection encounter, ulong seed, TeamSide firstSide = TeamSide.Player, bool training = false)
         {
             if (encounter == null || string.IsNullOrWhiteSpace(encounter.BattleId)) throw new ArgumentException("Encounter projection is missing.");
             if (encounter.PlayerTeam == null || encounter.PlayerTeam.Count < 1 || encounter.PlayerTeam.Count > 4)
@@ -33,7 +33,7 @@ namespace FightingAllstar.Core.Run
 
             var battle = BattleEngine.Create(encounter.BattleId, playerDefinitions, playerTiers,
                 enemyDefinitions, enemyTiers, seed, firstSide, encounter.ChosenBoons,
-                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam));
+                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam), training: training);
             MapFighterIds(battle, battle.Player, encounter.PlayerTeam);
             MapFighterIds(battle, battle.Opponent, encounter.EnemyTeam);
             CharacterPassiveRuntime.Refresh(battle);

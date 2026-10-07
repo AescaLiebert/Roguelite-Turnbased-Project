@@ -40,7 +40,7 @@ blocked_by: []
 | 13 | Chin Gentsai 94 | R | Green | 320 / 120 / 4400 | Source |
 | 14 | Terry Bogard 96 | SSR | Blue | 420 / 450 / 6000 | Source |
 | 15 | Joe Higashi 94 | R | Red | 250 / 200 / 4500 | Source |
-| 16 | Joe Higashi 96 | SR | Blue | 250 / 200 / 4500 | Source |
+| 16 | Joe Higashi 96 | R | Blue | 250 / 200 / 4500 | Source |
 | 17 | Andy Bogard 94 | R | Yellow | 310 / 130 / 3600 | Generated starting values |
 | 18 | Leona Heidern 96 | SSR | Green | 560 / 290 / 5500 | Source |
 | 19 | Clark Still 94 | SR | Blue | 400 / 120 / 3000 | Source |
@@ -76,13 +76,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts 500% of ATK, applies 2 Ignites effects.
-- **C1/6:** Inflicts 525% of ATK, applies 3 Ignites effects.
-- **C2/6:** Inflicts 550% of ATK, applies 4 Ignites effects.
-- **C3/6:** Inflicts 575% of ATK, applies 5 Ignites effects.
-- **C4/6:** Inflicts 600% of ATK, applies 6 Ignites effects.
-- **C5/6:** Inflicts 625% of ATK, applies 7 Ignites effects.
-- **C6/6:** Inflicts 650% of ATK, applies 8 Ignites effects.
+- **C0/5:** Inflicts 500% of ATK, applies 2 Ignites effects.
+- **C1/5:** Inflicts 525% of ATK, applies 3 Ignites effects.
+- **C2/5:** Inflicts 550% of ATK, applies 4 Ignites effects.
+- **C3/5:** Inflicts 575% of ATK, applies 5 Ignites effects.
+- **C4/5:** Inflicts 600% of ATK, applies 6 Ignites effects.
+- **C5/5:** Inflicts 625% of ATK, applies 7 Ignites effects.
 
 **Holy Relic (disabled):** Randomly applies 3 Ignites effects to the enemy every turn for 3 turns
 
@@ -109,13 +108,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts 500% of ATK, applies 2 Ignites effects.
-- **C1/6:** Inflicts 525% of ATK, applies 3 Ignites effects.
-- **C2/6:** Inflicts 550% of ATK, applies 4 Ignites effects.
-- **C3/6:** Inflicts 575% of ATK, applies 5 Ignites effects.
-- **C4/6:** Inflicts 600% of ATK, applies 6 Ignites effects.
-- **C5/6:** Inflicts 625% of ATK, applies 7 Ignites effects.
-- **C6/6:** Inflicts 650% of ATK, applies 8 Ignites effects.
+- **C0/5:** Inflicts 500% of ATK, applies 2 Ignites effects.
+- **C1/5:** Inflicts 525% of ATK, applies 3 Ignites effects.
+- **C2/5:** Inflicts 550% of ATK, applies 4 Ignites effects.
+- **C3/5:** Inflicts 575% of ATK, applies 5 Ignites effects.
+- **C4/5:** Inflicts 600% of ATK, applies 6 Ignites effects.
+- **C5/5:** Inflicts 625% of ATK, applies 7 Ignites effects.
 
 **Holy Relic (disabled):** Randomly applies 3 Ignites effects to the enemy every turn for 3 turns
 
@@ -142,13 +140,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts 375% of ATK, increase own card rank
-- **C1/6:** Inflicts 393.75% of ATK, increase own card rank
-- **C2/6:** Inflicts 412.5% of ATK, increase own card rank
-- **C3/6:** Inflicts 431.25% of ATK, increase own card rank
-- **C4/6:** Inflicts 450% of ATK, increase own card rank
-- **C5/6:** Inflicts 468.75% of ATK, increase own card rank
-- **C6/6:** Inflicts 487.5% of ATK, increase own card rank
+- **C0/5:** Inflicts 375% of ATK, increase own card rank
+- **C1/5:** Inflicts 393.75% of ATK, increase own card rank
+- **C2/5:** Inflicts 412.5% of ATK, increase own card rank
+- **C3/5:** Inflicts 431.25% of ATK, increase own card rank
+- **C4/5:** Inflicts 450% of ATK, increase own card rank
+- **C5/5:** Inflicts 468.75% of ATK, increase own card rank
 
 **Holy Relic (disabled):** Increase own Resistance by 80%
 
@@ -175,13 +172,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts 375% of ATK, increase own card rank
-- **C1/6:** Inflicts 393.75% of ATK, increase own card rank
-- **C2/6:** Inflicts 412.5% of ATK, increase own card rank
-- **C3/6:** Inflicts 431.25% of ATK, increase own card rank
-- **C4/6:** Inflicts 450% of ATK, increase own card rank
-- **C5/6:** Inflicts 468.75% of ATK, increase own card rank
-- **C6/6:** Inflicts 487.5% of ATK, increase own card rank
+- **C0/5:** Inflicts 375% of ATK, increase own card rank
+- **C1/5:** Inflicts 393.75% of ATK, increase own card rank
+- **C2/5:** Inflicts 412.5% of ATK, increase own card rank
+- **C3/5:** Inflicts 431.25% of ATK, increase own card rank
+- **C4/5:** Inflicts 450% of ATK, increase own card rank
+- **C5/5:** Inflicts 468.75% of ATK, increase own card rank
 
 **Holy Relic (disabled):** Increase own Resistance by 80%
 
@@ -208,13 +204,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 630% of ATK, Depletes enemy ult gauge by 3 gauges
-- **C1/6:** Inflict damage equal to 661.5% of ATK, Depletes enemy ult gauge by 3 gauges
-- **C2/6:** Inflict damage equal to 693% of ATK, Depletes enemy ult gauge by 3 gauges
-- **C3/6:** Inflict damage equal to 724.5% of ATK, Depletes enemy ult gauge by 3 gauges
-- **C4/6:** Inflict damage equal to 756% of ATK, Depletes enemy ult gauge by 3 gauges
-- **C5/6:** Inflict damage equal to 787.5% of ATK, Depletes enemy ult gauge by 3 gauges
-- **C6/6:** Inflict damage equal to 819% of ATK, Depletes enemy ult gauge by 3 gauges
+- **C0/5:** Inflict damage equal to 630% of ATK, Depletes enemy ult gauge by 3 gauges
+- **C1/5:** Inflict damage equal to 661.5% of ATK, Depletes enemy ult gauge by 3 gauges
+- **C2/5:** Inflict damage equal to 693% of ATK, Depletes enemy ult gauge by 3 gauges
+- **C3/5:** Inflict damage equal to 724.5% of ATK, Depletes enemy ult gauge by 3 gauges
+- **C4/5:** Inflict damage equal to 756% of ATK, Depletes enemy ult gauge by 3 gauges
+- **C5/5:** Inflict damage equal to 787.5% of ATK, Depletes enemy ult gauge by 3 gauges
 
 **Holy Relic (disabled):** Increase own Pierce Rate by 80%
 
@@ -240,13 +235,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts 400% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
-- **C1/6:** Inflicts 420% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
-- **C2/6:** Inflicts 440% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
-- **C3/6:** Inflicts 460% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
-- **C4/6:** Inflicts 480% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
-- **C5/6:** Inflicts 500% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
-- **C6/6:** Inflicts 520% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
+- **C0/5:** Inflicts 400% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
+- **C1/5:** Inflicts 420% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
+- **C2/5:** Inflicts 440% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
+- **C3/5:** Inflicts 460% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
+- **C4/5:** Inflicts 480% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
+- **C5/5:** Inflicts 500% of ATK and Extort 50% of the enemy's attack and defense for 2 turns.
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -273,13 +267,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 500% of ATK then Paralyze for 1 turn(s)
-- **C1/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 525% of ATK then Paralyze for 1 turn(s)
-- **C2/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 550% of ATK then Paralyze for 1 turn(s)
-- **C3/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 575% of ATK then Paralyze for 1 turn(s)
-- **C4/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 600% of ATK then Paralyze for 1 turn(s)
-- **C5/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 625% of ATK then Paralyze for 1 turn(s)
-- **C6/6:** Cancel Buff and Stance on enemy, Inflict damage equal to 650% of ATK then Paralyze for 1 turn(s)
+- **C0/5:** Cancel Buff and Stance on enemy, Inflict damage equal to 500% of ATK then Paralyze for 1 turn(s)
+- **C1/5:** Cancel Buff and Stance on enemy, Inflict damage equal to 525% of ATK then Paralyze for 1 turn(s)
+- **C2/5:** Cancel Buff and Stance on enemy, Inflict damage equal to 550% of ATK then Paralyze for 1 turn(s)
+- **C3/5:** Cancel Buff and Stance on enemy, Inflict damage equal to 575% of ATK then Paralyze for 1 turn(s)
+- **C4/5:** Cancel Buff and Stance on enemy, Inflict damage equal to 600% of ATK then Paralyze for 1 turn(s)
+- **C5/5:** Cancel Buff and Stance on enemy, Inflict damage equal to 625% of ATK then Paralyze for 1 turn(s)
 
 **Holy Relic (disabled):** When attacking, apply 1 Shock to target(s) for 3 turns
 
@@ -305,13 +298,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 350% of ATK, applying "Shock" debuff for 3 turns
-- **C1/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 367.5% of ATK, applying "Shock" debuff for 3 turns
-- **C2/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 385% of ATK, applying "Shock" debuff for 3 turns
-- **C3/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 402.5% of ATK, applying "Shock" debuff for 3 turns
-- **C4/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 420% of ATK, applying "Shock" debuff for 3 turns
-- **C5/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 437.5% of ATK, applying "Shock" debuff for 3 turns
-- **C6/6:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 455% of ATK, applying "Shock" debuff for 3 turns
+- **C0/5:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 350% of ATK, applying "Shock" debuff for 3 turns
+- **C1/5:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 367.5% of ATK, applying "Shock" debuff for 3 turns
+- **C2/5:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 385% of ATK, applying "Shock" debuff for 3 turns
+- **C3/5:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 402.5% of ATK, applying "Shock" debuff for 3 turns
+- **C4/5:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 420% of ATK, applying "Shock" debuff for 3 turns
+- **C5/5:** If the target is a female fighter, paralyzes for 1 turn and Inflict damage equal to 437.5% of ATK, applying "Shock" debuff for 3 turns
 
 **Holy Relic (disabled):** Increase allies's Avoidance Rate by 40%
 
@@ -338,13 +330,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 600% of ATK
-- **C1/6:** Inflict damage equal to 630% of ATK
-- **C2/6:** Inflict damage equal to 660% of ATK
-- **C3/6:** Inflict damage equal to 690% of ATK
-- **C4/6:** Inflict damage equal to 720% of ATK
-- **C5/6:** Inflict damage equal to 750% of ATK
-- **C6/6:** Inflict damage equal to 780% of ATK
+- **C0/5:** Inflict damage equal to 600% of ATK
+- **C1/5:** Inflict damage equal to 630% of ATK
+- **C2/5:** Inflict damage equal to 660% of ATK
+- **C3/5:** Inflict damage equal to 690% of ATK
+- **C4/5:** Inflict damage equal to 720% of ATK
+- **C5/5:** Inflict damage equal to 750% of ATK
 
 **Holy Relic (disabled):** Increases own Damage Dealt by 25%
 
@@ -371,13 +362,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 550% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
-- **C1/6:** Inflict damage equal to 577.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
-- **C2/6:** Inflict damage equal to 605% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
-- **C3/6:** Inflict damage equal to 632.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
-- **C4/6:** Inflict damage equal to 660% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
-- **C5/6:** Inflict damage equal to 687.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
-- **C6/6:** Inflict damage equal to 715% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
+- **C0/5:** Inflict damage equal to 550% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
+- **C1/5:** Inflict damage equal to 577.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
+- **C2/5:** Inflict damage equal to 605% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
+- **C3/5:** Inflict damage equal to 632.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
+- **C4/5:** Inflict damage equal to 660% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
+- **C5/5:** Inflict damage equal to 687.5% of ATK and Decrease enemy's Resistance 50% 2 turns Decrease ult gauge 5 gauges
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -404,13 +394,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Heal the entire team for 300% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 375% of ATK
-- **C1/6:** Heal the entire team for 315% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 393.75% of ATK
-- **C2/6:** Heal the entire team for 330% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 412.5% of ATK
-- **C3/6:** Heal the entire team for 345% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 431.25% of ATK
-- **C4/6:** Heal the entire team for 360% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 450% of ATK
-- **C5/6:** Heal the entire team for 375% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 468.75% of ATK
-- **C6/6:** Heal the entire team for 390% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 487.5% of ATK
+- **C0/5:** Heal the entire team for 300% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 375% of ATK
+- **C1/5:** Heal the entire team for 315% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 393.75% of ATK
+- **C2/5:** Heal the entire team for 330% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 412.5% of ATK
+- **C3/5:** Heal the entire team for 345% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 431.25% of ATK
+- **C4/5:** Heal the entire team for 360% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 450% of ATK
+- **C5/5:** Heal the entire team for 375% of the own ATK, cleanse all Debuff effects from “female fighters”, Inflict damage equal to 468.75% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -437,13 +426,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Restores 50% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
-- **C1/6:** Restores 52.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
-- **C2/6:** Restores 55% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
-- **C3/6:** Restores 57.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
-- **C4/6:** Restores 60% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
-- **C5/6:** Restores 62.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
-- **C6/6:** Restores 65% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
+- **C0/5:** Restores 50% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
+- **C1/5:** Restores 52.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
+- **C2/5:** Restores 55% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
+- **C3/5:** Restores 57.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
+- **C4/5:** Restores 60% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
+- **C5/5:** Restores 62.5% HP to one ally, Increases Their Basic Stats by 25%, and Grants a Debuff Immunity for 3 turns
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -470,13 +458,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts Weakpoint damage equal to 210% of ATK
-- **C1/6:** Inflicts Weakpoint damage equal to 220.5% of ATK
-- **C2/6:** Inflicts Weakpoint damage equal to 231% of ATK
-- **C3/6:** Inflicts Weakpoint damage equal to 241.5% of ATK
-- **C4/6:** Inflicts Weakpoint damage equal to 252% of ATK
-- **C5/6:** Inflicts Weakpoint damage equal to 262.5% of ATK
-- **C6/6:** Inflicts Weakpoint damage equal to 273% of ATK
+- **C0/5:** Inflicts Weakpoint damage equal to 210% of ATK
+- **C1/5:** Inflicts Weakpoint damage equal to 220.5% of ATK
+- **C2/5:** Inflicts Weakpoint damage equal to 231% of ATK
+- **C3/5:** Inflicts Weakpoint damage equal to 241.5% of ATK
+- **C4/5:** Inflicts Weakpoint damage equal to 252% of ATK
+- **C5/5:** Inflicts Weakpoint damage equal to 262.5% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -502,13 +489,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict Charge damage equal to 450% of ATK
-- **C1/6:** Inflict Charge damage equal to 472.5% of ATK
-- **C2/6:** Inflict Charge damage equal to 495% of ATK
-- **C3/6:** Inflict Charge damage equal to 517.5% of ATK
-- **C4/6:** Inflict Charge damage equal to 540% of ATK
-- **C5/6:** Inflict Charge damage equal to 562.5% of ATK
-- **C6/6:** Inflict Charge damage equal to 585% of ATK
+- **C0/5:** Inflict Charge damage equal to 450% of ATK
+- **C1/5:** Inflict Charge damage equal to 472.5% of ATK
+- **C2/5:** Inflict Charge damage equal to 495% of ATK
+- **C3/5:** Inflict Charge damage equal to 517.5% of ATK
+- **C4/5:** Inflict Charge damage equal to 540% of ATK
+- **C5/5:** Inflict Charge damage equal to 562.5% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -534,13 +520,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict Rupture damage equal to 500% of ATK
-- **C1/6:** Inflict Rupture damage equal to 525% of ATK
-- **C2/6:** Inflict Rupture damage equal to 550% of ATK
-- **C3/6:** Inflict Rupture damage equal to 575% of ATK
-- **C4/6:** Inflict Rupture damage equal to 600% of ATK
-- **C5/6:** Inflict Rupture damage equal to 625% of ATK
-- **C6/6:** Inflict Rupture damage equal to 650% of ATK
+- **C0/5:** Inflict Rupture damage equal to 500% of ATK
+- **C1/5:** Inflict Rupture damage equal to 525% of ATK
+- **C2/5:** Inflict Rupture damage equal to 550% of ATK
+- **C3/5:** Inflict Rupture damage equal to 575% of ATK
+- **C4/5:** Inflict Rupture damage equal to 600% of ATK
+- **C5/5:** Inflict Rupture damage equal to 625% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -548,7 +533,7 @@ blocked_by: []
 
 ## 16. Joe Higashi 96
 
-`fighter.joe96` · SR · Blue · Fatal Fury
+`fighter.joe96` · R · Blue · Fatal Fury
 
 **Passive (SUB; Blue Attributes ):** Increases Blue attribute allies Defense by 60%
 
@@ -567,13 +552,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict Rupture damage equal to 500% of ATK
-- **C1/6:** Inflict Rupture damage equal to 525% of ATK
-- **C2/6:** Inflict Rupture damage equal to 550% of ATK
-- **C3/6:** Inflict Rupture damage equal to 575% of ATK
-- **C4/6:** Inflict Rupture damage equal to 600% of ATK
-- **C5/6:** Inflict Rupture damage equal to 625% of ATK
-- **C6/6:** Inflict Rupture damage equal to 650% of ATK
+- **C0/5:** Inflict Rupture damage equal to 500% of ATK
+- **C1/5:** Inflict Rupture damage equal to 525% of ATK
+- **C2/5:** Inflict Rupture damage equal to 550% of ATK
+- **C3/5:** Inflict Rupture damage equal to 575% of ATK
+- **C4/5:** Inflict Rupture damage equal to 600% of ATK
+- **C5/5:** Inflict Rupture damage equal to 625% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -599,13 +583,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict 225% of ATK, with a 40% chance to stun the enemy for 1 turn
-- **C1/6:** Inflict 236.25% of ATK, with a 40% chance to stun the enemy for 1 turn
-- **C2/6:** Inflict 247.5% of ATK, with a 40% chance to stun the enemy for 1 turn
-- **C3/6:** Inflict 258.75% of ATK, with a 40% chance to stun the enemy for 1 turn
-- **C4/6:** Inflict 270% of ATK, with a 40% chance to stun the enemy for 1 turn
-- **C5/6:** Inflict 281.25% of ATK, with a 40% chance to stun the enemy for 1 turn
-- **C6/6:** Inflict 292.5% of ATK, with a 40% chance to stun the enemy for 1 turn
+- **C0/5:** Inflict 225% of ATK, with a 40% chance to stun the enemy for 1 turn
+- **C1/5:** Inflict 236.25% of ATK, with a 40% chance to stun the enemy for 1 turn
+- **C2/5:** Inflict 247.5% of ATK, with a 40% chance to stun the enemy for 1 turn
+- **C3/5:** Inflict 258.75% of ATK, with a 40% chance to stun the enemy for 1 turn
+- **C4/5:** Inflict 270% of ATK, with a 40% chance to stun the enemy for 1 turn
+- **C5/5:** Inflict 281.25% of ATK, with a 40% chance to stun the enemy for 1 turn
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -632,13 +615,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts damage equal to 500% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
-- **C1/6:** Inflicts damage equal to 525% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
-- **C2/6:** Inflicts damage equal to 550% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
-- **C3/6:** Inflicts damage equal to 575% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
-- **C4/6:** Inflicts damage equal to 600% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
-- **C5/6:** Inflicts damage equal to 625% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
-- **C6/6:** Inflicts damage equal to 650% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
+- **C0/5:** Inflicts damage equal to 500% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
+- **C1/5:** Inflicts damage equal to 525% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
+- **C2/5:** Inflicts damage equal to 550% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
+- **C3/5:** Inflicts damage equal to 575% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
+- **C4/5:** Inflicts damage equal to 600% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
+- **C5/5:** Inflicts damage equal to 625% of ATK, Increases damage dealt by 30% when attacking enemies with the lowest, Recovers own HP by 8% upon killing
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -665,13 +647,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict Shatter damage equal to 500% of ATK
-- **C1/6:** Inflict Shatter damage equal to 525% of ATK
-- **C2/6:** Inflict Shatter damage equal to 550% of ATK
-- **C3/6:** Inflict Shatter damage equal to 575% of ATK
-- **C4/6:** Inflict Shatter damage equal to 600% of ATK
-- **C5/6:** Inflict Shatter damage equal to 625% of ATK
-- **C6/6:** Inflict Shatter damage equal to 650% of ATK
+- **C0/5:** Inflict Shatter damage equal to 500% of ATK
+- **C1/5:** Inflict Shatter damage equal to 525% of ATK
+- **C2/5:** Inflict Shatter damage equal to 550% of ATK
+- **C3/5:** Inflict Shatter damage equal to 575% of ATK
+- **C4/5:** Inflict Shatter damage equal to 600% of ATK
+- **C5/5:** Inflict Shatter damage equal to 625% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -697,13 +678,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 800% of ATK
-- **C1/6:** Inflict damage equal to 840% of ATK
-- **C2/6:** Inflict damage equal to 880% of ATK
-- **C3/6:** Inflict damage equal to 920% of ATK
-- **C4/6:** Inflict damage equal to 960% of ATK
-- **C5/6:** Inflict damage equal to 1000% of ATK
-- **C6/6:** Inflict damage equal to 1040% of ATK
+- **C0/5:** Inflict damage equal to 800% of ATK
+- **C1/5:** Inflict damage equal to 840% of ATK
+- **C2/5:** Inflict damage equal to 880% of ATK
+- **C3/5:** Inflict damage equal to 920% of ATK
+- **C4/5:** Inflict damage equal to 960% of ATK
+- **C5/5:** Inflict damage equal to 1000% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -729,13 +709,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 300% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
-- **C1/6:** Inflict damage equal to 315% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
-- **C2/6:** Inflict damage equal to 330% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
-- **C3/6:** Inflict damage equal to 345% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
-- **C4/6:** Inflict damage equal to 360% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
-- **C5/6:** Inflict damage equal to 375% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
-- **C6/6:** Inflict damage equal to 390% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
+- **C0/5:** Inflict damage equal to 300% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
+- **C1/5:** Inflict damage equal to 315% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
+- **C2/5:** Inflict damage equal to 330% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
+- **C3/5:** Inflict damage equal to 345% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
+- **C4/5:** Inflict damage equal to 360% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
+- **C5/5:** Inflict damage equal to 375% of ATK, reduces enemy's attack-related stats by 40% for 2 turns
 
 **Holy Relic (disabled):** Increases resistance, critical resistance, and critical defense by 4% per gauge are gained, and an additional 40% when the gauge is full
 
@@ -762,13 +741,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 375% of ATK and applies Shock debuff for 4 turns
-- **C1/6:** Inflict damage equal to 393.75% of ATK and applies Shock debuff for 4 turns
-- **C2/6:** Inflict damage equal to 412.5% of ATK and applies Shock debuff for 4 turns
-- **C3/6:** Inflict damage equal to 431.25% of ATK and applies Shock debuff for 4 turns
-- **C4/6:** Inflict damage equal to 450% of ATK and applies Shock debuff for 4 turns
-- **C5/6:** Inflict damage equal to 468.75% of ATK and applies Shock debuff for 4 turns
-- **C6/6:** Inflict damage equal to 487.5% of ATK and applies Shock debuff for 4 turns
+- **C0/5:** Inflict damage equal to 375% of ATK and applies Shock debuff for 4 turns
+- **C1/5:** Inflict damage equal to 393.75% of ATK and applies Shock debuff for 4 turns
+- **C2/5:** Inflict damage equal to 412.5% of ATK and applies Shock debuff for 4 turns
+- **C3/5:** Inflict damage equal to 431.25% of ATK and applies Shock debuff for 4 turns
+- **C4/5:** Inflict damage equal to 450% of ATK and applies Shock debuff for 4 turns
+- **C5/5:** Inflict damage equal to 468.75% of ATK and applies Shock debuff for 4 turns
 
 **Holy Relic (disabled):** When a "Art of Fighting Team" attacks, restores HP by 6%
 
@@ -795,13 +773,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 375% of ATK and applies Shock debuff for 4 turns
-- **C1/6:** Inflict damage equal to 393.75% of ATK and applies Shock debuff for 4 turns
-- **C2/6:** Inflict damage equal to 412.5% of ATK and applies Shock debuff for 4 turns
-- **C3/6:** Inflict damage equal to 431.25% of ATK and applies Shock debuff for 4 turns
-- **C4/6:** Inflict damage equal to 450% of ATK and applies Shock debuff for 4 turns
-- **C5/6:** Inflict damage equal to 468.75% of ATK and applies Shock debuff for 4 turns
-- **C6/6:** Inflict damage equal to 487.5% of ATK and applies Shock debuff for 4 turns
+- **C0/5:** Inflict damage equal to 375% of ATK and applies Shock debuff for 4 turns
+- **C1/5:** Inflict damage equal to 393.75% of ATK and applies Shock debuff for 4 turns
+- **C2/5:** Inflict damage equal to 412.5% of ATK and applies Shock debuff for 4 turns
+- **C3/5:** Inflict damage equal to 431.25% of ATK and applies Shock debuff for 4 turns
+- **C4/5:** Inflict damage equal to 450% of ATK and applies Shock debuff for 4 turns
+- **C5/5:** Inflict damage equal to 468.75% of ATK and applies Shock debuff for 4 turns
 
 **Holy Relic (disabled):** When a "Art of Fighting Team" attacks, restores HP by 6%
 
@@ -828,13 +805,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts damage equal to 400% of ATK and increases team's Critical Chance by 7% for 3 turns
-- **C1/6:** Inflicts damage equal to 420% of ATK and increases team's Critical Chance by 14% for 3 turns
-- **C2/6:** Inflicts damage equal to 440% of ATK and increases team's Critical Chance by 21% for 3 turns
-- **C3/6:** Inflicts damage equal to 460% of ATK and increases team's Critical Chance by 28% for 3 turns
-- **C4/6:** Inflicts damage equal to 480% of ATK and increases team's Critical Chance by 35% for 3 turns
-- **C5/6:** Inflicts damage equal to 500% of ATK and increases team's Critical Chance by 42% for 3 turns
-- **C6/6:** Inflicts damage equal to 520% of ATK and increases team's Critical Chance by 49% for 3 turns
+- **C0/5:** Inflicts damage equal to 400% of ATK and increases team's Critical Chance by 7% for 3 turns
+- **C1/5:** Inflicts damage equal to 420% of ATK and increases team's Critical Chance by 14% for 3 turns
+- **C2/5:** Inflicts damage equal to 440% of ATK and increases team's Critical Chance by 21% for 3 turns
+- **C3/5:** Inflicts damage equal to 460% of ATK and increases team's Critical Chance by 28% for 3 turns
+- **C4/5:** Inflicts damage equal to 480% of ATK and increases team's Critical Chance by 35% for 3 turns
+- **C5/5:** Inflicts damage equal to 500% of ATK and increases team's Critical Chance by 42% for 3 turns
 
 **Holy Relic (disabled):** When landing a critical hit, ignores 30% of the enemy's critical defense
 
@@ -861,13 +837,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict damage equal to 375% of ATK and Disable enemy from using attack cards for 2 turns
-- **C1/6:** Inflict damage equal to 393.75% of ATK and Disable enemy from using attack cards for 2 turns
-- **C2/6:** Inflict damage equal to 412.5% of ATK and Disable enemy from using attack cards for 2 turns
-- **C3/6:** Inflict damage equal to 431.25% of ATK and Disable enemy from using attack cards for 2 turns
-- **C4/6:** Inflict damage equal to 450% of ATK and Disable enemy from using attack cards for 2 turns
-- **C5/6:** Inflict damage equal to 468.75% of ATK and Disable enemy from using attack cards for 2 turns
-- **C6/6:** Inflict damage equal to 487.5% of ATK and Disable enemy from using attack cards for 2 turns
+- **C0/5:** Inflict damage equal to 375% of ATK and Disable enemy from using attack cards for 2 turns
+- **C1/5:** Inflict damage equal to 393.75% of ATK and Disable enemy from using attack cards for 2 turns
+- **C2/5:** Inflict damage equal to 412.5% of ATK and Disable enemy from using attack cards for 2 turns
+- **C3/5:** Inflict damage equal to 431.25% of ATK and Disable enemy from using attack cards for 2 turns
+- **C4/5:** Inflict damage equal to 450% of ATK and Disable enemy from using attack cards for 2 turns
+- **C5/5:** Inflict damage equal to 468.75% of ATK and Disable enemy from using attack cards for 2 turns
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -893,13 +868,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts Shatter damage equal to 425% of ATK
-- **C1/6:** Inflicts Shatter damage equal to 446.25% of ATK
-- **C2/6:** Inflicts Shatter damage equal to 467.5% of ATK
-- **C3/6:** Inflicts Shatter damage equal to 488.75% of ATK
-- **C4/6:** Inflicts Shatter damage equal to 510% of ATK
-- **C5/6:** Inflicts Shatter damage equal to 531.25% of ATK
-- **C6/6:** Inflicts Shatter damage equal to 552.5% of ATK
+- **C0/5:** Inflicts Shatter damage equal to 425% of ATK
+- **C1/5:** Inflicts Shatter damage equal to 446.25% of ATK
+- **C2/5:** Inflicts Shatter damage equal to 467.5% of ATK
+- **C3/5:** Inflicts Shatter damage equal to 488.75% of ATK
+- **C4/5:** Inflicts Shatter damage equal to 510% of ATK
+- **C5/5:** Inflicts Shatter damage equal to 531.25% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -925,13 +899,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflict Detonate damage equal to 450% of ATK
-- **C1/6:** Inflict Detonate damage equal to 472.5% of ATK
-- **C2/6:** Inflict Detonate damage equal to 495% of ATK
-- **C3/6:** Inflict Detonate damage equal to 517.5% of ATK
-- **C4/6:** Inflict Detonate damage equal to 540% of ATK
-- **C5/6:** Inflict Detonate damage equal to 562.5% of ATK
-- **C6/6:** Inflict Detonate damage equal to 585% of ATK
+- **C0/5:** Inflict Detonate damage equal to 450% of ATK
+- **C1/5:** Inflict Detonate damage equal to 472.5% of ATK
+- **C2/5:** Inflict Detonate damage equal to 495% of ATK
+- **C3/5:** Inflict Detonate damage equal to 517.5% of ATK
+- **C4/5:** Inflict Detonate damage equal to 540% of ATK
+- **C5/5:** Inflict Detonate damage equal to 562.5% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -958,13 +931,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts damage equal to 250% of ATK and has a 40% chance to Stun the enemy for 1 turn
-- **C1/6:** Inflicts damage equal to 262.5% of ATK and has a 40% chance to Stun the enemy for 1 turn
-- **C2/6:** Inflicts damage equal to 275% of ATK and has a 40% chance to Stun the enemy for 1 turn
-- **C3/6:** Inflicts damage equal to 287.5% of ATK and has a 40% chance to Stun the enemy for 1 turn
-- **C4/6:** Inflicts damage equal to 300% of ATK and has a 40% chance to Stun the enemy for 1 turn
-- **C5/6:** Inflicts damage equal to 312.5% of ATK and has a 40% chance to Stun the enemy for 1 turn
-- **C6/6:** Inflicts damage equal to 325% of ATK and has a 40% chance to Stun the enemy for 1 turn
+- **C0/5:** Inflicts damage equal to 250% of ATK and has a 40% chance to Stun the enemy for 1 turn
+- **C1/5:** Inflicts damage equal to 262.5% of ATK and has a 40% chance to Stun the enemy for 1 turn
+- **C2/5:** Inflicts damage equal to 275% of ATK and has a 40% chance to Stun the enemy for 1 turn
+- **C3/5:** Inflicts damage equal to 287.5% of ATK and has a 40% chance to Stun the enemy for 1 turn
+- **C4/5:** Inflicts damage equal to 300% of ATK and has a 40% chance to Stun the enemy for 1 turn
+- **C5/5:** Inflicts damage equal to 312.5% of ATK and has a 40% chance to Stun the enemy for 1 turn
 
 **Holy Relic (disabled):** Not supplied.
 
@@ -991,13 +963,12 @@ blocked_by: []
 
 ### Ultimate constellation sequence
 
-- **C0/6:** Inflicts Breakthrough damage equal to 550% of ATK
-- **C1/6:** Inflicts Breakthrough damage equal to 577.5% of ATK
-- **C2/6:** Inflicts Breakthrough damage equal to 605% of ATK
-- **C3/6:** Inflicts Breakthrough damage equal to 632.5% of ATK
-- **C4/6:** Inflicts Breakthrough damage equal to 660% of ATK
-- **C5/6:** Inflicts Breakthrough damage equal to 687.5% of ATK
-- **C6/6:** Inflicts Breakthrough damage equal to 715% of ATK
+- **C0/5:** Inflicts Breakthrough damage equal to 550% of ATK
+- **C1/5:** Inflicts Breakthrough damage equal to 577.5% of ATK
+- **C2/5:** Inflicts Breakthrough damage equal to 605% of ATK
+- **C3/5:** Inflicts Breakthrough damage equal to 632.5% of ATK
+- **C4/5:** Inflicts Breakthrough damage equal to 660% of ATK
+- **C5/5:** Inflicts Breakthrough damage equal to 687.5% of ATK
 
 **Holy Relic (disabled):** Not supplied.
 

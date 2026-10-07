@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: ralf94_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Id: fighter.ralf94.passive.source
+    Auras:
+    - Id: ult-damage-aura
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: 3
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Targets:
+        Relation: 2
+        IncludeOwner: 1
+        IncludeReserve: 1
+        AttributeId: 
+        TraitId: 
+        SeriesId: 
+      Scaling: 0
+      ScalingKey: 
+      ScalingRelation: 0
+      SourceStat: 0
+      MaximumUnits: 1
+      Modifiers:
+      - Target: 8
+        Stat: 0
+        Bundle: 0
+        Family: 0
+        Operation: 2
+        Amount: 4000
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+        SerializedTarget: -1
+        SerializedStat: -1
+        SerializedBundle: -1
+        SerializedFamily: -1
+        SerializedOperation: -1
+    Reactions: []
+    Triggers: []

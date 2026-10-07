@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict damage equal to 125% of ATK, applies Poison to enemy for
-      2 turns
+  - description: "Inflict damage equal to 125% of ATK, applies Poison to enemy for 2 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -115,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -215,13 +212,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict damage equal to 250% of ATK, applies Poison to enemy for
-      2 turns
+  - description: "Inflict damage equal to 250% of ATK, applies Poison to enemy for 2 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -318,7 +310,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -418,13 +409,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict damage equal to 375% of ATK, applies Poison to enemy for
-      3 turns
+  - description: "Inflict damage equal to 375% of ATK, applies Poison to enemy for 3 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -521,7 +507,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -621,7 +606,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

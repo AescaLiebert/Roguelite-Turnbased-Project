@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict damage equal to 150% of ATK, Decrease enemy recovery rate
-      by 40% 1 turns
+  - description: "Inflict damage equal to 150% of ATK, Decrease enemy recovery rate by 40% 1 turns"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -115,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -221,13 +218,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict damage equal to 260% of ATK, Decrease enemy recovery rate
-      by 60% 2 turns
+  - description: "Inflict damage equal to 260% of ATK, Decrease enemy recovery rate by 60% 2 turns"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -324,7 +316,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -430,13 +421,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict damage equal to 400% of ATK, Decrease enemy recovery rate
-      by 80% 2 turns
+  - description: "Inflict damage equal to 400% of ATK, Decrease enemy recovery rate by 80% 2 turns"
     skillType: 0
     runtimeEffect:
       Attack:
@@ -533,7 +519,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -639,7 +624,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

@@ -333,7 +333,7 @@ namespace FightingAllstar.Core.Run
                 if (fighter.IsReserve != (fighter.FormationSlot == 3))
                     throw new ArgumentException("Only formation position four can be the reserve.");
                 if (!fighter.IsReserve) hasActiveFighter = true;
-                if (fighter.ConstellationTier < 0 || fighter.ConstellationTier > 6) throw new ArgumentOutOfRangeException(nameof(roster), "Constellation tier must be 0-6.");
+                if (fighter.ConstellationTier < 0 || fighter.ConstellationTier > 5) throw new ArgumentOutOfRangeException(nameof(roster), "Constellation tier must be 0-5.");
                 var catalogDefinition = FindCatalogDefinition(catalog, fighter.Definition.Id);
                 if (catalogDefinition == null)
                     throw new ArgumentException("Run roster definition is missing from the pinned content catalog: " + fighter.Definition.Id);

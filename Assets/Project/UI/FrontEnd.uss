@@ -31,3 +31,17 @@ Button:hover { background-color: rgb(60, 82, 119); }
 .rarity-ssr { border-bottom-color: rgb(239, 190, 88); background-color: rgb(75, 58, 51); }
 .rarity-sr { border-bottom-color: rgb(191, 125, 223); }
 .loading-message { position: absolute; left: 40%; top: 45%; background-color: rgb(14, 23, 45); padding: 25px; font-size: 24px; }
+.training-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.86); padding: 28px; }
+.training-panel { flex-grow: 1; min-height: 0; background-color: rgb(20, 30, 48); border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-left-color: rgb(59, 161, 217); border-right-color: rgb(59, 161, 217); border-top-color: rgb(59, 161, 217); border-bottom-color: rgb(59, 161, 217); padding: 18px; color: white; }
+.training-toolbar { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.training-toolbar > * { margin-right: 14px; margin-bottom: 6px; }
+#training-title { flex-grow: 1; font-size: 24px; -unity-font-style: bold; }
+.training-toolbar .unity-base-field { min-width: 190px; }
+.training-toolbar .unity-base-field__label { min-width: 80px; }
+.training-status { margin-bottom: 12px; color: rgb(147, 209, 234); white-space: normal; }
+.training-scroll { flex-grow: 1; min-height: 0; }
+.training-grid { flex-direction: row; flex-wrap: wrap; align-content: flex-start; }
+.training-character { width: 150px; height: 178px; margin: 6px; padding: 8px; align-items: center; background-color: rgb(34, 49, 76); color: white; border-radius: 5px; }
+.training-character:hover { background-color: rgb(43, 83, 122); }
+.training-character:disabled { opacity: 0.4; }
+.training-character > Label { white-space: normal; -unity-text-align: middle-center; font-size: 12px; }

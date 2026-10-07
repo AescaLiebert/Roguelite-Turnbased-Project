@@ -22,7 +22,8 @@ namespace FightingAllstar.Core.Combat
             FighterState source, FighterState target, DamageFamily family, CardState card = null)
         {
             var result = new AttackEffectCalculation { Attacker = StatusSystem.GetEffectiveStats(source),
-                Defender = StatusSystem.GetEffectiveStats(target), Policy = StatusSystem.BuildDamagePolicy(source, target, family) };
+                Defender = StatusSystem.GetEffectiveStats(target), Policy = StatusSystem.BuildDamagePolicy(source, target, family,
+                    card?.Kind == CardKind.Ultimate) };
             CharacterPassiveRuntime.ApplyBeforeDamageReactions(battle, source, target, family, card, result);
             if (recipe == null) return result;
             switch (recipe.Kind)

@@ -25,8 +25,8 @@ MonoBehaviour:
   - trait.series-kof
   passiveSourceDescription: When own attacks an Ignites enemy, Attack increases by
     20% and Damage Dealt increases by 20%
-  passiveSourceType: On-Field
-  passiveRestriction: All
+  passiveSourceType: 1
+  passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 09fc5ccafd804d6382cd76bc4e2fbe28, type: 2}
   id: 1004
   fighterName: Mai Shiranui 95
@@ -38,10 +38,12 @@ MonoBehaviour:
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
-  fighter3DPrefab: {fileID: 413966902510188558, guid: e98643a33d4d0984abf635c9cc80c4bf, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: e54da26f4353e5040918acfef35621fc, type: 2}
   Skill1: {fileID: 11400000, guid: 8bb9292db2da8d044854b7142968d261, type: 2}
   Skill2: {fileID: 11400000, guid: f9609085c15465840b1c9997ea9dee78, type: 2}
-  Ultimate: {fileID: 11400000, guid: 62371fa3cb7f4bc448a7963a429547d3, type: 2}
+  Ultimate: {fileID: 11400000, guid: 3ca985c0b123c614d8225a44d87e5fd8, type: 2}
   FighterAttribute: 0
   FighterRarity: 2
   fighterLevel: 1

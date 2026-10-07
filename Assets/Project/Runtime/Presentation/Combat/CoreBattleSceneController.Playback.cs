@@ -327,6 +327,13 @@ namespace FightingAllstar.Presentation.Combat
             _statusAnimationActors.Add(item.TargetId);
         }
 
+        private void PlayStatusRefreshFeedback(BattleEvent item, bool succeeded)
+        {
+            if (item == null || string.IsNullOrEmpty(item.TargetId) || string.IsNullOrEmpty(item.StatusRecipeId)) return;
+            if (_fighterBillboards.TryGetValue(item.TargetId, out var hud) && hud != null)
+                hud.PlayStatusRefreshFeedback(item.StatusRecipeId, succeeded);
+        }
+
         private IEnumerator FinishActionVisual()
         {
             yield return _stage.RecoverAttacker();
@@ -387,6 +394,8 @@ namespace FightingAllstar.Presentation.Combat
                     case BattleEventKind.StatusApplied:
                         visible = true;
                         PlayStatusAnimation(item);
+                        if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
+                            PlayStatusRefreshFeedback(item, true);
                         FloatText(item.TargetId, FeedbackName(item), "status");
                         _stage.Pulse(item.TargetId, new Color(.85f, .4f, 1f));
                         break;
@@ -411,7 +420,7 @@ namespace FightingAllstar.Presentation.Combat
                         break;
                     case BattleEventKind.StatusWeaker:
                         visible = true;
-                        FloatText(item.TargetId, "EFFECT WEAKER", "status");
+                        PlayStatusRefreshFeedback(item, false);
                         break;
                 }
             }
@@ -477,6 +486,8 @@ namespace FightingAllstar.Presentation.Combat
                     RefreshCardAvailability(item.TargetId);
                     var statusName = FeedbackName(item);
                     _stage.Pulse(item.TargetId, new Color(.85f, .4f, 1f));
+                    if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
+                        PlayStatusRefreshFeedback(item, true);
                     FloatText(item.TargetId, statusName, "status");
                     yield break;
                 case BattleEventKind.StatusRemoved:
@@ -496,7 +507,7 @@ namespace FightingAllstar.Presentation.Combat
                     _stage.Pulse(item.TargetId, new Color(1f, 0.85f, 0.4f));
                     yield break;
                 case BattleEventKind.StatusWeaker:
-                    FloatText(item.TargetId, "EFFECT WEAKER", "status");
+                    PlayStatusRefreshFeedback(item, false);
                     yield break;
                 case BattleEventKind.CardRemoved:
                     var removedOwner = _displayState.Player.FindFighter(item.SourceId) ?? _displayState.Opponent.FindFighter(item.SourceId);

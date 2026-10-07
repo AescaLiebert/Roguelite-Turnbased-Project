@@ -17,7 +17,7 @@ namespace FightingAllstar.Core.Content
     public enum StatusPolarity { Buff, Debuff, Neutral }
     public enum StatusColor { Normal, Grey }
     public enum ModifierOperation { Flat, PercentOfBase, PercentagePoints, Multiplier }
-    public enum ModifierTarget { Stat, AnyDamageDealt, AnyDamageReceived, FamilyDamageDealt, FamilyDamageReceived, FinalDamageReduction, FlatDamageReduction, StatBundle }
+    public enum ModifierTarget { Stat, AnyDamageDealt, AnyDamageReceived, FamilyDamageDealt, FamilyDamageReceived, FinalDamageReduction, FlatDamageReduction, StatBundle, UltimateDamageDealt }
     public enum StatBundleKind { None, AttackRelated, DefenseRelated, HpRelated, BasicStats, AllStats }
     public enum EffectTrigger
     {
@@ -197,7 +197,6 @@ namespace FightingAllstar.Core.Content
         public int CoefficientBp = 10000;
         public int KeywordFactorBp = 10000;
         public string KeywordId;
-        public List<string> Tags = new List<string>();
         public List<EffectConditionDefinition> Conditions = new List<EffectConditionDefinition>();
         public StatusRecipeDefinition StatusRecipe;
         public int StatusDurationOverride;
@@ -210,8 +209,6 @@ namespace FightingAllstar.Core.Content
         public int HealCoefficientBp;
         public int PowerGaugeAmount;
         public EffectTargetScope Target = EffectTargetScope.SelectedEnemy;
-        public string TriggerWindow = "PreAction";
-        public SourceProvenance Provenance;
 
         internal void CopyOperationTo(EffectOperationDefinition copy)
         {
@@ -225,7 +222,6 @@ namespace FightingAllstar.Core.Content
             copy.CoefficientBp = CoefficientBp;
             copy.KeywordFactorBp = KeywordFactorBp;
             copy.KeywordId = KeywordId;
-            copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
             copy.Conditions = Conditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
             copy.StatusRecipe = StatusRecipe?.Clone();
             copy.StatusDurationOverride = StatusDurationOverride;
@@ -237,8 +233,6 @@ namespace FightingAllstar.Core.Content
             copy.HealCoefficientBp = HealCoefficientBp;
             copy.PowerGaugeAmount = PowerGaugeAmount;
             copy.Target = Target;
-            copy.TriggerWindow = TriggerWindow;
-            copy.Provenance = Provenance;
         }
 
         public EffectDefinition ToEffectDefinition()
@@ -569,7 +563,7 @@ namespace FightingAllstar.Core.Content
                     }
                 }
                 if (string.IsNullOrWhiteSpace(fighter.PassiveId)) errors.Add(fighter.Id + " has no passive definition id.");
-                if (fighter.UltimateTiers == null || fighter.UltimateTiers.Count != 7) errors.Add(fighter.Id + " must define all seven C0-C6 ultimate tiers.");
+                if (fighter.UltimateTiers == null || fighter.UltimateTiers.Count != 6) errors.Add(fighter.Id + " must define all six C0-C5 ultimate tiers.");
                 else for (var i = 0; i < fighter.UltimateTiers.Count; i++)
                     if (fighter.UltimateTiers[i] == null || fighter.UltimateTiers[i].Tier != i || fighter.UltimateTiers[i].Effect == null)
                         errors.Add(fighter.Id + " has an incomplete or out-of-order ultimate tier at " + i + ".");
@@ -619,8 +613,8 @@ namespace FightingAllstar.Core.Content
                         if (skill.Ranks[i] == null || skill.Ranks[i].Rank != i + 1 || string.IsNullOrWhiteSpace(skill.Ranks[i].SourceDescription))
                             errors.Add(fighter.Id + " has an incomplete source card rank.");
                 }
-                if (fighter.UltimateTiers == null || fighter.UltimateTiers.Count != 7) errors.Add(fighter.Id + " must retain all seven source constellation tiers.");
-                else for (var i = 0; i < 7; i++)
+                if (fighter.UltimateTiers == null || fighter.UltimateTiers.Count != 6) errors.Add(fighter.Id + " must retain all six source constellation tiers.");
+                else for (var i = 0; i < 6; i++)
                     if (fighter.UltimateTiers[i] == null || fighter.UltimateTiers[i].Tier != i || string.IsNullOrWhiteSpace(fighter.UltimateTiers[i].SourceDescription))
                         errors.Add(fighter.Id + " has an incomplete source constellation tier.");
             }

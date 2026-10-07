@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 42853c9a482e2bc468c764c9222d900d, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflict damage equal to 240% of ATK to single enemy
+  - description: Inflict damage equal to 240% of ATK to single enemy
     skillType: 0
     runtimeEffect:
       Attack:
@@ -32,7 +31,6 @@ MonoBehaviour:
       CoefficientBp: 24000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -100,7 +98,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -114,11 +111,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflict damage equal to 300% of ATK, Fills increases own ult gauge
+  - description: Inflict damage equal to 300% of ATK, Fills increases own ult gauge
       by 1 gauges
     skillType: 0
     runtimeEffect:
@@ -134,7 +128,6 @@ MonoBehaviour:
       CoefficientBp: 30000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -202,7 +195,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -216,7 +208,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -232,7 +223,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -300,7 +290,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -314,12 +303,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 1
           Target: 0
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 0
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflict damage equal to 500% of ATK, Fills increases own ult gauge
+  - description: Inflict damage equal to 500% of ATK, Fills increases own ult gauge
       by 2 gauges
     skillType: 0
     runtimeEffect:
@@ -335,7 +319,6 @@ MonoBehaviour:
       CoefficientBp: 50000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -403,7 +386,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -417,7 +399,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -433,7 +414,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -501,7 +481,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -515,7 +494,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 2
           Target: 0
-          TriggerWindow: PreAction
-          Sequence: []
-          Provenance: 0
-      Provenance: 0

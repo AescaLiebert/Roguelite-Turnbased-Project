@@ -19,7 +19,7 @@ MonoBehaviour:
     - Id: drain-refund
       Gate:
         MinimumTier: 0
-        MaximumTier: 6
+        MaximumTier: 5
         Modes: 3
         Presence: 1
         AllowDefeatedOwner: 0
@@ -113,5 +113,4 @@ MonoBehaviour:
             FixedAmount: 0
             CoefficientBp: 10000
             MaximumAmount: 2147483647
-        DelayOwnerTurns: 0
     Triggers: []

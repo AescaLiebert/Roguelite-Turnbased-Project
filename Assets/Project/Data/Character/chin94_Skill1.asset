@@ -16,9 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Inflicts damage equal to 150% of ATK applies Ignite enemy for 2
-      turns
+  - description: "Inflicts damage equal to 150% of ATK applies Ignite enemy for 2 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -115,7 +113,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -222,13 +219,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 2
-    description: Inflicts damage equal to 300% of ATK applies 2 Ignites enemy for
-      2 turns
+  - description: "Inflicts damage equal to 300% of ATK applies 2 Ignites enemy for 2 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -325,7 +317,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -432,13 +423,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0
-  - rankLevel: 3
-    description: Inflicts damage equal to 450% of ATK applies 3 Ignites enemy for
-      3 turns
+  - description: "Inflicts damage equal to 450% of ATK applies 3 Ignites enemy for 3 turns"
     skillType: 5
     runtimeEffect:
       Attack:
@@ -535,7 +521,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      TriggerWindow: PreAction
       Sequence:
       - Timing: 3
         Effect:
@@ -642,7 +627,4 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          TriggerWindow: PreAction
           Sequence: []
-          Provenance: 2
-      Provenance: 0

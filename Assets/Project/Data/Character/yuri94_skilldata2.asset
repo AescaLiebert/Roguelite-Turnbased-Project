@@ -16,8 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 40092470c462d9d4291b1a90ab51fbd4, type: 3}
   statusVisuals: []
   ranks:
-  - rankLevel: 1
-    description: Increases the team's attack by 20% for 2 turns
+  - description: Increases the team's attack by 20% for 2 turns
     skillType: 1
     runtimeEffect:
       Id: yuri94.skill2.rank1
@@ -105,11 +104,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 4
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 2
-    description: Increases the team's attack by 40% for 2 turns
+  - description: Increases the team's attack by 40% for 2 turns
     skillType: 1
     runtimeEffect:
       Id: yuri94.skill2.rank2
@@ -197,11 +193,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 4
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
-  - rankLevel: 3
-    description: Increases the team's attack by 60% for 3 turns
+  - description: Increases the team's attack by 60% for 3 turns
     skillType: 1
     runtimeEffect:
       Id: yuri94.skill2.rank3
@@ -289,6 +282,4 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 4
-      TriggerWindow: PreAction
       Sequence: []
-      Provenance: 0
