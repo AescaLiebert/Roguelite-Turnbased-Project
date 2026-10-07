@@ -55,6 +55,7 @@ namespace FightingAllstar.Contracts.Projections
         public int Rank;
         public string Kind;
         public string Category;
+        public string EffectCategory;
         public string TargetScope;
         public int UltimateTier;
     }
@@ -63,6 +64,9 @@ namespace FightingAllstar.Contracts.Projections
     public sealed class BattleEventView
     {
         public long EventId;
+        public int HitIndex;
+        public int HitCount;
+        public string AttackRange;
         public string Kind;
         public string SourceId;
         public string TargetId;

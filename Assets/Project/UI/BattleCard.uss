@@ -37,18 +37,18 @@
 
 .card-skill-slot {
     position: absolute;
-    left: 4px;
-    top: 4px;
-    min-width: 20px;
-    height: 20px;
-    padding-left: 4px;
-    padding-right: 4px;
-    border-radius: 10px;
+    left: 5px;
+    top: 5px;
+    min-width: 22px;
+    height: 22px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 11px;
     background-color: rgba(12, 17, 26, 0.92);
     border-width: 1px;
     border-color: rgba(255, 215, 120, 0.6);
     color: rgb(255, 245, 220);
-    font-size: 11px;
+    font-size: 12px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
     -unity-text-outline-width: 1px;
@@ -58,12 +58,26 @@
 
 .card-skill-type {
     position: absolute;
-    right: 3px;
-    top: 3px;
-    width: 24px;
-    height: 24px;
+    right: 5px;
+    top: 5px;
+    width: 26px;
+    height: 26px;
     scale-mode: scale-to-fit;
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.card-disabled-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.58);
+}
+
+.hand-card.card-disabled-by-status .card-disabled-overlay {
+    display: flex;
 }
 
 /* 7DSGC-style Holographic / Golden Aura on Ultimate Cards */

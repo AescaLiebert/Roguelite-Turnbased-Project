@@ -75,6 +75,7 @@ namespace FightingAllstar.Core.Combat
                         Rank = card.Rank,
                         Kind = card.Kind.ToString(),
                         Category = card.Category.ToString(),
+                        EffectCategory = CardRules.GetEffectCategory(card).ToString(),
                         TargetScope = card.TargetScope.ToString(),
                         UltimateTier = card.UltimateTier
                     });
@@ -89,6 +90,9 @@ namespace FightingAllstar.Core.Combat
             return new BattleEventView
             {
                 EventId = battleEvent.Id,
+                HitIndex = battleEvent.HitIndex,
+                HitCount = battleEvent.HitCount,
+                AttackRange = battleEvent.AttackRange.ToString(),
                 Kind = battleEvent.Kind.ToString(),
                 SourceId = battleEvent.SourceId,
                 TargetId = battleEvent.TargetId,

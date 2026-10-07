@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: benimaru94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.benimaru94
+  runtimeReady: 1
+  sourceId: 7
+  sourceRecord: 8
+  familyId: family.benimaru
+  seriesId: series.kof
+  role: 4th Slot Support (Sub)
+  traitIds:
+  - trait.japan
+  - trait.chinese
+  - trait.series-kof
+  passiveSourceDescription: Increase Red attribute allies Attack-related stats by
+    10%
+  passiveSourceType: SUB
+  passiveRestriction: Red attribute
+  passiveDefinition: {fileID: 11400000, guid: d591c73cbea3d2348a38fdd110d53ec1, type: 2}
+  id: 1007
+  fighterName: Benimaru 94
+  fighterTag: family.benimaru
+  fighterPic: {fileID: 21300000, guid: f347c4bb4e97887419e11e959350c2a9, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 3634a0d27c4f87746a5eca6bc2b3cc28, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: d889e95f477cd4549ba9065444f1e26f, type: 3}
+  Skill1: {fileID: 11400000, guid: 006db768f5c03624fb5c7c6092218736, type: 2}
+  Skill2: {fileID: 11400000, guid: 5701170493541614ab87504c5e8d88a6, type: 2}
+  Ultimate: {fileID: 11400000, guid: 18180542dfe25e049866123678d6f33e, type: 2}
+  FighterAttribute: 0
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2368
+  attack: 320
+  defense: 110
+  health: 2910
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 15
+    Regenerate: 20
+    CritChance: 0
+    CritDmg: 110
+    CritResistance: 0
+    CritDefense: 15
+    RecoveryRate: 110
+    BlockChance: 12
+    BlockPower: 25
+    LifeSteal: 6
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using FightingAllstar.Core.Content;
 
 
 [Serializable]
@@ -41,7 +42,8 @@ public enum FighterRarity
         [SerializeField, TextArea] private string passiveSourceDescription;
         [SerializeField] private string passiveSourceType;
         [SerializeField] private string passiveRestriction;
-        [SerializeField] private CharacterPassiveEffect passiveEffect = new CharacterPassiveEffect();
+        [Header("Passive")]
+        [SerializeField] private PassiveDefinitionSO passiveDefinition;
 
         [Header("Basic Information")]
         [SerializeField] private int id;
@@ -94,12 +96,14 @@ public enum FighterRarity
         public string PassiveSourceDescription => passiveSourceDescription;
         public string PassiveSourceType => passiveSourceType;
         public string PassiveRestriction => passiveRestriction;
-        public CharacterPassiveEffect PassiveEffect => passiveEffect;
+        public PassiveDefinitionSO PassiveDefinition => passiveDefinition;
+        public PassiveDefinition GetPassiveDefinition() => passiveDefinition == null ? null : passiveDefinition.CreateDefinition();
         public string FighterName => fighterName;
         public Sprite FighterPic => fighterPic;
         public Sprite FighterIcon => fighterIcon;
 
         public GameObject Fighter3DPrefab => fighter3DPrefab;
+        public int FighterLevel => fighterLevel;
 
         // Implement IEquatable for more robust comparison
         public bool Equals(CharacterObject other)
@@ -148,23 +152,8 @@ public enum FighterRarity
         public float BlockChance;
         public float BlockPower;
         public float LifeSteal;
-        public float AvoidanceRate;
+        public float AvoidanceRate = 100f;
         public float EvadeRate;
         public float ControlRate = 100f;
         public float PerceptionRate = 100f;
     }
-
-    public enum CharacterPassiveKind { None, AttackPerStatusStack, TeamStatModifier, EndTurnTeamStatStack, EnemyStatModifier, GaugeRestoreFromEnemyDrain }
-
-    [Serializable]
-    public class CharacterPassiveEffect
-    {
-        public CharacterPassiveKind kind;
-        public string statusId;
-        public string statId;
-        public string attributeFilter;
-        public float magnitudePercent;
-        public int maximumStacks;
-        public int turnsPerStack;
-    }
-

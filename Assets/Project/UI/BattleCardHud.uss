@@ -6,14 +6,185 @@
     bottom: 0;
 }
 
+/* Enemy cards intentionally expose rank only. Artwork, skill slot, type, and owner stay private. */
+.enemy-deck-field {
+    position: absolute;
+    left: 2.5%;
+    top: 68px;
+    width: 50%;
+    height: 126px;
+    min-width: 360px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.enemy-deck-title {
+    height: 20px;
+    margin-left: 5px;
+    color: rgba(235, 241, 250, 0.86);
+    font-size: 11px;
+    -unity-font-style: bold;
+    letter-spacing: 1.2px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(5, 8, 13, 0.95);
+}
+
+.enemy-deck-row {
+    position: relative;
+    width: 100%;
+    height: 104px;
+}
+
+.enemy-hand-card {
+    position: absolute;
+    width: 68px;
+    height: 104px;
+    transition-property: left, opacity, scale, translate;
+    transition-duration: 200ms;
+    transition-timing-function: ease-out;
+}
+
+.enemy-card-back {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(31, 27, 31);
+    border-width: 3px;
+    border-color: rgb(112, 96, 78);
+    border-radius: 7px;
+}
+
+.enemy-card-back-inner {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    top: 6px;
+    bottom: 6px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(45, 39, 45);
+    border-width: 1px;
+    border-color: rgba(195, 175, 135, 0.55);
+    border-radius: 4px;
+}
+
+.enemy-card-sigil {
+    color: rgba(211, 198, 169, 0.72);
+    font-size: 25px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(12, 10, 14);
+}
+
+.enemy-card-rank-frame {
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    bottom: -2px;
+}
+
+.enemy-card-rank-badge {
+    position: absolute;
+    left: 6px;
+    bottom: 6px;
+    min-width: 24px;
+    height: 24px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 12px;
+    background-color: rgba(12, 15, 22, 0.94);
+    border-width: 1px;
+    color: rgb(255, 250, 235);
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.enemy-card-rank-pips {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: rgb(231, 222, 199);
+    font-size: 9px;
+    -unity-font-style: bold;
+    -unity-text-align: upper-right;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
+.enemy-card-disabled-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.58);
+    border-radius: 4px;
+}
+
+.enemy-hand-card.card-disabled-by-status .enemy-card-disabled-overlay {
+    display: flex;
+}
+
+.enemy-hand-card.rank-one .enemy-card-back {
+    border-color: rgb(150, 132, 103);
+}
+
+.enemy-hand-card.rank-one .enemy-card-rank-badge {
+    border-color: rgb(180, 161, 126);
+}
+
+.enemy-hand-card.rank-two .enemy-card-back {
+    background-color: rgb(27, 38, 58);
+    border-color: rgb(82, 151, 222);
+}
+
+.enemy-hand-card.rank-two .enemy-card-back-inner {
+    background-color: rgb(31, 49, 76);
+    border-color: rgba(117, 185, 248, 0.68);
+}
+
+.enemy-hand-card.rank-two .enemy-card-rank-badge {
+    border-color: rgb(99, 180, 245);
+}
+
+.enemy-hand-card.rank-three .enemy-card-back {
+    background-color: rgb(61, 40, 17);
+    border-color: rgb(239, 185, 69);
+}
+
+.enemy-hand-card.rank-three .enemy-card-back-inner {
+    background-color: rgb(78, 50, 18);
+    border-color: rgba(255, 217, 112, 0.78);
+}
+
+.enemy-hand-card.rank-three .enemy-card-rank-badge {
+    background-color: rgba(123, 71, 12, 0.96);
+    border-color: rgb(255, 222, 116);
+}
+
+.enemy-hand-card.rank-up .enemy-card-back {
+    border-color: rgb(255, 239, 154);
+}
+
 .battle-card-tray {
     position: absolute;
     left: 4%;
     right: 4%;
     bottom: 2%;
-    height: 35%;
-    min-height: 230px;
-    max-height: 380px;
+    height: 38%;
+    min-height: 350px;
+    max-height: 440px;
     padding-left: 18px;
     padding-right: 18px;
     padding-top: 10px;
@@ -23,6 +194,147 @@
     border-top-color: rgba(220, 185, 105, 0.8);
     flex-direction: column;
     justify-content: flex-end;
+}
+
+/* Redesigned 7DSGC-style Floating Card Tooltip */
+.card-tooltip-container {
+    position: absolute;
+    bottom: 100%;
+    left: 2%;
+    right: 2%;
+    margin-bottom: 12px;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.tooltip-card-box {
+    width: 96%;
+    max-width: 660px;
+    background-color: rgba(9, 13, 20, 0.95);
+    border-width: 1.5px;
+    border-color: rgba(224, 186, 102, 0.85);
+    border-radius: 12px;
+    padding: 10px 14px;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.tooltip-character-frame {
+    width: 62px;
+    height: 62px;
+    min-width: 62px;
+    min-height: 62px;
+    border-width: 2px;
+    border-color: rgba(224, 186, 102, 0.95);
+    border-radius: 8px;
+    background-color: rgba(18, 24, 34, 0.95);
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.tooltip-character-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.tooltip-content-column {
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 12px;
+    min-width: 0;
+}
+
+.tooltip-header-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 28px;
+}
+
+.tooltip-title-group {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 1;
+}
+
+.tooltip-type-icon {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
+    margin-right: 8px;
+}
+
+.tooltip-card-title {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(8, 12, 18);
+}
+
+.tooltip-status-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.tooltip-status-badge {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    margin-bottom: 2px;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
+}
+
+.tooltip-status-badge.debuff {
+    border-width: 0;
+    background-color: transparent;
+}
+
+.tooltip-status-badge.buff {
+    border-width: 0;
+    background-color: transparent;
+}
+
+.tooltip-status-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+    margin: 0;
+}
+
+.tooltip-status-label {
+    display: none;
+}
+
+.tooltip-divider {
+    height: 1px;
+    background-color: rgba(224, 186, 102, 0.45);
+    margin-top: 5px;
+    margin-bottom: 6px;
+}
+
+.tooltip-card-desc {
+    color: rgb(240, 236, 226);
+    font-size: 13px;
+    white-space: normal;
+    margin-bottom: 4px;
+}
+
+.tooltip-keywords-desc {
+    color: rgb(56, 189, 248);
+    font-size: 12px;
+    white-space: normal;
+    -unity-font-style: bold;
 }
 
 .card-tooltip {
@@ -41,16 +353,22 @@
     display: none;
 }
 
-.action-row {
-    height: 112px;
+.action-panel {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 8px;
+}
+
+.action-row {
+    height: 164px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
 .deck-row {
-    height: 132px;
+    height: 160px;
     width: 100%;
     flex-direction: row;
     justify-content: flex-end;
@@ -58,7 +376,7 @@
 }
 
 .hand-card {
-    transition-property: left, width, opacity, scale, translate;
+    transition-property: left, opacity, scale, translate;
     transition-duration: 200ms;
     transition-timing-function: ease-out;
 }
@@ -69,25 +387,27 @@
 }
 
 .card-slot {
-    width: 92px;
-    height: 116px;
-    margin-left: 4px;
-    margin-right: 4px;
+    width: 104px;
+    height: 160px;
+    margin-left: 5px;
+    margin-right: 5px;
     background-color: rgba(21, 28, 38, 0.9);
     border-width: 1px;
     border-color: rgba(137, 151, 169, 0.55);
+    border-radius: 7px;
     justify-content: center;
     align-items: center;
 }
 
 .action-slot {
-    width: 98px;
-    height: 108px;
-    margin-left: 7px;
-    margin-right: 7px;
+    width: 104px;
+    height: 160px;
+    margin-left: 8px;
+    margin-right: 8px;
     background-color: rgba(27, 35, 47, 0.92);
     border-width: 2px;
     border-color: rgba(169, 184, 201, 0.75);
+    border-radius: 7px;
 }
 
 .slot-content {
@@ -134,27 +454,38 @@
     -unity-text-align: middle-center;
 }
 
-.tray-controls {
-    height: 34px;
-    margin-top: 4px;
-    flex-direction: row;
-    justify-content: flex-end;
+.action-reset-button {
+    height: 38px;
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-right: 16px;
+    color: rgb(238, 242, 248);
+    background-color: rgba(30, 41, 59, 0.95);
+    border-width: 1.5px;
+    border-color: rgba(220, 185, 105, 0.7);
+    border-radius: 19px;
+    font-size: 13px;
+    -unity-font-style: bold;
+    letter-spacing: 0.5px;
+    transition-property: scale, background-color, border-color;
+    transition-duration: 140ms;
+}
+
+.action-reset-button:hover {
+    background-color: rgba(45, 62, 90, 0.98);
+    border-color: rgb(255, 225, 130);
+    color: rgb(255, 255, 255);
+    scale: 1.05 1.05;
+}
+
+.action-reset-button:disabled {
+    opacity: 0.35;
+    border-color: rgba(120, 130, 145, 0.3);
 }
 
 .reset-button {
-    min-width: 104px;
-    height: 32px;
-    padding-left: 15px;
-    padding-right: 15px;
-    color: rgb(232, 236, 242);
-    background-color: rgba(43, 55, 72, 0.96);
-    border-width: 1px;
-    border-color: rgba(148, 162, 181, 0.52);
-    border-radius: 4px;
-}
-
-.reset-button:disabled {
-    opacity: 0.38;
+    min-width: 90px;
+    height: 38px;
 }
 
 /* 7DSGC-style Phase Crest Pill Header */
@@ -258,6 +589,203 @@
     -unity-text-align: middle-center;
 }
 
+/* 7DSGC-style Card Execution Overlay */
+.card-execution-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(4, 7, 12, 0.88);
+    border-radius: 8px;
+    border-top-width: 1.5px;
+    border-top-color: rgba(220, 185, 105, 0.5);
+    border-bottom-width: 1.5px;
+    border-bottom-color: rgba(220, 185, 105, 0.3);
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+
+.exec-card-container {
+    width: 106px;
+    height: 152px;
+    min-width: 106px;
+    min-height: 152px;
+    margin-right: 24px;
+    justify-content: center;
+    align-items: center;
+}
+
+.exec-card-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(18, 22, 30);
+    border-radius: 6px;
+    border-width: 2px;
+    border-color: rgb(184, 139, 55);
+    overflow: hidden;
+}
+
+.exec-card-artwork {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    top: 2px;
+    bottom: 2px;
+    border-radius: 4px;
+}
+
+.exec-card-rank-frame {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.exec-card-skill-slot {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    min-width: 20px;
+    height: 20px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 10px;
+    background-color: rgba(12, 17, 26, 0.92);
+    border-width: 1px;
+    border-color: rgba(255, 215, 120, 0.6);
+    color: rgb(255, 245, 220);
+    font-size: 11px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.95);
+    white-space: nowrap;
+}
+
+.exec-card-skill-type {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    scale-mode: scale-to-fit;
+}
+
+.exec-card-stars {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.exec-star {
+    font-size: 13px;
+    margin-left: 1px;
+    margin-right: 1px;
+    color: rgba(85, 90, 102, 0.7);
+    -unity-text-align: middle-center;
+}
+
+.exec-star.active-star {
+    color: rgb(255, 218, 68);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.95);
+}
+
+.exec-card-holo-glow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(255, 215, 60, 0.18);
+    border-width: 2px;
+    border-color: rgba(255, 240, 170, 0.7);
+    border-radius: 4px;
+}
+
+.exec-info-column {
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 720px;
+    min-width: 0;
+    justify-content: center;
+}
+
+.exec-header-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 32px;
+}
+
+.exec-header-left {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 1;
+}
+
+.exec-type-icon {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    margin-right: 10px;
+    scale-mode: scale-to-fit;
+}
+
+.exec-card-title {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    -unity-text-outline-width: 1.2px;
+    -unity-text-outline-color: rgb(5, 8, 14);
+}
+
+.exec-status-grid {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: 10px;
+}
+
+.exec-divider {
+    height: 1px;
+    background-color: rgba(220, 185, 105, 0.45);
+    margin-top: 6px;
+    margin-bottom: 7px;
+}
+
+.exec-card-desc {
+    color: rgb(240, 243, 248);
+    font-size: 14px;
+    white-space: normal;
+    -unity-font-style: normal;
+}
+
+.exec-keywords-desc {
+    color: rgb(56, 189, 248);
+    font-size: 12.5px;
+    margin-top: 5px;
+    white-space: normal;
+    -unity-font-style: bold;
+}
+
 .action-slot.executing {
     border-color: rgb(255, 229, 128);
     background-color: rgba(197, 130, 31, 0.8);
@@ -267,6 +795,11 @@
 .hand-card.rank-up .card-face {
     border-color: rgb(255, 250, 194);
     background-color: rgb(255, 219, 94);
+}
+
+.hand-card.rank-down .card-face {
+    border-color: rgb(255, 190, 170);
+    background-color: rgb(154, 74, 65);
 }
 
 .card-face:disabled { opacity: 1; }
@@ -280,61 +813,69 @@
     bottom: 0;
 }
 
-/* 7DSGC-style Juicy, Bold Floating Combat Text */
+/* Impact snap -> stable read -> short release. Status text has its own hierarchy. */
+.combat-text-group { position: absolute; width: 280px; align-items: center; }
 .combat-text {
-    position: absolute;
-    width: 320px;
-    color: rgb(255, 255, 255);
-    font-size: 42px;
+    color: rgb(255, 251, 235);
     -unity-font-style: bold-and-italic;
     -unity-text-align: middle-center;
-    -unity-text-outline-width: 3.5px;
-    -unity-text-outline-color: rgba(10, 6, 4, 0.98);
-    white-space: normal;
+    -unity-text-outline-width: 1.6px;
+    -unity-text-outline-color: rgb(39, 23, 13);
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
 }
-
-.combat-text.critical {
-    color: rgb(255, 222, 50);
-    font-size: 54px;
-    -unity-text-outline-width: 4px;
-    -unity-text-outline-color: rgb(150, 20, 0);
+.combat-text.critical { color: rgb(255, 222, 80); -unity-text-outline-color: rgb(93, 45, 9); }
+.combat-text.blocked { color: rgb(160, 221, 250); }
+.combat-text.heal { color: rgb(135, 250, 64); -unity-text-outline-color: rgb(25, 65, 12); }
+.combat-text.status { color: rgb(244, 199, 255); -unity-text-outline-width: 1px; }
+.combat-text.passive { color: rgb(255, 249, 216); -unity-text-outline-width: 1px; }
+.combat-text.evade { color: rgb(160, 235, 255); -unity-text-outline-width: 1.5px; -unity-text-outline-color: rgb(18, 48, 80); }
+.combat-text.immunity { color: rgb(255, 215, 120); -unity-text-outline-width: 1.5px; -unity-text-outline-color: rgb(80, 42, 12); }
+.combat-text-kicker {
+    font-size: 18px; color: rgb(255, 233, 132); -unity-font-style: bold-and-italic;
+    -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(50, 26, 10); margin-bottom: -7px;
 }
-
-.combat-text.damage {
-    color: rgb(255, 255, 255);
-    font-size: 42px;
-    -unity-text-outline-width: 3.5px;
-    -unity-text-outline-color: rgb(35, 20, 12);
+.combat-text-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
-
-.combat-text.blocked {
-    color: rgb(135, 235, 255);
-    font-size: 34px;
-    -unity-text-outline-width: 3px;
-    -unity-text-outline-color: rgb(10, 30, 60);
+.combat-text-arrow {
+    width: 26px;
+    height: 32px;
+    margin-right: 6px;
+    display: none;
+    -unity-background-scale-mode: scale-to-fit;
 }
-
-.combat-text.heal {
-    color: rgb(85, 255, 135);
-    font-size: 40px;
-    -unity-text-outline-width: 3.5px;
-    -unity-text-outline-color: rgb(10, 55, 20);
+.combat-text-arrow.advantage {
+    display: flex;
+    background-image: url('project://database/Assets/Project/Art/UI/Arrow_Advantage_Red.png');
 }
-
-.combat-text.status {
-    color: rgb(245, 150, 255);
-    font-size: 26px;
-    -unity-text-outline-width: 2.5px;
-    -unity-text-outline-color: rgb(45, 10, 55);
+.combat-text-arrow.disadvantage {
+    display: flex;
+    background-image: url('project://database/Assets/Project/Art/UI/Arrow_Disadvantage_Blue.png');
 }
-
-.combat-text.passive {
-    color: rgb(255, 220, 100);
-    font-size: 28px;
-    -unity-font-style: bold;
-    -unity-text-outline-width: 2.5px;
-    -unity-text-outline-color: rgb(75, 45, 10);
+.ultimate-ready-sidebar { position: absolute; left: 0; top: 31%; }
+.ultimate-ready-tag {
+    flex-direction: row; align-items: center; padding-right: 16px;
+    margin-bottom: 7px; background-color: rgba(36, 24, 10, .88);
+    border-top-width: 1px; border-bottom-width: 2px; border-right-width: 3px;
+    border-color: rgb(255, 206, 68); border-top-right-radius: 5px; border-bottom-right-radius: 5px;
 }
+.ultimate-ready-tag Label { font-size: 17px; color: rgb(255, 232, 154); -unity-font-style: bold-and-italic; }
+.ultimate-ready-icon { width: 46px; height: 46px; margin-right: 8px; }
+.ultimate-cut-in { position: absolute; left: 0; right: 0; top: 0; bottom: 0; justify-content: center; background-color: rgba(9, 3, 20, .78); }
+.ultimate-slash {
+    height: 245px; flex-direction: row; align-items: center; justify-content: center;
+    background-color: rgb(51, 9, 79); border-top-width: 5px; border-bottom-width: 5px;
+    border-color: rgb(235, 96, 255); rotate: -5deg;
+}
+.ultimate-cut-in-portrait { width: 290px; height: 310px; margin-right: 35px; }
+.ultimate-cut-in-copy { max-width: 480px; }
+.ultimate-cut-in-kicker { font-size: 25px; color: rgb(244, 182, 255); -unity-font-style: bold-and-italic; letter-spacing: 5px; }
+.ultimate-cut-in-title { font-size: 40px; color: white; -unity-font-style: bold-and-italic; white-space: normal; }
+.merge-flash { position: absolute; width: 110px; height: 166px; background-color: rgb(255, 250, 218); border-color: rgb(255, 210, 68); border-width: 3px; border-radius: 7px; }
 
 .card-caption {
     position: absolute;
@@ -383,19 +924,44 @@
     border-radius: 4px;
 }
 
-.skip-animation {
+.top-right-controls {
     position: absolute;
     top: 2.2%;
-    right: 3%;
+    right: 2.5%;
+    flex-direction: row;
+    align-items: center;
+}
+
+.skip-animation {
     height: 32px;
     padding-left: 14px;
     padding-right: 14px;
+    margin-right: 8px;
     color: rgb(211, 221, 234);
     background-color: rgba(17, 25, 39, 0.85);
     border-width: 1px;
     border-color: rgba(140, 160, 190, 0.4);
     border-radius: 16px;
     font-size: 13px;
+}
+
+.abandon-run-button {
+    height: 32px;
+    padding-left: 14px;
+    padding-right: 14px;
+    color: rgb(245, 205, 205);
+    background-color: rgba(45, 18, 24, 0.88);
+    border-width: 1px;
+    border-color: rgba(220, 90, 100, 0.55);
+    border-radius: 16px;
+    font-size: 13px;
+    -unity-font-style: bold;
+}
+
+.abandon-run-button:hover {
+    background-color: rgba(75, 25, 35, 0.95);
+    border-color: rgba(255, 110, 120, 0.85);
+    color: rgb(255, 230, 230);
 }
 
 .cc-comparison {
@@ -475,3 +1041,30 @@
     border-color: rgb(255, 228, 111);
     scale: 1.04 1.04;
 }
+
+.ally-target-picker {
+    position: absolute;
+    left: 35%; right: 35%; top: 25%;
+    padding: 20px;
+    background-color: rgba(14, 22, 38, 0.98);
+    border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;
+    border-left-color: #78dcb4; border-right-color: #78dcb4; border-top-color: #78dcb4; border-bottom-color: #78dcb4;
+    color: white;
+    font-size: 22px;
+}
+.ally-target-picker Button { min-height: 64px; margin-top: 8px; flex-direction: row; justify-content: space-between; }
+
+.counter-cue {
+    position: absolute; top: 16%; left: 32%; right: 32%;
+    flex-direction: row; align-items: center; justify-content: center;
+    background-color: rgba(12, 35, 55, 0.96); color: rgb(120, 220, 255);
+    padding: 12px; font-size: 24px;
+}
+.counter-cue Image { width: 64px; height: 64px; margin-right: 12px; }
+
+.ally-target-picker { left: 31%; right: 31%; }
+.ally-target-picker Button { background-color: rgb(29, 46, 64); color: white; border-top-width: 0; border-bottom-width: 0; border-left-width: 0; border-right-width: 0; }
+.ally-target-picker Button:hover { background-color: rgb(42, 76, 88); }
+.ally-choice { justify-content: flex-start; padding-left: 12px; padding-right: 12px; }
+.ally-choice-copy { flex-grow: 1; margin-left: 12px; align-items: flex-start; }
+.ally-choice-copy Label { font-size: 18px; }

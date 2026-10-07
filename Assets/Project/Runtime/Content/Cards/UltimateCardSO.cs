@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using FightingAllstar.Core.Content;
 
 [CreateAssetMenu(fileName = "New Ultimate Card", menuName = "Card System/Ultimate Card")]
 public class UltimateCardSO : ScriptableObject
@@ -10,6 +11,8 @@ public class UltimateCardSO : ScriptableObject
     public Sprite icon;
     
     [Header("Progression")]
+    public List<FightingAllstar.Presentation.Combat.StatusVisualData> statusVisuals = new List<FightingAllstar.Presentation.Combat.StatusVisualData>();
+    private void OnEnable() { foreach (var visual in statusVisuals) FightingAllstar.Presentation.Combat.StatusVisualData.Register(visual); }
     public List<UltimateLevelData> levels = new List<UltimateLevelData>();
 
     public UltimateLevelData GetLevelData(int constellationTier)
@@ -28,12 +31,8 @@ public class UltimateLevelData
     public int level; // Constellation tier C0 to C6
     [TextArea]
     public string description;
-    public SkillTargetType targetType;
-    public DamageScalingType damageScalingType;
-    public float damageMultiplier;
-    public GameObject ultimatePrefab;
-    [TextArea] public string sourceDescription;
-    public string provenance;
-    public string damageKeyword;
-    public System.Collections.Generic.List<CharacterCardEffect> effects = new System.Collections.Generic.List<CharacterCardEffect>();
+    public SkillType skillType;
+    [Header("Runtime Effect")]
+    [Tooltip("The combat definition used by battle. Put all card effects, including follow-up effects, in this definition's Sequence.")]
+    public EffectDefinition runtimeEffect;
 }

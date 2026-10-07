@@ -19,35 +19,37 @@ namespace FightingAllstar.Core.Combat
                 for (var index = 0; index < skills.Count && index < 2; index++)
                 {
                     RecordDraw(AddCard(team, fighter, skills[index], 1, CardKind.Skill, 0), drawnCards, timeline);
-                    MergeAdjacent(team, mergedCardIds, timeline, grantGauge: false);
+                    MergeAdjacent(team, mergedCardIds, timeline, grantGauge: true);
                 }
             }
-            DrawRandomUntilCapacity(team, rng, drawnCards, mergedCardIds, GetHandCapacity(team), timeline, grantGauge: false);
+            DrawRandomUntilCapacity(team, rng, drawnCards, mergedCardIds, GetHandCapacity(team), timeline, grantGauge: true);
         }
 
         public static void StartTurn(BattleTeamState team, DeterministicRandom rng,
             List<CardState> drawnCards = null, List<string> mergedCardIds = null, List<BattleEvent> timeline = null)
         {
             var capacity = GetHandCapacity(team);
-            FighterState readyUltimate = null;
             foreach (var fighter in team.LivingActive())
+            {
+                if (team.Hand.Count >= capacity) break;
                 if (fighter.PowerGauge >= UltimateGaugeCost && !HasPendingUltimate(team, fighter.Id))
                 {
-                    readyUltimate = fighter;
-                    break;
+                    RecordDraw(AddCard(team, fighter, null, 1, CardKind.Ultimate, fighter.ConstellationTier), drawnCards, timeline);
                 }
-
-            var available = Math.Max(0, capacity - team.Hand.Count);
-            var ultimateCount = readyUltimate != null && available > 0 ? 1 : 0;
-            // The HUD shows later appends on the left, which are later in the
-            // draw queue. Append the Ultimate first so it stays ahead of the
-            // random cards drawn to fill the remaining capacity.
-            if (ultimateCount > 0)
-                RecordDraw(AddCard(team, readyUltimate, null, 1, CardKind.Ultimate, readyUltimate.ConstellationTier), drawnCards, timeline);
+            }
             DrawRandomUntilCapacity(team, rng, drawnCards, mergedCardIds, capacity, timeline, grantGauge: true);
         }
 
-        public static int GetHandCapacity(BattleTeamState team) => Math.Max(0, team?.Fighters.Count ?? 0) + 3;
+        // Every surviving formation member contributes to hand size, including an off-field SUB.
+        // Once only the SUB survives and enters the field, the cap is therefore 1 + 3 = 4.
+        public static int GetHandCapacity(BattleTeamState team)
+        {
+            var survivingFormationSize = 0;
+            if (team?.Fighters != null)
+                foreach (var fighter in team.Fighters)
+                    if (fighter != null && fighter.IsAlive && fighter.Health > 0) survivingFormationSize++;
+            return survivingFormationSize + 3;
+        }
 
         public static bool TryMove(BattleTeamState team, int from, int to, bool grantGauge, out string reason)
             => TryMove(team, from, to, grantGauge, out reason, null);
@@ -85,6 +87,7 @@ namespace FightingAllstar.Core.Combat
                     left.SkillId == right.SkillId && left.Rank == right.Rank && left.Rank < 3)
                 {
                     left.Rank++;
+                    RefreshCardKind(left, team.FindFighter(left.OwnerFighterId)?.Definition);
                     team.Hand.RemoveAt(i + 1);
                     mergedCardIds?.Add(left.Id);
                     var owner = team.FindFighter(left.OwnerFighterId);
@@ -159,14 +162,45 @@ namespace FightingAllstar.Core.Combat
         {
             var ultimateScope = EffectTargetScope.SelectedEnemy;
             if (kind == CardKind.Ultimate && fighter != null && TryGetUltimate(fighter.Definition, tier, out var ultimateEffect))
-                ultimateScope = ResolveTargetScope(ultimateEffect.Target);
+                ultimateScope = ultimateEffect.Target;
+            var effectCategory = kind == CardKind.Ultimate
+                ? fighter?.Definition?.UltimateTiers?.Find(t => t.Tier == tier)?.Category ?? CardCategory.Attack
+                : skill == null ? CardCategory.Attack : ResolveCategory(skill);
             var card = new CardState { Id = team.Side + ":card:" + team.NextCardSequence++,
                 OwnerFighterId = fighter.Id, SkillId = skill?.Id, Rank = rank, Kind = kind,
-                Category = kind == CardKind.Ultimate ? CardCategory.Attack : skill == null ? CardCategory.Attack : ResolveCategory(skill),
+                Category = kind == CardKind.Ultimate ? CardCategory.Ultimate : effectCategory,
+                EffectCategory = effectCategory,
                 TargetScope = kind == CardKind.Ultimate ? ultimateScope : skill == null ? EffectTargetScope.SelectedEnemy : ResolveTargetScope(skill),
                 UltimateTier = tier };
+            RefreshCardKind(card, fighter.Definition);
             team.Hand.Add(card);
             return card;
+        }
+
+        public static void RefreshCardKind(CardState card, CharacterDefinition definition)
+        {
+            if (card == null || card.Kind != CardKind.Skill) return;
+            var skill = definition?.Skills?.Find(s => s.Id == card.SkillId);
+            var rank = skill?.Ranks?.Find(r => r.Rank == card.Rank);
+            if (rank?.HasCardKind != true) return;
+            card.Category = rank.Category;
+            card.EffectCategory = rank.Category;
+            card.TargetScope = rank.TargetScope;
+        }
+
+        public static CardCategory GetEffectCategory(CardState card)
+        {
+            if (card == null) return CardCategory.Attack;
+            if (card.Kind == CardKind.Ultimate)
+            {
+                // Older snapshots used Category for the ultimate's effect behavior.
+                if (card.Category != CardCategory.Ultimate) return card.Category;
+                return card.EffectCategory;
+            }
+            // Fall back to Category for cards/snapshots created before EffectCategory existed.
+            if (card.EffectCategory == CardCategory.Attack && card.Category != CardCategory.Attack)
+                return card.Category;
+            return card.EffectCategory;
         }
 
         public static CardCategory ResolveCategory(SkillDefinition skill)

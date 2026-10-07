@@ -75,7 +75,7 @@ Card/Passive recipe
 - Same recipe with stronger potency replaces payload, ownership, and snapshot while preserving deterministic instance order.
 - Independent DOT stacks retain distinct source snapshots.
 - `RecipeAndSource` keeps separate instances for different appliers.
-- Cleanse/dispel respects polarity and dispellable flags.
+- Cleanse/dispel respects polarity and status color: Normal is cleanseable; Grey is not.
 - Stat calculation consumes every active modifier once per status instance/stack rule.
 - Card disable queries distinguish category, ultimate, rank, and card-effect suppression.
 - Core compiles without Unity dependencies.

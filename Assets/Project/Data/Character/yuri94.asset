@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: yuri94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.yuri94
+  runtimeReady: 1
+  sourceId: 22
+  sourceRecord: 23
+  familyId: family.yuri
+  seriesId: series.kof
+  role: 4th Slot Support (Sub)
+  traitIds:
+  - trait.art-of-fighting
+  - trait.women
+  - trait.series-kof
+  passiveSourceDescription: Increases Green attribute team attack-related stats by
+    10%
+  passiveSourceType: SUB
+  passiveRestriction: Green attribute
+  passiveDefinition: {fileID: 11400000, guid: 3e082c0afa02401dac7e6b1eb6518230, type: 2}
+  id: 1022
+  fighterName: Yuri Sakazaki 94
+  fighterTag: Yuri
+  fighterPic: {fileID: 21300000, guid: 7cb14cc95506419449d93d9cbddfb4cc, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 40092470c462d9d4291b1a90ab51fbd4, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: d6be79a9f0683e143bebd58d618558bd, type: 3}
+  Skill1: {fileID: 11400000, guid: e04cf859db4a9b442bc823e86c8980f1, type: 2}
+  Skill2: {fileID: 11400000, guid: bacee6f39922b0e47934cfe1e0810b5c, type: 2}
+  Ultimate: {fileID: 11400000, guid: 33a225e9580aeca4e8c516c71aaccccf, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2820
+  attack: 250
+  defense: 130
+  health: 3675
+  SecondaryStats:
+    PierceRate: 10
+    Resistance: 10
+    Regenerate: 20
+    CritChance: 35
+    CritDmg: 150
+    CritResistance: 0
+    CritDefense: 0
+    RecoveryRate: 120
+    BlockChance: 15
+    BlockPower: 30
+    LifeSteal: 9
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

@@ -9,7 +9,7 @@ namespace FightingAllstar.Core.Combat
     public enum TeamSide { Player, Opponent }
     public enum CardKind { Skill, Ultimate }
     public enum BattleEventKind { BattleStarted, TurnStarted, CardDrawn, CardsMerged, CardMoved, CardPlayed, DamageApplied, HealApplied, StatusApplied, StatusRemoved, FighterDefeated, ReserveEntered, TurnEnded, BattleCompleted, ActionFizzled,
-        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged }
+        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker }
 
     [Serializable]
     public sealed class FighterState
@@ -52,6 +52,7 @@ namespace FightingAllstar.Core.Combat
         public int Rank;
         public CardKind Kind;
         public CardCategory Category;
+        public CardCategory EffectCategory;
         public EffectTargetScope TargetScope = EffectTargetScope.SelectedEnemy;
         public int UltimateTier;
 
@@ -103,6 +104,8 @@ namespace FightingAllstar.Core.Combat
         public BattleTeamState Opponent = new BattleTeamState { Side = TeamSide.Opponent };
         public ulong RngState;
         public ulong RngDrawCount;
+        public ulong CardRngState;
+        public ulong CardRngDrawCount;
         public List<BattleEvent> Events = new List<BattleEvent>();
         public List<RunBoonDefinition> RunBoons = new List<RunBoonDefinition>();
         public List<string> ActivePassiveAuras = new List<string>();
@@ -112,7 +115,8 @@ namespace FightingAllstar.Core.Combat
             var copy = new BattleState { MatchId = MatchId, Revision = Revision, TurnNumber = TurnNumber, CompletedTurnCount = CompletedTurnCount,
                 ActingSide = ActingSide, Phase = Phase, ActionBudget = ActionBudget, Winner = Winner, IsDraw = IsDraw,
                 Mode = Mode, PassiveEventSequence = PassiveEventSequence,
-                Player = Player.Clone(), Opponent = Opponent.Clone(), RngState = RngState, RngDrawCount = RngDrawCount };
+                Player = Player.Clone(), Opponent = Opponent.Clone(), RngState = RngState, RngDrawCount = RngDrawCount,
+                CardRngState = CardRngState, CardRngDrawCount = CardRngDrawCount };
             foreach (var e in Events) copy.Events.Add(e.Clone());
             foreach (var boon in RunBoons) copy.RunBoons.Add(boon.Clone());
             foreach (var aura in ActivePassiveAuras) copy.ActivePassiveAuras.Add(aura);
@@ -125,12 +129,17 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class BattleEvent
     {
+        public int HitIndex;
+        public int HitCount;
+        public AttackRange AttackRange;
         public long Id;
+        public CardEffectTiming Timing;
         public BattleEventKind Kind;
         public string SourceId;
         public string TargetId;
         public string CardId;
         public string RootActionId;
+        public List<StatusInstance> StatusesAfter;
         public string StatusInstanceId;
         public string StatusRecipeId;
         public int Amount;
@@ -146,12 +155,14 @@ namespace FightingAllstar.Core.Combat
         public bool WasCritical;
         public bool WasBlocked;
         public bool WasEndured;
+        public AttributeAffinity Affinity;
         public int ShieldLost;
         public int EffectiveMaxHealth;
         public List<PassiveStatContribution> PassiveContributions = new List<PassiveStatContribution>();
         public BattleEvent Clone()
         {
             var copy = (BattleEvent)MemberwiseClone();
+            copy.StatusesAfter = StatusesAfter?.ConvertAll(status => status.Clone());
             copy.Card = Card?.Clone();
             copy.TargetIds = TargetIds == null ? new List<string>() : new List<string>(TargetIds);
             copy.PassiveContributions = new List<PassiveStatContribution>();

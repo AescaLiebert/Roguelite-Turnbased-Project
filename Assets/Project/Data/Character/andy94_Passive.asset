@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: andy94_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  sourceDescription: "If self not damaged in that turn, gains 1 point ult gauge to self"
+  sourceType: "On-Field"
+  sourceRestriction: "Own"
+  definition:
+    Id: fighter.andy94.passive.source
+    Auras: []
+    Reactions:
+    - Id: undamaged-turn-ult-gauge
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 6
+        Modes: 3
+        Presence: 1
+        AllowDefeatedOwner: 0
+      Trigger: 1
+      OwnTeamTurnOnly: 1
+      ActorRelation: 0
+      TargetRelation: 0
+      CardOriginOnly: 0
+      ExcludeUltimate: 0
+      RequireGaugeLoss: 0
+      RequireCritical: 0
+      RequireBlocked: 0
+      AllowReactionOrigin: 0
+      FilterDamageFamily: 0
+      DamageFamily: 0
+      FilterCategory: 0
+      Category: 0
+      MinimumRank: 0
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions:
+      - Kind: 22
+        RecipeId: 
+        Tag: 
+        StringValue: 
+        Threshold: 0
+        Negate: 0
+        Logic: 0
+        Subject: 2
+        Children: []
+        InitialRoster: 0
+      Commands:
+      - Kind: 1
+        CounterKey: 
+        CounterCap: 2147483647
+        ValueSource: 0
+        Amount: 1
+        DelayOwnerTurns: 0
+    Triggers: []

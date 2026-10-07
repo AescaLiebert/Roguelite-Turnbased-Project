@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: chang94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.chang94
+  runtimeReady: 1
+  sourceId: 26
+  sourceRecord: 27
+  familyId: family.chang
+  seriesId: series.kof
+  role: 4th Slot Support (Sub)
+  traitIds:
+  - trait.korea-justice
+  - trait.series-kof
+  passiveSourceDescription: "Increases the defense of the \u201CGreen attribute team\u201D
+    by 60%"
+  passiveSourceType: SUB
+  passiveRestriction: Green attribute
+  passiveDefinition: {fileID: 11400000, guid: 2bcb2dc68470440bb347ad3c14d547b0, type: 2}
+  id: 1026
+  fighterName: Chang Koehan 94
+  fighterTag: Chang
+  fighterPic: {fileID: 21300000, guid: 19f8996dfa2626e46bb7dc39902cf25a, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 95cc7b2aa1ad08449bd28c79627e54c5, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: f044b91054dccad408453075de7ec4ef, type: 3}
+  Skill1: {fileID: 11400000, guid: c5bd1fade2354c9a8e954f46dd654586, type: 2}
+  Skill2: {fileID: 11400000, guid: 4617cba671eb4bde8386a87a9ee24c7d, type: 2}
+  Ultimate: {fileID: 11400000, guid: f815581b9dfa48d6847c27c9a96c3be9, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2371
+  attack: 250
+  defense: 300
+  health: 3400
+  SecondaryStats:
+    PierceRate: 0
+    Resistance: 10
+    Regenerate: 20
+    CritChance: 25
+    CritDmg: 110
+    CritResistance: 10
+    CritDefense: 10
+    RecoveryRate: 130
+    BlockChance: 5
+    BlockPower: 50
+    LifeSteal: 5
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 391928449}
   - component: {fileID: 391928448}
   m_Layer: 0
-  m_Name: Dungeon Flow
+  m_Name: DungeonController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Route.LocalDungeonComposition
   flow: {fileID: 391928449}
   contentSource: {fileID: 11400000, guid: 065ce61b8b4ad0c4daedd910ab167be6, type: 2}
-  seed: 1
 --- !u!114 &391928449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,12 +193,12 @@ GameObject:
   - component: {fileID: 1572315822}
   - component: {fileID: 1572315821}
   m_Layer: 0
-  m_Name: Dungeon Route Map
+  m_Name: DungeonRouteMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1572315821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +353,7 @@ GameObject:
   - component: {fileID: 1929846586}
   - component: {fileID: 1929846585}
   m_Layer: 0
-  m_Name: Dungeon Entry
+  m_Name: DungeonEntryUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

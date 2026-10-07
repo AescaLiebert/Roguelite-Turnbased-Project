@@ -29,7 +29,10 @@ namespace FightingAllstar.Core.Content
         DamageOverTime = 1 << 1,
         Disable = 1 << 2,
         Stance = 1 << 3,
-        Triggered = 1 << 4
+        Triggered = 1 << 4,
+        PreventsRecovery = 1 << 5,
+        Heal = 1 << 6,
+        Taunt = 1 << 7
     }
 
     public enum StatusStackingPolicy
@@ -45,6 +48,7 @@ namespace FightingAllstar.Core.Content
     public enum StatusDurationClock { TargetTurnStart, TargetTurnEnd, SourceTurnEnd, ActionEnd, Permanent }
     public enum StatusTickTiming { None, TargetTurnStart, TargetTurnEnd, WhenTargetTakesDamage }
     public enum StatusSnapshotScaling { Fixed, TriggeringHealthDamage, SourceAttack, TargetMaxHealth }
+    public enum StatusHealScaling { Fixed, SourceAttack, TargetMaxHealth, TurnStartRecovery }
     public enum StatusBreakRule { None, OnDamageTaken, OnCardUsed, OnSourceDefeated }
 
     [Flags]
@@ -68,10 +72,10 @@ namespace FightingAllstar.Core.Content
         AllCards = Attack | Debuff | Buff | Recovery | Stance | Ultimate
     }
 
-    public enum CardCategory { Attack, Debuff, Buff, Recovery, Stance, AttackDebuff }
+    public enum CardCategory { Attack, Debuff, Buff, Recovery, Stance, AttackDebuff, Ultimate }
     public enum EffectTargetScope { Self, SelectedEnemy, SelectedAlly, AllEnemies, AllAllies, TriggerActor, TriggerTarget, StatusOwner }
     public enum CardEffectOperationKind { Damage, ApplyStatus, RemoveStatus, Cleanse, Heal, ChangePowerGauge, RemoveCard, ModifyCardRank }
-    public enum CardEffectWindow { BeforeAction, BeforeDamage, Damage, AfterDamage, AfterAction }
+    public enum CardEffectWindow { BeforeAction, Damaging, Damage, AfterDamage, AfterAction }
     public enum EffectConditionKind
     {
         Always,
@@ -91,11 +95,22 @@ namespace FightingAllstar.Core.Content
         TargetGaugeAtLeast,
         SourceHealthAtMost,
         TargetHealthAtMost,
-        CounterAtLeast, TargetTraitIs, TargetSeriesIs, RosterCountAtLeast, TargetIsAlive
+        CounterAtLeast, TargetTraitIs, TargetSeriesIs, RosterCountAtLeast, TargetIsAlive,
+        ActorWasNotDamagedSincePreviousTurnStart,
+        ActorWasDamagedDuringPreviousEnemyTurn,
+        ActorWasNotDamagedDuringPreviousEnemyTurn
     }
     public enum ConditionLogic { Leaf, All, Any, Not }
     public enum ConditionSubject { OperationTarget, Owner, Actor, EventTarget }
     public enum EffectValueSource { Fixed, ActualHealthDamage, ActualShieldDamage, SourceAttack, TargetMaxHealth, TargetMissingHealth }
+    public enum StatusPotencySource
+    {
+        Authored,
+        EffectOwnerStatus,
+        TriggerActorStatus,
+        TriggerTargetStatus,
+        OperationTargetStatus
+    }
 
     public enum AttackEffectKind
     {
@@ -111,7 +126,7 @@ namespace FightingAllstar.Core.Content
         public string Id;
         public AttackEffectKind Kind;
         public DamageFamily OutputFamily;
-        public CardEffectWindow Window = CardEffectWindow.BeforeDamage;
+        public CardEffectWindow Window = CardEffectWindow.Damaging;
         public int PrimaryValueBp;
         public int SecondaryValue;
         public bool RuntimeReady = true;
@@ -131,12 +146,120 @@ namespace FightingAllstar.Core.Content
     }
 
     [Serializable]
+    public sealed class PeriodicHealingDefinition
+    {
+        public StatusTickTiming Timing = StatusTickTiming.TargetTurnStart;
+        public StatusHealScaling Scaling = StatusHealScaling.Fixed;
+        public int CoefficientBp = 10000;
+        public int FixedAmount;
+        public PeriodicHealingDefinition Clone() => (PeriodicHealingDefinition)MemberwiseClone();
+    }
+
+    // Authoring payloads deliberately avoid StatusRecipe -> Effect -> StatusRecipe cycles.
+    [Serializable]
+    public sealed class StanceChildDefinition
+    {
+        public string Id;
+        public string NameKey;
+        public bool DebuffImmunity;
+        public bool AdditionalDamageImmunity;
+        public bool EvadeAttacks;
+        public bool Taunt;
+        public int RecoverDamageTakenBp;
+        public List<StatModifierDefinition> Modifiers = new List<StatModifierDefinition>();
+        public bool CounterEnabled;
+        public CardCategory CounterCategory = CardCategory.Attack;
+        public EffectTargetScope CounterTarget = EffectTargetScope.SelectedEnemy;
+        public List<EffectConditionDefinition> CounterConditions = new List<EffectConditionDefinition>();
+        public CounterEffectDefinition CounterEffect;
+        public StanceChildDefinition Clone()
+        {
+            var copy = (StanceChildDefinition)MemberwiseClone();
+            copy.Modifiers = Modifiers?.ConvertAll(m => m?.Clone()) ?? new List<StatModifierDefinition>();
+            copy.CounterConditions = CounterConditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
+            copy.CounterEffect = CounterEffect?.Clone();
+            return copy;
+        }
+        public StatusRecipeDefinition ToRecipe() => new StatusRecipeDefinition {
+            Id = Id, NameKey = NameKey, Polarity = StatusPolarity.Buff,
+            Behavior = StatusBehavior.Stance | (Taunt ? StatusBehavior.Taunt : StatusBehavior.None),
+            DurationClock = StatusDurationClock.Permanent, DebuffImmunity = DebuffImmunity,
+            AdditionalDamageImmunity = AdditionalDamageImmunity, EvadeAttacks = EvadeAttacks,
+            RecoverDamageTakenBp = RecoverDamageTakenBp,
+            Modifiers = Modifiers?.ConvertAll(m => m?.Clone()) ?? new List<StatModifierDefinition>(),
+            CounterEnabled = CounterEnabled, CounterCategory = CounterCategory, CounterTarget = CounterTarget,
+            CounterConditions = CounterConditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>(),
+            CounterEffect = CounterEffect?.Clone() };
+    }
+
+    [Serializable]
+    public class CounterOperationDefinition
+    {
+        public DamageAttackDefinition Attack = new DamageAttackDefinition();
+        public EffectKind Kind = EffectKind.Damage;
+        public EffectTargetScope Target = EffectTargetScope.SelectedEnemy;
+        public DamageFamily Family;
+        public StatScaling Scaling = StatScaling.Attack;
+        public int CoefficientBp = 10000;
+        public int Magnitude;
+        public string KeywordId;
+        public CardEffectTiming Timing = CardEffectTiming.AfterAction;
+        public EffectValueSource HealSource = EffectValueSource.SourceAttack;
+        public int HealAmount;
+        public int HealCoefficientBp = 10000;
+        public string StatusRecipeId;
+        public StatusPolarity StatusPolarity = StatusPolarity.Debuff;
+        public int StatusApplyChanceBp = 10000;
+        public int StatusDurationOverride;
+        public int StatusStackCount = 1;
+        public int StatusPotencyBp;
+        public int PowerGaugeAmount;
+          public EffectDefinition ToEffect() => new EffectDefinition {
+              Attack = Attack?.Clone() ?? new DamageAttackDefinition(),
+            Kind = Kind, Target = Target, Family = Family, Scaling = Scaling,
+            CoefficientBp = CoefficientBp, Magnitude = Magnitude, KeywordId = KeywordId,
+            HealValue = new EffectValueDefinition { Source = HealSource, FixedAmount = HealAmount, CoefficientBp = HealCoefficientBp },
+            StatusRecipe = string.IsNullOrWhiteSpace(StatusRecipeId) ? null :
+                StandardEffectDatabase.CreateStatusRecipes().Find(s => s.Id == StatusRecipeId)?.Clone() ??
+                new StatusRecipeDefinition { Id = StatusRecipeId, Polarity = StatusPolarity },
+            StatusApplyChanceBp = StatusApplyChanceBp, StatusDurationOverride = StatusDurationOverride,
+            StatusStackCount = StatusStackCount, StatusPotencyBp = StatusPotencyBp,
+            PowerGaugeAmount = PowerGaugeAmount };
+        public CounterOperationDefinition CloneOperation()
+        {
+              var copy = (CounterOperationDefinition)MemberwiseClone();
+              copy.Attack = Attack?.Clone() ?? new DamageAttackDefinition();
+            return copy;
+        }
+    }
+
+    [Serializable]
+    public sealed class CounterEffectDefinition : CounterOperationDefinition
+    {
+        public List<CounterOperationDefinition> Sequence = new List<CounterOperationDefinition>();
+        public CounterEffectDefinition Clone()
+        {
+            var copy = (CounterEffectDefinition)CloneOperation();
+            copy.Sequence = Sequence?.ConvertAll(s => s?.CloneOperation()) ?? new List<CounterOperationDefinition>();
+            return copy;
+        }
+        public EffectDefinition ToRuntimeEffect()
+        {
+            var result = ToEffect();
+            if (Sequence != null) foreach (var step in Sequence)
+                if (step != null) result.Sequence.Add(new CardEffectStep { Timing = step.Timing,
+                    Effect = EffectStepDefinition.From(step.ToEffect()) });
+            return result;
+        }
+    }
+
+    [Serializable]
     public sealed class StatusRecipeDefinition
     {
         public string Id;
         public string NameKey;
         public StatusPolarity Polarity;
-        public StatusColor Color = StatusColor.Blue;
+        public StatusColor Color = StatusColor.Normal;
         public StatusBehavior Behavior;
         public StatusStackingPolicy Stacking = StatusStackingPolicy.RefreshStronger;
         public StatusIdentityScope Identity = StatusIdentityScope.Recipe;
@@ -144,29 +267,50 @@ namespace FightingAllstar.Core.Content
         public int DefaultDuration = 2;
         public int MaxStacks = 1;
         public int DefaultPotencyBp;
-        public bool Dispellable = true;
         public bool BypassDebuffImmunity;
         public StatusBreakRule BreakRule;
         public CardCategoryMask DisableMask;
         public List<string> Tags = new List<string>();
         public List<StatModifierDefinition> Modifiers = new List<StatModifierDefinition>();
         public PeriodicDamageDefinition PeriodicDamage;
+        public PeriodicHealingDefinition PeriodicHealing;
         public bool DebuffImmunity;
         public bool AdditionalDamageImmunity;
+        // Retained to load older authored assets; new recipes should set StatusBehavior.Taunt.
         public bool Taunt;
+        public bool HasTaunt => (Behavior & StatusBehavior.Taunt) != 0 || Taunt;
+        public bool EvadeAttacks;
+        // Child recipes live only while the containing stance instance exists.
+        public List<StanceChildDefinition> StanceChildren = new List<StanceChildDefinition>();
+        public int RecoverDamageTakenBp;
+        public bool CounterEnabled;
+        public CardCategory CounterCategory = CardCategory.Attack;
+        public EffectTargetScope CounterTarget = EffectTargetScope.SelectedEnemy;
+        public List<EffectConditionDefinition> CounterConditions = new List<EffectConditionDefinition>();
+        public CounterEffectDefinition CounterEffect;
         public int SurviveLethalCharges;
         public int IgnoreCritResistanceBp;
         public int IgnoreCritDefenseBp;
         public List<string> ImmuneStatusTags = new List<string>();
-        public List<PassiveReactionDefinition> Reactions = new List<PassiveReactionDefinition>();
+        // Character/status reaction authoring belongs in PassiveDefinition. Keeping this as a
+        // property preserves runtime and JSON scenarios without creating the Unity type cycle
+        // StatusRecipe -> Reaction -> Command -> InlineRecipe -> StatusRecipe.
+        [field: NonSerialized]
+        public List<PassiveReactionDefinition> Reactions { get; set; } = new List<PassiveReactionDefinition>();
 
         public StatusRecipeDefinition Clone()
         {
             var copy = (StatusRecipeDefinition)MemberwiseClone();
+            if (copy.Taunt) copy.Behavior |= StatusBehavior.Taunt;
             copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
             copy.Modifiers = new List<StatModifierDefinition>();
             if (Modifiers != null) foreach (var modifier in Modifiers) copy.Modifiers.Add(modifier?.Clone());
             copy.PeriodicDamage = PeriodicDamage?.Clone();
+            copy.PeriodicHealing = PeriodicHealing?.Clone();
+            copy.CounterConditions = CounterConditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
+            copy.CounterEffect = CounterEffect?.Clone();
+            copy.StanceChildren = new List<StanceChildDefinition>();
+            if (StanceChildren != null) foreach (var child in StanceChildren) copy.StanceChildren.Add(child?.Clone());
             copy.ImmuneStatusTags = new List<string>(ImmuneStatusTags ?? new List<string>());
             copy.Reactions = new List<PassiveReactionDefinition>();
             if (Reactions != null) foreach (var reaction in Reactions) copy.Reactions.Add(reaction.Clone());
@@ -185,7 +329,11 @@ namespace FightingAllstar.Core.Content
         public bool Negate;
         public ConditionLogic Logic;
         public ConditionSubject Subject;
-        public List<EffectConditionDefinition> Children = new List<EffectConditionDefinition>();
+        // Runtime/JSON condition groups may recurse, but Unity must not build a serialized
+        // type tree through this member or it expands EffectConditionDefinition forever.
+        // Unity-authored effects use their containing Conditions list as an implicit AND group.
+        [field: NonSerialized]
+        public List<EffectConditionDefinition> Children { get; set; } = new List<EffectConditionDefinition>();
         public PassiveTargetFilter RosterFilter;
         public bool InitialRoster;
         public EffectConditionDefinition Clone()
@@ -230,6 +378,9 @@ namespace FightingAllstar.Core.Content
         public string StatusRecipeId;
         public int DurationOverride;
         public int StackCount = 1;
+        public StatusPotencySource PotencySource;
+        // Used when potency is copied from a status. If empty, StatusRecipeId is used.
+        public string PotencySourceRecipeId;
         public int PotencyBp;
         public int ProcChanceBp = 10000;
         public StatusRecipeDefinition InlineRecipe;
@@ -312,6 +463,15 @@ namespace FightingAllstar.Core.Content
                     if (status.MaxStacks <= 0) errors.Add(status.Id + " requires a positive max stack count.");
                     if ((status.Behavior & StatusBehavior.DamageOverTime) != 0 && status.PeriodicDamage == null)
                         errors.Add(status.Id + " is DOT but has no periodic damage recipe.");
+                    if ((status.Behavior & StatusBehavior.Heal) != 0 && status.PeriodicHealing == null)
+                        errors.Add(status.Id + " is Heal but has no periodic healing recipe.");
+                    if (status.PeriodicHealing != null &&
+                        status.PeriodicHealing.Timing != StatusTickTiming.TargetTurnStart &&
+                        status.PeriodicHealing.Timing != StatusTickTiming.TargetTurnEnd)
+                        errors.Add(status.Id + " healing must trigger at target turn start or target turn end.");
+                    if (status.PeriodicHealing?.Scaling == StatusHealScaling.TurnStartRecovery &&
+                        status.PeriodicHealing.Timing != StatusTickTiming.TargetTurnStart)
+                        errors.Add(status.Id + " can only scale from turn-start Recovery at target turn start.");
                     if ((status.Behavior & StatusBehavior.Disable) != 0 && status.DisableMask == CardCategoryMask.None)
                         errors.Add(status.Id + " is Disable but has no disable mask.");
                 }

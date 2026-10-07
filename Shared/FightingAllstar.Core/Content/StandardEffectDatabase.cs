@@ -32,8 +32,8 @@ namespace FightingAllstar.Core.Content
             Attack("attack.quell", AttackEffectKind.Quell, 5000),
             Attack("attack.amplify", AttackEffectKind.Amplify, 3000),
             Attack("attack.secret-technique", AttackEffectKind.SecretTechnique, 2000),
-            Attack("attack.remove-buff", AttackEffectKind.RemoveBuff, window: CardEffectWindow.BeforeDamage),
-            Attack("attack.cancel-stance", AttackEffectKind.CancelStance, window: CardEffectWindow.BeforeDamage),
+            Attack("attack.remove-buff", AttackEffectKind.RemoveBuff, window: CardEffectWindow.Damaging),
+            Attack("attack.cancel-stance", AttackEffectKind.CancelStance, window: CardEffectWindow.Damaging),
             Attack("attack.wave", AttackEffectKind.Wave, ready: false),
             Attack("attack.absorb-energy", AttackEffectKind.AbsorbEnergy, 3000, 3, DamageFamily.Additional,
                 CardEffectWindow.AfterDamage),
@@ -63,27 +63,27 @@ namespace FightingAllstar.Core.Content
                 Disable("status.debuff.disable-attack", "disable.attack", CardCategoryMask.Attack),
                 Disable("status.debuff.disable-debuff", "disable.debuff", CardCategoryMask.Debuff),
                 Disable("status.debuff.disable-buff", "disable.buff", CardCategoryMask.Buff),
-                Disable("status.debuff.disable-recovery", "disable.recovery", CardCategoryMask.Recovery),
+                PreventRecovery("status.debuff.disable-recovery", "disable.recovery"),
+                Disable("status.debuff.disable-healing-card", "disable.healing-card", CardCategoryMask.Recovery),
                 Disable("status.debuff.disable-stance", "disable.stance", CardCategoryMask.Stance | CardCategoryMask.ReceiveStances),
                 Disable("status.debuff.disable-ultimate", "disable.ultimate", CardCategoryMask.Ultimate),
                 Disable("status.debuff.disable-rank-2-3", "disable.rank", CardCategoryMask.RankTwoOrThree),
                 Disable("status.debuff.disable-card-effect", "disable.card-effect", CardCategoryMask.CardEffects)
             };
-            AddStatGroupPair(recipes, "basic", StatId.Attack, StatId.Defense, StatId.MaxHealth);
-            AddStatGroupPair(recipes, "attack-related", StatId.Attack, StatId.Pierce, StatId.CritChance, StatId.CritDamage);
-            AddStatGroupPair(recipes, "defense-related", StatId.Defense, StatId.Resistance, StatId.CritResistance, StatId.CritDefense);
-            AddStatGroupPair(recipes, "hp-related", StatId.MaxHealth, StatId.Recovery, StatId.Regeneration, StatId.LifeSteal);
+            AddStatBundlePair(recipes, "basic", StatBundleKind.BasicStats);
+            AddStatGroupPair(recipes, "defense", StatId.Defense);
+            AddStatBundlePair(recipes, "attack-related", StatBundleKind.AttackRelated);
+            AddStatBundlePair(recipes, "defense-related", StatBundleKind.DefenseRelated);
+            AddStatBundlePair(recipes, "hp-related", StatBundleKind.HpRelated);
             AddStatGroupPair(recipes, "special", StatId.BlockChance, StatId.BlockPower, StatId.Evade,
                 StatId.Perception, StatId.Control, StatId.Avoidance);
-            AddStatGroupPair(recipes, "all", StatId.Attack, StatId.Defense, StatId.MaxHealth, StatId.Pierce,
-                StatId.Resistance, StatId.Regeneration, StatId.CritChance, StatId.CritDamage,
-                StatId.CritResistance, StatId.CritDefense, StatId.Recovery, StatId.LifeSteal);
+            AddStatBundlePair(recipes, "all", StatBundleKind.AllStats);
             return recipes;
         }
 
         private static AttackEffectRecipeDefinition Attack(string id, AttackEffectKind kind, int primary = 0,
             int secondary = 0, DamageFamily family = DamageFamily.Normal,
-            CardEffectWindow window = CardEffectWindow.BeforeDamage, bool ready = true) =>
+            CardEffectWindow window = CardEffectWindow.Damaging, bool ready = true) =>
             new AttackEffectRecipeDefinition { Id = id, Kind = kind, PrimaryValueBp = primary,
                 SecondaryValue = secondary, OutputFamily = family, Window = window, RuntimeReady = ready };
 
@@ -99,11 +99,30 @@ namespace FightingAllstar.Core.Content
             new StatusRecipeDefinition { Id = id, Polarity = StatusPolarity.Debuff,
                 Behavior = StatusBehavior.Disable, DisableMask = mask, Tags = new List<string> { tag, "status.disable" } };
 
+        private static StatusRecipeDefinition PreventRecovery(string id, string tag) =>
+            new StatusRecipeDefinition { Id = id, Polarity = StatusPolarity.Debuff,
+                Behavior = StatusBehavior.PreventsRecovery, Tags = new List<string> { tag, "status.prevents-recovery" } };
+
         private static void AddStatGroupPair(List<StatusRecipeDefinition> recipes, string id, params StatId[] stats)
         {
             recipes.Add(StatGroup("status.buff.stat." + id, StatusPolarity.Buff, 10000, stats));
             recipes.Add(StatGroup("status.debuff.stat." + id, StatusPolarity.Debuff, -10000, stats));
         }
+
+        private static void AddStatBundlePair(List<StatusRecipeDefinition> recipes, string id, StatBundleKind bundle)
+        {
+            recipes.Add(StatBundle("status.buff.stat." + id, StatusPolarity.Buff, 10000, bundle));
+            recipes.Add(StatBundle("status.debuff.stat." + id, StatusPolarity.Debuff, -10000, bundle));
+        }
+
+        private static StatusRecipeDefinition StatBundle(string id, StatusPolarity polarity,
+            int potencyCoefficientBp, StatBundleKind bundle) =>
+            new StatusRecipeDefinition { Id = id, Polarity = polarity,
+                Behavior = StatusBehavior.Stat, Stacking = StatusStackingPolicy.RefreshStronger,
+                Tags = new List<string> { "status.stat" }, Modifiers = new List<StatModifierDefinition> {
+                    new StatModifierDefinition { Target = ModifierTarget.StatBundle, Bundle = bundle,
+                        ScaleByStatusPotency = true, PotencyCoefficientBp = potencyCoefficientBp }
+                } };
 
         private static StatusRecipeDefinition StatGroup(string id, StatusPolarity polarity,
             int potencyCoefficientBp, StatId[] stats)

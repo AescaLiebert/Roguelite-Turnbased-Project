@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -58,7 +59,6 @@ public sealed class PlayerInventoryService : MonoBehaviour
     private const int SingleSummonCost = 160;
     private const int TenSummonCost = 1600;
     private const int GuaranteeThreshold = 300;
-    private const string ResourcesPath = "Character_WIP-Phase";
     private static PlayerInventoryService _instance;
 
     [SerializeField] private string currentSubjectId;
@@ -90,7 +90,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
         }
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        _catalog = Resources.LoadAll<CharacterObject>(ResourcesPath);
+        _catalog = CharacterObjectRegistrySO.LoadAll();
         BindSubject(string.IsNullOrWhiteSpace(currentSubjectId) ? GuestSubjectId : currentSubjectId);
     }
 
@@ -120,6 +120,10 @@ public sealed class PlayerInventoryService : MonoBehaviour
             SaveCurrent();
         }
         NormalizeSnapshot();
+        // Migrate legacy account-level formations. Active runs own their own slots.
+        snapshot.formation = new List<string> { "", "", "", "" };
+        snapshot.dungeonFormations.Clear();
+        SaveCurrent();
     }
 
     public IReadOnlyList<CharacterObject> GetCatalog()
@@ -193,6 +197,64 @@ public sealed class PlayerInventoryService : MonoBehaviour
         return true;
     }
 
+    public bool TrySummon(int count, SummonBannerConfigurationSO banner, out List<CharacterObject> results, out string error)
+    {
+        results = new List<CharacterObject>();
+        error = null;
+        if (count != 1 && count != 10) { error = "Choose one or ten summons."; return false; }
+        if (banner == null || !banner.Validate(out error))
+        {
+            if (string.IsNullOrEmpty(error)) error = "Summon banner configuration is missing.";
+            return false;
+        }
+        NormalizeSnapshot();
+        var cost = count == 1 ? SingleSummonCost : TenSummonCost;
+        if (snapshot.diamonds < cost) { error = "Not enough Diamonds."; return false; }
+        var before = JsonUtility.ToJson(snapshot);
+        try
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var roll = UnityEngine.Random.Range(0, banner.TotalRateBasisPoints);
+                var cumulativeRate = 0;
+                SummonBannerRarityPool selectedPool = null;
+                foreach (var pool in banner.RarityPools)
+                {
+                    cumulativeRate += pool.RateBasisPoints;
+                    if (roll < cumulativeRate)
+                    {
+                        selectedPool = pool;
+                        break;
+                    }
+                }
+                var character = selectedPool == null || selectedPool.Characters.Count == 0
+                    ? null
+                    : selectedPool.Characters[UnityEngine.Random.Range(0, selectedPool.Characters.Count)];
+                if (character == null) throw new InvalidOperationException("Banner roll did not resolve to a character.");
+                results.Add(character);
+                var owned = snapshot.FindDefinition(character.DefinitionId);
+                if (owned == null) snapshot.characters.Add(new OwnedCharacterRecord { instanceId = Guid.NewGuid().ToString("N"), definitionId = character.DefinitionId });
+                else if (owned.constellationTier < 6) owned.constellationTier++;
+                else snapshot.duplicateTokens++;
+                snapshot.featuredGuaranteeProgress++;
+                if (snapshot.featuredGuaranteeProgress >= GuaranteeThreshold)
+                {
+                    snapshot.featuredGuaranteeProgress -= GuaranteeThreshold;
+                    snapshot.selectorEntitlements++;
+                }
+            }
+            snapshot.diamonds -= cost;
+            SaveCurrent();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogException(ex, this);
+            snapshot = JsonUtility.FromJson<PlayerInventorySnapshot>(before);
+            results.Clear(); error = "Summon could not be saved: " + ex.Message; return false;
+        }
+    }
+
     public int RecordPaidPull()
     {
         NormalizeSnapshot();
@@ -208,8 +270,12 @@ public sealed class PlayerInventoryService : MonoBehaviour
 
     public bool TryClaimSelector(string definitionId, out string error)
     {
+        return TryClaimSelector(FindDefinition(definitionId), out error);
+    }
+
+    public bool TryClaimSelector(CharacterObject definition, out string error)
+    {
         error = null;
-        var definition = FindDefinition(definitionId);
         if (definition == null || definition.FighterRarity != FighterRarity.SSR)
         { error = "Choose an available featured SSR character."; return false; }
         NormalizeSnapshot();
@@ -249,20 +315,57 @@ public sealed class PlayerInventoryService : MonoBehaviour
     public IReadOnlyList<string> GetDungeonFormation(string dungeonId)
     {
         NormalizeSnapshot();
-        if (string.IsNullOrEmpty(dungeonId)) return snapshot.formation;
+        if (string.IsNullOrEmpty(dungeonId)) return new List<string> { "", "", "", "" };
         var saved = snapshot.dungeonFormations.Find(x => x != null && string.Equals(x.dungeonId, dungeonId, StringComparison.OrdinalIgnoreCase));
         if (saved != null && saved.formation != null && saved.formation.Count == 4)
             return saved.formation;
-        return snapshot.formation;
+        return new List<string> { "", "", "", "" };
+    }
+
+    public bool HasDungeonFormation(string dungeonId)
+    {
+        NormalizeSnapshot();
+        if (string.IsNullOrEmpty(dungeonId)) return false;
+        var saved = snapshot.dungeonFormations.Find(x => x != null && string.Equals(x.dungeonId, dungeonId, StringComparison.OrdinalIgnoreCase));
+        if (saved == null || saved.formation == null || saved.formation.Count != 4) return false;
+        for (var i = 0; i < saved.formation.Count; i++)
+        {
+            if (!string.IsNullOrEmpty(saved.formation[i])) return true;
+        }
+        return false;
+    }
+
+    public void ClearDungeonFormation(string dungeonId)
+    {
+        if (string.IsNullOrEmpty(dungeonId)) return;
+        NormalizeSnapshot();
+        snapshot.dungeonFormations.RemoveAll(x => x != null && string.Equals(x.dungeonId, dungeonId, StringComparison.OrdinalIgnoreCase));
+        SaveCurrent();
+    }
+
+    public void RevertDungeonFormation(string dungeonId, IReadOnlyList<string> previousFormation)
+    {
+        if (string.IsNullOrEmpty(dungeonId)) return;
+        NormalizeSnapshot();
+        var hasAny = false;
+        if (previousFormation != null)
+        {
+            for (var i = 0; i < previousFormation.Count; i++)
+            {
+                if (!string.IsNullOrEmpty(previousFormation[i])) { hasAny = true; break; }
+            }
+        }
+        if (!hasAny)
+        {
+            ClearDungeonFormation(dungeonId);
+            return;
+        }
+        SaveDungeonFormation(dungeonId, previousFormation);
     }
 
     public void SaveDungeonFormation(string dungeonId, IReadOnlyList<string> instanceIds)
     {
-        if (string.IsNullOrEmpty(dungeonId))
-        {
-            SaveFormation(instanceIds);
-            return;
-        }
+        if (string.IsNullOrEmpty(dungeonId)) return;
         if (instanceIds == null || instanceIds.Count != 4)
             throw new ArgumentException("Dungeon formation must contain four slots.", nameof(instanceIds));
 
@@ -355,9 +458,12 @@ public sealed class PlayerInventoryService : MonoBehaviour
         var path = GetPath(_loadedSubjectId);
         Directory.CreateDirectory(Path.GetDirectoryName(path));
         var temporaryPath = path + ".tmp";
-        File.WriteAllText(temporaryPath, JsonUtility.ToJson(snapshot, true));
-        if (File.Exists(path)) File.Delete(path);
-        File.Move(temporaryPath, path);
+        var accountOnly = JsonUtility.FromJson<PlayerInventorySnapshot>(JsonUtility.ToJson(snapshot));
+        accountOnly.formation = new List<string> { "", "", "", "" };
+        accountOnly.dungeonFormations.Clear();
+        File.WriteAllText(temporaryPath, JsonUtility.ToJson(accountOnly, true));
+        if (File.Exists(path)) File.Replace(temporaryPath, path, null);
+        else File.Move(temporaryPath, path);
     }
 
     private void SeedInitialRoster()
@@ -409,7 +515,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
 
     private void EnsureCatalog()
     {
-        if (_catalog == null || _catalog.Length == 0) _catalog = Resources.LoadAll<CharacterObject>(ResourcesPath);
+        if (_catalog == null || _catalog.Length == 0) _catalog = CharacterObjectRegistrySO.LoadAll();
     }
 
     private static string GetPath(string subjectId)

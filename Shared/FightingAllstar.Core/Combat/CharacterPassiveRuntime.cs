@@ -35,6 +35,19 @@ namespace FightingAllstar.Core.Combat
         public bool CardOrigin;
         public bool IsUltimate;
         public int GaugeDelta;
+        public int DamageAmount;
+        public DamageFamily DamageFamily;
+        public CardCategory CardCategory;
+        public int CardRank;
+        public bool WasCritical;
+        public bool WasBlocked;
+    }
+
+    internal sealed class ReactionBinding
+    {
+        public PassiveReactionDefinition Rule;
+        public string SourceId;
+        public bool StatusOwned;
     }
 
     public static class CharacterPassiveRuntime
@@ -50,15 +63,81 @@ namespace FightingAllstar.Core.Combat
         public static int Counter(FighterState owner, string key) =>
             owner?.PassiveCounters?.Find(item => item.Key == key)?.Value ?? 0;
 
+        /// <summary>Applies Before Damage reaction commands to the local hit calculation.</summary>
+        public static void ApplyBeforeDamageReactions(BattleState state, FighterState actor, FighterState target,
+            DamageFamily family, CardState card, AttackEffectCalculation calculation)
+        {
+            if (state == null || actor == null || target == null || calculation == null) return;
+            var cardOrigin = card != null;
+            var isUltimate = card?.Kind == CardKind.Ultimate;
+            foreach (var owner in Fighters(state))
+            {
+                foreach (var binding in ReactionBindings(owner))
+                {
+                    var rule = binding.Rule;
+                    if (rule == null || rule.Trigger != PassiveEventKind.BeforeDamage ||
+                        !ReactionAvailable(state, owner, binding) ||
+                        rule.OwnTeamTurnOnly && state.ActingSide != owner.Side ||
+                        rule.CardOriginOnly && !cardOrigin || rule.ExcludeUltimate && isUltimate ||
+                        rule.RequireCritical || rule.RequireBlocked ||
+                        rule.FilterDamageFamily && rule.DamageFamily != family ||
+                        rule.FilterCategory && (card == null || CardRules.GetEffectCategory(card) != rule.Category || card.Rank < rule.MinimumRank) ||
+                        !Related(owner, actor, rule.ActorRelation) || !Related(owner, target, rule.TargetRelation)) continue;
+
+                    var context = new CardEffectContext
+                    {
+                        Battle = state,
+                        EffectOwner = owner,
+                        Actor = actor,
+                        SelectedTarget = target,
+                        CardCategory = CardRules.GetEffectCategory(card),
+                        CardRank = card?.Rank ?? 0,
+                        IsUltimate = isUltimate,
+                        DamageFamily = family
+                    };
+                    if (!CardEffectSystem.ConditionsPass(rule.Conditions, context, target)) continue;
+
+                    var applied = false;
+                    if (rule.Commands == null) continue;
+                    foreach (var command in rule.Commands)
+                    {
+                        if (command == null || command.Amount <= 0 || command.ValueSource != PassiveValueSource.Fixed) continue;
+                        switch (command.Kind)
+                        {
+                            case PassiveCommandKind.IncreaseCurrentAttackPercent:
+                                calculation.Attacker.Attack = (int)Math.Min(int.MaxValue,
+                                    (long)calculation.Attacker.Attack * (10000L + command.Amount) / 10000L);
+                                applied = true;
+                                break;
+                            case PassiveCommandKind.IncreaseCurrentDamageDealtPercent:
+                                calculation.Policy.OutgoingIncreaseBp = (int)Math.Min(int.MaxValue,
+                                    (long)calculation.Policy.OutgoingIncreaseBp + command.Amount);
+                                applied = true;
+                                break;
+                        }
+                    }
+                    if (applied)
+                        calculation.TriggeredPassiveReactionIds.Add(binding.SourceId + ":" + rule.Id);
+                }
+            }
+        }
+
         /// <summary>Rebuild derived contributions after authoritative mutations. Never adds/removes real statuses.</summary>
-        public static void Refresh(BattleState state, ISet<string> initializeFullHealth = null)
+        public static void Refresh(BattleState state, ISet<string> initializeFullHealth = null,
+            IReadOnlyDictionary<string, int> previousMaxHealthOverrides = null)
         {
             if (state == null) return;
             var fighters = Fighters(state);
             var previous = new Dictionary<string, List<PassiveStatContribution>>(StringComparer.Ordinal);
+            var previousMaxHealth = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (var fighter in fighters)
             {
                 previous.Add(fighter.Id, fighter.PassiveContributions);
+                var maximum = previousMaxHealthOverrides != null &&
+                    previousMaxHealthOverrides.TryGetValue(fighter.Id, out var previousMaximum)
+                    ? previousMaximum
+                    : StatusSystem.GetEffectiveStats(fighter).MaxHealth;
+                previousMaxHealth.Add(fighter.Id, Math.Max(1, maximum));
                 fighter.PassiveContributions = new List<PassiveStatContribution>();
             }
             // Fixed, field-count and counter auras form the lower dependency layer.
@@ -105,7 +184,17 @@ namespace FightingAllstar.Core.Combat
                 if (fighter.IsAlive && fighter.Health > 0)
                 {
                     var maximum = Math.Max(1, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
-                    fighter.Health = initializeFullHealth?.Contains(fighter.Id) == true ? maximum : Math.Min(maximum, fighter.Health);
+                    if (initializeFullHealth?.Contains(fighter.Id) == true)
+                    {
+                        fighter.Health = maximum;
+                    }
+                    else
+                    {
+                        var oldMaximum = previousMaxHealth[fighter.Id];
+                        fighter.Health = oldMaximum == maximum
+                            ? Math.Min(maximum, fighter.Health)
+                            : (int)Math.Min(maximum, (long)fighter.Health * maximum / oldMaximum);
+                    }
                 }
                 if (oldHealth == fighter.Health && Same(previous[fighter.Id], fighter.PassiveContributions)) continue;
                 var item = Emit(state, BattleEventKind.PassiveStatsChanged, fighter.Id, fighter.Id, null, 0, "Passive stat contributions changed.");
@@ -131,7 +220,7 @@ namespace FightingAllstar.Core.Combat
                 {
                     units = 0;
                     foreach (var subject in fighters)
-                        if (subject.IsAlive && subject.Health > 0 && !subject.IsReserve)
+                        if (subject.IsAlive && subject.Health > 0 && !subject.IsReserve && Related(owner, subject, rule.ScalingRelation))
                             units += StatusSystem.Count(subject, requiredTag: rule.ScalingKey);
                 }
                 else if (statLayer) units = lowerStats.Get(rule.SourceStat);
@@ -166,6 +255,18 @@ namespace FightingAllstar.Core.Combat
         internal static void Notify(BattleState state, PassiveEventKind kind)
         {
             Dispatch(state, new PassiveFact { Kind = kind, TurnSide = state.ActingSide });
+        }
+
+        public static void NotifyDamageResolved(BattleState state, FighterState source, FighterState target, int damageAmount,
+            string rootActionId = null, bool cardOrigin = false, bool isUltimate = false,
+            DamageFamily family = DamageFamily.Normal, CardCategory category = CardCategory.Attack, int cardRank = 0,
+            bool wasCritical = false, bool wasBlocked = false)
+        {
+            if (state == null || target == null || damageAmount <= 0) return;
+            Dispatch(state, new PassiveFact { Kind = PassiveEventKind.DamageResolved, TurnSide = state.ActingSide,
+                ActorId = source?.Id, TargetId = target.Id, RootActionId = rootActionId, DamageAmount = damageAmount,
+                CardOrigin = cardOrigin, IsUltimate = isUltimate, DamageFamily = family, CardCategory = category,
+                CardRank = cardRank, WasCritical = wasCritical, WasBlocked = wasBlocked });
         }
 
         /// <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
@@ -228,39 +329,72 @@ namespace FightingAllstar.Core.Combat
                 fact.Sequence = ++state.PassiveEventSequence;
                 foreach (var owner in Fighters(state))
                 {
-                    var definitions = owner.Definition?.Passive?.Reactions;
-                    if (definitions == null) continue;
-                    var rules = new List<PassiveReactionDefinition>(definitions);
-                    rules.Sort((a, b) => StringComparer.Ordinal.Compare(a.Id, b.Id));
-                    foreach (var rule in rules)
+                    var bindings = ReactionBindings(owner);
+                    bindings.Sort((a, b) =>
                     {
-                        if (rule.Trigger != fact.Kind || !IsAvailable(state, owner, rule.Gate) ||
+                        var source = StringComparer.Ordinal.Compare(a.SourceId, b.SourceId);
+                        return source != 0 ? source : StringComparer.Ordinal.Compare(a.Rule?.Id, b.Rule?.Id);
+                    });
+                    foreach (var binding in bindings)
+                    {
+                        var rule = binding.Rule;
+                        var factActor = Find(state, fact.ActorId);
+                        var factTarget = Find(state, fact.TargetId);
+                        if (rule == null || rule.Trigger != fact.Kind || !ReactionAvailable(state, owner, binding) ||
                             rule.OwnTeamTurnOnly && fact.TurnSide != owner.Side || rule.CardOriginOnly && !fact.CardOrigin ||
                             rule.ExcludeUltimate && fact.IsUltimate || rule.RequireGaugeLoss && fact.GaugeDelta >= 0 ||
-                            !Related(owner, Find(state, fact.ActorId), rule.ActorRelation) ||
-                            !Related(owner, Find(state, fact.TargetId), rule.TargetRelation)) continue;
-                        foreach (var command in rule.Commands)
+                            rule.RequireCritical && !fact.WasCritical || rule.RequireBlocked && !fact.WasBlocked ||
+                            rule.FilterDamageFamily && rule.DamageFamily != fact.DamageFamily ||
+                            rule.FilterCategory && (rule.Category != fact.CardCategory || fact.CardRank < rule.MinimumRank) ||
+                            !Related(owner, factActor, rule.ActorRelation) ||
+                            !Related(owner, factTarget, rule.TargetRelation)) continue;
+                        var context = new CardEffectContext { Battle = state, EffectOwner = owner,
+                            Actor = factActor ?? owner, SelectedTarget = factTarget ?? owner,
+                            CardCategory = fact.CardCategory, CardRank = fact.CardRank, IsUltimate = fact.IsUltimate,
+                            DamageFamily = fact.DamageFamily, WasCritical = fact.WasCritical, WasBlocked = fact.WasBlocked };
+                        var passed = CardEffectSystem.ConditionsPass(rule.Conditions, context, context.SelectedTarget);
+                        var commands = passed ? rule.Commands : rule.ElseCommands;
+                        if (commands == null) continue;
+                        foreach (var command in commands)
                         {
+                            if (command == null || command.Kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
+                                command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent) continue;
                             var basis = command.ValueSource == PassiveValueSource.ActualGaugeLost ? Math.Max(0, -fact.GaugeDelta) : 1;
                             var amount = (int)Math.Min(int.MaxValue, (long)basis * command.Amount);
-                            if (amount <= 0) continue;
                             if (command.Kind == PassiveCommandKind.IncrementCounter)
                             {
+                                if (amount <= 0) continue;
                                 var counter = owner.PassiveCounters.Find(item => item.Key == command.CounterKey);
                                 if (counter == null) { counter = new PassiveCounterState { Key = command.CounterKey }; owner.PassiveCounters.Add(counter); }
                                 var previous = counter.Value;
                                 counter.Value = (int)Math.Min(command.CounterCap, (long)counter.Value + amount);
                                 if (counter.Value != previous)
                                     Emit(state, BattleEventKind.PassiveTriggered, owner.Id, owner.Id, fact.RootActionId,
-                                        counter.Value - previous, owner.Definition.Passive.Id + ":" + rule.Id);
+                                        counter.Value - previous, binding.SourceId + ":" + rule.Id);
+                            }
+                            else if (command.Kind == PassiveCommandKind.SetCounter)
+                            {
+                                var counter = owner.PassiveCounters.Find(item => item.Key == command.CounterKey);
+                                if (counter == null) { counter = new PassiveCounterState { Key = command.CounterKey }; owner.PassiveCounters.Add(counter); }
+                                var previous = counter.Value;
+                                counter.Value = Math.Min(command.CounterCap, amount);
+                                if (counter.Value != previous)
+                                    Emit(state, BattleEventKind.PassiveTriggered, owner.Id, owner.Id, fact.RootActionId,
+                                        counter.Value - previous, binding.SourceId + ":" + rule.Id);
+                            }
+                            else if (command.Kind == PassiveCommandKind.ExecuteEffect)
+                            {
+                                if (command.Effect == null) continue;
+                                BattleEngine.ExecutePassiveOperation(state, owner, context, command.Effect, fact.RootActionId);
                             }
                             else
                             {
+                                if (amount <= 0) continue;
                                 var emitted = CommitGauge(state, owner, owner, amount, fact.RootActionId, false, false);
                                 if (emitted != null)
                                 {
                                     Emit(state, BattleEventKind.PassiveTriggered, owner.Id, owner.Id, fact.RootActionId,
-                                        emitted.GaugeDelta, owner.Definition.Passive.Id + ":" + rule.Id);
+                                        emitted.GaugeDelta, binding.SourceId + ":" + rule.Id);
                                     queue.Enqueue(emitted);
                                 }
                             }
@@ -273,6 +407,36 @@ namespace FightingAllstar.Core.Combat
 
         private static FighterState Find(BattleState state, string id) => string.IsNullOrEmpty(id) ? null :
             state.Player.FindFighter(id) ?? state.Opponent.FindFighter(id);
+
+        private static bool ReactionAvailable(BattleState state, FighterState owner, ReactionBinding binding)
+        {
+            if (binding == null || binding.Rule == null || owner == null || !owner.IsAlive || owner.Health <= 0)
+                return false;
+            // The presence of the live status instance is the gate for a status-owned reaction.
+            // Passive gates remain applicable to reactions authored on the character passive.
+            return binding.StatusOwned || IsAvailable(state, owner, binding.Rule.Gate);
+        }
+
+        private static List<ReactionBinding> ReactionBindings(FighterState owner)
+        {
+            var result = new List<ReactionBinding>();
+            var passive = owner?.Definition?.Passive;
+            if (passive?.Reactions != null)
+                foreach (var rule in passive.Reactions)
+                    if (rule != null) result.Add(new ReactionBinding { Rule = rule,
+                        SourceId = passive.Id ?? "passive", StatusOwned = false });
+
+            if (owner?.Statuses?.Instances != null)
+                foreach (var status in owner.Statuses.Instances)
+                {
+                    var reactions = status?.Recipe?.Reactions;
+                    if (reactions == null) continue;
+                    foreach (var rule in reactions)
+                        if (rule != null) result.Add(new ReactionBinding { Rule = rule,
+                            SourceId = status.RecipeId ?? status.Recipe?.Id ?? "status", StatusOwned = true });
+                }
+            return result;
+        }
 
         private static List<FighterState> Fighters(BattleState state)
         {
@@ -287,7 +451,7 @@ namespace FightingAllstar.Core.Combat
             if (left == null || left.Count != right.Count) return false;
             for (var i = 0; i < left.Count; i++)
                 if (left[i].OwnerId != right[i].OwnerId || left[i].RuleId != right[i].RuleId ||
-                    left[i].Modifier.Stat != right[i].Modifier.Stat || left[i].Modifier.Operation != right[i].Modifier.Operation ||
+                    left[i].Modifier.ResolvedStat != right[i].Modifier.ResolvedStat || left[i].Modifier.ResolvedOperation != right[i].Modifier.ResolvedOperation ||
                     left[i].Modifier.Amount != right[i].Modifier.Amount) return false;
             return true;
         }

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: yuri94_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  sourceDescription: "Increases Green attribute team attack-related stats by 10%"
+  sourceType: "SUB"
+  sourceRestriction: "Green attribute"
+  definition:
+    Id: fighter.yuri94.passive.source
+    Auras:
+    - Id: green-attack
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 6
+        Modes: 3
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Targets:
+        Relation: 2
+        IncludeOwner: 1
+        IncludeReserve: 1
+        AttributeId: attribute.green
+        TraitId: 
+        SeriesId: 
+      Scaling: 0
+      ScalingKey: 
+      SourceStat: 0
+      MaximumUnits: 1
+      Modifiers:
+      - Target: 0
+        Stat: 0
+        Family: 0
+        Operation: 1
+        Amount: 1000
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+      - Target: 0
+        Stat: 4
+        Family: 0
+        Operation: 2
+        Amount: 1000
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+      - Target: 0
+        Stat: 7
+        Family: 0
+        Operation: 2
+        Amount: 1000
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+      - Target: 0
+        Stat: 8
+        Family: 0
+        Operation: 2
+        Amount: 1000
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+    Reactions: []
+    Triggers: []

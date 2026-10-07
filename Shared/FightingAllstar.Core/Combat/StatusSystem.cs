@@ -19,6 +19,8 @@ namespace FightingAllstar.Core.Combat
     public sealed class StatusInstance
     {
         public string InstanceId;
+        public string ParentInstanceId;
+        public int DamageTaken;
         public string RecipeId;
         public string SourceFighterId;
         public TeamSide SourceSide;
@@ -34,12 +36,13 @@ namespace FightingAllstar.Core.Combat
 
         public StatusInstance Clone() => new StatusInstance { InstanceId = InstanceId, RecipeId = RecipeId,
             SourceFighterId = SourceFighterId, SourceSide = SourceSide, TargetFighterId = TargetFighterId,
+            ParentInstanceId = ParentInstanceId, DamageTaken = DamageTaken,
             RootActionId = RootActionId, Recipe = Recipe?.Clone(), Snapshot = Snapshot?.Clone(), PotencyBp = PotencyBp,
             StackCount = StackCount, RemainingDuration = RemainingDuration,
             SkipNextDurationClock = SkipNextDurationClock, AppliedOrder = AppliedOrder };
     }
 
-    public enum StatusApplyOutcome { Rejected, Added, Refreshed, Replaced, Stacked }
+    public enum StatusApplyOutcome { Rejected, Added, Refreshed, Replaced, Stacked, IgnoredWeaker }
 
     public sealed class StatusApplyRequest
     {
@@ -62,7 +65,7 @@ namespace FightingAllstar.Core.Combat
         public StatusApplyOutcome Outcome;
         public StatusInstance Instance;
         public string Reason;
-        public bool Accepted => Outcome != StatusApplyOutcome.Rejected;
+        public bool Accepted => Outcome != StatusApplyOutcome.Rejected && Outcome != StatusApplyOutcome.IgnoredWeaker;
     }
 
     public sealed class StatusTick
@@ -94,6 +97,13 @@ namespace FightingAllstar.Core.Combat
             var recipe = request?.Recipe;
             if (recipe == null || string.IsNullOrWhiteSpace(recipe.Id))
                 return Rejected("A status recipe with a stable id is required.");
+            if (recipe.Polarity == StatusPolarity.Buff &&
+                (recipe.Id.StartsWith("status.debuff.", StringComparison.OrdinalIgnoreCase) ||
+                 recipe.Id.StartsWith("status.disable.", StringComparison.OrdinalIgnoreCase) ||
+                 recipe.Id.StartsWith("status.decrease.", StringComparison.OrdinalIgnoreCase)))
+            {
+                recipe.Polarity = StatusPolarity.Debuff;
+            }
             if (string.IsNullOrWhiteSpace(request.TargetFighterId)) return Rejected("A target fighter id is required.");
             if (recipe.DurationClock != StatusDurationClock.Permanent && ResolveDuration(request) <= 0)
                 return Rejected("A temporary status requires a positive duration.");
@@ -116,18 +126,31 @@ namespace FightingAllstar.Core.Combat
                         current.StackCount + Math.Max(1, incoming.StackCount));
                     if (CompareStrength(incoming, current) > 0) ReplacePayload(current, incoming);
                     current.StackCount = combinedStacks;
-                    RefreshDuration(current, incoming);
                     return Result(StatusApplyOutcome.Stacked, current);
                 case StatusStackingPolicy.ReplaceAlways:
                     ReplacePayload(current, incoming);
                     current.RemainingDuration = incoming.RemainingDuration;
                     current.SkipNextDurationClock = incoming.SkipNextDurationClock;
                     return Result(StatusApplyOutcome.Replaced, current);
+                case StatusStackingPolicy.RefreshStronger:
                 default:
-                    var stronger = CompareStrength(incoming, current) > 0;
-                    if (stronger) ReplacePayload(current, incoming);
-                    RefreshDuration(current, incoming);
-                    return Result(stronger ? StatusApplyOutcome.Replaced : StatusApplyOutcome.Refreshed, current);
+                    var strength = CompareStrength(incoming, current);
+                    if (strength > 0)
+                    {
+                        ReplacePayload(current, incoming);
+                        current.RemainingDuration = incoming.RemainingDuration;
+                        current.SkipNextDurationClock = incoming.SkipNextDurationClock;
+                        if (current.Recipe != null && incoming.Recipe != null)
+                            current.Recipe.DurationClock = incoming.Recipe.DurationClock;
+                        return Result(StatusApplyOutcome.Replaced, current);
+                    }
+                    if (strength == 0)
+                    {
+                        RefreshDuration(current, incoming);
+                        return Result(StatusApplyOutcome.Refreshed, current);
+                    }
+                    return Result(StatusApplyOutcome.IgnoredWeaker, current,
+                        "A stronger status is already active.");
             }
         }
 
@@ -138,12 +161,14 @@ namespace FightingAllstar.Core.Combat
             for (var i = Instances.Count - 1; i >= 0; i--)
             {
                 var instance = Instances[i];
-                if (instance?.Recipe == null || !instance.Recipe.Dispellable || instance.Recipe.Polarity != polarity) continue;
+                if (instance?.Recipe == null || instance.Recipe.Color == StatusColor.Grey ||
+                    instance.Recipe.Polarity != polarity) continue;
                 if (!string.IsNullOrEmpty(recipeId) && instance.RecipeId != recipeId) continue;
                 Instances.RemoveAt(i);
                 removed++;
                 if (!removeAll) break;
             }
+            RemoveOrphans();
             return removed;
         }
 
@@ -153,7 +178,26 @@ namespace FightingAllstar.Core.Combat
             var index = Instances.FindIndex(instance => instance?.InstanceId == instanceId);
             if (index < 0) return false;
             Instances.RemoveAt(index);
+            RemoveOrphans();
             return true;
+        }
+
+        private void RemoveOrphans(List<StatusInstance> removed = null)
+        {
+            bool changed;
+            do
+            {
+                changed = false;
+                for (var i = Instances.Count - 1; i >= 0; i--)
+                {
+                    var item = Instances[i];
+                    if (string.IsNullOrEmpty(item?.ParentInstanceId) ||
+                        Instances.Exists(parent => parent.InstanceId == item.ParentInstanceId)) continue;
+                    removed?.Add(item.Clone());
+                    Instances.RemoveAt(i);
+                    changed = true;
+                }
+            } while (changed);
         }
 
         public int Count(StatusPolarity? polarity = null, string requiredTag = null, string recipeId = null,
@@ -187,6 +231,7 @@ namespace FightingAllstar.Core.Combat
                 expired.Add(instance.Clone());
                 Instances.RemoveAt(i);
             }
+            RemoveOrphans(expired);
             expired.Reverse();
             return expired;
         }
@@ -197,17 +242,26 @@ namespace FightingAllstar.Core.Combat
             if (Instances == null) return ticks;
             foreach (var instance in Instances)
             {
-                var periodic = instance?.Recipe?.PeriodicDamage;
+                if (instance?.Recipe == null) continue;
+                if ((instance.Recipe.Behavior & StatusBehavior.DamageOverTime) == 0) continue;
+                var periodic = instance.Recipe.PeriodicDamage;
                 if (periodic == null || periodic.Timing != timing) continue;
                 var basis = periodic.Scaling switch
                 {
-                    StatusSnapshotScaling.TriggeringHealthDamage => instance.Snapshot?.TriggeringHealthDamage ?? 0,
+                    StatusSnapshotScaling.TriggeringHealthDamage => instance.Snapshot?.TriggeringHealthDamage > 0
+                        ? instance.Snapshot.TriggeringHealthDamage
+                        : (instance.Snapshot?.SourceAttack ?? 0),
                     StatusSnapshotScaling.SourceAttack => instance.Snapshot?.SourceAttack ?? 0,
                     StatusSnapshotScaling.TargetMaxHealth => instance.Snapshot?.TargetMaxHealth ?? 0,
                     _ => periodic.FixedAmount > 0 ? periodic.FixedAmount : instance.Snapshot?.FixedAmount ?? 0
                 };
+                if (basis <= 0 && periodic.Scaling == StatusSnapshotScaling.TriggeringHealthDamage)
+                {
+                    basis = instance.Snapshot?.SourceAttack ?? 0;
+                }
                 var amount = (int)BigInteger.Min(int.MaxValue, BigInteger.Divide(
                     new BigInteger(Math.Max(0, basis)) * Math.Max(0, periodic.CoefficientBp), 10000));
+                if (amount <= 0 && !periodic.ConsumeOnTrigger) continue;
                 ticks.Add(new StatusTick { StatusInstanceId = instance.InstanceId, RecipeId = instance.RecipeId,
                     SourceFighterId = instance.SourceFighterId, TargetFighterId = instance.TargetFighterId,
                     Family = periodic.Family, Amount = amount * Math.Max(1, instance.StackCount),
@@ -220,7 +274,7 @@ namespace FightingAllstar.Core.Combat
         {
             var matches = new List<StatusInstance>();
             foreach (var instance in Instances)
-                if (instance != null && instance.RecipeId == recipe.Id &&
+                if (instance != null && string.IsNullOrEmpty(instance.ParentInstanceId) && instance.RecipeId == recipe.Id &&
                     (recipe.Identity == StatusIdentityScope.Recipe || instance.SourceFighterId == sourceFighterId))
                     matches.Add(instance);
             matches.Sort((a, b) => a.AppliedOrder.CompareTo(b.AppliedOrder));
@@ -236,6 +290,7 @@ namespace FightingAllstar.Core.Combat
                 Instances.Remove(oldest);
                 matches.RemoveAt(0);
             }
+            RemoveOrphans();
             return Added(CreateInstance(request));
         }
 
@@ -253,22 +308,78 @@ namespace FightingAllstar.Core.Combat
 
         private static int CompareStrength(StatusInstance left, StatusInstance right)
         {
-            var result = left.PotencyBp.CompareTo(right.PotencyBp);
+            var result = ModifierStrength(left).CompareTo(ModifierStrength(right));
             if (result != 0) return result;
-            result = SnapshotStrength(left.Snapshot).CompareTo(SnapshotStrength(right.Snapshot));
+            result = PeriodicDamageStrength(left).CompareTo(PeriodicDamageStrength(right));
             if (result != 0) return result;
-            return ModifierStrength(left.Recipe).CompareTo(ModifierStrength(right.Recipe));
+            result = PeriodicHealingStrength(left).CompareTo(PeriodicHealingStrength(right));
+            if (result != 0) return result;
+            result = RecipeEffectStrength(left.Recipe).CompareTo(RecipeEffectStrength(right.Recipe));
+            if (result != 0) return result;
+            return left.PotencyBp.CompareTo(right.PotencyBp);
         }
 
-        private static long SnapshotStrength(StatusSnapshot snapshot) => snapshot == null ? 0L :
-            Math.Max(Math.Max(snapshot.TriggeringHealthDamage, snapshot.SourceAttack),
-                Math.Max(snapshot.TargetMaxHealth, snapshot.FixedAmount));
-
-        private static long ModifierStrength(StatusRecipeDefinition recipe)
+        private static long ModifierStrength(StatusInstance instance)
         {
             long value = 0;
-            if (recipe?.Modifiers != null) foreach (var modifier in recipe.Modifiers)
-                if (modifier != null) value += Math.Abs((long)modifier.Amount);
+            if (instance?.Recipe?.Modifiers != null) foreach (var modifier in instance.Recipe.Modifiers)
+            {
+                if (modifier == null) continue;
+                var amount = modifier.ScaleByStatusPotency
+                    ? BigInteger.Divide(new BigInteger(instance.PotencyBp) * modifier.PotencyCoefficientBp, 10000)
+                    : new BigInteger(modifier.Amount);
+                var magnitude = modifier.Operation == ModifierOperation.Multiplier
+                    ? BigInteger.Abs(amount - 10000) : BigInteger.Abs(amount);
+                value = (long)BigInteger.Min(long.MaxValue, new BigInteger(value) + magnitude);
+            }
+            return value;
+        }
+
+        private static long PeriodicDamageStrength(StatusInstance instance)
+        {
+            var recipe = instance?.Recipe;
+            if (recipe?.PeriodicDamage == null) return 0;
+            var periodic = recipe.PeriodicDamage;
+            long basis = periodic.Scaling switch
+            {
+                StatusSnapshotScaling.TriggeringHealthDamage => instance.Snapshot?.TriggeringHealthDamage ?? 0,
+                StatusSnapshotScaling.SourceAttack => instance.Snapshot?.SourceAttack ?? 0,
+                StatusSnapshotScaling.TargetMaxHealth => instance.Snapshot?.TargetMaxHealth ?? 0,
+                _ => periodic.FixedAmount > 0 ? periodic.FixedAmount : instance.Snapshot?.FixedAmount ?? 0
+            };
+            return periodic.Scaling == StatusSnapshotScaling.Fixed
+                ? Math.Abs(basis)
+                : (long)BigInteger.Min(long.MaxValue, BigInteger.Divide(
+                    new BigInteger(Math.Abs(basis)) * Math.Abs((long)periodic.CoefficientBp), 10000));
+        }
+
+        private static long PeriodicHealingStrength(StatusInstance instance)
+        {
+            var periodic = instance?.Recipe?.PeriodicHealing;
+            if (periodic == null) return 0;
+            long basis = periodic.Scaling switch
+            {
+                StatusHealScaling.SourceAttack => instance.Snapshot?.SourceAttack ?? 0,
+                StatusHealScaling.TargetMaxHealth => instance.Snapshot?.TargetMaxHealth ?? 0,
+                StatusHealScaling.Fixed => periodic.FixedAmount > 0 ? periodic.FixedAmount : instance.Snapshot?.FixedAmount ?? 0,
+                _ => 10000
+            };
+            return periodic.Scaling == StatusHealScaling.Fixed
+                ? Math.Abs(basis)
+                : (long)BigInteger.Min(long.MaxValue, BigInteger.Divide(
+                    new BigInteger(Math.Abs(basis)) * Math.Abs((long)periodic.CoefficientBp), 10000));
+        }
+
+        private static long RecipeEffectStrength(StatusRecipeDefinition recipe)
+        {
+            if (recipe == null) return 0;
+            long value = Math.Abs((long)recipe.RecoverDamageTakenBp) + Math.Abs((long)recipe.IgnoreCritResistanceBp) +
+                Math.Abs((long)recipe.IgnoreCritDefenseBp) + Math.Max(0, recipe.SurviveLethalCharges);
+            if (recipe.DebuffImmunity) value++;
+            if (recipe.AdditionalDamageImmunity) value++;
+            if (recipe.EvadeAttacks) value++;
+            if (recipe.HasTaunt) value++;
+            if (recipe.DisableMask != CardCategoryMask.None) value++;
             return value;
         }
 
@@ -287,6 +398,8 @@ namespace FightingAllstar.Core.Combat
         {
             current.RemainingDuration = Math.Max(current.RemainingDuration, incoming.RemainingDuration);
             current.SkipNextDurationClock |= incoming.SkipNextDurationClock;
+            if (current.Recipe != null && incoming.Recipe != null)
+                current.Recipe.DurationClock = incoming.Recipe.DurationClock;
         }
 
         private StatusApplyResult Added(StatusInstance instance)
@@ -295,8 +408,9 @@ namespace FightingAllstar.Core.Combat
             return Result(StatusApplyOutcome.Added, instance);
         }
 
-        private static StatusApplyResult Result(StatusApplyOutcome outcome, StatusInstance instance) =>
-            new StatusApplyResult { Outcome = outcome, Instance = instance };
+        private static StatusApplyResult Result(StatusApplyOutcome outcome, StatusInstance instance,
+            string reason = null) =>
+            new StatusApplyResult { Outcome = outcome, Instance = instance, Reason = reason };
 
         private static StatusApplyResult Rejected(string reason) =>
             new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = reason };
@@ -312,32 +426,37 @@ namespace FightingAllstar.Core.Combat
             if (target == null || !target.IsAlive)
                 return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Target is not alive." };
             if (target.Statuses == null) target.Statuses = new StatusContainer();
-            return target.Statuses.Apply(new StatusApplyRequest { Recipe = recipe, InstanceId = instanceId,
+            if (recipe != null && recipe.Polarity == StatusPolarity.Debuff && !recipe.BypassDebuffImmunity &&
+                target.Statuses.Instances.Exists(s => s?.Recipe != null && (s.Recipe.DebuffImmunity ||
+                    s.Recipe.ImmuneStatusTags.Exists(tag => recipe.Tags.Contains(tag)))))
+                return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Debuff immunity." };
+            var result = target.Statuses.Apply(new StatusApplyRequest { Recipe = recipe, InstanceId = instanceId,
                 SourceFighterId = sourceFighterId, SourceSide = sourceSide, TargetFighterId = target.Id,
                 RootActionId = rootActionId, Snapshot = snapshot, PotencyBp = potencyBp, StackCount = stackCount,
                 Duration = duration, SkipNextDurationClock = skipNextDurationClock, AppliedOrder = appliedOrder });
-        }
-
-        /// <summary>Compatibility adapter for prototype-authored status definitions.</summary>
-        public static bool Apply(FighterState target, string sourceFighterId, StatusDefinition definition,
-            string instanceId, long appliedOrder, int appliedOwnerTurnCount, TeamSide? sourceSide = null)
-        {
-            if (definition == null) return false;
-            var behavior = definition.Modifiers != null && definition.Modifiers.Count > 0 ? StatusBehavior.Stat : StatusBehavior.None;
-            if (definition.IsPeriodicDamage) behavior |= StatusBehavior.DamageOverTime;
-            var recipe = new StatusRecipeDefinition { Id = definition.Id, NameKey = definition.NameKey,
-                Polarity = definition.Polarity, Color = definition.Color, Behavior = behavior,
-                Stacking = definition.MaxStacks > 1 ? StatusStackingPolicy.IndependentStacks : StatusStackingPolicy.RefreshStronger,
-                DefaultDuration = Math.Max(1, definition.DurationOwnerTurns), MaxStacks = Math.Max(1, definition.MaxStacks),
-                Dispellable = definition.Dispellable, BypassDebuffImmunity = definition.BypassDebuffImmunity,
-                Tags = definition.Tags == null ? new List<string>() : new List<string>(definition.Tags),
-                PeriodicDamage = definition.IsPeriodicDamage ? new PeriodicDamageDefinition { Family = definition.PeriodicDamageFamily,
-                    Timing = definition.TickAtOwnerTurnStart ? StatusTickTiming.TargetTurnStart : StatusTickTiming.TargetTurnEnd,
-                    Scaling = StatusSnapshotScaling.Fixed, FixedAmount = definition.SnapshotDamage } : null };
-            if (definition.Modifiers != null) foreach (var modifier in definition.Modifiers) recipe.Modifiers.Add(modifier?.Clone());
-            return Apply(target, sourceFighterId, sourceSide ?? target.Side, recipe, instanceId, null, appliedOrder,
-                new StatusSnapshot { FixedAmount = definition.SnapshotDamage }, skipNextDurationClock:
-                appliedOwnerTurnCount > target.OwnerTurnsCompleted).Accepted;
+            if (result.Accepted && recipe.StanceChildren != null)
+            {
+                // Child identity is scoped to its parent, preventing unrelated buffs from being adopted.
+                var previousChildren = target.Statuses.Instances.FindAll(s => s.ParentInstanceId == result.Instance.InstanceId);
+                target.Statuses.Instances.RemoveAll(s => s.ParentInstanceId == result.Instance.InstanceId);
+                var children = result.Instance.Recipe.StanceChildren;
+                for (var i = 0; i < children.Count; i++)
+                {
+                    var child = children[i]?.ToRecipe();
+                    if (child == null) continue;
+                    child.Polarity = StatusPolarity.Buff;
+                    child.Behavior |= StatusBehavior.Stance;
+                    child.DurationClock = StatusDurationClock.Permanent;
+                    target.Statuses.Instances.Add(new StatusInstance {
+                        InstanceId = result.Instance.InstanceId + ":child:" + i,
+                        ParentInstanceId = result.Instance.InstanceId, RecipeId = child.Id, Recipe = child,
+                        SourceFighterId = sourceFighterId, SourceSide = sourceSide, TargetFighterId = target.Id,
+                        RootActionId = rootActionId, RemainingDuration = int.MaxValue,
+                        DamageTaken = previousChildren.Find(s => s.RecipeId == child.Id)?.DamageTaken ?? 0,
+                        Snapshot = snapshot?.Clone() ?? new StatusSnapshot(), AppliedOrder = appliedOrder });
+                }
+            }
+            return result;
         }
 
         public static int Remove(FighterState target, StatusPolarity polarity, bool removeAll, string recipeId = null) =>
@@ -362,23 +481,35 @@ namespace FightingAllstar.Core.Combat
         {
             var statuses = fighter?.Statuses?.Instances;
             if (statuses == null) return false;
-            var requested = category switch
+            var requested = isUltimate ? CardCategoryMask.Ultimate : category switch
             {
                 CardCategory.Attack => CardCategoryMask.Attack,
                 CardCategory.Debuff => CardCategoryMask.Debuff,
                 CardCategory.Buff => CardCategoryMask.Buff,
                 CardCategory.Recovery => CardCategoryMask.Recovery,
                 CardCategory.Stance => CardCategoryMask.Stance,
-                CardCategory.AttackDebuff => CardCategoryMask.Attack | CardCategoryMask.Debuff,
+                CardCategory.AttackDebuff => CardCategoryMask.Debuff,
+                CardCategory.Ultimate => CardCategoryMask.Ultimate,
                 _ => CardCategoryMask.None
             };
-            if (isUltimate) requested |= CardCategoryMask.Ultimate;
-            if (rank >= 2) requested |= CardCategoryMask.RankTwoOrThree;
+            if (!isUltimate && rank >= 2) requested |= CardCategoryMask.RankTwoOrThree;
             if (includesCardEffect) requested |= CardCategoryMask.CardEffects;
             foreach (var status in statuses)
                 if (status?.Recipe != null && (status.Recipe.DisableMask & requested) != 0) return true;
             return false;
         }
+
+    public const string RecoveryBlockedMessage = "Can't Recovery";
+    public const string HealingCardBlockedMessage = "Can't Use Healing Card";
+
+    public static bool IsRecoveryBlocked(FighterState fighter)
+    {
+        var statuses = fighter?.Statuses?.Instances;
+        if (statuses == null) return false;
+        foreach (var status in statuses)
+            if (status?.Recipe != null && (status.Recipe.Behavior & StatusBehavior.PreventsRecovery) != 0) return true;
+        return false;
+    }
 
         public static StatBlock GetEffectiveStats(FighterState fighter)
         {
@@ -403,10 +534,12 @@ namespace FightingAllstar.Core.Combat
                     if (status?.Recipe?.Modifiers == null) continue;
                     foreach (var modifier in status.Recipe.Modifiers)
                     {
-                        if (modifier == null || modifier.Target != ModifierTarget.Stat || modifier.Stat != stat) continue;
+                        if (modifier == null || !AffectsStat(modifier, stat)) continue;
                         var stacks = status.Recipe.Stacking == StatusStackingPolicy.AddStacks ? Math.Max(1, status.StackCount) : 1;
                         var modifierAmount = ResolveModifierAmount(modifier, status);
-                        switch (modifier.Operation)
+                        var operation = modifier.ResolvedTarget == ModifierTarget.StatBundle
+                            ? StatBundleRules.OperationFor(stat) : modifier.ResolvedOperation;
+                        switch (operation)
                         {
                             case ModifierOperation.Flat: flat += (long)modifierAmount * stacks; break;
                             case ModifierOperation.PercentOfBase: percentOfBase += (long)modifierAmount * stacks; break;
@@ -425,6 +558,10 @@ namespace FightingAllstar.Core.Combat
             return effective;
         }
 
+        private static bool AffectsStat(StatModifierDefinition modifier, StatId stat) =>
+            modifier.ResolvedTarget == ModifierTarget.Stat ? modifier.ResolvedStat == stat :
+            modifier.ResolvedTarget == ModifierTarget.StatBundle && StatBundleRules.Contains(modifier.ResolvedBundle, stat);
+
         public static DamagePolicy BuildDamagePolicy(FighterState attacker, FighterState defender, DamageFamily family)
         {
             var policy = new DamagePolicy { Family = family,
@@ -432,6 +569,11 @@ namespace FightingAllstar.Core.Combat
                 BypassGenericReduction = family == DamageFamily.True, BypassShield = family == DamageFamily.True,
                 BypassDamageCap = family == DamageFamily.Additional || family == DamageFamily.DamageOverTime,
                 BypassSurviveAtOne = family == DamageFamily.Destructive };
+            if (family == DamageFamily.Normal || family == DamageFamily.True)
+            {
+                var affinity = AttributeRules.GetAffinity(attacker?.Definition?.AttributeId, defender?.Definition?.AttributeId);
+                policy.AttributeFactorBp = AttributeRules.GetFactorBp(affinity);
+            }
             Accumulate(attacker, family, true, policy);
             Accumulate(defender, family, false, policy);
             return policy;
@@ -439,6 +581,35 @@ namespace FightingAllstar.Core.Combat
 
         private static void Accumulate(FighterState fighter, DamageFamily family, bool dealt, DamagePolicy policy)
         {
+            if (fighter?.PassiveContributions != null)
+                foreach (var contribution in fighter.PassiveContributions)
+                {
+                    var modifier = contribution?.Modifier;
+                    if (modifier == null) continue;
+                    var amount = modifier.Amount;
+                    switch (modifier.ResolvedTarget)
+                    {
+                        case ModifierTarget.AnyDamageDealt when dealt:
+                            if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount;
+                            break;
+                        case ModifierTarget.AnyDamageReceived when !dealt:
+                            if (amount >= 0) policy.IncomingIncreaseBp += amount; else policy.IncomingDecreaseBp += -amount;
+                            break;
+                        case ModifierTarget.FamilyDamageDealt when dealt && modifier.ResolvedFamily == family:
+                            if (family == DamageFamily.Normal || family == DamageFamily.True || family == DamageFamily.Destructive)
+                            { if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount; }
+                            else if (amount >= 0) policy.FamilyDealtIncreaseBp += amount; else policy.FamilyDealtDecreaseBp += -amount;
+                            break;
+                        case ModifierTarget.FamilyDamageReceived when !dealt && modifier.ResolvedFamily == family:
+                            if (family == DamageFamily.Normal || family == DamageFamily.True || family == DamageFamily.Destructive)
+                            { if (amount >= 0) policy.IncomingIncreaseBp += amount; else policy.IncomingDecreaseBp += -amount; }
+                            else if (amount >= 0) policy.FamilyReceivedIncreaseBp += amount; else policy.FamilyReceivedDecreaseBp += -amount;
+                            break;
+                        case ModifierTarget.FinalDamageReduction when !dealt:
+                            policy.FinalReductionBp += amount;
+                            break;
+                    }
+                }
             var statuses = fighter?.Statuses?.Instances;
             if (statuses == null) return;
             foreach (var status in statuses)
@@ -450,18 +621,18 @@ namespace FightingAllstar.Core.Combat
                 {
                     if (modifier == null) continue;
                     var amount = ResolveModifierAmount(modifier, status) * stacks;
-                    switch (modifier.Target)
+                    switch (modifier.ResolvedTarget)
                     {
                         case ModifierTarget.AnyDamageDealt when dealt:
                             if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount; break;
                         case ModifierTarget.AnyDamageReceived when !dealt:
                             if (amount >= 0) policy.IncomingIncreaseBp += amount; else policy.IncomingDecreaseBp += -amount; break;
-                        case ModifierTarget.FamilyDamageDealt when dealt && modifier.Family == family:
+                        case ModifierTarget.FamilyDamageDealt when dealt && modifier.ResolvedFamily == family:
                             if (family == DamageFamily.Normal || family == DamageFamily.True || family == DamageFamily.Destructive)
                             { if (amount >= 0) policy.OutgoingIncreaseBp += amount; else policy.OutgoingDecreaseBp += -amount; }
                             else if (amount >= 0) policy.FamilyDealtIncreaseBp += amount; else policy.FamilyDealtDecreaseBp += -amount;
                             break;
-                        case ModifierTarget.FamilyDamageReceived when !dealt && modifier.Family == family:
+                        case ModifierTarget.FamilyDamageReceived when !dealt && modifier.ResolvedFamily == family:
                             if (family == DamageFamily.Normal || family == DamageFamily.True || family == DamageFamily.Destructive)
                             { if (amount >= 0) policy.IncomingIncreaseBp += amount; else policy.IncomingDecreaseBp += -amount; }
                             else if (amount >= 0) policy.FamilyReceivedIncreaseBp += amount; else policy.FamilyReceivedDecreaseBp += -amount;

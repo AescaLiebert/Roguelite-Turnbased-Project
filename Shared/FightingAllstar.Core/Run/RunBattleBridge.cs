@@ -69,7 +69,7 @@ namespace FightingAllstar.Core.Run
             var resolved = source.Clone();
             resolved.BaseStats = stats.Clone();
             if (resolved.Passive == null || string.IsNullOrWhiteSpace(resolved.Passive.Id))
-                resolved.Passive = StandardCharacterPassives.Create(resolved.Id);
+                resolved.Passive = StandardCharacterPassives.Create(resolved.Id) ?? new PassiveDefinition { Id = "passive.none" };
             return resolved;
         }
 
@@ -89,6 +89,18 @@ namespace FightingAllstar.Core.Run
                 if (replacements.TryGetValue(card.OwnerFighterId, out var ownerId)) card.OwnerFighterId = ownerId;
             RemapSources(battle.Player, replacements);
             RemapSources(battle.Opponent, replacements);
+            for (var i = 0; i < battle.ActivePassiveAuras.Count; i++)
+            {
+                var aura = battle.ActivePassiveAuras[i];
+                var sep = aura.IndexOf("::", StringComparison.Ordinal);
+                if (sep > 0)
+                {
+                    var oldOwner = aura.Substring(0, sep);
+                    var suffix = aura.Substring(sep);
+                    if (replacements.TryGetValue(oldOwner, out var newOwner))
+                        battle.ActivePassiveAuras[i] = newOwner + suffix;
+                }
+            }
             foreach (var item in battle.Events)
             {
                 if (replacements.TryGetValue(item.SourceId ?? string.Empty, out var sourceId)) item.SourceId = sourceId;
@@ -97,6 +109,18 @@ namespace FightingAllstar.Core.Run
                     item.Card.OwnerFighterId = cardOwnerId;
                 foreach (var contribution in item.PassiveContributions)
                     if (replacements.TryGetValue(contribution.OwnerId, out var passiveOwner)) contribution.OwnerId = passiveOwner;
+                if (item.Kind == BattleEventKind.PassiveTriggered && item.Message != null && item.Message.StartsWith("Passive Trigger: "))
+                {
+                    var key = item.Message.Substring("Passive Trigger: ".Length);
+                    var sep = key.IndexOf("::", StringComparison.Ordinal);
+                    if (sep > 0)
+                    {
+                        var oldOwner = key.Substring(0, sep);
+                        var suffix = key.Substring(sep);
+                        if (replacements.TryGetValue(oldOwner, out var newOwner))
+                            item.Message = "Passive Trigger: " + newOwner + suffix;
+                    }
+                }
             }
         }
 

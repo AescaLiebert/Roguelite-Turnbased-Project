@@ -31,22 +31,25 @@ namespace FightingAllstar.Core.Combat
             if (card == null) { reason = "Card is not in the draft hand."; return false; }
             var owner = _view.Team.FindFighter(card.OwnerFighterId);
             if (owner == null || !owner.IsAlive || owner.IsReserve) { reason = "Card owner is not an active fighter."; return false; }
-            if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost)
-            { reason = "Ultimate requires five PG."; return false; }
             EffectDefinition effect;
             var hasEffect = card.Kind == CardKind.Skill
                 ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
                 : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
-            if (hasEffect && StatusSystem.IsCardUseBlocked(owner,
-                card.Kind == CardKind.Ultimate ? CardCategory.Attack : card.Category, card.Rank,
-                card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0))
-            { reason = "A status prevents this card category or effect from being used."; return false; }
+            var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner,
+                CardRules.GetEffectCategory(card), card.Rank,
+                card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
+            if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost && !disabled)
+            {
+                reason = "Ultimate requires five PG.";
+                return false;
+            }
             var target = ResolveDraftTarget(card, owner, targetId);
             if (target == null) { reason = card.TargetScope == EffectTargetScope.SelectedAlly
                 ? "Choose a living active ally." : "Choose a living active opponent."; return false; }
             _actions.Add(new PlannedAction { CardId = cardId, TargetFighterId = target.Id });
             _view.Team.Hand.Remove(card);
-            if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
+            if (disabled) owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
+            else if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
             else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
             _lastEvents.Add(new BattleEvent { Kind = BattleEventKind.CardPlayed, SourceId = owner.Id,
                 TargetId = target.Id, CardId = card.Id, Card = card.Clone(), PowerGaugeAfter = owner.PowerGauge,
@@ -80,6 +83,8 @@ namespace FightingAllstar.Core.Combat
                 case EffectTargetScope.AllEnemies: return enemy.LivingActive().Count > 0 ? enemy.LivingActive()[0] : null;
                 default:
                     var target = enemy.FindFighter(requestedTargetId);
+                    var taunters = enemy.LivingActive().FindAll(f => f.Statuses.Instances.Exists(s => s.Recipe?.HasTaunt == true));
+                    if (taunters.Count > 0 && !taunters.Contains(target)) return null;
                     return target != null && target.IsAlive && !target.IsReserve ? target : null;
             }
         }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f0bc14972d4dc78329ab1edff3a8d2, type: 3}
+  m_Name: CharacterIconArt
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterIconArtSO
+  rarities:
+  - rarity: 0
+    background: {fileID: 21300000, guid: 7305dc0c0b869da44acdfc9f1c8dce70, type: 3}
+    frame: {fileID: 21300000, guid: 727a847fe9232254a883dbd4ceece2e3, type: 3}
+    label: {fileID: 21300000, guid: eba260889ba3bea4aa4699ef1fdd7c7f, type: 3}
+  - rarity: 1
+    background: {fileID: 21300000, guid: 5e5cd8081c2d9f541b53264ac5a061a7, type: 3}
+    frame: {fileID: 21300000, guid: 18d59940fe3235146886f5351e9cb9f9, type: 3}
+    label: {fileID: 21300000, guid: ba81e9df699aa6d4294b3d7dec0fc122, type: 3}
+  - rarity: 2
+    background: {fileID: 21300000, guid: 8deb7875098a60c42a6d767773f087e1, type: 3}
+    frame: {fileID: 21300000, guid: f122a8ef05ec1ad4b847212aca97f9ba, type: 3}
+    label: {fileID: 21300000, guid: bc3210f340ff77b4a832a8db72cf7aba, type: 3}
+  attributes:
+  - attribute: 0
+    icon: {fileID: 21300000, guid: a7d3d9ce50bb3f3469562d4c64078615, type: 3}
+  - attribute: 1
+    icon: {fileID: 21300000, guid: 5952a85c977a2a942bdd8e54f5cb6390, type: 3}
+  - attribute: 2
+    icon: {fileID: 21300000, guid: ab68fa42c73b91348a4a6baa978ca7ad, type: 3}
+  - attribute: 3
+    icon: {fileID: 21300000, guid: 0cb8634b4dc2531499817875b4aa0832, type: 3}
+  series:
+  - seriesId: series.kof
+    icon: {fileID: 21300000, guid: 97dae43c400a93349ab05e1cf9c3c13b, type: 3}

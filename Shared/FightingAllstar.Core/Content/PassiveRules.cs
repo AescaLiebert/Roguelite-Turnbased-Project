@@ -10,7 +10,11 @@ namespace FightingAllstar.Core.Content
     public enum PassiveScaling { Constant, FieldStatusStacks, OwnerCounter, OwnerStat }
     public enum PassiveEventKind { BattleStarted, TeamTurnStarted, TeamTurnEnded, GaugeChanged,
         BeforeAction, BeforeDamage, DamageResolved, AfterAction, FighterDefeated, StatusApplied, StatusRemoved, Healed, ReserveEntered }
-    public enum PassiveCommandKind { IncrementCounter, ChangePowerGauge, ExecuteEffect, SetCounter }
+    public enum PassiveCommandKind
+    {
+        IncrementCounter, ChangePowerGauge, ExecuteEffect, SetCounter,
+        IncreaseCurrentAttackPercent, IncreaseCurrentDamageDealtPercent
+    }
     public enum PassiveValueSource { Fixed, ActualGaugeLost }
     public enum PassiveLimitScope { None, Battle, OwnerTurn, RootAction, RootActionTarget, Event }
 
@@ -46,6 +50,8 @@ namespace FightingAllstar.Core.Content
         public PassiveScaling Scaling;
         // Status tag for FieldStatusStacks; counter key for OwnerCounter.
         public string ScalingKey;
+        // Which fighters contribute stacks when Scaling is FieldStatusStacks.
+        public PassiveRelation ScalingRelation = PassiveRelation.Any;
         public StatId SourceStat;
         public int MaximumUnits = int.MaxValue;
         public List<StatModifierDefinition> Modifiers = new List<StatModifierDefinition>();
@@ -102,11 +108,14 @@ namespace FightingAllstar.Core.Content
         public int CooldownOwnerTurns;
         public List<EffectConditionDefinition> Conditions = new List<EffectConditionDefinition>();
         public List<PassiveCommandDefinition> Commands = new List<PassiveCommandDefinition>();
+        public List<PassiveCommandDefinition> ElseCommands = new List<PassiveCommandDefinition>();
         public PassiveReactionDefinition Clone()
         {
             var copy = (PassiveReactionDefinition)MemberwiseClone();
             copy.Gate = Gate?.Clone(); copy.Commands = new List<PassiveCommandDefinition>();
             if (Commands != null) foreach (var command in Commands) copy.Commands.Add(command?.Clone());
+            copy.ElseCommands = new List<PassiveCommandDefinition>();
+            if (ElseCommands != null) foreach (var command in ElseCommands) copy.ElseCommands.Add(command?.Clone());
             copy.Conditions = new List<EffectConditionDefinition>();
             if (Conditions != null) foreach (var condition in Conditions) copy.Conditions.Add(condition?.Clone());
             return copy;
@@ -131,24 +140,12 @@ namespace FightingAllstar.Core.Content
                 if (!Enum.IsDefined(typeof(PassiveEventKind), rule.Trigger) ||
                     !Enum.IsDefined(typeof(PassiveRelation), rule.ActorRelation) ||
                     !Enum.IsDefined(typeof(PassiveRelation), rule.TargetRelation)) errors.Add(rule.Id + ": invalid trigger/filter.");
-                if (rule.Commands == null || rule.Commands.Count == 0) errors.Add(rule.Id + ": commands required.");
-                else foreach (var command in rule.Commands)
-                {
-                    if (command == null || !Enum.IsDefined(typeof(PassiveCommandKind), command.Kind) ||
-                        !Enum.IsDefined(typeof(PassiveValueSource), command.ValueSource) || command.Amount < 0 || command.DelayOwnerTurns < 0)
-                    { errors.Add(rule.Id + ": invalid command."); continue; }
-                    if (command.ValueSource == PassiveValueSource.ActualGaugeLost &&
-                        (rule.Trigger != PassiveEventKind.GaugeChanged || !rule.RequireGaugeLoss))
-                        errors.Add(rule.Id + ": gauge-loss values require a gauge-loss trigger.");
-                    if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect == null)
-                        errors.Add(rule.Id + ": effect command requires an operation.");
-                    if (command.Kind == PassiveCommandKind.IncrementCounter || command.Kind == PassiveCommandKind.SetCounter)
-                    {
-                        if (string.IsNullOrWhiteSpace(command.CounterKey) || command.CounterCap <= 0)
-                            errors.Add(rule.Id + ": invalid counter key/cap.");
-                        else counters.Add(command.CounterKey);
-                    }
-                }
+                if ((rule.Commands == null || rule.Commands.Count == 0) &&
+                    (rule.ElseCommands == null || rule.ElseCommands.Count == 0)) errors.Add(rule.Id + ": commands required.");
+                if (rule.Commands != null)
+                    foreach (var command in rule.Commands) ValidateCommand(rule, command, counters, errors);
+                if (rule.ElseCommands != null)
+                    foreach (var command in rule.ElseCommands) ValidateCommand(rule, command, counters, errors);
             }
             if (passive.Auras != null) foreach (var rule in passive.Auras)
             {
@@ -162,24 +159,66 @@ namespace FightingAllstar.Core.Content
                     errors.Add(rule.Id + ": counter has no writer.");
                 if (rule.Scaling == PassiveScaling.FieldStatusStacks && string.IsNullOrWhiteSpace(rule.ScalingKey))
                     errors.Add(rule.Id + ": status tag required.");
+                if (rule.Scaling == PassiveScaling.FieldStatusStacks && !Enum.IsDefined(typeof(PassiveRelation), rule.ScalingRelation))
+                    errors.Add(rule.Id + ": invalid status-stack source relation.");
                 if (rule.Scaling == PassiveScaling.OwnerStat && !Enum.IsDefined(typeof(StatId), rule.SourceStat))
                     errors.Add(rule.Id + ": invalid source stat.");
-                if (rule.Modifiers == null || rule.Modifiers.Count == 0) errors.Add(rule.Id + ": modifiers required.");
+                if (rule.Modifiers == null || rule.Modifiers.Count == 0)
+                    errors.Add(rule.Id + ": at least one modifier is required.");
                 else foreach (var modifier in rule.Modifiers)
-                    if (modifier == null || modifier.Target != ModifierTarget.Stat || modifier.ScaleByStatusPotency ||
-                        !Enum.IsDefined(typeof(StatId), modifier.Stat) ||
-                        (modifier.Operation != ModifierOperation.PercentOfBase && modifier.Operation != ModifierOperation.PercentagePoints &&
-                         modifier.Operation != ModifierOperation.Flat))
-                        errors.Add(rule.Id + ": aura supports explicit additive stat modifiers only.");
+                {
+                    var statModifier = modifier != null && modifier.ResolvedTarget == ModifierTarget.Stat &&
+                        Enum.IsDefined(typeof(StatId), modifier.ResolvedStat) &&
+                        (modifier.ResolvedOperation == ModifierOperation.PercentOfBase || modifier.ResolvedOperation == ModifierOperation.PercentagePoints ||
+                         modifier.ResolvedOperation == ModifierOperation.Flat);
+                    var bundleModifier = modifier != null && modifier.ResolvedTarget == ModifierTarget.StatBundle &&
+                        Enum.IsDefined(typeof(StatBundleKind), modifier.ResolvedBundle) && modifier.ResolvedBundle != StatBundleKind.None;
+                    var damageModifier = modifier != null &&
+                        (modifier.ResolvedTarget == ModifierTarget.AnyDamageDealt || modifier.ResolvedTarget == ModifierTarget.AnyDamageReceived ||
+                         modifier.ResolvedTarget == ModifierTarget.FamilyDamageDealt || modifier.ResolvedTarget == ModifierTarget.FamilyDamageReceived) &&
+                        modifier.ResolvedOperation == ModifierOperation.PercentagePoints;
+                    var finalReduction = modifier != null && modifier.ResolvedTarget == ModifierTarget.FinalDamageReduction &&
+                        modifier.ResolvedOperation == ModifierOperation.PercentagePoints && modifier.Amount >= 0 && modifier.Amount <= 10000;
+                    if (modifier == null || modifier.ScaleByStatusPotency ||
+                        (!statModifier && !bundleModifier && !damageModifier && !finalReduction))
+                        errors.Add(rule.Id + ": aura modifier target or operation is unsupported.");
+                }
             }
             return errors;
+        }
+
+        private static void ValidateCommand(PassiveReactionDefinition rule, PassiveCommandDefinition command,
+            HashSet<string> counters, List<string> errors)
+        {
+            if (command == null || !Enum.IsDefined(typeof(PassiveCommandKind), command.Kind) ||
+                !Enum.IsDefined(typeof(PassiveValueSource), command.ValueSource) || command.Amount < 0 || command.DelayOwnerTurns < 0)
+            { errors.Add(rule.Id + ": invalid command."); return; }
+            if (command.ValueSource == PassiveValueSource.ActualGaugeLost &&
+                (rule.Trigger != PassiveEventKind.GaugeChanged || !rule.RequireGaugeLoss))
+                errors.Add(rule.Id + ": gauge-loss values require a gauge-loss trigger.");
+            if ((command.Kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
+                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent) &&
+                (rule.Trigger != PassiveEventKind.BeforeDamage || command.ValueSource != PassiveValueSource.Fixed))
+                errors.Add(rule.Id + ": current damage modifiers require a fixed-value Before Damage reaction.");
+            if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect == null)
+                errors.Add(rule.Id + ": effect command requires an operation.");
+            if (command.Kind == PassiveCommandKind.IncrementCounter || command.Kind == PassiveCommandKind.SetCounter)
+            {
+                if (string.IsNullOrWhiteSpace(command.CounterKey) || command.CounterCap <= 0)
+                    errors.Add(rule.Id + ": invalid counter key/cap.");
+                else counters.Add(command.CounterKey);
+            }
         }
 
         private static void ValidateRule(string id, PassiveGate gate, HashSet<string> ids, List<string> errors)
         {
             if (string.IsNullOrWhiteSpace(id) || !ids.Add(id)) errors.Add("Missing/duplicate passive rule id: " + id);
+            // Unity's Flags enum field serializes its Everything selection as -1.
+            var modes = gate == null ? (BattleModeMask)0 : gate.Modes;
+            if (modes == (BattleModeMask)(-1)) modes = BattleModeMask.All;
             if (gate == null || gate.MinimumTier < 0 || gate.MaximumTier > 6 || gate.MinimumTier > gate.MaximumTier ||
-                gate.Modes == 0 || (gate.Modes & ~BattleModeMask.All) != 0 || !Enum.IsDefined(typeof(PassivePresence), gate.Presence))
+                modes == 0 || (modes & ~BattleModeMask.All) != 0 ||
+                !Enum.IsDefined(typeof(PassivePresence), gate.Presence))
                 errors.Add(id + ": invalid availability gate.");
         }
     }

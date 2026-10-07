@@ -14,6 +14,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <ProjectReference Include="../FightingAllstar.Contracts/FightingAllstar.Contracts.csproj" />
   </ItemGroup>
 </Project>

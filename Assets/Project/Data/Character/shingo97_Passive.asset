@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: shingo97_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  definition:
+    Id: fighter.shingo97.passive.source
+    Auras: []
+    Reactions:
+    - Id: drain-refund
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 6
+        Modes: 3
+        Presence: 1
+        AllowDefeatedOwner: 0
+      Trigger: 3
+      OwnTeamTurnOnly: 0
+      ActorRelation: 1
+      TargetRelation: 3
+      CardOriginOnly: 1
+      ExcludeUltimate: 1
+      RequireGaugeLoss: 1
+      RequireCritical: 0
+      RequireBlocked: 0
+      AllowReactionOrigin: 0
+      FilterDamageFamily: 0
+      DamageFamily: 0
+      FilterCategory: 0
+      Category: 0
+      MinimumRank: 0
+      LimitScope: 0
+      MaximumActivations: 1
+      CooldownOwnerTurns: 0
+      Conditions: []
+      Commands:
+      - Kind: 1
+        CounterKey: 
+        CounterCap: 2147483647
+        ValueSource: 1
+        Amount: 1
+        Effect:
+          Id: 
+          Order: 0
+          Window: 0
+          Kind: 0
+          Target: 0
+          Conditions: []
+          Damage:
+            Family: 0
+            Scaling: 0
+            ScalingStat: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            KeywordFactorBp: 10000
+            AttackEffectId: 
+            CannotCrit: 0
+            CannotBlock: 0
+            ScaleFromTargetMaxHealth: 0
+          Status:
+            StatusRecipeId: 
+            DurationOverride: 0
+            StackCount: 1
+            PotencyBp: 0
+            ProcChanceBp: 10000
+            InlineRecipe:
+              Id: 
+              NameKey: 
+              Polarity: 0
+              Color: 0
+              Behavior: 0
+              Stacking: 0
+              Identity: 0
+              DurationClock: 1
+              DefaultDuration: 2
+              MaxStacks: 1
+              DefaultPotencyBp: 0
+              BypassDebuffImmunity: 0
+              BreakRule: 0
+              DisableMask: 0
+              Tags: []
+              Modifiers: []
+              PeriodicDamage:
+                Family: 3
+                Timing: 2
+                Scaling: 1
+                CoefficientBp: 10000
+                FixedAmount: 0
+                ConsumeOnTrigger: 0
+              DebuffImmunity: 0
+              AdditionalDamageImmunity: 0
+              Taunt: 0
+              SurviveLethalCharges: 0
+              IgnoreCritResistanceBp: 0
+              IgnoreCritDefenseBp: 0
+              ImmuneStatusTags: []
+              Reactions: []
+          RemovePolarity: 0
+          RemoveRecipeId: 
+          RemoveAll: 1
+          Magnitude: 0
+          Value:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+        DelayOwnerTurns: 0
+    Triggers: []

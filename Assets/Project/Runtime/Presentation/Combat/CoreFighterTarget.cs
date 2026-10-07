@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FightingAllstar.Presentation.Combat
 {
-    /// <summary>Forwards clicks on an opponent model to the Core battle planner.</summary>
+    /// <summary>Identifies models for the battle controller's tap/hold arbitration.</summary>
     public sealed class CoreFighterTarget : MonoBehaviour
     {
         private string _fighterId;
@@ -23,9 +23,5 @@ namespace FightingAllstar.Presentation.Combat
                 _onSelected?.Invoke(_fighterId);
         }
 
-        private void OnMouseDown()
-        {
-            Select();
-        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using FightingAllstar.Core.Content;
 
 namespace FightingAllstar.Core.Combat
 {
@@ -56,7 +57,7 @@ namespace FightingAllstar.Core.Combat
             error = null;
             while (_state != null && _state.Phase == BattlePhase.Planning && _state.ActingSide == TeamSide.Opponent)
             {
-                var aiPlan = LegalAi.CreatePlan(_state);
+                var aiPlan = AI.EnemyAiPlanner.CreatePlan(_state) ?? LegalAi.CreatePlan(_state);
                 if (!BattleEngine.TryResolvePlan(_state, aiPlan, out var next, out error)) return false;
                 _state = next;
             }
@@ -104,8 +105,27 @@ namespace FightingAllstar.Core.Combat
                 var card = team.Hand[i];
                 var owner = team.FindFighter(card.OwnerFighterId);
                 if (owner == null || !owner.IsAlive || owner.IsReserve) continue;
-                if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost) continue;
-                plan.Actions.Add(new PlannedAction { CardId = card.Id, TargetFighterId = targets[0].Id });
+                EffectDefinition effect;
+                var hasEffect = card.Kind == CardKind.Skill
+                    ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
+                    : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+                var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner, CardRules.GetEffectCategory(card), card.Rank,
+                    card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
+                if (card.Kind == CardKind.Ultimate && owner.PowerGauge < CardRules.UltimateGaugeCost && !disabled) continue;
+                var target = targets[0];
+                if (card.TargetScope == FightingAllstar.Core.Content.EffectTargetScope.Self) target = owner;
+                else if (card.TargetScope == FightingAllstar.Core.Content.EffectTargetScope.SelectedAlly ||
+                         card.TargetScope == FightingAllstar.Core.Content.EffectTargetScope.AllAllies)
+                {
+                    var allies = team.LivingActive();
+                    allies.Sort((a, b) => ((long)a.Health * b.Stats.MaxHealth).CompareTo((long)b.Health * a.Stats.MaxHealth));
+                    target = allies[0];
+                }
+                else if (card.TargetScope == FightingAllstar.Core.Content.EffectTargetScope.SelectedEnemy)
+                    target = targets.Find(f => f.Statuses.Instances.Exists(s => s.Recipe?.HasTaunt == true)) ?? target;
+                var draft = new PlanDraft(state);
+                if (!draft.QueuePlay(card.Id, target.Id, out _)) continue;
+                plan.Actions.Add(new PlannedAction { CardId = card.Id, TargetFighterId = target.Id });
                 break;
             }
             return plan;

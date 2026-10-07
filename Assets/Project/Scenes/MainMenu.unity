@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 784001003}
   - component: {fileID: 784001004}
   m_Layer: 0
-  m_Name: KOF Economy Prototype
+  m_Name: MainMenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
   m_PanelSettings: {fileID: 11400000, guid: 29a77f415dacefa449c376d305a8726d, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 3f622562450c00a4f9bddd10572f9b15, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 8135b48e1f474e5b95ea89b73c2ed90d, type: 3}
   m_SortingOrder: 0
   m_Position: 0
   m_WorldSpaceSizeMode: 1
@@ -276,10 +276,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 784001001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9ca817109387d4598c9b129999a747, type: 3}
+  m_Script: {fileID: 11500000, guid: dbe8fe8902f444a78066da070f3080bc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Economy.LocalEconomyController
-  catalogJson: {fileID: 4900000, guid: f27c265bd3cc9224c84cbab2ed0d110b, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Navigation.FrontEndController
+  bannerConfiguration: {fileID: 11400000, guid: a742caf9d72a4d4e8dbf25a7f7d62b45, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FightingAllstar.Core</name>
+    </assembly>
+    <members>
+        <member name="T:FightingAllstar.Core.Combat.AI.BattleSituation">
+            <summary>Immutable snapshot of the battlefield from the AI's perspective.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.FighterProfile">
+            <summary>Analyzed profile of an AI-owned fighter.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.ThreatProfile">
+            <summary>What the AI can see about a player fighter (no hand peeking).</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.CardOption">
+            <summary>A card in the AI's hand with pre-computed metadata.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.MergeCandidate">
+            <summary>Two cards that could merge if moved adjacent.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.CandidatePlan">
+            <summary>A complete turn plan candidate, ready for scoring and validation.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.ScoredPlan">
+            <summary>A candidate plan with its final computed score.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.AiPersonalityProfile">
+            <summary>
+            Utility weights that shape how the AI scores candidate plans.
+            Derived per-character from the team's kit composition.
+            </summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.AI.AiPersonalityProfile.DeriveFromTeam(FightingAllstar.Core.Combat.BattleTeamState)">
+            <summary>
+            Derive an AI personality profile from the team's character kits.
+            Analyzes each fighter's skills, role, and base stats to produce
+            a blended set of weights that reflect the team's natural playstyle.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.BoardAnalyzer">
+            <summary>
+            Phase 1: Reads BattleState and produces a <see cref="T:FightingAllstar.Core.Combat.AI.BattleSituation"/> snapshot.
+            The AI never peeks at the player's hand — only visible board state.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.CandidateBuilder">
+            <summary>
+            Phase 2: Generates candidate multi-action turn plans.
+            Combines tactical templates (Merge-then-play, Finisher combo, Stance break, Heal rescue, Ultimate rush)
+            with iterative beam search to populate full action budgets.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.EnemyAiPlanner">
+            <summary>
+            Master Enemy AI Planner.
+            Orchestrates situation assessment, strategic candidate generation, utility scoring,
+            simulation validation, and optimal plan selection.
+            Replaces the naive 1-card LegalAi with full tactical team play.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.MergeScanner">
+            <summary>
+            Scans hand for merge possibilities and determines optimal move actions.
+            In 7DSGC rules, moving a card grants +1 PG, and merging adjacent identical cards grants another +1 PG
+            while upgrading the card to the next rank (Rank 1 -> 2, Rank 2 -> 3).
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.PlanSelector">
+            <summary>
+            Phase 5: Selects the winning TurnPlan from validated scored plans,
+            adding optional slight noise to prevent robotic predictability.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.PlanSimulator">
+            <summary>
+            Phase 4: Validates candidate plans using PlanDraft to ensure no actions fizzle,
+            taunts/statuses are respected, and hand updates match simulation.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AI.UtilityScorer">
+            <summary>
+            Phase 3: Evaluates candidate turn plans across 11 utility dimensions using
+            the team's personality profile weights.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.AttackEffectSystem">
+            <summary>Builds a local damage-calculation view for source-backed attack keywords.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.BattlePlaybackState">
+            <summary>Display-only event reducer. Never submitted back to the battle authority.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.BattleProjectionBuilder">
+            <summary>Creates a recipient-scoped view without exposing the authoritative snapshot or the other hand.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.CardEffectContext">
+            <summary>Facts available to card and passive conditions. It contains IDs and resolved outcomes, never presentation state.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.CardEffectSystem">
+            <summary>Resolves ordered recipe operations and ownership-aware conditions without mutating battle state.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PassiveFact">
+            <summary>Committed facts, not presentation/animation callbacks. Only supported facts are exposed.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ApplyBeforeDamageReactions(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Content.DamageFamily,FightingAllstar.Core.Combat.CardState,FightingAllstar.Core.Combat.AttackEffectCalculation)">
+            <summary>Applies Before Damage reaction commands to the local hit calculation.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ReflectDamageBp(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState)">
+            <summary>Returns the active self-targeted reflect rate from the owner's passive.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.Refresh(FightingAllstar.Core.Combat.BattleState,System.Collections.Generic.ISet{System.String})">
+            <summary>Rebuild derived contributions after authoritative mutations. Never adds/removes real statuses.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ChangePowerGauge(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,System.Int32,System.String,System.Boolean,System.Boolean)">
+            <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.DamageResolver.Resolve(FightingAllstar.Core.Content.DamagePacket,FightingAllstar.Core.Content.StatBlock,FightingAllstar.Core.Content.StatBlock,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>Uses exact basis-point fractions and floors once, after all calculation stages.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.DeterministicRandom">
+            <summary>Versioned xorshift64* stream. A stream is copied with state and draw count for replay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.IBattleSession">
+            <summary>Transport boundary shared by disposable local practice and future remote sessions.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.LocalBattleSession">
+            <summary>Development-only authority host. It is intentionally not an economy or run-reward service.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.TriggeredPassiveEffect">
+            <summary>A passive effect queued from an explicit trigger; callers resolve it in returned order.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PassiveSystem">
+            <summary>Deterministic trigger matching shared by cards, statuses, turn windows, and passives.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PlanDraft">
+            <summary>A disposable preview. Reset rebuilds from the captured authority snapshot and never advances RNG.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.StatusContainer">
+            <summary>Owns all mutable status instances for one fighter.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.CombatTags">
+            <summary>Stable vocabulary for status tags and effect keywords; values are content IDs, not display text.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StatBlock">
+            <summary>All ratios are stored as basis points. 10,000 basis points equals 100%.</summary>
+        </member>
+        <member name="F:FightingAllstar.Core.Content.EffectDefinition.StatusApplyChanceBp">
+            <summary>Authored status proc chance in basis points; 10000 is 100% and zero is 0%.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.ContentAuthoringValidator">
+            <summary>Checks WIP authoring completeness without pretending that source prose is executable gameplay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.SnapshotJson">
+            <summary>Serializes plain combat snapshots, including recursive effect-condition trees.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StandardCharacterPassives">
+            <summary>Source-authored starter passives. Content mapping only; the resolver has no fighter-id branches.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StandardEffectDatabase">
+            <summary>Stable recipe IDs and source-backed defaults from the combat database.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Economy.LocalEconomyService">
+            <summary>Disposable offline economy simulation. It grants no online entitlement or trusted currency.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.DungeonRunEngine">
+            <summary>Deterministic local run state machine. A trusted service must own this state for online rewards.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.RunBattleBridge">
+            <summary>Maps a frozen route encounter to the disposable shared battle engine and back to run HP.</summary>
+        </member>
+    </members>
+</doc>

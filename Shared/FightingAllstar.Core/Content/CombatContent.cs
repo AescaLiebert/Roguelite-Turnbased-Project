@@ -10,19 +10,21 @@ namespace FightingAllstar.Core.Content
     {
         Attack, Defense, MaxHealth, CombatClass, Pierce, Resistance, Regeneration,
         CritChance, CritDamage, CritResistance, CritDefense, Recovery, BlockChance,
-        BlockPower, LifeSteal, Evade, Perception, Control, Avoidance
+        BlockPower, LifeSteal, Evade, Perception, Control, Avoidance,
+        ReflectDamage // Hidden combat stat, stored as basis points.
     }
-    public enum EffectKind { Damage, ApplyStatus, Heal, Cleanse, RemoveBuffs, RemoveDebuffs, ChangePowerGauge, ModifyCardRank }
+    public enum EffectKind { Damage, ApplyStatus, Heal, Cleanse, RemoveBuffs, RemoveDebuffs, ChangePowerGauge, ModifyCardRank, RemoveStance, None }
     public enum StatusPolarity { Buff, Debuff, Neutral }
-    public enum StatusColor { Blue, Grey }
+    public enum StatusColor { Normal, Grey }
     public enum ModifierOperation { Flat, PercentOfBase, PercentagePoints, Multiplier }
-    public enum ModifierTarget { Stat, AnyDamageDealt, AnyDamageReceived, FamilyDamageDealt, FamilyDamageReceived, FinalDamageReduction, FlatDamageReduction }
+    public enum ModifierTarget { Stat, AnyDamageDealt, AnyDamageReceived, FamilyDamageDealt, FamilyDamageReceived, FinalDamageReduction, FlatDamageReduction, StatBundle }
+    public enum StatBundleKind { None, AttackRelated, DefenseRelated, HpRelated, BasicStats, AllStats }
     public enum EffectTrigger
     {
         OnBattleStart, OnTurnStart, OnTurnEnd, BeforeCard, AfterCard, AfterDamageDealt,
         AfterDamageTaken, AfterStatusApplied, OnFighterDefeated
     }
-    public enum CardEffectTiming { BeforeAction, BeforeDamage, AfterDamage, AfterAction }
+    public enum CardEffectTiming { BeforeAction, Damaging, AfterDamage, AfterAction }
 
     /// <summary>Stable vocabulary for status tags and effect keywords; values are content IDs, not display text.</summary>
     public static class CombatTags
@@ -58,8 +60,9 @@ namespace FightingAllstar.Core.Content
         public int LifeStealBp;
         public int EvadeBp;
         public int PerceptionBp = 10000;
-        public int ControlBp = 10000;
-        public int AvoidanceBp;
+        public int ControlBp = 10000; // Multiplies debuff application chance; 10000 is neutral.
+        public int AvoidanceBp = 10000; // Divides debuff application chance; 10000 is neutral.
+        public int ReflectDamageBp;
 
         public StatBlock Clone() => (StatBlock)MemberwiseClone();
 
@@ -86,6 +89,7 @@ namespace FightingAllstar.Core.Content
                 case StatId.Perception: return PerceptionBp;
                 case StatId.Control: return ControlBp;
                 case StatId.Avoidance: return AvoidanceBp;
+                case StatId.ReflectDamage: return ReflectDamageBp;
                 default: throw new ArgumentOutOfRangeException(nameof(stat), stat, "Unknown combat stat.");
             }
         }
@@ -113,6 +117,7 @@ namespace FightingAllstar.Core.Content
                 case StatId.Perception: PerceptionBp = value; break;
                 case StatId.Control: ControlBp = value; break;
                 case StatId.Avoidance: AvoidanceBp = value; break;
+                case StatId.ReflectDamage: ReflectDamageBp = value; break;
                 default: throw new ArgumentOutOfRangeException(nameof(stat), stat, "Unknown combat stat.");
             }
         }
@@ -150,13 +155,16 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class DamagePacket
     {
+        public int HitCount = 1;
+        public int HitIndex = 1;
         public int BaseAmount;
         public int CoefficientBp = 10000;
         public int KeywordFactorBp = 10000;
         public int VarianceBp = 10000;
         public DamagePolicy Policy = new DamagePolicy();
         public DamagePacket Clone() => new DamagePacket { BaseAmount = BaseAmount, CoefficientBp = CoefficientBp,
-            KeywordFactorBp = KeywordFactorBp, VarianceBp = VarianceBp, Policy = Policy == null ? null : Policy.Clone() };
+            KeywordFactorBp = KeywordFactorBp, VarianceBp = VarianceBp, HitCount = HitCount, HitIndex = HitIndex,
+            Policy = Policy == null ? null : Policy.Clone() };
     }
 
     [Serializable]
@@ -174,9 +182,12 @@ namespace FightingAllstar.Core.Content
         public bool WasCapped;
     }
 
+    /// <summary>Non-recursive effect payload shared by root effects and sequence steps.</summary>
     [Serializable]
-    public sealed class EffectDefinition
+    public class EffectOperationDefinition
     {
+        public DamageAttackDefinition Attack = new DamageAttackDefinition();
+        public int DamageHitCount => Kind == EffectKind.Damage ? Attack?.ResolvedHitCount ?? 1 : 1;
         public string Id;
         public EffectKind Kind = EffectKind.Damage;
         public DamageFamily Family;
@@ -187,28 +198,95 @@ namespace FightingAllstar.Core.Content
         public int KeywordFactorBp = 10000;
         public string KeywordId;
         public List<string> Tags = new List<string>();
-        public StatusDefinition Status;
+        public List<EffectConditionDefinition> Conditions = new List<EffectConditionDefinition>();
         public StatusRecipeDefinition StatusRecipe;
         public int StatusDurationOverride;
         public int StatusStackCount = 1;
         public int StatusPotencyBp;
+        /// <summary>Authored status proc chance in basis points; 10000 is 100% and zero is 0%.</summary>
+        public int StatusApplyChanceBp = 10000;
         public EffectValueDefinition HealValue;
         public StatId HealScalingStat = StatId.Attack;
         public int HealCoefficientBp;
         public int PowerGaugeAmount;
-        public string Target = "SelectedEnemy";
+        public EffectTargetScope Target = EffectTargetScope.SelectedEnemy;
         public string TriggerWindow = "PreAction";
-        public List<CardEffectStep> Sequence = new List<CardEffectStep>();
         public SourceProvenance Provenance;
+
+        internal void CopyOperationTo(EffectOperationDefinition copy)
+        {
+            copy.Attack = Attack?.Clone() ?? new DamageAttackDefinition();
+            copy.Id = Id;
+            copy.Kind = Kind;
+            copy.Family = Family;
+            copy.Scaling = Scaling;
+            copy.ScalingStat = ScalingStat;
+            copy.Magnitude = Magnitude;
+            copy.CoefficientBp = CoefficientBp;
+            copy.KeywordFactorBp = KeywordFactorBp;
+            copy.KeywordId = KeywordId;
+            copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
+            copy.Conditions = Conditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
+            copy.StatusRecipe = StatusRecipe?.Clone();
+            copy.StatusDurationOverride = StatusDurationOverride;
+            copy.StatusStackCount = StatusStackCount;
+            copy.StatusPotencyBp = StatusPotencyBp;
+            copy.StatusApplyChanceBp = StatusApplyChanceBp;
+            copy.HealValue = HealValue?.Clone();
+            copy.HealScalingStat = HealScalingStat;
+            copy.HealCoefficientBp = HealCoefficientBp;
+            copy.PowerGaugeAmount = PowerGaugeAmount;
+            copy.Target = Target;
+            copy.TriggerWindow = TriggerWindow;
+            copy.Provenance = Provenance;
+        }
+
+        public EffectDefinition ToEffectDefinition()
+        {
+            var copy = new EffectDefinition();
+            CopyOperationTo(copy);
+            return copy;
+        }
+
+        public EffectOperationDefinition CloneOperation()
+        {
+            var copy = new EffectOperationDefinition();
+            CopyOperationTo(copy);
+            return copy;
+        }
+    }
+
+    [Serializable]
+    public sealed class EffectDefinition : EffectOperationDefinition
+    {
+        // Sequence steps use EffectStepDefinition, which cannot contain another Sequence.
+        // This keeps Unity's serialized graph finite while preserving one authored step layer.
+        public List<CardEffectStep> Sequence = new List<CardEffectStep>();
+
         public EffectDefinition Clone()
         {
-            var copy = (EffectDefinition)MemberwiseClone();
-            copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
-            copy.Status = Status == null ? null : Status.Clone();
-            copy.StatusRecipe = StatusRecipe == null ? null : StatusRecipe.Clone();
-            copy.HealValue = HealValue == null ? null : HealValue.Clone();
-            copy.Sequence = new List<CardEffectStep>();
+            var copy = new EffectDefinition();
+            CopyOperationTo(copy);
             if (Sequence != null) foreach (var step in Sequence) copy.Sequence.Add(step == null ? null : step.Clone());
+            return copy;
+        }
+    }
+
+    [Serializable]
+    public sealed class EffectStepDefinition : EffectOperationDefinition
+    {
+        public EffectStepDefinition Clone()
+        {
+            var copy = new EffectStepDefinition();
+            CopyOperationTo(copy);
+            return copy;
+        }
+
+        public static EffectStepDefinition From(EffectOperationDefinition source)
+        {
+            if (source == null) return null;
+            var copy = new EffectStepDefinition();
+            source.CopyOperationTo(copy);
             return copy;
         }
     }
@@ -216,9 +294,10 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class CardEffectStep
     {
-        public CardEffectTiming Timing = CardEffectTiming.BeforeDamage;
-        public EffectDefinition Effect;
-        public CardEffectStep Clone() => new CardEffectStep { Timing = Timing, Effect = Effect == null ? null : Effect.Clone() };
+        public CardEffectTiming Timing = CardEffectTiming.Damaging;
+        public EffectOperationDefinition Effect;
+        public CardEffectStep Clone() => new CardEffectStep { Timing = Timing,
+            Effect = Effect == null ? null : Effect.CloneOperation() };
     }
 
     [Serializable]
@@ -226,40 +305,61 @@ namespace FightingAllstar.Core.Content
     {
         public ModifierTarget Target = ModifierTarget.Stat;
         public StatId Stat;
+        public StatBundleKind Bundle;
         public DamageFamily Family;
         public ModifierOperation Operation;
         public int Amount;
         public bool ScaleByStatusPotency;
         public int PotencyCoefficientBp = 10000;
+
+        // Unity drops enum fields when this object is nested past its serialization depth limit
+        // (for example Passive Command -> Effect -> Status -> Inline Recipe -> Modifiers).
+        // These integer mirrors remain serializable at that depth. Editor drawers use them only
+        // when the corresponding enum SerializedProperty is unavailable.
+        public int SerializedTarget = -1;
+        public int SerializedStat = -1;
+        public int SerializedBundle = -1;
+        public int SerializedFamily = -1;
+        public int SerializedOperation = -1;
+
+        public ModifierTarget ResolvedTarget => SerializedTarget >= 0 ? (ModifierTarget)SerializedTarget : Target;
+        public StatId ResolvedStat => SerializedStat >= 0 ? (StatId)SerializedStat : Stat;
+        public StatBundleKind ResolvedBundle => SerializedBundle >= 0 ? (StatBundleKind)SerializedBundle : Bundle;
+        public DamageFamily ResolvedFamily => SerializedFamily >= 0 ? (DamageFamily)SerializedFamily : Family;
+        public ModifierOperation ResolvedOperation => SerializedOperation >= 0 ? (ModifierOperation)SerializedOperation : Operation;
+
         public StatModifierDefinition Clone() => (StatModifierDefinition)MemberwiseClone();
     }
 
-    [Serializable]
-    public sealed class StatusDefinition
+    /// <summary>Defines which stats a bundle modifier affects and the operation used for each member.</summary>
+    public static class StatBundleRules
     {
-        public string Id;
-        public string NameKey;
-        public StatusPolarity Polarity;
-        public StatusColor Color = StatusColor.Blue;
-        public List<string> Tags = new List<string>();
-        public List<StatModifierDefinition> Modifiers = new List<StatModifierDefinition>();
-        public int DurationOwnerTurns = 2;
-        public int MaxStacks = 1;
-        public bool Dispellable = true;
-        public bool BypassDebuffImmunity;
-        public bool IsPeriodicDamage;
-        public DamageFamily PeriodicDamageFamily = DamageFamily.DamageOverTime;
-        public int SnapshotDamage;
-        public bool TickAtOwnerTurnStart;
-        public bool CloneOnRefresh = true;
-        public StatusDefinition Clone()
+        public static bool Contains(StatBundleKind bundle, StatId stat)
         {
-            var copy = (StatusDefinition)MemberwiseClone();
-            copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
-            copy.Modifiers = new List<StatModifierDefinition>();
-            if (Modifiers != null) foreach (var modifier in Modifiers) copy.Modifiers.Add(modifier == null ? null : modifier.Clone());
-            return copy;
+            switch (bundle)
+            {
+                case StatBundleKind.AttackRelated:
+                    return stat == StatId.Attack || stat == StatId.Pierce || stat == StatId.CritChance || stat == StatId.CritDamage;
+                case StatBundleKind.DefenseRelated:
+                    return stat == StatId.Defense || stat == StatId.CritResistance || stat == StatId.CritDefense || stat == StatId.Resistance;
+                case StatBundleKind.HpRelated:
+                    return stat == StatId.MaxHealth || stat == StatId.Regeneration || stat == StatId.Recovery || stat == StatId.LifeSteal;
+                case StatBundleKind.BasicStats:
+                    return stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth;
+                case StatBundleKind.AllStats:
+                    return stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth ||
+                        stat == StatId.Pierce || stat == StatId.Resistance || stat == StatId.Regeneration ||
+                        stat == StatId.CritChance || stat == StatId.CritDamage || stat == StatId.CritResistance ||
+                        stat == StatId.CritDefense || stat == StatId.Recovery || stat == StatId.LifeSteal;
+                default:
+                    return false;
+            }
         }
+
+        public static ModifierOperation OperationFor(StatId stat) =>
+            stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth
+                ? ModifierOperation.PercentOfBase
+                : ModifierOperation.PercentagePoints;
     }
 
     [Serializable]
@@ -302,12 +402,16 @@ namespace FightingAllstar.Core.Content
     public sealed class SkillRankDefinition
     {
         public int Rank;
+        public bool HasCardKind;
+        public CardCategory Category;
+        public EffectTargetScope TargetScope;
         public EffectDefinition Effect;
         public string DescriptionKey;
+        public string Description;
         public string SourceDescription;
         public SourceProvenance Provenance;
-        public SkillRankDefinition Clone() => new SkillRankDefinition { Rank = Rank, Effect = Effect == null ? null : Effect.Clone(),
-            DescriptionKey = DescriptionKey, SourceDescription = SourceDescription, Provenance = Provenance };
+        public SkillRankDefinition Clone() => new SkillRankDefinition { Rank = Rank, HasCardKind = HasCardKind, Category = Category, TargetScope = TargetScope, Effect = Effect == null ? null : Effect.Clone(),
+            DescriptionKey = DescriptionKey, Description = Description, SourceDescription = SourceDescription, Provenance = Provenance };
     }
 
     [Serializable]
@@ -324,8 +428,7 @@ namespace FightingAllstar.Core.Content
         public SkillDefinition Clone()
         {
             var copy = new SkillDefinition { Id = Id, Slot = Slot, Category = Category, TargetScope = TargetScope,
-                SourceTarget = SourceTarget, SourceType = SourceType,
-                SourceEffectTags = SourceEffectTags };
+                SourceTarget = SourceTarget, SourceType = SourceType, SourceEffectTags = SourceEffectTags };
             if (Ranks != null) foreach (var rank in Ranks) copy.Ranks.Add(rank == null ? null : rank.Clone());
             return copy;
         }
@@ -334,13 +437,15 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class UltimateTierDefinition
     {
+        public CardCategory Category;
         public int Tier;
         public string SourceLabel;
+        public string Description;
         public string SourceDescription;
         public EffectDefinition Effect;
         public SourceProvenance Provenance;
-        public UltimateTierDefinition Clone() => new UltimateTierDefinition { Tier = Tier, SourceLabel = SourceLabel,
-            SourceDescription = SourceDescription, Effect = Effect == null ? null : Effect.Clone(), Provenance = Provenance };
+        public UltimateTierDefinition Clone() => new UltimateTierDefinition { Tier = Tier, SourceLabel = SourceLabel, Category = Category,
+            Description = Description, SourceDescription = SourceDescription, Effect = Effect == null ? null : Effect.Clone(), Provenance = Provenance };
     }
 
     [Serializable]
@@ -377,6 +482,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class CharacterDefinition
     {
+        public int CategoryId;
         public int SchemaVersion = 1;
         public bool RuntimeReady;
         public string Id;
@@ -403,7 +509,7 @@ namespace FightingAllstar.Core.Content
         public CharacterDefinition Clone()
         {
             var copy = new CharacterDefinition { SchemaVersion = SchemaVersion, RuntimeReady = RuntimeReady, Id = Id, SourceId = SourceId,
-                SourceRecord = SourceRecord, DisplayName = DisplayName, FamilyId = FamilyId, Role = Role,
+                CategoryId = CategoryId, SourceRecord = SourceRecord, DisplayName = DisplayName, FamilyId = FamilyId, Role = Role,
                 SeriesId = SeriesId, AttributeId = AttributeId, RarityId = RarityId, BaseStats = BaseStats == null ? null : BaseStats.Clone(),
                 PassiveId = PassiveId, StatsProvenance = StatsProvenance };
             if (TraitIds != null) copy.TraitIds.AddRange(TraitIds);

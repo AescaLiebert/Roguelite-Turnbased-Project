@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FightingAllstar.Core.Content;
 using FightingAllstar.Core.Economy;
+using FightingAllstar.Presentation.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -12,8 +13,6 @@ namespace FightingAllstar.Presentation.Economy
     [RequireComponent(typeof(UIDocument))]
     public sealed class LocalEconomyController : MonoBehaviour
     {
-        [SerializeField] private TextAsset catalogJson;
-
         private UIDocument _document;
         private ContentCatalog _catalog;
         private BannerDefinition _banner;
@@ -70,9 +69,7 @@ namespace FightingAllstar.Presentation.Economy
 
         private void Initialize()
         {
-            if (catalogJson == null) throw new InvalidOperationException("WIP character catalog TextAsset is not assigned.");
-            _catalog = JsonUtility.FromJson<ContentCatalog>(catalogJson.text);
-            if (_catalog == null || _catalog.Characters == null) throw new InvalidOperationException("WIP character catalog could not be parsed.");
+            _catalog = CharacterObjectCatalogBuilder.Load(null);
             _banner = BannerDefinition.CreateKofPhaseE();
             _store = new LocalEconomyStore();
             _state = _store.LoadOrCreateLocalProfile();
@@ -379,8 +376,7 @@ namespace FightingAllstar.Presentation.Economy
                 _formation.Add(dropdown);
             }
             if (_playDungeon != null)
-                _playDungeon.SetEnabled(_state.FormationDefinitionIds != null && _state.FormationDefinitionIds.Count == 4 &&
-                    _state.FormationDefinitionIds.TrueForAll(id => !string.IsNullOrEmpty(id) && _state.Roster.Exists(item => item != null && item.DefinitionId == id)));
+                _playDungeon.SetEnabled(_state.Roster != null && _state.Roster.Count > 0);
         }
 
         private void SaveFormationSlot(int slot, List<string> choices, List<string> ids, string label)
@@ -409,7 +405,7 @@ namespace FightingAllstar.Presentation.Economy
             try
             {
                 _store.Save(_state);
-                SceneManager.LoadScene("Scene-CharacterLoadOut");
+                SceneManager.LoadScene("Combat");
             }
             catch (Exception exception) { SetNotice(exception.Message); }
         }

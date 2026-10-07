@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: andy94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.andy94
+  runtimeReady: 1
+  sourceId: 17
+  sourceRecord: 18
+  familyId: family.andy
+  seriesId: series.kof
+  role: Glass Attacker
+  traitIds:
+  - trait.fatal-fury
+  - trait.american
+  - trait.series-kof
+  passiveSourceDescription: If self not damaged in that turn, gains 1 point ult gauge
+    to self
+  passiveSourceType: On-Field
+  passiveRestriction: Own
+  passiveDefinition: {fileID: 11400000, guid: 88198d0c51f84b5fbd37a79de8b2f0f5, type: 2}
+  id: 1017
+  fighterName: Andy Bogard 94
+  fighterTag: Andy
+  fighterPic: {fileID: 21300000, guid: 6d044d46e82f3e74d97c74a6df32ea08, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 9135e91d46413e9419534e29675a61af, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: 94d3bcec43b8fb84a97d59a8fae0e9c3, type: 3}
+  Skill1: {fileID: 11400000, guid: f2e6130c993847c38f15a1f3c31a4fe4, type: 2}
+  Skill2: {fileID: 11400000, guid: 4af93a549ce04d2eb246e7240299be0a, type: 2}
+  Ultimate: {fileID: 11400000, guid: 839d3efc02894ae8853bb8324a8a29a7, type: 2}
+  FighterAttribute: 3
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2650
+  attack: 310
+  defense: 130
+  health: 3600
+  SecondaryStats:
+    PierceRate: 30
+    Resistance: 5
+    Regenerate: 10
+    CritChance: 20
+    CritDmg: 135
+    CritResistance: 5
+    CritDefense: 10
+    RecoveryRate: 110
+    BlockChance: 5
+    BlockPower: 20
+    LifeSteal: 5
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

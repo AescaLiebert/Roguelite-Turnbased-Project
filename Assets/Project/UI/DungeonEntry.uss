@@ -1,14 +1,38 @@
-.entry-root { width: 100%; max-width: 820px; align-self: center; justify-content: center; flex-grow: 1; padding: 28px; background-color: rgb(13, 17, 26); color: rgb(238, 242, 248); }
-.eyebrow { color: rgb(110, 194, 210); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
-.entry-title { margin-top: 8px; font-size: 28px; -unity-font-style: bold; }
-.entry-copy { margin-top: 7px; color: rgb(155, 170, 190); font-size: 12px; white-space: normal; }
-.profile-list { flex-direction: row; margin-top: 24px; }
-.profile-button { flex-grow: 1; min-height: 78px; margin-right: 8px; padding: 10px; background-color: rgb(30, 42, 59); color: rgb(230, 237, 246); white-space: normal; font-size: 12px; border-bottom-width: 2px; border-bottom-color: rgb(77, 131, 158); }
-.difficulty-panel { margin-top: 23px; padding: 16px; background-color: rgb(23, 29, 41); }
-.section-title { color: rgb(155, 170, 190); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
-#difficulty-slider { margin-top: 12px; }
-.reward-preview { margin-top: 10px; color: rgb(223, 197, 130); font-size: 14px; -unity-font-style: bold; }
-.entry-footer { flex-direction: row; justify-content: space-between; align-items: center; margin-top: 18px; }
-.entry-status { flex-grow: 1; color: rgb(155, 170, 190); font-size: 11px; white-space: normal; }
-.primary-button { min-height: 38px; padding: 8px 18px; background-color: rgb(49, 128, 146); color: white; -unity-font-style: bold; }
+.entry-root { flex-grow: 1; height: 100%; min-height: 0; overflow: hidden; background-color: rgb(12, 18, 36); color: rgb(237, 242, 250); }
+.series-browser { flex-grow: 1; min-height: 0; padding: 28px 42px; }
+.entry-header { flex-direction: row; align-items: center; min-height: 82px; border-bottom-width: 2px; border-bottom-color: rgb(56, 80, 116); }
+.entry-header .quiet-button { margin-right: 24px; }
+.eyebrow { color: rgb(105, 194, 222); font-size: 12px; letter-spacing: 2px; -unity-font-style: bold; }
+.entry-title { font-size: 30px; -unity-font-style: bold; margin-top: 4px; }
+.header-hint { flex-grow: 1; -unity-text-align: middle-right; color: rgb(129, 154, 190); font-size: 13px; }
+.series-cards { flex-grow: 1; flex-basis: 0; min-height: 0; margin-top: 26px; margin-bottom: 18px; }
+.series-cards .unity-scroll-view__content-container { flex-direction: row; align-items: center; padding: 12px 28px; }
+.series-card { width: 300px; height: 470px; flex-shrink: 0; margin: 10px 30px 24px 0; padding: 0; background-color: rgb(28, 35, 56); border-width: 2px; border-color: rgb(107, 125, 153); border-top-left-radius: 24px; border-bottom-right-radius: 24px; overflow: hidden; }
+.series-card:hover, .series-card:focus { border-color: rgb(244, 182, 95); background-color: rgb(43, 48, 73); }
+.series-art { position: absolute; left: 0; top: 5px; right: 0; bottom: 68px; }
+.series-heading { position: absolute; left: 0; right: 0; top: 46%; background-color: rgba(70, 30, 67, 0.87); padding: 12px; border-bottom-width: 2px; border-bottom-color: rgb(207, 104, 99); }
+#series-name { font-size: 44px; -unity-font-style: bold-and-italic; -unity-text-align: middle-center; color: white; }
+#series-subtitle { font-size: 22px; -unity-font-style: bold; -unity-text-align: middle-center; color: rgb(221, 229, 248); }
+.series-card-footer { position: absolute; bottom: 0; left: 0; right: 0; height: 72px; background-color: rgb(22, 53, 79); padding: 10px 16px; border-top-width: 2px; border-top-color: rgb(88, 151, 184); }
+.series-card-footer Label { font-size: 14px; color: rgb(182, 204, 227); }
+#series-action { font-size: 21px; -unity-font-style: bold; color: rgb(249, 211, 114); margin-top: 3px; }
+.browser-status { min-height: 24px; color: rgb(153, 176, 206); font-size: 16px; white-space: normal; }
+.configuration-overlay { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(4, 8, 19, 0.86); align-items: center; justify-content: center; }
+.configuration-dialog { width: 680px; height: 620px; max-width: 94%; max-height: 94%; min-height: 0; background-color: rgb(22, 31, 49); border-width: 2px; border-color: rgb(98, 128, 163); border-radius: 12px; padding: 24px; }
+.dialog-header { flex-direction: row; justify-content: space-between; align-items: center; padding-bottom: 18px; border-bottom-width: 1px; border-bottom-color: rgb(70, 87, 112); }
+.dialog-title { font-size: 26px; -unity-font-style: bold; margin-top: 5px; }
+.configuration-body { flex-grow: 1; flex-basis: 0; min-height: 0; padding-top: 18px; }
+.section-title { color: rgb(121, 190, 212); font-size: 13px; -unity-font-style: bold; margin-bottom: 10px; }
+DropdownField { min-height: 38px; margin-bottom: 12px; font-size: 16px; }
+.entry-copy { color: rgb(170, 188, 209); white-space: normal; font-size: 14px; margin-top: 8px; }
+.difficulty-panel { margin-top: 20px; padding: 16px; background-color: rgb(14, 23, 39); }
+.difficulty-value { font-size: 17px; color: white; }
+#difficulty-slider { margin-top: 10px; margin-bottom: 12px; }
+.reward-preview { font-size: 20px; color: rgb(242, 205, 119); -unity-font-style: bold; }
+.entry-status { white-space: normal; color: rgb(189, 202, 222); font-size: 14px; margin-top: 18px; margin-bottom: 8px; }
+.dialog-footer { flex-direction: row; justify-content: flex-end; padding-top: 18px; }
+Button { color: white; }
+.primary-button { min-height: 48px; padding: 10px 24px; background-color: rgb(165, 54, 70); border-width: 1px; border-color: rgb(234, 155, 126); font-size: 18px; -unity-font-style: bold; margin-left: 14px; }
+.quiet-button, .close-button { min-height: 40px; padding: 8px 18px; background-color: rgb(32, 47, 68); border-width: 1px; border-color: rgb(77, 98, 127); font-size: 15px; }
+.close-button { font-size: 24px; }
 Button:disabled { opacity: 0.4; }

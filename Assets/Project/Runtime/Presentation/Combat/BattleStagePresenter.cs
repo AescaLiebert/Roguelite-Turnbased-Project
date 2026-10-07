@@ -7,7 +7,7 @@ using UnityEngine;
 namespace FightingAllstar.Presentation.Combat
 {
     /// <summary>Camera and placeholder choreography. Combat outcomes remain entirely Core-owned.</summary>
-    public sealed class BattleStagePresenter : MonoBehaviour
+    public sealed partial class BattleStagePresenter : MonoBehaviour
     {
         private Camera _camera;
         private Vector3 _homePosition;
@@ -19,6 +19,7 @@ namespace FightingAllstar.Presentation.Combat
         private Dictionary<string, GameObject> _views;
         private readonly Dictionary<string, Pose> _poses = new Dictionary<string, Pose>();
         private readonly Dictionary<string, Vector3> _scales = new Dictionary<string, Vector3>();
+        private readonly List<Coroutine> _defeatAnimations = new List<Coroutine>();
         private string _attacker;
 
         public void Initialize(Dictionary<string, GameObject> views)
@@ -77,82 +78,72 @@ namespace FightingAllstar.Presentation.Combat
 
         public IEnumerator Attack(string sourceId, string targetId, bool attackDebuff = false)
         {
-            yield return RecoverAttacker();
+            if (_attacker != sourceId) yield return RecoverAttacker();
             if (!TryView(sourceId, out var source) || !TryView(targetId, out var target)) yield break;
             _attacker = sourceId;
-            var direction = target.position - source.position;
-            direction.y = 0;
-            if (direction.sqrMagnitude < .01f) direction = source.forward;
-            direction.Normalize();
-            var midpoint = (source.position + target.position) * .5f + Vector3.up * 1.2f;
-            var cross = Vector3.Cross(Vector3.up, direction);
-            var distance = Mathf.Clamp(Vector3.Distance(source.position, target.position) * .65f, 4.5f, 10f);
-            var cameraPosition = midpoint - direction * distance + cross * distance * .65f + Vector3.up * 2.3f;
-            yield return CameraTo(cameraPosition, Quaternion.LookRotation(midpoint - cameraPosition), Mathf.Min(_homeFov, 48f), .32f);
-            TriggerIfPresent(source, attackDebuff ? "AttackDebuff" : "Attack");
-            var start = source.position;
-            var end = target.position - direction * 1.15f;
-            end.y = start.y;
-            var rotation = source.rotation;
-            yield return Tween(.26f, t =>
-            {
-                source.position = Vector3.Lerp(start, end, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * .18f;
-                source.rotation = Quaternion.Slerp(rotation, Quaternion.LookRotation(direction), t);
-            });
+            var direction = GroundDirection(target.position - source.position, Facing(source));
+            var separation = Mathf.Max(1.15f, FighterRadius(source) + FighterRadius(target) + .45f);
+            var travel = Mathf.Max(0f, Vector3.Distance(source.position, target.position) - separation);
+            var end = source.position + direction * travel;
+            end.y = source.position.y;
+            PrepareAnimationTiming(source);
+            TriggerIfPresent(source, "Attack");
+            yield return StartAttackMotion(source, new[] { target }, direction, end);
         }
 
         public IEnumerator AttackArea(string sourceId, IReadOnlyList<string> targetIds, bool attackDebuff = false)
         {
-            yield return RecoverAttacker();
-            if (!TryView(sourceId, out var source) || targetIds == null || targetIds.Count == 0) yield break;
-            var targets = new List<Transform>();
-            var center = Vector3.zero;
-            foreach (var id in targetIds)
-                if (TryView(id, out var target)) { targets.Add(target); center += target.position; }
+            if (_attacker != sourceId) yield return RecoverAttacker();
+            if (!TryView(sourceId, out var source)) yield break;
+            var targets = ResolveViews(targetIds);
             if (targets.Count == 0) yield break;
+            var center = Vector3.zero;
+            foreach (var target in targets) center += target.position;
             center /= targets.Count;
-            var direction = center - source.position;
-            direction.y = 0;
-            if (direction.sqrMagnitude < .01f) direction = source.forward;
-            direction.Normalize();
-            var spread = 0f;
-            foreach (var target in targets) spread = Mathf.Max(spread, Vector3.Distance(center, target.position));
-            var midpoint = (source.position + center) * .5f + Vector3.up * 1.25f;
-            var cross = Vector3.Cross(Vector3.up, direction);
-            var distance = Mathf.Clamp(Vector3.Distance(source.position, center) * .65f + spread * .8f, 6f, 15f);
-            var cameraPosition = midpoint - direction * distance + cross * distance * .3f + Vector3.up * (2.5f + spread * .35f);
-            yield return CameraTo(cameraPosition, Quaternion.LookRotation(midpoint - cameraPosition),
-                Mathf.Min(_homeFov, Mathf.Lerp(50f, 62f, Mathf.Clamp01(spread / 4f))), .38f);
+            var direction = GroundDirection(center - source.position, Facing(source));
             _attacker = sourceId;
-            TriggerIfPresent(source, attackDebuff ? "AttackDebuff" : "Attack");
-            var start = source.position;
-            var end = start + direction * Mathf.Min(1.2f, Vector3.Distance(source.position, center) * .12f);
-            var rotation = source.rotation;
-            yield return Tween(.28f, t =>
-            {
-                source.position = Vector3.Lerp(start, end, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * .22f;
-                source.rotation = Quaternion.Slerp(rotation, Quaternion.LookRotation(direction), t);
-            });
+            PrepareAnimationTiming(source);
+            TriggerIfPresent(source, "Attack");
+            yield return StartAttackMotion(source, targets, direction,
+                source.position + direction * Mathf.Min(1.2f, Vector3.Distance(source.position, center) * .12f));
         }
 
         public IEnumerator SupportAction(string sourceId, IReadOnlyList<string> targetIds, CardCategory category)
         {
-            yield return RecoverAttacker();
+            if (_attacker != sourceId) yield return RecoverAttacker();
             if (!TryView(sourceId, out var source)) yield break;
-            var center = source.position;
-            var count = 1;
-            if (targetIds != null)
-                foreach (var id in targetIds)
-                    if (TryView(id, out var target)) { center += target.position; count++; }
-            center /= count;
-            var direction = center - source.position;
-            direction.y = 0;
-            if (direction.sqrMagnitude < .01f) direction = source.forward;
-            direction.Normalize();
-            var cameraPosition = center - direction * 8f + Vector3.up * 5f - Vector3.Cross(Vector3.up, direction) * 2.5f;
-            yield return CameraTo(cameraPosition, Quaternion.LookRotation(center + Vector3.up - cameraPosition),
-                Mathf.Min(_homeFov, 56f), .3f);
+            ClearCameraTracking();
             _attacker = sourceId;
+            var targets = ResolveViews(targetIds);
+            if (targets.Count == 0) targets.Add(source);
+
+            // Debuff card camera frames like an attack card (low rear view framing caster and targets ahead, no zoom into target).
+            // Stance on Rank 1 frames from behind/three-quarter side with stance aura clearance (no face shot).
+            // Buff / Recovery frames the target recipients.
+            CameraShot shot;
+            if (category == CardCategory.Debuff)
+            {
+                var center = Vector3.zero;
+                foreach (var target in targets) center += target.position;
+                center /= targets.Count;
+                var direction = GroundDirection(center - source.position, Facing(source));
+                shot = AttackShot(source, targets, direction);
+            }
+            else if (category == CardCategory.Stance)
+            {
+                var side = Vector3.Cross(Vector3.up, Facing(source));
+                var offset = -Facing(source) * 0.9f + side * 0.35f + Vector3.up * 0.45f;
+                shot = FrameFighters(new[] { source }, offset, 48f, 0f, 1.6f);
+            }
+            else
+            {
+                shot = FrameFighters(targets, Facing(targets[0]) + Vector3.up * .25f, 48f, 0f, 1.4f);
+            }
+
+            // Jump cut to execution shot - do not smoothly move or orbit the camera
+            yield return CameraCut(shot.position, shot.rotation, shot.fov);
+            _portraitPrepared = false;
+
             var trigger = category switch
             {
                 CardCategory.Recovery => "Heal",
@@ -162,13 +153,15 @@ namespace FightingAllstar.Presentation.Combat
                 _ => "Skill"
             };
             TriggerIfPresent(source, trigger);
-            yield return Tween(.2f, t => source.localScale = Vector3.Lerp(_scales[sourceId],
-                _scales[sourceId] * 1.08f, Mathf.Sin(t * Mathf.PI)));
+            var scale = source.localScale;
+            yield return Tween(.5f, t => source.localScale = scale * (1f + .06f * Mathf.Sin(t * Mathf.PI)));
+            source.localScale = scale;
         }
 
-        public IEnumerator Impact(string targetId, bool critical)
+        public IEnumerator Impact(string targetId, bool critical, float durationScale = 1f)
         {
             if (!TryView(targetId, out var target)) yield break;
+            PlayCue(critical ? 2 : 1);
             TriggerIfPresent(target, "Hurt");
             var position = target.position;
             var rotation = target.rotation;
@@ -176,19 +169,70 @@ namespace FightingAllstar.Presentation.Combat
             var away = TryView(_attacker, out var attacker) ? (target.position - attacker.position).normalized : -target.forward;
             away.y = 0;
             var cameraPosition = _camera == null ? Vector3.zero : _camera.transform.position;
-            yield return Tween(.28f, t =>
+            yield return Tween(.28f * Mathf.Clamp(durationScale, .1f, 1f), t =>
             {
                 var pulse = Mathf.Sin(t * Mathf.PI);
                 target.position = position + away * (.25f * pulse);
                 target.rotation = rotation * Quaternion.Euler(-12f * pulse, 0, 6f * pulse);
                 target.localScale = Vector3.Scale(scale, new Vector3(1 + pulse * .05f, 1 - pulse * .08f, 1));
-                if (_camera != null) _camera.transform.position = cameraPosition + _camera.transform.right *
-                    (Mathf.Sin(t * Mathf.PI * 8f) * (1f - t) * (critical ? .12f : .055f));
+                SetImpactShake(cameraPosition, Mathf.Sin(t * Mathf.PI * 8f) * (1f - t) * (critical ? .12f : .055f));
             });
             target.SetPositionAndRotation(position, rotation);
             target.localScale = scale;
-            if (_camera != null) _camera.transform.position = cameraPosition;
-            yield return RecoverAttacker();
+            SetImpactShake(cameraPosition, 0f);
+        }
+
+        public void StatusFeedback(string targetId, bool removed, bool debuff)
+        {
+            if (!TryView(targetId, out var target)) return;
+            TriggerIfPresent(target, removed ? "StatusRemoved" : debuff ? "DebuffReceived" : "BuffReceived");
+        }
+
+        public IEnumerator ImpactMultiple(IReadOnlyList<(string targetId, bool critical)> impacts, float durationScale = 1f)
+        {
+            if (impacts == null || impacts.Count == 0) yield break;
+            if (impacts.Count == 1)
+            {
+                yield return Impact(impacts[0].targetId, impacts[0].critical, durationScale);
+                yield break;
+            }
+
+            PlayCue(1);
+            var entries = new List<(Transform target, Vector3 pos, Quaternion rot, Vector3 scale, Vector3 away, bool critical)>();
+            var anyCritical = false;
+            foreach (var (targetId, critical) in impacts)
+            {
+                if (!TryView(targetId, out var target)) continue;
+                TriggerIfPresent(target, "Hurt");
+                var away = TryView(_attacker, out var attacker) ? (target.position - attacker.position).normalized : -target.forward;
+                away.y = 0;
+                entries.Add((target, target.position, target.rotation, target.localScale, away, critical));
+                if (critical) anyCritical = true;
+            }
+
+            if (entries.Count == 0) yield break;
+
+            var cameraPosition = _camera == null ? Vector3.zero : _camera.transform.position;
+            yield return Tween(.28f * Mathf.Clamp(durationScale, .1f, 1f), t =>
+            {
+                var pulse = Mathf.Sin(t * Mathf.PI);
+                for (var i = 0; i < entries.Count; i++)
+                {
+                    var e = entries[i];
+                    e.target.position = e.pos + e.away * (.25f * pulse);
+                    e.target.rotation = e.rot * Quaternion.Euler(-12f * pulse, 0, 6f * pulse);
+                    e.target.localScale = Vector3.Scale(e.scale, new Vector3(1 + pulse * .05f, 1 - pulse * .08f, 1));
+                }
+                SetImpactShake(cameraPosition, Mathf.Sin(t * Mathf.PI * 8f) * (1f - t) * (anyCritical ? .12f : .055f));
+            });
+
+            for (var i = 0; i < entries.Count; i++)
+            {
+                var e = entries[i];
+                e.target.SetPositionAndRotation(e.pos, e.rot);
+                e.target.localScale = e.scale;
+            }
+            SetImpactShake(cameraPosition, 0f);
         }
 
         public IEnumerator Defeat(string id)
@@ -207,14 +251,43 @@ namespace FightingAllstar.Presentation.Combat
             view.gameObject.SetActive(false);
         }
 
+        public void BeginDefeat(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            _defeatAnimations.Add(StartCoroutine(Defeat(id)));
+        }
+
+        public IEnumerator WaitForDefeatAnimations()
+        {
+            for (var i = 0; i < _defeatAnimations.Count; i++)
+                if (_defeatAnimations[i] != null) yield return _defeatAnimations[i];
+            _defeatAnimations.Clear();
+        }
+
         public IEnumerator RecoverAttacker()
         {
+            while (!_actionMotionDone) yield return null;
             if (!TryView(_attacker, out var view) || !_poses.TryGetValue(_attacker, out var pose))
-            { _attacker = null; yield break; }
+            { _attacker = null; ClearCameraTracking(); yield break; }
+            yield return WaitForActionEnd(_attacker);
             var start = new Pose(view.position, view.rotation);
-            yield return Tween(.24f, t => view.SetPositionAndRotation(Vector3.Lerp(start.position, pose.position, t),
-                Quaternion.Slerp(start.rotation, pose.rotation, t)));
+            var startRoll = _attackRoll;
+            yield return Tween(.32f, t =>
+            {
+                _attackRoll = Mathf.Lerp(startRoll, 0f, t);
+                view.SetPositionAndRotation(Vector3.Lerp(start.position, pose.position, t),
+                    Quaternion.Slerp(start.rotation, pose.rotation, t));
+                UpdateAttackCamera();
+            });
+            ClearCameraTracking();
             _attacker = null;
+        }
+
+        private IEnumerator CameraCut(Vector3 position, Quaternion rotation, float fov)
+        {
+            if (_camera == null) yield break;
+            _camera.transform.SetPositionAndRotation(position, rotation);
+            _camera.fieldOfView = fov;
         }
 
         private IEnumerator CameraTo(Vector3 position, Quaternion rotation, float fov, float duration)
@@ -238,14 +311,14 @@ namespace FightingAllstar.Presentation.Combat
                 { animator.SetTrigger(name); break; }
         }
 
-        public static IEnumerator Tween(float duration, System.Action<float> frame)
+        public static IEnumerator Tween(float duration, System.Action<float> frame, bool smooth = true)
         {
             var elapsed = 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
                 var t = Mathf.Clamp01(elapsed / Mathf.Max(.001f, duration));
-                frame(t * t * (3 - 2 * t));
+                frame(smooth ? t * t * (3 - 2 * t) : t);
                 yield return null;
             }
             frame(1f);
@@ -253,6 +326,17 @@ namespace FightingAllstar.Presentation.Combat
 
         public void Restore()
         {
+            StopAllCoroutines();
+            _defeatAnimations.Clear();
+            _actionMotion = null;
+            _actionMotionDone = true;
+            _animationTiming = null;
+            _templateHits = _templateHit = 0;
+            _templateTargets.Clear();
+            ClearCameraTracking();
+            _portraitPrepared = false;
+            _executionRank = 1;
+            _executionUltimate = false;
             foreach (var pair in _poses)
                 if (TryView(pair.Key, out var view) && view.gameObject.activeSelf)
                 {
@@ -273,6 +357,6 @@ namespace FightingAllstar.Presentation.Combat
             if (_camera != null) _camera.transform.SetPositionAndRotation(_planningPosition, _planningRotation);
         }
 
-        private void OnDisable() { Restore(); }
+        private void OnDisable() { Restore(); ClearAuras(); }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using FightingAllstar.Core.Content;
 
 namespace FightingAllstar.Core.Combat
@@ -8,6 +9,7 @@ namespace FightingAllstar.Core.Combat
         public StatBlock Attacker;
         public StatBlock Defender;
         public DamagePolicy Policy;
+        public List<string> TriggeredPassiveReactionIds = new List<string>();
         public int KeywordFactorBp = 10000;
         public bool RemoveTargetBuffsBeforeDamage;
         public bool RemoveTargetStancesBeforeDamage;
@@ -17,10 +19,11 @@ namespace FightingAllstar.Core.Combat
     public static class AttackEffectSystem
     {
         public static AttackEffectCalculation Prepare(AttackEffectRecipeDefinition recipe, BattleState battle,
-            FighterState source, FighterState target, DamageFamily family)
+            FighterState source, FighterState target, DamageFamily family, CardState card = null)
         {
             var result = new AttackEffectCalculation { Attacker = StatusSystem.GetEffectiveStats(source),
                 Defender = StatusSystem.GetEffectiveStats(target), Policy = StatusSystem.BuildDamagePolicy(source, target, family) };
+            CharacterPassiveRuntime.ApplyBeforeDamageReactions(battle, source, target, family, card, result);
             if (recipe == null) return result;
             switch (recipe.Kind)
             {
@@ -59,7 +62,7 @@ namespace FightingAllstar.Core.Combat
                 case AttackEffectKind.Quell:
                     result.KeywordFactorBp = AddScaled(result.KeywordFactorBp, CountTag(source, CombatTags.Stance), recipe.PrimaryValueBp); break;
                 case AttackEffectKind.Amplify:
-                    result.KeywordFactorBp = AddScaled(result.KeywordFactorBp, CountBlueBuffs(source), recipe.PrimaryValueBp); break;
+                    result.KeywordFactorBp = AddScaled(result.KeywordFactorBp, CountNormalBuffs(source), recipe.PrimaryValueBp); break;
                 case AttackEffectKind.SecretTechnique:
                     result.KeywordFactorBp = AddScaled(result.KeywordFactorBp, CountSourceCards(battle, source), recipe.PrimaryValueBp); break;
                 case AttackEffectKind.RemoveBuff: result.RemoveTargetBuffsBeforeDamage = true; break;
@@ -70,14 +73,14 @@ namespace FightingAllstar.Core.Combat
 
         private static int CountTag(FighterState fighter, string tag) => StatusSystem.Count(fighter, requiredTag: tag);
 
-        private static int CountBlueBuffs(FighterState fighter)
+        private static int CountNormalBuffs(FighterState fighter)
         {
             var count = 0;
             var statuses = fighter?.Statuses?.Instances;
             if (statuses == null) return count;
             foreach (var status in statuses)
                 if (status?.Recipe != null && status.Recipe.Polarity == StatusPolarity.Buff &&
-                    status.Recipe.Color == StatusColor.Blue) count++;
+                    status.Recipe.Color == StatusColor.Normal) count++;
             return count;
         }
 

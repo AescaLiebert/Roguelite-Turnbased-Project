@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Run;
+using FightingAllstar.Presentation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -19,7 +21,7 @@ namespace FightingAllstar.Presentation.Route
 
         private UIDocument _document;
         private LocalRunStateStore _store;
-        private RunState _run;
+        [NonSerialized] private RunState _run;
         private VisualElement _rows;
         private VisualElement _hpStrip;
         private VisualElement _choicePanel;
@@ -30,6 +32,21 @@ namespace FightingAllstar.Presentation.Route
         private bool _confirmAbandon;
         private Button _abandonButton;
         private Button _returnLoadoutButton;
+        private IVisualElementScheduledItem _pendingScroll;
+        private LabyrinthBoard _board;
+
+        private void OnDisable()
+        {
+            CancelPendingScroll();
+            if (_abandonButton != null) _abandonButton.clicked -= Abandon;
+            if (_returnLoadoutButton != null) _returnLoadoutButton.clicked -= ReturnToDungeonSelect;
+        }
+
+        private void CancelPendingScroll()
+        {
+            _pendingScroll?.Pause();
+            _pendingScroll = null;
+        }
 
         private void Awake()
         {
@@ -88,12 +105,13 @@ namespace FightingAllstar.Presentation.Route
 
         private void Refresh()
         {
+            CancelPendingScroll();
             if (_run == null || _rows == null) return;
             _rows.Clear();
             _hpStrip.Clear();
             _choicePanel.Clear();
-            if (_title != null) _title.text = _run.ProfileId + " · " + _run.Status;
-            if (_summary != null) _summary.text = "+" + _run.DifficultyBonusPercent + "% difficulty · Reward " + _run.RewardQuoteDiamonds + " Diamonds · " + _run.SelectedPath.Count + "/9 rows";
+            if (_title != null) _title.text = DungeonFlowContext.GetProfileForId(_run.ProfileId).DisplayName + " · " + _run.Status;
+            if (_summary != null) _summary.text = "+" + _run.DifficultyBonusPercent + "% difficulty · Reward " + _run.RewardQuoteDiamonds + " Diamonds · " + _run.SelectedPath.Count + "/9 stages · Seed " + _run.Seed;
             foreach (var fighter in _run.Roster)
             {
                 var label = new Label(fighter.DefinitionId.Replace("fighter.", string.Empty) + "  " +
@@ -101,27 +119,19 @@ namespace FightingAllstar.Presentation.Route
                 label.AddToClassList(fighter.IsDefeated ? "run-fighter-defeated" : "run-fighter");
                 _hpStrip.Add(label);
             }
-            for (var row = 0; row < 9; row++)
+            var board = new LabyrinthBoard(_run, ChooseNode);
+            _board = board;
+            _rows.Add(board);
+            if (_rows is ScrollView scroll && board.CurrentTile != null)
             {
-                var rowElement = new VisualElement();
-                rowElement.AddToClassList("route-row");
-                rowElement.Add(new Label("ROW " + (row + 1)) { name = "route-row-label" });
-                var cells = new VisualElement();
-                cells.AddToClassList("route-nodes");
-                foreach (var node in _run.Nodes)
+                // The board owns the callback: removing it also detaches its scheduler.
+                // Refresh can replace the board twice in one frame (OnEnable + SetRun).
+                _pendingScroll = board.schedule.Execute(() =>
                 {
-                    if (node.Row != row) continue;
-                    var button = new Button(() => ChooseNode(node.Id));
-                    button.AddToClassList("route-node");
-                    if (node.Progress == RouteNodeProgress.Selected) button.AddToClassList("route-node-selected");
-                    if (node.Progress == RouteNodeProgress.Completed) button.AddToClassList("route-node-completed");
-                    if (node.Progress == RouteNodeProgress.Bypassed || node.Progress == RouteNodeProgress.Locked) button.AddToClassList("route-node-locked");
-                    button.text = NodeLabel(node);
-                    button.SetEnabled(node.Progress == RouteNodeProgress.Reachable);
-                    cells.Add(button);
-                }
-                rowElement.Add(cells);
-                _rows.Add(rowElement);
+                    if (!isActiveAndEnabled || _board != board) return;
+                    TryScrollToCurrentTile(scroll, board);
+                });
+                _pendingScroll.ExecuteLater(50);
             }
             RenderSelectedNode();
             if (_abandonButton != null)
@@ -138,6 +148,15 @@ namespace FightingAllstar.Presentation.Route
             }
         }
 
+        public static bool TryScrollToCurrentTile(ScrollView scroll, LabyrinthBoard board)
+        {
+            var tile = board?.CurrentTile;
+            if (scroll == null || tile == null || scroll.panel == null ||
+                tile.panel != scroll.panel || !scroll.contentContainer.Contains(tile)) return false;
+            scroll.ScrollTo(tile);
+            return true;
+        }
+
         private void RenderSelectedNode()
         {
             var node = _run.FindNode(_run.CurrentNodeId);
@@ -148,13 +167,38 @@ namespace FightingAllstar.Presentation.Route
                 RenderBoonChoices(node);
             else if (_run.Status == RunStatus.InBattle)
             {
-                _choicePanel.Add(new Label("Encounter is committed. Its enemy team and player HP snapshot are pinned."));
-                var enter = new Button(() => BuildEncounter()) { text = "Open encounter" };
+                var description = new Label("Encounter is committed. Its enemy team snapshot is pinned.");
+                description.AddToClassList("stage-description");
+                _choicePanel.Add(description);
+                var enemyGrid = new VisualElement { name = "enemy-info-grid" };
+                enemyGrid.AddToClassList("enemy-info-grid");
+                var enemyIcons = new List<VisualElement>();
+                foreach (var enemy in node.EnemyTeamSnapshot.OrderBy(f => f.FormationSlot))
+                {
+                    var isSub = enemy.IsReserve || enemy.FormationSlot == 3;
+                    var card = new VisualElement(); card.AddToClassList("enemy-info-card");
+                    var icon = CharacterIconView.Create(CharacterIconView.FindCharacter(enemy.DefinitionId), 104, isSub ? "SUB" : null);
+                    enemyIcons.Add(icon);
+                    card.Add(icon);
+                    enemyGrid.Add(card);
+                }
+                enemyGrid.RegisterCallback<GeometryChangedEvent>(_ =>
+                {
+                    if (enemyIcons.Count == 0 || enemyGrid.contentRect.width <= 0 || enemyGrid.contentRect.height <= 0) return;
+                    var slotWidth = (enemyGrid.contentRect.width - 14f * enemyIcons.Count) / enemyIcons.Count;
+                    var iconSize = Mathf.Max(1f, Mathf.Min(slotWidth, enemyGrid.contentRect.height - 8f));
+                    foreach (var icon in enemyIcons)
+                    {
+                        if (Mathf.Abs(icon.resolvedStyle.width - iconSize) < 1f) continue;
+                        icon.style.width = iconSize;
+                        icon.style.height = iconSize;
+                    }
+                });
+                _choicePanel.Add(enemyGrid);
+                var enter = new Button(() => BuildEncounter()) { text = "Prepare team →" };
                 enter.AddToClassList("primary-button");
+                enter.AddToClassList("prepare-team-button");
                 _choicePanel.Add(enter);
-                foreach (var enemy in node.EnemyTeamSnapshot)
-                    _choicePanel.Add(new Label(enemy.DefinitionId.Replace("fighter.", string.Empty) + " · ATK " + enemy.Stats.Attack +
-                        " · DEF " + enemy.Stats.Defense + " · HP " + enemy.Stats.MaxHealth + (enemy.IsReserve ? " · RESERVE" : string.Empty)));
             }
         }
 
@@ -198,7 +242,7 @@ namespace FightingAllstar.Presentation.Route
                 _run = next;
                 PersistAndNotify();
                 Refresh();
-                if (_run.Status == RunStatus.InBattle) BuildEncounter();
+                // Preview the generated team before opening formation.
             }
             else ShowError(error);
         }
@@ -227,8 +271,8 @@ namespace FightingAllstar.Presentation.Route
 
         private void BuildEncounter()
         {
-            if (DungeonRunEngine.TryBuildEncounter(_run, out var encounter, out var error)) EncounterReady?.Invoke(encounter);
-            else ShowError(error);
+            if (_run == null || _run.Status != RunStatus.InBattle) return;
+            EncounterReady?.Invoke(new EncounterProjection { BattleId = _run.PendingBattleId, RunRevision = _run.Revision });
         }
 
         private void Abandon()
@@ -277,7 +321,12 @@ namespace FightingAllstar.Presentation.Route
         private void PersistAndNotify()
         {
             if (_run == null) return;
-            _store.Save(_run);
+            if (_run.Status == RunStatus.Defeated || _run.Status == RunStatus.Abandoned)
+            {
+                _store.Clear();
+                DungeonFlowContext.Clear();
+            }
+            else _store.Save(_run);
             RunChanged?.Invoke(_run.Clone());
         }
 

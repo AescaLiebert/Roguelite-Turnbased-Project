@@ -1,22 +1,29 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/BattleCardHud.uss?fileID=7433441132597879392&amp;guid=b51f3b08657e4af9ab8610c92c24b7e2&amp;type=3#BattleCardHud"/>
     <ui:VisualElement name="battle-card-root" class="battle-card-root">
-        <ui:VisualElement name="phase-container" class="phase-container" picking-mode="Ignore">
-            <ui:Label name="battle-phase-turn" class="battle-phase-turn" text="TURN 1" picking-mode="Ignore"/>
-            <ui:VisualElement class="phase-divider" picking-mode="Ignore"/>
-            <ui:Label name="battle-phase" class="battle-phase" text="COMBAT CLASS" picking-mode="Ignore"/>
+        <ui:VisualElement name="phase-container" picking-mode="Ignore" class="phase-container" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
+            <ui:Label name="battle-phase-turn" text="TURN 1" picking-mode="Ignore" class="battle-phase-turn"/>
+            <ui:VisualElement picking-mode="Ignore" class="phase-divider"/>
+            <ui:Label name="battle-phase" text="COMBAT CLASS" picking-mode="Ignore" class="battle-phase"/>
         </ui:VisualElement>
-        <ui:Button name="skip-animation" text="Skip animation »" class="skip-animation"/>
-        <ui:VisualElement name="cc-comparison" class="cc-comparison" style="display: none;" picking-mode="Ignore">
+        <ui:VisualElement name="top-right-controls" class="top-right-controls">
+            <ui:Button name="skip-animation" text="Skip animation »" class="skip-animation"/>
+            <ui:Button name="surrender-button" text="Abandon Run" class="abandon-run-button"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="enemy-deck-field" picking-mode="Ignore" class="enemy-deck-field">
+            <ui:Label text="ENEMY DECK" picking-mode="Ignore" class="enemy-deck-title"/>
+            <ui:VisualElement name="enemy-deck-row" picking-mode="Ignore" class="enemy-deck-row"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="cc-comparison" picking-mode="Ignore" class="cc-comparison" style="display: none; top: 0%; bottom: 0%;">
             <ui:Label text="COMBAT CLASS" class="cc-heading"/>
             <ui:VisualElement class="cc-lanes">
-                <ui:VisualElement name="cc-player" class="cc-lane cc-player">
+                <ui:VisualElement name="cc-player" class="cc-lane cc-player" style="height: 300px;">
                     <ui:Image name="cc-player-icon" class="cc-icon"/>
                     <ui:Label text="YOUR TEAM" class="cc-team"/>
                     <ui:Label name="cc-player-value" text="0" class="cc-value"/>
                 </ui:VisualElement>
                 <ui:Label text="VS" class="cc-vs"/>
-                <ui:VisualElement name="cc-enemy" class="cc-lane cc-enemy">
+                <ui:VisualElement name="cc-enemy" class="cc-lane cc-enemy" style="height: 300px;">
                     <ui:Image name="cc-enemy-icon" class="cc-icon"/>
                     <ui:Label text="ENEMY TEAM" class="cc-team"/>
                     <ui:Label name="cc-enemy-value" text="0" class="cc-value"/>
@@ -24,35 +31,80 @@
             </ui:VisualElement>
             <ui:Label name="cc-decision" class="cc-decision"/>
         </ui:VisualElement>
-        <ui:VisualElement name="turn-banner" class="turn-banner" style="display: none;" picking-mode="Ignore">
-            <ui:Label name="turn-banner-title" class="turn-banner-title" text="YOUR TURN" picking-mode="Ignore"/>
-            <ui:Label name="turn-banner-sub" class="turn-banner-sub" text="COMMAND PHASE" picking-mode="Ignore"/>
+        <ui:VisualElement name="turn-banner" picking-mode="Ignore" class="turn-banner" style="display: none; left: 0%; right: 0%; top: 20%;">
+            <ui:Label name="turn-banner-title" text="YOUR TURN" picking-mode="Ignore" class="turn-banner-title"/>
+            <ui:Label name="turn-banner-sub" text="COMMAND PHASE" picking-mode="Ignore" class="turn-banner-sub"/>
         </ui:VisualElement>
-        <ui:VisualElement name="battle-card-tray" class="battle-card-tray" style="background-color: rgba(8, 13, 21, 0); border-top-color: rgba(0, 0, 0, 0);">
-            <ui:Label name="execution-label" class="execution-label" style="display: none;" picking-mode="Ignore"/>
+        <ui:VisualElement name="battle-card-tray" class="battle-card-tray" style="background-color: rgba(8, 13, 21, 0); border-top-color: rgba(0, 0, 0, 0); bottom: 0%; height: 350px;">
+            <ui:Label name="execution-label" picking-mode="Ignore" class="execution-label" style="display: none;"/>
+            <ui:VisualElement name="card-tooltip-container" picking-mode="Ignore" class="card-tooltip-container" style="display: flex; left: 0%; right: 0%; height: 280px; bottom: 82%;">
+                <ui:VisualElement picking-mode="Ignore" class="tooltip-card-box" style="border-left-color: rgb(224, 186, 102); border-right-color: rgb(224, 186, 102); border-top-color: rgb(224, 186, 102); border-bottom-color: rgb(224, 186, 102); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; height: 182px; width: 661px;">
+                    <ui:VisualElement picking-mode="Ignore" class="tooltip-character-frame" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 100px; height: 100px; min-width: 100px; min-height: 100px; top: 30px;">
+                        <ui:Image name="tooltip-character-icon" picking-mode="Ignore" class="tooltip-character-icon"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement picking-mode="Ignore" class="tooltip-content-column" style="height: 163px;">
+                        <ui:VisualElement picking-mode="Ignore" class="tooltip-header-row">
+                            <ui:VisualElement picking-mode="Ignore" class="tooltip-title-group">
+                                <ui:Image name="tooltip-type-icon" picking-mode="Ignore" class="tooltip-type-icon"/>
+                                <ui:Label name="tooltip-card-title" text="&quot;Card Name&quot;" picking-mode="Ignore" class="tooltip-card-title"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="tooltip-status-grid" picking-mode="Ignore" class="tooltip-status-grid"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement picking-mode="Ignore" class="tooltip-divider"/>
+                        <ui:Label name="tooltip-card-desc" text="" picking-mode="Ignore" class="tooltip-card-desc"/>
+                        <ui:Label name="tooltip-keywords-desc" text="" picking-mode="Ignore" class="tooltip-keywords-desc"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
             <ui:Label name="card-tooltip" class="card-tooltip" style="display: none;"/>
-            <ui:VisualElement name="action-row" class="action-row">
-                <ui:VisualElement name="action-slot-0" class="card-slot action-slot">
-                    <ui:Label name="action-marker-0" text="+" class="slot-marker"/>
-                    <ui:VisualElement name="action-content-0" class="slot-content"/>
+            <ui:VisualElement name="action-panel" class="action-panel">
+                <ui:VisualElement name="action-row" class="action-row">
+                    <ui:VisualElement name="action-slot-0" class="card-slot action-slot" style="width: 78px; height: 120px;">
+                        <ui:Label name="action-marker-0" text="+" class="slot-marker"/>
+                        <ui:VisualElement name="action-content-0" class="slot-content"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="action-slot-1" class="card-slot action-slot" style="width: 78px; height: 120px;">
+                        <ui:Label name="action-marker-1" text="+" class="slot-marker"/>
+                        <ui:VisualElement name="action-content-1" class="slot-content"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="action-slot-2" class="card-slot action-slot" style="width: 78px; height: 120px;">
+                        <ui:Label name="action-marker-2" text="+" class="slot-marker"/>
+                        <ui:VisualElement name="action-content-2" class="slot-content"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="action-slot-1" class="card-slot action-slot">
-                    <ui:Label name="action-marker-1" text="+" class="slot-marker"/>
-                    <ui:VisualElement name="action-content-1" class="slot-content"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="action-slot-2" class="card-slot action-slot">
-                    <ui:Label name="action-marker-2" text="+" class="slot-marker"/>
-                    <ui:VisualElement name="action-content-2" class="slot-content"/>
-                </ui:VisualElement>
+                <ui:Button name="reset-button" text="Reset" class="reset-button action-reset-button" style="position: absolute; left: 1050px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;"/>
             </ui:VisualElement>
-            <ui:VisualElement name="deck-row" class="deck-row"/>
-            <ui:VisualElement class="tray-controls">
-                <ui:Button name="commit-button" text="End Turn" class="reset-button"/>
-                <ui:Button name="reset-button" text="Reset" class="reset-button"/>
-                <ui:Button name="surrender-button" text="Abandon Run" class="reset-button" style="margin-left: 8px;"/>
+            <ui:VisualElement name="deck-row" class="deck-row" style="height: 159px;"/>
+            <ui:VisualElement name="card-execution-overlay" picking-mode="Ignore" class="card-execution-overlay" style="display: flex; top: 120px; align-content: center; justify-content: center; left: -80px; right: -86px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
+                <ui:VisualElement name="exec-card-container" picking-mode="Ignore" class="exec-card-container">
+                    <ui:VisualElement name="exec-card-face" picking-mode="Ignore" class="exec-card-face">
+                        <ui:Image name="exec-card-artwork" picking-mode="Ignore" class="exec-card-artwork"/>
+                        <ui:VisualElement name="exec-card-holo-glow" picking-mode="Ignore" class="exec-card-holo-glow"/>
+                        <ui:Image name="exec-card-rank-frame" picking-mode="Ignore" class="exec-card-rank-frame"/>
+                        <ui:Label name="exec-card-skill-slot" text="1" picking-mode="Ignore" class="exec-card-skill-slot"/>
+                        <ui:Image name="exec-card-skill-type" picking-mode="Ignore" class="exec-card-skill-type"/>
+                        <ui:VisualElement name="exec-card-stars" picking-mode="Ignore" class="exec-card-stars">
+                            <ui:Label name="exec-card-star-0" text="★" picking-mode="Ignore" class="exec-star"/>
+                            <ui:Label name="exec-card-star-1" text="★" picking-mode="Ignore" class="exec-star"/>
+                            <ui:Label name="exec-card-star-2" text="★" picking-mode="Ignore" class="exec-star"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="exec-info-column" picking-mode="Ignore" class="exec-info-column">
+                    <ui:VisualElement name="exec-header-row" picking-mode="Ignore" class="exec-header-row">
+                        <ui:VisualElement name="exec-header-left" picking-mode="Ignore" class="exec-header-left">
+                            <ui:Image name="exec-type-icon" picking-mode="Ignore" class="exec-type-icon"/>
+                            <ui:Label name="exec-card-title" text="&quot;Card Name&quot;" picking-mode="Ignore" class="exec-card-title"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="exec-status-grid" picking-mode="Ignore" class="exec-status-grid"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement picking-mode="Ignore" class="exec-divider"/>
+                    <ui:Label name="exec-card-desc" text="" picking-mode="Ignore" class="exec-card-desc"/>
+                    <ui:Label name="exec-keywords-desc" text="" picking-mode="Ignore" class="exec-keywords-desc"/>
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="battle-effects" class="battle-effects" picking-mode="Ignore"/>
+        <ui:VisualElement name="battle-effects" picking-mode="Ignore" class="battle-effects"/>
         <ui:VisualElement name="battle-result" class="battle-result" style="display: none;">
             <ui:Label name="result-title" class="result-title"/>
             <ui:Label text="Battle complete" class="result-subtitle"/>

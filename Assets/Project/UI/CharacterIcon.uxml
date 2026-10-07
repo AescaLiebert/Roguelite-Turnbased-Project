@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="CharacterIcon.uss" />
+    <ui:VisualElement name="icon-root" class="character-icon">
+        <ui:Image name="rarity-background" class="character-icon-layer rarity-background" picking-mode="Ignore" />
+        <ui:Image name="char-icon" class="character-icon-layer portrait" picking-mode="Ignore" />
+        <ui:Image name="rarity-border" class="character-icon-layer rarity-frame" picking-mode="Ignore" />
+        <ui:Image name="attribute" class="attribute-icon" picking-mode="Ignore" />
+        <ui:Image name="rarity-label" class="rarity-label" picking-mode="Ignore" />
+        <ui:Image name="series-label" class="series-label" picking-mode="Ignore" />
+        <ui:Label name="slot-label" text="SUB" class="slot-label" picking-mode="Ignore" />
+    </ui:VisualElement>
+</ui:UXML>

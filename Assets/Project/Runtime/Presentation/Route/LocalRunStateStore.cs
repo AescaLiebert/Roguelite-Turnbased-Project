@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using FightingAllstar.Core.Run;
+using FightingAllstar.Core.Content;
 using UnityEngine;
 
 namespace FightingAllstar.Presentation.Route
@@ -32,7 +33,7 @@ namespace FightingAllstar.Presentation.Route
             Directory.CreateDirectory(directory);
             var temp = _path + ".tmp";
             var backup = _path + ".bak";
-            File.WriteAllText(temp, JsonUtility.ToJson(run));
+            File.WriteAllText(temp, SnapshotJson.Serialize(run));
             if (!File.Exists(_path))
             {
                 File.Move(temp, _path);
@@ -54,10 +55,19 @@ namespace FightingAllstar.Presentation.Route
                 if (!File.Exists(candidate)) continue;
                 try
                 {
-                    run = JsonUtility.FromJson<RunState>(File.ReadAllText(candidate));
+                    run = SnapshotJson.Deserialize<RunState>(File.ReadAllText(candidate));
                     if (run != null && !string.IsNullOrWhiteSpace(run.RunId))
                     {
-                        SanitizeLoadedRun(run);
+                        if (run.Formation == null || run.Formation.Count != 4 ||
+                            run.Formation.TrueForAll(string.IsNullOrEmpty) && run.Roster != null && run.Roster.Count > 0)
+                        {
+                            run.Formation = new System.Collections.Generic.List<string> { "", "", "", "" };
+                            if (run.Roster != null)
+                                foreach (var fighter in run.Roster)
+                                    if (fighter.OriginalFormationIndex >= 0 && fighter.OriginalFormationIndex < 4)
+                                        run.Formation[fighter.OriginalFormationIndex] =
+                                            PlayerInventoryService.Instance?.FindOwnedByDefinition(fighter.DefinitionId)?.instanceId ?? fighter.RunFighterId;
+                        }
                         return true;
                     }
                     run = null;
@@ -81,32 +91,6 @@ namespace FightingAllstar.Presentation.Route
             catch (Exception ex)
             {
                 Debug.LogWarning("Could not completely clear local run snapshot: " + ex.Message);
-            }
-        }
-
-        private static void SanitizeLoadedRun(RunState run)
-        {
-            if (run?.Roster != null)
-            {
-                foreach (var fighter in run.Roster)
-                {
-                    if (fighter?.Definition != null && (fighter.Definition.Passive == null || string.IsNullOrWhiteSpace(fighter.Definition.Passive.Id)))
-                        fighter.Definition.Passive = FightingAllstar.Core.Content.StandardCharacterPassives.Create(fighter.Definition.Id);
-                }
-            }
-            if (run?.Nodes != null)
-            {
-                foreach (var node in run.Nodes)
-                {
-                    if (node?.EnemyTeamSnapshot != null)
-                    {
-                        foreach (var enemy in node.EnemyTeamSnapshot)
-                        {
-                            if (enemy?.Definition != null && (enemy.Definition.Passive == null || string.IsNullOrWhiteSpace(enemy.Definition.Passive.Id)))
-                                enemy.Definition.Passive = FightingAllstar.Core.Content.StandardCharacterPassives.Create(enemy.Definition.Id);
-                        }
-                    }
-                }
             }
         }
     }

@@ -15,6 +15,7 @@ public static class BuildPhaseECharacterAssets
     private const string DraftCatalogPath = "Assets/Project/Content/WipCharacterCatalog.json";
     private const string CharacterOutput = "Assets/Resources/Character_WIP-Phase";
     private const string CardOutput = "Assets/Project/Content/Authoring/WipPhaseCharacterCards";
+    private const string PassiveOutput = "Assets/Project/Content/Authoring/WipPhasePassives";
     private const string PublishedCatalogOutput = "Assets/Project/Content/Generated/wip-phase-character-catalog.json";
     private const string ModelPath = "Assets/Project/Prefabs/In-Game-CharacterPrefab.prefab";
     private static readonly string[] PhaseEIds =
@@ -23,12 +24,13 @@ public static class BuildPhaseECharacterAssets
         "fighter.mai94", "fighter.shingo97", "fighter.benimaru94", "fighter.athena94"
     };
 
-    [MenuItem("Fighting Allstar/Content/Build WIP Phase Character Assets")]
+    [MenuItem("Fighting Allstar/Content/Legacy Migration/Import WIP Catalog Into Character SOs")]
     public static void Build()
     {
         if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The preserved source catalog is missing.", DraftCatalogPath);
         EnsureFolder(CharacterOutput);
         EnsureFolder(CardOutput);
+        EnsureFolder(PassiveOutput);
 
         var draft = JsonUtility.FromJson<ContentCatalog>(File.ReadAllText(DraftCatalogPath));
         if (draft == null || draft.Characters == null) throw new InvalidOperationException("The source character catalog could not be read.");
@@ -46,7 +48,36 @@ public static class BuildPhaseECharacterAssets
         Debug.Log("Built eight WIP Phase Character definitions from the WIP catalog: " + string.Join(", ", PhaseEIds));
     }
 
-    [MenuItem("Fighting Allstar/Content/Migrate Phase E Effects Into WIP Character Catalog")]
+    [MenuItem("Fighting Allstar/Content/Legacy Migration/Import Passives Into Passive SOs")]
+    public static void MigrateCharacterPassivesToScriptableObjects()
+    {
+        if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The preserved source catalog is missing.", DraftCatalogPath);
+        EnsureFolder(PassiveOutput);
+        var catalog = JsonUtility.FromJson<ContentCatalog>(File.ReadAllText(DraftCatalogPath));
+        if (catalog?.Characters == null) throw new InvalidOperationException("The source character catalog could not be read.");
+
+        var migrated = 0;
+        foreach (var id in PhaseEIds)
+        {
+            var character = AssetDatabase.LoadAssetAtPath<CharacterObject>(CharacterOutput + "/" + id.Replace("fighter.", string.Empty) + ".asset");
+            if (character == null) continue;
+            var source = catalog.Characters.Find(item => item != null && item.Id == id);
+            if (source == null) throw new InvalidOperationException("Source character is missing: " + id);
+            var passive = BuildPassive(source);
+            if (passive == null) continue;
+
+            var serialized = new SerializedObject(character);
+            Set(serialized, "passiveDefinition", passive);
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(character);
+            migrated++;
+        }
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Assigned " + migrated + " passive definition assets to WIP CharacterObjects.");
+    }
+
+    [MenuItem("Fighting Allstar/Content/Legacy Migration/Convert Phase E Effects In WIP Catalog")]
     public static void MigrateRuntimeContentIntoWipCatalog()
     {
         if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The WIP character catalog is missing.", DraftCatalogPath);
@@ -134,7 +165,7 @@ public static class BuildPhaseECharacterAssets
         var effect = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
             Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(multiplier * 10000f),
             KeywordFactorBp = 10000, KeywordId = ResolveAttackKeyword(skill.SourceEffectTags),
-            Target = ScopeName(scope), Provenance = SourceProvenance.Proposal };
+            Target = scope, Provenance = SourceProvenance.Proposal };
         AppendUtilitySequence(effect, authored, CardEffectTiming.AfterDamage, scope);
         return effect;
     }
@@ -146,7 +177,7 @@ public static class BuildPhaseECharacterAssets
         {
             var area = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
                 Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(UltimateMultiplier(character.Id, tier) * 10000f),
-                Target = "AllEnemies", KeywordId = "ultimate", Provenance = SourceProvenance.Proposal };
+                Target = EffectTargetScope.AllEnemies, KeywordId = "ultimate", Provenance = SourceProvenance.Proposal };
             AppendUtilitySequence(area, authored, CardEffectTiming.AfterAction, EffectTargetScope.AllAllies);
             return area;
         }
@@ -165,7 +196,7 @@ public static class BuildPhaseECharacterAssets
         {
             effect = new EffectDefinition { Kind = EffectKind.Damage, Family = DamageFamily.Normal,
                 Scaling = StatScaling.Attack, CoefficientBp = Mathf.RoundToInt(multiplier * 10000f),
-                KeywordId = "ultimate", Target = ScopeName(scope), Provenance = SourceProvenance.Proposal };
+                KeywordId = "ultimate", Target = scope, Provenance = SourceProvenance.Proposal };
             AppendUtilitySequence(effect, authored, CardEffectTiming.AfterDamage, scope);
         }
         return effect;
@@ -177,7 +208,8 @@ public static class BuildPhaseECharacterAssets
         foreach (var source in authored)
         {
             var effect = ConvertPhaseEUtility(source, defaultScope);
-            if (effect != null) root.Sequence.Add(new CardEffectStep { Timing = timing, Effect = effect });
+            if (effect != null) root.Sequence.Add(new CardEffectStep { Timing = timing,
+                Effect = EffectStepDefinition.From(effect) });
         }
     }
 
@@ -187,8 +219,10 @@ public static class BuildPhaseECharacterAssets
         var target = source.targetType == SkillTargetType.AllAllies ? EffectTargetScope.AllAllies :
             source.targetType == SkillTargetType.AOE ? EffectTargetScope.AllEnemies :
             source.targetType == SkillTargetType.Self ? EffectTargetScope.Self : defaultScope;
-        var result = new EffectDefinition { Target = ScopeName(target), StatusStackCount = Math.Max(1, source.stackCount),
-            StatusDurationOverride = Math.Max(0, source.durationTurns), Provenance = SourceProvenance.Proposal };
+        var result = new EffectDefinition { Target = target, StatusStackCount = Math.Max(1, source.stackCount),
+            StatusDurationOverride = Math.Max(0, source.durationTurns),
+            StatusApplyChanceBp = Mathf.RoundToInt(Mathf.Clamp(source.applyChancePercent, 0f, 100f) * 100f),
+            Provenance = SourceProvenance.Proposal };
         switch (source.kind)
         {
             case CharacterCardEffectKind.ApplyStatus:
@@ -216,6 +250,9 @@ public static class BuildPhaseECharacterAssets
             case CharacterCardEffectKind.RemoveBuffs:
                 result.Kind = EffectKind.RemoveBuffs;
                 break;
+            case CharacterCardEffectKind.RemoveStance:
+                result.Kind = EffectKind.RemoveStance;
+                break;
             case CharacterCardEffectKind.DisableCardType:
                 result.Kind = EffectKind.ApplyStatus;
                 result.StatusRecipe = DisableCardRecipe(source.disabledCardType);
@@ -227,6 +264,7 @@ public static class BuildPhaseECharacterAssets
             case CharacterCardEffectKind.ModifyStat:
                 result.Kind = EffectKind.ApplyStatus;
                 result.StatusRecipe = StatCardRecipe(source.statId, source.magnitude);
+                if (result.StatusRecipe == null) return null;
                 break;
             case CharacterCardEffectKind.IncreaseCardRank:
                 result.Kind = EffectKind.ModifyCardRank;
@@ -247,6 +285,11 @@ public static class BuildPhaseECharacterAssets
             return StandardEffectDatabase.CreateStatusRecipes().Find(item => item.Id == "status.debuff.poison");
         if (normalized == "paralyze")
             return StandardEffectDatabase.CreateStatusRecipes().Find(item => item.Id == "status.debuff.paralyze");
+        if (normalized == "infect")
+            return new StatusRecipeDefinition { Id = "status.debuff.infect", NameKey = "status.debuff.infect",
+                Polarity = StatusPolarity.Debuff, Behavior = StatusBehavior.PreventsRecovery,
+                Stacking = StatusStackingPolicy.RefreshDuration,
+                MaxStacks = 1, DefaultDuration = 1, Tags = new List<string> { "status.debuff.infect" } };
         var polarity = normalized == "debuffimmunity" || normalized == "rejuvenation"
             ? StatusPolarity.Buff : StatusPolarity.Debuff;
         var maxStacks = normalized == "rejuvenation" ? 3 : Math.Max(1, stackCap);
@@ -258,9 +301,14 @@ public static class BuildPhaseECharacterAssets
         if (normalized == "debuffimmunity") recipe.DebuffImmunity = true;
         if (normalized == "rejuvenation")
         {
-            recipe.Color = StatusColor.Blue;
-            recipe.Modifiers.Add(new StatModifierDefinition { Target = ModifierTarget.Stat, Stat = StatId.Regeneration,
-                Operation = ModifierOperation.PercentagePoints, Amount = 1000 });
+            recipe.Behavior = StatusBehavior.Heal;
+            recipe.Color = StatusColor.Normal;
+            recipe.PeriodicHealing = new PeriodicHealingDefinition
+            {
+                Timing = StatusTickTiming.TargetTurnStart,
+                Scaling = StatusHealScaling.TurnStartRecovery,
+                CoefficientBp = 6000
+            };
         }
         return recipe;
     }
@@ -284,15 +332,44 @@ public static class BuildPhaseECharacterAssets
 
     private static StatusRecipeDefinition StatCardRecipe(string statName, float magnitude)
     {
-        if (!Enum.TryParse(ContentAliases.NormalizeStat(statName), true, out StatId stat)) return null;
-        var statBase = stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth;
+        var normalized = (statName ?? string.Empty).Trim().Replace("_", string.Empty).Replace(" ", string.Empty).ToLowerInvariant();
+        if (string.IsNullOrEmpty(normalized)) return null;
+        var stats = new List<StatId>();
+        if (normalized == "allbasicstats")
+        {
+            stats.Add(StatId.Attack);
+            stats.Add(StatId.Defense);
+            stats.Add(StatId.MaxHealth);
+        }
+        else
+        {
+            var alias = normalized switch
+            {
+                "atk" => nameof(StatId.Attack),
+                "def" => nameof(StatId.Defense),
+                "hp" or "health" => nameof(StatId.MaxHealth),
+                "recoveryrate" => nameof(StatId.Recovery),
+                "critrate" => nameof(StatId.CritChance),
+                "critdmg" => nameof(StatId.CritDamage),
+                "critchanceresistance" => nameof(StatId.CritResistance),
+                _ => ContentAliases.NormalizeStat(statName)
+            };
+            if (!Enum.TryParse(alias, true, out StatId stat)) return null;
+            stats.Add(stat);
+        }
         var amount = Mathf.RoundToInt(magnitude * 100f);
-        return new StatusRecipeDefinition { Id = "status." + (magnitude < 0 ? "debuff" : "buff") + "." + stat.ToString().ToLowerInvariant(),
+        var recipe = new StatusRecipeDefinition { Id = "status." + (magnitude < 0 ? "debuff" : "buff") + "." + normalized,
             Polarity = magnitude < 0 ? StatusPolarity.Debuff : StatusPolarity.Buff,
             Behavior = StatusBehavior.Stat, DefaultDuration = 2, Tags = new List<string> { "status.stat" },
-            Modifiers = { new StatModifierDefinition { Target = ModifierTarget.Stat, Stat = stat,
+        };
+        foreach (var stat in stats)
+        {
+            var statBase = stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth;
+            recipe.Modifiers.Add(new StatModifierDefinition { Target = ModifierTarget.Stat, Stat = stat,
                 Operation = statBase ? ModifierOperation.PercentOfBase : ModifierOperation.PercentagePoints,
-                Amount = amount } } };
+                Amount = amount });
+        }
+        return recipe;
     }
 
     private static string ResolveAttackKeyword(string sourceTags)
@@ -317,17 +394,17 @@ public static class BuildPhaseECharacterAssets
         _ => "SelectedEnemy"
     };
 
-    [MenuItem("Fighting Allstar/Content/Build WIP Phase Character Runtime Catalog")]
+    [MenuItem("Fighting Allstar/Content/Build Shared Combat Recipe Catalog")]
     public static void BuildRuntimeCatalog()
     {
         if (!File.Exists(DraftCatalogPath)) throw new FileNotFoundException("The preserved source catalog is missing.", DraftCatalogPath);
         EnsureFolder("Assets/Project/Content/Generated");
         var source = JsonUtility.FromJson<ContentCatalog>(File.ReadAllText(DraftCatalogPath));
-        if (source == null || source.Characters == null) throw new InvalidOperationException("The source character catalog could not be read.");
+        if (source == null) throw new InvalidOperationException("The shared combat recipe catalog could not be read.");
         var published = new ContentCatalog
         {
             SchemaVersion = source.SchemaVersion,
-            ContentVersion = "wip-phase-character-v2",
+            ContentVersion = "shared-combat-recipes-v1",
             Characters = new List<CharacterDefinition>(),
             StatusRecipes = source.StatusRecipes != null && source.StatusRecipes.Count > 0
                 ? source.StatusRecipes : StandardEffectDatabase.CreateStatusRecipes(),
@@ -335,56 +412,8 @@ public static class BuildPhaseECharacterAssets
                 ? source.AttackEffectRecipes : StandardEffectDatabase.CreateAttackEffects(),
             CardEffectRecipes = source.CardEffectRecipes
         };
-        foreach (var id in PhaseEIds)
-        {
-            var character = source.Characters.Find(item => item != null && item.Id == id);
-            if (character == null) throw new InvalidOperationException("Source character is missing: " + id);
-            var playable = character.Clone();
-            if (playable.Passive == null || string.IsNullOrWhiteSpace(playable.Passive.Id))
-                playable.Passive = StandardCharacterPassives.Create(playable.Id);
-            playable.RuntimeReady = true;
-            foreach (var skill in playable.Skills)
-            {
-                skill.Category = CardRules.ResolveCategory(skill);
-                skill.TargetScope = CardRules.ResolveTargetScope(skill);
-                foreach (var rank in skill.Ranks)
-                {
-                    if (rank.Effect == null)
-                    {
-                        rank.Effect = new EffectDefinition
-                        {
-                            Family = DamageFamily.Normal,
-                            Scaling = StatScaling.Attack,
-                            CoefficientBp = Mathf.RoundToInt(SkillMultiplier(playable.Id, skill.Slot, rank.Rank) * 10000f),
-                            KeywordId = skill.SourceEffectTags,
-                            Target = string.IsNullOrWhiteSpace(skill.SourceTarget) ? "SelectedEnemy" : skill.SourceTarget,
-                            Provenance = SourceProvenance.Proposal
-                        };
-                        rank.Provenance = SourceProvenance.Proposal;
-                    }
-                }
-            }
-            foreach (var tier in playable.UltimateTiers)
-            {
-                if (tier.Effect == null)
-                {
-                    tier.Effect = new EffectDefinition
-                    {
-                        Family = DamageFamily.Normal,
-                        Scaling = StatScaling.Attack,
-                        CoefficientBp = Mathf.RoundToInt(UltimateMultiplier(playable.Id, tier.Tier) * 10000f),
-                        KeywordId = "ultimate",
-                        Target = "SelectedEnemy",
-                        Provenance = SourceProvenance.Proposal
-                    };
-                    tier.Provenance = SourceProvenance.Proposal;
-                }
-            }
-            published.Characters.Add(playable);
-        }
-
         var errors = ContentValidator.Validate(published);
-        if (errors.Count > 0) throw new InvalidOperationException("The WIP Phase Character catalog is invalid: " + string.Join("; ", errors));
+        if (errors.Count > 0) throw new InvalidOperationException("The shared combat recipe catalog is invalid: " + string.Join("; ", errors));
         published.ContentHash = string.Empty;
         var canonical = JsonUtility.ToJson(published);
         using (var sha = SHA256.Create())
@@ -405,7 +434,54 @@ public static class BuildPhaseECharacterAssets
             EditorUtility.SetDirty(sourceAsset);
         }
         AssetDatabase.SaveAssets();
-        Debug.Log("Published eight runtime-ready WIP Phase Character definitions to " + PublishedCatalogOutput + ".");
+        Debug.Log("Published shared combat recipes only. Runtime character definitions come from CharacterObject and linked card/passive SOs.");
+    }
+
+    [MenuItem("Fighting Allstar/Content/Migrate Existing Runtime Effects Into Card SOs")]
+    public static void MigrateExistingRuntimeEffectsIntoCardScriptableObjects()
+    {
+        if (!File.Exists(DraftCatalogPath))
+            throw new FileNotFoundException("The legacy source catalog is missing; existing effects cannot be migrated.", DraftCatalogPath);
+        var catalog = JsonUtility.FromJson<ContentCatalog>(File.ReadAllText(DraftCatalogPath));
+        if (catalog?.Characters == null) throw new InvalidOperationException("The current runtime catalog could not be read.");
+        MigrateMissingRuntimeEffects(catalog);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Copied missing runtime effects into the card ScriptableObjects. Existing SO-authored effects were preserved.");
+    }
+
+    private static void MigrateMissingRuntimeEffects(ContentCatalog catalog)
+    {
+        EnsureFolder(CardOutput);
+        foreach (var character in catalog.Characters)
+        {
+            if (character == null) continue;
+            for (var slot = 1; slot <= 2; slot++)
+            {
+                var definition = character.Skills.Find(item => item != null && item.Slot == slot);
+                if (definition?.Ranks == null) continue;
+                var path = CardOutput + "/" + character.Id.Replace("fighter.", string.Empty) + "_Skill" + slot + ".asset";
+                var card = AssetDatabase.LoadAssetAtPath<SkillCardSO>(path);
+                if (card?.ranks == null) continue;
+                foreach (var rank in definition.Ranks)
+                {
+                    var cardRank = card.ranks.Find(item => item != null && item.rankLevel == rank.Rank);
+                    if (cardRank == null || cardRank.runtimeEffect != null || rank.Effect == null) continue;
+                    cardRank.runtimeEffect = rank.Effect.Clone();
+                    EditorUtility.SetDirty(card);
+                }
+            }
+
+            var ultimatePath = CardOutput + "/" + character.Id.Replace("fighter.", string.Empty) + "_Ultimate.asset";
+            var ultimate = AssetDatabase.LoadAssetAtPath<UltimateCardSO>(ultimatePath);
+            if (ultimate?.levels == null) continue;
+            foreach (var tier in character.UltimateTiers)
+            {
+                var level = ultimate.levels.Find(item => item != null && item.level == tier.Tier);
+                if (level == null || level.runtimeEffect != null || tier.Effect == null) continue;
+                level.runtimeEffect = tier.Effect.Clone();
+                EditorUtility.SetDirty(ultimate);
+            }
+        }
     }
 
     private static CharacterObject BuildCharacter(CharacterDefinition source, GameObject model)
@@ -447,7 +523,7 @@ public static class BuildPhaseECharacterAssets
         Set(serialized, "fighterPic", LoadPortrait(source.Id));
         Set(serialized, "fighterIcon", LoadIcon(source.Id));
         SetSecondaryStats(serialized.FindProperty("SecondaryStats"), source.BaseStats);
-        SetPassive(serialized.FindProperty("passiveEffect"), source);
+        Set(serialized, "passiveDefinition", BuildPassive(source));
 
         var skill1 = BuildSkill(source, 1);
         var skill2 = BuildSkill(source, 2);
@@ -460,6 +536,25 @@ public static class BuildPhaseECharacterAssets
         return character;
     }
 
+    private static PassiveDefinitionSO BuildPassive(CharacterDefinition character)
+    {
+        var definition = character.Passive;
+        if (definition == null || string.IsNullOrWhiteSpace(definition.Id))
+            definition = StandardCharacterPassives.Create(character.Id);
+        if (definition == null) return null;
+
+        var path = PassiveOutput + "/" + character.Id.Replace("fighter.", string.Empty) + "_Passive.asset";
+        var asset = AssetDatabase.LoadAssetAtPath<PassiveDefinitionSO>(path);
+        if (asset == null)
+        {
+            asset = ScriptableObject.CreateInstance<PassiveDefinitionSO>();
+            AssetDatabase.CreateAsset(asset, path);
+        }
+        asset.SetDefinition(definition);
+        EditorUtility.SetDirty(asset);
+        return asset;
+    }
+
     private static SkillCardSO BuildSkill(CharacterDefinition character, int slot)
     {
         var skill = character.Skills.FirstOrDefault(item => item != null && item.Slot == slot);
@@ -467,6 +562,11 @@ public static class BuildPhaseECharacterAssets
             throw new InvalidOperationException(character.Id + " is missing a complete skill slot " + slot + ".");
         var path = CardOutput + "/" + character.Id.Replace("fighter.", string.Empty) + "_Skill" + slot + ".asset";
         var card = LoadOrCreate<SkillCardSO>(path);
+        var existingRuntimeEffects = new Dictionary<int, EffectDefinition>();
+        if (card.ranks != null)
+            foreach (var existingRank in card.ranks)
+                if (existingRank != null && existingRank.runtimeEffect != null)
+                    existingRuntimeEffects[existingRank.rankLevel] = existingRank.runtimeEffect;
         card.cardName = character.DisplayName + " · Skill " + slot;
         card.cardIcon = LoadIcon(character.Id);
         card.ranks = new List<CardRankData>();
@@ -475,16 +575,11 @@ public static class BuildPhaseECharacterAssets
             var cardRank = new CardRankData
             {
                 rankLevel = rank.Rank,
-                description = rank.SourceDescription,
-                sourceDescription = rank.SourceDescription,
-                provenance = rank.Provenance.ToString(),
-                targetType = ParseTarget(skill.SourceTarget),
+                description = string.IsNullOrWhiteSpace(rank.Description) ? rank.SourceDescription : rank.Description,
                 skillType = ParseSkillType(skill.SourceType),
-                damageScalingType = DamageScalingType.ATK,
-                damageMultiplier = SkillMultiplier(character.Id, slot, rank.Rank),
-                damageKeyword = skill.SourceEffectTags
+                runtimeEffect = existingRuntimeEffects.TryGetValue(rank.Rank, out var existingEffect)
+                    ? existingEffect : rank.Effect == null ? null : rank.Effect.Clone()
             };
-            cardRank.effects = AuthorSkillEffects(character.Id, slot, rank.Rank);
             card.ranks.Add(cardRank);
         }
         EditorUtility.SetDirty(card);
@@ -497,6 +592,11 @@ public static class BuildPhaseECharacterAssets
             throw new InvalidOperationException(character.Id + " is missing C0-C6 ultimate data.");
         var path = CardOutput + "/" + character.Id.Replace("fighter.", string.Empty) + "_Ultimate.asset";
         var card = LoadOrCreate<UltimateCardSO>(path);
+        var existingRuntimeEffects = new Dictionary<int, EffectDefinition>();
+        if (card.levels != null)
+            foreach (var existingTier in card.levels)
+                if (existingTier != null && existingTier.runtimeEffect != null)
+                    existingRuntimeEffects[existingTier.level] = existingTier.runtimeEffect;
         card.ultimateName = character.DisplayName + " · Ultimate";
         card.icon = LoadIcon(character.Id);
         card.levels = new List<UltimateLevelData>();
@@ -505,14 +605,19 @@ public static class BuildPhaseECharacterAssets
             var data = new UltimateLevelData
             {
                 level = tier.Tier,
-                description = tier.SourceDescription,
-                sourceDescription = tier.SourceDescription,
-                provenance = tier.Provenance.ToString(),
-                targetType = character.Id == "fighter.athena94" ? SkillTargetType.AllAllies : SkillTargetType.Single,
-                damageScalingType = DamageScalingType.ATK,
-                damageMultiplier = UltimateMultiplier(character.Id, tier.Tier)
+                description = string.IsNullOrWhiteSpace(tier.Description) ? tier.SourceDescription : tier.Description,
+                skillType = tier.Category switch
+                {
+                    CardCategory.Buff => SkillType.Buff,
+                    CardCategory.Debuff => SkillType.Debuff,
+                    CardCategory.Stance => SkillType.Stance,
+                    CardCategory.Recovery => SkillType.Heal,
+                    CardCategory.AttackDebuff => SkillType.DebuffAtk,
+                    _ => SkillType.Attack
+                },
+                runtimeEffect = existingRuntimeEffects.TryGetValue(tier.Tier, out var existingEffect)
+                    ? existingEffect : tier.Effect == null ? null : tier.Effect.Clone()
             };
-            data.effects = AuthorUltimateEffects(character.Id, tier.Tier);
             card.levels.Add(data);
         }
         EditorUtility.SetDirty(card);
@@ -536,54 +641,6 @@ public static class BuildPhaseECharacterAssets
         Set(property, "EvadeRate", FromBasisPoints(stats.EvadeBp));
         Set(property, "ControlRate", FromBasisPoints(stats.ControlBp));
         Set(property, "PerceptionRate", FromBasisPoints(stats.PerceptionBp));
-    }
-
-    private static void SetPassive(SerializedProperty property, CharacterDefinition character)
-    {
-        var effect = property.FindPropertyRelative("kind");
-        var source = character.PassiveSource;
-        if (source == null) return;
-        if (character.Id == "fighter.kyo94")
-        {
-            SetEnum(effect, CharacterPassiveKind.AttackPerStatusStack);
-            Set(property, "statusId", "Ignite"); Set(property, "statId", "Attack");
-            Set(property, "magnitudePercent", 3f); Set(property, "maximumStacks", 10);
-        }
-        else if (character.Id == "fighter.mai94")
-        {
-            SetEnum(effect, CharacterPassiveKind.EnemyStatModifier);
-            Set(property, "statId", "RecoveryRate"); Set(property, "magnitudePercent", -FromBasisPoints(character.BaseStats.RegenerationBp));
-        }
-        else if (character.Id == "fighter.king94")
-        {
-            SetEnum(effect, CharacterPassiveKind.EndTurnTeamStatStack);
-            Set(property, "statId", "PierceRate"); Set(property, "magnitudePercent", 8f); Set(property, "maximumStacks", 5); Set(property, "turnsPerStack", 1);
-        }
-        else if (character.Id == "fighter.benimaru94")
-        {
-            SetEnum(effect, CharacterPassiveKind.TeamStatModifier);
-            Set(property, "statId", "Attack"); Set(property, "attributeFilter", "Red"); Set(property, "magnitudePercent", 10f);
-        }
-        else if (character.Id == "fighter.athena94")
-        {
-            SetEnum(effect, CharacterPassiveKind.TeamStatModifier);
-            Set(property, "statId", "Attack"); Set(property, "attributeFilter", "Women"); Set(property, "magnitudePercent", 15f);
-        }
-        else if (character.Id == "fighter.chin94")
-        {
-            SetEnum(effect, CharacterPassiveKind.TeamStatModifier);
-            Set(property, "statId", "MaxHealth"); Set(property, "attributeFilter", "Green"); Set(property, "magnitudePercent", 20f);
-        }
-        else if (character.Id == "fighter.kensou94")
-        {
-            SetEnum(effect, CharacterPassiveKind.TeamStatModifier);
-            Set(property, "statId", "RecoveryRate"); Set(property, "magnitudePercent", 40f);
-        }
-        else if (character.Id == "fighter.shingo97")
-        {
-            SetEnum(effect, CharacterPassiveKind.GaugeRestoreFromEnemyDrain);
-            Set(property, "statId", "PowerGauge");
-        }
     }
 
     private static List<CharacterCardEffect> AuthorSkillEffects(string id, int slot, int rank)

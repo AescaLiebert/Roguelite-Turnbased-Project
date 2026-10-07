@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Linq;
+using FightingAllstar.Adapters;
+using FightingAllstar.Presentation.Route;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -76,7 +78,22 @@ public class CharacterLoadOut : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     private void Awake()
     {
         _originalScale = transform.localScale;
-        ResetUI();
+        if (currentCharacter != null)
+        {
+            DisplayCharacterInfo(currentCharacter);
+        }
+        else
+        {
+            ResetUI();
+        }
+    }
+
+    private void Start()
+    {
+        if (currentCharacter == null)
+        {
+            AutoFetchCharacter();
+        }
     }
 
     private void OnDisable()
@@ -152,6 +169,9 @@ public class CharacterLoadOut : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         SetText(atkText, Mathf.RoundToInt(character.attack).ToString("N0"));
         SetText(defText, Mathf.RoundToInt(character.defense).ToString("N0"));
         SetText(hpText, Mathf.RoundToInt(character.health).ToString("N0"));
+        var runFighter = FightingAllstar.Presentation.Route.DungeonFlowContext.ActiveRun?.Roster?.Find(f => f.DefinitionId == character.DefinitionId);
+        if (runFighter != null)
+            SetText(hpText, runFighter.IsDefeated ? "DEFEATED" : runFighter.CurrentHealth.ToString("N0") + " / " + runFighter.Stats.MaxHealth.ToString("N0"));
         var level = owned == null ? 1 : Mathf.Max(1, owned.level);
         var constellation = owned == null ? 0 : Mathf.Max(0, owned.constellationTier);
         SetText(levelText, $"Lv. {level}  ·  C{constellation}");
@@ -326,6 +346,85 @@ public class CharacterLoadOut : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (_isHolding || _isDragging) return;
         if (CharacterSelectionManager.Instance != null)
             CharacterSelectionManager.Instance.SelectCharacterLoadOut(this);
+    }
+
+    /// <summary>
+    /// Auto-fetches and displays the character configured for this slot in the current formation.
+    /// </summary>
+    public void AutoFetchCharacter()
+    {
+        if (CharacterSelectionManager.Instance != null)
+        {
+            var assigned = CharacterSelectionManager.Instance.GetAssignedCharacter(this);
+            if (assigned != null)
+            {
+                DisplayCharacterInfo(assigned);
+                return;
+            }
+        }
+
+        var inventory = PlayerInventoryService.Instance;
+        if (inventory != null)
+        {
+            var slotIndex = GetSlotIndex();
+            if (slotIndex >= 0)
+            {
+                var runFormation = DungeonFlowContext.ActiveRun?.Formation;
+                var instanceId = runFormation != null && slotIndex < runFormation.Count ? runFormation[slotIndex] : null;
+                if (string.IsNullOrEmpty(instanceId) && inventory.Snapshot?.formation != null && slotIndex < inventory.Snapshot.formation.Count)
+                    instanceId = inventory.Snapshot.formation[slotIndex];
+
+                if (string.IsNullOrEmpty(instanceId))
+                {
+                    try
+                    {
+                        var store = new FightingAllstar.Presentation.Economy.LocalEconomyStore();
+                        if (store.TryLoad(out var economyState) && economyState.FormationDefinitionIds != null &&
+                            slotIndex < economyState.FormationDefinitionIds.Count)
+                        {
+                            var defId = economyState.FormationDefinitionIds[slotIndex];
+                            if (!string.IsNullOrEmpty(defId))
+                            {
+                                var owned = inventory.FindOwnedByDefinition(defId);
+                                if (owned != null) instanceId = owned.instanceId;
+                            }
+                        }
+                    }
+                    catch { }
+                }
+
+                if (!string.IsNullOrEmpty(instanceId))
+                {
+                    var owned = inventory.FindOwnedByInstance(instanceId);
+                    var def = owned == null ? null : inventory.FindDefinition(owned.definitionId);
+                    if (def != null)
+                    {
+                        DisplayCharacterInfo(def, owned);
+                        return;
+                    }
+                }
+
+                var ownedDefs = inventory.GetOwnedDefinitions();
+                if (ownedDefs != null && slotIndex < ownedDefs.Count && ownedDefs[slotIndex] != null)
+                {
+                    DisplayCharacterInfo(ownedDefs[slotIndex]);
+                }
+            }
+        }
+    }
+
+    public int GetSlotIndex()
+    {
+        if (CharacterSelectionManager.Instance != null)
+        {
+            return CharacterSelectionManager.Instance.GetSlotIndex(this);
+        }
+        var n = gameObject.name.ToLowerInvariant();
+        if (n.Contains("first") || n.Contains("slot1") || n.Contains("slot 1") || n == "slot0") return 0;
+        if (n.Contains("second") || n.Contains("slot2") || n.Contains("slot 2") || n == "slot1") return 1;
+        if (n.Contains("third") || n.Contains("slot3") || n.Contains("slot 3") || n == "slot2") return 2;
+        if (n.Contains("sub") || n.Contains("slot4") || n.Contains("slot 4") || n == "slot3") return 3;
+        return transform.GetSiblingIndex();
     }
 
     private static void SetImage(Image image, Sprite sprite)

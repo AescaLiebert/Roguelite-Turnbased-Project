@@ -7,7 +7,7 @@ namespace FightingAllstar.Core.Run
 {
     public static class RouteGenerator
     {
-        public const int CurrentGeneratorVersion = 1;
+        public const int CurrentGeneratorVersion = 2;
         private const int RequiredRows = 9;
 
         public static List<RouteNodeState> Generate(DungeonProfile profile, IReadOnlyList<CharacterDefinition> catalog,
@@ -18,10 +18,17 @@ namespace FightingAllstar.Core.Run
             var nodes = new List<RouteNodeState>();
             foreach (var row in profile.Rows)
             {
+                var choices = (RouteNodeType[])row.Choices.Clone();
+                if (profile.Phase > 0)
+                    for (var i = choices.Length - 1; i > 0; i--)
+                    {
+                        var j = rng.Next(i + 1);
+                        var type = choices[i]; choices[i] = choices[j]; choices[j] = type;
+                    }
                 for (var column = 0; column < row.Choices.Length; column++)
                 {
                     var node = new RouteNodeState { Id = "r" + row.Row + "n" + column, Row = row.Row, Column = column,
-                        Type = row.Choices[column], Progress = RouteNodeProgress.Locked };
+                        Type = choices[column], Progress = RouteNodeProgress.Locked };
                     if (node.Type == RouteNodeType.Battle || node.Type == RouteNodeType.Elite || node.Type == RouteNodeType.Boss)
                         node.EnemyTeamSnapshot = GenerateEnemyTeam(node, profile, catalog, difficultyBonusPercent, rng);
                     if (node.Type == RouteNodeType.Boon || node.Type == RouteNodeType.Elite)
@@ -33,7 +40,13 @@ namespace FightingAllstar.Core.Run
             foreach (var node in nodes)
                 if (node.Row + 1 < RequiredRows)
                     foreach (var successor in nodes)
-                        if (successor.Row == node.Row + 1) node.OutgoingNodeIds.Add(successor.Id);
+                        if (successor.Row == node.Row + 1)
+                        {
+                            var fromLane = node.Column - (profile.Rows[node.Row].Choices.Length - 1) / 2f;
+                            var toLane = successor.Column - (profile.Rows[successor.Row].Choices.Length - 1) / 2f;
+                            if (profile.Phase == 0 || Math.Abs(fromLane - toLane) <= 1f)
+                                node.OutgoingNodeIds.Add(successor.Id);
+                        }
 
             if (!ValidateGraph(nodes, out var graphError)) throw new InvalidOperationException(graphError);
             var start = nodes.Find(node => node.Row == 0 && node.Type == RouteNodeType.Start);
@@ -95,6 +108,12 @@ namespace FightingAllstar.Core.Run
             if (profile.Rows[8].Choices.Length == 0) throw new InvalidOperationException("Final route row must contain a Boss.");
             foreach (var type in profile.Rows[8].Choices) if (type != RouteNodeType.Boss) throw new InvalidOperationException("Final route row only accepts Boss nodes.");
             if (profile.EnemyConstellationTier < 0 || profile.EnemyConstellationTier > 6) throw new InvalidOperationException("Enemy constellation tier must be 0-6.");
+            if (profile.PresetTeamChancePercent < 0 || profile.PresetTeamChancePercent > 100)
+                throw new InvalidOperationException("Preset team chance must be 0-100 percent.");
+            if (profile.DifficultyIncreasePerRowPercent < 0 || profile.DifficultyIncreasePerRowPercent > 100 ||
+                profile.EliteDifficultyBonusPercent < 0 || profile.EliteDifficultyBonusPercent > 100 ||
+                profile.BossDifficultyBonusPercent < 0 || profile.BossDifficultyBonusPercent > 100)
+                throw new InvalidOperationException("Dungeon difficulty increases must be 0-100 percent.");
             if (profile.BoonIds == null || profile.BoonIds.Count < 3 || profile.Boons == null || profile.Boons.Count < 3)
                 throw new InvalidOperationException("Boon rows require at least three compatible authored boon definitions.");
             var boonIds = new HashSet<string>(StringComparer.Ordinal);
@@ -111,6 +130,37 @@ namespace FightingAllstar.Core.Run
             foreach (var restriction in profile.Restrictions)
                 if (CountMatching(candidates, restriction) < restriction.MinimumCount)
                     throw new InvalidOperationException("Enemy catalog cannot satisfy profile restriction: " + restriction.Description);
+            ValidateFormationTemplates(profile, candidates);
+        }
+
+        private static void ValidateFormationTemplates(DungeonProfile profile, List<CharacterDefinition> candidates)
+        {
+            if (profile.EnemyFormationTemplates == null) throw new InvalidOperationException("Enemy formation templates must be explicit, even when empty.");
+            var templateIds = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var template in profile.EnemyFormationTemplates)
+            {
+                if (template == null || string.IsNullOrWhiteSpace(template.Id) || !templateIds.Add(template.Id))
+                    throw new InvalidOperationException("Enemy formation templates need unique stable ids.");
+                if (template.Score < 0) throw new InvalidOperationException("Enemy formation template scores cannot be negative.");
+                if (template.Fighters == null || template.Fighters.Count != 4)
+                    throw new InvalidOperationException("Each enemy formation template must contain exactly four fighters.");
+                var seen = new HashSet<string>(StringComparer.Ordinal);
+                var selected = new List<CharacterDefinition>(4);
+                foreach (var member in template.Fighters)
+                {
+                    if (member == null || string.IsNullOrWhiteSpace(member.FighterId) || !seen.Add(member.FighterId))
+                        throw new InvalidOperationException("Enemy formation templates need four distinct fighter ids.");
+                    if (member.ConstellationTier < -1 || member.ConstellationTier > 6)
+                        throw new InvalidOperationException("Formation member constellation tier must be -1-6.");
+                    var definition = candidates.Find(character => character.Id == member.FighterId);
+                    if (definition == null)
+                        throw new InvalidOperationException("Formation template fighter is not eligible for policy " + profile.Id + ": " + member.FighterId);
+                    selected.Add(definition);
+                }
+                foreach (var restriction in profile.Restrictions)
+                    if (CountMatching(selected, restriction) < restriction.MinimumCount)
+                        throw new InvalidOperationException("Formation template does not satisfy policy restriction: " + template.Id);
+            }
         }
 
         private static List<CharacterDefinition> EligibleCandidates(DungeonProfile profile, IReadOnlyList<CharacterDefinition> catalog)
@@ -119,6 +169,7 @@ namespace FightingAllstar.Core.Run
             foreach (var character in catalog)
             {
                 if (character == null || !character.RuntimeReady || character.BaseStats == null) continue;
+                if (!profile.Accepts(character)) continue;
                 if (profile.EligibleCharacterIds != null && profile.EligibleCharacterIds.Count > 0 && !profile.EligibleCharacterIds.Contains(character.Id)) continue;
                 candidates.Add(character);
             }
@@ -129,6 +180,15 @@ namespace FightingAllstar.Core.Run
             IReadOnlyList<CharacterDefinition> catalog, int difficulty, DeterministicRandom rng)
         {
             var pool = EligibleCandidates(profile, catalog);
+            var difficultyForNode = difficulty + (node.Row * profile.DifficultyIncreasePerRowPercent);
+            if (node.Type == RouteNodeType.Elite) difficultyForNode += profile.EliteDifficultyBonusPercent;
+            if (node.Type == RouteNodeType.Boss) difficultyForNode += profile.BossDifficultyBonusPercent;
+            difficultyForNode = Math.Min(100, difficultyForNode);
+
+            var template = SelectFormationTemplate(node.Type, profile, rng);
+            if (template != null)
+                return BuildTeamFromTemplate(node, template, difficultyForNode, catalog, rng);
+
             var selected = new List<CharacterDefinition>();
             foreach (var restriction in profile.Restrictions)
             {
@@ -160,15 +220,66 @@ namespace FightingAllstar.Core.Run
             {
                 var definition = selected[i].Clone();
                 var stats = definition.BaseStats.Clone();
+                stats.Attack = ScaleBasicStat(stats.Attack, difficultyForNode);
+                stats.Defense = ScaleBasicStat(stats.Defense, difficultyForNode);
+                stats.MaxHealth = ScaleBasicStat(stats.MaxHealth, difficultyForNode);
+                stats.CombatClass = ScaleBasicStat(stats.CombatClass, difficultyForNode);
+                result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
+                    DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
+                    ConstellationTier = rng.Next(7), FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
+            }
+            return result;
+        }
+
+        private static EnemyFormationTemplate SelectFormationTemplate(RouteNodeType nodeType, DungeonProfile profile, DeterministicRandom rng)
+        {
+            var eligible = new List<EnemyFormationTemplate>();
+            foreach (var template in profile.EnemyFormationTemplates)
+            {
+                if (nodeType == RouteNodeType.Battle && template.UseForBattle ||
+                    nodeType == RouteNodeType.Elite && template.UseForElite ||
+                    nodeType == RouteNodeType.Boss && template.UseForBoss)
+                    eligible.Add(template);
+            }
+            if (eligible.Count == 0) return null;
+
+            if (nodeType == RouteNodeType.Battle)
+            {
+                if (rng.Next(100) >= profile.PresetTeamChancePercent) return null;
+                return eligible[rng.Next(eligible.Count)];
+            }
+
+            var highestScore = int.MinValue;
+            foreach (var template in eligible) if (template.Score > highestScore) highestScore = template.Score;
+            eligible.RemoveAll(template => template.Score != highestScore);
+            return eligible[rng.Next(eligible.Count)];
+        }
+
+        private static List<EncounterFighterSnapshot> BuildTeamFromTemplate(RouteNodeState node,
+            EnemyFormationTemplate template, int difficulty, IReadOnlyList<CharacterDefinition> catalog, DeterministicRandom rng)
+        {
+            var result = new List<EncounterFighterSnapshot>(4);
+            for (var i = 0; i < template.Fighters.Count; i++)
+            {
+                var member = template.Fighters[i];
+                var definition = FindDefinition(catalog, member.FighterId).Clone();
+                var stats = definition.BaseStats.Clone();
                 stats.Attack = ScaleBasicStat(stats.Attack, difficulty);
                 stats.Defense = ScaleBasicStat(stats.Defense, difficulty);
                 stats.MaxHealth = ScaleBasicStat(stats.MaxHealth, difficulty);
                 stats.CombatClass = ScaleBasicStat(stats.CombatClass, difficulty);
                 result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
                     DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
-                    ConstellationTier = profile.EnemyConstellationTier, FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
+                    ConstellationTier = member.ConstellationTier < 0 ? rng.Next(7) : member.ConstellationTier,
+                    FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
             }
             return result;
+        }
+
+        private static CharacterDefinition FindDefinition(IReadOnlyList<CharacterDefinition> catalog, string id)
+        {
+            foreach (var character in catalog) if (character != null && character.Id == id) return character;
+            return null;
         }
 
         private static List<string> DrawBoonOffers(DungeonProfile profile, DeterministicRandom rng, int count)

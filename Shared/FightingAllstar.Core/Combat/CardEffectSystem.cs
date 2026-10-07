@@ -99,32 +99,61 @@ namespace FightingAllstar.Core.Combat
             foreach (var condition in conditions)
             {
                 if (condition == null) continue;
-                var passed = Evaluate(condition, context, target);
-                if (condition.Negate) passed = !passed;
-                if (!passed) return false;
+                if (!EvaluateCondition(condition, context, target)) return false;
             }
             return true;
+        }
+
+        private static bool EvaluateCondition(EffectConditionDefinition condition, CardEffectContext context,
+            FighterState target)
+        {
+            if (condition == null) return true;
+            bool passed;
+            switch (condition.Logic)
+            {
+                case ConditionLogic.All:
+                    passed = true;
+                    if (condition.Children != null)
+                        foreach (var child in condition.Children)
+                            if (!EvaluateCondition(child, context, target)) { passed = false; break; }
+                    break;
+                case ConditionLogic.Any:
+                    passed = false;
+                    if (condition.Children != null)
+                        foreach (var child in condition.Children)
+                            if (EvaluateCondition(child, context, target)) { passed = true; break; }
+                    break;
+                case ConditionLogic.Not:
+                    passed = condition.Children == null || condition.Children.Count == 0 ||
+                        !EvaluateCondition(condition.Children[0], context, target);
+                    break;
+                default:
+                    passed = Evaluate(condition, context, target);
+                    break;
+            }
+            return condition.Negate ? !passed : passed;
         }
 
         private static bool Evaluate(EffectConditionDefinition condition, CardEffectContext context,
             FighterState target)
         {
             var source = context.Actor;
+            var subject = ResolveSubject(condition.Subject, context, target);
             switch (condition.Kind)
             {
                 case EffectConditionKind.Always: return true;
                 case EffectConditionKind.SourceHasStatusTag:
                     return StatusSystem.Count(source, requiredTag: condition.Tag) >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetHasStatusTag:
-                    return StatusSystem.Count(target, requiredTag: condition.Tag) >= Math.Max(1, condition.Threshold);
+                    return StatusSystem.Count(subject, requiredTag: condition.Tag) >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetHasBuff:
-                    return StatusSystem.Count(target, StatusPolarity.Buff) >= Math.Max(1, condition.Threshold);
+                    return StatusSystem.Count(subject, StatusPolarity.Buff) >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetHasDebuff:
-                    return StatusSystem.Count(target, StatusPolarity.Debuff) >= Math.Max(1, condition.Threshold);
+                    return StatusSystem.Count(subject, StatusPolarity.Debuff) >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetHasRecipe:
-                    return StatusSystem.Count(target, recipeId: condition.RecipeId) >= Math.Max(1, condition.Threshold);
+                    return StatusSystem.Count(subject, recipeId: condition.RecipeId) >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetHasRecipeFromEffectOwner:
-                    return StatusSystem.HasRecipeFromSource(target, condition.RecipeId,
+                    return StatusSystem.HasRecipeFromSource(subject, condition.RecipeId,
                         (context.EffectOwner ?? context.Actor)?.Id);
                 case EffectConditionKind.ActorIsEffectOwner:
                     return context.EffectOwner != null && context.Actor.Id == context.EffectOwner.Id;
@@ -134,15 +163,146 @@ namespace FightingAllstar.Core.Combat
                 case EffectConditionKind.ActorIsEnemyOfEffectOwner:
                     return context.EffectOwner != null && context.Actor.Side != context.EffectOwner.Side;
                 case EffectConditionKind.TargetAttributeIs:
-                    return target?.Definition?.AttributeId == condition.StringValue;
+                    return MatchesContentId(subject?.Definition?.AttributeId, condition.StringValue, "attribute.");
                 case EffectConditionKind.WasCritical: return context.WasCritical;
                 case EffectConditionKind.WasBlocked: return context.WasBlocked;
                 case EffectConditionKind.SourceGaugeAtLeast: return source.PowerGauge >= condition.Threshold;
-                case EffectConditionKind.TargetGaugeAtLeast: return target != null && target.PowerGauge >= condition.Threshold;
+                case EffectConditionKind.TargetGaugeAtLeast: return subject != null && subject.PowerGauge >= condition.Threshold;
                 case EffectConditionKind.SourceHealthAtMost: return HealthRatioBp(source) <= condition.Threshold;
-                case EffectConditionKind.TargetHealthAtMost: return HealthRatioBp(target) <= condition.Threshold;
+                case EffectConditionKind.TargetHealthAtMost: return HealthRatioBp(subject) <= condition.Threshold;
+                case EffectConditionKind.CounterAtLeast:
+                    return CharacterPassiveRuntime.Counter(context.EffectOwner ?? source,
+                        FirstValue(condition.StringValue, condition.Tag, condition.RecipeId)) >= condition.Threshold;
+                case EffectConditionKind.TargetTraitIs:
+                    return ContainsContentId(subject?.Definition?.TraitIds,
+                        FirstValue(condition.StringValue, condition.Tag), "trait.");
+                case EffectConditionKind.TargetSeriesIs:
+                    return MatchesContentId(subject?.Definition?.SeriesId,
+                        FirstValue(condition.StringValue, condition.Tag), "series.");
+                case EffectConditionKind.RosterCountAtLeast:
+                    return RosterCount(context, condition) >= Math.Max(1, condition.Threshold);
+                case EffectConditionKind.TargetIsAlive:
+                    return subject != null && subject.IsAlive && subject.Health > 0;
+                case EffectConditionKind.ActorWasNotDamagedSincePreviousTurnStart:
+                    return !WasDamagedSincePreviousTeamTurnStart(context?.Battle, source);
+                case EffectConditionKind.ActorWasDamagedDuringPreviousEnemyTurn:
+                    return WasDamagedDuringPreviousEnemyTurn(context?.Battle, source);
+                case EffectConditionKind.ActorWasNotDamagedDuringPreviousEnemyTurn:
+                    return !WasDamagedDuringPreviousEnemyTurn(context?.Battle, source);
                 default: return false;
             }
+        }
+
+        private static FighterState ResolveSubject(ConditionSubject selection, CardEffectContext context,
+            FighterState operationTarget)
+        {
+            return selection switch
+            {
+                ConditionSubject.Owner => context?.EffectOwner ?? context?.Actor,
+                ConditionSubject.Actor => context?.Actor,
+                ConditionSubject.EventTarget => context?.SelectedTarget,
+                _ => operationTarget
+            };
+        }
+
+        private static string FirstValue(params string[] values)
+        {
+            foreach (var value in values)
+                if (!string.IsNullOrWhiteSpace(value)) return value;
+            return string.Empty;
+        }
+
+        private static bool ContainsContentId(List<string> values, string authored, string prefix)
+        {
+            if (values == null) return false;
+            foreach (var value in values)
+                if (MatchesContentId(value, authored, prefix)) return true;
+            return false;
+        }
+
+        private static bool MatchesContentId(string actual, string authored, string prefix)
+        {
+            if (string.IsNullOrWhiteSpace(actual) || string.IsNullOrWhiteSpace(authored)) return false;
+            var expected = authored.Trim();
+            if (!expected.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) expected = prefix + expected;
+            return string.Equals(actual, expected, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static int RosterCount(CardEffectContext context, EffectConditionDefinition condition)
+        {
+            if (context?.Battle == null) return 0;
+            var owner = context.EffectOwner ?? context.Actor;
+            var filter = condition.RosterFilter ?? new PassiveTargetFilter { Relation = PassiveRelation.Any };
+            var count = 0;
+            CountRoster(context.Battle.Player, owner, filter, condition.InitialRoster, ref count);
+            CountRoster(context.Battle.Opponent, owner, filter, condition.InitialRoster, ref count);
+            return count;
+        }
+
+        private static void CountRoster(BattleTeamState team, FighterState owner, PassiveTargetFilter filter,
+            bool initialRoster, ref int count)
+        {
+            if (team?.Fighters == null) return;
+            foreach (var fighter in team.Fighters)
+            {
+                if (fighter == null || !initialRoster && (!fighter.IsAlive || fighter.Health <= 0) ||
+                    !filter.IncludeReserve && fighter.IsReserve || !filter.IncludeOwner && fighter.Id == owner?.Id)
+                    continue;
+                var related = filter.Relation == PassiveRelation.Any || owner != null &&
+                    (filter.Relation == PassiveRelation.Self ? fighter.Id == owner.Id :
+                     filter.Relation == PassiveRelation.Allies ? fighter.Side == owner.Side : fighter.Side != owner.Side);
+                if (!related || !string.IsNullOrEmpty(filter.AttributeId) && fighter.Definition?.AttributeId != filter.AttributeId ||
+                    !string.IsNullOrEmpty(filter.SeriesId) && fighter.Definition?.SeriesId != filter.SeriesId ||
+                    !string.IsNullOrEmpty(filter.TraitId) && fighter.Definition?.TraitIds?.Contains(filter.TraitId) != true)
+                    continue;
+                count++;
+            }
+        }
+
+        private static bool WasDamagedSincePreviousTeamTurnStart(BattleState battle, FighterState actor)
+        {
+            if (battle?.Events == null || actor == null) return false;
+            var sideKey = actor.Side.ToString();
+            var foundCurrentStart = false;
+            for (var i = battle.Events.Count - 1; i >= 0; i--)
+            {
+                var item = battle.Events[i];
+                if (item == null) continue;
+                if (item.Kind == BattleEventKind.TurnStarted && item.SourceId == sideKey)
+                {
+                    if (foundCurrentStart) break;
+                    foundCurrentStart = true;
+                    continue;
+                }
+                if (foundCurrentStart && item.Kind == BattleEventKind.DamageApplied && item.TargetId == actor.Id && item.Amount > 0)
+                    return true;
+            }
+            return false;
+        }
+
+        private static bool WasDamagedDuringPreviousEnemyTurn(BattleState battle, FighterState actor)
+        {
+            if (battle?.Events == null || actor == null) return false;
+            var enemySideKey = (actor.Side == TeamSide.Player ? TeamSide.Opponent : TeamSide.Player).ToString();
+            var endIndex = -1;
+            for (var i = battle.Events.Count - 1; i >= 0; i--)
+            {
+                var item = battle.Events[i];
+                if (item?.Kind == BattleEventKind.TurnEnded && item.SourceId == enemySideKey)
+                { endIndex = i; break; }
+            }
+            if (endIndex < 0) return false;
+            for (var i = endIndex - 1; i >= 0; i--)
+            {
+                var item = battle.Events[i];
+                if (item?.Kind != BattleEventKind.TurnStarted || item.SourceId != enemySideKey) continue;
+                for (var j = i + 1; j < endIndex; j++)
+                    if (battle.Events[j]?.Kind == BattleEventKind.DamageApplied &&
+                        battle.Events[j].TargetId == actor.Id && battle.Events[j].Amount > 0)
+                        return true;
+                return false;
+            }
+            return false;
         }
 
         private static List<FighterState> ResolveTargets(EffectTargetScope scope, CardEffectContext context)

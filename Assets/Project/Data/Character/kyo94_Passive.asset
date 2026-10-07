@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: kyo94_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  sourceDescription: For each Ignites effect on enemy, Increase own ATK by 5%(Maximum
+    50%)
+  sourceType: 
+  sourceRestriction: 
+  definition:
+    Id: fighter.kyo94.passive.source
+    Auras:
+    - Id: ignite-attack
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 6
+        Modes: 3
+        Presence: 1
+        AllowDefeatedOwner: 0
+      Targets:
+        Relation: 1
+        IncludeOwner: 1
+        IncludeReserve: 1
+        AttributeId: 
+        TraitId: 
+        SeriesId: 
+      Scaling: 1
+      ScalingKey: status.ignite
+      ScalingRelation: 3
+      SourceStat: 0
+      MaximumUnits: 10
+      Modifiers:
+      - Target: 0
+        Stat: 0
+        Family: 0
+        Operation: 1
+        Amount: 500
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+    Reactions: []
+    Triggers: []

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FightingAllstar.Server.Application</name>
+    </assembly>
+    <members>
+        <member name="T:FightingAllstar.Server.Application.Battle.BattleCommandSnapshot">
+            <summary>Server-owned match record; subject membership is loaded from trusted persistence, never command JSON.</summary>
+        </member>
+        <member name="T:FightingAllstar.Server.Application.Battle.IBattleCommandRepository">
+            <summary>
+            Persistence adapter must read match and request receipt consistently and atomically compare the match version
+            while writing both the new state and receipt. Receipt keys are scoped by match and authenticated subject.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Server.Application.Battle.BattleCommandService">
+            <summary>Applies authenticated player plans through the shared Core and stores each result exactly once.</summary>
+        </member>
+        <member name="T:FightingAllstar.Server.Application.IServerClock">
+            <summary>Injectable UTC clock used to enforce verified identity expiry at the application boundary.</summary>
+        </member>
+    </members>
+</doc>

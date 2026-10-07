@@ -13,7 +13,7 @@ namespace FightingAllstar.Core.Run
         public static RunState CreateRun(string runId, string userId, string requestId, DungeonProfile profile,
             int difficultyBonusPercent, ulong seed, string contentVersion, string contentHash,
             IReadOnlyList<RunFighterSeed> roster, IReadOnlyList<CharacterDefinition> catalog,
-            int baseCompletionDiamonds = 320)
+            int baseCompletionDiamonds = 320, bool deferFormation = false)
         {
             if (string.IsNullOrWhiteSpace(runId) || string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(requestId))
                 throw new ArgumentException("Run, user, and request ids are required.");
@@ -21,7 +21,7 @@ namespace FightingAllstar.Core.Run
             if (string.IsNullOrWhiteSpace(contentVersion) || string.IsNullOrWhiteSpace(contentHash))
                 throw new ArgumentException("Runs must pin a content version and content hash.");
             if (baseCompletionDiamonds < 0) throw new ArgumentOutOfRangeException(nameof(baseCompletionDiamonds));
-            ValidateRoster(profile, roster, catalog);
+            if (!deferFormation || roster == null || roster.Count > 0) ValidateRoster(profile, roster, catalog);
             var nodes = RouteGenerator.Generate(profile, catalog, difficultyBonusPercent, seed);
             var state = new RunState { RunId = runId, UserId = userId, ProfileId = profile.Id,
                 ContentVersion = contentVersion, ContentHash = contentHash, GeneratorVersion = profile.GeneratorVersion,
@@ -35,7 +35,7 @@ namespace FightingAllstar.Core.Run
                 var definition = FindCatalogDefinition(catalog, seedFighter.Definition.Id).Clone();
                 var stats = (seedFighter.ResolvedStats ?? definition.BaseStats).Clone();
                 state.Roster.Add(new RunFighterState { RunFighterId = seedFighter.OwnedFighterId,
-                    DefinitionId = definition.Id, Definition = definition, Stats = stats,
+                    DefinitionId = definition.Id, Stats = stats,
                     ConstellationTier = seedFighter.ConstellationTier, OriginalFormationIndex = seedFighter.FormationSlot,
                     CurrentHealth = stats.MaxHealth, IsDefeated = false });
             }
@@ -81,7 +81,8 @@ namespace FightingAllstar.Core.Run
             return true;
         }
 
-        public static bool TryBuildEncounter(RunState run, out EncounterProjection encounter, out string error)
+        public static bool TryBuildEncounter(RunState run, IReadOnlyList<CharacterDefinition> catalog,
+            out EncounterProjection encounter, out string error)
         {
             encounter = null;
             error = null;
@@ -93,14 +94,24 @@ namespace FightingAllstar.Core.Run
             var result = new EncounterProjection { BattleId = run.PendingBattleId, RunRevision = run.Revision,
                 DifficultyBonusPercent = run.DifficultyBonusPercent };
             var living = new List<RunFighterState>();
-            foreach (var fighter in run.Roster) if (!fighter.IsDefeated && fighter.CurrentHealth > 0) living.Add(fighter);
+            var seenSlots = new HashSet<int>();
+            foreach (var fighter in run.Roster) if (fighter != null && !fighter.IsDefeated && fighter.CurrentHealth > 0) living.Add(fighter);
             living.Sort((a, b) => a.OriginalFormationIndex.CompareTo(b.OriginalFormationIndex));
             foreach (var fighter in living)
             {
+                if (result.PlayerTeam.Count >= 4) break;
+                if (!seenSlots.Add(fighter.OriginalFormationIndex)) continue;
+                var definition = FindCatalogDefinition(catalog, fighter.DefinitionId);
+                if (definition == null) { error = "Character definitions are missing the run fighter: " + fighter.DefinitionId; return false; }
                 result.PlayerTeam.Add(new EncounterFighterSnapshot { FighterId = fighter.RunFighterId,
-                    DefinitionId = fighter.DefinitionId, Definition = fighter.Definition.Clone(), Stats = fighter.Stats.Clone(),
+                    DefinitionId = fighter.DefinitionId, Definition = definition.Clone(), Stats = fighter.Stats.Clone(),
                     CurrentHealth = fighter.CurrentHealth, ConstellationTier = fighter.ConstellationTier,
                     FormationSlot = Math.Min(fighter.OriginalFormationIndex, 2), IsReserve = fighter.OriginalFormationIndex == 3 });
+            }
+            if (result.PlayerTeam.Count < 1)
+            {
+                error = "Encounter needs one to four living player fighters.";
+                return false;
             }
             foreach (var enemy in node.EnemyTeamSnapshot) result.EnemyTeam.Add(enemy.Clone());
             foreach (var boonId in run.ChosenBoons)
@@ -328,6 +339,8 @@ namespace FightingAllstar.Core.Run
                     throw new ArgumentException("Run roster definition is missing from the pinned content catalog: " + fighter.Definition.Id);
                 if (!catalogDefinition.RuntimeReady)
                     throw new ArgumentException("Pinned catalog contains draft content for roster fighter: " + fighter.Definition.Id);
+                if (!profile.Accepts(catalogDefinition))
+                    throw new ArgumentException("Run fighter does not match the dungeon series and phase: " + fighter.Definition.Id);
                 var resolvedStats = fighter.ResolvedStats ?? catalogDefinition.BaseStats;
                 if (resolvedStats == null) throw new ArgumentException("Run roster has no resolved stats: " + fighter.Definition.Id);
                 if (resolvedStats.Attack < 0 || resolvedStats.Defense < 0 || resolvedStats.MaxHealth <= 0)

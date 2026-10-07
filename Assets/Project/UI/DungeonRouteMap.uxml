@@ -1,21 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <ui:Style src="DungeonRouteMap.uss" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/DungeonRouteMap.uss?fileID=7433441132597879392&amp;guid=576f26011ad04564c8dbeac1e763a735&amp;type=3#DungeonRouteMap"/>
     <ui:VisualElement name="route-root" class="route-root">
         <ui:VisualElement class="route-header">
             <ui:VisualElement>
-                <ui:Label text="DUNGEON JOURNEY" class="eyebrow" />
-                <ui:Label name="route-title" text="No active run" class="route-title" />
-                <ui:Label name="route-summary" text="Choose a profile and roster to begin." class="route-summary" />
+                <ui:Label text="DUNGEON JOURNEY" class="eyebrow"/>
+                <ui:Label name="route-title" text="No active run" class="route-title"/>
+                <ui:Label name="route-summary" text="Choose a profile and roster to begin." class="route-summary"/>
             </ui:VisualElement>
             <ui:VisualElement class="route-header-actions">
-                <ui:Button name="abandon-button" text="Abandon run" class="quiet-button" />
-                <ui:Button name="return-loadout-button" text="Return to Dungeon Select" class="quiet-button" />
+                <ui:Button name="abandon-button" text="Abandon run" class="quiet-button"/>
+                <ui:Button name="return-loadout-button" text="Return to Dungeon Select" class="quiet-button"/>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="run-hp-strip" class="run-hp-strip" />
-        <ui:ScrollView name="route-rows" class="route-rows" />
-        <ui:VisualElement name="node-actions" class="node-actions" />
-        <ui:Label name="route-error" text="" class="route-error" />
+        <ui:VisualElement name="run-hp-strip" class="run-hp-strip"/>
+        <ui:VisualElement class="labyrinth-content">
+            <ui:ScrollView name="route-rows" mode="VerticalAndHorizontal" vertical-scroller-visibility="Hidden" horizontal-scroller-visibility="Hidden" class="route-rows"/>
+            <ui:VisualElement class="stage-detail" style="position: absolute; width: 575px; left: 1301px; height: 856px; max-height: none;">
+                <ui:VisualElement class="stage-detail-heading">
+                    <ui:Label text="STAGE DETAIL" class="stage-detail-title"/>
+                    <ui:Label text="Tap a lit platform to continue." class="legend-copy"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="node-actions" class="node-actions"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label name="route-error" text="" class="route-error"/>
     </ui:VisualElement>
 </ui:UXML>

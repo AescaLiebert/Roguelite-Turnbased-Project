@@ -15,16 +15,14 @@ namespace FightingAllstar.EditorTools
         private const string ScenePath = Root + "/Scenes/Scene-KofEconomyPrototype.unity";
         private const string PanelPath = Root + "/Scenes/DungeonPanelSettings.asset";
         private const string UxmlPath = Root + "/UI/KofBanner.uxml";
-        private const string CatalogPath = Root + "/Content/WipCharacterCatalog.json";
 
         [MenuItem("Fighting Allstar/Build KOF Economy Prototype Scene")]
         public static void Build()
         {
             var panel = AssetDatabase.LoadAssetAtPath<PanelSettings>(PanelPath);
             var tree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UxmlPath);
-            var catalog = AssetDatabase.LoadAssetAtPath<TextAsset>(CatalogPath);
-            if (panel == null || tree == null || catalog == null)
-                throw new InvalidOperationException("Economy scene needs PanelSettings, KofBanner.uxml, and WipCharacterCatalog.json.");
+            if (panel == null || tree == null)
+                throw new InvalidOperationException("Economy scene needs PanelSettings and KofBanner.uxml.");
 
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var screen = new GameObject("KOF Economy Prototype");
@@ -38,14 +36,13 @@ namespace FightingAllstar.EditorTools
             serializedDocument.ApplyModifiedPropertiesWithoutUndo();
             var controller = screen.AddComponent<LocalEconomyController>();
             var serializedController = new SerializedObject(controller);
-            serializedController.FindProperty("catalogJson").objectReferenceValue = catalog;
             serializedController.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(document);
             EditorUtility.SetDirty(controller);
             EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.SaveAssets();
             PatchPanelReference();
-            Debug.Log("Built the local KOF economy prototype scene with the pinned WIP character catalog.");
+            Debug.Log("Built the local KOF economy prototype scene using CharacterObject assets and standard runtime recipes.");
         }
 
         private static void PatchPanelReference()

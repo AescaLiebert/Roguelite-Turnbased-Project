@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: benimaru99
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.benimaru99
+  runtimeReady: 1
+  sourceId: 8
+  sourceRecord: 9
+  familyId: family.benimaru
+  seriesId: series.kof
+  role: Crowd Control
+  traitIds:
+  - trait.japan
+  - trait.chinese
+  - trait.series-kof
+  passiveSourceDescription: Reduces the Avoidance rate of enemy Women Trait by 20%
+  passiveSourceType: On-Field
+  passiveRestriction: Women
+  passiveDefinition: {fileID: 11400000, guid: 19f6b1f390e14b44a1dbfb064005419b, type: 2}
+  id: 1008
+  fighterName: Benimaru 99
+  fighterTag: Benimaru
+  fighterPic: {fileID: 21300000, guid: 62134c9bd907f8a48b2b04a679e3b0e2, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 7aaf8d87698a8f94c8eb5b2744b28740, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: 63c77a4f894cc134683864d6b399267f, type: 3}
+  Skill1: {fileID: 11400000, guid: 1499be1d8eff4d499c168794602b6f9e, type: 2}
+  Skill2: {fileID: 11400000, guid: 9e7ba3dcfbca407a8cefbcfb0977d21a, type: 2}
+  Ultimate: {fileID: 11400000, guid: 7a31324f5a064a049be2c7fe4fd4c87f, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 3668
+  attack: 420
+  defense: 240
+  health: 5800
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 40
+    Regenerate: 30
+    CritChance: 5
+    CritDmg: 150
+    CritResistance: 0
+    CritDefense: 40
+    RecoveryRate: 150
+    BlockChance: 20
+    BlockPower: 25
+    LifeSteal: 6
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

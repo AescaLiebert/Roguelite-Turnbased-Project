@@ -1,4 +1,4 @@
-.route-root { flex-grow: 1; background-color: rgb(13, 17, 26); color: rgb(238, 242, 248); padding: 22px; }
+.route-root { flex-grow: 1; min-height: 0; height: 100%; overflow: hidden; background-color: rgb(13, 17, 26); color: rgb(238, 242, 248); padding: 22px; }
 .route-header { flex-direction: row; align-items: center; justify-content: space-between; min-height: 68px; border-bottom-width: 1px; border-bottom-color: rgb(53, 63, 79); }
 .eyebrow { color: rgb(110, 194, 210); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
 .route-title { margin-top: 4px; font-size: 21px; -unity-font-style: bold; }
@@ -7,7 +7,7 @@
 .run-hp-strip { flex-direction: row; min-height: 58px; align-items: center; justify-content: center; }
 .run-fighter, .run-fighter-defeated { margin: 4px; padding: 9px 12px; background-color: rgb(30, 38, 52); border-bottom-width: 2px; border-bottom-color: rgb(71, 151, 132); font-size: 11px; }
 .run-fighter-defeated { color: rgb(201, 132, 129); border-bottom-color: rgb(150, 78, 78); }
-.route-rows { flex-grow: 1; min-height: 250px; }
+.route-rows { width: 100%; flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 0; }
 .route-row { flex-direction: row; align-items: center; min-height: 68px; border-bottom-width: 1px; border-bottom-color: rgb(36, 45, 60); }
 #route-row-label { width: 65px; color: rgb(130, 148, 174); font-size: 10px; -unity-font-style: bold; }
 .route-nodes { flex-direction: row; flex-grow: 1; justify-content: space-evenly; }
@@ -21,3 +21,30 @@
 .primary-button, .quiet-button { min-height: 34px; margin: 4px; padding: 6px 12px; background-color: rgb(49, 128, 146); color: white; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; font-size: 11px; }
 .quiet-button { background-color: rgb(37, 46, 62); color: rgb(212, 222, 235); }
 .route-error { min-height: 18px; margin-top: 6px; color: rgb(229, 144, 131); font-size: 11px; }
+.labyrinth-content { flex-direction: column; flex-grow: 1; flex-basis: 0; min-height: 0; overflow: hidden; }
+.stage-detail { width: 100%; min-height: 170px; flex-grow: 1; flex-basis: 0; flex-shrink: 0; padding: 10px 14px; background-color: rgb(20, 28, 40); }
+.stage-detail-heading { flex-direction: row; justify-content: space-between; align-items: center; min-height: 22px; }
+.stage-detail-title { color: rgb(223, 197, 130); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
+.legend-copy { white-space: normal; color: rgb(154, 184, 198); margin: 0; font-size: 10px; }
+.labyrinth-board { align-self: center; flex-shrink: 0; background-color: rgb(12, 25, 32); }
+.labyrinth-tile { position: absolute; width: 116px; height: 96px; white-space: normal; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold; background-color: rgb(37, 57, 73); color: rgb(227, 223, 208); border-width: 2px; border-color: rgb(72, 105, 122); border-radius: 24px; }
+.tile-boss { background-color: rgb(72, 35, 64); color: rgb(228, 177, 220); border-color: rgb(168, 98, 154); }
+.tile-elite { background-color: rgb(74, 45, 46); color: rgb(242, 183, 145); }
+.tile-rest { background-color: rgb(38, 68, 52); color: rgb(162, 229, 176); }
+.tile-boon { background-color: rgb(75, 43, 80); color: rgb(240, 167, 227); }
+.progress-locked, .progress-bypassed { opacity: 0.4; }
+.progress-completed { background-color: rgb(39, 74, 73); border-color: rgb(98, 184, 174); }
+.progress-reachable, .progress-selected { border-width: 3px; border-color: rgb(243, 209, 127); color: white; }
+.node-actions { flex-direction: column; flex-wrap: nowrap; align-items: stretch; flex-grow: 1; min-height: 0; padding: 4px 0; }
+.node-actions Label { white-space: normal; }
+.stage-description { flex-shrink: 0; }
+.enemy-info-grid { width: 100%; min-height: 140px; flex-grow: 1; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; margin-top: 4px; }
+.enemy-info-card { flex-direction: row; align-items: center; justify-content: center; flex-grow: 1; flex-basis: 0; min-width: 0; margin: 3px; padding: 4px; }
+.prepare-team-button { width: 100%; flex-shrink: 0; margin-top: auto; }
+.labyrinth-tile { font-size: 12px; align-items: center; justify-content: center; }
+.tile-icon { width: 46px; height: 46px; -unity-background-scale-mode: scale-to-fit; background-image: url('../Art/UI/swords.png'); }
+.tile-start .tile-icon { background-image: url('../Art/UI/Blue_Arrow_Up_Darker.png'); }
+.tile-rest .tile-icon { background-image: url('../Art/UI/Cardtype_Heal.png'); }
+.tile-boon .tile-icon { background-image: url('../Art/UI/Icon_Diamond.png'); }
+.tile-elite .tile-icon { background-image: url('../Art/UI/shield.png'); }
+.tile-boss .tile-icon { background-image: url('../Art/UI/sword.png'); }

@@ -27,7 +27,7 @@ namespace FightingAllstar.Presentation.Route
         public static void BeginDungeonFlow(DungeonProfile profile, int difficulty, string userId, ulong seed,
             string contentVersion, string contentHash, IReadOnlyList<CharacterDefinition> catalog, int baseDiamonds)
         {
-            ActiveProfile = profile == null ? null : profile.Clone();
+            ActiveProfile = profile == null ? null : EnemyTemplateLibrarySO.ApplyResourcesTo(profile.Clone());
             ActiveRun = null;
             PendingEncounter = null;
             SelectedDifficulty = Mathf.Clamp(difficulty, 0, 100);
@@ -37,25 +37,21 @@ namespace FightingAllstar.Presentation.Route
             ContentHash = contentHash;
             BaseCompletionDiamonds = baseDiamonds;
 
+            SetCatalog(catalog);
+        }
+
+        public static void SetCatalog(IReadOnlyList<CharacterDefinition> catalog)
+        {
             Catalog = new List<CharacterDefinition>();
-            if (catalog != null)
-            {
-                foreach (var character in catalog)
-                {
-                    if (character != null)
-                    {
-                        var copy = character.Clone();
-                        if (copy.Passive == null || string.IsNullOrWhiteSpace(copy.Passive.Id))
-                            copy.Passive = StandardCharacterPassives.Create(copy.Id);
-                        Catalog.Add(copy);
-                    }
-                }
-            }
+            if (catalog == null) return;
+            foreach (var character in catalog)
+                if (character != null) Catalog.Add(character.Clone());
         }
 
         public static void BeginDungeonFlowForEncounter(DungeonProfile profile, RunState run, EncounterProjection encounter)
         {
-            ActiveProfile = profile == null ? (run != null ? GetProfileForId(run.ProfileId) : null) : profile.Clone();
+            ActiveProfile = profile == null ? (run != null ? GetProfileForId(run.ProfileId) : null) :
+                EnemyTemplateLibrarySO.ApplyResourcesTo(profile.Clone());
             ActiveRun = run == null ? null : run.Clone();
             PendingEncounter = encounter;
             if (run != null)
@@ -71,11 +67,17 @@ namespace FightingAllstar.Presentation.Route
 
         public static DungeonProfile GetProfileForId(string profileId)
         {
+            if (profileId != null && profileId.StartsWith("dungeon.filter:", StringComparison.Ordinal))
+            {
+                var parts = profileId.Split(':');
+                if (parts.Length == 4 && int.TryParse(parts[2], out var phase) && int.TryParse(parts[3], out var subPhase))
+                    return EnemyTemplateLibrarySO.ApplyResourcesTo(DungeonProfile.Filtered(parts[1], phase, subPhase));
+            }
             if (string.Equals(profileId, "dungeon.green-accord", StringComparison.OrdinalIgnoreCase))
-                return DungeonProfile.GreenAccord();
+                return EnemyTemplateLibrarySO.ApplyResourcesTo(DungeonProfile.GreenAccord());
             if (string.Equals(profileId, "dungeon.women-exhibition", StringComparison.OrdinalIgnoreCase))
-                return DungeonProfile.WomenExhibition();
-            return DungeonProfile.OpenCircuit();
+                return EnemyTemplateLibrarySO.ApplyResourcesTo(DungeonProfile.WomenExhibition());
+            return EnemyTemplateLibrarySO.ApplyResourcesTo(DungeonProfile.OpenCircuit());
         }
 
         public static void Clear()
@@ -97,6 +99,7 @@ namespace FightingAllstar.Presentation.Route
         public static bool IsCharacterEligible(DungeonProfile profile, CharacterObject character)
         {
             if (profile == null || character == null) return true;
+            if (!profile.Accepts(new CharacterDefinition { Id = character.DefinitionId, CategoryId = character.ID, SeriesId = character.SeriesId })) return false;
 
             // 1. Explicit ID whitelist filter
             if (profile.EligibleCharacterIds != null && profile.EligibleCharacterIds.Count > 0)

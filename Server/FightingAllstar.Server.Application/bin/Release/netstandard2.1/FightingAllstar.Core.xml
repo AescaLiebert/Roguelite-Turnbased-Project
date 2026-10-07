@@ -4,8 +4,29 @@
         <name>FightingAllstar.Core</name>
     </assembly>
     <members>
+        <member name="T:FightingAllstar.Core.Combat.AttackEffectSystem">
+            <summary>Builds a local damage-calculation view for source-backed attack keywords.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.BattlePlaybackState">
+            <summary>Display-only event reducer. Never submitted back to the battle authority.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.BattleProjectionBuilder">
             <summary>Creates a recipient-scoped view without exposing the authoritative snapshot or the other hand.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.CardEffectContext">
+            <summary>Facts available to card and passive conditions. It contains IDs and resolved outcomes, never presentation state.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.CardEffectSystem">
+            <summary>Resolves ordered recipe operations and ownership-aware conditions without mutating battle state.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PassiveFact">
+            <summary>Committed facts, not presentation/animation callbacks. Only supported facts are exposed.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.Refresh(FightingAllstar.Core.Combat.BattleState,System.Collections.Generic.ISet{System.String})">
+            <summary>Rebuild derived contributions after authoritative mutations. Never adds/removes real statuses.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ChangePowerGauge(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,System.Int32,System.String,System.Boolean,System.Boolean)">
+            <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
         </member>
         <member name="M:FightingAllstar.Core.Combat.DamageResolver.Resolve(FightingAllstar.Core.Content.DamagePacket,FightingAllstar.Core.Content.StatBlock,FightingAllstar.Core.Content.StatBlock,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>Uses exact basis-point fractions and floors once, after all calculation stages.</summary>
@@ -19,14 +40,32 @@
         <member name="T:FightingAllstar.Core.Combat.LocalBattleSession">
             <summary>Development-only authority host. It is intentionally not an economy or run-reward service.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Combat.TriggeredPassiveEffect">
+            <summary>A passive effect queued from an explicit trigger; callers resolve it in returned order.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PassiveSystem">
+            <summary>Deterministic trigger matching shared by cards, statuses, turn windows, and passives.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.PlanDraft">
             <summary>A disposable preview. Reset rebuilds from the captured authority snapshot and never advances RNG.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.StatusContainer">
+            <summary>Owns all mutable status instances for one fighter.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.CombatTags">
+            <summary>Stable vocabulary for status tags and effect keywords; values are content IDs, not display text.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.StatBlock">
             <summary>All ratios are stored as basis points. 10,000 basis points equals 100%.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.ContentAuthoringValidator">
             <summary>Checks WIP authoring completeness without pretending that source prose is executable gameplay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StandardCharacterPassives">
+            <summary>Source-authored starter passives. Content mapping only; the resolver has no fighter-id branches.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.StandardEffectDatabase">
+            <summary>Stable recipe IDs and source-backed defaults from the combat database.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Economy.LocalEconomyService">
             <summary>Disposable offline economy simulation. It grants no online entitlement or trusted currency.</summary>

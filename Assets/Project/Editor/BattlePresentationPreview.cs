@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -65,12 +66,12 @@ namespace FightingAllstar.EditorTools
             SessionState.SetBool(EnemyFirst, enemyFirst);
             SessionState.SetBool(Automated, automated);
             SessionState.SetBool(Pending, true);
-            var json = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Project/Content/Generated/wip-phase-character-catalog.json");
-            var previewCatalog = JsonUtility.FromJson<ContentCatalog>(json.text);
+            var previewCatalog = FightingAllstar.Presentation.Content.CharacterObjectCatalogBuilder.Load(null);
             // Showcase the existing art; some older runtime-ready catalog entries have no portrait assets.
+            var characterObjects = CharacterObjectRegistrySO.LoadAll();
             previewCatalog.Characters = previewCatalog.Characters.Where(c => c.RuntimeReady &&
-                AssetDatabase.LoadAssetAtPath<CharacterObject>("Assets/Resources/Character_WIP-Phase/" +
-                    c.Id.Replace("fighter.", "") + ".asset")?.FighterIcon != null).Take(4).ToList();
+                Array.Exists(characterObjects, character => character != null &&
+                    character.DefinitionId == c.Id && character.FighterIcon != null)).ToList();
             SessionState.SetString(Catalog, JsonUtility.ToJson(previewCatalog));
             EditorSceneManager.OpenScene("Assets/Project/Scenes/Battle.unity");
             SeedEncounter(); // Also supports Enter Play Mode with domain reload disabled.
@@ -97,14 +98,24 @@ namespace FightingAllstar.EditorTools
         private static void SeedEncounter()
         {
             var catalog = JsonUtility.FromJson<ContentCatalog>(SessionState.GetString(Catalog, ""));
-            var roster = catalog.Characters.Where(c => c.RuntimeReady).Take(4).ToList();
-            if (roster.Count < 4) throw new InvalidOperationException("Preview requires four runtime-ready fighters.");
+            var available = catalog?.Characters?.Where(c => c.RuntimeReady).ToList() ?? new List<CharacterDefinition>();
+            var usedIds = new HashSet<string>(StringComparer.Ordinal);
+            var playerRoster = SelectPreviewTeam(available, new[] { "red", "green", "blue", "yellow" }, usedIds);
+            var enemyRoster = SelectPreviewTeam(available, new[] { "green", "blue", "red", "yellow" }, usedIds);
+            if (playerRoster.Count < 4 || enemyRoster.Count < 4) throw new InvalidOperationException("Preview requires four runtime-ready fighters.");
             var enemyFirst = SessionState.GetBool(EnemyFirst, false);
             var encounter = new EncounterProjection { BattleId = "presentation-preview" };
             for (var side = 0; side < 2; side++)
+            {
+                var roster = side == 0 ? playerRoster : enemyRoster;
                 for (var i = 0; i < roster.Count; i++)
                 {
                     var definition = roster[i].Clone();
+                    if (string.IsNullOrEmpty(definition.AttributeId))
+                    {
+                        var co = CharacterObjectRegistrySO.LoadAll()?.FirstOrDefault(c => c != null && c.DefinitionId == definition.Id);
+                        if (co != null) definition.AttributeId = "attribute." + co.FighterAttribute.ToString().ToLowerInvariant();
+                    }
                     var stats = definition.BaseStats.Clone();
                     stats.MaxHealth = 850;
                     stats.Attack = 210;
@@ -117,7 +128,32 @@ namespace FightingAllstar.EditorTools
                         FormationSlot = Math.Min(i, 2), IsReserve = i == 3 };
                     (side == 0 ? encounter.PlayerTeam : encounter.EnemyTeam).Add(fighter);
                 }
+            }
             LocalEncounterContext.Begin(encounter, 8, previewOnly: true);
+        }
+
+        private static List<CharacterDefinition> SelectPreviewTeam(List<CharacterDefinition> candidates, string[] preferredAttributes, HashSet<string> usedIds)
+        {
+            var team = new List<CharacterDefinition>();
+            foreach (var attr in preferredAttributes)
+            {
+                var match = candidates.FirstOrDefault(c => !usedIds.Contains(c.Id) &&
+                    string.Equals(FightingAllstar.Core.Combat.AttributeRules.Normalize(c.AttributeId), attr, StringComparison.OrdinalIgnoreCase));
+                if (match == null)
+                    match = candidates.FirstOrDefault(c => !usedIds.Contains(c.Id));
+                if (match != null)
+                {
+                    usedIds.Add(match.Id);
+                    team.Add(match);
+                }
+            }
+            while (team.Count < 4 && candidates.Count > 0)
+            {
+                var fallback = candidates.FirstOrDefault(c => !usedIds.Contains(c.Id)) ?? candidates[team.Count % candidates.Count];
+                usedIds.Add(fallback.Id);
+                team.Add(fallback);
+            }
+            return team;
         }
 
         private static void Tick()

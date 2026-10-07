@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Content;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +15,26 @@ namespace FightingAllstar.Presentation.Combat
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Slider powerGaugeSlider;
         [SerializeField] private WorldBillboardFollower followScript;
+
+        [Header("Level Handle & Attribute Visuals")]
+        [SerializeField] private Image levelHandleFill;
+        [SerializeField] private Image levelHandleBorder;
+        [SerializeField] private TMP_Text levelText;
+        [SerializeField] private bool tintBorderWithAttribute = false;
+
+        [Header("7 Attribute Colors")]
+        [SerializeField] private Color blueAttributeColor = new Color(0.145f, 0.388f, 0.922f, 1f);     // #2563EB Blue
+        [SerializeField] private Color redAttributeColor = new Color(0.863f, 0.149f, 0.149f, 1f);      // #DC2626 Red
+        [SerializeField] private Color greenAttributeColor = new Color(0.086f, 0.639f, 0.290f, 1f);    // #16A34A Green
+        [SerializeField] private Color yellowAttributeColor = new Color(0.918f, 0.702f, 0.031f, 1f);   // #EAB308 Yellow
+        [SerializeField] private Color darknessAttributeColor = new Color(0.231f, 0.110f, 0.329f, 1f); // #3B1C54 Darkness
+        [SerializeField] private Color lightAttributeColor = new Color(0.996f, 0.941f, 0.541f, 1f);    // #FEF08A Light
+        [SerializeField] private Color infinityAttributeColor = new Color(0.92f, 0.97f, 1f, 1f);       // White Crystal
+
+        [Header("Status Visuals")]
+        [SerializeField] private GameObject statusIconPrefab;
+
+        private Text _levelTextFallback;
 
         private Image _powerGaugeFill;
         private Image _shieldFill;
@@ -34,11 +56,16 @@ namespace FightingAllstar.Presentation.Combat
         {
             public string InstanceId;
             public string RecipeId;
+            public int StackIndex;
+            public int StackCount;
             public GameObject Root;
             public RectTransform Rect;
             public Image IconImage;
-            public Text StackText;
-            public int StackCount;
+            public TMP_Text StackText;
+            public Image CooldownOverlay;
+            public int RemainingDuration;
+            public int MaxDuration;
+            public bool IsPermanent;
             public Coroutine Routine;
         }
 
@@ -85,7 +112,10 @@ namespace FightingAllstar.Presentation.Combat
         }
 
         public void InitializeCore(Transform target, string fighterName, int currentHealth, int maxHealth,
-            int shield, int powerGauge)
+            int shield, int powerGauge) => InitializeCore(target, fighterName, currentHealth, maxHealth, shield, powerGauge, null, 1);
+
+        public void InitializeCore(Transform target, string fighterName, int currentHealth, int maxHealth,
+            int shield, int powerGauge, string attributeId, int level = 1)
         {
             if (followScript == null) followScript = GetComponent<WorldBillboardFollower>();
             if (followScript == null) followScript = gameObject.AddComponent<WorldBillboardFollower>();
@@ -95,6 +125,58 @@ namespace FightingAllstar.Presentation.Combat
             SetCoreHealth(currentHealth, maxHealth);
             SetShield(shield, maxHealth);
             SetPowerGauge(powerGauge);
+            if (!string.IsNullOrEmpty(attributeId)) SetAttribute(attributeId);
+            if (level > 0) SetLevel(level);
+        }
+
+        public Color GetAttributeColor(string attributeId)
+        {
+            if (string.IsNullOrEmpty(attributeId)) return Color.white;
+            var lower = attributeId.ToLowerInvariant().Replace("attribute.", string.Empty).Trim();
+
+            if (lower.Contains("blue")) return blueAttributeColor;
+            if (lower.Contains("red")) return redAttributeColor;
+            if (lower.Contains("green")) return greenAttributeColor;
+            if (lower.Contains("yellow") || lower.Contains("gold")) return yellowAttributeColor;
+            if (lower.Contains("darkness") || lower.Contains("dark") || lower.Contains("shadow") || lower.Contains("purple") || lower.Contains("void")) return darknessAttributeColor;
+            if (lower.Contains("light") || lower.Contains("holy") || lower.Contains("sun")) return lightAttributeColor;
+            if (lower.Contains("infinity") || lower.Contains("crystal")) return infinityAttributeColor;
+
+            return Color.white;
+        }
+
+        public void SetAttribute(string attributeId) => SetAttributeColor(GetAttributeColor(attributeId));
+        public void SetAttribute(FighterAttribute attribute) => SetAttributeColor(GetAttributeColor(attribute.ToString()));
+
+        public void SetAttributeColor(Color color)
+        {
+            if (levelHandleFill != null)
+            {
+                levelHandleFill.color = color;
+            }
+
+            if (levelHandleBorder != null && tintBorderWithAttribute)
+            {
+                levelHandleBorder.color = Color.Lerp(color, Color.black, 0.45f);
+            }
+
+            if (levelText != null)
+            {
+                var luminance = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
+                levelText.color = luminance > 0.65f ? Color.black : Color.white;
+            }
+            else if (_levelTextFallback != null)
+            {
+                var luminance = 0.299f * color.r + 0.587f * color.g + 0.114f * color.b;
+                _levelTextFallback.color = luminance > 0.65f ? Color.black : Color.white;
+            }
+        }
+
+        public void SetLevel(int level)
+        {
+            var textVal = level > 0 ? level.ToString() : "1";
+            if (levelText != null) levelText.text = textVal;
+            if (_levelTextFallback != null) _levelTextFallback.text = textVal;
         }
 
         public void SetCoreHealth(int currentHealth, int maxHealth)
@@ -425,6 +507,10 @@ namespace FightingAllstar.Presentation.Combat
 
         public void SetStatuses(IReadOnlyList<StatusInstance> statuses)
         {
+            if (_statusPanel == null && _statusTemplate == null)
+            {
+                BindAuthoredUnitUi();
+            }
             if (_statusPanel == null && _statusTemplate == null) return;
 
             if (statuses == null || statuses.Count == 0)
@@ -443,32 +529,87 @@ namespace FightingAllstar.Presentation.Combat
                 _statusPanel.SetActive(true);
 
             var currentIds = new HashSet<string>();
+            var seenBaseIds = new HashSet<string>();
+            var recipeStackCounts = new Dictionary<string, int>();
+            // GridLayoutGroup follows sibling order. Keep each category stable in source order.
+            var orderedViews = new List<StatusViewEntry>[4]
+            {
+                new List<StatusViewEntry>(), new List<StatusViewEntry>(),
+                new List<StatusViewEntry>(), new List<StatusViewEntry>()
+            };
+
             for (var i = 0; i < statuses.Count; i++)
             {
                 var status = statuses[i];
-                if (status == null || string.IsNullOrEmpty(status.InstanceId)) continue;
-                var id = status.InstanceId;
-                currentIds.Add(id);
+                if (status == null) continue;
 
-                if (_statusViews.TryGetValue(id, out var entry) && entry != null && entry.Root != null)
+                var recipeId = !string.IsNullOrEmpty(status.RecipeId)
+                    ? status.RecipeId
+                    : (!string.IsNullOrEmpty(status.InstanceId) ? status.InstanceId : "unknown");
+
+                var maxStacks = (status.Recipe != null && status.Recipe.MaxStacks > 0)
+                    ? status.Recipe.MaxStacks
+                    : 10;
+
+                recipeStackCounts.TryGetValue(recipeId, out var currentRecipeStacks);
+                if (currentRecipeStacks >= maxStacks)
                 {
-                    if (entry.StackCount != status.StackCount)
-                    {
-                        entry.StackCount = status.StackCount;
-                        UpdateStatusStack(entry, status.StackCount);
-                        if (entry.Routine != null) StopCoroutine(entry.Routine);
-                        entry.Routine = StartCoroutine(AnimateStatusPulse(entry.Rect));
-                    }
+                    continue;
+                }
+
+                var isPermanent = status.Recipe != null && status.Recipe.DurationClock == StatusDurationClock.Permanent;
+                var remDur = isPermanent ? int.MaxValue : Mathf.Max(0, status.RemainingDuration);
+                int maxDur;
+                if (isPermanent)
+                {
+                    maxDur = int.MaxValue;
+                }
+                else if (status.RemainingDuration > 0)
+                {
+                    maxDur = status.RemainingDuration;
                 }
                 else
                 {
-                    var newEntry = CreateStatusView(status);
-                    if (newEntry != null)
+                    maxDur = status.Recipe?.DefaultDuration > 0 ? status.Recipe.DefaultDuration : 2;
+                }
+
+                var isIndependent = status.Recipe != null && status.Recipe.Stacking == StatusStackingPolicy.IndependentStacks;
+                var instanceStacks = isIndependent ? 1 : Mathf.Max(1, status.StackCount);
+                var allowedStacks = Mathf.Min(instanceStacks, maxStacks - currentRecipeStacks);
+
+                var rawId = !string.IsNullOrEmpty(status.InstanceId) ? status.InstanceId : recipeId;
+                var baseId = seenBaseIds.Add(rawId) ? rawId : $"{rawId}_{i}";
+                var isGrey = status.Recipe != null && status.Recipe.Color == StatusColor.Grey;
+                var isBuff = status.Recipe != null && status.Recipe.Polarity == StatusPolarity.Buff;
+                var category = (isGrey ? 0 : 2) + (isBuff ? 0 : 1);
+
+                for (var s = 0; s < allowedStacks; s++)
+                {
+                    var stackIndex = currentRecipeStacks + s;
+                    var stackKey = $"{baseId}_{s}";
+                    currentIds.Add(stackKey);
+
+                    if (_statusViews.TryGetValue(stackKey, out var entry) && entry != null && entry.Root != null)
                     {
-                        _statusViews[id] = newEntry;
-                        newEntry.Routine = StartCoroutine(AnimateStatusEnter(newEntry.Rect));
+                        entry.RemainingDuration = remDur;
+                        if (remDur > entry.MaxDuration && !isPermanent) entry.MaxDuration = remDur;
+                        entry.IsPermanent = isPermanent;
+                        UpdateDurationFill(entry, remDur, entry.MaxDuration);
+                        orderedViews[category].Add(entry);
+                    }
+                    else
+                    {
+                        var newEntry = CreateStatusView(status, stackIndex);
+                        if (newEntry != null)
+                        {
+                            _statusViews[stackKey] = newEntry;
+                            orderedViews[category].Add(newEntry);
+                            newEntry.Routine = StartCoroutine(AnimateStatusEnter(newEntry.Rect));
+                        }
                     }
                 }
+
+                recipeStackCounts[recipeId] = currentRecipeStacks + allowedStacks;
             }
 
             var toRemove = new List<string>();
@@ -485,87 +626,177 @@ namespace FightingAllstar.Presentation.Combat
                 if (entry != null && entry.Root != null)
                 {
                     if (entry.Routine != null) StopCoroutine(entry.Routine);
+                    // The exit animation must not occupy a grid cell while survivors close the gap.
+                    if (_statusPanel != null)
+                        entry.Root.transform.SetParent(_statusPanel.transform.parent, true);
                     StartCoroutine(AnimateStatusExit(entry.Root, entry.Rect));
+                }
+            }
+
+            if (_statusPanel != null)
+            {
+                var siblingIndex = 0;
+                foreach (var category in orderedViews)
+                    foreach (var entry in category)
+                        entry.Root.transform.SetSiblingIndex(siblingIndex++);
+
+                var panelRect = _statusPanel.GetComponent<RectTransform>();
+                if (panelRect != null)
+                {
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(panelRect);
                 }
             }
         }
 
-        private StatusViewEntry CreateStatusView(StatusInstance status)
+        public RectTransform CreateInspectorStatusIcon(StatusInstance status, Transform parent)
+        {
+            var entry = CreateStatusView(status, 0);
+            if (entry == null) return null;
+            entry.Root.transform.SetParent(parent, false);
+            var duration = Math.Max(status.RemainingDuration, status.Recipe?.DefaultDuration ?? 1);
+            foreach (var live in _statusViews.Values)
+                if (!string.IsNullOrEmpty(status.InstanceId) && live.InstanceId == status.InstanceId)
+                { duration = live.MaxDuration; break; }
+            UpdateDurationFill(entry, status.RemainingDuration, duration);
+            return entry.Rect;
+        }
+
+        private StatusViewEntry CreateStatusView(StatusInstance status, int stackIndex)
         {
             GameObject obj = null;
             if (_statusTemplate != null)
             {
                 obj = Instantiate(_statusTemplate, _statusPanel != null ? _statusPanel.transform : transform);
             }
+            else if (statusIconPrefab != null)
+            {
+                obj = Instantiate(statusIconPrefab, _statusPanel != null ? _statusPanel.transform : transform);
+            }
             else if (_statusPanel != null)
             {
-                obj = new GameObject("StatusIcon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                obj = new GameObject("StatusIcon", typeof(RectTransform), typeof(CanvasRenderer));
                 obj.transform.SetParent(_statusPanel.transform, false);
+
+                var iconObj = new GameObject("Icon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                iconObj.transform.SetParent(obj.transform, false);
+                var iconR = iconObj.GetComponent<RectTransform>();
+                iconR.anchorMin = Vector2.zero;
+                iconR.anchorMax = Vector2.one;
+                iconR.sizeDelta = Vector2.zero;
+
+                var cdObj = new GameObject("Cooldown", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                cdObj.transform.SetParent(obj.transform, false);
+                var cdR = cdObj.GetComponent<RectTransform>();
+                cdR.anchorMin = Vector2.zero;
+                cdR.anchorMax = Vector2.one;
+                cdR.sizeDelta = Vector2.zero;
+                var cdImg = cdObj.GetComponent<Image>();
+                cdImg.color = new Color(0.11f, 0.11f, 0.11f, 0.78f);
+                cdImg.type = Image.Type.Filled;
+                cdImg.fillMethod = Image.FillMethod.Radial360;
+                cdImg.fillOrigin = (int)Image.Origin360.Top;
+                cdImg.fillClockwise = false;
+                cdImg.fillAmount = 0f;
             }
             if (obj == null) return null;
 
             obj.SetActive(true);
-            obj.name = "Status_" + (status.RecipeId ?? "Unknown");
+            obj.name = $"Status_{status.RecipeId ?? "Unknown"}_{stackIndex}";
 
             var rect = obj.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(20f, 20f);
-            rect.localScale = Vector3.one;
+            if (rect != null)
+            {
+                rect.localScale = Vector3.one;
+                if (_statusPanel == null || _statusPanel.GetComponent<LayoutGroup>() == null)
+                {
+                    if (rect.sizeDelta == Vector2.zero)
+                        rect.sizeDelta = new Vector2(25f, 25f);
+                }
+            }
 
-            var image = obj.GetComponent<Image>();
-            if (image == null) image = obj.AddComponent<Image>();
-            image.enabled = true;
-            image.type = Image.Type.Simple;
-            image.preserveAspect = true;
-            image.raycastTarget = false;
+            var iconTrans = obj.transform.Find("Icon") ?? FindChildDirectOrRecursive(obj.transform, "Icon");
+            var iconImage = iconTrans != null ? iconTrans.GetComponent<Image>() : null;
+            if (iconImage == null)
+            {
+                iconImage = obj.GetComponent<Image>();
+                if (iconImage == null) iconImage = obj.AddComponent<Image>();
+            }
+
+            var cooldownTrans = obj.transform.Find("Cooldown") ?? FindChildDirectOrRecursive(obj.transform, "Cooldown");
+            var cooldownImage = cooldownTrans != null ? cooldownTrans.GetComponent<Image>() : null;
 
             var polarity = status.Recipe?.Polarity ?? StatusPolarity.Debuff;
-            image.sprite = ResolveStatusSprite(status.RecipeId, polarity);
+            if (iconImage != null)
+            {
+                iconImage.enabled = true;
+                iconImage.color = Color.white;
+                iconImage.sprite = ResolveStatusSprite(status.RecipeId, polarity);
+                if (iconImage.type == Image.Type.Filled)
+                {
+                    iconImage.fillAmount = 1f;
+                }
+            }
+
+            var isPermanent = status.Recipe != null && status.Recipe.DurationClock == StatusDurationClock.Permanent;
+            int maxDur;
+            if (isPermanent)
+            {
+                maxDur = int.MaxValue;
+            }
+            else if (status.RemainingDuration > 0)
+            {
+                maxDur = status.RemainingDuration;
+            }
+            else
+            {
+                maxDur = status.Recipe?.DefaultDuration > 0 ? status.Recipe.DefaultDuration : 2;
+            }
+            var remDur = isPermanent ? int.MaxValue : (status.RemainingDuration > 0 ? status.RemainingDuration : maxDur);
 
             var entry = new StatusViewEntry
             {
                 InstanceId = status.InstanceId,
                 RecipeId = status.RecipeId,
+                StackIndex = stackIndex,
+                StackCount = status.StackCount,
                 Root = obj,
                 Rect = rect,
-                IconImage = image,
-                StackCount = status.StackCount
+                IconImage = iconImage,
+                CooldownOverlay = cooldownImage,
+                RemainingDuration = remDur,
+                MaxDuration = maxDur,
+                IsPermanent = isPermanent
             };
 
-            UpdateStatusStack(entry, status.StackCount);
+            UpdateDurationFill(entry, remDur, maxDur);
             return entry;
         }
 
-        private static void UpdateStatusStack(StatusViewEntry entry, int stackCount)
+        private static void UpdateDurationFill(StatusViewEntry entry, int remaining, int maxDuration)
         {
-            if (entry == null || entry.Root == null) return;
-            if (stackCount > 1)
-            {
-                if (entry.StackText == null)
-                {
-                    var textObj = new GameObject("StackCount", typeof(RectTransform), typeof(CanvasRenderer), typeof(Text));
-                    textObj.transform.SetParent(entry.Root.transform, false);
-                    var tRect = textObj.GetComponent<RectTransform>();
-                    tRect.anchorMin = Vector2.zero;
-                    tRect.anchorMax = Vector2.one;
-                    tRect.offsetMin = new Vector2(2f, -2f);
-                    tRect.offsetMax = new Vector2(2f, -2f);
-                    tRect.pivot = new Vector2(1f, 0f);
+            if (entry == null) return;
 
-                    var text = textObj.GetComponent<Text>();
-                    text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf") ?? Resources.GetBuiltinResource<Font>("Arial.ttf");
-                    text.fontSize = 10;
-                    text.fontStyle = FontStyle.Bold;
-                    text.alignment = TextAnchor.LowerRight;
-                    text.color = new Color(1f, 0.95f, 0.65f, 1f);
-                    text.raycastTarget = false;
-                    entry.StackText = text;
-                }
-                entry.StackText.text = stackCount.ToString();
-                entry.StackText.gameObject.SetActive(true);
-            }
-            else if (entry.StackText != null)
+            float ratio = 0f;
+            if (entry.IsPermanent)
             {
-                entry.StackText.gameObject.SetActive(false);
+                ratio = 0f;
+            }
+            else if (maxDuration > 0)
+            {
+                ratio = Mathf.Clamp01((float)(maxDuration - remaining) / maxDuration);
+            }
+
+            if (entry.CooldownOverlay != null)
+            {
+                entry.CooldownOverlay.fillAmount = ratio;
+            }
+            else if (entry.IconImage != null)
+            {
+                entry.IconImage.type = Image.Type.Filled;
+                entry.IconImage.fillMethod = Image.FillMethod.Radial360;
+                entry.IconImage.fillOrigin = (int)Image.Origin360.Top;
+                entry.IconImage.fillClockwise = true;
+                entry.IconImage.fillAmount = Mathf.Clamp01((float)remaining / Mathf.Max(1, maxDuration));
             }
         }
 
@@ -576,17 +807,24 @@ namespace FightingAllstar.Presentation.Combat
             var elapsed = 0f;
             var initialPos = rect.localPosition;
             var startOffset = new Vector3(14f, 4f, 0f);
+            var hasLayoutGroup = rect.parent != null && rect.parent.GetComponent<LayoutGroup>() != null;
 
             rect.localScale = Vector3.one * 0.3f;
-            rect.localPosition = initialPos + startOffset;
+            if (!hasLayoutGroup)
+            {
+                rect.localPosition = initialPos + startOffset;
+            }
 
             while (elapsed < duration)
             {
                 elapsed += Time.unscaledDeltaTime;
                 var t = Mathf.Clamp01(elapsed / duration);
 
-                var slideT = Mathf.Sin(t * Mathf.PI * 0.5f);
-                rect.localPosition = Vector3.Lerp(initialPos + startOffset, initialPos, slideT);
+                if (!hasLayoutGroup)
+                {
+                    var slideT = Mathf.Sin(t * Mathf.PI * 0.5f);
+                    rect.localPosition = Vector3.Lerp(initialPos + startOffset, initialPos, slideT);
+                }
 
                 float scale;
                 if (t < 0.65f)
@@ -598,7 +836,10 @@ namespace FightingAllstar.Presentation.Combat
                 yield return null;
             }
 
-            rect.localPosition = initialPos;
+            if (!hasLayoutGroup)
+            {
+                rect.localPosition = initialPos;
+            }
             rect.localScale = Vector3.one;
         }
 
@@ -640,25 +881,17 @@ namespace FightingAllstar.Presentation.Combat
 
         private static Sprite ResolveStatusSprite(string recipeId, StatusPolarity polarity)
         {
-            var lower = (recipeId ?? string.Empty).ToLowerInvariant();
-            string key;
-            if (lower.Contains("ignite") || lower.Contains("bleed") || lower.Contains("poison") || lower.Contains("shock") || lower.Contains("dot"))
-                key = "Cardtype_Debuffatk";
-            else if (lower.Contains("attack") && polarity == StatusPolarity.Buff)
-                key = "sword";
-            else if (lower.Contains("defense") && polarity == StatusPolarity.Buff)
-                key = "shield";
-            else if ((lower.Contains("hp") || lower.Contains("heal") || lower.Contains("recovery")) && polarity == StatusPolarity.Buff)
-                key = "heart";
-            else if (polarity == StatusPolarity.Buff)
-                key = "Cardtype_buff";
-            else
-                key = "Cardtype_Debuff";
-
+            var key = recipeId ?? "";
             if (_statusSpriteCache.TryGetValue(key, out var cached) && cached != null)
                 return cached;
 
-            var sprite = LoadSpriteByName(key);
+            var sprite = StatusVisualData.GetSprite(recipeId, polarity);
+            if (sprite == null)
+            {
+                var fallbackKey = StatusLibrary.GetIconKey(recipeId, polarity);
+                sprite = LoadSpriteByName(fallbackKey);
+            }
+
             if (sprite != null)
                 _statusSpriteCache[key] = sprite;
             return sprite;
@@ -666,52 +899,144 @@ namespace FightingAllstar.Presentation.Combat
 
         private static Sprite LoadSpriteByName(string name)
         {
-#if UNITY_EDITOR
-            var edSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Project/Art/UI/" + name + ".png");
-            if (edSprite != null) return edSprite;
-#endif
-            var res = Resources.Load<Sprite>("UI/" + name);
-            if (res != null) return res;
+            if (string.IsNullOrEmpty(name)) return null;
 
-            var filePath = System.IO.Path.Combine(Application.dataPath, "Project", "Art", "UI", name + ".png");
-            if (System.IO.File.Exists(filePath))
+            string[] subfolders = { "Stats_Icon", "StatusIcon", "" };
+#if UNITY_EDITOR
+            foreach (var sub in subfolders)
             {
-                try
+                var path = string.IsNullOrEmpty(sub)
+                    ? $"Assets/Project/Art/UI/{name}.png"
+                    : $"Assets/Project/Art/UI/{sub}/{name}.png";
+                var edSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(path);
+                if (edSprite != null) return edSprite;
+                var allAssets = UnityEditor.AssetDatabase.LoadAllAssetsAtPath(path);
+                if (allAssets != null)
                 {
-                    var bytes = System.IO.File.ReadAllBytes(filePath);
-                    var tex = new Texture2D(64, 64, TextureFormat.RGBA32, false);
-                    if (tex.LoadImage(bytes))
+                    for (var i = 0; i < allAssets.Length; i++)
                     {
-                        return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
+                        if (allAssets[i] is Sprite spr) return spr;
                     }
                 }
-                catch { }
+            }
+#endif
+            foreach (var sub in subfolders)
+            {
+                var resPath = string.IsNullOrEmpty(sub) ? $"UI/{name}" : $"UI/{sub}/{name}";
+                var res = Resources.Load<Sprite>(resPath);
+                if (res != null) return res;
+            }
+
+            foreach (var sub in subfolders)
+            {
+                var filePath = string.IsNullOrEmpty(sub)
+                    ? System.IO.Path.Combine(Application.dataPath, "Project", "Art", "UI", name + ".png")
+                    : System.IO.Path.Combine(Application.dataPath, "Project", "Art", "UI", sub, name + ".png");
+                if (System.IO.File.Exists(filePath))
+                {
+                    try
+                    {
+                        var bytes = System.IO.File.ReadAllBytes(filePath);
+                        var tex = new Texture2D(64, 64, TextureFormat.RGBA32, false);
+                        if (tex.LoadImage(bytes))
+                        {
+                            return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
+                        }
+                    }
+                    catch { }
+                }
+            }
+            return null;
+        }
+
+        private static Transform FindChildDirectOrRecursive(Transform parent, string targetName)
+        {
+            if (parent == null) return null;
+            for (var i = 0; i < parent.childCount; i++)
+            {
+                var child = parent.GetChild(i);
+                if (string.Equals(child.name, targetName, System.StringComparison.OrdinalIgnoreCase))
+                    return child;
+            }
+            for (var i = 0; i < parent.childCount; i++)
+            {
+                var found = FindChildDirectOrRecursive(parent.GetChild(i), targetName);
+                if (found != null) return found;
             }
             return null;
         }
 
         private void BindAuthoredUnitUi()
         {
-            var unitUi = transform.Find("UnitUI");
+            var unitUi = FindChildDirectOrRecursive(transform, "UnitUI") ?? transform;
             if (unitUi != null)
             {
                 unitUi.gameObject.SetActive(true);
-                if (healthSlider == null) healthSlider = unitUi.Find("HealthBar")?.GetComponent<Slider>();
-                var shield = unitUi.Find("HealthPanel/Ex-Healthbar");
+                var h = FindChildDirectOrRecursive(unitUi, "HealthBar");
+                if (h != null && healthSlider == null) healthSlider = h.GetComponent<Slider>();
+
+                if (levelHandleFill == null || levelHandleBorder == null || (levelText == null && _levelTextFallback == null))
+                {
+                    var handleParent = FindChildDirectOrRecursive(h ?? unitUi, "LevelHandle") ?? FindChildDirectOrRecursive(transform, "LevelHandle");
+                    if (handleParent != null)
+                    {
+                        if (levelHandleBorder == null)
+                            levelHandleBorder = handleParent.GetComponent<Image>();
+
+                        if (levelHandleFill == null)
+                        {
+                            var fillTransform = handleParent.Find("LevelHandle") ?? FindChildDirectOrRecursive(handleParent, "LevelHandle");
+                            levelHandleFill = fillTransform != null ? fillTransform.GetComponent<Image>() : null;
+                            if (levelHandleFill == null)
+                                levelHandleFill = levelHandleBorder;
+                        }
+
+                        if (levelText == null && _levelTextFallback == null)
+                        {
+                            var txtTransform = handleParent.Find("Level-Text") ?? FindChildDirectOrRecursive(handleParent, "Level-Text");
+                            if (txtTransform != null)
+                            {
+                                levelText = txtTransform.GetComponent<TMP_Text>();
+                                if (levelText == null)
+                                    _levelTextFallback = txtTransform.GetComponent<Text>();
+                            }
+                        }
+                    }
+                }
+
+                var shield = FindChildDirectOrRecursive(unitUi, "Ex-Healthbar") ?? unitUi.Find("HealthPanel/Ex-Healthbar");
                 _shieldRoot = shield == null ? null : shield.gameObject;
                 _shieldFill = shield?.Find("Fill Area/Fill")?.GetComponent<Image>();
 
-                var panel = unitUi.Find("Buff/DebuffPanel") ?? transform.Find("Buff/DebuffPanel");
+                var panel = FindChildDirectOrRecursive(unitUi, "Buff/DebuffPanel") ?? FindChildDirectOrRecursive(transform, "Buff/DebuffPanel");
                 if (panel != null)
                 {
                     _statusPanel = panel.gameObject;
-                    var t = panel.Find("Image");
+                    var t = FindChildDirectOrRecursive(panel, "StatusIcon")
+                        ?? panel.Find("StatusIcon")
+                        ?? FindChildDirectOrRecursive(panel, "Image")
+                        ?? panel.Find("Image");
                     if (t != null)
                     {
                         _statusTemplate = t.gameObject;
                         _statusTemplate.SetActive(false);
                     }
                 }
+
+                if (_statusTemplate == null && statusIconPrefab != null)
+                {
+                    _statusTemplate = statusIconPrefab;
+                }
+#if UNITY_EDITOR
+                if (_statusTemplate == null)
+                {
+                    _statusTemplate = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Project/Prefabs/StatusIcon.prefab");
+                    if (statusIconPrefab == null && _statusTemplate != null)
+                    {
+                        statusIconPrefab = _statusTemplate;
+                    }
+                }
+#endif
             }
 
             if (powerGaugeSlider == null)
@@ -721,7 +1046,8 @@ namespace FightingAllstar.Presentation.Combat
                     ?? unitUi?.Find("GaugePanel/GaugeSlider");
                 powerGaugeSlider = pg?.GetComponent<Slider>() ?? pg?.GetComponentInChildren<Slider>(true);
             }
-            _powerGaugeFill = powerGaugeSlider?.fillRect?.GetComponent<Image>();
+            _powerGaugeFill = powerGaugeSlider != null && powerGaugeSlider.fillRect != null
+                ? powerGaugeSlider.fillRect.GetComponent<Image>() : null;
             if (_powerGaugeFill == null)
                 _powerGaugeFill = powerGaugeSlider?.transform.Find("Fill Area/Fill")?.GetComponent<Image>();
             if (powerGaugeSlider != null)
@@ -741,5 +1067,22 @@ namespace FightingAllstar.Presentation.Combat
             if (powerGaugeSlider == null || _powerGaugeFill == null)
                 Debug.LogError("Power Gauge Slider is unassigned or has no fill image. Assign the PG Slider in Core Fighter Hud.", this);
         }
+
+#if UNITY_EDITOR
+        [SerializeField] private string previewAttribute = "";
+        private void OnValidate()
+        {
+            if (Application.isPlaying) return;
+            try
+            {
+                BindAuthoredUnitUi();
+                if (!string.IsNullOrEmpty(previewAttribute))
+                {
+                    SetAttribute(previewAttribute);
+                }
+            }
+            catch { }
+        }
+#endif
     }
 }

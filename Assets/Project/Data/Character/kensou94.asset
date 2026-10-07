@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: kensou94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.kensou94
+  runtimeReady: 1
+  sourceId: 12
+  sourceRecord: 13
+  familyId: family.kensou
+  seriesId: series.kof
+  role: 4th Slot Support (Sub)
+  traitIds:
+  - trait.chinese
+  - trait.psycho-soldier
+  - trait.series-kof
+  passiveSourceDescription: Increases allies's Recovery Rate by 40%
+  passiveSourceType: SUB
+  passiveRestriction: All
+  passiveDefinition: {fileID: 11400000, guid: 874047c902d92704faee99ba75b6da73, type: 2}
+  id: 1012
+  fighterName: Sie Kensou 94
+  fighterTag: family.kensou
+  fighterPic: {fileID: 21300000, guid: 39d71fea6c2c83c45985c06bde80db65, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 5237197634ec8e9409cc2dfe4b476a71, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: 64313163dbf4acb40b597676f36f759b, type: 3}
+  Skill1: {fileID: 11400000, guid: 9a04ce139c094474c8069a1aeeb596aa, type: 2}
+  Skill2: {fileID: 11400000, guid: 4ae30bfdbcd3ac04987f49edc67fccfa, type: 2}
+  Ultimate: {fileID: 11400000, guid: f3bf7c71a33260f41894de6e8ddec267, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2761
+  attack: 310
+  defense: 120
+  health: 3200
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 0
+    Regenerate: 35
+    CritChance: 40
+    CritDmg: 130
+    CritResistance: 0
+    CritDefense: 0
+    RecoveryRate: 150
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 20
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

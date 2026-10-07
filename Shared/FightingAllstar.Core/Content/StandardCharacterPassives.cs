@@ -47,6 +47,11 @@ namespace FightingAllstar.Core.Content
                     aura.Scaling = PassiveScaling.OwnerStat; aura.SourceStat = StatId.Regeneration;
                     Add(aura, StatId.Recovery, -10000);
                     break;
+                case "fighter.ryo94":
+                    aura = Aura(passive, "reflect-damage", PassivePresence.LivingActive, PassiveRelation.Self);
+                    aura.Modifiers.Add(new StatModifierDefinition { Target = ModifierTarget.Stat,
+                        Stat = StatId.ReflectDamage, Operation = ModifierOperation.PercentagePoints, Amount = 1500 });
+                    break;
                 case "fighter.shingo97":
                     passive.Reactions.Add(new PassiveReactionDefinition { Id = "drain-refund",
                         Gate = new PassiveGate { Presence = PassivePresence.LivingActive }, Trigger = PassiveEventKind.GaugeChanged,

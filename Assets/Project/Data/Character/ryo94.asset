@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: ryo94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.ryo94
+  runtimeReady: 1
+  sourceId: 21
+  sourceRecord: 22
+  familyId: family.ryo
+  seriesId: series.kof
+  role: Heavy Tank
+  traitIds:
+  - trait.art-of-fighting
+  - trait.series-kof
+  passiveSourceDescription: Reflects 15% of damage received
+  passiveSourceType: On-Field
+  passiveRestriction: Own
+  passiveDefinition: {fileID: 11400000, guid: 1b01f4ceddea43c5a18a251e1225e25a, type: 2}
+  id: 1021
+  fighterName: Ryo Sakazaki 94
+  fighterTag: Ryo
+  fighterPic: {fileID: 21300000, guid: 463efe8849cc21a48bc5471759486073, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 42853c9a482e2bc468c764c9222d900d, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: a179c712d48aab144b0626d9b3aac1f7, type: 3}
+  Skill1: {fileID: 11400000, guid: 8af79225a4290e743be0dd918a8e1419, type: 2}
+  Skill2: {fileID: 11400000, guid: c91e69dfddd14234b9079cb64a4e5e0b, type: 2}
+  Ultimate: {fileID: 11400000, guid: 7c255142f7cc13f4f8b3ac13885f491f, type: 2}
+  FighterAttribute: 3
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2550
+  attack: 270
+  defense: 290
+  health: 5500
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 0
+    Regenerate: 5
+    CritChance: 5
+    CritDmg: 130
+    CritResistance: 0
+    CritDefense: 30
+    RecoveryRate: 145
+    BlockChance: 25
+    BlockPower: 20
+    LifeSteal: 0
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

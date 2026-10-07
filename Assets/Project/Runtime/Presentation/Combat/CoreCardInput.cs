@@ -44,6 +44,8 @@ namespace FightingAllstar.Presentation.Combat
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            // If pointer is still held down, allow moving around without cancelling hold
+            if (_pointerDown) return;
             var wasHolding = _holding;
             CancelHold();
             _cancelled = true;

@@ -37,8 +37,7 @@ namespace FightingAllstar.Presentation.Route
 
         private void OnReturnToEntry()
         {
-            if (entry != null) entry.gameObject.SetActive(true);
-            if (routeMap != null) routeMap.gameObject.SetActive(false);
+            SceneManager.LoadScene("Combat");
         }
 
         private void Start()
@@ -55,7 +54,6 @@ namespace FightingAllstar.Presentation.Route
                 return;
             }
             ClaimCompletedRunRewardIfNeeded();
-            ResumeSavedRun();
         }
 
         /// <summary>Supply snapshots from the owning app composition, then show dungeon entry.</summary>
@@ -84,12 +82,13 @@ namespace FightingAllstar.Presentation.Route
         }
 
         /// <summary>Show the persisted local run map when resuming from the app menu.</summary>
-        public bool ResumeSavedRun()
+        public bool ResumeSavedRun(IReadOnlyList<CharacterDefinition> catalog)
         {
             if (routeMap == null || entry == null) return false;
             var run = new LocalRunStateStore().TryLoad(out var saved) ? saved : null;
             if (run == null || run.Status == RunStatus.Completed || run.Status == RunStatus.Defeated || run.Status == RunStatus.Abandoned)
                 return false;
+            DungeonFlowContext.SetCatalog(catalog);
             entry.gameObject.SetActive(false);
             routeMap.gameObject.SetActive(true);
             routeMap.SetRun(run);
@@ -125,6 +124,7 @@ namespace FightingAllstar.Presentation.Route
             var granted = inventory.GrantRunReward(run.RunId, run.RewardQuoteDiamonds);
             run.RewardClaimed = true;
             store.Clear();
+            DungeonFlowContext.Clear();
             Debug.Log("Account run reward " + run.RunId + (granted ? " granted " + run.RewardQuoteDiamonds + " Diamonds." : " was already claimed."), this);
         }
     }

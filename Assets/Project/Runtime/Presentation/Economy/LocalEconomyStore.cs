@@ -76,9 +76,14 @@ namespace FightingAllstar.Presentation.Economy
             var inventory = PlayerInventoryService.Instance;
             if (inventory == null || inventory.Snapshot == null) return;
             state.Diamonds = inventory.Diamonds;
-            if (inventory.Snapshot.formation != null && inventory.Snapshot.formation.Count == 4)
+            if (inventory.Snapshot.formation != null && inventory.Snapshot.formation.Count == 4 &&
+                inventory.Snapshot.formation.Exists(id => !string.IsNullOrEmpty(id)))
             {
-                state.FormationDefinitionIds = inventory.GetDefinitionFormation(inventory.Snapshot.formation);
+                var defs = inventory.GetDefinitionFormation(inventory.Snapshot.formation);
+                if (defs != null && defs.Exists(d => !string.IsNullOrEmpty(d)))
+                {
+                    state.FormationDefinitionIds = defs;
+                }
             }
             if (inventory.Snapshot.characters != null)
             {
@@ -149,7 +154,8 @@ namespace FightingAllstar.Presentation.Economy
             foreach (var id in starters)
                 if (!state.Roster.Exists(owned => owned != null && owned.DefinitionId == id))
                     state.Roster.Add(new LocalOwnedCharacter { DefinitionId = id, ConstellationTier = 0 });
-            if (state.FormationDefinitionIds == null || state.FormationDefinitionIds.Count != 4)
+            if (state.FormationDefinitionIds == null || state.FormationDefinitionIds.Count != 4 ||
+                !state.FormationDefinitionIds.Exists(id => !string.IsNullOrEmpty(id)))
                 state.FormationDefinitionIds = new System.Collections.Generic.List<string>(starters);
         }
 
