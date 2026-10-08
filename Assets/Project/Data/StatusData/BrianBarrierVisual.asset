@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9666d9fe4691a054dae7deae827391e9, type: 3}
-  m_Name: Poison
+  m_Name: BrianBarrierVisual
   m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
-  id: status.debuff.posion
-  displayName: Poison
-  icon: {fileID: 21300000, guid: 6152598d894016a4d89e6b8e7339a21f, type: 3}
-  polarity: 1
+  id: status.buff.brian94.barrier
+  displayName: Barrier
+  icon: {fileID: 21300000, guid: 80834158f9b6ec946a6d7ad7abf66eeb, type: 3}
+  polarity: 0
   keywords:
-  - Poison
-  description: 
+  - Barrier
+  - Shield
+  - status.buff.brian94.barrier
+  description: Absorbs incoming damage.

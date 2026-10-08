@@ -226,7 +226,10 @@ namespace FightingAllstar.Core.Combat
                             units += StatusSystem.Count(subject, requiredTag: rule.ScalingKey);
                 }
                 else if (statLayer) units = lowerStats.Get(rule.SourceStat);
-                units = Math.Min(rule.MaximumUnits, Math.Max(0, units));
+                // Constant auras have exactly one contribution. MaximumUnits is a hidden,
+                // irrelevant field for this scaling mode and may be zero in serialized assets.
+                if (rule.Scaling != PassiveScaling.Constant)
+                    units = Math.Min(rule.MaximumUnits, Math.Max(0, units));
                 foreach (var target in fighters)
                 {
                     if (!Matches(owner, target, rule.Targets)) continue;

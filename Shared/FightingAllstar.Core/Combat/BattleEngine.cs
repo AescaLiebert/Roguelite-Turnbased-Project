@@ -495,6 +495,7 @@ namespace FightingAllstar.Core.Combat
             var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
+            var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
             AddEvent(state, BattleEventKind.DamageApplied, owner.Id, target.Id, card.Id, damage.CalculatedDamage,
                 (damage.WasCritical ? "Critical. " : string.Empty) + (damage.WasBlocked ? "Blocked. " : string.Empty));
             state.Events[state.Events.Count - 1].HealthAfter = target.Health;
@@ -504,6 +505,8 @@ namespace FightingAllstar.Core.Combat
             state.Events[state.Events.Count - 1].WasEndured = damage.WasEndured;
             state.Events[state.Events.Count - 1].Affinity = AttributeRules.GetAffinity(owner.Definition?.AttributeId, target.Definition?.AttributeId);
             state.Events[state.Events.Count - 1].ShieldLost = damage.ShieldLost;
+            if (barrierBroken)
+                state.Events[state.Events.Count - 1].StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             state.Events[state.Events.Count - 1].HitIndex = hitIndex;
             state.Events[state.Events.Count - 1].HitCount = hitCount;
             state.Events[state.Events.Count - 1].AttackRange = effect.Attack?.Range ?? AttackRange.Close;
@@ -784,6 +787,7 @@ namespace FightingAllstar.Core.Combat
                         : null;
                     if (applyResult != null && applyResult.Accepted)
                     {
+                        var barrier = GrantBarrierShield(effectTarget, appliedRecipe, applyResult.Instance);
                         var recipeId = effect.StatusRecipe.Id;
                         AddEvent(state, BattleEventKind.StatusApplied, owner?.Id, effectTarget.Id, cardId, Math.Max(1, effect.StatusStackCount),
                             recipeId);
@@ -792,6 +796,11 @@ namespace FightingAllstar.Core.Combat
                         statusEvt.StatusRecipeId = recipeId;
                         statusEvt.StatusOutcome = applyResult.Outcome;
                         statusEvt.StatusesAfter = effectTarget.Statuses.Instances.ConvertAll(s => s.Clone());
+                        if (barrier > 0)
+                        {
+                            statusEvt.ShieldAfter = effectTarget.Shield;
+                            statusEvt.ShieldChanged = true;
+                        }
                     }
                     else if (applyResult?.Outcome == StatusApplyOutcome.IgnoredWeaker)
                     {
@@ -1111,12 +1120,15 @@ namespace FightingAllstar.Core.Combat
             var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, -1, -1);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
+            var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
             AddEvent(state, BattleEventKind.DamageApplied, source.Id, target.Id, rootActionId,
                 damage.CalculatedDamage, "Passive additional damage.");
             var damageEvent = state.Events[state.Events.Count - 1];
             damageEvent.HealthAfter = target.Health;
             damageEvent.ShieldAfter = target.Shield;
             damageEvent.ShieldLost = damage.ShieldLost;
+            if (barrierBroken)
+                damageEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             damageEvent.WasEndured = damage.WasEndured;
             damageEvent.Affinity = AttributeRules.GetAffinity(source.Definition?.AttributeId,
                 target.Definition?.AttributeId);
@@ -1186,10 +1198,71 @@ namespace FightingAllstar.Core.Combat
         private static void EmitStatusRemoval(BattleState state, FighterState owner, FighterState target,
             StatusPolarity polarity, bool removeAll, string cardId)
         {
+            var previous = new List<StatusInstance>(target.Statuses.Instances);
             var removed = StatusSystem.Remove(target, polarity, removeAll);
+            var removedBarrierShield = RemoveExpiredBarrierShield(target, previous);
             if (removed > 0) AddEvent(state, BattleEventKind.StatusRemoved, owner.Id, target.Id, cardId, removed,
                 polarity == StatusPolarity.Buff ? "Buffs removed." : "Debuffs cleansed.");
-            if (removed > 0) state.Events[state.Events.Count - 1].StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
+            if (removed > 0)
+            {
+                var statusEvent = state.Events[state.Events.Count - 1];
+                statusEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
+                if (removedBarrierShield > 0)
+                {
+                    statusEvent.ShieldAfter = target.Shield;
+                    statusEvent.ShieldChanged = true;
+                }
+            }
+        }
+
+        private static int GrantBarrierShield(FighterState target, StatusRecipeDefinition recipe,
+            StatusInstance instance)
+        {
+            if (target == null || recipe == null || instance == null ||
+                (recipe.Behavior & StatusBehavior.Barrier) == 0 || recipe.BarrierCoefficientBp <= 0)
+                return 0;
+            var amount = (int)Math.Min(int.MaxValue, (long)Math.Max(0, instance.Snapshot?.SourceAttack ?? 0) *
+                recipe.BarrierCoefficientBp / 10000);
+            if (amount <= 0) return 0;
+            instance.ShieldRemaining = (int)Math.Min(int.MaxValue, (long)instance.ShieldRemaining + amount);
+            target.Shield = (int)Math.Min(int.MaxValue, (long)Math.Max(0, target.Shield) + amount);
+            return amount;
+        }
+
+        private static bool ConsumeBarrierShield(FighterState target, int amount)
+        {
+            var remaining = Math.Max(0, amount);
+            if (target?.Statuses?.Instances == null || remaining == 0) return false;
+            var depletedBarrierIds = new List<string>();
+            foreach (var status in target.Statuses.Instances)
+            {
+                if (status == null || status.ShieldRemaining <= 0) continue;
+                var consumed = Math.Min(status.ShieldRemaining, remaining);
+                status.ShieldRemaining -= consumed;
+                remaining -= consumed;
+                if (consumed > 0 && status.ShieldRemaining == 0 && status.Recipe != null &&
+                    (status.Recipe.Behavior & StatusBehavior.Barrier) != 0)
+                    depletedBarrierIds.Add(status.InstanceId);
+                if (remaining == 0) break;
+            }
+            foreach (var instanceId in depletedBarrierIds)
+                target.Statuses.RemoveInstance(instanceId);
+            return depletedBarrierIds.Count > 0;
+        }
+
+        private static int RemoveExpiredBarrierShield(FighterState target, List<StatusInstance> previous)
+        {
+            if (target == null || previous == null) return 0;
+            long removedShield = 0;
+            foreach (var status in previous)
+            {
+                if (status?.ShieldRemaining <= 0 || target.Statuses.Instances.Exists(active => active.InstanceId == status.InstanceId))
+                    continue;
+                removedShield += status.ShieldRemaining;
+            }
+            var removed = (int)Math.Min(Math.Max(0, target.Shield), removedShield);
+            target.Shield -= removed;
+            return removed;
         }
 
         private static void ResolveActionReflect(BattleState state, ActionResolutionContext resolution, string rootActionId)
@@ -1206,6 +1279,7 @@ namespace FightingAllstar.Core.Combat
                 if (reflected <= 0) continue;
                 var shieldLost = Math.Min(Math.Max(0, source.Shield), reflected);
                 source.Shield -= shieldLost;
+                var barrierBroken = ConsumeBarrierShield(source, shieldLost);
                 var healthLost = source.CannotDie ? 0 : Math.Min(Math.Max(0, source.Health), reflected - shieldLost);
                 source.Health -= healthLost;
                 AddEvent(state, BattleEventKind.DamageApplied, reflector.Id, source.Id, rootActionId, reflected,
@@ -1214,6 +1288,8 @@ namespace FightingAllstar.Core.Combat
                 evt.HealthAfter = source.Health;
                 evt.ShieldAfter = source.Shield;
                 evt.ShieldLost = shieldLost;
+                if (barrierBroken)
+                    evt.StatusesAfter = source.Statuses.Instances.ConvertAll(s => s.Clone());
                 CharacterPassiveRuntime.NotifyDamageResolved(state, reflector, source, reflected, rootActionId);
                 if (source.Health <= 0 && source.IsAlive && !source.CannotDie)
                 {
@@ -1398,9 +1474,21 @@ namespace FightingAllstar.Core.Combat
                 previousMaxHealthOverrides.Add(fighter.Id, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
             var expired = fighter.Statuses.Advance(clock, source);
             if (!advances) return;
+            var expiredBarrierShield = 0L;
+            foreach (var status in expired)
+                if ((status?.Recipe?.Behavior & StatusBehavior.Barrier) != 0)
+                    expiredBarrierShield += Math.Max(0, status.ShieldRemaining);
+            var shieldRemoved = (int)Math.Min(Math.Max(0, fighter.Shield), expiredBarrierShield);
+            fighter.Shield -= shieldRemoved;
             AddEvent(state, expired.Count > 0 ? BattleEventKind.StatusRemoved : BattleEventKind.StatusesChanged,
                 fighter.Id, fighter.Id, null, expired.Count, expired.Count > 0 ? "Status expired." : null);
-            state.Events[state.Events.Count - 1].StatusesAfter = fighter.Statuses.Instances.ConvertAll(s => s.Clone());
+            var statusEvent = state.Events[state.Events.Count - 1];
+            statusEvent.StatusesAfter = fighter.Statuses.Instances.ConvertAll(s => s.Clone());
+            if (shieldRemoved > 0)
+            {
+                statusEvent.ShieldAfter = fighter.Shield;
+                statusEvent.ShieldChanged = true;
+            }
         }
 
         private static void ApplyTurnStartRecovery(BattleState state, BattleTeamState team)
@@ -1543,6 +1631,7 @@ namespace FightingAllstar.Core.Combat
                     attacker, defender, target.Health, target.Shield, -1, -1);
                 if (!target.CannotDie) target.Health = damage.RemainingHealth;
                 target.Shield = damage.RemainingShield;
+                var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
                 foreach (var status in target.Statuses.Instances)
                     if (status.Recipe?.RecoverDamageTakenBp > 0)
                         status.DamageTaken = (int)Math.Min(int.MaxValue, (long)status.DamageTaken + damage.HealthLost);
@@ -1554,6 +1643,8 @@ namespace FightingAllstar.Core.Combat
                 battleEvent.HealthAfter = target.Health;
                 battleEvent.ShieldAfter = target.Shield;
                 battleEvent.ShieldLost = damage.ShieldLost;
+                if (barrierBroken)
+                    battleEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
                 battleEvent.WasEndured = damage.WasEndured;
                 CharacterPassiveRuntime.NotifyDamageResolved(state, source, target, damage.CalculatedDamage,
                     family: tick.Family);

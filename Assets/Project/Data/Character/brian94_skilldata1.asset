@@ -16,21 +16,21 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: dbeceedb27931f94f860d90ab445126c, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflict Rupture damage of 133.33% ATK
+  - description: Inflicts Rupture damage equal to 133.33% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.skill.1.rank.1
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 13333
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Rupture
       Conditions: []
       StatusRecipe:
         Id: 
@@ -44,6 +44,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -112,21 +113,21 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 1
       Sequence: []
-  - description: Inflict Rupture damage of 266.67% ATK
+  - description: Inflicts Rupture damage equal to 266.67% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.skill.1.rank.2
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 26667
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Rupture
       Conditions: []
       StatusRecipe:
         Id: 
@@ -140,6 +141,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -208,21 +210,21 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 1
       Sequence: []
-  - description: Inflict Rupture damage of 400% ATK
+  - description: Inflicts Rupture damage equal to 400% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.skill.1.rank.3
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 40000
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Rupture
       Conditions: []
       StatusRecipe:
         Id: 
@@ -236,6 +238,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0

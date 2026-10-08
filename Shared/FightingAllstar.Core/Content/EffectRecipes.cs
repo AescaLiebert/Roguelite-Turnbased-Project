@@ -32,7 +32,8 @@ namespace FightingAllstar.Core.Content
         Triggered = 1 << 4,
         PreventsRecovery = 1 << 5,
         Heal = 1 << 6,
-        Taunt = 1 << 7
+        Taunt = 1 << 7,
+        Barrier = 1 << 8
     }
 
     public enum StatusStackingPolicy
@@ -268,6 +269,8 @@ namespace FightingAllstar.Core.Content
         public int DefaultDuration = 2;
         public int MaxStacks = 1;
         public int DefaultPotencyBp;
+        /// <summary>Shield granted when this Barrier status is applied, as a fraction of its source's Attack.</summary>
+        public int BarrierCoefficientBp;
         public bool BypassDebuffImmunity;
         public StatusBreakRule BreakRule;
         public CardCategoryMask DisableMask;

@@ -15,6 +15,39 @@ MonoBehaviour:
   statusVisuals: []
   definition:
     Id: fighter.brian94.passive.source
-    Auras: []
+    Auras:
+    - Id: team-block-chance
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: 3
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Targets:
+        Relation: 2
+        IncludeOwner: 1
+        IncludeReserve: 1
+        AttributeId: 
+        TraitId: 
+        SeriesId: 
+      Scaling: 0
+      ScalingKey: 
+      ScalingRelation: 0
+      SourceStat: 0
+      MaximumUnits: 1
+      Modifiers:
+      - Target: 0
+        Stat: 12
+        Bundle: 0
+        Family: 0
+        Operation: 2
+        Amount: 4000
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 10000
+        SerializedTarget: -1
+        SerializedStat: -1
+        SerializedBundle: -1
+        SerializedFamily: -1
+        SerializedOperation: -1
     Reactions: []
     Triggers: []

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: brian94
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.brian94
-  runtimeReady: 0
+  runtimeReady: 1
   sourceId: 27
   sourceRecord: 28
   familyId: family.brian
@@ -22,7 +22,7 @@ MonoBehaviour:
   traitIds:
   - trait.american
   - trait.series-kof
-  passiveSourceDescription: Increases the allies Block Chance by 40%
+  passiveSourceDescription: Increases allies' Block Chance by 40%.
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 2a44948706034ca4f95cc5a996a972e7, type: 2}
@@ -43,7 +43,7 @@ MonoBehaviour:
   Skill2: {fileID: 11400000, guid: 58b04f4544e93d241ad64facb6d78bb3, type: 2}
   Ultimate: {fileID: 11400000, guid: acd81f0bf8b8f5a4bba48cf869f069f9, type: 2}
   FighterAttribute: 2
-  FighterRarity: 0
+  FighterRarity: 1
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0

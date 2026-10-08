@@ -17,21 +17,21 @@ MonoBehaviour:
   statusVisuals: []
   levels:
   - level: 0
-    description: Inflict Detonate damage equal to 450% of ATK
+    description: Inflicts Detonate damage equal to 650% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.ultimate.c0
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 65000
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Detonate
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +45,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -114,21 +115,21 @@ MonoBehaviour:
       Target: 1
       Sequence: []
   - level: 1
-    description: Inflict Detonate damage equal to 472.5% of ATK
+    description: Inflicts Detonate damage equal to 682.5% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.ultimate.c1
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 68250
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Detonate
       Conditions: []
       StatusRecipe:
         Id: 
@@ -142,6 +143,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -211,21 +213,21 @@ MonoBehaviour:
       Target: 1
       Sequence: []
   - level: 2
-    description: Inflict Detonate damage equal to 495% of ATK
+    description: Inflicts Detonate damage equal to 715% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.ultimate.c2
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 71500
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Detonate
       Conditions: []
       StatusRecipe:
         Id: 
@@ -239,6 +241,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -308,21 +311,21 @@ MonoBehaviour:
       Target: 1
       Sequence: []
   - level: 3
-    description: Inflict Detonate damage equal to 517.5% of ATK
+    description: Inflicts Detonate damage equal to 747.5% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.ultimate.c3
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 74750
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Detonate
       Conditions: []
       StatusRecipe:
         Id: 
@@ -336,6 +339,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -405,21 +409,21 @@ MonoBehaviour:
       Target: 1
       Sequence: []
   - level: 4
-    description: Inflict Detonate damage equal to 540% of ATK
+    description: Inflicts Detonate damage equal to 780% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.ultimate.c4
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 78000
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Detonate
       Conditions: []
       StatusRecipe:
         Id: 
@@ -433,6 +437,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -502,21 +507,21 @@ MonoBehaviour:
       Target: 1
       Sequence: []
   - level: 5
-    description: Inflict Detonate damage equal to 562.5% of ATK
+    description: Inflicts Detonate damage equal to 812.5% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
-      Id: 
+      Id: fighter.brian94.ultimate.c5
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 81250
       KeywordFactorBp: 10000
-      KeywordId: 
+      KeywordId: Detonate
       Conditions: []
       StatusRecipe:
         Id: 
@@ -530,6 +535,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0

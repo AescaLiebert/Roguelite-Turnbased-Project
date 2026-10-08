@@ -22,6 +22,7 @@ namespace FightingAllstar.Core.Combat
             var source = display.Player.FindFighter(item.SourceId) ?? display.Opponent.FindFighter(item.SourceId);
             var target = display.Player.FindFighter(item.TargetId) ?? display.Opponent.FindFighter(item.TargetId);
             var team = source == null ? null : display.Team(source.Side);
+            if (target != null && item.ShieldChanged) target.Shield = item.ShieldAfter;
             if (source != null && item.PowerGaugeAfter >= 0 && item.Kind != BattleEventKind.PowerGaugeChanged)
                 source.PowerGauge = item.PowerGaugeAfter;
             switch (item.Kind)
@@ -79,7 +80,13 @@ namespace FightingAllstar.Core.Combat
                     { survivor.Rank = item.Amount; if (item.Card != null) { survivor.Category = item.Card.Category; survivor.EffectCategory = item.Card.EffectCategory; survivor.TargetScope = item.Card.TargetScope; } }
                     break;
                 case BattleEventKind.DamageApplied:
-                    if (target != null) { target.Health = item.HealthAfter; target.Shield = item.ShieldAfter; }
+                    if (target != null)
+                    {
+                        target.Health = item.HealthAfter;
+                        target.Shield = item.ShieldAfter;
+                        if (item.StatusesAfter != null)
+                            target.Statuses.Instances = item.StatusesAfter.ConvertAll(status => status.Clone());
+                    }
                     break;
                 case BattleEventKind.HealApplied:
                     if (target != null) target.Health = item.HealthAfter;

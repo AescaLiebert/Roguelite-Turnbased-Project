@@ -179,6 +179,9 @@
         <member name="T:FightingAllstar.Core.Content.DamageAnimationTemplate">
             <summary>Reusable choreography presets. Hit count remains editable from 1 through 10.</summary>
         </member>
+        <member name="F:FightingAllstar.Core.Content.StatusRecipeDefinition.BarrierCoefficientBp">
+            <summary>Shield granted when this Barrier status is applied, as a fraction of its source's Attack.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Content.SnapshotJson">
             <summary>Serializes plain combat snapshots, including recursive effect-condition trees.</summary>
         </member>

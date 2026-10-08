@@ -310,6 +310,8 @@ namespace FightingAllstar.Presentation.Combat
         private bool _hitWindow;
         private bool _turnChangePresented;
         private readonly HashSet<string> _statusAnimationActors = new HashSet<string>();
+        private string _executionHiddenActorId;
+        private bool _executionHudWasVisible;
 
         private IEnumerator WaitForFeedback()
         {
@@ -336,8 +338,48 @@ namespace FightingAllstar.Presentation.Combat
 
         private IEnumerator FinishActionVisual()
         {
-            yield return _stage.RecoverAttacker();
+            yield return RecoverExecutionActorVisuals();
             yield return WaitForFeedback();
+        }
+
+        private IEnumerator RecoverExecutionActorVisuals()
+        {
+            if (_stage != null) yield return _stage.RecoverAttacker();
+            RestoreExecutionActorVisuals();
+        }
+
+        private IEnumerator ReturnToPlanningAndRestore(TeamSide side, float duration)
+        {
+            if (_stage != null) yield return _stage.ReturnToPlanning(side, duration);
+            RestoreExecutionActorVisuals();
+        }
+
+        private void HideExecutionActorVisuals(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            if (_executionHiddenActorId == id) return;
+            if (!string.IsNullOrEmpty(_executionHiddenActorId) && _executionHiddenActorId != id)
+                RestoreExecutionActorVisuals();
+            _executionHiddenActorId = id;
+            _stage?.SetPersistentEffectsHidden(id, true);
+            if (_fighterBillboards.TryGetValue(id, out var hud) && hud != null)
+            {
+                _executionHudWasVisible = hud.gameObject.activeSelf;
+                hud.gameObject.SetActive(false);
+            }
+        }
+
+        private void RestoreExecutionActorVisuals()
+        {
+            if (string.IsNullOrEmpty(_executionHiddenActorId)) return;
+            var id = _executionHiddenActorId;
+            _stage?.SetPersistentEffectsHidden(id, false);
+            var fighter = _displayState?.Player.FindFighter(id) ?? _displayState?.Opponent.FindFighter(id);
+            if (_fighterBillboards.TryGetValue(id, out var hud) && hud != null)
+                hud.gameObject.SetActive(_executionHudWasVisible && _hudRevealed && fighter != null &&
+                    fighter.IsAlive && !fighter.IsReserve);
+            _executionHiddenActorId = null;
+            _executionHudWasVisible = false;
         }
 
 
@@ -373,7 +415,7 @@ namespace FightingAllstar.Presentation.Combat
                             (item.WasCritical ? "CRITICAL\n" : item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0"),
                             item.WasEndured ? "status" : item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage",
                             hitCount, 1f, ResolveEventAffinity(item));
-                        if (item.ShieldLost > 0) FloatText(item.TargetId, "SHIELD -" + item.ShieldLost.ToString("N0"), "status", hitCount);
+                        PresentShieldDamage(item, hitCount);
                         UpdateDamageTotal(item.SourceId, (long)item.Amount);
                         impacts.Add((item.TargetId, item.WasCritical));
                         break;
@@ -394,6 +436,7 @@ namespace FightingAllstar.Presentation.Combat
                     case BattleEventKind.StatusApplied:
                         visible = true;
                         PlayStatusAnimation(item);
+                        if (item.ShieldChanged && item.ShieldAfter > 0) _stage?.ShieldActivated(item.TargetId);
                         if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
                             PlayStatusRefreshFeedback(item, true);
                         FloatText(item.TargetId, FeedbackName(item), "status");
@@ -467,7 +510,7 @@ namespace FightingAllstar.Presentation.Combat
                     // End-turn effects settle with their owner still on screen. The incoming
                     // side's camera/banner already switched at TurnEnded/TurnStarted.
                     if (item.Message != null && item.Message.StartsWith("Turn-end"))
-                        yield return _stage.ReturnToPlanning(_displayState.ActingSide, .35f);
+                        yield return ReturnToPlanningAndRestore(_displayState.ActingSide, .35f);
                     yield break;
                 case BattleEventKind.StatusResolutionEnded:
                     yield return WaitForFeedback();
@@ -485,7 +528,8 @@ namespace FightingAllstar.Presentation.Combat
                     UpdateDisplayedHud(item.TargetId);
                     RefreshCardAvailability(item.TargetId);
                     var statusName = FeedbackName(item);
-                    _stage.Pulse(item.TargetId, new Color(.85f, .4f, 1f));
+                    if (item.ShieldChanged && item.ShieldAfter > 0) _stage.ShieldActivated(item.TargetId);
+                    else _stage.Pulse(item.TargetId, new Color(.85f, .4f, 1f));
                     if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
                         PlayStatusRefreshFeedback(item, true);
                     FloatText(item.TargetId, statusName, "status");
@@ -559,6 +603,7 @@ namespace FightingAllstar.Presentation.Combat
                     var incomingSide = _displayState.ActingSide == TeamSide.Player ? TeamSide.Opponent : TeamSide.Player;
                     _turnChangePresented = true;
                     SetPhase(BattlePresentationPhase.TurnSwitch);
+                    yield return RecoverExecutionActorVisuals();
                     yield return _stage.Turn(incomingSide, .65f);
                     yield return Banner(incomingSide == TeamSide.Player ? "YOUR TURN" : "ENEMY TURN",
                         incomingSide == TeamSide.Opponent, .7f);
@@ -586,7 +631,7 @@ namespace FightingAllstar.Presentation.Combat
                     yield return AnimateCardEvent(item);
                     yield break;
                 case BattleEventKind.CounterStarted:
-                    yield return _stage.RecoverAttacker();
+                    yield return RecoverExecutionActorVisuals();
                     if (_isExecutionOverlayVisible) yield return AnimateExecutionExit();
                     var counterUser = _displayState.Player.FindFighter(item.SourceId) ?? _displayState.Opponent.FindFighter(item.SourceId);
                     _counterCue?.RemoveFromHierarchy();
@@ -598,6 +643,7 @@ namespace FightingAllstar.Presentation.Combat
                     _stage.PlayCue(3);
                     FloatText(item.SourceId, "COUNTER", "passive");
                     yield return new WaitForSecondsRealtime(.35f);
+                    HideExecutionActorVisuals(item.SourceId);
                     yield return _stage.BeginExecution(item.SourceId, item.TargetId, 1, false);
                     var counterCategory = CardRules.GetEffectCategory(item.Card);
                     if (item.HitCount > 0)
@@ -614,12 +660,13 @@ namespace FightingAllstar.Presentation.Combat
                 case BattleEventKind.CounterEnded:
                     yield return WaitForFeedback();
                     yield return _stage.WaitForActionEnd(item.SourceId);
-                    yield return _stage.RecoverAttacker();
+                    yield return RecoverExecutionActorVisuals();
                     yield return _stage.WaitForActionEnd(item.TargetId);
                     _counterCue?.RemoveFromHierarchy(); _counterCue = null;
                     yield break;
                 case BattleEventKind.CardPlayed:
                     yield return WaitForFeedback();
+                    yield return RecoverExecutionActorVisuals();
                     SetPhase(BattlePresentationPhase.CardExecution);
                     if (_isExecutionOverlayVisible) yield return AnimateExecutionExit();
                     AdvanceExecution(item);
@@ -637,6 +684,7 @@ namespace FightingAllstar.Presentation.Combat
                         yield return AnimateExecutionEnter();
                     }
                     if (item.Card?.Kind == CardKind.Ultimate) yield return UltimateCutIn(item);
+                    HideExecutionActorVisuals(item.SourceId);
                     yield return _stage.BeginExecution(item.SourceId, item.TargetId, item.Card?.Rank ?? 1,
                         item.Card?.Kind == CardKind.Ultimate);
                     var targetIds = item.TargetIds != null && item.TargetIds.Count > 0
@@ -675,7 +723,7 @@ namespace FightingAllstar.Presentation.Combat
                         FloatText(item.TargetId, caption, item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage", item.HitCount, textLifetimeScale, ResolveEventAffinity(item));
                         UpdateDamageTotal(item.SourceId, (long)item.Amount);
                     }
-                    if (item.ShieldLost > 0) FloatText(item.TargetId, "SHIELD −" + item.ShieldLost.ToString("N0"), "status", item.HitCount, textLifetimeScale);
+                    PresentShieldDamage(item, item.HitCount, textLifetimeScale);
                     yield return _stage.Impact(item.TargetId, item.WasCritical, HitImpactScale(item.HitCount));
                     if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
                     if (_isExecutionOverlayVisible)
@@ -686,7 +734,7 @@ namespace FightingAllstar.Presentation.Combat
                     if (_executionEvents.Count > 0 && _executionIndex >= _executionEvents.Count)
                     {
                         if (_targetReticle != null) _targetReticle.SetVisible(false);
-                        yield return _stage.ReturnToPlanning(_displayState.ActingSide, .4f);
+                        yield return ReturnToPlanningAndRestore(_displayState.ActingSide, .4f);
                     }
                     yield break;
                 case BattleEventKind.HealApplied:
@@ -749,12 +797,12 @@ namespace FightingAllstar.Presentation.Combat
                     if (_executionEvents.Count > 0 && _executionIndex >= _executionEvents.Count)
                     {
                         if (_targetReticle != null) _targetReticle.SetVisible(false);
-                        yield return _stage.ReturnToPlanning(_displayState.ActingSide, .4f);
+                        yield return ReturnToPlanningAndRestore(_displayState.ActingSide, .4f);
                     }
                     yield break;
                 case BattleEventKind.BattleCompleted:
                     yield return FinishActionVisual();
-                    yield return _stage.RecoverAttacker();
+                    yield return RecoverExecutionActorVisuals();
                     yield return new WaitForSecondsRealtime(.45f);
                     yield break;
             }
@@ -802,7 +850,7 @@ namespace FightingAllstar.Presentation.Combat
                     FloatText(item.TargetId, caption, item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage", 1, 1f, ResolveEventAffinity(item));
                     UpdateDamageTotal(item.SourceId, (long)item.Amount);
                 }
-                if (item.ShieldLost > 0) FloatText(item.TargetId, "SHIELD −" + item.ShieldLost.ToString("N0"), "status");
+                PresentShieldDamage(item);
                 impacts.Add((item.TargetId, item.WasCritical));
             }
 
@@ -816,7 +864,7 @@ namespace FightingAllstar.Presentation.Combat
             if (_executionEvents.Count > 0 && _executionIndex >= _executionEvents.Count)
             {
                 if (_targetReticle != null) _targetReticle.SetVisible(false);
-                yield return _stage.ReturnToPlanning(_displayState.ActingSide, .4f);
+                yield return ReturnToPlanningAndRestore(_displayState.ActingSide, .4f);
             }
         }
 
@@ -857,6 +905,7 @@ namespace FightingAllstar.Presentation.Combat
             var maximumHealth = StatusSystem.GetEffectiveStats(fighter).MaxHealth;
             hud.SetCoreHealth(fighter.Health, maximumHealth);
             hud.SetShield(fighter.Shield, maximumHealth);
+            _stage.SetShieldAura(id, fighter.IsAlive && !fighter.IsReserve && fighter.Shield > 0);
             var shownStatuses = fighter.Statuses.Instances.ConvertAll(status => status.Clone());
             foreach (var status in shownStatuses)
             {
@@ -881,6 +930,17 @@ namespace FightingAllstar.Presentation.Combat
             {
                 hud.SetPowerGauge(fighter.PowerGauge);
             }
+        }
+
+        private void PresentShieldDamage(BattleEvent item, int hitCount = 1, float durationScale = 1f)
+        {
+            if (item == null || item.ShieldLost <= 0) return;
+            var broken = item.ShieldAfter <= 0;
+            var message = broken
+                ? "SHIELD BREAK\n−" + item.ShieldLost.ToString("N0")
+                : "SHIELD −" + item.ShieldLost.ToString("N0");
+            FloatText(item.TargetId, message, "status", hitCount, durationScale);
+            _stage?.ShieldImpact(item.TargetId, broken);
         }
 
         private static bool IsExecutionEvent(BattleEvent item) => item.Kind == BattleEventKind.CardPlayed ||
@@ -1274,6 +1334,7 @@ namespace FightingAllstar.Presentation.Combat
             StopAllCoroutines();
             _stage?.SnapToPlanning();
             _stage?.ClearAuras();
+            RestoreExecutionActorVisuals();
             _textLanes.Clear();
             _fctPool?.Clear();
             _statusAnimationActors.Clear();

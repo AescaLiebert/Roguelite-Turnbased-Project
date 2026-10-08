@@ -62,6 +62,7 @@ namespace FightingAllstar.Presentation.Combat
         private bool _isPlayingEvents;
         private int _requestSequence;
         private readonly Dictionary<string, GameObject> _fighterViews = new Dictionary<string, GameObject>();
+        private readonly Dictionary<string, float> _fighterGroundOffsets = new Dictionary<string, float>();
         private readonly Dictionary<string, CoreFighterHud> _fighterBillboards = new Dictionary<string, CoreFighterHud>();
         private bool _openingSequenceComplete;
         private string _damageTotalOwnerId;
@@ -204,6 +205,7 @@ namespace FightingAllstar.Presentation.Combat
         private void SpawnFighterViews(CoreBattleState state)
         {
             _fighterViews.Clear();
+            _fighterGroundOffsets.Clear();
             _fighterBillboards.Clear();
             SpawnTeamViews(state.Player, "Hero");
             SpawnTeamViews(state.Opponent, "Enemy");
@@ -234,12 +236,29 @@ namespace FightingAllstar.Presentation.Combat
                     if (meshRenderer != null && character.Fighter3DMaterial != null)
                         meshRenderer.sharedMaterial = character.Fighter3DMaterial;
                 }
+                var groundOffset = CalculateGroundOffset(view, position.y);
+                view.transform.position += Vector3.up * groundOffset;
+                _fighterGroundOffsets[fighter.Id] = groundOffset;
                 view.name = "CoreFighter_" + fighter.Id;
                 WireOpponentTarget(view, fighter.Id);
                 if (fighter.IsReserve) view.SetActive(false);
                 _fighterViews[fighter.Id] = view;
                 CreateCoreBillboard(fighter, view.transform);
             }
+        }
+
+        private static float CalculateGroundOffset(GameObject view, float groundY)
+        {
+            if (view == null) return 0f;
+            var foundRenderer = false;
+            var lowestPoint = groundY;
+            foreach (var renderer in view.GetComponentsInChildren<Renderer>())
+            {
+                if (!renderer.enabled || renderer is ParticleSystemRenderer || renderer is LineRenderer) continue;
+                if (!foundRenderer || renderer.bounds.min.y < lowestPoint) lowestPoint = renderer.bounds.min.y;
+                foundRenderer = true;
+            }
+            return foundRenderer ? groundY - lowestPoint : 0f;
         }
 
         private void WireOpponentTarget(GameObject view, string fighterId)
@@ -813,6 +832,7 @@ namespace FightingAllstar.Presentation.Combat
                 view.SetActive(visible);
                 _stage.SetStance(fighter.Id, visible && fighter.Statuses.Instances.Any(s =>
                     s.Recipe != null && (s.Recipe.Behavior & StatusBehavior.Stance) != 0));
+                _stage.SetShieldAura(fighter.Id, visible && fighter.Shield > 0);
                 if (visible) PositionView(fighter, view);
                 if (_fighterBillboards.TryGetValue(fighter.Id, out var billboard) && billboard != null)
                 {
@@ -821,7 +841,7 @@ namespace FightingAllstar.Presentation.Combat
                     var truePG = trueFighter?.PowerGauge ?? fighter.PowerGauge;
                     var draftPG = isPlayerDraft ? (_draft.Preview.FindFighter(fighter.Id)?.PowerGauge ?? truePG) : truePG;
 
-                    billboard.gameObject.SetActive(visible && _hudRevealed);
+                    billboard.gameObject.SetActive(visible && _hudRevealed && _executionHiddenActorId != fighter.Id);
                     billboard.SetCoreHealth(fighter.Health, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
                     billboard.SetPowerGaugeVisible(!fighter.PowerGaugeDisabled);
                     billboard.SetShield(fighter.Shield, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
@@ -838,11 +858,14 @@ namespace FightingAllstar.Presentation.Combat
             }
         }
 
-        private static void PositionView(FighterState fighter, GameObject view)
+        private void PositionView(FighterState fighter, GameObject view)
         {
             var prefix = fighter.Side == TeamSide.Player ? "CharHeroPosition" : "EnemyHeroPosition";
             var anchor = GameObject.Find(prefix + (Mathf.Clamp(fighter.FormationSlot, 0, 2) + 1));
-            if (anchor != null) view.transform.SetPositionAndRotation(anchor.transform.position, anchor.transform.rotation);
+            if (anchor == null) return;
+            _fighterGroundOffsets.TryGetValue(fighter.Id, out var groundOffset);
+            view.transform.SetPositionAndRotation(anchor.transform.position + Vector3.up * groundOffset,
+                anchor.transform.rotation);
         }
 
         private void BindBattleHud()

@@ -178,6 +178,7 @@ namespace FightingAllstar.Core.Combat
         public int Amount;
         public int HealthAfter;
         public int ShieldAfter;
+        public bool ShieldChanged;
         public string Message;
         // Immutable-at-emission presentation facts; never infer these from the final hand.
         public CardState Card;

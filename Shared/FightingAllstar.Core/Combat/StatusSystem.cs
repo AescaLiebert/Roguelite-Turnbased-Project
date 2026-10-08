@@ -31,6 +31,7 @@ namespace FightingAllstar.Core.Combat
         public int PotencyBp;
         public int StackCount = 1;
         public int RemainingDuration;
+        public int ShieldRemaining;
         public bool SkipNextDurationClock;
         public long AppliedOrder;
 
@@ -39,6 +40,7 @@ namespace FightingAllstar.Core.Combat
             ParentInstanceId = ParentInstanceId, DamageTaken = DamageTaken,
             RootActionId = RootActionId, Recipe = Recipe?.Clone(), Snapshot = Snapshot?.Clone(), PotencyBp = PotencyBp,
             StackCount = StackCount, RemainingDuration = RemainingDuration,
+            ShieldRemaining = ShieldRemaining,
             SkipNextDurationClock = SkipNextDurationClock, AppliedOrder = AppliedOrder };
     }
 
@@ -374,7 +376,8 @@ namespace FightingAllstar.Core.Combat
         {
             if (recipe == null) return 0;
             long value = Math.Abs((long)recipe.RecoverDamageTakenBp) + Math.Abs((long)recipe.IgnoreCritResistanceBp) +
-                Math.Abs((long)recipe.IgnoreCritDefenseBp) + Math.Max(0, recipe.SurviveLethalCharges);
+                Math.Abs((long)recipe.IgnoreCritDefenseBp) + Math.Max(0, recipe.SurviveLethalCharges) +
+                Math.Max(0, recipe.BarrierCoefficientBp);
             if (recipe.DebuffImmunity) value++;
             if (recipe.AdditionalDamageImmunity) value++;
             if (recipe.EvadeAttacks) value++;

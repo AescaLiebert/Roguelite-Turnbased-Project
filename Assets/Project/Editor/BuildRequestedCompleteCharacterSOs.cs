@@ -82,6 +82,146 @@ public static class BuildRequestedCompleteCharacterSOs
         Debug.Log("Imported Brian94 (R), Heavy D! 94 (SR), and Lucky94 (R) as reviewable CharacterObject asset sets.");
     }
 
+    [MenuItem("Fighting Allstar/Content/Import SR Brian94 Barrier Kit")]
+    public static void ImportBrian94SR()
+    {
+        if (!File.Exists(SourcePath)) throw new FileNotFoundException("Character draft source is missing.", SourcePath);
+        var root = JsonUtility.FromJson<DraftRoot>(File.ReadAllText(SourcePath));
+        var draft = root?.characters?.FirstOrDefault(item => item != null && item.definitionId == "fighter.brian94");
+        if (draft == null || draft.cards == null || draft.cards.Length != 2 || draft.constellations == null || draft.constellations.Length != 6)
+            throw new InvalidOperationException("Brian94 draft data must include two skills and all six C0-C5 Ultimate tiers.");
+        var model = AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath);
+        if (model == null) throw new InvalidOperationException("Shared character prefab is missing: " + ModelPath);
+
+        BuildCharacter(draft, "brian94", model);
+        ConfigureBrian94Kit();
+        BuildRegistry();
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Imported SR blue Brian94 with a 40% Block Chance passive, Rupture, Attack-scaled Barrier, and C0-C5 Detonate Ultimate.");
+    }
+
+    private static void ConfigureBrian94Kit()
+    {
+        const string characterPath = "Assets/Project/Data/Character/brian94.asset";
+        const string passivePath = "Assets/Project/Data/Character/brian94_Passive.asset";
+        const string skill1Path = "Assets/Project/Data/Character/brian94_skilldata1.asset";
+        const string skill2Path = "Assets/Project/Data/Character/brian94_skilldata2.asset";
+        const string ultimatePath = "Assets/Project/Data/Character/brian94_ultdata1.asset";
+        var character = AssetDatabase.LoadAssetAtPath<CharacterObject>(characterPath);
+        var passiveAsset = AssetDatabase.LoadAssetAtPath<PassiveDefinitionSO>(passivePath);
+        var skill1 = AssetDatabase.LoadAssetAtPath<SkillCardSO>(skill1Path);
+        var skill2 = AssetDatabase.LoadAssetAtPath<SkillCardSO>(skill2Path);
+        var ultimate = AssetDatabase.LoadAssetAtPath<UltimateCardSO>(ultimatePath);
+        if (character == null || passiveAsset == null || skill1 == null || skill2 == null || ultimate == null)
+            throw new InvalidOperationException("Brian94 character, passive, skill, or Ultimate asset is missing.");
+
+        var passive = new FightingAllstar.Core.Content.PassiveDefinition { Id = "fighter.brian94.passive.source" };
+        var blockAura = CreateAura("team-block-chance", FightingAllstar.Core.Content.PassiveRelation.Allies);
+        blockAura.Modifiers.Add(new FightingAllstar.Core.Content.StatModifierDefinition
+        {
+            Target = FightingAllstar.Core.Content.ModifierTarget.Stat,
+            Stat = FightingAllstar.Core.Content.StatId.BlockChance,
+            Operation = FightingAllstar.Core.Content.ModifierOperation.PercentagePoints,
+            Amount = 4000
+        });
+        passive.Auras.Add(blockAura);
+        passiveAsset.SetDefinition(passive);
+        EditorUtility.SetDirty(passiveAsset);
+
+        for (var i = 0; i < skill1.ranks.Count; i++)
+        {
+            var rank = i + 1;
+            var coefficient = rank == 1 ? 13333 : rank == 2 ? 26667 : 40000;
+            skill1.ranks[i].description = $"Inflicts Rupture damage equal to {coefficient / 100f:0.##}% of ATK.";
+            skill1.ranks[i].skillType = SkillType.Attack;
+            skill1.ranks[i].runtimeEffect = new FightingAllstar.Core.Content.EffectDefinition
+            {
+                Id = $"fighter.brian94.skill.1.rank.{rank}",
+                Kind = FightingAllstar.Core.Content.EffectKind.Damage,
+                Family = FightingAllstar.Core.Content.DamageFamily.Normal,
+                Scaling = FightingAllstar.Core.Content.StatScaling.Attack,
+                CoefficientBp = coefficient,
+                KeywordFactorBp = 10000,
+                KeywordId = "Rupture",
+                Target = FightingAllstar.Core.Content.EffectTargetScope.SelectedEnemy
+            };
+        }
+        EditorUtility.SetDirty(skill1);
+
+        var barrierVisual = LoadOrCreate<FightingAllstar.Presentation.Combat.StatusVisualData>(
+            "Assets/Project/Data/StatusData/BrianBarrierVisual.asset");
+        var visualSerialized = new SerializedObject(barrierVisual);
+        Set(visualSerialized, "id", "status.buff.brian94.barrier");
+        Set(visualSerialized, "displayName", "Barrier");
+        Set(visualSerialized, "icon", AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Project/Art/UI/shield.png"));
+        Set(visualSerialized, "polarity", FightingAllstar.Core.Content.StatusPolarity.Buff);
+        Set(visualSerialized, "keywords", new[] { "Barrier", "Shield", "status.buff.brian94.barrier" });
+        Set(visualSerialized, "description", "Absorbs incoming damage.");
+        visualSerialized.ApplyModifiedPropertiesWithoutUndo();
+        EditorUtility.SetDirty(barrierVisual);
+        skill2.statusVisuals = new List<FightingAllstar.Presentation.Combat.StatusVisualData> { barrierVisual };
+        for (var i = 0; i < skill2.ranks.Count; i++)
+        {
+            var rank = i + 1;
+            var coefficient = rank * 12500;
+            var duration = rank == 1 ? 1 : 2;
+            var recipe = new FightingAllstar.Core.Content.StatusRecipeDefinition
+            {
+                Id = "status.buff.brian94.barrier",
+                NameKey = "Barrier",
+                Polarity = FightingAllstar.Core.Content.StatusPolarity.Buff,
+                Behavior = FightingAllstar.Core.Content.StatusBehavior.Barrier,
+                Stacking = FightingAllstar.Core.Content.StatusStackingPolicy.RefreshStronger,
+                DurationClock = FightingAllstar.Core.Content.StatusDurationClock.TargetTurnEnd,
+                DefaultDuration = duration,
+                MaxStacks = 1,
+                BarrierCoefficientBp = coefficient,
+                Tags = new List<string> { "Barrier", "Shield" }
+            };
+            skill2.ranks[i].description = $"Grants all allies a barrier equal to {coefficient / 100f:0.##}% of ATK for {duration} turn{(duration == 1 ? "" : "s")}.";
+            skill2.ranks[i].skillType = SkillType.Buff;
+            skill2.ranks[i].runtimeEffect = new FightingAllstar.Core.Content.EffectDefinition
+            {
+                Id = $"fighter.brian94.skill.2.rank.{rank}",
+                Kind = FightingAllstar.Core.Content.EffectKind.ApplyStatus,
+                Target = FightingAllstar.Core.Content.EffectTargetScope.AllAllies,
+                StatusRecipe = recipe,
+                StatusDurationOverride = duration
+            };
+        }
+        EditorUtility.SetDirty(skill2);
+
+        ultimate.levels = ultimate.levels.OrderBy(level => level.level).ToList();
+        for (var tier = 0; tier <= 5 && tier < ultimate.levels.Count; tier++)
+        {
+            var coefficient = 65000 + tier * 3250;
+            var level = ultimate.levels[tier];
+            level.description = $"Inflicts Detonate damage equal to {coefficient / 100f:0.##}% of ATK.";
+            level.skillType = SkillType.Attack;
+            level.runtimeEffect = new FightingAllstar.Core.Content.EffectDefinition
+            {
+                Id = $"fighter.brian94.ultimate.c{tier}",
+                Kind = FightingAllstar.Core.Content.EffectKind.Damage,
+                Family = FightingAllstar.Core.Content.DamageFamily.Normal,
+                Scaling = FightingAllstar.Core.Content.StatScaling.Attack,
+                CoefficientBp = coefficient,
+                KeywordFactorBp = 10000,
+                KeywordId = "Detonate",
+                Target = FightingAllstar.Core.Content.EffectTargetScope.SelectedEnemy
+            };
+        }
+        EditorUtility.SetDirty(ultimate);
+
+        var characterSerialized = new SerializedObject(character);
+        Set(characterSerialized, "runtimeReady", true);
+        Set(characterSerialized, "FighterRarity", FighterRarity.SR);
+        Set(characterSerialized, "FighterAttribute", FighterAttribute.Blue);
+        Set(characterSerialized, "passiveSourceDescription", "Increases allies' Block Chance by 40%.");
+        characterSerialized.ApplyModifiedPropertiesWithoutUndo();
+        EditorUtility.SetDirty(character);
+    }
+
     [MenuItem("Fighting Allstar/Content/Import Iori95")]
     public static void ImportIori95()
     {

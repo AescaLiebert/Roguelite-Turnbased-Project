@@ -38,6 +38,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private Image _powerGaugeFill;
         private Image _shieldFill;
+        private Slider _shieldSlider;
         private GameObject _shieldRoot;
         private GameObject _statusPanel;
         private GameObject _statusTemplate;
@@ -504,11 +505,15 @@ namespace FightingAllstar.Presentation.Combat
         public void SetShield(int shield, int maxHealth)
         {
             if (_shieldRoot != null) _shieldRoot.SetActive(shield > 0);
+            var safeMaximum = Mathf.Max(1, maxHealth);
+            if (_shieldSlider != null)
+            {
+                _shieldSlider.minValue = 0;
+                _shieldSlider.maxValue = safeMaximum;
+                _shieldSlider.SetValueWithoutNotify(Mathf.Clamp(shield, 0, safeMaximum));
+            }
             if (_shieldFill == null) return;
-            _shieldFill.type = Image.Type.Filled;
-            _shieldFill.fillMethod = Image.FillMethod.Horizontal;
-            _shieldFill.fillOrigin = 0;
-            _shieldFill.fillAmount = Mathf.Clamp01(shield / (float)Mathf.Max(1, maxHealth));
+            _shieldFill.fillAmount = Mathf.Clamp01(shield / (float)safeMaximum);
         }
 
         public void SetStatuses(IReadOnlyList<StatusInstance> statuses)
@@ -1068,9 +1073,17 @@ namespace FightingAllstar.Presentation.Combat
                     }
                 }
 
-                var shield = FindChildDirectOrRecursive(unitUi, "Ex-Healthbar") ?? unitUi.Find("HealthPanel/Ex-Healthbar");
+                var shield = FindChildDirectOrRecursive(unitUi, "ShieldBar")
+                    ?? FindChildDirectOrRecursive(unitUi, "Ex-Healthbar")
+                    ?? unitUi.Find("HealthPanel/Ex-Healthbar");
                 _shieldRoot = shield == null ? null : shield.gameObject;
-                _shieldFill = shield?.Find("Fill Area/Fill")?.GetComponent<Image>();
+                var shieldSliderTransform = shield == null ? null :
+                    (FindChildDirectOrRecursive(shield, "ShieldSlider") ?? shield);
+                _shieldSlider = shieldSliderTransform?.GetComponent<Slider>()
+                    ?? shield?.GetComponentInChildren<Slider>(true);
+                _shieldFill = _shieldSlider != null && _shieldSlider.fillRect != null
+                    ? _shieldSlider.fillRect.GetComponent<Image>()
+                    : shieldSliderTransform?.Find("Fill Area/Fill")?.GetComponent<Image>();
 
                 var panel = FindChildDirectOrRecursive(unitUi, "Buff/DebuffPanel") ?? FindChildDirectOrRecursive(transform, "Buff/DebuffPanel");
                 if (panel != null)
