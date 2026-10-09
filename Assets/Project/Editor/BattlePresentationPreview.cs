@@ -72,7 +72,7 @@ namespace FightingAllstar.EditorTools
             previewCatalog.Characters = previewCatalog.Characters.Where(c => c.RuntimeReady &&
                 Array.Exists(characterObjects, character => character != null &&
                     character.DefinitionId == c.Id && character.FighterIcon != null)).ToList();
-            SessionState.SetString(Catalog, JsonUtility.ToJson(previewCatalog));
+            SessionState.SetString(Catalog, SnapshotJson.Serialize(previewCatalog));
             EditorSceneManager.OpenScene("Assets/Project/Scenes/Battle.unity");
             SeedEncounter(); // Also supports Enter Play Mode with domain reload disabled.
             EditorApplication.EnterPlaymode();
@@ -97,7 +97,7 @@ namespace FightingAllstar.EditorTools
 
         private static void SeedEncounter()
         {
-            var catalog = JsonUtility.FromJson<ContentCatalog>(SessionState.GetString(Catalog, ""));
+            var catalog = SnapshotJson.Deserialize<ContentCatalog>(SessionState.GetString(Catalog, ""));
             var available = catalog?.Characters?.Where(c => c.RuntimeReady).ToList() ?? new List<CharacterDefinition>();
             var usedIds = new HashSet<string>(StringComparer.Ordinal);
             var playerRoster = SelectPreviewTeam(available, new[] { "red", "green", "blue", "yellow" }, usedIds);
@@ -255,10 +255,10 @@ namespace FightingAllstar.EditorTools
         private static void CheckSkip(CoreBattleSceneController controller)
         {
             var session = (IBattleSession)typeof(CoreBattleSceneController).GetField("_session", PrivateInstance).GetValue(controller);
-            var before = JsonUtility.ToJson(session.GetSnapshot());
+            var before = SnapshotJson.Serialize(session.GetSnapshot());
             typeof(CoreBattleSceneController).GetMethod("SkipAnimations", PrivateInstance).Invoke(controller, null);
             var shown = (BattleState)typeof(CoreBattleSceneController).GetField("_snapshot", PrivateInstance).GetValue(controller);
-            if (before != JsonUtility.ToJson(shown) || before != JsonUtility.ToJson(session.GetSnapshot()))
+            if (before != SnapshotJson.Serialize(shown) || before != SnapshotJson.Serialize(session.GetSnapshot()))
                 throw new InvalidOperationException("Skipping changed the authority or failed to reconcile the display.");
             Debug.Log("BATTLE SKIP STATE PASS");
         }

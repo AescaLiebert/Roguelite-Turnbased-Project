@@ -795,8 +795,16 @@ public static class BuildRequestedCompleteCharacterSOs
                         Window = FightingAllstar.Core.Content.CardEffectWindow.Damaging,
                         Kind = FightingAllstar.Core.Content.CardEffectOperationKind.TransferStats,
                         Target = FightingAllstar.Core.Content.EffectTargetScope.TriggerTarget,
-                        Magnitude = 5000,
-                        StatusDurationOverride = 2
+                        StatTransfer = new FightingAllstar.Core.Content.StatTransferRecipeDefinition
+                        {
+                            CoefficientBp = 5000,
+                            SourceStatus = BuildIoriTransferStatus("status.buff.iori95.extort",
+                                FightingAllstar.Core.Content.StatusPolarity.Buff,
+                                FightingAllstar.Core.Content.StatusDurationClock.TargetTurnStart),
+                            TargetStatus = BuildIoriTransferStatus("status.debuff.iori95.extort",
+                                FightingAllstar.Core.Content.StatusPolarity.Debuff,
+                                FightingAllstar.Core.Content.StatusDurationClock.TargetTurnEnd)
+                        }
                     }
                 }
             }
@@ -835,6 +843,18 @@ public static class BuildRequestedCompleteCharacterSOs
             item.description = $"Inflicts {coefficient / 100f:0}% of ATK and steals 50% of the target's Attack and Defense, reducing their stats and increasing own stats by 50% for 2 turns.";
             item.runtimeEffect = BuildIori95UltimateEffect(tier);
         }
+        foreach (var visualPath in new[]
+        {
+            "Assets/Project/Data/StatusData/Iori95ExtortBuff.asset",
+            "Assets/Project/Data/StatusData/Iori95ExtortDebuff.asset"
+        })
+        {
+            var visual = AssetDatabase.LoadAssetAtPath<FightingAllstar.Presentation.Combat.StatusVisualData>(visualPath);
+            if (visual == null) continue;
+            if (!ultimate.statusVisuals.Contains(visual)) ultimate.statusVisuals.Add(visual);
+            if (!passiveAsset.statusVisuals.Contains(visual)) passiveAsset.statusVisuals.Add(visual);
+        }
+        EditorUtility.SetDirty(passiveAsset);
         EditorUtility.SetDirty(ultimate);
 
         var serialized = new SerializedObject(character);
@@ -907,6 +927,17 @@ public static class BuildRequestedCompleteCharacterSOs
         AssetDatabase.Refresh();
         Debug.Log("Configured Ralf94's 40% Ultimate damage aura for allies, including Ralf in reserve.");
     }
+
+    private static FightingAllstar.Core.Content.StatusRecipeDefinition BuildIoriTransferStatus(string id,
+        FightingAllstar.Core.Content.StatusPolarity polarity, FightingAllstar.Core.Content.StatusDurationClock clock) =>
+        new FightingAllstar.Core.Content.StatusRecipeDefinition
+        {
+            Id = id, NameKey = id, Polarity = polarity,
+            Behavior = FightingAllstar.Core.Content.StatusBehavior.Stat,
+            Stacking = FightingAllstar.Core.Content.StatusStackingPolicy.RefreshDuration,
+            DurationClock = clock, DefaultDuration = 2, MaxStacks = 1,
+            Tags = new List<string> { "status.extort" }
+        };
 
     private static FightingAllstar.Core.Content.PassiveGate IoriGate() =>
         new FightingAllstar.Core.Content.PassiveGate

@@ -1,0 +1,82 @@
+.gacha-viewport { flex-grow: 1; overflow: hidden; background-color: rgb(7, 12, 21); color: rgb(246, 241, 229); }
+.gacha-stage { position: absolute; width: 1672px; height: 941px; transform-origin: top left; }
+Label { margin: 0; padding: 0; }
+Button { margin: 0; padding: 0; border-width: 0; border-radius: 0; background-color: rgba(0, 0, 0, 0); }
+Button:hover { background-color: rgba(255, 255, 255, 0.09); }
+Button:active { opacity: 0.8; }
+Button:focus { border-width: 2px; border-color: rgb(255, 224, 164); }
+.condensed { -unity-font-definition: url("../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.condensed-heavy { -unity-font-definition: url("../Art/UI/MainMenu/BarlowCondensed-ExtraBoldItalic.ttf"); }
+.gacha-fill { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.gacha-background { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; background-image: url("../Art/UI/GachaBanner/ArenaBackground.png"); -unity-background-scale-mode: stretch-to-fill; }
+.gacha-header-surface { position: absolute; left: 0; top: 0; width: 1162px; height: 64px; }
+.gacha-back { position: absolute; left: 5px; top: 1px; width: 69px; height: 61px; font-size: 66px; color: rgb(241, 243, 246); }
+.gacha-brand-art { position: absolute; left: 107px; top: 15px; width: 302px; height: 45px; }
+.gacha-summon-tab { position: absolute; left: 478px; top: 16px; font-size: 26px; letter-spacing: 1.7px; scale: 1.16 1; transform-origin: left center; }
+.gacha-summon-underline { position: absolute; left: 461px; top: 59px; width: 121px; height: 3px; background-color: rgb(246, 42, 52); }
+.gacha-kof-tab { position: absolute; left: 661px; top: 17px; font-size: 25px; color: rgb(255, 223, 137); }
+.gacha-kof-underline { position: absolute; left: 647px; top: 58px; width: 60px; height: 4px; background-color: rgb(255, 217, 126); }
+.gacha-series-tab { position: absolute; top: 13px; height: 43px; color: rgb(126, 162, 201); font-size: 25px; letter-spacing: 1px; }
+.gacha-series-tab:disabled { opacity: 1; color: rgb(119, 146, 178); }
+.street-tab { left: 752px; width: 90px; } .tekken-tab { left: 887px; width: 85px; } .original-tab { left: 1019px; width: 93px; }
+.gacha-wallet-chip { position: absolute; left: 1438px; top: 13px; width: 204px; height: 49px; background-color: rgba(8, 14, 25, 0.85); border-width: 1px; border-color: rgb(101, 124, 148); flex-direction: row; align-items: center; padding-left: 12px; padding-right: 12px; }
+.gacha-wallet-diamond { width: 40px; height: 36px; flex-shrink: 0; }
+.gacha-wallet { flex-grow: 1; margin-left: 9px; font-size: 24px; -unity-text-align: middle-center; white-space: nowrap; }
+.gacha-wallet-plus { font-size: 30px; margin-left: 9px; }
+.gacha-banner-screen { position: absolute; left: 0; right: 0; top: 64px; bottom: 0; }
+.gacha-title { position: absolute; left: 76px; top: 40px; font-size: 160px; scale: 1.32 1; transform-origin: left center; }
+.gacha-subtitle { position: absolute; left: 58px; top: 182px; height: 120px; flex-direction: row; align-items: center; }
+.gacha-fighter { font-size: 110px; color: rgb(242, 39, 47); margin-right: 14px; }
+.gacha-summon { font-size: 106px; scale: 0.93 1; transform-origin: left center; }
+.gacha-tagline { position: absolute; left: 66px; top: 301px; font-size: 24px; letter-spacing: 9px; scale: 1.55 1; transform-origin: left center; }
+.gacha-title-rule { position: absolute; left: 58px; top: 344px; width: 674px; height: 1px; background-color: rgba(144, 157, 181, 0.6); }
+.gacha-rule-accent { width: 66px; height: 5px; top: -2px; background-color: rgb(242, 39, 47); }
+.gacha-featured-strip { position: absolute; left: 58px; top: 367px; width: 677px; height: 91px; }
+.gacha-featured-art { position: absolute; right: 3px; top: 2px; width: 298px; height: 87px; }
+.gacha-featured-star { position: absolute; left: 26px; top: 7px; width: 81px; height: 70px; }
+.gacha-featured-label { position: absolute; left: 119px; top: 9px; font-size: 45px; color: rgb(255, 224, 141); }
+.gacha-featured-rarity { position: absolute; left: 278px; top: -2px; font-size: 64px; color: rgb(255, 225, 143); }
+.gacha-featured-rule { position: absolute; left: 119px; top: 66px; width: 146px; height: 2px; background-color: rgb(232, 198, 126); }
+.gacha-rates-strip { position: absolute; left: 58px; top: 458px; width: 597px; height: 63px; }
+.gacha-rate { position: absolute; top: 7px; font-size: 35px; letter-spacing: 1px; }
+.ssr-rate { left: 51px; color: rgb(255, 218, 134); } .sr-rate { left: 233px; color: rgb(155, 200, 240); } .r-rate { left: 407px; color: rgb(164, 194, 220); }
+.rate-dot { position: absolute; top: 5px; font-size: 35px; color: rgb(201, 223, 237); } .dot-one { left: 189px; } .dot-two { left: 365px; }
+.gacha-featured-caption { position: absolute; left: 1342px; top: 339px; width: 292px; height: 43px; }
+.gacha-featured-caption Label { position: absolute; left: 48px; top: 5px; font-size: 24px; letter-spacing: 3px; color: rgb(155, 207, 241); }
+.gacha-showcase { position: absolute; left: 40px; top: 555px; width: 797px; height: 135px; }
+.showcase-label { position: absolute; left: 35px; top: -21px; color: rgb(187, 183, 204); font-size: 13px; letter-spacing: 2px; }
+.gacha-portrait { position: absolute; top: 0; width: 214px; height: 135px; }
+.portrait-0 { left: 0; } .portrait-1 { left: 189px; } .portrait-2 { left: 387px; } .portrait-3 { left: 583px; }
+.gacha-guarantee-button { position: absolute; left: 38px; top: 725px; width: 485px; height: 95px; color: rgb(183, 209, 234); }
+.gacha-guarantee-icon { position: absolute; left: 22px; top: 12px; width: 67px; height: 73px; }
+.gacha-guarantee-label { position: absolute; left: 105px; top: 16px; font-size: 24px; letter-spacing: 1.8px; }
+.gacha-guarantee-value { position: absolute; left: 106px; top: 43px; font-size: 15px; color: rgb(233, 218, 181); letter-spacing: 1px; }
+.gacha-progress-track { position: absolute; left: 105px; top: 60px; width: 343px; height: 16px; border-width: 1px; border-color: rgb(159, 183, 212); border-radius: 3px; background-color: rgb(43, 57, 77); overflow: hidden; }
+.gacha-progress-fill { height: 100%; width: 0; background-color: rgb(230, 189, 102); }
+.gacha-details-button { position: absolute; left: 535px; top: 725px; width: 316px; height: 95px; color: rgb(177, 208, 235); }
+.gacha-details-icon { position: absolute; left: 31px; top: 28px; width: 34px; height: 35px; }
+.gacha-details-label { position: absolute; left: 82px; top: 30px; font-size: 25px; letter-spacing: 1.5px; }
+.gacha-details-arrow { position: absolute; right: 26px; top: 14px; font-size: 52px; }
+.gacha-pull-button { position: absolute; top: 728px; height: 93px; }
+.single-pull { left: 864px; width: 366px; color: rgb(9, 20, 34); } .ten-pull { left: 1244px; width: 395px; color: rgb(255, 243, 227); }
+.gacha-pull-diamond { position: absolute; left: 31px; top: 26px; width: 44px; height: 39px; }
+.gacha-pull-label { position: absolute; left: 83px; right: 12px; top: 26px; bottom: 21px; font-size: 30px; -unity-text-align: middle-center; }
+.gacha-notice { position: absolute; left: 50px; right: 50px; bottom: 12px; font-size: 18px; color: rgb(242, 217, 212); white-space: normal; -unity-text-align: middle-center; background-color: rgba(8, 14, 26, 0.8); padding: 8px 15px; display: none; }
+.gacha-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(5, 9, 18, 0.89); padding: 7% 12%; color: rgb(237, 240, 246); }
+.gacha-modal { flex-grow: 1; min-height: 0; padding: 26px; border-width: 1px; border-color: rgb(143, 173, 203); background-color: rgb(14, 23, 37); }
+.gacha-modal-header { flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+#details-title { font-size: 35px; color: rgb(255, 223, 157); }
+.gacha-modal-close { min-width: 85px; min-height: 44px; color: rgb(224, 233, 245); border-width: 1px; border-color: rgb(129, 161, 191); font-size: 16px; }
+.gacha-details-panel { flex-grow: 1; min-height: 0; }
+.gacha-details-panel Label { font-size: 17px; white-space: normal; margin-bottom: 12px; color: rgb(208, 222, 237); }
+.gacha-details-panel Button { padding: 12px 18px; margin-bottom: 9px; min-height: 44px; background-color: rgb(34, 49, 69); color: rgb(255, 224, 168); -unity-text-align: middle-left; }
+.gacha-details-panel Button:disabled { opacity: 0.45; }
+.gacha-result-screen { position: absolute; left: 35px; right: 35px; top: 100px; bottom: 64px; padding: 35px; background-color: rgba(8, 15, 27, 0.97); border-width: 1px; border-color: rgb(181, 155, 103); align-items: center; }
+.gacha-result-title { font-size: 55px; color: rgb(255, 224, 157); }
+.gacha-result-copy { font-size: 23px; color: rgb(172, 194, 218); margin-top: 8px; margin-bottom: 20px; }
+.gacha-result-scroll { flex-grow: 1; min-height: 0; width: 100%; }
+.result-cards { flex-direction: row; flex-wrap: wrap; justify-content: center; padding-top: 10px; }
+.result-card { width: 220px; height: 240px; margin: 12px; padding: 0; overflow: hidden; }
+.result-card .character-icon { width: 100%; height: 100%; flex-grow: 1; }
+.gacha-modal-button { min-width: 280px; min-height: 65px; padding: 12px 35px; background-color: rgb(191, 30, 46); color: rgb(255, 239, 218); margin-top: 20px; font-size: 31px; border-width: 1px; border-color: rgb(237, 96, 74); }
+.loading-message { position: absolute; left: 35%; top: 45%; background-color: rgb(14, 23, 45); padding: 25px; font-size: 24px; color: white; }

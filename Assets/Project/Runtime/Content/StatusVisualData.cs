@@ -23,6 +23,9 @@ namespace FightingAllstar.Presentation.Combat
         [Tooltip("Icon sprite for the status (used in world HUD, card badges, and tooltips)")]
         [SerializeField] private Sprite icon;
 
+        [Tooltip("Actor model effect. Automatic reads the status recipe's stat modifiers and stun tag.")]
+        [SerializeField] private ActorVisualEffectKind actorVisualEffect = ActorVisualEffectKind.Automatic;
+
         [Header("Classification")]
         [Tooltip("Polarity of the status: Buff or Debuff")]
         [SerializeField] private StatusPolarity polarity = StatusPolarity.Debuff;
@@ -36,6 +39,7 @@ namespace FightingAllstar.Presentation.Combat
         public string Id => id;
         public string DisplayName => string.IsNullOrEmpty(displayName) ? id : displayName;
         public Sprite Icon => icon;
+        public ActorVisualEffectKind ActorVisualEffect => actorVisualEffect;
         public StatusPolarity Polarity => polarity;
         public string[] Keywords => keywords;
         public string Description => description;
@@ -67,16 +71,27 @@ namespace FightingAllstar.Presentation.Combat
                 }
             }
 
-#if UNITY_EDITOR
-            if (AllVisuals.Count == 0)
+            // The authored visuals live under Project/Data/StatusData, outside Resources.
+            // This catalog is a Resources asset whose references keep every visual included
+            // in player builds and make them discoverable without editor-only AssetDatabase.
+            var catalogs = Resources.LoadAll<StatusVisualDataCatalog>("StatusData");
+            foreach (var catalog in catalogs)
             {
-                var guids = UnityEditor.AssetDatabase.FindAssets("t:StatusVisualData");
-                for (var i = 0; i < guids.Length; i++)
-                {
-                    var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
-                    var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<StatusVisualData>(path);
-                    if (asset != null) Register(asset);
-                }
+                if (catalog?.Visuals == null) continue;
+                foreach (var visual in catalog.Visuals) Register(visual);
+            }
+
+#if UNITY_EDITOR
+            // Assets outside Resources are not found by Resources.LoadAll. Always scan
+            // the project in the Editor, even when a character/card already registered
+            // one visual (for example Brian's barrier). Otherwise that first registration
+            // suppresses the scan and leaves every other status using fallback icons.
+            var guids = UnityEditor.AssetDatabase.FindAssets("t:StatusVisualData");
+            for (var i = 0; i < guids.Length; i++)
+            {
+                var path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[i]);
+                var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<StatusVisualData>(path);
+                if (asset != null) Register(asset);
             }
 #endif
             _initialized = true;

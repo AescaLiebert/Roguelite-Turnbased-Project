@@ -35,6 +35,8 @@ namespace FightingAllstar.Core.Combat
             var hasEffect = card.Kind == CardKind.Skill
                 ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
                 : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+            // A disabled card can be committed: earlier actions may cleanse its owner.
+            // The live status check in BattleEngine decides whether it executes or is discarded.
             var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner,
                 CardRules.GetEffectCategory(card), card.Rank,
                 card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
@@ -48,10 +50,7 @@ namespace FightingAllstar.Core.Combat
                 ? "Choose a living active ally." : "Choose a living active opponent."; return false; }
             _actions.Add(new PlannedAction { CardId = cardId, TargetFighterId = target.Id });
             _view.Team.Hand.Remove(card);
-            if (disabled) owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
-            else if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
-            else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
-            if (owner.PowerGaugeDisabled) owner.PowerGauge = 0;
+            PreviewCardGauge(owner, card, disabled);
             _lastEvents.Add(new BattleEvent { Kind = BattleEventKind.CardPlayed, SourceId = owner.Id,
                 TargetId = target.Id, CardId = card.Id, Card = card.Clone(), PowerGaugeAfter = owner.PowerGauge,
                 TargetIds = ResolveDraftTargets(card, owner, target).ConvertAll(item => item.Id) });
@@ -130,12 +129,25 @@ namespace FightingAllstar.Core.Combat
                     var card = _view.Team.Hand[from];
                     _view.Team.Hand.RemoveAt(from);
                     var owner = _view.Team.FindFighter(card.OwnerFighterId);
-                    if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
-                    else owner.PowerGauge = Math.Min(5, owner.PowerGauge + 1);
-                    if (owner.PowerGaugeDisabled) owner.PowerGauge = 0;
+                    EffectDefinition effect;
+                    var hasEffect = card.Kind == CardKind.Skill
+                        ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
+                        : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+                    var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner,
+                        CardRules.GetEffectCategory(card), card.Rank,
+                        card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
+                    PreviewCardGauge(owner, card, disabled);
                     CardRules.MergeAdjacent(_view.Team, null);
                 }
             }
+        }
+
+        private static void PreviewCardGauge(FighterState owner, CardState card, bool disabled)
+        {
+            // Forecast the current checkpoint outcome; execution rechecks after earlier effects.
+            if (card.Kind == CardKind.Ultimate && !disabled) owner.PowerGauge = 0;
+            else owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
+            if (owner.PowerGaugeDisabled) owner.PowerGauge = 0;
         }
 
         private static List<PlannedAction> CloneActions(List<PlannedAction> source)

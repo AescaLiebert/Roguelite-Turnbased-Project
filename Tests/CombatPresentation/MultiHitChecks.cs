@@ -72,15 +72,54 @@ internal static partial class BattlePlaybackChecks
         var repeat = PlayKind(mixed.Clone(), CardCategory.Attack, EffectTargetScope.SelectedEnemy, multi.Clone());
         Check(SnapshotJson.Serialize(mixedNext) == SnapshotJson.Serialize(repeat), "Multi-hit replay is nondeterministic.");
 
-        // A death ends this target's packets without retargeting the remainder to a reserve.
-        var lethal = Create(4502);
-        lethal.Opponent.Fighters[0].Health = 1;
-        var lethalNext = PlayKind(lethal, CardCategory.Attack, EffectTargetScope.SelectedEnemy, multi);
-        Check(lethalNext.Events.Count(e => e.Kind == BattleEventKind.DamageApplied && e.HitCount == 10) == 1, "Dead target received extra damage packets.");
-        Check(lethalNext.Events.Count(e => e.Kind == BattleEventKind.FighterDefeated) == 1, "Combo duplicated defeat handling.");
-        var lethalDisplay = lethal.Clone();
-        foreach (var item in lethalNext.Events.Skip(lethal.Events.Count)) BattlePlaybackState.Apply(lethalDisplay, item);
-        EqualDisplay(lethalDisplay, lethalNext);
+        // Zero HP preserves every original recipient through the card's final hit, on both sides.
+        foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
+        foreach (var area in new[] { false, true })
+        {
+            var lethal = Create(4502, side);
+            var victims = lethal.OtherTeam(side);
+            victims.Fighters[0].Health = 1;
+            var reserveId = victims.Fighters[3].Id;
+            var start = lethal.Events.Count;
+            var scope = area ? EffectTargetScope.AllEnemies : EffectTargetScope.SelectedEnemy;
+            // PlayKind is a player-only fixture; mirror its plan setup for the current acting side.
+            var actor = lethal.Team(side).Fighters[0];
+            if (!area)
+            {
+                actor.Health -= 50;
+                actor.Stats.LifeStealBp = 10000;
+            }
+            actor.Definition.Skills[0].Ranks[0].Effect = multi.Clone();
+            var card = QueueCardFixture("lethal-combo", actor, 1);
+            card.TargetScope = scope;
+            lethal.Team(side).Hand.Clear(); lethal.Team(side).Hand.Add(card);
+            var draft = new PlanDraft(lethal);
+            Check(draft.QueuePlay(card.Id, victims.Fighters[0].Id, out var error), error);
+            Check(BattleEngine.TryResolvePlan(lethal, draft.BuildPlan("overkill:" + side + area), out var lethalNext, out error), error);
+            var events = lethalNext.Events.Skip(start).ToList();
+            var damage = events.Where(e => e.Kind == BattleEventKind.DamageApplied && e.CardId == card.Id).ToList();
+            var overkill = damage.Where(e => e.TargetId == victims.Fighters[0].Id).ToList();
+            Check(damage.Count == 10 * (area ? 3 : 1) && overkill.Count == 10 && overkill.All(e => e.Amount > 0),
+                "Zero HP must not suppress later damage packets, numbers or target reactions.");
+            Check(overkill.All(e => e.HealthAfter == 0) && overkill.Sum(e => e.Amount) == actor.Stats.Attack,
+                "Overkill must preserve full calculated damage while keeping HP clamped to zero.");
+            if (!area)
+                Check(lethalNext.Team(side).FindFighter(actor.Id).Health == actor.Health + 1,
+                    "Overkill must not inflate lifesteal beyond the target's one point of actual HP loss.");
+            Check(!damage.Any(e => e.TargetId == reserveId) && events.Count(e => e.Kind == BattleEventKind.FighterDefeated) == 1,
+                "The combo must not retarget to a reserve or finalize the same defeat twice.");
+            Check(events.FindIndex(e => e.Kind == BattleEventKind.FighterDefeated) >
+                events.FindIndex(e => e.Kind == BattleEventKind.ActionCompleted) &&
+                events.FindIndex(e => e.Kind == BattleEventKind.ActionCompleted) > events.FindLastIndex(e => e.Kind == BattleEventKind.DamageApplied),
+                "Defeat must occur only after the full card action has completed.");
+            Check(events.Where(e => e.Kind == BattleEventKind.HitStarted).All(e => e.TargetIds.Contains(victims.Fighters[0].Id)),
+                "The zero-HP recipient must remain in every hit marker for recoil and FCT playback.");
+            Check(lethalNext.RngDrawCount - lethal.RngDrawCount == (ulong)(damage.Count * 2),
+                "Overkill packets must retain their independent crit/block rolls.");
+            var lethalDisplay = lethal.Clone();
+            foreach (var item in events) BattlePlaybackState.Apply(lethalDisplay, item);
+            EqualDisplay(lethalDisplay, lethalNext);
+        }
 
         // Non-damage definitions ignore attack settings, including their animation metadata.
         var support = Create(4503);
@@ -124,8 +163,8 @@ internal static partial class BattlePlaybackChecks
         var areaDeath = Create(4506);
         areaDeath.Opponent.Fighters[0].Health = 1;
         var areaNext = PlayKind(areaDeath, CardCategory.Attack, EffectTargetScope.AllEnemies, multi);
-        Check(areaNext.Events.Count(e => e.Kind == BattleEventKind.DamageApplied && e.HitCount == 10) == 21,
-            "AOE death stopped surviving recipients or kept hitting the dead recipient.");
+        Check(areaNext.Events.Count(e => e.Kind == BattleEventKind.DamageApplied && e.HitCount == 10) == 30,
+            "AOE must finish every hit against all original recipients, including a target at zero HP.");
 
         var evade = Create(4507);
         var evader = evade.Opponent.Fighters[0];

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9666d9fe4691a054dae7deae827391e9, type: 3}
   m_Name: Ignite
   m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
-  id: ignite
+  id: status.debuff.ignite
   displayName: Ignite
   icon: {fileID: 21300000, guid: 70a778f1eb6cac447b903b0114063ea1, type: 3}
   polarity: 1
   keywords:
   - Ignite
+  - status.debuff.ignite
   description: 

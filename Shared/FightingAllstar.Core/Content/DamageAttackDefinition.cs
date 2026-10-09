@@ -4,12 +4,16 @@ using System.Collections.Generic;
 namespace FightingAllstar.Core.Content
 {
     public enum AttackRange { Close, Long }
+    public enum HitReaction { Hit, None, KnockBack, KnockDown, KnockUp }
+    public enum HitReactionTiming { LastHit, FirstHit, EveryHit }
 
     [Serializable]
     public sealed class DamageAttackDefinition
     {
         public int HitCount = 1;
         public AttackRange Range;
+        public HitReaction Reaction = HitReaction.Hit;
+        public HitReactionTiming ReactionTiming = HitReactionTiming.LastHit;
         public int ResolvedHitCount => Math.Max(1, Math.Min(10, HitCount));
         public DamageAttackDefinition Clone() => (DamageAttackDefinition)MemberwiseClone();
     }

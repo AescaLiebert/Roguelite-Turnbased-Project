@@ -67,6 +67,10 @@ namespace FightingAllstar.Contracts.Projections
         public int HitIndex;
         public int HitCount;
         public string AttackRange;
+        public bool HasHitReaction;
+        public string Reaction;
+        public bool WasReactionResisted;
+        public bool WasStanceCancelled;
         public string Kind;
         public string SourceId;
         public string TargetId;

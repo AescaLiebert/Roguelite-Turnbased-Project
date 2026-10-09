@@ -13,7 +13,7 @@ public class UltimateCardSO : ScriptableObject
     [Header("Progression")]
     public List<FightingAllstar.Presentation.Combat.StatusVisualData> statusVisuals = new List<FightingAllstar.Presentation.Combat.StatusVisualData>();
     private void OnEnable() { foreach (var visual in statusVisuals) FightingAllstar.Presentation.Combat.StatusVisualData.Register(visual); }
-    public List<UltimateLevelData> levels = new List<UltimateLevelData>();
+    public List<UltimateLevelData> levels = new List<UltimateLevelData> { new UltimateLevelData() };
 
     public UltimateLevelData GetLevelData(int constellationTier)
     {
@@ -31,8 +31,14 @@ public class UltimateLevelData
     public int level; // Constellation tier C0 to C5
     [TextArea]
     public string description;
-    public SkillType skillType;
+    public SkillType skillType = SkillType.Ultimate;
     [Header("Runtime Effect")]
     [Tooltip("The combat definition used by battle. Put all card effects, including follow-up effects, in this definition's Sequence.")]
-    public EffectDefinition runtimeEffect;
+    public EffectDefinition runtimeEffect = new EffectDefinition {
+        Kind = EffectKind.Damage,
+        Attack = new DamageAttackDefinition {
+            Reaction = HitReaction.KnockUp,
+            ReactionTiming = HitReactionTiming.LastHit
+        }
+    };
 }

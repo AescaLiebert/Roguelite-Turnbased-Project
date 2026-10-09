@@ -211,7 +211,8 @@ namespace FightingAllstar.Presentation.Combat
 
             EnsureSegments();
 
-            if (!_pgInitialized)
+            // Opening/cinematic HUDs can be hidden while playback updates their gauge.
+            if (!_pgInitialized || !isActiveAndEnabled)
             {
                 _pgInitialized = true;
                 _currentTruePG = truePowerGauge;

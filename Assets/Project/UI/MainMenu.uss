@@ -1,0 +1,80 @@
+.menu-viewport { flex-grow: 1; overflow: hidden; background-color: rgb(7, 12, 21); color: rgb(245, 240, 229); }
+.menu-stage { position: absolute; width: 1672px; height: 941px; transform-origin: top left; }
+Label { margin: 0; padding: 0; }
+.display { -unity-font-definition: url("../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.display-heavy { -unity-font-definition: url("../Art/UI/MainMenu/BarlowCondensed-ExtraBoldItalic.ttf"); }
+.fill { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.arena-background { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; background-image: url("../Art/UI/MainMenu/ArenaBackground.png"); -unity-background-scale-mode: stretch-to-fill; }
+.header-surface { position: absolute; left: 0; top: 0; width: 956px; height: 65px; }
+.brand-art { position: absolute; left: 40px; top: 14px; width: 300px; height: 46px; }
+.home-tab { position: absolute; left: 486px; top: 18px; font-size: 25px; letter-spacing: 1.7px; scale: 1.12 1; transform-origin: left center; }
+.home-underline { position: absolute; left: 455px; top: 61px; width: 113px; height: 3px; background-color: rgb(240, 48, 48); }
+.expedition-tab { position: absolute; left: 609px; top: 18px; font-size: 24px; letter-spacing: 1.9px; color: rgb(134, 160, 195); scale: 1.18 1; transform-origin: left center; }
+.wallet-chip { position: absolute; left: 1199px; top: 15px; width: 210px; height: 43px; background-color: rgba(9, 18, 33, 0.8); flex-direction: row; align-items: center; padding-left: 13px; padding-right: 10px; }
+.diamond-art { width: 38px; height: 33px; flex-shrink: 0; }
+.wallet { flex-grow: 1; margin-left: 9px; font-size: 23px; -unity-text-align: middle-center; white-space: nowrap; }
+.wallet-plus { font-size: 29px; margin-left: 7px; }
+.profile-chip { position: absolute; left: 1450px; top: 5px; width: 197px; height: 69px; background-color: rgba(9, 18, 33, 0.28); }
+.avatar-art { position: absolute; left: 0; top: 0; width: 69px; height: 69px; }
+.profile-name { position: absolute; left: 76px; top: 10px; font-size: 25px; letter-spacing: 0.5px; }
+.profile-detail { position: absolute; left: 77px; top: 39px; font-size: 13px; color: rgb(154, 183, 221); letter-spacing: 1px; }
+.season-line { position: absolute; left: 68px; top: 118px; height: 25px; flex-direction: row; align-items: center; }
+.season { font-size: 21px; letter-spacing: 8px; scale: 1.4 1; transform-origin: left center; }
+.season-rule { width: 92px; height: 1px; margin-left: 49px; background-color: rgb(185, 194, 203); }
+.headline-first { position: absolute; left: 58px; top: 126px; font-size: 100px; letter-spacing: 1px; }
+.headline-second { position: absolute; left: 55px; top: 208px; height: 112px; flex-direction: row; align-items: center; }
+.legend { color: rgb(238, 49, 49); font-size: 110px; letter-spacing: 0.5px; margin-right: 16px; }
+.starts-here { font-size: 99px; letter-spacing: -0.8px; scale: 0.79 1; transform-origin: left center; }
+.tagline { position: absolute; left: 58px; top: 325px; font-size: 21px; letter-spacing: 10px; color: rgb(170, 194, 214); scale: 1.4 1; transform-origin: left center; }
+.headline-rule { position: absolute; left: 54px; top: 364px; width: 444px; height: 1px; background-color: rgba(171, 193, 211, 0.55); }
+.red-tick { width: 49px; height: 5px; top: -3px; background-color: rgb(242, 48, 49); rotate: -5deg; }
+.route-card { position: absolute; left: 49px; top: 385px; width: 693px; height: 200px; }
+.route-art { position: absolute; left: 12px; top: 13px; width: 356px; height: 173px; }
+.route-title { position: absolute; left: 332px; top: 9px; font-size: 40px; letter-spacing: 0.6px; }
+.route-divider { position: absolute; left: 330px; top: 62px; width: 340px; height: 1px; background-color: rgba(133, 168, 200, 0.24); }
+.fact-icon { position: absolute; left: 405px; width: 31px; height: 27px; }
+.team-icon { top: 73px; } .path-icon { top: 113px; } .reward-icon { top: 153px; }
+.route-fact { position: absolute; left: 462px; font-size: 20px; letter-spacing: 1.8px; color: rgb(140, 172, 210); }
+.team-fact { top: 72px; } .path-fact { top: 112px; } .reward-fact { top: 152px; }
+Button { margin: 0; padding: 0; border-width: 0; border-radius: 0; background-color: rgba(0, 0, 0, 0); }
+Button:hover { background-color: rgba(255, 255, 255, 0.07); }
+Button:active { opacity: 0.8; }
+Button:focus { border-width: 2px; border-color: rgb(243, 230, 196); }
+.battle-button { position: absolute; left: 49px; top: 598px; width: 691px; height: 85px; }
+.battle-emblem { position: absolute; left: 2px; top: 2px; width: 190px; height: 81px; }
+.battle-label { position: absolute; left: 72px; right: 0; top: 8px; bottom: 8px; font-size: 47px; letter-spacing: 0.9px; -unity-text-align: middle-center; color: rgb(255, 249, 236); }
+.battle-arrow { position: absolute; right: 30px; top: 9px; font-size: 62px; color: rgb(255, 247, 230); }
+.fighter-caption { position: absolute; left: 1376px; top: 385px; width: 272px; height: 112px; }
+.caption-overline { position: absolute; left: 69px; top: 11px; font-size: 17px; letter-spacing: 2px; color: rgb(151, 181, 220); }
+.caption-title { position: absolute; left: 69px; top: 37px; font-size: 25px; }
+.caption-divider { position: absolute; left: 67px; top: 74px; right: 28px; height: 1px; background-color: rgb(99, 135, 157); }
+.fighter-tier { position: absolute; left: 69px; top: 77px; font-size: 22px; letter-spacing: 2px; }
+.squad-panel { position: absolute; left: 18px; top: 714px; width: 836px; height: 180px; }
+.lineup-label { position: absolute; left: 25px; top: -22px; font-size: 13px; letter-spacing: 2px; color: rgb(155, 185, 204); }
+.fighter-slot { position: absolute; top: 0; width: 220px; height: 180px; }
+.slot-0 { left: 0; } .slot-1 { left: 205px; } .slot-2 { left: 410px; } .slot-3 { left: 615px; }
+.slot-name { position: absolute; left: 21px; top: 113px; right: 20px; height: 35px; font-size: 29px; color: rgb(255, 255, 249); }
+.slot-badge { position: absolute; left: 13px; top: 148px; width: 111px; height: 27px; }
+.slot-role { position: absolute; left: 20px; top: 147px; width: 94px; height: 27px; font-size: 20px; letter-spacing: 1px; color: rgb(8, 25, 28); -unity-text-align: middle-center; }
+.utility-button { position: absolute; top: 759px; height: 112px; }
+.summon-button { left: 1006px; width: 316px; color: rgb(247, 211, 153); }
+.training-button { left: 1332px; width: 316px; color: rgb(184, 213, 250); }
+.summon-icon { position: absolute; left: 31px; top: 23px; width: 88px; height: 70px; }
+.training-icon { position: absolute; left: 33px; top: 27px; width: 84px; height: 58px; }
+.utility-label { position: absolute; left: 129px; top: 26px; font-size: 40px; letter-spacing: 0.5px; }
+.utility-arrow { position: absolute; right: 24px; top: 22px; font-size: 49px; }
+.loading-message { position: absolute; left: 35%; top: 45%; background-color: rgb(14, 23, 45); padding: 25px; font-size: 24px; }
+.training-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.86); padding: 28px; color: white; }
+.training-panel { flex-grow: 1; min-height: 0; background-color: rgb(20, 30, 48); border-width: 2px; border-color: rgb(59, 161, 217); padding: 18px; }
+.training-toolbar { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.training-toolbar > * { margin-right: 14px; margin-bottom: 6px; }
+#training-title { flex-grow: 1; font-size: 24px; -unity-font-style: bold; }
+.training-toolbar .unity-base-field { min-width: 190px; }
+.training-toolbar .unity-base-field__label { min-width: 80px; }
+.training-status { margin-bottom: 12px; color: rgb(147, 209, 234); white-space: normal; }
+.training-scroll { flex-grow: 1; min-height: 0; }
+.training-grid { flex-direction: row; flex-wrap: wrap; align-content: flex-start; }
+.training-character { width: 150px; height: 178px; margin: 6px; padding: 8px; align-items: center; background-color: rgb(34, 49, 76); color: white; border-radius: 5px; }
+.training-character:hover { background-color: rgb(43, 83, 122); }
+.training-character:disabled { opacity: 0.4; }
+.training-character > Label { white-space: normal; -unity-text-align: middle-center; font-size: 12px; }

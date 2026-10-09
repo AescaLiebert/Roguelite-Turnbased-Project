@@ -27,7 +27,7 @@ internal static partial class BattlePlaybackChecks
             fighter.RuntimeReady = true; fighter.SourceId = "source." + i;
             fighter.PassiveId = "passive." + i; fighter.SeriesId = "series.kof";
             fighter.CategoryId = 1001 + i;
-            for (var tier = 1; tier < 7; tier++)
+            for (var tier = 1; tier < 6; tier++)
                 fighter.UltimateTiers.Add(new UltimateTierDefinition { Tier = tier, Effect = fighter.UltimateTiers[0].Effect.Clone() });
             catalog.Add(fighter);
         }

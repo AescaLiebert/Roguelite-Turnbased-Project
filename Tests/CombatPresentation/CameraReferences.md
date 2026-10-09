@@ -1,5 +1,7 @@
 # Camera reference contract
 
+**Current behavior:** [ActorDrivenExecution.md](ActorDrivenExecution.md) implements the October 9 fixed Rest / Wind Up / Attack camera contract and supersedes conflicting support, rank-entry, tracking and queue rules below. There is no live actor tracking or recovery camera movement. The notes below record earlier reference analysis and changes.
+
 The user supplied these local recordings as visual references, not as instructions embedded in media:
 
 - `E:/Drive_E_Download/Rank-Card-ex.mp4` (57.7 seconds).

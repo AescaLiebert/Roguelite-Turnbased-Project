@@ -1,0 +1,1176 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9ad1cdb4878bd4787c7185e9af84d4, type: 3}
+  m_Name: kyo94_Ultimate
+  m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
+  ultimateName: "Kusanagi Kyo 94 \xB7 Ultimate"
+  icon: {fileID: 21300000, guid: 5b2d1b828c66ec546bb4e38d04dc61b0, type: 3}
+  statusVisuals: []
+  levels:
+  - level: 0
+    description: Inflicts 500% of ATK, applies 2 Ignites effects.
+    skillType: 0
+    runtimeEffect:
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 50000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Tags: []
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+        Reactions: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      Sequence:
+      - Timing: 3
+        Effect:
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Tags: []
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.ignite
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.ignite
+            - status.dot
+            Modifiers:
+            - Target: 2
+              Stat: 0
+              Family: 0
+              Operation: 2
+              Amount: 1000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+            Reactions: []
+          StatusDurationOverride: 3
+          StatusStackCount: 2
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+          Sequence: []
+  - level: 1
+    description: Inflicts 525% of ATK, applies 3 Ignites effects.
+    skillType: 0
+    runtimeEffect:
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 52500
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Tags: []
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+        Reactions: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      Sequence:
+      - Timing: 2
+        Effect:
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Tags: []
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.ignite
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.ignite
+            - status.dot
+            Modifiers:
+            - Target: 2
+              Stat: 0
+              Family: 0
+              Operation: 2
+              Amount: 1000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+            Reactions: []
+          StatusDurationOverride: 3
+          StatusStackCount: 3
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+          Sequence: []
+  - level: 2
+    description: Inflicts 550% of ATK, applies 4 Ignites effects.
+    skillType: 0
+    runtimeEffect:
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 55000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Tags: []
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+        Reactions: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      Sequence:
+      - Timing: 2
+        Effect:
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Tags: []
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.ignite
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.ignite
+            - status.dot
+            Modifiers:
+            - Target: 2
+              Stat: 0
+              Family: 0
+              Operation: 2
+              Amount: 1000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+            Reactions: []
+          StatusDurationOverride: 3
+          StatusStackCount: 4
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+          Sequence: []
+  - level: 3
+    description: Inflicts 575% of ATK, applies 5 Ignites effects.
+    skillType: 0
+    runtimeEffect:
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 57500
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Tags: []
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+        Reactions: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      Sequence:
+      - Timing: 2
+        Effect:
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Tags: []
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.ignite
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.ignite
+            - status.dot
+            Modifiers:
+            - Target: 2
+              Stat: 0
+              Family: 0
+              Operation: 2
+              Amount: 1000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+            Reactions: []
+          StatusDurationOverride: 3
+          StatusStackCount: 5
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+          Sequence: []
+  - level: 4
+    description: Inflicts 600% of ATK, applies 6 Ignites effects.
+    skillType: 0
+    runtimeEffect:
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 60000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Tags: []
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+        Reactions: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      Sequence:
+      - Timing: 2
+        Effect:
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Tags: []
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.ignite
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.ignite
+            - status.dot
+            Modifiers:
+            - Target: 2
+              Stat: 0
+              Family: 0
+              Operation: 2
+              Amount: 1000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+            Reactions: []
+          StatusDurationOverride: 3
+          StatusStackCount: 6
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+          Sequence: []
+  - level: 5
+    description: Inflicts 625% of ATK, applies 7 Ignites effects.
+    skillType: 0
+    runtimeEffect:
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 62500
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Tags: []
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+        Reactions: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      Sequence:
+      - Timing: 2
+        Effect:
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Tags: []
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.ignite
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.ignite
+            - status.dot
+            Modifiers:
+            - Target: 2
+              Stat: 0
+              Family: 0
+              Operation: 2
+              Amount: 1000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+            Reactions: []
+          StatusDurationOverride: 3
+          StatusStackCount: 7
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+          Sequence: []

@@ -59,6 +59,9 @@ public sealed class PlayerInventoryService : MonoBehaviour
     private const int SingleSummonCost = 160;
     private const int TenSummonCost = 1600;
     private const int GuaranteeThreshold = 300;
+    public static int SingleSummonPrice => SingleSummonCost;
+    public static int TenSummonPrice => TenSummonCost;
+    public static int FeaturedSelectorThreshold => GuaranteeThreshold;
     private static PlayerInventoryService _instance;
 
     [SerializeField] private string currentSubjectId;

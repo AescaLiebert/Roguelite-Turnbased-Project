@@ -14,8 +14,8 @@
 
 .card-face:hover {
     border-color: rgb(255, 230, 130);
-    scale: 1.05 1.05;
-    translate: 0 -8px;
+    scale: 1 1;
+    translate: 0 0;
 }
 
 .card-artwork {

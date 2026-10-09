@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Project/UI/BattleCardHud.uss?fileID=7433441132597879392&amp;guid=b51f3b08657e4af9ab8610c92c24b7e2&amp;type=3#BattleCardHud"/>
-    <ui:VisualElement name="battle-card-root" class="battle-card-root">
+    <ui:VisualElement name="battle-card-root" class="battle-card-root" style="-unity-font-definition: resource(&quot;UI/ArchivoBlack-Regular&quot;);">
         <ui:VisualElement name="phase-container" picking-mode="Ignore" class="phase-container" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
             <ui:Label name="battle-phase-turn" text="TURN 1" picking-mode="Ignore" class="battle-phase-turn"/>
             <ui:VisualElement picking-mode="Ignore" class="phase-divider"/>
@@ -31,7 +31,7 @@
             </ui:VisualElement>
             <ui:Label name="cc-decision" class="cc-decision"/>
         </ui:VisualElement>
-        <ui:VisualElement name="turn-banner" picking-mode="Ignore" class="turn-banner" style="display: none; left: 0%; right: 0%; top: 20%;">
+        <ui:VisualElement name="turn-banner" picking-mode="Ignore" class="turn-banner" style="display: none;">
             <ui:Label name="turn-banner-title" text="YOUR TURN" picking-mode="Ignore" class="turn-banner-title"/>
             <ui:Label name="turn-banner-sub" text="COMMAND PHASE" picking-mode="Ignore" class="turn-banner-sub"/>
         </ui:VisualElement>

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9666d9fe4691a054dae7deae827391e9, type: 3}
+  m_Name: Iori95ExtortBuff
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
+  id: status.buff.iori95.extort
+  displayName: Looted ATK and DEF
+  icon: {fileID: 21300000, guid: cf84bb24003c4c841951681372e3cccc, type: 3}
+  polarity: 0
+  keywords: []
+  description: Gains the Attack and Defense stolen from the target for 2 turns.

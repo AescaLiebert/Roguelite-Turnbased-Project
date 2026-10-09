@@ -6,14 +6,14 @@
     bottom: 0;
 }
 
-/* Enemy cards intentionally expose rank only. Artwork, skill slot, type, and owner stay private. */
 .enemy-deck-field {
     position: absolute;
     left: 2.5%;
     top: 68px;
-    width: 50%;
-    height: 126px;
-    min-width: 360px;
+    width: 28%;
+    max-width: 380px;
+    height: 100px;
+    min-width: 180px;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -32,16 +32,75 @@
 .enemy-deck-row {
     position: relative;
     width: 100%;
-    height: 104px;
+    height: 80px;
+}
+
+.enemy-plan-field {
+    position: absolute;
+    left: 2.5%;
+    width: 28%;
+    max-width: 380px;
+    min-width: 180px;
+    top: 182px;
+    height: 100px;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.enemy-plan-row {
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 80px;
+}
+
+.enemy-plan-slot {
+    position: relative;
+    width: 52px;
+    height: 80px;
+    margin-left: 5px;
+    border-width: 1px;
+    border-color: rgba(230, 137, 137, 0.65);
+    background-color: rgba(31, 17, 25, 0.75);
+    border-radius: 6px;
+}
+
+.enemy-plan-order {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    min-width: 20px;
+    font-size: 11px;
+    color: rgb(255, 237, 210);
+    background-color: rgba(98, 33, 41, 0.95);
+    -unity-text-align: middle-center;
+    border-radius: 4px;
+}
+
+.enemy-plan-move {
+    color: rgb(255, 224, 121);
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+    font-size: 13px;
+}
+
+.enemy-plan-slot.executing {
+    border-width: 3px;
+    border-color: rgb(255, 220, 124);
+}
+
+.enemy-plan-slot.fizzled {
+    border-color: rgb(255, 95, 105);
+    opacity: 0.5;
+}
+
+.enemy-card-selected .enemy-card-back {
+    opacity: 0.45;
 }
 
 .enemy-hand-card {
     position: absolute;
-    width: 68px;
-    height: 104px;
-    transition-property: left, opacity, scale, translate;
-    transition-duration: 200ms;
-    transition-timing-function: ease-out;
+    width: 52px;
+    height: 80px;
 }
 
 .enemy-card-back {
@@ -75,7 +134,7 @@
 
 .enemy-card-sigil {
     color: rgba(211, 198, 169, 0.72);
-    font-size: 25px;
+    font-size: 19px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
     -unity-text-outline-width: 1px;
@@ -94,15 +153,15 @@
     position: absolute;
     left: 6px;
     bottom: 6px;
-    min-width: 24px;
-    height: 24px;
-    padding-left: 5px;
-    padding-right: 5px;
+    min-width: 18px;
+    height: 18px;
+    padding-left: 3px;
+    padding-right: 3px;
     border-radius: 12px;
     background-color: rgba(12, 15, 22, 0.94);
     border-width: 1px;
     color: rgb(255, 250, 235);
-    font-size: 13px;
+    font-size: 10px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
     -unity-text-outline-width: 1px;
@@ -196,7 +255,6 @@
     justify-content: flex-end;
 }
 
-/* Redesigned 7DSGC-style Floating Card Tooltip */
 .card-tooltip-container {
     position: absolute;
     bottom: 100%;
@@ -376,14 +434,62 @@
 }
 
 .hand-card {
-    transition-property: left, opacity, scale, translate;
-    transition-duration: 200ms;
-    transition-timing-function: ease-out;
+    overflow: visible;
 }
 
 .hand-card:hover {
-    scale: 1.05 1.05;
-    translate: 0 -8px;
+    scale: 1 1;
+}
+
+.hand-card.drag-neighbor {
+    transition-property: translate;
+    transition-duration: 120ms;
+    transition-timing-function: ease-out;
+}
+
+.hand-card.drag-held {
+    transition-duration: 0ms;
+}
+
+.card-merge-badge {
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    top: -20px;
+    height: 17px;
+    font-size: 10px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: rgb(255, 232, 165);
+    background-color: rgba(54, 35, 7, 0.95);
+    border-color: rgb(234, 178, 59);
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+.card-merge-badge.merge-ready {
+    color: rgb(255, 255, 255);
+    background-color: rgba(9, 73, 61, 0.98);
+    border-color: rgb(162, 255, 221);
+    border-width: 2px;
+}
+
+.drag-held .card-face {
+    scale: 1 1;
+    translate: 0 0;
+}
+
+.drag-landing-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -22px;
+    color: rgb(134, 255, 216);
+    font-size: 12px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    background-color: rgba(5, 22, 25, 0.88);
+    border-radius: 4px;
 }
 
 .card-slot {
@@ -488,7 +594,6 @@
     height: 38px;
 }
 
-/* 7DSGC-style Phase Crest Pill Header */
 .phase-container {
     position: absolute;
     top: 2.2%;
@@ -530,49 +635,106 @@
     -unity-text-outline-color: rgb(15, 20, 30);
 }
 
-/* 7DSGC-style Cinematic Turn Banner */
 .turn-banner {
     position: absolute;
-    left: 12%;
-    right: 12%;
-    top: 36%;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-left: 20px;
-    padding-right: 20px;
-    flex-direction: column;
-    justify-content: center;
+    left: 10%;
+    right: 10%;
+    top: 32%;
     align-items: center;
-    background-color: rgba(10, 36, 68, 0.94);
-    border-top-width: 3px;
-    border-bottom-width: 3px;
-    border-color: rgb(90, 210, 255);
-}
-
-.turn-banner.enemy {
-    background-color: rgba(72, 14, 30, 0.94);
-    border-color: rgb(255, 90, 125);
+    justify-content: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: rgba(8, 15, 26, 0.88);
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-color: rgb(74, 195, 236);
 }
 
 .turn-banner-title {
-    color: rgb(255, 250, 235);
-    font-size: 38px;
+    color: rgb(178, 243, 255);
+    font-size: 42px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
     -unity-text-outline-width: 2px;
-    -unity-text-outline-color: rgb(10, 16, 26);
+    -unity-text-outline-color: rgb(13, 42, 57);
+    text-shadow: 0 3px 6px rgba(0, 15, 24, 0.8);
+    letter-spacing: 2px;
 }
 
 .turn-banner-sub {
-    color: rgb(255, 218, 115);
-    font-size: 13px;
-    -unity-font-style: bold;
+    color: rgb(228, 231, 237);
+    font-size: 17px;
     -unity-text-align: middle-center;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
-.turn-banner.enemy .turn-banner-sub {
-    color: rgb(255, 175, 190);
+.turn-banner.turn-announcement {
+    top: auto;
+    bottom: 358px;
+    left: 20%;
+    right: 20%;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    background-color: rgba(10, 30, 44, 0);
+    border-top-width: 0;
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(82, 222, 255, 0.7);
+}
+
+.turn-banner.enemy .turn-banner-title {
+    color: rgb(255, 173, 180);
+    -unity-text-outline-color: rgb(86, 21, 30);
+    text-shadow: 0 3px 6px rgba(65, 5, 12, 0.8);
+}
+
+.turn-banner.enemy {
+    border-color: rgba(255, 102, 123, 0.8);
+}
+
+.damage-total {
+    position: absolute;
+    top: 14%;
+    right: 3%;
+    width: 292px;
+    align-items: flex-end;
+    justify-content: center;
+    display: none;
+    rotate: -6deg;
+    -unity-font-definition: resource("UI/ArchivoBlack-Regular");
+}
+
+.damage-total-burst {
+    position: absolute;
+    left: 24px;
+    right: -12px;
+    top: -10px;
+    bottom: -24px;
+    -unity-font-definition: resource("UI/ArchivoBlack-Regular");
+}
+
+.damage-total-title {
+    color: rgb(255, 227, 220);
+    font-size: 18px;
+    letter-spacing: 1px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(100, 23, 33);
+    margin-right: 6px;
+    margin-bottom: -6px;
+    -unity-font-definition: resource("UI/ArchivoBlack-Regular");
+}
+
+.damage-total-value {
+    color: rgb(255, 2, 0);
+    font-size: 64px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(83, 18, 29);
+    text-shadow: 2px 4px 1px rgba(25, 6, 10, 0.8);
+    white-space: nowrap;
+    padding-right: 4px;
+    -unity-font-definition: resource("UI/ArchivoBlack-Regular");
 }
 
 .execution-label {
@@ -589,7 +751,6 @@
     -unity-text-align: middle-center;
 }
 
-/* 7DSGC-style Card Execution Overlay */
 .card-execution-overlay {
     position: absolute;
     left: 0;
@@ -802,8 +963,13 @@
     background-color: rgb(154, 74, 65);
 }
 
-.card-face:disabled { opacity: 1; }
-.deck-row:disabled { opacity: 1; }
+.card-face:disabled {
+    opacity: 1;
+}
+
+.deck-row:disabled {
+    opacity: 1;
+}
 
 .battle-effects {
     position: absolute;
@@ -813,34 +979,76 @@
     bottom: 0;
 }
 
-/* Impact snap -> stable read -> short release. Status text has its own hierarchy. */
-.combat-text-group { position: absolute; width: 280px; align-items: center; }
+.combat-text-group {
+    position: absolute;
+    width: 280px;
+    align-items: center;
+}
+
 .combat-text {
-    color: rgb(255, 251, 235);
+    color: rgb(255, 31, 26);
+    -unity-font-definition: resource("UI/ArchivoBlack-Regular");
     -unity-font-style: bold-and-italic;
     -unity-text-align: middle-center;
-    -unity-text-outline-width: 1.6px;
-    -unity-text-outline-color: rgb(39, 23, 13);
+    -unity-text-outline-width: 2.5px;
+    -unity-text-outline-color: rgb(10, 6, 8);
     white-space: nowrap;
     margin: 0;
     padding: 0;
 }
-.combat-text.critical { color: rgb(255, 222, 80); -unity-text-outline-color: rgb(93, 45, 9); }
-.combat-text.blocked { color: rgb(160, 221, 250); }
-.combat-text.heal { color: rgb(135, 250, 64); -unity-text-outline-color: rgb(25, 65, 12); }
-.combat-text.status { color: rgb(244, 199, 255); -unity-text-outline-width: 1px; }
-.combat-text.passive { color: rgb(255, 249, 216); -unity-text-outline-width: 1px; }
-.combat-text.evade { color: rgb(160, 235, 255); -unity-text-outline-width: 1.5px; -unity-text-outline-color: rgb(18, 48, 80); }
-.combat-text.immunity { color: rgb(255, 215, 120); -unity-text-outline-width: 1.5px; -unity-text-outline-color: rgb(80, 42, 12); }
-.combat-text-kicker {
-    font-size: 18px; color: rgb(255, 233, 132); -unity-font-style: bold-and-italic;
-    -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(50, 26, 10); margin-bottom: -7px;
+
+.combat-text.critical {
+    color: rgb(255, 31, 26);
+    -unity-text-outline-color: rgb(10, 6, 8);
 }
+
+.combat-text.blocked {
+    color: rgb(160, 221, 250);
+}
+
+.combat-text.heal {
+    color: rgb(135, 250, 64);
+    -unity-text-outline-color: rgb(25, 65, 12);
+}
+
+.combat-text.status {
+    color: rgb(244, 199, 255);
+    -unity-text-outline-width: 1px;
+}
+
+.combat-text.passive {
+    color: rgb(255, 249, 216);
+    -unity-text-outline-width: 1px;
+}
+
+.combat-text.evade {
+    color: rgb(160, 235, 255);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(18, 48, 80);
+}
+
+.combat-text.immunity {
+    color: rgb(255, 215, 120);
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(80, 42, 12);
+}
+
+.combat-text-kicker {
+    font-size: 18px;
+    -unity-font-definition: resource("UI/ArchivoBlack-Regular");
+    color: rgb(255, 233, 132);
+    -unity-font-style: bold-and-italic;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(50, 26, 10);
+    margin-bottom: -7px;
+}
+
 .combat-text-content {
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
+
 .combat-text-arrow {
     width: 26px;
     height: 32px;
@@ -848,34 +1056,58 @@
     display: none;
     -unity-background-scale-mode: scale-to-fit;
 }
+
 .combat-text-arrow.advantage {
     display: flex;
-    background-image: url('project://database/Assets/Project/Art/UI/Arrow_Advantage_Red.png');
+    background-image: url("project://database/Assets/Project/Art/UI/Arrow_Advantage_Red.png?fileID=21300000&guid=3b9ce39fcde6ffc4eaece99e5c402a26&type=3#Arrow_Advantage_Red");
 }
+
 .combat-text-arrow.disadvantage {
     display: flex;
-    background-image: url('project://database/Assets/Project/Art/UI/Arrow_Disadvantage_Blue.png');
+    background-image: url("project://database/Assets/Project/Art/UI/Arrow_Disadvantage_Blue.png?fileID=21300000&guid=8345bad5a0671fb48aa531594185e484&type=3#Arrow_Disadvantage_Blue");
 }
-.ultimate-ready-sidebar { position: absolute; left: 0; top: 31%; }
+
+.ultimate-ready-sidebar {
+    position: absolute;
+    left: 0;
+    top: 31%;
+}
+
 .ultimate-ready-tag {
-    flex-direction: row; align-items: center; padding-right: 16px;
-    margin-bottom: 7px; background-color: rgba(36, 24, 10, .88);
-    border-top-width: 1px; border-bottom-width: 2px; border-right-width: 3px;
-    border-color: rgb(255, 206, 68); border-top-right-radius: 5px; border-bottom-right-radius: 5px;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 16px;
+    margin-bottom: 7px;
+    background-color: rgba(36, 24, 10, 0.88);
+    border-top-width: 1px;
+    border-bottom-width: 2px;
+    border-right-width: 3px;
+    border-color: rgb(255, 206, 68);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
-.ultimate-ready-tag Label { font-size: 17px; color: rgb(255, 232, 154); -unity-font-style: bold-and-italic; }
-.ultimate-ready-icon { width: 46px; height: 46px; margin-right: 8px; }
-.ultimate-cut-in { position: absolute; left: 0; right: 0; top: 0; bottom: 0; justify-content: center; background-color: rgba(9, 3, 20, .78); }
-.ultimate-slash {
-    height: 245px; flex-direction: row; align-items: center; justify-content: center;
-    background-color: rgb(51, 9, 79); border-top-width: 5px; border-bottom-width: 5px;
-    border-color: rgb(235, 96, 255); rotate: -5deg;
+
+.ultimate-ready-tag Label {
+    font-size: 17px;
+    color: rgb(255, 232, 154);
+    -unity-font-style: bold-and-italic;
 }
-.ultimate-cut-in-portrait { width: 290px; height: 310px; margin-right: 35px; }
-.ultimate-cut-in-copy { max-width: 480px; }
-.ultimate-cut-in-kicker { font-size: 25px; color: rgb(244, 182, 255); -unity-font-style: bold-and-italic; letter-spacing: 5px; }
-.ultimate-cut-in-title { font-size: 40px; color: white; -unity-font-style: bold-and-italic; white-space: normal; }
-.merge-flash { position: absolute; width: 110px; height: 166px; background-color: rgb(255, 250, 218); border-color: rgb(255, 210, 68); border-width: 3px; border-radius: 7px; }
+
+.ultimate-ready-icon {
+    width: 46px;
+    height: 46px;
+    margin-right: 8px;
+}
+
+.merge-flash {
+    position: absolute;
+    width: 110px;
+    height: 166px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(255, 255, 255);
+    border-width: 3px;
+    border-radius: 7px;
+}
 
 .card-caption {
     position: absolute;
@@ -974,7 +1206,8 @@
     background-color: rgba(7, 14, 24, 0.68);
 }
 
-.cc-heading, .cc-decision {
+.cc-heading,
+.cc-decision {
     color: rgb(255, 231, 174);
     font-size: 26px;
     -unity-font-style: bold;
@@ -1044,27 +1277,158 @@
 
 .ally-target-picker {
     position: absolute;
-    left: 35%; right: 35%; top: 25%;
+    left: 35%;
+    right: 35%;
+    top: 25%;
     padding: 20px;
     background-color: rgba(14, 22, 38, 0.98);
-    border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px;
-    border-left-color: #78dcb4; border-right-color: #78dcb4; border-top-color: #78dcb4; border-bottom-color: #78dcb4;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-left-color: rgb(120, 220, 180);
+    border-right-color: rgb(120, 220, 180);
+    border-top-color: rgb(120, 220, 180);
+    border-bottom-color: rgb(120, 220, 180);
     color: white;
     font-size: 22px;
 }
-.ally-target-picker Button { min-height: 64px; margin-top: 8px; flex-direction: row; justify-content: space-between; }
+
+.ally-target-picker Button {
+    min-height: 64px;
+    margin-top: 8px;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 .counter-cue {
-    position: absolute; top: 16%; left: 32%; right: 32%;
-    flex-direction: row; align-items: center; justify-content: center;
-    background-color: rgba(12, 35, 55, 0.96); color: rgb(120, 220, 255);
-    padding: 12px; font-size: 24px;
+    position: absolute;
+    top: 16%;
+    left: 32%;
+    right: 32%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(12, 35, 55, 0.96);
+    color: rgb(120, 220, 255);
+    padding: 12px;
+    font-size: 24px;
 }
-.counter-cue Image { width: 64px; height: 64px; margin-right: 12px; }
 
-.ally-target-picker { left: 31%; right: 31%; }
-.ally-target-picker Button { background-color: rgb(29, 46, 64); color: white; border-top-width: 0; border-bottom-width: 0; border-left-width: 0; border-right-width: 0; }
-.ally-target-picker Button:hover { background-color: rgb(42, 76, 88); }
-.ally-choice { justify-content: flex-start; padding-left: 12px; padding-right: 12px; }
-.ally-choice-copy { flex-grow: 1; margin-left: 12px; align-items: flex-start; }
-.ally-choice-copy Label { font-size: 18px; }
+.counter-cue Image {
+    width: 64px;
+    height: 64px;
+    margin-right: 12px;
+}
+
+.ally-target-picker {
+    left: 31%;
+    right: 31%;
+}
+
+.ally-target-picker Button {
+    background-color: rgb(29, 46, 64);
+    color: white;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.ally-target-picker Button:hover {
+    background-color: rgb(42, 76, 88);
+}
+
+.ally-choice {
+    justify-content: flex-start;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.ally-choice-copy {
+    flex-grow: 1;
+    margin-left: 12px;
+    align-items: flex-start;
+}
+
+.ally-choice-copy Label {
+    font-size: 18px;
+}
+
+.ultimate-cut-in {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgb(5, 3, 12);
+    overflow: hidden;
+}
+
+.ultimate-speed-line {
+    position: absolute;
+    left: -25%;
+    width: 150%;
+    background-color: rgb(218, 22, 175);
+    rotate: -12deg;
+}
+
+.ultimate-slash {
+    position: absolute;
+    left: -15%;
+    width: 130%;
+    top: 24%;
+    height: 55%;
+    rotate: -12deg;
+    overflow: hidden;
+    background-color: rgb(89, 9, 76);
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    border-top-color: rgb(255, 176, 239);
+    border-bottom-color: rgb(255, 176, 239);
+}
+
+.ultimate-cut-in-portrait {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: -28%;
+    bottom: -28%;
+    width: auto;
+    height: auto;
+    rotate: 12deg;
+}
+
+.ultimate-cut-in-copy {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    top: auto;
+    bottom: 12%;
+    width: auto;
+    height: auto;
+}
+
+.ultimate-cut-in-kicker {
+    color: rgb(255, 173, 241);
+    font-size: 22px;
+    letter-spacing: 5px;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 2px;
+    -unity-text-outline-color: rgb(31, 4, 40);
+}
+
+.ultimate-cut-in-title {
+    color: white;
+    font-size: 42px;
+    white-space: normal;
+    -unity-font-style: bold;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(40, 5, 46);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.8);
+}
+
+.ultimate-cut-in-name {
+    color: rgb(235, 177, 234);
+    font-size: 18px;
+}

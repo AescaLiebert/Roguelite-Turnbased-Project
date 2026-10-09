@@ -1,5 +1,7 @@
 # Battle presentation checks
 
+Actor-driven camera and animation phases, the card/rank contract and the isolated Unity fixture are described in [ActorDrivenExecution.md](ActorDrivenExecution.md). Run `RunActorExecutionVisual.ps1` for the current camera/state checks.
+
 Damage-only multi-hit authoring, the sixteen animation templates, and their verification are described in [MultiHit.md](MultiHit.md).
 
 Run `./Tests/CombatPresentation/Run.ps1` from PowerShell with .NET 10 installed. This creates a temporary console runner under `Temp/`, builds the shared core using its existing project, and checks event playback against authority across 64 complete seeded sessions. Combat randomness is seeded for reproducible authority tests, while normal card draws start from a separate unpredictable seed that is recorded in the battle snapshot for replay. Coverage includes independent card/combat RNG streams, interleaved opening merges, multi-rank chains, draft reset, merged execution rank, enemy-first playback, reserve/death, ultimates, deep-cloned events, run fighter ID remapping, and seeded random retargeting.

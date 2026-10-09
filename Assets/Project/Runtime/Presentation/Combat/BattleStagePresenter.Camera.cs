@@ -9,14 +9,7 @@ namespace FightingAllstar.Presentation.Combat
         // Starting framing values, evaluated against the timestamped reference in
         // Tests/CombatPresentation/CameraReferences.md. Leave space for the execution banner.
         private const float CameraSafeHeight = .72f;
-        private bool _executionUltimate;
-        private bool _portraitPrepared;
-        private Transform _followSource;
-        private IReadOnlyList<Transform> _followTargets;
-        private Vector3 _followDirection;
-        private float _cameraShake;
         private float _attackRoll;
-        private float _attackMinimumDistance;
         private CardAnimationTiming _animationTiming;
         private Coroutine _actionMotion;
         private bool _actionMotionDone = true;
@@ -95,7 +88,8 @@ namespace FightingAllstar.Presentation.Combat
             var found = false;
             foreach (var renderer in source.GetComponentsInChildren<Renderer>())
             {
-                if (!renderer.enabled || renderer is ParticleSystemRenderer || renderer is LineRenderer) continue;
+                if (!renderer.enabled || renderer is ParticleSystemRenderer || renderer is LineRenderer ||
+                    IsShieldRenderer(renderer) || ActorVisualEffect.IsEffectRenderer(renderer)) continue;
                 if (!found) { bounds = renderer.bounds; found = true; }
                 else bounds.Encapsulate(renderer.bounds);
             }
@@ -106,12 +100,10 @@ namespace FightingAllstar.Presentation.Combat
         private CameraShot PortraitShot(Transform source, bool dramatic)
         {
             var bounds = FighterBounds(source);
-            if (dramatic)
-            {
-                // Upper-body emphasis, with room around the head rather than a face crop.
-                bounds.center += Vector3.up * bounds.extents.y * .28f;
-                bounds.extents = new Vector3(bounds.extents.x, bounds.extents.y * .78f, bounds.extents.z);
-            }
+            // Face/shoulder anticipation rather than a full-body front view. Geometry-based
+            // framing also works for placeholder/non-humanoid fighters with no head bone.
+            bounds.center += Vector3.up * bounds.extents.y * (dramatic ? .62f : .55f);
+            bounds.extents = new Vector3(bounds.extents.x, bounds.extents.y * (dramatic ? .34f : .42f), bounds.extents.z);
             var front = Quaternion.AngleAxis(dramatic ? -20f : -12f, Vector3.up) * Facing(source);
             return FrameBounds(bounds, front + Vector3.up * (dramatic ? .12f : .06f),
                 44f, dramatic ? -9f : 0f, 1.1f);
@@ -149,73 +141,60 @@ namespace FightingAllstar.Presentation.Combat
             return new CameraShot { position = focus - forward * distance, rotation = rotation, fov = fov };
         }
 
-        private CameraShot AttackShot(Transform source, IReadOnlyList<Transform> targets, Vector3 direction)
+        private CameraShot AttackShot(Transform source, Vector3 direction, Vector3? attackPosition = null)
         {
-            var bounds = FighterBounds(source);
-            var nearest = float.MaxValue;
-            foreach (var target in targets)
-                if (target != null && target.gameObject.activeInHierarchy)
-                {
-                    bounds.Encapsulate(FighterBounds(target));
-                    nearest = Mathf.Min(nearest, Vector3.Distance(source.position, target.position));
-                }
-            // Low rear view: attacker in foreground, targets and damage in the upper field.
-            // Close melee needs a little more side/elevation to keep the victim visible.
+            var sourcePosition = attackPosition ?? source.position;
+            var height = _execution?.ActorHeight ?? FighterBounds(source).size.y;
+            if (_execution != null && _execution.SelfTarget && !_execution.Support)
+                return FrameBounds(FighterBounds(source), -direction + Vector3.up * .25f, 48f, 0f, 1.18f);
+            var targets = _execution != null ? _execution.TargetBounds : FighterBounds(source);
+            // Shoulder-height rear composition: caster in the lower left foreground, the
+            // captured target position ahead. Only the target row needs full-body framing.
+            // Its vacant AoE slots remain in these bounds after death or recoil.
             var side = Vector3.Cross(Vector3.up, direction);
-            var close = 1f - Mathf.InverseLerp(FighterBounds(source).size.y, FighterBounds(source).size.y * 3f, nearest);
-            var shot = FrameBounds(bounds, -direction + side * Mathf.Lerp(_executionRank >= 3 ? .25f : .12f, .8f, close) +
-                Vector3.up * Mathf.Lerp(.42f, .7f, close), 52f, _attackRoll, 1.12f);
-            var offset = shot.position - bounds.center;
-            shot.position = bounds.center + offset.normalized * Mathf.Max(offset.magnitude, _attackMinimumDistance);
+            var focus = targets.center + Vector3.up * height * .2f;
+            var distanceToTarget = Vector3.ProjectOnPlane(targets.center - sourcePosition, Vector3.up).magnitude;
+            var close = 1f - Mathf.InverseLerp(height, height * 3f, distanceToTarget);
+            // Open the shoulder angle near contact so the caster cannot hide the victim.
+            var shoulderHeight = (_execution?.ActorGroundOffset ?? 0f) + height * 1.3f;
+            var clearance = (_execution?.ActorRadius ?? FighterRadius(source)) + height * .06f;
+            var rearDistance = height * 1.8f;
+            var shot = new CameraShot { fov = 52f };
+            var halfY = Mathf.Tan(shot.fov * Mathf.Deg2Rad * .5f);
+            var halfX = halfY * (_camera != null ? Mathf.Max(.2f, _camera.aspect) : 16f / 9f);
+            for (var attempt = 0; attempt < 80; attempt++)
+            {
+                // Preserve a clear line to the target even when fitting a wide AoE row
+                // pushes the camera farther back. Animation cannot change the cached size.
+                var sideOffset = Mathf.Max(height * Mathf.Lerp(.35f, 1.7f, close),
+                    clearance * (rearDistance + distanceToTarget) / Mathf.Max(height * .5f, distanceToTarget));
+                shot.position = sourcePosition + side * sideOffset + Vector3.up * shoulderHeight - direction * rearDistance;
+                shot.rotation = Quaternion.LookRotation(focus - shot.position, Vector3.up) * Quaternion.Euler(0, 0, _attackRoll);
+                var inverse = Quaternion.Inverse(shot.rotation);
+                var fits = true;
+                for (var x = -1; x <= 1; x += 2)
+                    for (var y = -1; y <= 1; y += 2)
+                        for (var z = -1; z <= 1; z += 2)
+                        {
+                            var p = inverse * (targets.center + Vector3.Scale(targets.extents, new Vector3(x, y, z)) - shot.position);
+                            if (p.z < .1f || Mathf.Abs(p.x) > p.z * halfX * .84f ||
+                                p.y < -p.z * halfY * .56f || p.y > p.z * halfY * .76f) fits = false;
+                        }
+                if (fits) break;
+                rearDistance += height * .2f;
+            }
             return shot;
         }
 
         private IEnumerator AttackMotion(Transform source, IReadOnlyList<Transform> targets, Vector3 direction, Vector3 end)
         {
-            ClearCameraTracking();
-            _attackRoll = _executionRank >= 3 || _executionUltimate ? -7f : 0f;
-            _attackMinimumDistance = 0f;
-            var initialBounds = FighterBounds(source);
-            foreach (var target in targets) if (target != null) initialBounds.Encapsulate(FighterBounds(target));
-            var initialShot = AttackShot(source, targets, direction);
-            _attackMinimumDistance = Mathf.Max(Vector3.Distance(initialShot.position, initialBounds.center),
-                FighterBounds(source).size.y * 3.5f);
             var start = source.position;
             var rotation = source.rotation;
-            // All face shots must jump cut directly to generic card execution attack shot.
-            var cutToAction = _portraitPrepared;
-            if (cutToAction)
-            {
-                var entry = AttackShot(source, targets, direction);
-                yield return CameraCut(entry.position, entry.rotation, entry.fov);
-            }
-            var from = _camera != null ? new Pose(_camera.transform.position, _camera.transform.rotation) : new Pose();
-            var fromFov = _camera != null ? _camera.fieldOfView : 52f;
-            var orbitDirection = OrbitDirection(from.position - start, AttackShot(source, targets, direction).position - start);
-            var duration = .38f;
-            yield return Tween(duration, t =>
+            yield return Tween(.38f, t =>
             {
                 source.position = Vector3.Lerp(start, end, t) + Vector3.up * Mathf.Sin(t * Mathf.PI) * .18f;
                 source.rotation = Quaternion.Slerp(rotation, Quaternion.LookRotation(direction), t);
-                var shot = AttackShot(source, targets, direction);
-                if (cutToAction)
-                {
-                    if (_camera != null)
-                    {
-                        _camera.transform.SetPositionAndRotation(shot.position, shot.rotation);
-                        _camera.fieldOfView = shot.fov;
-                    }
-                }
-                else
-                {
-                    ApplyOrbit(from, fromFov, start, source.position, shot, t, orbitDirection);
-                }
             });
-            _followSource = source;
-            _followTargets = targets;
-            _followDirection = direction;
-            _portraitPrepared = false;
-            UpdateAttackCamera();
         }
 
         private IEnumerator OrbitCamera(Vector3 pivot, CameraShot shot, float duration)
@@ -266,28 +245,5 @@ namespace FightingAllstar.Presentation.Combat
             _camera.fieldOfView = Mathf.Lerp(fromFov, shot.fov, t);
         }
 
-        private void LateUpdate() => UpdateAttackCamera();
-
-        private void UpdateAttackCamera()
-        {
-            if (_camera == null || _followSource == null || _followTargets == null) return;
-            var shot = AttackShot(_followSource, _followTargets, _followDirection);
-            _camera.transform.SetPositionAndRotation(shot.position + shot.rotation * Vector3.right * _cameraShake, shot.rotation);
-            _camera.fieldOfView = shot.fov;
-        }
-
-        private void SetImpactShake(Vector3 basePosition, float amount)
-        {
-            _cameraShake = amount;
-            if (_followSource != null) UpdateAttackCamera();
-            else if (_camera != null) _camera.transform.position = basePosition + _camera.transform.right * amount;
-        }
-
-        private void ClearCameraTracking()
-        {
-            _followSource = null;
-            _followTargets = null;
-            _cameraShake = 0f;
-        }
     }
 }

@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: robert94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.robert94
+  runtimeReady: 1
+  sourceId: 24
+  sourceRecord: 0
+  familyId: family.robert
+  seriesId: series.kof
+  role: Glass Attacker
+  traitIds:
+  - trait.art-of-fighting
+  - trait.series-kof
+  - trait.male
+  passiveSourceDescription: Increases Critical Chance equal to his own critical Resistance
+  passiveSourceType: 1
+  passiveRestriction: 2
+  passiveDefinition: {fileID: 11400000, guid: c1bac338dcbf16f4a9353d090c6f9288, type: 2}
+  id: 1024
+  fighterName: Robert Garcia 94
+  fighterTag: Robert
+  fighterPic: {fileID: 21300000, guid: a66804045dee68c4aad9b20ef83ebc98, type: 3}
+  fighterIcon: {fileID: 21300000, guid: fb4a8129f5bb36247bccf99afa99f397, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 0bbb7e05896580541a26f57f59231b58, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: ffb1f89b4c5cb0d439e014b4cfb8d718, type: 2}
+  Skill2: {fileID: 11400000, guid: 23ee39c8dfdac604f9bbb6b51549c7c0, type: 2}
+  Ultimate: {fileID: 11400000, guid: 36620c186fb226a4f9d2a23e0897d4c6, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 4130
+  attack: 620
+  defense: 250
+  health: 5900
+  SecondaryStats:
+    PierceRate: 35
+    Resistance: 5
+    Regenerate: 10
+    CritChance: 20
+    CritDmg: 190
+    CritResistance: 40
+    CritDefense: 15
+    RecoveryRate: 120
+    BlockChance: 10
+    BlockPower: 10
+    LifeSteal: 6
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

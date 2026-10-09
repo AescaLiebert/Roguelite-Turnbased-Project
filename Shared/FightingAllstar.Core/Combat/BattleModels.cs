@@ -9,7 +9,7 @@ namespace FightingAllstar.Core.Combat
     public enum TeamSide { Player, Opponent }
     public enum CardKind { Skill, Ultimate }
     public enum BattleEventKind { BattleStarted, TurnStarted, CardDrawn, CardsMerged, CardMoved, CardPlayed, DamageApplied, HealApplied, StatusApplied, StatusRemoved, FighterDefeated, ReserveEntered, TurnEnded, BattleCompleted, ActionFizzled,
-        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker }
+        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted }
 
     [Serializable]
     public sealed class FighterState
@@ -100,6 +100,7 @@ namespace FightingAllstar.Core.Combat
         public TeamSide ActingSide;
         public BattlePhase Phase;
         public int ActionBudget;
+        public TurnExecutionState Execution;
         public TeamSide? Winner;
         public bool IsDraw;
         public bool IsTraining;
@@ -119,7 +120,7 @@ namespace FightingAllstar.Core.Combat
         public BattleState Clone()
         {
             var copy = new BattleState { MatchId = MatchId, Revision = Revision, TurnNumber = TurnNumber, CompletedTurnCount = CompletedTurnCount,
-                ActingSide = ActingSide, Phase = Phase, ActionBudget = ActionBudget, Winner = Winner, IsDraw = IsDraw,
+                ActingSide = ActingSide, Phase = Phase, ActionBudget = ActionBudget, Execution = Execution?.Clone(), Winner = Winner, IsDraw = IsDraw,
                 Mode = Mode, IsTraining = IsTraining, PassiveEventSequence = PassiveEventSequence,
                 Player = Player.Clone(), Opponent = Opponent.Clone(), RngState = RngState, RngDrawCount = RngDrawCount,
                 CardRngState = CardRngState, CardRngDrawCount = CardRngDrawCount };
@@ -164,6 +165,10 @@ namespace FightingAllstar.Core.Combat
         public int HitIndex;
         public int HitCount;
         public AttackRange AttackRange;
+        public bool HasHitReaction;
+        public HitReaction Reaction;
+        public bool WasReactionResisted;
+        public bool WasStanceCancelled;
         public long Id;
         public CardEffectTiming Timing;
         public BattleEventKind Kind;
@@ -182,6 +187,7 @@ namespace FightingAllstar.Core.Combat
         public string Message;
         // Immutable-at-emission presentation facts; never infer these from the final hand.
         public CardState Card;
+        public TurnExecutionState Plan;
         public List<string> TargetIds = new List<string>();
         public string ConsumedCardId;
         public int DestinationIndex = -1;
@@ -198,6 +204,7 @@ namespace FightingAllstar.Core.Combat
             var copy = (BattleEvent)MemberwiseClone();
             copy.StatusesAfter = StatusesAfter?.ConvertAll(status => status.Clone());
             copy.Card = Card?.Clone();
+            copy.Plan = Plan?.Clone();
             copy.TargetIds = TargetIds == null ? new List<string>() : new List<string>(TargetIds);
             copy.PassiveContributions = new List<PassiveStatContribution>();
             foreach (var contribution in PassiveContributions) copy.PassiveContributions.Add(contribution.Clone());

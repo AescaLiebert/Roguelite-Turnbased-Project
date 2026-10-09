@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace FightingAllstar.Presentation.Combat
 {
-    public enum BattlePresentationPhase { ComparingCC, OpeningDeal, Planning, CardExecution, TurnSwitch, Complete, ResolvingStatus }
+    public enum BattlePresentationPhase { ComparingCC, OpeningDeal, Planning, CardExecution, TurnSwitch, Complete, ResolvingStatus, EnemyPlanning }
 
     public sealed partial class CoreBattleSceneController
     {
@@ -21,6 +21,23 @@ namespace FightingAllstar.Presentation.Combat
         private bool _suppressDraftCardPlayback;
         private readonly List<CardState> _draftCards = new List<CardState>();
         private readonly List<BattleEvent> _executionEvents = new List<BattleEvent>();
+        private HitReaction _actionFramingReaction;
+
+        private static HitReaction SnapshotActionReaction(IReadOnlyList<BattleEvent> events, int start)
+        {
+            var reaction = HitReaction.Hit;
+            var action = events[start];
+            for (var i = start + 1; i < events.Count; i++)
+            {
+                var item = events[i];
+                if (item.Kind == BattleEventKind.CardPlayed || item.Kind == BattleEventKind.CounterStarted ||
+                    item.Kind == BattleEventKind.ActionCompleted || item.Kind == BattleEventKind.CounterEnded) break;
+                if (item.SourceId != action.SourceId || !item.HasHitReaction) continue;
+                if (item.Reaction == HitReaction.KnockUp) return HitReaction.KnockUp;
+                if (item.Reaction == HitReaction.KnockBack) reaction = HitReaction.KnockBack;
+            }
+            return reaction;
+        }
         private int _executionIndex = -1;
         private VisualElement _tray;
         private VisualElement _effectsLayer;
@@ -61,7 +78,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             _tray = root.Q<VisualElement>("battle-card-tray");
             _effectsLayer = root.Q<VisualElement>("battle-effects");
-            _fctPool.Initialize(_effectsLayer, 24);
+            _fctPool.Initialize(_effectsLayer, 24, FctSettings);
             _turnBanner = root.Q<VisualElement>("turn-banner");
             _turnBannerTitle = root.Q<Label>("turn-banner-title");
             _turnBannerSub = root.Q<Label>("turn-banner-sub");
@@ -124,6 +141,7 @@ namespace FightingAllstar.Presentation.Combat
                 BattlePresentationPhase.ComparingCC => "COMBAT CLASS",
                 BattlePresentationPhase.OpeningDeal => "DECK INITIATE",
                 BattlePresentationPhase.Planning => "YOUR TURN  ·  SELECT CARDS IN ORDER",
+                BattlePresentationPhase.EnemyPlanning => "ENEMY TURN  ·  PLANNING ACTIONS",
                 BattlePresentationPhase.CardExecution => "CARD EXECUTION",
                 BattlePresentationPhase.TurnSwitch => "TURN CHANGE",
                 BattlePresentationPhase.ResolvingStatus => "RESOLVING STATUS",
@@ -238,29 +256,43 @@ namespace FightingAllstar.Presentation.Combat
             if (item.Kind == BattleEventKind.CardsMerged)
             {
                 handViews.TryGetValue(item.ConsumedCardId ?? string.Empty, out var consumed);
-                if (view != null && consumed != null)
+                var impactPosition = Vector2.zero;
+                var impactWidth = side == TeamSide.Player ? CardWidth : EnemyCardWidth;
+                var impactHeight = side == TeamSide.Player ? CardHeight : EnemyCardHeight;
+                var collided = view != null && consumed != null;
+                if (collided)
                 {
-                    var delta = view.worldBound.center - consumed.worldBound.center;
-                    var arcDirection = side == TeamSide.Player ? -1f : 1f;
+                    var halfDistance = (consumed.worldBound.center - view.worldBound.center) * .5f;
+                    impactPosition = _effectsLayer.WorldToLocal((view.worldBound.center + consumed.worldBound.center) * .5f);
+                    var survivorStart = view.resolvedStyle.translate;
+                    var consumedStart = consumed.resolvedStyle.translate;
+                    view.AddToClassList("merge-colliding");
+                    consumed.AddToClassList("merge-colliding");
+                    view.BringToFront();
                     consumed.BringToFront();
-                    yield return BattleStagePresenter.Tween(.18f, t =>
+                    yield return BattleStagePresenter.Tween(.14f, t =>
                     {
-                        consumed.style.translate = new Translate(delta.x * t, delta.y * t + arcDirection * 12 * Mathf.Sin(t * Mathf.PI));
-                        consumed.style.scale = new Scale(Vector3.one * (1 - .18f * t));
-                        consumed.style.opacity = t < .75f ? 1 : (1 - t) * 4;
+                        // Accelerate both cards into their shared midpoint, at full opacity.
+                        var rush = t * t;
+                        view.style.translate = new Translate(survivorStart.x + halfDistance.x * rush, survivorStart.y + halfDistance.y * rush);
+                        consumed.style.translate = new Translate(consumedStart.x - halfDistance.x * rush, consumedStart.y - halfDistance.y * rush);
+                        view.style.scale = consumed.style.scale = new Scale(Vector3.one);
                     });
+                    view.RemoveFromClassList("merge-colliding");
+                    consumed.RemoveFromClassList("merge-colliding");
+                    handPositions = CaptureHandPositions(side);
                 }
                 BattlePlaybackState.Apply(_displayState, item);
                 RenderHand(side);
-                yield return ReflowHand(handPositions, null, side);
+                if (collided) StartCoroutine(MergeImpact(impactPosition, impactWidth, impactHeight));
+                yield return ReflowHand(handPositions, item.CardId, side);
                 if (handViews.TryGetValue(item.CardId, out view))
                 {
-                    view.AddToClassList("rank-up");
-                    yield return MergeFlash(view, item.Amount);
-                    view.RemoveFromClassList("rank-up");
+                    if (collided) StartCoroutine(CardCaption(view, "RANK " + (item.Amount >= 3 ? "III" : "II")));
+                    if (!collided) yield return MergeFlash(view, item.Amount);
                 }
                 UpdateDisplayedHud(item.SourceId);
-                yield return new WaitForSecondsRealtime(.08f);
+                yield return new WaitForSecondsRealtime(.06f);
                 yield break;
             }
             if (side == TeamSide.Player && item.Kind == BattleEventKind.CardPlayed && drafting && view != null)
@@ -283,19 +315,24 @@ namespace FightingAllstar.Presentation.Combat
             if (item.Kind == BattleEventKind.CardDrawn && handViews.TryGetValue(item.CardId, out view))
             {
                 view.style.opacity = 1;
-                _stage?.PlayCue(0);
-                var horizontalStart = side == TeamSide.Player ? -100f : 72f;
-                var verticalStart = side == TeamSide.Player ? 150f : -116f;
-                var rotationStart = side == TeamSide.Player ? -16f : 16f;
-                yield return BattleStagePresenter.Tween(.24f, t =>
+                view.style.scale = new Scale(Vector3.one);
+                var ultimate = item.Card?.Kind == CardKind.Ultimate;
+                _stage?.PlayCue(ultimate ? 4 : 0);
+                // Enter from the left edge of the hand, including when only a few cards remain.
+                var startX = -view.style.left.value.value - (side == TeamSide.Player ? CardWidth : EnemyCardWidth);
+                view.style.translate = new Translate(startX, 0);
+                view.style.rotate = new Rotate(new Angle(0, AngleUnit.Degree));
+                var energy = view.Q<CardEnergyElement>("card-energy");
+                yield return BattleStagePresenter.Tween(.12f, t =>
                 {
-                    view.style.translate = new Translate(horizontalStart * (1 - t), verticalStart * (1 - t));
-                    view.style.rotate = new Rotate(new Angle(rotationStart * (1 - t), AngleUnit.Degree));
-                    view.style.scale = new Scale(Vector3.one * Mathf.Lerp(.55f, 1, t));
+                    view.style.translate = new Translate(startX * (1 - t), 0);
+                    view.style.scale = new Scale(Vector3.one);
+                    if (energy != null) { energy.Burst = ultimate ? Mathf.Sin(t * Mathf.PI) : 0; energy.MarkDirtyRepaint(); }
                 });
                 view.style.translate = new Translate(0, 0);
                 view.style.rotate = new Rotate(new Angle(0, AngleUnit.Degree));
                 view.style.scale = new Scale(Vector3.one);
+                if (energy != null) energy.Burst = 0;
                 if (item.Card?.Kind == CardKind.Ultimate) SyncUltimateReady();
             }
             else if (item.Kind == BattleEventKind.CardMoved || item.Kind == BattleEventKind.CardPlayed)
@@ -308,10 +345,11 @@ namespace FightingAllstar.Presentation.Combat
         private float _feedbackSettlesAt;
         private bool _resolvingTeamStatuses;
         private bool _hitWindow;
+        private bool _hasQueuedCardExecution;
         private bool _turnChangePresented;
         private readonly HashSet<string> _statusAnimationActors = new HashSet<string>();
+        private readonly HashSet<string> _passiveActivationActionsPresented = new HashSet<string>(System.StringComparer.Ordinal);
         private string _executionHiddenActorId;
-        private bool _executionHudWasVisible;
 
         private IEnumerator WaitForFeedback()
         {
@@ -323,9 +361,8 @@ namespace FightingAllstar.Presentation.Combat
         private void PlayStatusAnimation(BattleEvent item)
         {
             if (string.IsNullOrEmpty(item.TargetId)) return;
-            var applied = item.StatusesAfter?.Find(s => s.Recipe?.Id == item.StatusRecipeId);
-            _stage.StatusFeedback(item.TargetId, item.Kind == BattleEventKind.StatusRemoved,
-                applied?.Recipe?.Polarity == StatusPolarity.Debuff);
+            var duration = _stage.ActorStatusFeedback(item);
+            _feedbackSettlesAt = Mathf.Max(_feedbackSettlesAt, Time.unscaledTime + duration);
             _statusAnimationActors.Add(item.TargetId);
         }
 
@@ -338,8 +375,11 @@ namespace FightingAllstar.Presentation.Combat
 
         private IEnumerator FinishActionVisual()
         {
+            _damageTotalActionOpen = false;
+            if (_stage != null) yield return _stage.WaitForTargetReactions();
             yield return RecoverExecutionActorVisuals();
             yield return WaitForFeedback();
+            SetUltimateHud(false);
         }
 
         private IEnumerator RecoverExecutionActorVisuals()
@@ -362,11 +402,6 @@ namespace FightingAllstar.Presentation.Combat
                 RestoreExecutionActorVisuals();
             _executionHiddenActorId = id;
             _stage?.SetPersistentEffectsHidden(id, true);
-            if (_fighterBillboards.TryGetValue(id, out var hud) && hud != null)
-            {
-                _executionHudWasVisible = hud.gameObject.activeSelf;
-                hud.gameObject.SetActive(false);
-            }
         }
 
         private void RestoreExecutionActorVisuals()
@@ -374,12 +409,15 @@ namespace FightingAllstar.Presentation.Combat
             if (string.IsNullOrEmpty(_executionHiddenActorId)) return;
             var id = _executionHiddenActorId;
             _stage?.SetPersistentEffectsHidden(id, false);
-            var fighter = _displayState?.Player.FindFighter(id) ?? _displayState?.Opponent.FindFighter(id);
-            if (_fighterBillboards.TryGetValue(id, out var hud) && hud != null)
-                hud.gameObject.SetActive(_executionHudWasVisible && _hudRevealed && fighter != null &&
-                    fighter.IsAlive && !fighter.IsReserve);
             _executionHiddenActorId = null;
-            _executionHudWasVisible = false;
+        }
+
+        private bool ShouldPresentPassiveActivation(BattleEvent item)
+        {
+            if (item == null) return false;
+            var actionId = string.IsNullOrEmpty(item.RootActionId) ? item.CardId : item.RootActionId;
+            if (string.IsNullOrEmpty(actionId)) return true;
+            return _passiveActivationActionsPresented.Add(actionId);
         }
 
 
@@ -396,7 +434,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private IEnumerator PresentFeedbackBatch(IReadOnlyList<BattleEvent> batch)
         {
-            var impacts = new List<(string targetId, bool critical)>();
+            var impacts = new List<BattleEvent>();
             var hitCount = 1;
             var visible = false;
             foreach (var item in batch)
@@ -417,7 +455,7 @@ namespace FightingAllstar.Presentation.Combat
                             hitCount, 1f, ResolveEventAffinity(item));
                         PresentShieldDamage(item, hitCount);
                         UpdateDamageTotal(item.SourceId, (long)item.Amount);
-                        impacts.Add((item.TargetId, item.WasCritical));
+                        impacts.Add(item);
                         break;
                     case BattleEventKind.HealApplied:
                         visible = true;
@@ -429,14 +467,16 @@ namespace FightingAllstar.Presentation.Combat
                         FloatText(item.TargetId, RecoveryBlockedMessage, "status");
                         break;
                     case BattleEventKind.PassiveTriggered:
-                        visible = true;
-                        FloatText(item.SourceId, "Active Unique", "passive");
-                        _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
+                        if (ShouldPresentPassiveActivation(item))
+                        {
+                            visible = true;
+                            FloatText(item.SourceId, "Active Unique", "passive");
+                            _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
+                        }
                         break;
                     case BattleEventKind.StatusApplied:
                         visible = true;
                         PlayStatusAnimation(item);
-                        if (item.ShieldChanged && item.ShieldAfter > 0) _stage?.ShieldActivated(item.TargetId);
                         if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
                             PlayStatusRefreshFeedback(item, true);
                         FloatText(item.TargetId, FeedbackName(item), "status");
@@ -446,7 +486,8 @@ namespace FightingAllstar.Presentation.Combat
                         break;
                     case BattleEventKind.StatusRemoved:
                         visible = true;
-                        PlayStatusAnimation(item);
+                        if (item.WasStanceCancelled) impacts.Add(item);
+                        else PlayStatusAnimation(item);
                         if (!string.IsNullOrEmpty(item.Message) && !IsExpiredStatusMessage(item.Message))
                         {
                             FloatText(item.TargetId, item.Message, "status");
@@ -467,7 +508,7 @@ namespace FightingAllstar.Presentation.Combat
                         break;
                 }
             }
-            if (impacts.Count > 0) yield return _stage.ImpactMultiple(impacts, HitImpactScale(hitCount));
+            if (impacts.Count > 0) yield return _stage.ReactMultiple(impacts, HitImpactScale(hitCount));
             else if (visible) _stage.PlayCue(3);
             if (visible && !_hitWindow && eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
         }
@@ -491,6 +532,7 @@ namespace FightingAllstar.Presentation.Combat
                     else if (item.Timing == CardEffectTiming.AfterDamage)
                     {
                         yield return _stage.WaitForLastHit();
+                        yield return _stage.WaitForTargetReactions();
                         yield return _stage.WaitForDefeatAnimations();
                     }
                     else if (item.Timing == CardEffectTiming.AfterAction)
@@ -500,6 +542,8 @@ namespace FightingAllstar.Presentation.Combat
                 case BattleEventKind.ActionCompleted:
                     yield return FinishActionVisual();
                     if (_isExecutionOverlayVisible) yield return AnimateExecutionExit();
+                    if (!_hasQueuedCardExecution && _targetReticle != null) _targetReticle.SetVisible(false);
+                    yield return _stage.CompleteExecution(_hasQueuedCardExecution, _displayState.ActingSide);
                     yield break;
                 case BattleEventKind.StatusResolutionStarted:
                     yield return FinishActionVisual();
@@ -542,6 +586,7 @@ namespace FightingAllstar.Presentation.Combat
                     {
                         FloatText(item.TargetId, item.Message, "status");
                     }
+                    if (item.WasStanceCancelled) yield return _stage.React(item);
                     yield break;
                 case BattleEventKind.AttackEvaded:
                     FloatText(item.TargetId, "Evade", "evade");
@@ -575,38 +620,43 @@ namespace FightingAllstar.Presentation.Combat
                     SyncUltimateReady();
                     yield break;
                 case BattleEventKind.PassiveTriggered:
-                    FloatText(item.SourceId, "Active Unique", "passive");
-                    _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
-                    _stage.PlayCue(3);
-                    yield return new WaitForSecondsRealtime(.35f);
+                    if (ShouldPresentPassiveActivation(item))
+                    {
+                        FloatText(item.SourceId, "Active Unique", "passive");
+                        _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
+                        _stage.PlayCue(3);
+                        yield return new WaitForSecondsRealtime(.35f);
+                    }
+                    yield break;
+                case BattleEventKind.TurnPlanCommitted:
+                    yield return PresentCommittedPlan(item);
                     yield break;
                 case BattleEventKind.TurnStarted:
                     yield return FinishActionVisual();
                     BattlePlaybackState.Apply(_displayState, item);
                     _executionIndex = -1;
                     ClearExecution();
+                    ClearEnemyPlan();
                     if (_turnChangePresented) _turnChangePresented = false;
                     else
                     {
                         SetPhase(BattlePresentationPhase.TurnSwitch);
-                        yield return _stage.Turn(_displayState.ActingSide, .65f);
-                        yield return Banner(_displayState.ActingSide == TeamSide.Player ? "YOUR TURN" : "ENEMY TURN",
-                            _displayState.ActingSide == TeamSide.Opponent, .7f);
+                        yield return PresentTurnChange(_displayState.ActingSide);
                         if (_displayState.ActingSide == TeamSide.Opponent)
                             yield return new WaitForSecondsRealtime(0.75f);
                     }
+                    yield return _stage.PresentDisabledTurn(_displayState, _displayState.ActingSide);
                     yield break;
                 case BattleEventKind.TurnEnded:
                     _suppressDraftCardPlayback = false;
                     _executionIndex = -1;
                     ClearExecution();
+                    ClearEnemyPlan();
                     var incomingSide = _displayState.ActingSide == TeamSide.Player ? TeamSide.Opponent : TeamSide.Player;
                     _turnChangePresented = true;
                     SetPhase(BattlePresentationPhase.TurnSwitch);
                     yield return RecoverExecutionActorVisuals();
-                    yield return _stage.Turn(incomingSide, .65f);
-                    yield return Banner(incomingSide == TeamSide.Player ? "YOUR TURN" : "ENEMY TURN",
-                        incomingSide == TeamSide.Opponent, .7f);
+                    yield return PresentTurnChange(incomingSide);
                     if (incomingSide == TeamSide.Opponent)
                         yield return new WaitForSecondsRealtime(0.75f);
                     yield break;
@@ -631,6 +681,7 @@ namespace FightingAllstar.Presentation.Combat
                     yield return AnimateCardEvent(item);
                     yield break;
                 case BattleEventKind.CounterStarted:
+                    ResetDamageTotal(true);
                     yield return RecoverExecutionActorVisuals();
                     if (_isExecutionOverlayVisible) yield return AnimateExecutionExit();
                     var counterUser = _displayState.Player.FindFighter(item.SourceId) ?? _displayState.Opponent.FindFighter(item.SourceId);
@@ -644,11 +695,13 @@ namespace FightingAllstar.Presentation.Combat
                     FloatText(item.SourceId, "COUNTER", "passive");
                     yield return new WaitForSecondsRealtime(.35f);
                     HideExecutionActorVisuals(item.SourceId);
-                    yield return _stage.BeginExecution(item.SourceId, item.TargetId, 1, false);
                     var counterCategory = CardRules.GetEffectCategory(item.Card);
+                    yield return _stage.BeginExecution(item.SourceId, item.TargetId, 1, false, counterCategory,
+                        item.TargetIds, item.Card?.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1,
+                        item.Card?.TargetScope == EffectTargetScope.Self);
                     if (item.HitCount > 0)
                         yield return _stage.BeginDamageAttack(item.SourceId, item.TargetIds, item.HitCount, item.AttackRange,
-                            item.Card?.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1);
+                            item.Card?.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1, _actionFramingReaction);
                     else if (counterCategory == CardCategory.Attack || counterCategory == CardCategory.AttackDebuff)
                     {
                         if (item.Card.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1)
@@ -658,13 +711,16 @@ namespace FightingAllstar.Presentation.Combat
                     else yield return _stage.SupportAction(item.SourceId, item.TargetIds, counterCategory);
                     yield break;
                 case BattleEventKind.CounterEnded:
+                    _damageTotalActionOpen = false;
                     yield return WaitForFeedback();
                     yield return _stage.WaitForActionEnd(item.SourceId);
                     yield return RecoverExecutionActorVisuals();
                     yield return _stage.WaitForActionEnd(item.TargetId);
                     _counterCue?.RemoveFromHierarchy(); _counterCue = null;
+                    yield return _stage.CompleteExecution(_hasQueuedCardExecution, _displayState.ActingSide);
                     yield break;
                 case BattleEventKind.CardPlayed:
+                    ResetDamageTotal(true);
                     yield return WaitForFeedback();
                     yield return RecoverExecutionActorVisuals();
                     SetPhase(BattlePresentationPhase.CardExecution);
@@ -685,17 +741,19 @@ namespace FightingAllstar.Presentation.Combat
                     }
                     if (item.Card?.Kind == CardKind.Ultimate) yield return UltimateCutIn(item);
                     HideExecutionActorVisuals(item.SourceId);
-                    yield return _stage.BeginExecution(item.SourceId, item.TargetId, item.Card?.Rank ?? 1,
-                        item.Card?.Kind == CardKind.Ultimate);
                     var targetIds = item.TargetIds != null && item.TargetIds.Count > 0
                         ? item.TargetIds : new List<string> { item.TargetId };
                     var effectCategory = CardRules.GetEffectCategory(item.Card);
+                    yield return _stage.BeginExecution(item.SourceId, item.TargetId, item.Card?.Rank ?? 1,
+                        item.Card?.Kind == CardKind.Ultimate, effectCategory, targetIds,
+                        item.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1,
+                        item.Card?.TargetScope == EffectTargetScope.Self);
                     if (targetIds.Count == 1 && _fighterViews.TryGetValue(item.TargetId, out var target) && _targetReticle != null)
                     { _targetReticle.AttachTo(target.transform); _targetReticle.HighlightAttack(); }
                     else if (_targetReticle != null) _targetReticle.SetVisible(false);
                     if (item.HitCount > 0)
                         yield return _stage.BeginDamageAttack(item.SourceId, targetIds, item.HitCount, item.AttackRange,
-                            item.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1);
+                            item.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1, _actionFramingReaction);
                     else if (item.Card != null && (effectCategory == CardCategory.Recovery ||
                         effectCategory == CardCategory.Debuff || effectCategory == CardCategory.Buff ||
                         effectCategory == CardCategory.Stance))
@@ -724,17 +782,12 @@ namespace FightingAllstar.Presentation.Combat
                         UpdateDamageTotal(item.SourceId, (long)item.Amount);
                     }
                     PresentShieldDamage(item, item.HitCount, textLifetimeScale);
-                    yield return _stage.Impact(item.TargetId, item.WasCritical, HitImpactScale(item.HitCount));
+                    yield return _stage.React(item, HitImpactScale(item.HitCount));
                     if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
                     if (_isExecutionOverlayVisible)
                     {
                         yield return new WaitForSecondsRealtime(0.12f);
                         yield return AnimateExecutionExit();
-                    }
-                    if (_executionEvents.Count > 0 && _executionIndex >= _executionEvents.Count)
-                    {
-                        if (_targetReticle != null) _targetReticle.SetVisible(false);
-                        yield return ReturnToPlanningAndRestore(_displayState.ActingSide, .4f);
                     }
                     yield break;
                 case BattleEventKind.HealApplied:
@@ -793,6 +846,7 @@ namespace FightingAllstar.Presentation.Combat
                         FloatText(item.SourceId, HealingCardBlockedMessage, "status");
                     else if (item.Message != RecoveryBlockedMessage)
                         FloatText(item.SourceId, "SKIPPED", "status");
+                    _stage.FlinchIfDisabled(item.SourceId);
                     yield return new WaitForSecondsRealtime(.45f);
                     if (_executionEvents.Count > 0 && _executionIndex >= _executionEvents.Count)
                     {
@@ -810,32 +864,46 @@ namespace FightingAllstar.Presentation.Combat
 
         private void UpdateDamageTotal(string ownerId, long appliedDamage)
         {
-            if (string.IsNullOrEmpty(ownerId) || appliedDamage <= 0 || damageTotalPanel == null || damageTotalValue == null) return;
-            if (_damageTotalOwnerId != ownerId)
-            {
-                _damageTotalOwnerId = ownerId;
-                _damageTotalAmount = 0;
-            }
-
+            if (string.IsNullOrEmpty(ownerId) || appliedDamage <= 0) return;
+            EnsureDamageTotal();
+            if (_damageTotalOwnerId != ownerId) { _damageTotalOwnerId = ownerId; _damageTotalAmount = 0; }
             _damageTotalAmount = System.Math.Min(long.MaxValue - appliedDamage, _damageTotalAmount) + appliedDamage;
-            damageTotalValue.text = _damageTotalAmount.ToString("N0");
-            damageTotalPanel.SetActive(true);
+            _damageTotalLastImpact = Time.realtimeSinceStartup;
+            if (_damageTotalLabel != null)
+            {
+                _damageTotalLabel.text = _damageTotalAmount.ToString("N0");
+                // Preserve every digit for large totals; no ellipsis or numeric rounding.
+                var width = Mathf.Clamp(_effectsLayer.resolvedStyle.width * .36f, 160f, 292f);
+                _damageTotalElement.style.width = width;
+                _damageTotalLabel.style.fontSize = Mathf.Min(64f, width / Mathf.Max(1f, _damageTotalLabel.text.Length * .62f));
+                _damageTotalElement.style.display = DisplayStyle.Flex;
+                _damageTotalElement.style.opacity = 1f;
+            }
+            if (damageTotalPanel != null) damageTotalPanel.SetActive(false);
             if (_damageTotalHideCoroutine != null) StopCoroutine(_damageTotalHideCoroutine);
             _damageTotalHideCoroutine = StartCoroutine(HideDamageTotalAfterDelay());
         }
 
         private IEnumerator HideDamageTotalAfterDelay()
         {
-            yield return new WaitForSecondsRealtime(1f);
-            if (damageTotalPanel != null) damageTotalPanel.SetActive(false);
+            yield return BattleStagePresenter.Tween(.2f, t =>
+            {
+                if (_damageTotalElement == null) return;
+                _damageTotalElement.style.scale = new Scale(Vector3.one * (1f + .16f * Mathf.Sin(t * Mathf.PI)));
+                _damageTotalElement.style.translate = new Translate(0, -5f * Mathf.Sin(t * Mathf.PI));
+            });
+            while (_damageTotalActionOpen || Time.realtimeSinceStartup < _damageTotalLastImpact + 1.35f) yield return null;
+            yield return BattleStagePresenter.Tween(.22f, t =>
+            {
+                if (_damageTotalElement != null) _damageTotalElement.style.opacity = 1f - t;
+            });
+            if (_damageTotalElement != null) _damageTotalElement.style.display = DisplayStyle.None;
             _damageTotalHideCoroutine = null;
-            _damageTotalOwnerId = null;
-            _damageTotalAmount = 0;
         }
 
         private IEnumerator PresentDamageBatch(IReadOnlyList<BattleEvent> batch)
         {
-            var impacts = new List<(string targetId, bool critical)>();
+            var impacts = new List<BattleEvent>();
             foreach (var item in batch)
             {
                 BattlePlaybackState.Apply(_displayState, item);
@@ -851,20 +919,15 @@ namespace FightingAllstar.Presentation.Combat
                     UpdateDamageTotal(item.SourceId, (long)item.Amount);
                 }
                 PresentShieldDamage(item);
-                impacts.Add((item.TargetId, item.WasCritical));
+                impacts.Add(item);
             }
 
-            yield return _stage.ImpactMultiple(impacts);
+            yield return _stage.ReactMultiple(impacts);
             if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
             if (_isExecutionOverlayVisible)
             {
                 yield return new WaitForSecondsRealtime(0.12f);
                 yield return AnimateExecutionExit();
-            }
-            if (_executionEvents.Count > 0 && _executionIndex >= _executionEvents.Count)
-            {
-                if (_targetReticle != null) _targetReticle.SetVisible(false);
-                yield return ReturnToPlanningAndRestore(_displayState.ActingSide, .4f);
             }
         }
 
@@ -883,6 +946,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             foreach (var item in batch)
             {
+                if (!ShouldPresentPassiveActivation(item)) continue;
                 FloatText(item.SourceId, "Active Unique", "passive");
                 _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
             }
@@ -901,11 +965,12 @@ namespace FightingAllstar.Presentation.Combat
         {
             SyncUltimateReady();
             var fighter = _displayState.Player.FindFighter(id) ?? _displayState.Opponent.FindFighter(id);
-            if (fighter == null || !_fighterBillboards.TryGetValue(id, out var hud) || hud == null) return;
+            if (fighter == null) return;
+            _stage.SyncActorVisualEffects(fighter);
+            if (!_fighterBillboards.TryGetValue(id, out var hud) || hud == null) return;
             var maximumHealth = StatusSystem.GetEffectiveStats(fighter).MaxHealth;
             hud.SetCoreHealth(fighter.Health, maximumHealth);
             hud.SetShield(fighter.Shield, maximumHealth);
-            _stage.SetShieldAura(id, fighter.IsAlive && !fighter.IsReserve && fighter.Shield > 0);
             var shownStatuses = fighter.Statuses.Instances.ConvertAll(status => status.Clone());
             foreach (var status in shownStatuses)
             {
@@ -916,8 +981,6 @@ namespace FightingAllstar.Presentation.Combat
                 status.Recipe.DefaultDuration = parent.Recipe.DefaultDuration;
             }
             hud.SetStatuses(shownStatuses);
-            _stage.SetStance(id, fighter.IsAlive && fighter.Statuses.Instances.Any(status =>
-                status.Recipe != null && (status.Recipe.Behavior & StatusBehavior.Stance) != 0));
 
             var isPlayerDraft = fighter.Side == TeamSide.Player && _draft != null && !_isPlayingEvents;
             if (isPlayerDraft)
@@ -957,27 +1020,13 @@ namespace FightingAllstar.Presentation.Combat
             _executionIndex = 0;
             ClearExecution();
             var firstOwner = _executionEvents.Count == 0 ? null :
-                _displayState.Player.FindFighter(_executionEvents[0].SourceId) ??
-                _displayState.Opponent.FindFighter(_executionEvents[0].SourceId);
-            var concealEnemyPlan = firstOwner?.Side == TeamSide.Opponent;
-            for (var i = 0; i < _executionEvents.Count && i < _actionSlots.Count; i++)
-            {
-                var slot = _actionSlots.Count - 1 - i;
-                var item = _executionEvents[i];
-                _actionSlots[slot].style.display = concealEnemyPlan ? DisplayStyle.None : DisplayStyle.Flex;
-                if (concealEnemyPlan) continue;
-                _actionMarkers[slot].text = item.Kind == BattleEventKind.CardMoved ? "MOVE" : (i + 1).ToString();
-                if (item.Card != null && item.Kind == BattleEventKind.CardPlayed)
-                {
-                    var owner = _displayState.Player.FindFighter(item.SourceId) ?? _displayState.Opponent.FindFighter(item.SourceId);
-                    AddCardButton(_actionContents[slot], item.Card, owner, null, null, null);
-                    _actionMarkers[slot].style.display = DisplayStyle.None;
-                }
-            }
+                _displayState.Player.FindFighter(_executionEvents[0].SourceId);
+            if (firstOwner != null) PopulatePlayerExecutionSlots();
         }
 
         private void AdvanceExecution(BattleEvent item)
         {
+            AdvanceEnemyPlan(item);
             for (var i = 0; i < _actionSlots.Count; i++)
             {
                 var order = _actionSlots.Count - 1 - i;
@@ -1154,38 +1203,33 @@ namespace FightingAllstar.Presentation.Combat
         {
             if (_turnBanner == null) yield break;
             var lines = (text ?? string.Empty).Split('\n');
-            var mainTitle = lines[0];
-            var subTitle = lines.Length > 1 ? lines[1] : (enemy ? "ENEMY PHASE" : "PLAYER PHASE");
-
-            if (_turnBannerTitle != null) _turnBannerTitle.text = mainTitle;
-            if (_turnBannerSub != null) _turnBannerSub.text = subTitle;
-
+            var turn = lines[0] == "YOUR TURN" || lines[0] == "ENEMY TURN";
+            _turnBanner.EnableInClassList("turn-announcement", turn);
             _turnBanner.EnableInClassList("enemy", enemy);
+            if (_turnBannerTitle != null) _turnBannerTitle.text = lines[0];
+            if (_turnBannerSub != null)
+            {
+                _turnBannerSub.text = lines.Length > 1 ? lines[1] : "";
+                _turnBannerSub.style.display = turn || lines.Length < 2 ? DisplayStyle.None : DisplayStyle.Flex;
+            }
             _turnBanner.style.display = DisplayStyle.Flex;
-            _turnBanner.style.opacity = 0f;
-
-            var startX = enemy ? 250f : -250f;
-            var exitX = enemy ? -350f : 350f;
-
-            // Fast cinematic speed-slash in
-            yield return BattleStagePresenter.Tween(.22f, t =>
+            _turnBanner.BringToFront();
+            var sign = enemy ? 1f : -1f;
+            yield return BattleStagePresenter.Tween(.24f, t =>
             {
-                var ease = Mathf.Sin(t * Mathf.PI * 0.5f);
-                _turnBanner.style.opacity = Mathf.Clamp01(t * 2.5f);
-                _turnBanner.style.translate = new Translate(Mathf.Lerp(startX, 0f, ease), 0);
+                _turnBanner.style.opacity = Mathf.Clamp01(t * 3f);
+                _turnBanner.style.translate = new Translate(sign * 90f * (1 - t), 8f * (1 - t));
+                _turnBanner.style.scale = new Scale(Vector3.one * Mathf.Lerp(1.15f, 1f, t));
             });
-
             yield return new WaitForSecondsRealtime(hold);
-
-            // Speed-slash exit to the opposite side
-            yield return BattleStagePresenter.Tween(.18f, t =>
+            yield return BattleStagePresenter.Tween(.2f, t =>
             {
-                var ease = t * t;
                 _turnBanner.style.opacity = 1f - t;
-                _turnBanner.style.translate = new Translate(Mathf.Lerp(0f, exitX, ease), 0);
+                _turnBanner.style.translate = new Translate(-sign * 45f * t, -4f * t);
             });
-
             _turnBanner.style.display = DisplayStyle.None;
+            _turnBanner.style.scale = new Scale(Vector3.one);
+            _turnBanner.style.translate = new Translate(0, 0);
         }
 
         private IEnumerator CardCaption(VisualElement card, string message)
@@ -1241,7 +1285,7 @@ namespace FightingAllstar.Presentation.Combat
             _textLanes.TryGetValue(fighterId, out var lane);
             _textLanes[fighterId] = (lane + 1) % 4;
             if (hitCount > 3 && durationScale >= 1f)
-                durationScale = Mathf.Clamp((1.2f / Mathf.Sqrt(hitCount)) / 1.45f, .65f, 1f);
+                durationScale = Mathf.Clamp((1.2f / Mathf.Sqrt(hitCount)) / FctSettings.BaseDurationNumeric, FctSettings.MinMultiHitDurationScale, 1f);
 
             var isStatus = kind == "status" || kind == "passive";
             var world = view.transform.position + Vector3.up * (isStatus ? 2.6f : 2.25f);
@@ -1251,11 +1295,12 @@ namespace FightingAllstar.Presentation.Combat
         private IEnumerator AnimateCombatText(Vector3 world, string text, string kind, int lane, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral)
         {
             if (_fctPool.TotalCount == 0 && _effectsLayer != null)
-                _fctPool.Initialize(_effectsLayer);
+                _fctPool.Initialize(_effectsLayer, 24, FctSettings);
             var item = _fctPool.Acquire(text, kind, affinity);
             var group = item.Group;
             var numeric = kind == "damage" || kind == "critical" || kind == "blocked" || kind == "heal";
-            var duration = (numeric ? 1.45f : 1.55f) * Mathf.Clamp(durationScale, .65f, 1f);
+            var settings = FctSettings;
+            var duration = (numeric ? settings.BaseDurationNumeric : settings.BaseDurationStatus) * Mathf.Clamp(durationScale, settings.MinMultiHitDurationScale, 1f);
             _feedbackSettlesAt = Mathf.Max(_feedbackSettlesAt, Time.unscaledTime + Mathf.Min(duration, 0.75f));
 
             // Project once at impact: camera shake must not drag glyphs around the screen.
@@ -1282,27 +1327,29 @@ namespace FightingAllstar.Presentation.Combat
             {
                 var seconds = t * duration;
                 var rise = numeric
-                    ? (seconds < .12f ? 22f * (seconds / .12f) : 22f + 26f * Mathf.Pow(t, 0.7f))
-                    : 42f * t;
+                    ? (seconds < .12f ? settings.InitialRisePixels * (seconds / .12f) : settings.InitialRisePixels + settings.DriftRisePixels * Mathf.Pow(t, 0.7f))
+                    : (settings.InitialRisePixels + settings.DriftRisePixels) * t;
                 group.style.left = x;
                 group.style.top = y - rise;
                 float pop = 1f;
                 if (numeric || kind == "evade" || kind == "immunity")
                 {
-                    if (seconds < .06f) pop = Mathf.Lerp(.75f, kind == "critical" ? 1.30f : 1.18f, seconds / .06f);
-                    else if (seconds < .18f) pop = Mathf.Lerp(kind == "critical" ? 1.30f : 1.18f, 1f, (seconds - .06f) / .12f);
+                    var targetPop = kind == "critical" ? settings.PopScaleCritical : settings.PopScaleNormal;
+                    if (seconds < .06f) pop = Mathf.Lerp(.75f, targetPop, seconds / .06f);
+                    else if (seconds < .18f) pop = Mathf.Lerp(targetPop, 1f, (seconds - .06f) / .12f);
                 }
                 group.style.scale = new Scale(Vector3.one * pop);
 
                 // Smooth graceful fade: solid for first 45%, then smoothly eases out to 0
                 float opacity;
-                if (t < 0.45f)
+                var fadeStart = settings.FadeStartPercent;
+                if (t < fadeStart)
                 {
                     opacity = 1f;
                 }
                 else
                 {
-                    var fadeProgress = (t - 0.45f) / 0.55f;
+                    var fadeProgress = (t - fadeStart) / Mathf.Max(0.01f, 1f - fadeStart);
                     opacity = 1f - Mathf.SmoothStep(0f, 1f, fadeProgress);
                 }
                 group.style.opacity = opacity;
@@ -1310,8 +1357,8 @@ namespace FightingAllstar.Presentation.Combat
             _fctPool.Release(item);
         }
 
-        private static float CombatTextFontSize(string text, string kind) =>
-            FloatingCombatTextPool.CalculateFontSize(text, kind);
+        private float CombatTextFontSize(string text, string kind) =>
+            FloatingCombatTextPool.CalculateFontSize(text, kind, FctSettings);
 
         private void ShowBattleResult()
         {
@@ -1332,6 +1379,9 @@ namespace FightingAllstar.Presentation.Combat
         {
             if (_inspector != null || _session == null || _isAnimatingCards || PresentationPhase == BattlePresentationPhase.Complete || CanPlan) return;
             StopAllCoroutines();
+            ClearHandDrag();
+            ClearEnemyPlan();
+            ClearCinematicHud();
             _stage?.SnapToPlanning();
             _stage?.ClearAuras();
             RestoreExecutionActorVisuals();
@@ -1360,6 +1410,7 @@ namespace FightingAllstar.Presentation.Combat
             var root = new GameObject("Placeholder");
             root.transform.SetPositionAndRotation(position, rotation);
             var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            body.name = "Model";
             body.transform.SetParent(root.transform, false);
             body.transform.localPosition = Vector3.up;
             var renderer = body.GetComponent<Renderer>();
@@ -1375,6 +1426,9 @@ namespace FightingAllstar.Presentation.Combat
             _inspector = null;
             _inspectHeldId = null;
             StopAllCoroutines();
+            ClearHandDrag();
+            ClearEnemyPlan();
+            ClearCinematicHud();
             _fctPool?.Clear();
             _feedbackSettlesAt = 0f;
             _turnChangePresented = false;

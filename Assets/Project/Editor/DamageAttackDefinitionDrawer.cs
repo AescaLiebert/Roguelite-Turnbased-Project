@@ -18,7 +18,7 @@ public sealed class DamageAttackDefinitionDrawer : PropertyDrawer
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
-        (EditorGUIUtility.singleLineHeight + 2) * 4 + 38;
+        (EditorGUIUtility.singleLineHeight + 2) * 6 + 58;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
@@ -46,8 +46,12 @@ public sealed class DamageAttackDefinitionDrawer : PropertyDrawer
         row.y += row.height + 2;
         EditorGUI.PropertyField(row, range);
         row.y += row.height + 2;
-        row.height = 36;
-        EditorGUI.HelpBox(row, "Total damage is split across hits. Each hit rolls crit/block. Damaging = first hit; After Damage = final hit.", MessageType.Info);
+        EditorGUI.PropertyField(row, property.FindPropertyRelative("Reaction"), new GUIContent("Target Reaction"));
+        row.y += row.height + 2;
+        EditorGUI.PropertyField(row, property.FindPropertyRelative("ReactionTiming"), new GUIContent("Reaction On"));
+        row.y += row.height + 2;
+        row.height = 56;
+        EditorGUI.HelpBox(row, "Damage is split across hits, each rolling crit/block. Damaging = first; After Damage = last. Stance resists reactions; cancelling a stance forces knockback.", MessageType.Info);
         EditorGUI.EndProperty();
     }
 }

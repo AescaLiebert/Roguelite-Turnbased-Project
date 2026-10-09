@@ -276,6 +276,16 @@ internal static class EffectDrawerFields
     }
 }
 
+[CustomPropertyDrawer(typeof(StatTransferRecipeDefinition))]
+public sealed class StatTransferRecipeDefinitionPropertyDrawer : PropertyDrawer
+{
+    private static readonly string[] Fields = { "CoefficientBp", "Stats", "SourceStatus", "TargetStatus" };
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Height(property, label, Fields);
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Draw(position, property, label, Fields);
+}
+
 [CustomPropertyDrawer(typeof(CardEffectOperationDefinition))]
 public sealed class CardEffectOperationDefinitionPropertyDrawer : PropertyDrawer
 {
@@ -308,8 +318,7 @@ public sealed class CardEffectOperationDefinitionPropertyDrawer : PropertyDrawer
                 fields.Add("Magnitude");
                 break;
             case CardEffectOperationKind.TransferStats:
-                fields.Add("Magnitude");
-                fields.Add("StatusDurationOverride");
+                fields.Add("StatTransfer");
                 break;
         }
         return fields.ToArray();
@@ -330,6 +339,7 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
         var behaviorProperty = property.FindPropertyRelative("Behavior");
         var behavior = behaviorProperty == null ? StatusBehavior.None : (StatusBehavior)behaviorProperty.intValue;
         var stacking = PassiveDrawerFields.EnumValue<StatusStackingPolicy>(property, "Stacking");
+        var transferTemplate = property.name == "SourceStatus" || property.name == "TargetStatus";
         var fields = new List<string>
         {
             "Id", "NameKey", "Polarity", "Color", "Behavior", "Stacking", "Identity",
@@ -339,9 +349,11 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
 
         if (stacking == StatusStackingPolicy.AddStacks || stacking == StatusStackingPolicy.IndependentStacks)
             fields.Add("MaxStacks");
-        if ((behavior & (StatusBehavior.Stat | StatusBehavior.DamageOverTime)) != 0)
+        if (transferTemplate) fields.Remove("Behavior");
+        if ((behavior & (StatusBehavior.Stat | StatusBehavior.DamageOverTime)) != 0 && !transferTemplate)
             fields.Add("DefaultPotencyBp");
-        if ((behavior & StatusBehavior.Stat) != 0) fields.Add("Modifiers");
+        // Transfer modifiers are snapshots computed from the selected Stats and coefficient.
+        if ((behavior & StatusBehavior.Stat) != 0 && !transferTemplate) fields.Add("Modifiers");
         if ((behavior & StatusBehavior.DamageOverTime) != 0) fields.Add("PeriodicDamage");
         if ((behavior & StatusBehavior.Heal) != 0) fields.Add("PeriodicHealing");
         if ((behavior & StatusBehavior.Disable) != 0) fields.Add("DisableMask");
@@ -615,6 +627,18 @@ internal static class PassiveDrawerFields
                     if (EditorGUI.EndChangeCheck())
                         child.intValue = Mathf.RoundToInt(percent * 100f);
                 }
+                else if (name == "CoefficientBp" && property.type == "StatTransferRecipeDefinition")
+                {
+                    EditorGUI.BeginChangeCheck();
+                    var percent = EditorGUI.Slider(childRect,
+                        new GUIContent("Transfer (%)", "Percentage of each selected target stat to snapshot and transfer to the source."),
+                        child.intValue / 100f, .01f, 100f);
+                    if (EditorGUI.EndChangeCheck()) child.intValue = Mathf.RoundToInt(percent * 100f);
+                }
+                else if ((name == "SourceStatus" || name == "TargetStatus") && property.type == "StatTransferRecipeDefinition")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent(name == "SourceStatus" ? "Source Buff Recipe" : "Target Debuff Recipe",
+                            "Standard status recipe metadata. Flat stat modifiers are computed from the transfer snapshot at runtime."), true);
                 else if (name == "KeywordFactorBp")
                     EditorGUI.PropertyField(childRect, child,
                         new GUIContent("Keyword Factor Bp", "10,000 = normal keyword scaling."), true);

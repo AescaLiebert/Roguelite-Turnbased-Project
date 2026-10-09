@@ -19,7 +19,7 @@ namespace FightingAllstar.Presentation.Combat
 
         // Starting timings and distances. See Tests/CombatPresentation/MultiHit.md.
         public IEnumerator BeginDamageAttack(string sourceId, IReadOnlyList<string> targetIds,
-            int hits, AttackRange range, bool area)
+            int hits, AttackRange range, bool area, HitReaction reaction = HitReaction.Hit)
         {
             if (_attacker != sourceId) yield return RecoverAttacker();
             if (!TryView(sourceId, out var source)) yield break;
@@ -35,9 +35,7 @@ namespace FightingAllstar.Presentation.Combat
             // must not delay or prematurely resolve these procedural sequences.
             _animationTiming = null;
             _actionMotionDone = true;
-            var center = Vector3.zero;
-            foreach (var target in _templateTargets) center += target.position;
-            center /= _templateTargets.Count;
+            var center = SnapshotTargets(sourceId, targetIds, area, false).center;
             _templateDirection = GroundDirection(center - source.position, Facing(source));
             var end = source.position;
             if (range == AttackRange.Close)
@@ -51,6 +49,7 @@ namespace FightingAllstar.Presentation.Combat
                     travel = Mathf.Min(travel, Vector3.Dot(target.position - source.position, _templateDirection) - separation);
                 end += _templateDirection * Mathf.Max(0, travel);
             }
+            yield return EnterAction(sourceId, targetIds, _execution?.Category ?? CardCategory.Attack, area, "Attack", false, end, reaction);
             yield return AttackMotion(source, _templateTargets, _templateDirection, end);
             _templateAnchor = source.position;
             _templateFacing = Quaternion.LookRotation(_templateDirection);
@@ -88,7 +87,6 @@ namespace FightingAllstar.Presentation.Combat
                 var turn = heavy ? 0f : _templateArea && close ? 360f * t : sign * Mathf.Sin(t * Mathf.PI * 1.5f) * (close ? 32 : 12);
                 source.rotation = Quaternion.Slerp(rotation, _templateFacing, t) * Quaternion.Euler(
                     heavy ? -24f * arc : (finisher ? 12f : -8f) * arc, turn, close && !heavy ? sign * 9f * arc : 0);
-                UpdateAttackCamera();
             });
             source.SetPositionAndRotation(_templateAnchor, _templateFacing);
 

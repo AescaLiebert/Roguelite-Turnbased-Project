@@ -57,6 +57,8 @@ namespace FightingAllstar.Presentation.Navigation
             var hero = _root.Q<Image>("hero-art");
             var character = PlayerInventoryService.Instance?.GetCatalog().FirstOrDefault(c => c != null && c.RuntimeReady && c.FighterRarity == FighterRarity.SSR);
             if (hero != null && character != null) hero.sprite = character.FighterPic != null ? character.FighterPic : character.FighterIcon;
+            MainMenuView.Initialize(_root);
+            GachaBannerView.Initialize(_root);
             Refresh();
         }
         private Label QueryLabel(params string[] names)
@@ -115,8 +117,18 @@ namespace FightingAllstar.Presentation.Navigation
         private void Refresh()
         {
             var inventory = PlayerInventoryService.Instance;
-            if (_wallet != null) _wallet.text = (inventory?.Diamonds ?? 0).ToString("N0") + "  DIAMONDS";
+            if (_wallet != null)
+            {
+                var isArtworkMenu = _root.Q("menu-stage") != null || _root.Q("gacha-stage") != null;
+                _wallet.text = inventory == null ? "—" : inventory.Diamonds.ToString("N0") + (isArtworkMenu ? "" : "  DIAMONDS");
+                if (isArtworkMenu)
+                {
+                    _wallet.tooltip = inventory == null ? "Inventory unavailable" : inventory.Diamonds.ToString("N0") + " Diamonds";
+                    _wallet.style.fontSize = _wallet.text.Length > 10 ? 17 : 23;
+                }
+            }
             if (_guarantee != null) _guarantee.text = "Featured selector " + (inventory?.GuaranteeProgress ?? 0) + " / 300 · Selectors " + (inventory?.SelectorEntitlements ?? 0);
+            GachaBannerView.Refresh(_root, bannerConfiguration);
         }
         private void Summon(int count)
         {
@@ -171,6 +183,11 @@ namespace FightingAllstar.Presentation.Navigation
             if (panel == null) return;
             var opening = panel.style.display.value == DisplayStyle.None;
             panel.style.display = opening ? DisplayStyle.Flex : DisplayStyle.None;
+            if (_root.Q("gacha-stage") != null)
+            {
+                if (opening) GachaBannerView.OpenDetails(_root, "RATES & DETAILS", "details");
+                else GachaBannerView.CloseDetails(_root);
+            }
             if (!opening) return;
             panel.Clear();
             if (bannerConfiguration == null || !bannerConfiguration.Validate(out _)) return;
@@ -191,6 +208,7 @@ namespace FightingAllstar.Presentation.Navigation
             var panel = _root.Q("details-panel");
             if (panel == null) return;
             panel.Clear(); panel.style.display = DisplayStyle.Flex;
+            GachaBannerView.OpenDetails(_root, "FEATURED SELECTORS", "selector");
             panel.Add(new Label("Choose an SSR using an earned selector."));
             if (bannerConfiguration == null || !bannerConfiguration.Validate(out _)) return;
             foreach (var pool in bannerConfiguration.RarityPools.Where(x => x.Rarity == FighterRarity.SSR))
@@ -206,7 +224,11 @@ namespace FightingAllstar.Presentation.Navigation
 
         private void SetNotice(string message)
         {
-            if (_notice != null) _notice.text = message;
+            if (_notice != null)
+            {
+                _notice.text = message;
+                if (_root.Q("gacha-stage") != null) _notice.style.display = string.IsNullOrEmpty(message) ? DisplayStyle.None : DisplayStyle.Flex;
+            }
         }
 
         private static string FormatRate(int basisPoints) => (basisPoints / 100f).ToString("0.##") + "%";

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: chin94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.chin94
+  runtimeReady: 1
+  sourceId: 13
+  sourceRecord: 14
+  familyId: family.chin
+  seriesId: series.kof
+  role: 4th Slot Support (Sub)
+  traitIds:
+  - trait.psycho-soldier
+  - trait.chinese
+  - trait.series-kof
+  - trait.male
+  passiveSourceDescription: Increases Green Attribute Team's  HP-related stats by
+    20%
+  passiveSourceType: 2
+  passiveRestriction: 3
+  passiveDefinition: {fileID: 11400000, guid: 78c5045f1f7a7bb40ad125db776cd99d, type: 2}
+  id: 1013
+  fighterName: Chin Gentsai 94
+  fighterTag: family.chin
+  fighterPic: {fileID: 21300000, guid: 30d9822c8e5b04446aa8fc527646bd97, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 568e049429b35494f8f38006c3027e50, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 98737637fec915747b49347cbfcfea75, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 94bba5a8f7b190947abd11215d2163bc, type: 2}
+  Skill2: {fileID: 11400000, guid: 21d5014432afe2d41b2e9418a05e5e96, type: 2}
+  Ultimate: {fileID: 11400000, guid: 5ceb8f7235dd7124a93a8a1eae298023, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 0
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 2630
+  attack: 320
+  defense: 120
+  health: 4400
+  SecondaryStats:
+    PierceRate: 10
+    Resistance: 10
+    Regenerate: 5
+    CritChance: 10
+    CritDmg: 150
+    CritResistance: 20
+    CritDefense: 10
+    RecoveryRate: 100
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 15
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

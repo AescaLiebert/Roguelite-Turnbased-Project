@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: terry96
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.terry96
+  runtimeReady: 1
+  sourceId: 14
+  sourceRecord: 15
+  familyId: family.terry
+  seriesId: series.kof
+  role: Crowd Control, Heavy Tank
+  traitIds:
+  - trait.fatal-fury
+  - trait.american
+  - trait.series-kof
+  passiveSourceDescription: Reduces all enemies' Attack and Pierce Rate by 6% at
+    the start of own turn, up to 30%.
+  passiveSourceType: 1
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: 24fd521f71c90e142a5e415ededa8094, type: 2}
+  id: 1014
+  fighterName: Terry Bogard 96
+  fighterTag: Terry
+  fighterPic: {fileID: 21300000, guid: f7565e32d337aef4ebc3c9411a56efa1, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 1d8fc6ce2f6164948bd301e9e5f6955f, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 1395b91c042189a42baf0cbb9cabe822, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: acbf2f3e4c2fe5e409d1dc46f0d71c27, type: 2}
+  Skill2: {fileID: 11400000, guid: 213fe9f48e2e7fa4eba7900a739c46df, type: 2}
+  Ultimate: {fileID: 11400000, guid: 92efa244e5ed1dd409a2896084ee9e47, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 3524
+  attack: 420
+  defense: 450
+  health: 6000
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 50
+    Regenerate: 10
+    CritChance: 10
+    CritDmg: 120
+    CritResistance: 60
+    CritDefense: 0
+    RecoveryRate: 160
+    BlockChance: 5
+    BlockPower: 25
+    LifeSteal: 10
+    AvoidanceRate: 0
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

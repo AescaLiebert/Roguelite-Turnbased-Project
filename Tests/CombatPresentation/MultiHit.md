@@ -1,5 +1,7 @@
 # Damage attacks and animation templates
 
+Damage attacks also support configurable target reactions and stance tolerance/cancellation. See [HitReactions.md](HitReactions.md).
+
 In a Skill Card rank or Ultimate Card level, expand **Runtime Effect**, choose **Kind: Damage**, then use **Damage Animation**. Choose a template or set **Hit Count (1–10)** and **Range (Close / Long)**. Selecting a preset also sets the effect's target to Single Enemy or All Enemies. This uses the existing card asset; no Animator clips or new character rig are required. The same controls are available for damage counters.
 
 The sixteen reusable procedural templates are selected by hit-count family, range, and target scope. AOE still uses its area template when only one enemy survives. Barrage counts are starting presets and remain editable.
@@ -15,10 +17,10 @@ The sixteen reusable procedural templates are selected by hit-count family, rang
 
 - Existing/absent attack settings resolve one close-range hit. Non-damage cards ignore these settings. Old event recordings without hit metadata retain legacy animation playback.
 - Damage, coefficient and magnitude describe the **whole card**, not each hit. Each hit independently evaluates the full damage formula with its own crit/block rolls, then takes `floor(total * hit / count) - floor(total * (hit - 1) / count)`. Matching rolls/stats therefore preserve the exact integer total, including defense, pierce, flat reductions and caps. Differing rolls and reactive stat changes can change the final sum.
-- Each hit consumes the target's current shield/HP. An AOE strike resolves all living original recipients before the next strike. Defeated recipients receive no more packets; the remainder never retargets to reserves. When everyone is defeated, the sequence ends early.
+- Each hit consumes the target's current shield/HP. Every original recipient remains in the card's sequence through the last authored hit, even at zero HP. Each remaining hit resolves its own damage and crit/block rolls, emits FCT, contributes calculated overkill damage to TOTAL DAMAGE, and plays the target's hit reaction. HP stays clamped to zero; actual HP loss remains zero on later hits, so overkill does not inflate lifesteal or recovery based on health lost. Defeat resolves once after `ActionCompleted`; reserves never receive the remaining hits of that card.
 - `Damaging` occurs once at the first visual impact, before its damage. `AfterDamage` occurs once after the last actual hit. `BeforeAction` and `AfterAction` remain once per action. Follow-up effects use accumulated damage, including damage-based status potency. Legacy gauge drain remains once per action.
 - Per-hit damage reactions can observe each hit; reflect, stance-counter activation and lifesteal retain their existing end-of-action aggregation. Damage counters can themselves have multiple hits, but do not recursively counter.
-- Every `HitStarted` is a playback barrier. The event carries the hit index/count and surviving targets. Each damage event carries separate crit/block, shield and HP facts; the presentation never re-rolls combat.
+- Every `HitStarted` is a playback barrier. The event carries the hit index/count and original recipients, including fighters at zero HP awaiting defeat at the action boundary. Each damage event carries separate crit/block, shield and HP facts; the presentation never re-rolls combat.
 - Generated templates own their impact timing. Existing `CardFirstHit` / `CardLastHit` Animator events still serve legacy playback; they do not override procedural template impacts.
 
 ## State and feedback
@@ -40,7 +42,7 @@ Automated visual smoke: after rebuilding Core, run `./Tests/CombatPresentation/R
 Manual checks with real character models:
 
 1. New player/readability: inspect a card, predict hit count/range, then count the displayed impacts. Pass: visible impacts and HP changes match, AOE numbers appear together per strike. If dense, lengthen barrage separation or shorten trail lifetime.
-2. Stress: play ten-hit AOE, kill one target early, use a shielded target, evade stance and crit/block mixtures. Pass: no dead-target packets, missing survivors, duplicate follow-up statuses or early reserve entry.
+2. Stress: play ten-hit AOE, reduce one target to zero HP on the first hit, use a shielded target, evade stance and crit/block mixtures. Pass: all ten damage/FCT/recoil beats reach the original recipients, including zero-HP targets; HP stays zero, defeat occurs once after the card finishes, and reserves enter afterward. Repeat for both teams and a single last enemy.
 3. Timing: put distinct status effects in Damaging and AfterDamage. Pass: first status occurs once at strike one, last status once after the final strike. Confirm damage-based statuses use the whole sequence.
 4. Response/abuse: spam input and skip during approach, projectile flight, middle hit and finisher. Pass: one card/gauge cost, no extra actions, authority/display agree, poses and camera restore.
 5. Skill/fit: compare single heavy attacks and a long barrage on small and large models, both sides, narrow and wide windows. Pass: targets and feedback remain visible, melee bodies do not overlap, ranged actor stays home. If occluded, increase separation/framing padding; if slow, reduce recovery/spacing before reducing readability.

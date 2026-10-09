@@ -57,6 +57,18 @@ namespace FightingAllstar.Presentation.Combat
                 Kicker.text = string.Empty;
                 Kicker.style.display = DisplayStyle.None;
                 Label.text = string.Empty;
+                Kicker.style.color = StyleKeyword.Null;
+                Kicker.style.unityTextOutlineColor = StyleKeyword.Null;
+                Kicker.style.unityFont = StyleKeyword.Null;
+                Kicker.style.unityFontDefinition = StyleKeyword.Null;
+                Kicker.style.unityFontStyleAndWeight = StyleKeyword.Null;
+                Kicker.style.fontSize = StyleKeyword.Null;
+                Label.style.color = StyleKeyword.Null;
+                Label.style.unityTextOutlineColor = StyleKeyword.Null;
+                Label.style.unityFont = StyleKeyword.Null;
+                Label.style.unityFontDefinition = StyleKeyword.Null;
+                Label.style.unityFontStyleAndWeight = StyleKeyword.Null;
+                Label.style.fontSize = StyleKeyword.Null;
                 SetVisible(false);
             }
         }
@@ -79,10 +91,12 @@ namespace FightingAllstar.Presentation.Combat
         public int ActiveCount => _active.Count;
         public int InactiveCount => _inactive.Count;
         public int TotalCount => _active.Count + _inactive.Count;
+        public FloatingCombatTextSettingsSO Settings { get; set; }
 
-        public void Initialize(VisualElement parentLayer, int initialCapacity = 24)
+        public void Initialize(VisualElement parentLayer, int initialCapacity = 24, FloatingCombatTextSettingsSO settings = null)
         {
             _parentLayer = parentLayer;
+            if (settings != null) Settings = settings;
             LoadSprites();
             if (_parentLayer == null) return;
 
@@ -264,16 +278,66 @@ namespace FightingAllstar.Presentation.Combat
                 item.Label.text = text ?? string.Empty;
             }
 
+            if (Settings != null && Settings.FontAsset != null)
+            {
+                var fontDefinition = FontDefinition.FromFont(Settings.FontAsset);
+                item.Label.style.unityFontDefinition = fontDefinition;
+                item.Kicker.style.unityFontDefinition = fontDefinition;
+            }
+            if (Settings != null)
+            {
+                item.Label.style.unityFontStyleAndWeight = Settings.FontStyle;
+                item.Kicker.style.unityFontStyleAndWeight = Settings.FontStyle;
+            }
+
+            if (Settings != null && Settings.OverrideColors)
+            {
+                Color textColor;
+                Color? outlineColor = null;
+                switch (kind)
+                {
+                    case "critical":
+                        textColor = Settings.CriticalColor;
+                        outlineColor = Settings.CriticalOutlineColor;
+                        break;
+                    case "blocked":
+                        textColor = Settings.BlockedColor;
+                        break;
+                    case "heal":
+                        textColor = Settings.HealColor;
+                        break;
+                    case "status":
+                        textColor = Settings.StatusColor;
+                        break;
+                    default:
+                        textColor = Settings.DamageColor;
+                        break;
+                }
+
+                item.Label.style.color = textColor;
+                if (outlineColor.HasValue)
+                    item.Label.style.unityTextOutlineColor = outlineColor.Value;
+
+                if (parts.Length > 1)
+                {
+                    item.Kicker.style.color = Settings.KickerColor;
+                    item.Kicker.style.unityTextOutlineColor = Settings.KickerOutlineColor;
+                }
+            }
+
             // Setup attribute affinity arrow for damage hits
             item.CurrentAffinity = affinity;
             var isDamage = kind == "damage" || kind == "critical" || kind == "blocked";
+            var advantageSprite = (Settings != null && Settings.AdvantageArrowSprite != null) ? Settings.AdvantageArrowSprite : _advantageSprite;
+            var disadvantageSprite = (Settings != null && Settings.DisadvantageArrowSprite != null) ? Settings.DisadvantageArrowSprite : _disadvantageSprite;
+
             if (isDamage && affinity == AttributeAffinity.Advantage)
             {
                 item.Arrow.RemoveFromClassList("disadvantage");
                 item.Arrow.AddToClassList("advantage");
                 item.Arrow.style.display = DisplayStyle.Flex;
-                if (_advantageSprite != null)
-                    item.Arrow.style.backgroundImage = new StyleBackground(_advantageSprite);
+                if (advantageSprite != null)
+                    item.Arrow.style.backgroundImage = new StyleBackground(advantageSprite);
                 else if (_advantageTexture != null)
                     item.Arrow.style.backgroundImage = new StyleBackground(_advantageTexture);
             }
@@ -282,8 +346,8 @@ namespace FightingAllstar.Presentation.Combat
                 item.Arrow.RemoveFromClassList("advantage");
                 item.Arrow.AddToClassList("disadvantage");
                 item.Arrow.style.display = DisplayStyle.Flex;
-                if (_disadvantageSprite != null)
-                    item.Arrow.style.backgroundImage = new StyleBackground(_disadvantageSprite);
+                if (disadvantageSprite != null)
+                    item.Arrow.style.backgroundImage = new StyleBackground(disadvantageSprite);
                 else if (_disadvantageTexture != null)
                     item.Arrow.style.backgroundImage = new StyleBackground(_disadvantageTexture);
             }
@@ -295,11 +359,15 @@ namespace FightingAllstar.Presentation.Combat
                 item.Arrow.style.display = DisplayStyle.None;
             }
 
-            var arrowHeight = kind == "critical" ? 38f : (kind == "blocked" ? 26f : 32f);
-            item.Arrow.style.height = arrowHeight;
-            item.Arrow.style.width = arrowHeight * 0.8f;
+            var arrowSize = Settings != null ? Settings.GetArrowSize(kind) : new Vector2(kind == "critical" ? 30f : (kind == "blocked" ? 21f : 26f), kind == "critical" ? 38f : (kind == "blocked" ? 26f : 32f));
+            item.Arrow.style.width = arrowSize.x;
+            item.Arrow.style.height = arrowSize.y;
+            item.Arrow.style.marginRight = Settings != null ? Settings.ArrowRightMargin : 6f;
 
-            item.Label.style.fontSize = CalculateFontSize(item.Label.text, kind);
+            item.Label.style.fontSize = CalculateFontSize(item.Label.text, kind, Settings);
+            if (parts.Length > 1 && Settings != null)
+                item.Kicker.style.fontSize = Settings.KickerFontSize;
+
             item.SetVisible(true);
             return item;
         }
@@ -325,9 +393,10 @@ namespace FightingAllstar.Presentation.Combat
             _active.Clear();
         }
 
-        public static float CalculateFontSize(string text, string kind)
+        public static float CalculateFontSize(string text, string kind, FloatingCombatTextSettingsSO settings = null)
         {
-            var baseSize = kind == "critical" ? 46f :
+            var baseSize = settings != null ? settings.GetFontSize(kind) :
+                           kind == "critical" ? 46f :
                            (kind == "blocked" || kind == "evade" || kind == "immunity") ? 34f :
                            kind == "heal" ? 38f :
                            kind == "passive" ? 23f :

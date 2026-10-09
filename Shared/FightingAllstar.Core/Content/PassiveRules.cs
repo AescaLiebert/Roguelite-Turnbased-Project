@@ -203,6 +203,9 @@ namespace FightingAllstar.Core.Content
                 errors.Add(rule.Id + ": current damage modifiers require a fixed-value Before Damage reaction.");
             if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect == null)
                 errors.Add(rule.Id + ": effect command requires an operation.");
+            if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect?.Kind == CardEffectOperationKind.TransferStats)
+                foreach (var error in EffectRecipeValidator.ValidateStatTransfer(command.Effect.StatTransfer))
+                    errors.Add(rule.Id + ": " + error);
             if (command.Kind == PassiveCommandKind.IncrementCounter || command.Kind == PassiveCommandKind.SetCounter)
             {
                 if (string.IsNullOrWhiteSpace(command.CounterKey) || command.CounterCap <= 0)

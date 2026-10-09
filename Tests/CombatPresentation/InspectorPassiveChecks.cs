@@ -6,7 +6,8 @@ internal static partial class BattlePlaybackChecks
 {
     private static void InspectorPassiveChecks()
     {
-        var goroAsset = System.IO.File.ReadAllText("Assets/Project/Data/Character/goro94_Passive.asset");
+        var goroPath = System.IO.File.Exists("Assets/Project/Data/Character/goro94_Passive.asset") ? "Assets/Project/Data/Character/goro94_Passive.asset" : "Assets/Project/Data/Character/WIP_Phase/goro94_Passive.asset";
+        var goroAsset = System.IO.File.ReadAllText(goroPath);
         int GoroValue(string field) => int.Parse(System.Text.RegularExpressions.Regex.Match(
             goroAsset, @"(?m)^\s*(?:- )?" + field + @":\s*(-?\d+)").Groups[1].Value);
         foreach (var mode in new[] { BattleModeMask.PvE, BattleModeMask.PvP })
@@ -39,6 +40,8 @@ internal static partial class BattlePlaybackChecks
         }
         var path = System.IO.File.Exists("Assets/Project/Data/Character/king94_Passive.asset")
             ? "Assets/Project/Data/Character/king94_Passive.asset"
+            : System.IO.File.Exists("Assets/Project/Data/Character/WIP_Phase/king94_Passive.asset")
+            ? "Assets/Project/Data/Character/WIP_Phase/king94_Passive.asset"
             : "Assets/Resources/Character_WIP-Phase/king94_Passive.asset";
         var kingAsset = System.IO.File.ReadAllText(path);
         Check(kingAsset.Contains("Trigger: 2"), "Authored King must stack at team turn end, matching its source description.");

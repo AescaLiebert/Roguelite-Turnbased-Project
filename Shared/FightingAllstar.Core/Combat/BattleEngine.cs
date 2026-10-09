@@ -106,7 +106,7 @@ namespace FightingAllstar.Core.Combat
             if (plan.ExpectedRevision != current.Revision) { error = "Battle revision is stale."; return false; }
             if (string.IsNullOrWhiteSpace(plan.RequestId)) { error = "Plan requires an idempotency request id."; return false; }
             if (plan.Actions == null || plan.Actions.Count > current.ActionBudget) { error = "Plan exceeds the frozen action budget."; return false; }
-            if (!ValidatePlan(current, plan, out error)) return false;
+            if (!TurnExecutionState.TryCreate(current, plan, out var execution, out error)) return false;
 
             var work = current.Clone();
             CharacterPassiveRuntime.Refresh(work);
@@ -119,13 +119,27 @@ namespace FightingAllstar.Core.Combat
                 ? new DeterministicRandom(BattleEntropy.CreateSeed())
                 : DeterministicRandom.Restore(work.CardRngState, work.CardRngDrawCount);
             work.Phase = BattlePhase.Resolving;
-            foreach (var action in plan.Actions)
+            work.Execution = execution;
+            AddEvent(work, BattleEventKind.TurnPlanCommitted, work.ActingSide.ToString(), null, null,
+                execution.Actions.Count, "Turn plan committed.");
+            work.Events[work.Events.Count - 1].Plan = execution.Clone();
+            for (var actionIndex = 0; actionIndex < execution.Actions.Count; actionIndex++)
             {
-                if (action == null) { error = "Plan contains an empty action."; return false; }
+                execution.CurrentIndex = actionIndex;
+                var queued = execution.Actions[actionIndex];
+                queued.State = PlannedActionState.Executing;
+                var action = queued.Action;
+                var eventStart = work.Events.Count;
                 if (!ApplyAction(work, team, action, rng, plannedOwners, out error)) return false;
+                queued.State = PlannedActionState.Completed;
+                for (var eventIndex = eventStart; eventIndex < work.Events.Count; eventIndex++)
+                    if (work.Events[eventIndex].Kind == BattleEventKind.ActionFizzled && work.Events[eventIndex].CardId == action.CardId)
+                        queued.State = PlannedActionState.Fizzled;
                 AdvanceActionClock(work);
                 if (work.Winner.HasValue || work.IsDraw) break;
             }
+            foreach (var queued in execution.Actions)
+                if (queued.State == PlannedActionState.Pending) queued.State = PlannedActionState.Cancelled;
             if (!work.Winner.HasValue && !work.IsDraw) EndTurn(work, cardRng);
             work.Revision++;
             work.RngState = rng.State;
@@ -133,21 +147,6 @@ namespace FightingAllstar.Core.Combat
             work.CardRngState = cardRng.State;
             work.CardRngDrawCount = cardRng.DrawCount;
             next = work;
-            return true;
-        }
-
-        private static bool ValidatePlan(BattleState state, TurnPlan plan, out string error)
-        {
-            error = null;
-            var draft = new PlanDraft(state);
-            foreach (var action in plan.Actions)
-            {
-                if (action == null) { error = "Plan contains an empty action."; return false; }
-                var valid = action.IsMove
-                    ? draft.QueueMove(action.CardId, action.DestinationIndex, out error)
-                    : draft.QueuePlay(action.CardId, action.TargetFighterId, out error);
-                if (!valid) return false;
-            }
             return true;
         }
 
@@ -422,8 +421,8 @@ namespace FightingAllstar.Core.Combat
             // Hit-major ordering lets every AOE recipient react together, then advances the combo.
             for (var hitIndex = 1; hitIndex <= hitCount; hitIndex++)
             {
-                // Keep emitting hit markers after all targets are defeated so presentation can
-                // finish the attack animation. The per-target guard below prevents overkill.
+                // HP reaching zero does not interrupt this card's sequence. Defeat is finalized
+                // at the action boundary, after every original recipient receives every hit.
                 if (!owner.IsAlive) break;
                 AddEvent(state, BattleEventKind.HitStarted, owner.Id, targets[0].Id, card.Id, 0, "Hit " + hitIndex + "/" + hitCount);
                 var marker = state.Events[state.Events.Count - 1];
@@ -510,6 +509,12 @@ namespace FightingAllstar.Core.Combat
             state.Events[state.Events.Count - 1].HitIndex = hitIndex;
             state.Events[state.Events.Count - 1].HitCount = hitCount;
             state.Events[state.Events.Count - 1].AttackRange = effect.Attack?.Range ?? AttackRange.Close;
+            var hitEvent = state.Events[state.Events.Count - 1];
+            hitEvent.HasHitReaction = true;
+            var inStance = HitReactionRules.IsInStance(target);
+            hitEvent.Reaction = HitReactionRules.Resolve(effect.Attack, inStance, hitIndex, hitCount,
+                damage.WasEndured, WasStanceCancelledThisAction(state, card.Id, target.Id));
+            hitEvent.WasReactionResisted = inStance && !damage.WasEndured && effect.Attack?.Reaction != HitReaction.None;
             foreach (var status in target.Statuses.Instances)
                 if (status.Recipe?.RecoverDamageTakenBp > 0)
                     status.DamageTaken = (int)Math.Min(int.MaxValue, (long)status.DamageTaken + damage.HealthLost);
@@ -962,8 +967,7 @@ namespace FightingAllstar.Core.Combat
                 switch (item.Operation.Kind)
                 {
                     case CardEffectOperationKind.TransferStats:
-                        ApplyPassiveStatTransfer(state, effectOwner, target, item.Operation.Magnitude,
-                            item.Operation.StatusDurationOverride, rootActionId);
+                        ApplyPassiveStatTransfer(state, effectOwner, target, item.Operation.StatTransfer, rootActionId);
                         continue;
                     case CardEffectOperationKind.Damage:
                         ApplyPassiveDamageOperation(state, effectOwner, target, item.Operation.Damage, rootActionId);
@@ -1009,59 +1013,41 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static void ApplyPassiveStatTransfer(BattleState state, FighterState source,
-            FighterState target, int percentBp, int duration, string rootActionId)
+            FighterState target, StatTransferRecipeDefinition transfer, string rootActionId)
         {
             if (state == null || source == null || target == null || source == target ||
-                !source.IsAlive || !target.IsAlive || target.Health <= 0 || percentBp <= 0) return;
+                !source.IsAlive || !target.IsAlive || target.Health <= 0 || transfer == null ||
+                transfer.CoefficientBp <= 0 || transfer.Stats == null || transfer.Stats.Count == 0 ||
+                string.IsNullOrWhiteSpace(transfer.SourceStatus?.Id) ||
+                string.IsNullOrWhiteSpace(transfer.TargetStatus?.Id)) return;
             var targetStats = StatusSystem.GetEffectiveStats(target);
-            var attackAmount = (int)Math.Min(int.MaxValue, (long)Math.Max(0, targetStats.Attack) * percentBp / 10000);
-            var defenseAmount = (int)Math.Min(int.MaxValue, (long)Math.Max(0, targetStats.Defense) * percentBp / 10000);
-            var appliedDuration = duration > 0 ? duration : 2;
-
-            var targetRecipe = CreateTransferStatus("status.debuff.iori95.extort", StatusPolarity.Debuff,
-                attackAmount, defenseAmount);
-            targetRecipe.DurationClock = StatusDurationClock.TargetTurnEnd;
+            var targetRecipe = transfer.TargetStatus.Clone();
+            var sourceRecipe = transfer.SourceStatus.Clone();
+            targetRecipe.Modifiers.Clear();
+            sourceRecipe.Modifiers.Clear();
+            targetRecipe.Behavior |= StatusBehavior.Stat;
+            sourceRecipe.Behavior |= StatusBehavior.Stat;
+            var visited = new HashSet<StatId>();
+            foreach (var stat in transfer.Stats)
+            {
+                if (!visited.Add(stat)) continue;
+                var amount = (int)Math.Min(int.MaxValue,
+                    (long)Math.Max(0, targetStats.Get(stat)) * transfer.CoefficientBp / 10000);
+                if (amount <= 0) continue;
+                targetRecipe.Modifiers.Add(new StatModifierDefinition
+                {
+                    Target = ModifierTarget.Stat, Stat = stat, Operation = ModifierOperation.Flat, Amount = -amount
+                });
+                sourceRecipe.Modifiers.Add(new StatModifierDefinition
+                {
+                    Target = ModifierTarget.Stat, Stat = stat, Operation = ModifierOperation.Flat, Amount = amount
+                });
+            }
             var targetResult = ApplyPassiveTransferStatus(state, source, target, targetRecipe,
-                appliedDuration, rootActionId);
+                targetRecipe.DefaultDuration, rootActionId);
             if (targetResult == null || !targetResult.Accepted) return;
-
-            var sourceRecipe = CreateTransferStatus("status.buff.iori95.extort", StatusPolarity.Buff,
-                attackAmount, defenseAmount);
-            sourceRecipe.DurationClock = StatusDurationClock.TargetTurnStart;
-            ApplyPassiveTransferStatus(state, source, source, sourceRecipe, appliedDuration, rootActionId);
+            ApplyPassiveTransferStatus(state, source, source, sourceRecipe, sourceRecipe.DefaultDuration, rootActionId);
             CharacterPassiveRuntime.Refresh(state);
-        }
-
-        private static StatusRecipeDefinition CreateTransferStatus(string id, StatusPolarity polarity,
-            int attackAmount, int defenseAmount)
-        {
-            var recipe = new StatusRecipeDefinition
-            {
-                Id = id,
-                NameKey = id,
-                Polarity = polarity,
-                Behavior = StatusBehavior.Stat,
-                Stacking = StatusStackingPolicy.RefreshDuration,
-                DurationClock = StatusDurationClock.TargetTurnEnd,
-                DefaultDuration = 2,
-                MaxStacks = 1,
-                Tags = new List<string> { "status.extort" }
-            };
-            if (attackAmount > 0) recipe.Modifiers.Add(new StatModifierDefinition
-            {
-                Target = ModifierTarget.Stat,
-                Stat = StatId.Attack,
-                Operation = ModifierOperation.Flat,
-                Amount = polarity == StatusPolarity.Debuff ? -attackAmount : attackAmount
-            });
-            if (defenseAmount > 0) recipe.Modifiers.Add(new StatModifierDefinition
-            {
-                Target = ModifierTarget.Stat,
-                Stat = StatId.Defense,
-                Operation = ModifierOperation.Flat,
-                Amount = polarity == StatusPolarity.Debuff ? -defenseAmount : defenseAmount
-            });
-            return recipe;
         }
 
         private static StatusApplyResult ApplyPassiveTransferStatus(BattleState state, FighterState source,
@@ -1070,10 +1056,23 @@ namespace FightingAllstar.Core.Combat
             var instanceId = state.MatchId + ":status:" + (state.Events.Count + 1);
             var result = StatusSystem.Apply(target, source.Id, source.Side, recipe, instanceId,
                 rootActionId, state.Events.Count + 1, duration: duration);
-            if (!result.Accepted) return result;
+            if (!result.Accepted)
+            {
+                if (result.Outcome == StatusApplyOutcome.IgnoredWeaker ||
+                    recipe.Polarity == StatusPolarity.Debuff && result.Reason == "Debuff immunity.")
+                {
+                    var kind = result.Outcome == StatusApplyOutcome.IgnoredWeaker
+                        ? BattleEventKind.StatusWeaker : BattleEventKind.StatusImmuned;
+                    AddEvent(state, kind, source.Id, target.Id, rootActionId, 0, result.Reason);
+                    var rejectedEvent = state.Events[state.Events.Count - 1];
+                    rejectedEvent.StatusRecipeId = recipe.Id;
+                    rejectedEvent.StatusOutcome = result.Outcome;
+                }
+                return result;
+            }
             AddEvent(state, BattleEventKind.StatusApplied, source.Id, target.Id, rootActionId, 1, recipe.Id);
             var statusEvent = state.Events[state.Events.Count - 1];
-            statusEvent.StatusInstanceId = instanceId;
+            statusEvent.StatusInstanceId = result.Instance.InstanceId;
             statusEvent.StatusRecipeId = recipe.Id;
             statusEvent.StatusOutcome = result.Outcome;
             statusEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(status => status.Clone());
@@ -1193,6 +1192,22 @@ namespace FightingAllstar.Core.Combat
             if (statuses.Count == target.Statuses.Instances.Count) return;
             AddEvent(state, BattleEventKind.StatusRemoved, owner.Id, target.Id, cardId, 0, "Stance removed.");
             state.Events[state.Events.Count - 1].StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
+            var cancelled = state.Events[state.Events.Count - 1];
+            cancelled.HasHitReaction = true;
+            cancelled.Reaction = HitReaction.KnockBack;
+            cancelled.WasStanceCancelled = true;
+        }
+
+        private static bool WasStanceCancelledThisAction(BattleState state, string cardId, string targetId)
+        {
+            for (var i = state.Events.Count - 1; i >= 0; i--)
+            {
+                var item = state.Events[i];
+                if (item.CardId != cardId) continue;
+                if (item.WasStanceCancelled && item.TargetId == targetId) return true;
+                if (item.Kind == BattleEventKind.ActionTiming && item.Timing == CardEffectTiming.BeforeAction) break;
+            }
+            return false;
         }
 
         private static void EmitStatusRemoval(BattleState state, FighterState owner, FighterState target,

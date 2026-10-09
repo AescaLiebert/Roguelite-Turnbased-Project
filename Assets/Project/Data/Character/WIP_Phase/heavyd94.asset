@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: heavyd94
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.heavyd94
+  runtimeReady: 0
+  sourceId: 29
+  sourceRecord: 30
+  familyId: family.heavy-d
+  seriesId: series.kof
+  role: Glass Attacker
+  traitIds:
+  - trait.american
+  - trait.series-kof
+  passiveSourceDescription: Reduces enemy's Critical Chance by half of his own Critical
+    Resistance
+  passiveSourceType: 1
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: 0321641549787b042acb5e0986be5f7c, type: 2}
+  id: 1029
+  fighterName: Heavy D! 94
+  fighterTag: Heavy D!
+  fighterPic: {fileID: 21300000, guid: f644e4a8127223f4484380b25306bd07, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 13abf67351cc047409673ded8141334c, type: 3}
+  fighterFull: {fileID: 0}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 92b0e64d7e2e8d247b8e7a82839c1641, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 9960a4e4650c222489498fcb24160a89, type: 2}
+  Skill2: {fileID: 11400000, guid: 514c8148d5366d74a838936fedc1cca4, type: 2}
+  Ultimate: {fileID: 11400000, guid: fd334b5bb7765bc40b78185c1112922f, type: 2}
+  FighterAttribute: 0
+  FighterRarity: 1
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  Classpower: 3000
+  attack: 390
+  defense: 180
+  health: 4100
+  SecondaryStats:
+    PierceRate: 20
+    Resistance: 10
+    Regenerate: 10
+    CritChance: 30
+    CritDmg: 160
+    CritResistance: 40
+    CritDefense: 15
+    RecoveryRate: 110
+    BlockChance: 5
+    BlockPower: 20
+    LifeSteal: 5
+    AvoidanceRate: 0
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

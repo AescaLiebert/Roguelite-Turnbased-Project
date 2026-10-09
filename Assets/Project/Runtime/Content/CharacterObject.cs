@@ -126,6 +126,8 @@ public static class CharacterPassiveMetadata
         [SerializeField] private GameObject fighter3DPrefab;
         [SerializeField] private Mesh fighter3DMesh;
         [SerializeField] private Material fighter3DMaterial;
+        [Tooltip("Visual yaw correction beneath the battle actor root. Current sample models face -Z; use 0 for models authored facing +Z.")]
+        [SerializeField] private float fighterModelYawOffset = 180f;
 
         [Header("Card Data")]
         public SkillCardSO Skill1;
@@ -166,8 +168,10 @@ public static class CharacterPassiveMetadata
         public string FighterName => fighterName;
         public Sprite FighterPic => fighterPic;
         public Sprite FighterIcon => fighterIcon;
+        public Sprite FighterFull => fighterFull;
 
         public GameObject Fighter3DPrefab => fighter3DPrefab;
+        public float FighterModelYawOffset => fighterModelYawOffset;
         public Mesh Fighter3DMesh => fighter3DMesh;
         public Material Fighter3DMaterial => fighter3DMaterial;
         public int FighterLevel => fighterLevel;

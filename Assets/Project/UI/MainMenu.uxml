@@ -1,18 +1,100 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:Style src="FrontEnd.uss" />
-    <ui:VisualElement class="front-root">
-        <ui:VisualElement class="top-bar"><ui:Label text="FIGHTING ALLSTAR" class="brand" /><ui:Label name="wallet" class="wallet" /></ui:VisualElement>
-        <ui:VisualElement class="main-body">
-            <ui:Image name="hero-art" class="hero-art" />
-            <ui:VisualElement class="menu-copy">
-                <ui:Label text="KOF / LABYRINTH" class="eyebrow" />
-                <ui:Label text="Choose your fighters.&#10;Find your way." class="hero-title" />
-                <ui:Label text="Build a team and take on a new dungeon route." class="body-copy" />
-                <ui:Button name="battle" text="BATTLE  →" class="battle-button" />
-                <ui:Button name="summon" text="SUMMON FIGHTERS" class="secondary-button" />
-                <ui:Button name="training" text="TRAINING MODE" class="secondary-button" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=6b0ce8f0cd1b4e5c9c1762f831f4a8d7&amp;type=3#MainMenu"/>
+    <ui:VisualElement name="menu-viewport" class="menu-viewport">
+        <ui:VisualElement name="menu-stage" class="menu-stage" style="width: 1920px; height: 1080px;">
+            <ui:VisualElement name="hero-art" picking-mode="Ignore" class="arena-background" style="width: 1920px; height: 1080px;"/>
+            <ui:VisualElement name="header-surface" picking-mode="Ignore" class="header-surface"/>
+            <ui:VisualElement name="brand-art" picking-mode="Ignore" class="brand-art"/>
+            <ui:Label text="HOME" class="home-tab display"/>
+            <ui:VisualElement picking-mode="Ignore" class="home-underline"/>
+            <ui:Label text="TOURNAMENT EXPEDITION" class="expedition-tab display"/>
+            <ui:VisualElement class="wallet-chip">
+                <ui:VisualElement name="diamond-art" picking-mode="Ignore" class="diamond-art"/>
+                <ui:Label name="wallet" text="—" class="wallet display"/>
+                <ui:Label text="+" tooltip="Diamonds" class="wallet-plus"/>
             </ui:VisualElement>
+            <ui:VisualElement class="profile-chip">
+                <ui:VisualElement name="avatar-art" picking-mode="Ignore" class="avatar-art"/>
+                <ui:Label text="Rookie" class="profile-name display"/>
+                <ui:Label text="LOCAL PLAYER" class="profile-detail display"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="season-line">
+                <ui:Label text="SEASON 01" class="season display"/>
+                <ui:VisualElement picking-mode="Ignore" class="season-rule"/>
+            </ui:VisualElement>
+            <ui:Label text="YOUR NEXT" class="headline headline-first display-heavy"/>
+            <ui:VisualElement class="headline-second">
+                <ui:Label text="LEGEND" class="legend display-heavy"/>
+                <ui:Label text="STARTS HERE" class="starts-here display-heavy"/>
+            </ui:VisualElement>
+            <ui:Label text="FIGHTERS. RIVALS. HIGHER GROUND." class="tagline display"/>
+            <ui:VisualElement picking-mode="Ignore" class="headline-rule">
+                <ui:VisualElement class="red-tick"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="route-card" class="route-card">
+                <ui:VisualElement name="route-surface" picking-mode="Ignore" class="fill"/>
+                <ui:VisualElement name="route-art" picking-mode="Ignore" class="route-art"/>
+                <ui:Label text="OPEN CIRCUIT" class="route-title display-heavy"/>
+                <ui:VisualElement picking-mode="Ignore" class="route-divider"/>
+                <ui:VisualElement name="team-icon" picking-mode="Ignore" class="fact-icon team-icon"/>
+                <ui:VisualElement name="path-icon" picking-mode="Ignore" class="fact-icon path-icon"/>
+                <ui:VisualElement name="reward-icon" picking-mode="Ignore" class="fact-icon reward-icon"/>
+                <ui:Label text="3 ACTIVE + 1 RESERVE" class="route-fact team-fact display"/>
+                <ui:Label text="LINEAR ROUTE" class="route-fact path-fact display"/>
+                <ui:Label text="REWARDS" class="route-fact reward-fact display"/>
+            </ui:VisualElement>
+            <ui:Button name="battle" tooltip="Open dungeon selection" class="battle-button">
+                <ui:VisualElement name="battle-surface" picking-mode="Ignore" class="fill"/>
+                <ui:VisualElement name="battle-emblem" picking-mode="Ignore" class="battle-emblem"/>
+                <ui:Label text="ENTER OPEN CIRCUIT" picking-mode="Ignore" class="battle-label display-heavy"/>
+                <ui:Label text="›" picking-mode="Ignore" class="battle-arrow"/>
+            </ui:Button>
+            <ui:VisualElement class="fighter-caption">
+                <ui:VisualElement name="caption-surface" picking-mode="Ignore" class="fill"/>
+                <ui:Label name="fighter-caption-label" text="YOUR FIGHTER" class="caption-overline display"/>
+                <ui:Label text="READY FOR THE RING" class="caption-title display-heavy"/>
+                <ui:VisualElement picking-mode="Ignore" class="caption-divider"/>
+                <ui:Label name="fighter-tier" text="C0 / 6" class="fighter-tier display"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="squad-panel" class="squad-panel">
+                <ui:Label name="lineup-label" text="STARTER LINEUP" class="lineup-label display"/>
+                <ui:VisualElement name="slot-0" class="fighter-slot slot-0">
+                    <ui:VisualElement name="portrait-0" picking-mode="Ignore" class="fill"/>
+                    <ui:Label name="fighter-name-0" text="KYO" class="slot-name display-heavy"/>
+                    <ui:VisualElement name="badge-0" picking-mode="Ignore" class="slot-badge"/>
+                    <ui:Label name="fighter-role-0" text="ACTIVE" class="slot-role display"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="slot-1" class="fighter-slot slot-1">
+                    <ui:VisualElement name="portrait-1" picking-mode="Ignore" class="fill"/>
+                    <ui:Label name="fighter-name-1" text="CHIN" class="slot-name display-heavy"/>
+                    <ui:VisualElement name="badge-1" picking-mode="Ignore" class="slot-badge"/>
+                    <ui:Label name="fighter-role-1" text="ACTIVE" class="slot-role display"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="slot-2" class="fighter-slot slot-2">
+                    <ui:VisualElement name="portrait-2" picking-mode="Ignore" class="fill"/>
+                    <ui:Label name="fighter-name-2" text="KENSOU" class="slot-name display-heavy"/>
+                    <ui:VisualElement name="badge-2" picking-mode="Ignore" class="slot-badge"/>
+                    <ui:Label name="fighter-role-2" text="ACTIVE" class="slot-role display"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="slot-3" class="fighter-slot slot-3">
+                    <ui:VisualElement name="portrait-3" picking-mode="Ignore" class="fill"/>
+                    <ui:Label name="fighter-name-3" text="KING" class="slot-name display-heavy"/>
+                    <ui:VisualElement name="badge-3" picking-mode="Ignore" class="slot-badge reserve-badge"/>
+                    <ui:Label name="fighter-role-3" text="RESERVE" class="slot-role display"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Button name="summon" tooltip="Open summon banners" class="utility-button summon-button">
+                <ui:VisualElement name="summon-surface" picking-mode="Ignore" class="fill"/>
+                <ui:VisualElement name="summon-icon" picking-mode="Ignore" class="summon-icon"/>
+                <ui:Label text="SUMMON" picking-mode="Ignore" class="utility-label display-heavy"/>
+                <ui:Label text="›" picking-mode="Ignore" class="utility-arrow"/>
+            </ui:Button>
+            <ui:Button name="training" tooltip="Choose a fighter for practice" class="utility-button training-button">
+                <ui:VisualElement name="training-surface" picking-mode="Ignore" class="fill"/>
+                <ui:VisualElement name="training-icon" picking-mode="Ignore" class="training-icon"/>
+                <ui:Label text="PRACTICE" picking-mode="Ignore" class="utility-label display-heavy"/>
+                <ui:Label text="›" picking-mode="Ignore" class="utility-arrow"/>
+            </ui:Button>
         </ui:VisualElement>
-        <ui:Label text="Your collection stays with you. Each dungeon is a fresh run." class="footer-copy" />
     </ui:VisualElement>
 </ui:UXML>

@@ -50,10 +50,15 @@ namespace FightingAllstar.Core.Content
             var recipes = new List<StatusRecipeDefinition>
             {
                 new StatusRecipeDefinition { Id = "status.debuff.ignite", Polarity = StatusPolarity.Debuff,
-                    Behavior = StatusBehavior.Stat, Stacking = StatusStackingPolicy.AddStacks, MaxStacks = 10,
+                    Behavior = StatusBehavior.Stat, Stacking = StatusStackingPolicy.IndependentStacks, MaxStacks = 10,
                     Tags = new List<string> { CombatTags.Ignite, "status.dot" },
                     Modifiers = new List<StatModifierDefinition> { new StatModifierDefinition {
                         Target = ModifierTarget.AnyDamageReceived, Operation = ModifierOperation.PercentagePoints, Amount = 1000 } } },
+                new StatusRecipeDefinition { Id = "status.buff.rejuvenation", Polarity = StatusPolarity.Buff,
+                    Behavior = StatusBehavior.Heal, Stacking = StatusStackingPolicy.AddStacks, MaxStacks = 3,
+                    DefaultDuration = 2, PeriodicHealing = new PeriodicHealingDefinition {
+                        Timing = StatusTickTiming.TargetTurnStart, Scaling = StatusHealScaling.TurnStartRecovery,
+                        CoefficientBp = 6000 } },
                 Dot("status.debuff.bleed", CombatTags.Bleed, 3300),
                 Dot("status.debuff.shock", CombatTags.Shock, 3600),
                 Dot("status.debuff.poison", CombatTags.Poison, 4500),

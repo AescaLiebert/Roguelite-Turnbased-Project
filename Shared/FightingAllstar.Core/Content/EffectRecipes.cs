@@ -397,6 +397,32 @@ namespace FightingAllstar.Core.Content
     }
 
     [Serializable]
+    public sealed class StatTransferRecipeDefinition
+    {
+        public int CoefficientBp = 5000;
+        public List<StatId> Stats = new List<StatId> { StatId.Attack, StatId.Defense };
+        public StatusRecipeDefinition SourceStatus = new StatusRecipeDefinition
+        {
+            Polarity = StatusPolarity.Buff, Behavior = StatusBehavior.Stat,
+            Stacking = StatusStackingPolicy.RefreshDuration, DurationClock = StatusDurationClock.TargetTurnStart
+        };
+        public StatusRecipeDefinition TargetStatus = new StatusRecipeDefinition
+        {
+            Polarity = StatusPolarity.Debuff, Behavior = StatusBehavior.Stat,
+            Stacking = StatusStackingPolicy.RefreshDuration, DurationClock = StatusDurationClock.TargetTurnEnd
+        };
+
+        public StatTransferRecipeDefinition Clone()
+        {
+            var copy = (StatTransferRecipeDefinition)MemberwiseClone();
+            copy.Stats = new List<StatId>(Stats ?? new List<StatId>());
+            copy.SourceStatus = SourceStatus?.Clone();
+            copy.TargetStatus = TargetStatus?.Clone();
+            return copy;
+        }
+    }
+
+    [Serializable]
     public sealed class CardEffectOperationDefinition
     {
         public string Id;
@@ -407,6 +433,7 @@ namespace FightingAllstar.Core.Content
         public List<EffectConditionDefinition> Conditions = new List<EffectConditionDefinition>();
         public DamageEffectRecipe Damage;
         public StatusApplicationRecipe Status;
+        public StatTransferRecipeDefinition StatTransfer;
         public StatusPolarity RemovePolarity;
         public string RemoveRecipeId;
         public bool RemoveAll = true;
@@ -421,6 +448,7 @@ namespace FightingAllstar.Core.Content
             if (Conditions != null) foreach (var condition in Conditions) copy.Conditions.Add(condition?.Clone());
             copy.Damage = Damage?.Clone();
             copy.Status = Status?.Clone();
+            copy.StatTransfer = StatTransfer?.Clone();
             copy.Value = Value?.Clone();
             return copy;
         }
@@ -443,6 +471,29 @@ namespace FightingAllstar.Core.Content
 
     public static class EffectRecipeValidator
     {
+        public static List<string> ValidateStatTransfer(StatTransferRecipeDefinition transfer)
+        {
+            var errors = new List<string>();
+            if (transfer == null) { errors.Add("Stat transfer requires an authored recipe."); return errors; }
+            if (transfer.CoefficientBp <= 0 || transfer.CoefficientBp > 10000)
+                errors.Add("Stat transfer coefficient must be between 1 and 10000 basis points.");
+            if (transfer.Stats == null || transfer.Stats.Count == 0)
+                errors.Add("Stat transfer requires at least one stat.");
+            else
+            {
+                var seen = new HashSet<StatId>();
+                foreach (var stat in transfer.Stats)
+                    if (!Enum.IsDefined(typeof(StatId), stat) || !seen.Add(stat))
+                        errors.Add("Stat transfer contains an invalid or duplicate stat.");
+            }
+            if (transfer.SourceStatus?.Polarity != StatusPolarity.Buff)
+                errors.Add("Stat transfer source status must be a Buff.");
+            if (transfer.TargetStatus?.Polarity != StatusPolarity.Debuff)
+                errors.Add("Stat transfer target status must be a Debuff.");
+            errors.AddRange(Validate(new[] { transfer.SourceStatus, transfer.TargetStatus }, null));
+            return errors;
+        }
+
         public static List<string> Validate(EffectDatabaseDefinition database)
         {
             if (database == null) return new List<string> { "Effect database is missing." };
@@ -505,6 +556,9 @@ namespace FightingAllstar.Core.Content
                         if (!orders.Add(operation.Order)) errors.Add(card.Id + " has duplicate operation order: " + operation.Order);
                         if (operation.Kind == CardEffectOperationKind.Damage && operation.Damage == null)
                             errors.Add(card.Id + "/" + operation.Id + " is Damage but has no damage recipe.");
+                        if (operation.Kind == CardEffectOperationKind.TransferStats)
+                            foreach (var error in ValidateStatTransfer(operation.StatTransfer))
+                                errors.Add(card.Id + "/" + operation.Id + ": " + error);
                         if (operation.Damage != null && !string.IsNullOrEmpty(operation.Damage.AttackEffectId) &&
                             !attackIds.Contains(operation.Damage.AttackEffectId))
                             errors.Add(card.Id + "/" + operation.Id + " references an unknown attack-effect recipe.");

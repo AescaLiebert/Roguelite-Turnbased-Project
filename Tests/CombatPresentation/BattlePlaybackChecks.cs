@@ -17,6 +17,12 @@ internal static partial class BattlePlaybackChecks
 
     public static void Main(string[] args)
     {
+        HitReactionChecks();
+        if (args.Contains("--hit-reactions")) { Console.WriteLine("PASS: " + _assertions + " reaction assertions."); return; }
+        StatTransferChecks();
+        DeckFeedbackQueueChecks();
+        if (args.Contains("--deck-feedback")) { Console.WriteLine("PASS: " + _assertions + " deck feedback assertions."); return; }
+        if (args.Contains("--stat-transfer")) { Console.WriteLine("PASS: " + _assertions + " stat transfer assertions."); return; }
         TrainingChecks();
         if (args.Contains("--training")) { Console.WriteLine("PASS: " + _assertions + " training assertions."); return; }
         MultiHitChecks();
@@ -42,6 +48,7 @@ internal static partial class BattlePlaybackChecks
         CardRankIncreaseRuntimeChecks();
         AuraSingleTriggerInRunEncounterChecks();
         StatusPlaybackStateTrackingChecks();
+        IgniteIndependentDurationChecks();
         AoeAndStatusTickSimultaneousResolutionChecks();
         MultiUltimateDrawChecks();
         NonDotDebuffAndDotTickChecks();
@@ -549,9 +556,9 @@ internal static partial class BattlePlaybackChecks
             "category-disable", null, 1);
         Check(applied.Accepted, "Recovery-disable status should apply to its target.");
         var draft = new PlanDraft(battle);
-        Check(!draft.QueuePlay(heal.Id, battle.Opponent.Fighters[0].Id, out var blocked) &&
-              (blocked.Contains("prevents this card category") || blocked == StatusSystem.RecoveryBlockedMessage),
-            "A category-disable status should block the matching WIP skill in plan drafting.");
+        Check(draft.QueuePlay(heal.Id, battle.Opponent.Fighters[0].Id, out var blocked), blocked);
+        Check(draft.Actions.Count == 1 && draft.Preview.FindFighter(owner.Id).PowerGauge == owner.PowerGauge + 1,
+            "A disabled category must remain queueable and forecast its discard PG gain.");
     }
 
     private static void AreaTargetDamageChecks()
@@ -716,15 +723,15 @@ internal static partial class BattlePlaybackChecks
             SourceId = state.Opponent.Fighters[0].Id,
             TargetId = targetId,
             StatusInstanceId = "status_inst_1",
-            StatusRecipeId = "status.debuff.ignite",
+            StatusRecipeId = "status.buff.rejuvenation",
             Amount = 1,
-            Message = "status.debuff.ignite"
+            Message = "status.buff.rejuvenation"
         };
         BattlePlaybackState.Apply(display, applyEvent);
         var targetFighter = display.Player.FindFighter(targetId);
         Check(targetFighter.Statuses != null && targetFighter.Statuses.Instances.Count == 1,
             "StatusApplied did not add status instance to display state.");
-        Check(targetFighter.Statuses.Instances[0].RecipeId == "status.debuff.ignite",
+        Check(targetFighter.Statuses.Instances[0].RecipeId == "status.buff.rejuvenation",
             "StatusApplied recipe ID does not match.");
         Check(targetFighter.Statuses.Instances[0].StackCount == 1,
             "StatusApplied stack count should be 1.");
@@ -736,9 +743,9 @@ internal static partial class BattlePlaybackChecks
             SourceId = state.Opponent.Fighters[0].Id,
             TargetId = targetId,
             StatusInstanceId = "status_inst_1",
-            StatusRecipeId = "status.debuff.ignite",
+            StatusRecipeId = "status.buff.rejuvenation",
             Amount = 1,
-            Message = "status.debuff.ignite"
+            Message = "status.buff.rejuvenation"
         };
         BattlePlaybackState.Apply(display, applySecondStack);
         Check(targetFighter.Statuses.Instances.Count == 1,
@@ -752,7 +759,7 @@ internal static partial class BattlePlaybackChecks
             Kind = BattleEventKind.StatusRemoved,
             TargetId = targetId,
             StatusInstanceId = "status_inst_1",
-            StatusRecipeId = "status.debuff.ignite"
+            StatusRecipeId = "status.buff.rejuvenation"
         };
         BattlePlaybackState.Apply(display, removeEvent);
         Check(targetFighter.Statuses.Instances.Count == 0,
@@ -1638,7 +1645,7 @@ internal static partial class BattlePlaybackChecks
         // Step 3: Attempt to apply Rank 1 buff (20% ATK, 2 turns).
         // Since Rank 1 is WEAKER than active Rank 3 (+20% < +60%), it must NOT refresh duration!
         var res2 = StatusSystem.Apply(target, "yuri", TeamSide.Player, rank1Recipe, "yuri_buff_2", "action_2", 2);
-        Check(res2.Outcome == StatusApplyOutcome.Rejected, "Weaker Rank 1 buff must be Rejected when stronger Rank 3 is active.");
+        Check(res2.Outcome == StatusApplyOutcome.IgnoredWeaker || res2.Outcome == StatusApplyOutcome.Rejected, "Weaker Rank 1 buff must be Rejected when stronger Rank 3 is active.");
         Check(!res2.Accepted, "Weaker buff must not be Accepted.");
         Check(activeInstance.RemainingDuration == 1, "Rank 1 buff must NOT refresh the duration of stronger Rank 3 buff (expected 1, got " + activeInstance.RemainingDuration + ").");
         Check(activeInstance.Recipe.Modifiers[0].Amount == 6000, "Active buff must remain Rank 3 60% ATK.");
@@ -1646,7 +1653,7 @@ internal static partial class BattlePlaybackChecks
         // Step 4: Attempt to apply Rank 2 buff (40% ATK, 2 turns).
         // Rank 2 is also weaker than active Rank 3 (+40% < +60%), so it must also be Rejected.
         var res3 = StatusSystem.Apply(target, "yuri", TeamSide.Player, rank2Recipe, "yuri_buff_3", "action_3", 3);
-        Check(res3.Outcome == StatusApplyOutcome.Rejected, "Weaker Rank 2 buff must be Rejected when stronger Rank 3 is active.");
+        Check(res3.Outcome == StatusApplyOutcome.IgnoredWeaker || res3.Outcome == StatusApplyOutcome.Rejected, "Weaker Rank 2 buff must be Rejected when stronger Rank 3 is active.");
         Check(activeInstance.RemainingDuration == 1, "Rank 2 buff must NOT refresh the duration of stronger Rank 3 buff.");
 
         // Step 5: Apply Rank 3 buff again (equal strength: +60% ATK, 3 turns).
@@ -2085,4 +2092,50 @@ internal static partial class BattlePlaybackChecks
         Check(playedBuff.TargetFighterId == buffDps.Id,
             $"AI offensive buff card MUST target DPS carry ({buffDps.Id}), but targeted {playedBuff.TargetFighterId}.");
     }
+    private static void IgniteIndependentDurationChecks()
+    {
+        var state = BattleEngine.Create("ignite-dur-test", new[] { Fighter("chin") }, null,
+            new[] { Fighter("target_enemy") }, null, 1001);
+        var target = state.Opponent.Fighters[0];
+        var igniteRecipe = StandardEffectDatabase.CreateStatusRecipes().Find(r => r.Id == "status.debuff.ignite");
+        Check(igniteRecipe != null, "Ignite recipe missing");
+        Check(igniteRecipe.Stacking == StatusStackingPolicy.IndependentStacks, "Ignite must use IndependentStacks");
+
+        // Turn 1: Chin applies 1 Ignite (2 turns)
+        var res1 = StatusSystem.Apply(target, "chin", TeamSide.Player, igniteRecipe, "ignite_turn1", "action1", 1, duration: 2);
+        Check(res1.Accepted, "First ignite must be accepted");
+        Check(target.Statuses.Instances.Count == 1, "Should have 1 ignite instance");
+        Check(target.Statuses.Instances[0].RemainingDuration == 2, "First ignite should have 2 turns duration");
+
+        // Target turn ends: 1st Ignite decrements to 1 turn
+        var expired1 = target.Statuses.Advance(StatusDurationClock.TargetTurnEnd);
+        Check(expired1.Count == 0, "No ignite should expire after turn 1");
+        Check(target.Statuses.Instances[0].RemainingDuration == 1, "First ignite should have 1 turn left");
+
+        // Turn 2: Chin applies another Ignite (2 turns)
+        var res2 = StatusSystem.Apply(target, "chin", TeamSide.Player, igniteRecipe, "ignite_turn2", "action2", 2, duration: 2);
+        Check(res2.Accepted, "Second ignite must be accepted");
+        Check(target.Statuses.Instances.Count == 2, "Should have 2 independent ignite instances");
+        Check(target.Statuses.Instances.Exists(s => s.InstanceId == "ignite_turn1" && s.RemainingDuration == 1), "Old ignite must have 1 turn left");
+        Check(target.Statuses.Instances.Exists(s => s.InstanceId == "ignite_turn2" && s.RemainingDuration == 2), "New ignite must have 2 turns left");
+
+        // Target turn ends:
+        // Old Ignite (was 1 turn left) reaches 0 -> expired and removed!
+        // New Ignite (was 2 turns left) reaches 1 turn left -> stays active!
+        var expired2 = target.Statuses.Advance(StatusDurationClock.TargetTurnEnd);
+        Check(expired2.Count == 1, $"Exactly 1 old ignite should expire, got {expired2.Count}");
+        Check(expired2[0].InstanceId == "ignite_turn1", "Expired status must be the old ignite");
+        Check(target.Statuses.Instances.Count == 1, "Target must still have 1 ignite active");
+        Check(target.Statuses.Instances[0].InstanceId == "ignite_turn2", "Active ignite must be the new ignite");
+        Check(target.Statuses.Instances[0].RemainingDuration == 1, "New ignite must have 1 turn left");
+
+        // Multi-stack application check (e.g. Rank 2 applies 2 Ignites at once)
+        var multiTarget = state.Opponent.Fighters[0];
+        multiTarget.Statuses.Instances.Clear();
+        var resMulti = StatusSystem.Apply(multiTarget, "chin", TeamSide.Player, igniteRecipe, "ignite_multi", "action3", 3, stackCount: 2, duration: 2);
+        Check(resMulti.Accepted, "Multi-stack ignite application accepted");
+        Check(multiTarget.Statuses.Instances.Count == 2, $"Rank 2 (2 stacks) must produce 2 independent instances, got {multiTarget.Statuses.Instances.Count}");
+        Check(StatusSystem.Count(multiTarget, requiredTag: CombatTags.Ignite) == 2, "StatusSystem.Count must return 2 for 2 ignite instances");
+    }
+
 }

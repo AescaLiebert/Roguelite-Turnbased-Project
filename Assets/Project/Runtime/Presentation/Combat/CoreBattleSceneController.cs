@@ -33,6 +33,10 @@ namespace FightingAllstar.Presentation.Combat
         [SerializeField] private Texture2D rankThreeFrameTexture;
         [SerializeField] private GameObject damageTotalPanel;
         [SerializeField] private TMP_Text damageTotalValue;
+        [Header("Floating Combat Text")]
+        [SerializeField] private FloatingCombatTextSettingsSO fctSettings;
+
+        public FloatingCombatTextSettingsSO FctSettings => fctSettings != null ? fctSettings : FloatingCombatTextSettingsSO.GetDefault();
 
         private IBattleSession _session;
         private bool _trainingMode;
@@ -68,8 +72,9 @@ namespace FightingAllstar.Presentation.Combat
         private string _damageTotalOwnerId;
         private long _damageTotalAmount;
         private Coroutine _damageTotalHideCoroutine;
-        private const float CardWidth = 104f;
-        private const float CardHeight = 160f;
+        // Match the authored face; a wider wrapper creates invisible gaps in the hand.
+        private const float CardWidth = 76f;
+        private const float CardHeight = 126f;
 
         private void Awake()
         {
@@ -136,7 +141,7 @@ namespace FightingAllstar.Presentation.Combat
                 _displayState = BattlePlaybackState.BeforeOpeningDeal(initialState);
                 SpawnFighterViews(_snapshot);
                 _stage = gameObject.AddComponent<BattleStagePresenter>();
-                _stage.Initialize(_fighterViews);
+                _stage.Initialize(_fighterViews, _snapshot);
                 SetBattleHudVisible(false);
                 RefreshView();
                 PlayOpeningSequence(playerCC, opponentCC, playerFirst, encounter);
@@ -222,20 +227,11 @@ namespace FightingAllstar.Presentation.Combat
                 var anchorName = anchorPrefix == "Hero" ? "CharHeroPosition" : "EnemyHeroPosition";
                 var anchor = GameObject.Find(anchorName + (Mathf.Clamp(slot, 0, 2) + 1));
                 var position = anchor == null ? new Vector3(anchorPrefix == "Hero" ? -3f : 3f, 0f, 0f) : anchor.transform.position;
-                var rotation = anchor == null ? Quaternion.identity : anchor.transform.rotation;
+                var rotation = BattleFighterView.FormationRotation(fighter.Side);
                 var view = character != null && character.Fighter3DPrefab != null
-                    ? Instantiate(character.Fighter3DPrefab, position, rotation)
+                    ? BattleFighterView.Create(character.Fighter3DPrefab, position, rotation,
+                        character.FighterModelYawOffset, character.Fighter3DMesh, character.Fighter3DMaterial)
                     : CreatePlaceholder(fighter, position, rotation);
-                if (character != null)
-                {
-                    var meshFilter = view.GetComponent<MeshFilter>();
-                    if (meshFilter != null && character.Fighter3DMesh != null)
-                        meshFilter.sharedMesh = character.Fighter3DMesh;
-
-                    var meshRenderer = view.GetComponent<MeshRenderer>();
-                    if (meshRenderer != null && character.Fighter3DMaterial != null)
-                        meshRenderer.sharedMaterial = character.Fighter3DMaterial;
-                }
                 var groundOffset = CalculateGroundOffset(view, position.y);
                 view.transform.position += Vector3.up * groundOffset;
                 _fighterGroundOffsets[fighter.Id] = groundOffset;
@@ -263,7 +259,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void WireOpponentTarget(GameObject view, string fighterId)
         {
-            var collider = view.GetComponent<Collider>();
+            var collider = view.GetComponentInChildren<Collider>();
             if (collider == null)
             {
                 var box = view.AddComponent<BoxCollider>();
@@ -367,6 +363,7 @@ namespace FightingAllstar.Presentation.Combat
             }
             if (!string.IsNullOrEmpty(_tooltipCardId) && !presentIds.Contains(_tooltipCardId)) HideTooltip();
             LayoutHandCards();
+            RefreshMergeAvailability(team);
         }
 
         private void ClearHandViews()
@@ -384,35 +381,11 @@ namespace FightingAllstar.Presentation.Combat
             var rowWidth = _handRow.resolvedStyle.width;
             if (rowWidth <= 0f) return;
 
-            // 7DSGC-style fixed-size cards aligned to the right side of the screen.
-            // Card dimensions NEVER shrink or grow regardless of hand count.
-            // Overlap adjusts smoothly across available width:
-            // 1-3 cards: slight gap (+3px) for side-by-side display matching reference.
-            // 4-8 cards: gradual overlap (-10px to -28px) so cards cluster cleanly like 7DSGC hand.
-            const float rightMargin = 8f;
-            const float minLeft = 12f;
-            var availableWidth = Mathf.Max(CardWidth, rowWidth - rightMargin - minLeft);
-
-            float preferredStep;
-            if (count <= 1)
-            {
-                preferredStep = CardWidth;
-            }
-            else if (count <= 3)
-            {
-                preferredStep = CardWidth + 3f;
-            }
-            else
-            {
-                preferredStep = Mathf.Lerp(CardWidth - 10f, CardWidth - 28f, Mathf.Clamp01((count - 4) / 4f));
-            }
-
-            // Cap step so hand never overflows the row, but never shrink card dimensions
-            var maxStep = count > 1 ? (availableWidth - CardWidth) / (count - 1) : preferredStep;
-            var step = count > 1 ? Mathf.Min(preferredStep, maxStep) : 0f;
-
+            var team = _draft?.Preview ?? _snapshot?.Player;
+            var capacity = Mathf.Max(count, team?.HandCapacity ?? 7);
+            var step = HandStep(rowWidth, CardWidth, capacity, 20f);
             var totalWidth = CardWidth + (count - 1) * step;
-            var left = Mathf.Max(minLeft, rowWidth - totalWidth - rightMargin);
+            var left = Mathf.Max(12f, rowWidth - totalWidth - 8f);
 
             for (var index = 0; index < count; index++)
             {
@@ -760,11 +733,15 @@ namespace FightingAllstar.Presentation.Combat
             _allyPicker = null;
             _isPlayingEvents = true;
             SetControls(false);
+            _passiveActivationActionsPresented.Clear();
             if (_targetReticle != null) _targetReticle.SetVisible(false);
             _executionIndex = -1;
             for (var index = 0; index < events.Count; index++)
             {
                 var item = events[index];
+                if (item.Kind == BattleEventKind.CardPlayed || item.Kind == BattleEventKind.CounterStarted)
+                    _actionFramingReaction = SnapshotActionReaction(events, index);
+                _hasQueuedCardExecution = HasQueuedExecution(events, index);
                 if (IsExecutionEvent(item) && _executionIndex < 0) PrepareExecution(events, index);
 
                 if (IsSimultaneousFeedback(item.Kind))
@@ -830,9 +807,7 @@ namespace FightingAllstar.Presentation.Combat
                 if (!_fighterViews.TryGetValue(fighter.Id, out var view) || view == null) continue;
                 var visible = fighter.IsAlive && !fighter.IsReserve;
                 view.SetActive(visible);
-                _stage.SetStance(fighter.Id, visible && fighter.Statuses.Instances.Any(s =>
-                    s.Recipe != null && (s.Recipe.Behavior & StatusBehavior.Stance) != 0));
-                _stage.SetShieldAura(fighter.Id, visible && fighter.Shield > 0);
+                _stage.SyncActorVisualEffects(fighter);
                 if (visible) PositionView(fighter, view);
                 if (_fighterBillboards.TryGetValue(fighter.Id, out var billboard) && billboard != null)
                 {
@@ -841,7 +816,7 @@ namespace FightingAllstar.Presentation.Combat
                     var truePG = trueFighter?.PowerGauge ?? fighter.PowerGauge;
                     var draftPG = isPlayerDraft ? (_draft.Preview.FindFighter(fighter.Id)?.PowerGauge ?? truePG) : truePG;
 
-                    billboard.gameObject.SetActive(visible && _hudRevealed && _executionHiddenActorId != fighter.Id);
+                    billboard.gameObject.SetActive(visible && _hudRevealed);
                     billboard.SetCoreHealth(fighter.Health, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
                     billboard.SetPowerGaugeVisible(!fighter.PowerGaugeDisabled);
                     billboard.SetShield(fighter.Shield, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
@@ -865,7 +840,7 @@ namespace FightingAllstar.Presentation.Combat
             if (anchor == null) return;
             _fighterGroundOffsets.TryGetValue(fighter.Id, out var groundOffset);
             view.transform.SetPositionAndRotation(anchor.transform.position + Vector3.up * groundOffset,
-                anchor.transform.rotation);
+                BattleFighterView.FormationRotation(fighter.Side));
         }
 
         private void BindBattleHud()
@@ -962,6 +937,16 @@ namespace FightingAllstar.Presentation.Combat
             var skillSlotLabel = cardTree.Q<Label>("card-skill-slot");
             if (button == null || artwork == null || rankFrame == null || skillSlotLabel == null) return null;
 
+            var energy = new CardEnergyElement();
+            button.Insert(0, energy);
+            if (isHandCard)
+            {
+                button.Add(new CardEnergyElement { name = "card-merge-hint", Foreground = true });
+                var mergeBadge = new Label("MERGE") { name = "card-merge-badge", pickingMode = PickingMode.Ignore };
+                mergeBadge.AddToClassList("card-merge-badge");
+                mergeBadge.style.display = DisplayStyle.None;
+                button.Add(mergeBadge);
+            }
             UpdateCardButton(cardTree, card, owner);
             button.SetEnabled(onTap != null);
             if (onTap != null)
@@ -970,11 +955,18 @@ namespace FightingAllstar.Presentation.Combat
                 var dragging = false;
                 var pointerStart = Vector3.zero;
                 var pointerId = -1;
+                var originalLogicalIndex = -1;
                 IVisualElementScheduledItem holdJob = null;
                 button.RegisterCallback<PointerDownEvent>(evt =>
                 {
                     if (!CanPlan) return;
-                    if (isHandCard) cardTree.BringToFront();
+                    if (isHandCard)
+                    {
+                        originalLogicalIndex = (_draft?.Preview ?? _snapshot.Player).Hand.FindIndex(item => item.Id == card.Id);
+                        cardTree.BringToFront();
+                        cardTree.style.scale = new Scale(Vector3.one * 1.18f);
+                        cardTree.style.translate = new Translate(0, -20);
+                    }
                     holding = false;
                     dragging = false;
                     pointerStart = evt.position;
@@ -985,6 +977,7 @@ namespace FightingAllstar.Presentation.Combat
                     {
                         holding = true;
                         onHoldStarted?.Invoke();
+                        if (isHandCard) UpdateHandDrag(card.Id, new Vector2(pointerStart.x, pointerStart.y), Vector2.zero);
                     }).StartingIn(250);
                     evt.StopPropagation();
                 }, TrickleDown.TrickleDown);
@@ -992,33 +985,23 @@ namespace FightingAllstar.Presentation.Combat
                 {
                     if (pointerId != evt.pointerId) return;
                     holdJob?.Pause();
-                    if (pointerId >= 0 && button.HasPointerCapture(pointerId)) button.ReleasePointer(pointerId);
+                    var releasedPointer = pointerId;
                     pointerId = -1;
+                    if (releasedPointer >= 0 && button.HasPointerCapture(releasedPointer)) button.ReleasePointer(releasedPointer);
                     var wasDragging = dragging;
                     var wasHolding = holding;
                     var destination = -1;
-                    var count = _draft == null ? _snapshot?.Player.Hand.Count ?? 0 : _draft.Preview.Hand.Count;
-                    var currentSlot = _handRow != null ? _handRow.IndexOf(cardTree) : -1;
-                    if (dragging && count > 0)
+                    if (dragging && isHandCard)
                     {
-                        var visualDestination = 0;
-                        var nearestDistance = float.MaxValue;
-                        var pointerX = _handRow == null ? 0f : _handRow.WorldToLocal(new Vector2(evt.position.x, evt.position.y)).x;
-                        for (var index = 0; _handRow != null && index < _handRow.childCount; index++)
-                        {
-                            // Compare layout slots, not the dragged card's translated bounds.
-                            var slotCenter = _handRow[index].resolvedStyle.left + _handRow[index].resolvedStyle.width * .5f;
-                            var distance = Mathf.Abs(pointerX - slotCenter);
-                            if (distance >= nearestDistance) continue;
-                            nearestDistance = distance;
-                            visualDestination = index;
-                        }
-                        visualDestination = Mathf.Clamp(visualDestination, 0, count - 1);
-                        destination = count - 1 - visualDestination;
+                        UpdateHandDrag(card.Id, new Vector2(evt.position.x, evt.position.y),
+                            new Vector2(evt.position.x - pointerStart.x, evt.position.y - pointerStart.y));
+                        destination = _dragDestination;
                     }
                     holding = false;
                     dragging = false;
-                    cardTree.style.translate = new Translate(0, 0);
+                    var changedSlot = wasDragging && destination >= 0 && destination != originalLogicalIndex && CanPlan;
+                    ClearHandDrag(changedSlot);
+                    if (!changedSlot) cardTree.style.translate = new Translate(0, 0);
                     evt.StopPropagation();
 
                     // Dismiss tooltip upon release if it was opened
@@ -1029,7 +1012,6 @@ namespace FightingAllstar.Presentation.Combat
 
                     if (!CanPlan) return;
 
-                    var originalLogicalIndex = currentSlot >= 0 ? count - 1 - currentSlot : -1;
                     if (wasDragging && destination >= 0 && destination != originalLogicalIndex)
                     {
                         onDrop?.Invoke(destination);
@@ -1048,20 +1030,35 @@ namespace FightingAllstar.Presentation.Combat
                 {
                     if (pointerId != evt.pointerId || !CanPlan) return;
                     var delta = evt.position - pointerStart;
-                    if (delta.sqrMagnitude > 36f)
+                    if (dragging || delta.sqrMagnitude > 36f)
                     {
                         dragging = true;
-                        cardTree.style.translate = new Translate(delta.x, -18);
+                        holdJob?.Pause();
+                        if (!holding) { holding = true; onHoldStarted?.Invoke(); }
+                        if (isHandCard) UpdateHandDrag(card.Id, new Vector2(evt.position.x, evt.position.y), new Vector2(delta.x, delta.y));
                     }
                 });
                 button.RegisterCallback<PointerCancelEvent>(evt =>
                 {
                     holdJob?.Pause();
+                    var cancelledPointer = pointerId;
                     pointerId = -1;
+                    if (cancelledPointer >= 0 && button.HasPointerCapture(cancelledPointer)) button.ReleasePointer(cancelledPointer);
+                    ClearHandDrag();
                     var wasHolding = holding;
                     holding = dragging = false;
                     cardTree.style.translate = new Translate(0, 0);
                     if (wasHolding) onHoldEnded?.Invoke();
+                    if (isHandCard) RenderHand();
+                });
+                button.RegisterCallback<PointerCaptureOutEvent>(evt =>
+                {
+                    if (pointerId < 0) return;
+                    pointerId = -1;
+                    holdJob?.Pause();
+                    if (holding) onHoldEnded?.Invoke();
+                    holding = dragging = false;
+                    ClearHandDrag();
                     if (isHandCard) RenderHand();
                 });
             }
@@ -1090,6 +1087,8 @@ namespace FightingAllstar.Presentation.Combat
 
             var skillTypeImage = cardTree.Q<Image>("card-skill-type");
             var holoGlow = cardTree.Q<VisualElement>("card-holo-glow");
+            var energy = cardTree.Q<CardEnergyElement>("card-energy");
+            if (energy != null) { energy.Ultimate = card.Kind == CardKind.Ultimate; energy.MarkDirtyRepaint(); }
 
             rankFrame.image = card.Kind == CardKind.Ultimate ? rankThreeFrameTexture : RankFrameTexture(card.Rank);
             rankFrame.scaleMode = ScaleMode.StretchToFill;
@@ -1249,7 +1248,7 @@ namespace FightingAllstar.Presentation.Combat
             if (card == null || owner == null) return string.Empty;
             var lookup = ResolveCardLookup(card, owner, LoadCharacter(owner.Definition?.Id));
             var title = GetCardTitle(card, owner, lookup.Character);
-            return string.IsNullOrEmpty(lookup.Description) ? title : title + "  •  " + lookup.Description;
+            return string.IsNullOrEmpty(lookup.Description) ? title : title + "  窶｢  " + lookup.Description;
         }
 
         public struct StatusBadgeData
@@ -1477,8 +1476,8 @@ namespace FightingAllstar.Presentation.Combat
             var runtimeEffect = lookup.Effect;
             if (runtimeEffect?.Kind == EffectKind.Damage)
                 rawDesc += "\n" + runtimeEffect.DamageHitCount + (runtimeEffect.DamageHitCount == 1 ? " hit" : " hits") +
-                    " · " + (runtimeEffect.Attack?.Range == AttackRange.Long ? "Long range" : "Close range") +
-                    (runtimeEffect.DamageHitCount > 1 ? " · Damage split across hits" : "");
+                    " ﾂｷ " + (runtimeEffect.Attack?.Range == AttackRange.Long ? "Long range" : "Close range") +
+                    (runtimeEffect.DamageHitCount > 1 ? " ﾂｷ Damage split across hits" : "");
             var damageKeyword = runtimeEffect?.KeywordId;
 
             var statuses = new List<StatusBadgeData>();
@@ -1671,7 +1670,7 @@ namespace FightingAllstar.Presentation.Combat
                     var unifiedKey = pair.Key.Replace("s", "").Replace(" ", "").ToLowerInvariant();
                     if (seenKeywords.Add(unifiedKey))
                     {
-                        matched.Add($"※{pair.Key}: {pair.Value}");
+                        matched.Add($"窶ｻ{pair.Key}: {pair.Value}");
                     }
                 }
             }

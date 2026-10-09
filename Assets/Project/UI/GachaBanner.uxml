@@ -1,19 +1,95 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:Style src="FrontEnd.uss" />
-    <ui:VisualElement class="front-root">
-        <ui:VisualElement class="top-bar"><ui:Button name="back" text="← HOME" /><ui:Label text="SUMMON" class="brand" /><ui:Label name="wallet" class="wallet" /><ui:Button name="battle" text="Choose dungeon →" /></ui:VisualElement>
-        <ui:VisualElement name="banner-screen" class="banner-screen">
-            <ui:VisualElement class="banner-body">
-                <ui:VisualElement class="banner-rail"><ui:Label text="KOF" class="banner-tab" /><ui:Label text="FIGHTERS" /></ui:VisualElement>
-                <ui:VisualElement class="banner-art">
-                    <ui:VisualElement class="banner-copy"><ui:Label text="KOF FIGHTER SUMMON" class="eyebrow" /><ui:Label text="THE KING&#10;OF FIGHTERS" class="hero-title" /><ui:Label text="Assemble your all-star team." class="body-copy" /><ui:Label text="SSR 4%  ·  SR 36%  ·  R 60%" class="body-copy" /><ui:Label name="guarantee" class="body-copy" /></ui:VisualElement>
-                    <ui:Image name="hero-art" class="hero-art" />
-                </ui:VisualElement>
+    <ui:Style src="GachaBanner.uss" />
+    <ui:VisualElement name="gacha-viewport" class="gacha-viewport">
+        <ui:VisualElement name="gacha-stage" class="gacha-stage">
+            <ui:VisualElement name="hero-art" class="gacha-background" picking-mode="Ignore" />
+            <ui:VisualElement name="gacha-header-surface" class="gacha-header-surface" picking-mode="Ignore" />
+            <ui:Button name="back" text="‹" class="gacha-back" tooltip="Return to Main Menu" />
+            <ui:VisualElement name="gacha-brand-art" class="gacha-brand-art" picking-mode="Ignore" />
+            <ui:Label text="SUMMON" class="gacha-summon-tab condensed" />
+            <ui:VisualElement class="gacha-summon-underline" picking-mode="Ignore" />
+            <ui:Label text="KOF" class="gacha-kof-tab condensed" />
+            <ui:VisualElement class="gacha-kof-underline" picking-mode="Ignore" />
+            <ui:Button text="STREET" enabled="false" class="gacha-series-tab street-tab condensed" tooltip="Street banner is not available" />
+            <ui:Button text="TEKKEN" enabled="false" class="gacha-series-tab tekken-tab condensed" tooltip="Tekken banner is not available" />
+            <ui:Button text="ORIGINAL" enabled="false" class="gacha-series-tab original-tab condensed" tooltip="Original banner is not available" />
+            <ui:VisualElement class="gacha-wallet-chip">
+                <ui:VisualElement name="gacha-wallet-diamond" class="gacha-wallet-diamond" picking-mode="Ignore" />
+                <ui:Label name="wallet" text="—" class="gacha-wallet condensed" />
+                <ui:Label text="+" class="gacha-wallet-plus" tooltip="Diamonds" />
             </ui:VisualElement>
-            <ui:ScrollView name="details-panel" class="details-panel" style="display: none;" />
-            <ui:VisualElement class="banner-actions"><ui:Button name="details" text="Details &amp; rates" /><ui:Button name="selector" text="Featured selector" /><ui:VisualElement class="spacer" /><ui:Button name="summon-one" text="Summon ×1&#10;160 Diamonds" class="summon-button" /><ui:Button name="summon-ten" text="Summon ×10&#10;1,600 Diamonds" class="summon-button" /></ui:VisualElement>
+            <ui:VisualElement name="banner-screen" class="gacha-banner-screen">
+                <ui:Label text="KOF" class="gacha-title condensed-heavy" />
+                <ui:VisualElement class="gacha-subtitle">
+                    <ui:Label text="FIGHTER" class="gacha-fighter condensed-heavy" />
+                    <ui:Label text="SUMMON" class="gacha-summon condensed-heavy" />
+                </ui:VisualElement>
+                <ui:Label text="Assemble your all-star team" class="gacha-tagline condensed" />
+                <ui:VisualElement class="gacha-title-rule" picking-mode="Ignore"><ui:VisualElement class="gacha-rule-accent" /></ui:VisualElement>
+                <ui:VisualElement class="gacha-featured-strip">
+                    <ui:VisualElement name="gacha-featured-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-featured-art" class="gacha-featured-art" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-featured-star" class="gacha-featured-star" picking-mode="Ignore" />
+                    <ui:Label text="FEATURED" class="gacha-featured-label condensed-heavy" />
+                    <ui:Label text="SSR" class="gacha-featured-rarity condensed-heavy" />
+                    <ui:VisualElement class="gacha-featured-rule" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:VisualElement class="gacha-rates-strip">
+                    <ui:VisualElement name="gacha-rates-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:Label name="ssr-rate" text="SSR  4%" class="gacha-rate ssr-rate condensed-heavy" />
+                    <ui:Label text="·" class="rate-dot dot-one" />
+                    <ui:Label name="sr-rate" text="SR  36%" class="gacha-rate sr-rate condensed-heavy" />
+                    <ui:Label text="·" class="rate-dot dot-two" />
+                    <ui:Label name="r-rate" text="R  60%" class="gacha-rate r-rate condensed-heavy" />
+                </ui:VisualElement>
+                <ui:VisualElement class="gacha-featured-caption">
+                    <ui:VisualElement name="gacha-caption-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:Label text="FEATURED FIGHTER" class="condensed" />
+                </ui:VisualElement>
+                <ui:VisualElement class="gacha-showcase" tooltip="Illustrative KOF showcase artwork. Rates &amp; Details lists the fighters available in this banner.">
+                    <ui:Label text="KOF SHOWCASE" class="showcase-label condensed" />
+                    <ui:VisualElement name="gacha-portrait-0" class="gacha-portrait portrait-0" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-portrait-1" class="gacha-portrait portrait-1" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-portrait-2" class="gacha-portrait portrait-2" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-portrait-3" class="gacha-portrait portrait-3" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <ui:Button name="selector" class="gacha-guarantee-button" tooltip="View available SSR selectors">
+                    <ui:VisualElement name="gacha-guarantee-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-guarantee-icon" class="gacha-guarantee-icon" picking-mode="Ignore" />
+                    <ui:Label name="guarantee" text="FEATURED GUARANTEE · 300 PULLS" class="gacha-guarantee-label condensed" picking-mode="Ignore" />
+                    <ui:Label name="guarantee-value" text="0 / 300" class="gacha-guarantee-value condensed" picking-mode="Ignore" />
+                    <ui:VisualElement class="gacha-progress-track" picking-mode="Ignore"><ui:VisualElement name="guarantee-fill" class="gacha-progress-fill" /></ui:VisualElement>
+                </ui:Button>
+                <ui:Button name="details" class="gacha-details-button">
+                    <ui:VisualElement name="gacha-details-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-details-icon" class="gacha-details-icon" picking-mode="Ignore" />
+                    <ui:Label text="RATES &amp; DETAILS" class="gacha-details-label condensed" picking-mode="Ignore" />
+                    <ui:Label text="›" class="gacha-details-arrow" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="summon-one" class="gacha-pull-button single-pull">
+                    <ui:VisualElement name="gacha-single-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-single-diamond" class="gacha-pull-diamond" picking-mode="Ignore" />
+                    <ui:Label name="summon-one-label" text="1 PULL · 160 DIAMONDS" class="gacha-pull-label condensed-heavy" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="summon-ten" class="gacha-pull-button ten-pull">
+                    <ui:VisualElement name="gacha-ten-surface" class="gacha-fill" picking-mode="Ignore" />
+                    <ui:VisualElement name="gacha-ten-diamond" class="gacha-pull-diamond" picking-mode="Ignore" />
+                    <ui:Label name="summon-ten-label" text="10 PULLS · 1,600 DIAMONDS" class="gacha-pull-label condensed-heavy" picking-mode="Ignore" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="result-screen" class="gacha-result-screen" style="display: none;">
+                <ui:Label name="result-title" class="gacha-result-title condensed-heavy" />
+                <ui:Label text="Fighters added to your collection" class="gacha-result-copy condensed" />
+                <ui:ScrollView class="gacha-result-scroll"><ui:VisualElement name="result-cards" class="result-cards" /></ui:ScrollView>
+                <ui:Button name="result-close" text="CONTINUE" class="gacha-modal-button condensed-heavy" />
+            </ui:VisualElement>
+            <ui:Label name="notice" class="gacha-notice condensed" />
         </ui:VisualElement>
-        <ui:VisualElement name="result-screen" class="result-screen" style="display: none;"><ui:Label name="result-title" class="brand" /><ui:ScrollView><ui:VisualElement name="result-cards" class="result-cards" /></ui:ScrollView><ui:Button name="result-close" text="Continue" class="summon-button" /></ui:VisualElement>
-        <ui:Label name="notice" class="footer-copy" />
+        <ui:VisualElement name="details-overlay" class="gacha-overlay" style="display: none;">
+            <ui:VisualElement class="gacha-modal">
+                <ui:VisualElement class="gacha-modal-header"><ui:Label name="details-title" text="RATES &amp; DETAILS" class="condensed-heavy" /><ui:Button name="details-close" text="CLOSE" class="gacha-modal-close" /></ui:VisualElement>
+                <ui:ScrollView name="details-panel" class="gacha-details-panel" style="display: none;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

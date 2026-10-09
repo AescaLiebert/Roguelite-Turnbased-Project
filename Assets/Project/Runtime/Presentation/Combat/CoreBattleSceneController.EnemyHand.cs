@@ -10,8 +10,8 @@ namespace FightingAllstar.Presentation.Combat
 {
     public sealed partial class CoreBattleSceneController
     {
-        private const float EnemyCardWidth = 68f;
-        private const float EnemyCardHeight = 104f;
+        private const float EnemyCardWidth = 52f;
+        private const float EnemyCardHeight = 80f;
         private VisualElement _enemyDeckField;
         private VisualElement _enemyHandRow;
         private readonly Dictionary<string, VisualElement> _enemyHandCardViews =
@@ -19,6 +19,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void BindEnemyHand(VisualElement root)
         {
+            BindEnemyPlan(root);
             _enemyDeckField = root?.Q<VisualElement>("enemy-deck-field");
             _enemyHandRow = root?.Q<VisualElement>("enemy-deck-row");
             if (_enemyHandRow == null) return;
@@ -111,7 +112,7 @@ namespace FightingAllstar.Presentation.Combat
             root.style.width = EnemyCardWidth;
             root.style.height = EnemyCardHeight;
             root.style.top = 0;
-            root.style.opacity = 0f;
+            root.style.opacity = 1f;
 
             var back = new VisualElement { pickingMode = PickingMode.Ignore };
             back.AddToClassList("enemy-card-back");
@@ -138,18 +139,17 @@ namespace FightingAllstar.Presentation.Combat
             };
             disabledOverlay.AddToClassList("enemy-card-disabled-overlay");
             back.Add(disabledOverlay);
+            back.Insert(0, new CardEnergyElement());
             root.Add(back);
 
             UpdateEnemyCardBack(root, card);
-            root.schedule.Execute(() =>
-            {
-                if (root.panel != null) root.style.opacity = 1f;
-            }).StartingIn(20);
             return root;
         }
 
         private void UpdateEnemyCardBack(VisualElement view, CardState card)
         {
+            var energy = view.Q<CardEnergyElement>("card-energy");
+            if (energy != null) { energy.Ultimate = card?.Kind == CardKind.Ultimate; energy.MarkDirtyRepaint(); }
             var rank = Mathf.Clamp(card?.Rank ?? 1, 1, 3);
             view.EnableInClassList("rank-one", rank == 1);
             view.EnableInClassList("rank-two", rank == 2);
@@ -175,15 +175,13 @@ namespace FightingAllstar.Presentation.Combat
             var count = _enemyHandRow.childCount;
             const float leftMargin = 4f;
             const float rightMargin = 4f;
-            var preferredStep = count <= 3 ? EnemyCardWidth + 4f :
-                Mathf.Lerp(EnemyCardWidth - 8f, EnemyCardWidth - 24f, Mathf.Clamp01((count - 4) / 4f));
-            var availableWidth = Mathf.Max(EnemyCardWidth, rowWidth - leftMargin - rightMargin);
-            var maxStep = count > 1 ? (availableWidth - EnemyCardWidth) / (count - 1) : preferredStep;
-            var step = count > 1 ? Mathf.Min(preferredStep, maxStep) : 0f;
+            var capacity = Mathf.Max(count, _displayState?.Opponent.HandCapacity ?? _snapshot?.Opponent.HandCapacity ?? 7);
+            var step = HandStep(rowWidth, EnemyCardWidth, capacity, leftMargin + rightMargin);
+            var left = Mathf.Max(leftMargin, rowWidth - rightMargin - EnemyCardWidth - (count - 1) * step);
             for (var index = 0; index < count; index++)
             {
                 var card = _enemyHandRow[index];
-                card.style.left = leftMargin + index * step;
+                card.style.left = left + index * step;
                 card.style.width = EnemyCardWidth;
                 card.style.height = EnemyCardHeight;
             }
@@ -222,7 +220,8 @@ namespace FightingAllstar.Presentation.Combat
             if (side == TeamSide.Player) return CaptureHandPositions();
             var positions = new Dictionary<string, Vector2>();
             foreach (var pair in _enemyHandCardViews)
-                if (pair.Value != null) positions[pair.Key] = new Vector2(pair.Value.style.left.value.value, 0);
+                if (pair.Value != null) positions[pair.Key] = new Vector2(pair.Value.style.left.value.value + pair.Value.resolvedStyle.translate.x,
+                    pair.Value.resolvedStyle.translate.y);
             return positions;
         }
 
@@ -241,12 +240,12 @@ namespace FightingAllstar.Presentation.Combat
                 offsets[pair.Value] = start - new Vector2(pair.Value.style.left.value.value, 0);
             }
             _stage?.PlayCue(0);
-            yield return BattleStagePresenter.Tween(.23f, t =>
+            yield return BattleStagePresenter.Tween(.12f, t =>
             {
                 foreach (var pair in offsets)
                 {
                     var lifted = movedId != null && _enemyHandCardViews.TryGetValue(movedId, out var moved) && moved == pair.Key;
-                    pair.Key.style.translate = new Translate(pair.Value.x * (1 - t), lifted ? 30 * Mathf.Sin(t * Mathf.PI) : 0);
+                    pair.Key.style.translate = new Translate(pair.Value.x * (1 - t), pair.Value.y * (1 - t) + (lifted ? 12 * Mathf.Sin(t * Mathf.PI) : 0));
                     pair.Key.style.scale = new Scale(Vector3.one * (lifted ? 1 + .08f * Mathf.Sin(t * Mathf.PI) : 1));
                 }
             });

@@ -140,6 +140,9 @@
         <member name="T:FightingAllstar.Core.Combat.DeterministicRandom">
             <summary>Versioned xorshift64* stream. A stream is copied with state and draw count for replay.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Combat.HitReactionRules">
+            <summary>Authoritative visual facts, independent of the presentation's current stance aura.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.IBattleSession">
             <summary>Transport boundary shared by disposable local practice and future remote sessions.</summary>
         </member>
@@ -157,6 +160,9 @@
         </member>
         <member name="T:FightingAllstar.Core.Combat.StatusContainer">
             <summary>Owns all mutable status instances for one fighter.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.TurnExecutionState">
+            <summary>A frozen turn queue shared by both sides. Card availability is checked at execution.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.CombatTags">
             <summary>Stable vocabulary for status tags and effect keywords; values are content IDs, not display text.</summary>

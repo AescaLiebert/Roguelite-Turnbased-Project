@@ -22,11 +22,15 @@ namespace FightingAllstar.Core.Combat
             var source = display.Player.FindFighter(item.SourceId) ?? display.Opponent.FindFighter(item.SourceId);
             var target = display.Player.FindFighter(item.TargetId) ?? display.Opponent.FindFighter(item.TargetId);
             var team = source == null ? null : display.Team(source.Side);
+            ApplyQueueProgress(display.Execution, item);
             if (target != null && item.ShieldChanged) target.Shield = item.ShieldAfter;
             if (source != null && item.PowerGaugeAfter >= 0 && item.Kind != BattleEventKind.PowerGaugeChanged)
                 source.PowerGauge = item.PowerGaugeAfter;
             switch (item.Kind)
             {
+                case BattleEventKind.TurnPlanCommitted:
+                    display.Execution = item.Plan?.Clone();
+                    break;
                 case BattleEventKind.PowerGaugeChanged:
                     if (target != null) target.PowerGauge = item.PowerGaugeAfter;
                     break;
@@ -111,7 +115,7 @@ namespace FightingAllstar.Core.Combat
                         var isIndependent = recipe != null && recipe.Stacking == StatusStackingPolicy.IndependentStacks;
 
                         StatusInstance existing = null;
-                        if (!string.IsNullOrEmpty(item.StatusInstanceId))
+                        if (!isIndependent && !string.IsNullOrEmpty(item.StatusInstanceId))
                         {
                             existing = target.Statuses.Instances.Find(x => x.InstanceId == item.StatusInstanceId);
                         }
@@ -174,6 +178,39 @@ namespace FightingAllstar.Core.Combat
                             target.Statuses.Instances.RemoveAll(x => x.RecipeId == item.Message.Substring("Status expired: ".Length));
                     }
                     break;
+            }
+        }
+
+        private static void ApplyQueueProgress(TurnExecutionState execution, BattleEvent item)
+        {
+            if (execution == null) return;
+            if (item.Kind == BattleEventKind.BattleCompleted)
+            {
+                foreach (var queued in execution.Actions)
+                    if (queued.State == PlannedActionState.Pending) queued.State = PlannedActionState.Cancelled;
+                return;
+            }
+            if (string.IsNullOrEmpty(item.CardId)) return;
+            if (item.Kind == BattleEventKind.ActionCompleted)
+            {
+                if (execution.CurrentIndex >= 0 && execution.CurrentIndex < execution.Actions.Count)
+                {
+                    var current = execution.Actions[execution.CurrentIndex];
+                    if (current.Action.CardId == item.CardId && current.State == PlannedActionState.Executing)
+                        current.State = PlannedActionState.Completed;
+                }
+                return;
+            }
+            if (item.Kind != BattleEventKind.CardPlayed && item.Kind != BattleEventKind.CardMoved &&
+                item.Kind != BattleEventKind.ActionFizzled) return;
+            for (var i = execution.CurrentIndex + 1; i < execution.Actions.Count; i++)
+            {
+                var queued = execution.Actions[i];
+                if (queued.Action.CardId != item.CardId) continue;
+                execution.CurrentIndex = i;
+                queued.State = item.Kind == BattleEventKind.ActionFizzled ? PlannedActionState.Fizzled :
+                    item.Kind == BattleEventKind.CardMoved ? PlannedActionState.Completed : PlannedActionState.Executing;
+                break;
             }
         }
     }

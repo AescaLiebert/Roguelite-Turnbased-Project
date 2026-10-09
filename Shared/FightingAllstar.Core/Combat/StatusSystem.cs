@@ -128,6 +128,7 @@ namespace FightingAllstar.Core.Combat
                         current.StackCount + Math.Max(1, incoming.StackCount));
                     if (CompareStrength(incoming, current) > 0) ReplacePayload(current, incoming);
                     current.StackCount = combinedStacks;
+                    RefreshDuration(current, incoming);
                     return Result(StatusApplyOutcome.Stacked, current);
                 case StatusStackingPolicy.ReplaceAlways:
                     ReplacePayload(current, incoming);
@@ -286,14 +287,31 @@ namespace FightingAllstar.Core.Combat
         private StatusApplyResult AddIndependent(StatusApplyRequest request, List<StatusInstance> matches)
         {
             var cap = Math.Max(1, request.Recipe.MaxStacks);
-            while (matches.Count >= cap)
+            var toAdd = Math.Max(1, request.StackCount);
+            StatusInstance lastAdded = null;
+            for (var i = 0; i < toAdd; i++)
             {
-                var oldest = matches[0];
-                Instances.Remove(oldest);
-                matches.RemoveAt(0);
+                while (matches.Count >= cap)
+                {
+                    var oldest = matches[0];
+                    Instances.Remove(oldest);
+                    matches.RemoveAt(0);
+                }
+                RemoveOrphans();
+                var instance = CreateInstance(request);
+                instance.StackCount = 1;
+                if (i > 0 && !string.IsNullOrEmpty(request.InstanceId))
+                {
+                    instance.InstanceId = $"{request.InstanceId}_{i}";
+                }
+                matches.Add(instance);
+                if (i == toAdd - 1)
+                {
+                    return Added(instance);
+                }
+                Instances.Add(instance);
             }
-            RemoveOrphans();
-            return Added(CreateInstance(request));
+            return Added(lastAdded ?? CreateInstance(request));
         }
 
         private StatusInstance CreateInstance(StatusApplyRequest request) => new StatusInstance {

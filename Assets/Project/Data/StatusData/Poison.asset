@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
   id: status.debuff.posion
   displayName: Poison
-  icon: {fileID: 21300000, guid: 6152598d894016a4d89e6b8e7339a21f, type: 3}
+  icon: {fileID: 21300000, guid: b81d943669dcf7a42bbcb228259632a3, type: 3}
   polarity: 1
   keywords:
   - Poison
+  - status.debuff.posion
   description: 

@@ -11,9 +11,11 @@ namespace FightingAllstar.Core.Combat
         public static void DrawOpeningHand(BattleTeamState team, DeterministicRandom rng,
             List<CardState> drawnCards = null, List<string> mergedCardIds = null, List<BattleEvent> timeline = null)
         {
-            // Deterministic opening cards are appended in active formation order.
+            // Deal Pos3 first and Pos1 last. The hand presents appended cards from right to left,
+            // leaving the random draw on the left and the Pos3 group on the right.
             if (team.TrainingDeck) { DealTrainingHand(team, drawnCards, timeline); return; }
             var openingOrder = team.LivingActive();
+            openingOrder.Reverse();
             foreach (var fighter in openingOrder)
             {
                 var skills = OrderedSkills(fighter.Definition);
@@ -147,7 +149,9 @@ namespace FightingAllstar.Core.Combat
                 timeline?.Add(new BattleEvent { Kind = BattleEventKind.CardRemoved, SourceId = card.OwnerFighterId,
                     CardId = card.Id, Message = "Training hand refreshed." });
             team.Hand.Clear();
-            foreach (var fighter in team.LivingActive())
+            var openingOrder = team.LivingActive();
+            openingOrder.Reverse();
+            foreach (var fighter in openingOrder)
             {
                 foreach (var skill in OrderedSkills(fighter.Definition))
                     foreach (var rank in skill.Ranks)
