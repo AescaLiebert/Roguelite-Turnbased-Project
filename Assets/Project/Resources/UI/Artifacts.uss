@@ -1198,7 +1198,6 @@
 .artifact-active-overview { flex-direction: row; flex-wrap: wrap; }
 .artifact-active-line { margin-right: 16px; }
 .artifact-inspection-card .item-tooltip-content .artifact-stat-row { padding: 0; margin-bottom: 6px; border-width: 0; min-height: 0; }
-.artifact-inspection-card .unity-scroll-view__vertical-scroller { width: 8px; }
 .compact-layout .artifact-active-line { font-size: 14px; }
 .compact-layout .artifact-inspection-card .item-tooltip-preview-panel { height: 158px; }
 .compact-layout .artifact-inspection-card .item-tooltip-preview-stars { top: 94px; bottom: auto; height: 18px; font-size: 16px; }
@@ -1217,3 +1216,37 @@
 .compact-layout .artifact-workshop-footer .artifact-auto-row Button { min-height: 32px; padding: 4px 10px; font-size: 16px; }
 .compact-layout .artifact-workshop-details .artifact-stat-row { padding: 4px 0; }
 .compact-layout .artifact-workshop-details .artifact-stat-row Label { font-size: 18px; }
+
+/* Shared 1.2x tiles keep their frame size in each inventory and equipment strip. */
+.artifact-picker-item, .artifact-picker-docked .artifact-picker-item { width: 124px; min-width: 124px; margin: 0 6px 10px 0; }
+.artifact-equipped-scroll { flex-shrink: 0; height: 164px; min-height: 164px; margin-top: 12px; border-top-width: 1px; border-top-color: rgb(122, 145, 163); background-color: rgba(5, 16, 28, .92); }
+.artifact-equipped-strip { flex-direction: row; flex-wrap: nowrap; align-items: center; padding: 8px 16px; }
+.artifact-strip-character { flex-shrink: 0; margin-right: 26px; align-items: center; justify-content: center; }
+.artifact-equipped-strip .selected .item-reward-frame { border-width: 3px; border-color: rgb(255, 231, 155); }
+.artifact-equipment-inventory { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 16px; min-height: 0; background-color: rgb(9, 20, 33); }
+.artifact-equipment-picker-host { flex-grow: 1; flex-basis: 0; min-height: 0; }
+.artifact-equipment-inventory .artifact-equipped-scroll { height: 164px; min-height: 164px; max-height: 164px; margin-top: 8px; }
+.artifact-equipment-inventory .artifact-equipped-strip { width: 100%; justify-content: center; padding: 8px; }
+.artifact-equipment-inventory .artifact-strip-character { margin-right: 22px; }
+.artifact-character-preview .item-reward-amount { font-size: 11px; }
+.artifact-equipment-inventory .artifact-filters { height: 104px; min-height: 104px; max-height: 104px; }
+.artifact-equipment-inventory .artifact-filters > .unity-base-field { min-width: 42%; }
+.artifact-equipment-inventory .artifact-dialog-heading .artifact-title { font-size: 24px; }
+.compact-layout .artifact-equipment-inventory .artifact-filters { height: 84px; min-height: 84px; max-height: 84px; margin: 6px 0; }
+.compact-layout .artifact-equipment-inventory .artifact-filters > .unity-base-field { height: 36px; min-height: 36px; max-height: 36px; margin-bottom: 4px; }
+.compact-layout .artifact-equipment-inventory .artifact-filters .unity-base-field__input { min-height: 34px; font-size: 16px; }
+.compact-layout .artifact-equipment-inventory .artifact-equipped-scroll { height: 142px; min-height: 142px; max-height: 142px; }
+.compact-layout .artifact-equipment-inventory .artifact-equipped-strip { padding: 6px; }
+.compact-layout .artifact-equipment-inventory .artifact-strip-character { margin-right: 8px; }
+.artifact-workshop-footer .artifact-selected-scroll { height: 308px; min-height: 0; max-height: 308px; margin-top: 4px; }
+.artifact-selected-materials { flex-wrap: wrap; max-width: 650px; }
+.compact-layout .artifact-workshop-footer .artifact-selected-scroll { height: 180px; max-height: 180px; }
+.narrow-layout .hub-hero.artifact-inventory-open { height: 520px; }
+.narrow-layout .artifact-equipment-inventory { padding: 8px 12px; }
+.narrow-layout .artifact-equipment-inventory .artifact-picker-docked .artifact-picker-dialog { padding: 8px; }
+.narrow-layout .artifact-equipment-inventory .artifact-picker-docked .artifact-filters { height: 84px; min-height: 84px; max-height: 84px; margin: 4px 0; }
+.narrow-layout .artifact-equipment-inventory .artifact-picker-docked .artifact-copy { display: none; }
+.narrow-layout .artifact-equipped-strip { padding: 8px 4px; }
+.narrow-layout .artifact-strip-character { margin-right: 8px; }
+.narrow-layout .artifact-hub-slots { flex-direction: row; align-items: center; justify-content: center; }
+.narrow-layout .artifact-hub-slots .artifact-equipment-slot { position: relative; left: auto; right: auto; top: auto; bottom: auto; }

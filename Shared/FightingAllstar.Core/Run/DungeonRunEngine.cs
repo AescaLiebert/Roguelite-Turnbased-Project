@@ -201,7 +201,24 @@ namespace FightingAllstar.Core.Run
                 error = "Encounter needs one to four living player fighters.";
                 return false;
             }
-            foreach (var enemy in node.EnemyTeamSnapshot) result.EnemyTeam.Add(enemy.Clone());
+            foreach (var enemy in node.EnemyTeamSnapshot)
+            {
+                var encounterEnemy = enemy.Clone();
+                // Older saved routes contain placeholder minion attacks. Keep their frozen stats,
+                // but refresh minion combat data from the current fighter catalog when entering battle.
+                if (encounterEnemy.EnemyKind != DungeonEnemyKind.Fighter)
+                {
+                    var source = FindCatalogDefinition(catalog, encounterEnemy.DefinitionId);
+                    if (source != null)
+                    {
+                        encounterEnemy.Definition = source.Clone();
+                        encounterEnemy.Definition.DisplayName = encounterEnemy.EnemyKind == DungeonEnemyKind.EliteMinion
+                            ? "Elite Minion" : "Minion";
+                        encounterEnemy.Definition.ArtifactLoadout.Clear();
+                    }
+                }
+                result.EnemyTeam.Add(encounterEnemy);
+            }
             encounter = result;
             return true;
         }

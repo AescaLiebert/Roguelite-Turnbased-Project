@@ -33,8 +33,12 @@ namespace FightingAllstar.Presentation.Route
         private SliderInt _difficulty;
         private Label _status, _description, _reward;
         private Button _start;
+        private int SelectedPhase => Math.Max(1, Array.IndexOf(DungeonProfile.PhaseNames, _phase.value) + 1);
+        private int SelectedSubPhase => Math.Max(0, Array.IndexOf(DungeonProfile.SubPhaseNames, _subPhase.value));
+        private string _recommendationKey;
+        private long _recommendedCC;
         public string SelectedStageId => _selectedStage;
-        private DungeonProfile Profile => DungeonFlowContext.CreateEntryProfile(Stages.First(s => s.Card == _selectedStage).Series, _phase.index + 1, _subPhase.index, seriesBoss: _mode?.index == 1);
+        private DungeonProfile Profile => DungeonFlowContext.CreateEntryProfile(Stages.First(s => s.Card == _selectedStage).Series, SelectedPhase, SelectedSubPhase, seriesBoss: _mode?.index == 1);
 
         private void OnEnable()
         {
@@ -82,6 +86,7 @@ namespace FightingAllstar.Presentation.Route
         {
             _userId = userId; _version = contentVersion; _hash = contentHash;
             _catalog = catalog?.Select(c => c.Clone()).ToList(); _unavailable = null;
+            _recommendationKey = null;
             if (!_initialized) return;
             Refresh();
         }
@@ -104,15 +109,18 @@ namespace FightingAllstar.Presentation.Route
         private void Refresh()
         {
             if (!_initialized) return;
+            RefreshAvailableFilters();
             var profile = Profile;
             var enemies = _catalog?.Where(c => c.RuntimeReady && c.BaseStats != null && profile.Accepts(c)).ToList() ?? new List<CharacterDefinition>();
             var owned = PlayerInventoryService.Instance?.GetOwnedDefinitions().Where(c => c.RuntimeReady && DungeonFlowContext.IsCharacterEligible(profile, c)).ToList() ?? new List<CharacterObject>();
             foreach (var stage in Stages)
             {
-                var stageProfile = DungeonFlowContext.CreateEntryProfile(stage.Series, _phase.index + 1, _subPhase.index);
+                var stageProfile = DungeonFlowContext.CreateEntryProfile(stage.Series, SelectedPhase, SelectedSubPhase);
                 var count = _catalog?.Count(c => c.RuntimeReady && c.BaseStats != null && stageProfile.Accepts(c)) ?? 0;
                 _root.Q<Button>(stage.Card).EnableInClassList("selected", stage.Card == _selectedStage);
-                _root.Q<Label>(stage.Card + "-availability").text = count == 0 ? "NO READY FIGHTERS IN THIS FILTER" : count + " READY FIGHTERS";
+                var hasStage = DungeonAvailability.Phases(stage.Series, _catalog).Count > 0;
+                _root.Q<Button>(stage.Card).SetEnabled(hasStage);
+                _root.Q<Label>(stage.Card + "-availability").text = !hasStage ? "NO AVAILABLE ENEMY ROSTER" : count < 4 ? "SELECT TO VIEW AVAILABLE STAGES" : count + " READY FIGHTERS";
             }
             _root.Q<Label>("configuration-title").text = profile.DisplayName;
             _root.Q<Label>("difficulty-value").text = DungeonDifficulty.Display(_difficulty.value);
@@ -120,6 +128,21 @@ namespace FightingAllstar.Presentation.Route
             AccountHeaderView.Refresh(_root);
             _root.Q<Label>("stage-route-info").text = profile.Mode == DungeonMode.SeriesChallengeBoss ? "SERIES BOSS · EXCLUSIVE RELIC CORE" : profile.Rows.Count + " ROUTE ROWS · BRANCHING PATHS";
             var difficulty = DungeonDifficulty.BonusPercent(_difficulty.value);
+            var recommendation = _root.Q<Label>("recommended-combat-class");
+            if (recommendation != null)
+            {
+                var key = profile.Id + ":" + difficulty;
+                if (key != _recommendationKey)
+                {
+                    _recommendedCC = 0;
+                    if ((profile.Mode != DungeonMode.SeriesChallengeBoss || !string.IsNullOrEmpty(profile.SeriesId)) &&
+                        DungeonAvailability.HasEnemyRoster(profile, _catalog))
+                        _recommendedCC = DungeonEnemyFactory.RecommendedCombatClass(profile, _catalog, difficulty);
+                    _recommendationKey = key;
+                }
+                recommendation.text = _recommendedCC > 0 ? "RECOMMENDED TEAM CC  " + _recommendedCC.ToString("N0") : "RECOMMENDED TEAM CC  —";
+                recommendation.tooltip = "Based on enemy teams including the boss. Combat Class predicts turn order; team skills and route recovery also affect success.";
+            }
             _reward.text = "REWARD PREVIEW";
             _start.SetEnabled(!_busy && _unavailable == null && enemies.Select(c => c.Id).Distinct().Count() >= 4 && owned.Count >= 1);
             if (_status != null) _status.text = _unavailable ?? (enemies.Count == 0 ? "No runtime-ready fighters in this dungeon's stage filter yet." :
@@ -141,8 +164,24 @@ namespace FightingAllstar.Presentation.Route
                 !ownedIds.Contains(c.DefinitionId) ? "Not owned" : null;
             CharacterGridView.Populate(_root.Q("dungeon-preview-grid"), matching, unavailableReason: unavailable, iconSize: 84,
                 emptyMessage: "No characters in this stage filter.");
-            if (_description != null) _description.text = profile.DisplayName + " · Through " + DungeonProfile.PhaseNames[_phase.index] + " / " + DungeonProfile.SubPhaseNames[_subPhase.index] + " (includes earlier stages)" +
+            if (_description != null) _description.text = profile.DisplayName + " · Through " + _phase.value + " / " + _subPhase.value + " (includes earlier stages)" +
                 " · " + matching.Count + " eligible characters · " + matching.Count(c => unavailable(c) == null) + " usable.";
+        }
+        private void RefreshAvailableFilters()
+        {
+            if (_catalog == null) return;
+            var series = Stages.First(s => s.Card == _selectedStage).Series;
+            var phases = DungeonAvailability.Phases(series, _catalog).Select(p => DungeonProfile.PhaseNames[p - 1]).ToList();
+            var previousPhase = _phase.value;
+            _phase.choices = phases;
+            _phase.SetValueWithoutNotify(phases.Contains(previousPhase) ? previousPhase : phases.FirstOrDefault() ?? string.Empty);
+            _phase.SetEnabled(phases.Count > 0);
+            var subs = phases.Count == 0 ? new List<string>() : DungeonAvailability.SubPhases(series, SelectedPhase, _catalog)
+                .Select(s => DungeonProfile.SubPhaseNames[s]).ToList();
+            var previousSub = _subPhase.value;
+            _subPhase.choices = subs;
+            _subPhase.SetValueWithoutNotify(subs.Contains(previousSub) ? previousSub : subs.FirstOrDefault() ?? string.Empty);
+            _subPhase.SetEnabled(subs.Count > 0);
         }
         private void StartRun()
         {

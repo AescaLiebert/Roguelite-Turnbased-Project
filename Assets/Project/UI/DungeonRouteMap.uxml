@@ -5,6 +5,7 @@
         <ui:Instance template="AccountHeader" class="account-header-instance">
             <AttributeOverrides element-name="section-title" text="BATTLE / DUNGEON MAP"/>
         </ui:Instance>
+        <ui:VisualElement style="flex-grow: 1; position: absolute;"/>
         <ui:VisualElement class="screen-body">
             <ui:VisualElement class="route-header">
                 <ui:VisualElement class="route-heading">

@@ -520,16 +520,11 @@ public class CharacterSelectionManager : MonoBehaviour
         if (totalCCText == null || characterSlots == null) return;
         var total = characterSlots
             .Where(slot => slot?.AssignedCharacter != null)
-            .Sum(slot => slot.AssignedCharacter.Classpower);
+            .Sum(slot => (long)FightingAllstar.Presentation.Loadout.LoadoutStats.Resolve(slot.AssignedCharacter).CombatClass);
 
-        if (DungeonFlowContext.IsDungeonLoadoutMode && DungeonFlowContext.ActiveProfile != null)
-        {
-            totalCCText.text = $"{DungeonFlowContext.ActiveProfile.DisplayName} (Filtered) · CC: {total:N0}";
-        }
-        else
-        {
-            totalCCText.text = $"Total Team CC: {total:N0}";
-        }
+        var enemy = FightingAllstar.Presentation.Loadout.LoadoutStats.EnemyCombatClass;
+        totalCCText.text = FightingAllstar.Presentation.Loadout.LoadoutStats.Comparison(total, enemy);
+        totalCCText.color = total >= enemy && total > 0 ? new Color(.41f, .88f, .52f) : new Color(1f, .40f, .44f);
     }
 
     public void DeselectAll()

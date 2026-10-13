@@ -20,10 +20,10 @@ MonoBehaviour:
   traitIds:
   - trait.female
   - trait.soul-calibur
-  passiveSourceDescription: 'Increases the Basic Stats of Blue allies by 12%. When
-    one of Sophitia''s attacks does not crit, she deals additional damage based on
-    her Crit Chance. Soul Calibur: own Max HP +10% and Crit Resistance +10 percentage
-    points; ATK +12% only while attacking, without stacking or a lasting bonus.'
+  passiveSourceDescription: "Increases the Basic Stats of Blue allies by 12%. When
+    one of Sophitia's attacks does not crit, she deals additional damage based on
+    her Crit Chance. \n\n[Soul Calibur: own Max HP +10% and Crit Defense +10%; When
+    attacking will Increase ATK by +12%]"
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: c7e3e0ef983e8794dad5e1614a803380, type: 2}
@@ -52,22 +52,22 @@ MonoBehaviour:
     AttackBp: 1935
     DefenseBp: 2035
     HealthBp: 2135
-  Classpower: 3750
-  attack: 450
-  defense: 360
-  health: 6900
+  Classpower: 3805
+  attack: 380
+  defense: 350
+  health: 7000
   SecondaryStats:
-    PierceRate: 35
-    Resistance: 5
+    PierceRate: 10
+    Resistance: 0
     Regenerate: 10
-    CritChance: 20
-    CritDmg: 135
-    CritResistance: 35
-    CritDefense: 20
+    CritChance: 40
+    CritDmg: 130
+    CritResistance: 40
+    CritDefense: 30
     RecoveryRate: 110
     BlockChance: 20
     BlockPower: 25
-    LifeSteal: 17
+    LifeSteal: 8
     AvoidanceRate: 100
     EvadeRate: 0
     ControlRate: 100

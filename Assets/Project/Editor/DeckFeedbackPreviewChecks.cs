@@ -10,6 +10,7 @@ using FightingAllstar.Presentation.Combat;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using TMPro;
 
 namespace FightingAllstar.EditorTools
 {
@@ -18,12 +19,16 @@ namespace FightingAllstar.EditorTools
     public static class DeckFeedbackPreviewChecks
     {
         private const string Running = "DeckFeedbackChecks.Running";
+        private const string DetailScope = "DeckFeedbackChecks.DetailScope";
+        private static bool DetailsOnly => SessionState.GetBool(DetailScope, false);
         private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
         private static int _step;
         private static double _at;
         private static double _deadline;
         private static Button _held;
         private static Vector2 _destination;
+        private static Vector2 _heldOrigin;
+        private static BattleCharacterInspector _inspector;
         private static int _pointer;
         private static float _initialSpacing;
         private static int _drawSamples;
@@ -42,6 +47,17 @@ namespace FightingAllstar.EditorTools
         [MenuItem("Fighting Allstar/Validation/Deck Feedback")]
         public static void Run()
         {
+            SessionState.SetBool(DetailScope, false); Begin();
+        }
+
+        [MenuItem("Fighting Allstar/Validation/Skill Details and First Hold")]
+        public static void RunDetails()
+        {
+            SessionState.SetBool(DetailScope, true); Begin();
+        }
+
+        private static void Begin()
+        {
             SessionState.SetBool(Running, true);
             if (EditorApplication.isPlaying) EditorApplication.ExitPlaymode();
             _step = 0; _assertions = 0; _backgroundCaptured = false; _deadline = EditorApplication.timeSinceStartup + 90;
@@ -58,7 +74,7 @@ namespace FightingAllstar.EditorTools
 
         private static void Capture(string name)
         {
-            var folder = Path.GetFullPath("Logs/DeckFeedbackEvidence");
+            var folder = Path.GetFullPath(DetailsOnly ? "Logs/SkillDetailsEvidence" : "Logs/DeckFeedbackEvidence");
             Directory.CreateDirectory(folder);
             ScreenCapture.CaptureScreenshot(Path.Combine(folder, name + ".png"));
         }
@@ -166,7 +182,68 @@ namespace FightingAllstar.EditorTools
                             "Ultimate cards advertised a false merge.");
                         Call(c, "RefreshMergeAvailability", _fixture.Player);
                         Capture("00-merge-available");
-                        Next(17); break;
+                        Next(18); break;
+                    case 18:
+                        _held = views["fixture-a"].Q<Button>("card-button");
+                        _heldOrigin = _held.worldBound.center;
+                        using (var down = PointerDownEvent.GetPooled(new Event { type = EventType.MouseDown, mousePosition = _heldOrigin, button = 0 }))
+                        { _pointer = down.pointerId; down.target = _held; _held.SendEvent(down); }
+                        Next(19, .65); break;
+                    case 19:
+                        Check(_held.HasPointerCapture(_pointer) && (string)Get(c, "_dragCardId") == "fixture-a" && (string)Get(c, "_tooltipCardId") == "fixture-a", "The first timed hold lost capture or failed to start its live preview.");
+                        var kitArt = Resources.Load<FightingAllstar.Presentation.Navigation.CharacterKitArtSO>("UI/CharacterKitArt");
+                        Check(root.Q<UnityEngine.UIElements.Image>("tooltip-type-icon").sprite == kitArt.SkillIcon(_fixture.Player.Hand.First(card => card.Id == "fixture-a"), _fixture.Player.Fighters[0]) &&
+                            root.Q<UnityEngine.UIElements.Image>("tooltip-type-icon").sprite != kitArt.attack, "Held attack tooltip still uses the old card badge.");
+                        Check(CoreBattleSceneController.BuildInspectorCardTooltip(_fixture.Player.Fighters[0], 0, 0).CardTypeIcon == kitArt.skillUltimate, "Ultimate details lack the new skill glyph.");
+                        Check(root.Query<Label>().ToList().All(label => !label.text.Contains("MERGE")), "Merge text remains in the hand preview.");
+                        _destination = _heldOrigin + Vector2.left * 24;
+                        using (var move = PointerMoveEvent.GetPooled(new Event { type = EventType.MouseDrag, mousePosition = _destination, button = 0 }))
+                        { move.target = _held; _held.SendEvent(move); }
+                        Next(20, .15); break;
+                    case 20:
+                        Check(views["fixture-a"].style.translate.value.x.value < -18 && _held.HasPointerCapture(_pointer), "The first timed hold froze: inline=" + views["fixture-a"].style.translate.value.x.value + ", resolved=" + views["fixture-a"].resolvedStyle.translate.x + ", capture=" + _held.HasPointerCapture(_pointer));
+                        Capture("first-timed-hold"); Next(26, .2); break;
+                    case 26:
+                        using (var move = PointerMoveEvent.GetPooled(new Event { type = EventType.MouseDrag, mousePosition = _heldOrigin, button = 0 }))
+                        { move.target = _held; _held.SendEvent(move); }
+                        Check(Mathf.Abs(views["fixture-a"].style.translate.value.x.value) < 1 && _held.HasPointerCapture(_pointer), "The first held card cannot follow a second pointer movement.");
+                        using (var up = PointerUpEvent.GetPooled(new Event { type = EventType.MouseUp, mousePosition = _heldOrigin, button = 0 }))
+                        { up.target = _held; _held.SendEvent(up); }
+                        Check(Get(c, "_draft") == null && Get(c, "_dragCardId") == null && Get(c, "_tooltipCardId") == null, "Releasing an inspection-only hold committed an action or retained its preview.");
+                        var lookupMethod = typeof(CoreBattleSceneController).GetMethod("LoadCharacter", BindingFlags.Static | BindingFlags.NonPublic);
+                        Func<string, CharacterObject> lookup = key => (CharacterObject)lookupMethod.Invoke(null, new object[] { key });
+                        _inspector = new GameObject("Reference inspector fixture").AddComponent<BattleCharacterInspector>();
+                        _inspector.Open(_fixture.Clone(), _fixture.Player.Fighters[0].Id, key => lookup(key)?.FighterIcon,
+                            key => null, () => {}, (fighter, slot) => slot == 0 ? lookup(fighter.Definition.Id)?.Ultimate?.icon : slot == 1 ? lookup(fighter.Definition.Id)?.Skill1?.cardIcon : lookup(fighter.Definition.Id)?.Skill2?.cardIcon,
+                            (fighter, slot) => slot == 0 ? lookup(fighter.Definition.Id)?.Ultimate?.ultimateName : slot == 1 ? lookup(fighter.Definition.Id)?.Skill1?.cardName : lookup(fighter.Definition.Id)?.Skill2?.cardName,
+                            CoreBattleSceneController.BuildInspectorCardTooltip, lookup);
+                        _inspector.GetType().GetMethod("ShowCard", Private).Invoke(_inspector, new object[] { 1, 1 });
+                        Next(21, .25); break;
+                    case 21:
+                        Check(_inspector.GetComponentsInChildren<UnityEngine.UI.RawImage>().Count(image => image.name == "Rank frame") == 3, "Battle skill details omit the R1 to R3 artwork sequence.");
+                        Capture("08-reference-skill-ranks");
+                        Next(23, .2); break;
+                    case 23:
+                        _inspector.GetType().GetMethod("ShowCard", Private).Invoke(_inspector, new object[] { 0, 0 });
+                        Next(22, .25); break;
+                    case 22:
+                        Check(_inspector.GetComponentsInChildren<UnityEngine.UI.Button>().Count(button => button.name.StartsWith("Level ")) == 6 &&
+                            _inspector.GetComponentsInChildren<TextMeshProUGUI>().Any(text => text.text.Contains("CURRENT LEVEL")), "Battle ultimate details omit levels or current-level information.");
+                        Capture("09-reference-ultimate-levels");
+                        Next(24, .2); break;
+                    case 24:
+                        UnityEngine.Object.Destroy(_inspector.gameObject); _inspector = null;
+                        if (DetailsOnly) { Drag(hand); _held.ReleasePointer(_pointer); Next(25, .2); }
+                        else Next(17, .2);
+                        break;
+                    case 25:
+                        Check(Get(c, "_draft") == null && Get(c, "_dragCardId") == null && Get(c, "_tooltipCardId") == null, "Capture loss committed an action or left the tooltip/drag active.");
+                        Check(root.Q("drag-landing") == null && views.Values.All(view => view.resolvedStyle.scale == Vector3.one), "Capture loss left a landing marker or enlarged card.");
+                        SessionState.SetBool(Running, false); Application.runInBackground = _background;
+                        var evidence = Path.GetFullPath("Logs/SkillDetailsEvidence"); Directory.CreateDirectory(evidence);
+                        File.WriteAllText(Path.Combine(evidence, "Verification.txt"), "PASS: " + _assertions + " assertions. First timed hold, two pointer moves, release, capture loss, correct skill/ultimate glyphs, no Merge text, and native battle rank/ultimate detail layouts.");
+                        Debug.Log("SKILL DETAILS AND FIRST HOLD PASS: " + _assertions + " assertions; evidence in Logs/SkillDetailsEvidence.");
+                        break;
                     case 17:
                         _initialSpacing = views["fixture-a"].resolvedStyle.left - views["fixture-spacer"].resolvedStyle.left;
                         Check(_initialSpacing <= views["fixture-a"].Q<Button>().resolvedStyle.width + .1f,

@@ -76,6 +76,7 @@
                                 <ui:Label name="difficulty-value" text="1 · Easy" class="heavy"/>
                             </ui:VisualElement>
                             <ui:VisualElement class="stage-overview">
+                                <ui:Label name="recommended-combat-class" class="section-heading"/>
                                 <ui:VisualElement class="stage-overview-row">
                                     <ui:DropdownField name="dungeon-mode" label="MODE" class="stage-mode-field"/>
                                     <ui:VisualElement picking-mode="Ignore" class="selection-arena">

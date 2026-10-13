@@ -17,6 +17,15 @@ internal static partial class BattlePlaybackChecks
 
     public static void Main(string[] args)
     {
+        if (args.Contains("--dungeon-enemies"))
+        {
+            DungeonEnemyRefactorChecks(); DungeonPolicyChecks(); AdditionalDamageChecks(); SophitiaPassiveChecks();
+            StatTransferChecks(); InspectorPassiveChecks(); ConditionalEffectAndCounterChecks();
+            PassiveTriggerAndLifestealAndRecoveryChecks(); AoeAndStatusTickSimultaneousResolutionChecks();
+            OpeningAndFullBattleReplay(); DungeonArchitectureChecks();
+            Console.WriteLine("PASS: " + _assertions + " dungeon enemy progression, availability and action passive assertions.");
+            return;
+        }
         if (args.Contains("--seong-passive"))
         {
             SeongPassiveChecks();
@@ -65,6 +74,7 @@ internal static partial class BattlePlaybackChecks
             return;
         }
         HitReactionChecks();
+        DungeonEnemyRefactorChecks();
         if (args.Contains("--hit-reactions")) { Console.WriteLine("PASS: " + _assertions + " reaction assertions."); return; }
         StatTransferChecks();
         SeongPassiveChecks();

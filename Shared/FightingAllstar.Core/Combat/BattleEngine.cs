@@ -278,6 +278,7 @@ namespace FightingAllstar.Core.Combat
                     actualHealthDamage: (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)),
                     resolution: resolution);
             }
+            CharacterPassiveRuntime.ResolveActionDamageReactions(state, card.Id);
             ResolvePendingPassiveEffects(state, card.Id);
             AddEvent(state, BattleEventKind.ActionCompleted, owner.Id, null, card.Id, 0, "Action complete.");
             ApplyPendingDefeats(state, pendingDefeats, card.Id, owner, card);
@@ -366,6 +367,7 @@ namespace FightingAllstar.Core.Combat
                             counter.Kind == CardKind.Ultimate, CardHealthDamageTotal(state, counter.Id, target.Id), includeGroupEffects: target == targets[0],
                             resolution: resolution);
                     }
+                    CharacterPassiveRuntime.ResolveActionDamageReactions(state, counter.Id);
                     ResolvePendingPassiveEffects(state, counter.Id);
                     AddEvent(state, BattleEventKind.CounterEnded, defender.Id, attacker.Id, counter.Id, 0, "Counter complete.");
                     if (IsAttack(counter.Category) && effect.Kind == EffectKind.Damage)
@@ -532,7 +534,7 @@ namespace FightingAllstar.Core.Combat
             CharacterPassiveRuntime.NotifyDamageResolved(state, owner, target, damage.CalculatedDamage, card.Id,
                 cardOrigin: true, isUltimate: card.Kind == CardKind.Ultimate, family: effect.Family,
                 category: CardRules.GetEffectCategory(card), cardRank: card.Rank, wasCritical: damage.WasCritical,
-                wasBlocked: damage.WasBlocked, hitIndex: hitIndex, hitCount: hitCount);
+                wasBlocked: damage.WasBlocked, hitIndex: hitIndex, hitCount: hitCount, deferUntilActionResolved: true);
 
             var hasSequenceGaugeDrain = effect?.Sequence != null && effect.Sequence.Exists(s => s?.Effect?.Kind == EffectKind.ChangePowerGauge);
             if (hitIndex == hitCount && !hasSequenceGaugeDrain && target.IsAlive && target.Health > 0 &&

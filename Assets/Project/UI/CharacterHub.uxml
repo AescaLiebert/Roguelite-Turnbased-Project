@@ -5,10 +5,9 @@
     <ui:VisualElement class="hub-page">
         <ui:VisualElement picking-mode="Ignore" class="hub-background" style="background-image: none; background-color: rgba(29, 29, 29, 0.88);"/>
         <ui:VisualElement picking-mode="Ignore" class="hub-background-tint"/>
-        <ui:VisualElement class="hub-hero" style="width: 50%;">
-            <ui:Image name="hub-portrait" picking-mode="Ignore" class="hub-portrait"/>
-        </ui:VisualElement>
-        <ui:VisualElement class="hub-details" style="padding-left: 28px; padding-right: 20px;">
+        <ui:Image name="hub-portrait" picking-mode="Ignore" class="hub-portrait" style="background-image: none; -unity-background-scale-mode: scale-to-fit; position: absolute; height: 994px; width: 1111px; top: 66px; left: -108px;"/>
+        <ui:VisualElement class="hub-hero" style="overflow: visible;"/>
+        <ui:VisualElement class="hub-details" style="padding-left: 28px; padding-right: 20px; overflow: visible; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement class="hub-tabs">
                 <ui:Button name="hub-tab-kit" text="CHARACTER KIT" class="hub-tab heavy"/>
                 <ui:Button name="hub-tab-upgrade" text="UPGRADE" class="hub-tab heavy"/>
@@ -30,13 +29,13 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="hub-stats" class="basic-stat-preview"/>
                     </ui:VisualElement>
-                    <ui:VisualElement class="hub-card hub-column" style="background-color: rgba(8, 18, 31, 0); height: 323px;">
+                    <ui:VisualElement class="hub-card hub-column hub-kit-panel" style="background-color: rgba(8, 18, 31, 0);">
                         <ui:Label text="CHARACTER KIT" class="hub-card-title heavy"/>
                         <ui:VisualElement name="hub-kit-icons" class="hub-kit-icons" style="justify-content: center;">
-                            <ui:Instance template="BattleCard" name="hub-card-1" class="hub-kit-card" style="width: 136.8px; height: 218.4px;"/>
-                            <ui:Instance template="BattleCard" name="hub-card-2" class="hub-kit-card" style="width: 136.8px; height: 218.4px;"/>
-                            <ui:Instance template="BattleCard" name="hub-card-0" class="hub-kit-card ultimate-card" style="width: 136.8px; height: 218.4px;"/>
-                            <ui:Button name="hub-passive-button" tooltip="Inspect passive" class="hub-passive-icon" style="width: 120px; height: 120px;">
+                            <ui:Instance template="BattleCard" name="hub-card-1" class="hub-kit-card"/>
+                            <ui:Instance template="BattleCard" name="hub-card-2" class="hub-kit-card"/>
+                            <ui:Instance template="BattleCard" name="hub-card-0" class="hub-kit-card ultimate-card"/>
+                            <ui:Button name="hub-passive-button" tooltip="Inspect passive" class="hub-passive-icon">
                                 <ui:Image name="hub-passive-image" picking-mode="Ignore"/>
                                 <ui:Label text="P" picking-mode="Ignore" class="hub-passive-marker"/>
                             </ui:Button>
@@ -53,7 +52,7 @@
                         </ui:VisualElement>
                         <ui:VisualElement name="hub-upgrade-stats" class="basic-stat-preview"/>
                     </ui:VisualElement>
-                    <ui:VisualElement class="hub-upgrade-controls">
+                    <ui:VisualElement name="VisualElement" class="hub-upgrade-controls">
                         <ui:VisualElement name="hub-upgrade-material-section" class="hub-upgrade-material-section">
                             <ui:Label text="REQUIRED MATERIALS" class="hub-upgrade-material-title heavy" style="-unity-text-align: upper-center; margin-bottom: 10px;"/>
                             <ui:VisualElement name="hub-upgrade-materials" class="item-reward-grid hub-materials"/>
@@ -62,11 +61,9 @@
                             <ui:VisualElement name="hub-upgrade-coin-icon" class="hub-upgrade-coin-icon account-coin" style="margin-left: 20px; width: 50px; height: 50px;"/>
                             <ui:VisualElement class="hub-upgrade-coin-copy">
                                 <ui:Label name="hub-upgrade-coin-cost" class="hub-upgrade-coin-cost heavy"/>
-                                <ui:Label name="hub-upgrade-coin-owned" class="hub-upgrade-coin-owned"/>
                             </ui:VisualElement>
                             <ui:Button name="hub-upgrade-action" text="LEVEL UP" class="action-button primary-action"/>
                         </ui:VisualElement>
-                        <ui:Label name="hub-upgrade-result" class="hub-upgrade-result" style="display: none;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="hub-page-constellation" class="hub-tab-page" style="display: none;">

@@ -86,7 +86,8 @@ namespace FightingAllstar.Presentation
             frame.Add(label); return label;
         }
 
-        public const int TileSide = 96, FooterHeight = 20;
+        public const float GridScale = 1.2f;
+        public const float TileSide = 96 * GridScale, FooterHeight = 20 * GridScale;
         internal static void StandardizeTile(VisualElement tile)
         {
             tile.style.width = TileSide + 4; tile.style.height = TileSide + FooterHeight + 4; tile.style.minWidth = TileSide + 4; tile.style.minHeight = TileSide + FooterHeight + 4;
@@ -193,7 +194,7 @@ namespace FightingAllstar.Presentation
             icon.AddToClassList("item-tooltip-preview-icon"); preview.Add(icon);
             var stars = new Label(new string('★', Mathf.Clamp(rarity, 1, 5))); stars.AddToClassList("item-tooltip-preview-stars"); preview.Add(stars); dialog.Add(preview);
             var scroll = new ScrollView(ScrollViewMode.Vertical) { name = "item-tooltip-content-panel",
-                horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Auto };
+                horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
             scroll.AddToClassList("item-tooltip-content-panel"); dialog.Add(scroll);
             var body = new VisualElement(); body.AddToClassList("item-tooltip-content"); scroll.Add(body); return body;
         }

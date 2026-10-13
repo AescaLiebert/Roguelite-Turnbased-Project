@@ -21,12 +21,12 @@ MonoBehaviour:
     description: Increases own damage dealt by 50% and reduces damage received by
       50% for 2 turns, then deals 300% ATK damage to all enemies and disables their
       Debuff cards for 2 turns.
-    skillType: 5
+    skillType: 6
     runtimeEffect:
       Attack:
-        HitCount: 9
+        HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.ultimate.0
       Kind: 0
@@ -463,14 +463,14 @@ MonoBehaviour:
           Target: 3
   - level: 1
     description: Increases own damage dealt by 50% and reduces damage received by
-      50% for 2 turns, then deals 300% ATK damage to all enemies and disables their
+      50% for 2 turns, then deals 340% ATK damage to all enemies and disables their
       Debuff cards for 2 turns.
-    skillType: 5
+    skillType: 6
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.ultimate.1
       Kind: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 34000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -907,14 +907,14 @@ MonoBehaviour:
           Target: 3
   - level: 2
     description: Increases own damage dealt by 50% and reduces damage received by
-      50% for 2 turns, then deals 300% ATK damage to all enemies and disables their
+      50% for 2 turns, then deals 380% ATK damage to all enemies and disables their
       Debuff cards for 2 turns.
-    skillType: 5
+    skillType: 6
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.ultimate.2
       Kind: 0
@@ -922,7 +922,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 38000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -1351,14 +1351,14 @@ MonoBehaviour:
           Target: 3
   - level: 3
     description: Increases own damage dealt by 50% and reduces damage received by
-      50% for 2 turns, then deals 300% ATK damage to all enemies and disables their
+      50% for 2 turns, then deals 420% ATK damage to all enemies and disables their
       Debuff cards for 2 turns.
-    skillType: 5
+    skillType: 6
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.ultimate.3
       Kind: 0
@@ -1366,7 +1366,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 42000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -1795,14 +1795,14 @@ MonoBehaviour:
           Target: 3
   - level: 4
     description: Increases own damage dealt by 50% and reduces damage received by
-      50% for 2 turns, then deals 300% ATK damage to all enemies and disables their
+      50% for 2 turns, then deals 460% ATK damage to all enemies and disables their
       Debuff cards for 2 turns.
-    skillType: 5
+    skillType: 6
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.ultimate.4
       Kind: 0
@@ -1810,7 +1810,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 46000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -2239,14 +2239,14 @@ MonoBehaviour:
           Target: 3
   - level: 5
     description: Increases own damage dealt by 50% and reduces damage received by
-      50% for 2 turns, then deals 300% ATK damage to all enemies and disables their
+      50% for 2 turns, then deals 500% ATK damage to all enemies and disables their
       Debuff cards for 2 turns.
-    skillType: 5
+    skillType: 6
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.ultimate.5
       Kind: 0
@@ -2254,7 +2254,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 50000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []

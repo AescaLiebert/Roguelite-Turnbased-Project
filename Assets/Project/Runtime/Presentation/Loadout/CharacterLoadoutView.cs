@@ -72,11 +72,16 @@ namespace FightingAllstar.Presentation.Loadout
                 {
                     var owned = PlayerInventoryService.Instance?.FindOwnedByDefinition(character.DefinitionId);
                     var runFighter = DungeonFlowContext.ActiveRun?.Roster.Find(f => f.DefinitionId == character.DefinitionId);
-                    var health = runFighter == null ? Mathf.RoundToInt(character.health).ToString("N0") :
-                        runFighter.IsDefeated ? "DEFEATED" : runFighter.CurrentHealth.ToString("N0") + " / " + runFighter.Stats.MaxHealth.ToString("N0");
+                    var resolved = LoadoutStats.Resolve(character);
+                    var health = resolved.MaxHealth.ToString("N0");
                     var stats = new Label("Lv. " + (owned?.level ?? 1) + " · C" + (owned?.constellationTier ?? 0) + "\nHP " + health +
-                        "\nATK " + Mathf.RoundToInt(character.attack).ToString("N0") + " · DEF " + Mathf.RoundToInt(character.defense).ToString("N0"));
+                        "\nATK " + resolved.Attack.ToString("N0") + " · DEF " + resolved.Defense.ToString("N0"));
                     stats.AddToClassList("formation-character-stats"); details.Add(stats);
+                    var healthBar = new VisualElement { name = "formation-health-" + i }; healthBar.AddToClassList("formation-health-bar");
+                    var fill = new VisualElement(); fill.AddToClassList("formation-health-fill");
+                    var remaining = runFighter == null ? resolved.MaxHealth : runFighter.IsDefeated ? 0 : runFighter.CurrentHealth;
+                    fill.style.width = Length.Percent(100 * Mathf.Clamp01(remaining / (float)Math.Max(1, resolved.MaxHealth)));
+                    healthBar.tooltip = "Remaining HP " + remaining.ToString("N0"); healthBar.Add(fill); details.Add(healthBar);
                     button.tooltip = character.FighterName + "\n" + stats.text;
                 }
                 button.RegisterCallback<PointerDownEvent>(evt => { if (evt.button == 0) { _pointerStart = evt.position; button.CapturePointer(evt.pointerId); } });
@@ -93,7 +98,13 @@ namespace FightingAllstar.Presentation.Loadout
                 slots.Add(button);
             }
             var assigned = Enumerable.Range(0, 4).Select(i => _manager.GetSlot(i)?.AssignedCharacter).Where(c => c != null).ToList();
-            _root.Q<Label>("formation-stats").text = "TEAM CC " + assigned.Sum(c => c.Classpower).ToString("N0");
+            var teamCC = LoadoutStats.TeamCombatClass(assigned);
+            var enemyCC = LoadoutStats.EnemyCombatClass;
+            var ccLabel = _root.Q<Label>("formation-stats");
+            ccLabel.text = LoadoutStats.Comparison(teamCC, enemyCC);
+            ccLabel.EnableInClassList("cc-first", assigned.Count > 0 && teamCC >= enemyCC);
+            ccLabel.EnableInClassList("cc-second", assigned.Count == 0 || teamCC < enemyCC);
+            ccLabel.tooltip = teamCC >= enemyCC && assigned.Count > 0 ? "Your team acts first." : "The enemy team acts first.";
             SetOptionalLabelText("loadout-status", "Selected " + (_selected == 3 ? "reserve" : "active position " + (_selected + 1)) + ". Choose a fighter to assign.");
             RefreshCollection();
         }

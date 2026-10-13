@@ -106,6 +106,9 @@ internal static partial class BattlePlaybackChecks
             var beforeRepeat = state.Events.Count;
             CharacterPassiveRuntime.NotifyDamageResolved(state, source, target, 1, "ultimate-transfer",
                 cardOrigin: true, isUltimate: true, category: CardCategory.Ultimate);
+            Check(state.Events.Count == beforeRepeat, "Repeated damage in the same action must not transfer stats again.");
+            CharacterPassiveRuntime.NotifyDamageResolved(state, source, target, 1, "ultimate-transfer-2",
+                cardOrigin: true, isUltimate: true, category: CardCategory.Ultimate);
             Check(source.Statuses.Instances.Count == 1 && target.Statuses.Instances.Count == 1 &&
                 state.Events.Skip(beforeRepeat).Count(e => e.Kind == BattleEventKind.StatusApplied &&
                     e.StatusOutcome == StatusApplyOutcome.Refreshed) == 2 &&

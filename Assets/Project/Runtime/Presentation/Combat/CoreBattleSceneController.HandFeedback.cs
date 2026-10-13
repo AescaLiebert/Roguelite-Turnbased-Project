@@ -28,8 +28,8 @@ namespace FightingAllstar.Presentation.Combat
             if (badge != null)
             {
                 // The held card already has the landing label; keep the partner's rank badge visible.
-                badge.style.display = available && !view.ClassListContains("drag-held") ? DisplayStyle.Flex : DisplayStyle.None;
-                badge.text = ready ? "RANK " + (rank >= 3 ? "III" : "II") : "MERGE";
+                badge.style.display = ready && !view.ClassListContains("drag-held") ? DisplayStyle.Flex : DisplayStyle.None;
+                badge.text = ready ? "RANK " + (rank >= 3 ? "III" : "II") : string.Empty;
                 badge.EnableInClassList("merge-ready", ready);
             }
         }
@@ -140,7 +140,7 @@ namespace FightingAllstar.Presentation.Combat
                 var local = _effectsLayer.WorldToLocal(_handRow.LocalToWorld(new Vector2(left, 0)));
                 _dragLanding.style.left = local.x - 14f;
                 _dragLanding.style.top = local.y - 16f;
-                _dragLandingLabel.text = mergeRanks.TryGetValue(cardId, out var landingRank) ? "MERGE → " + (landingRank >= 3 ? "III" : "II") : destination == _dragOriginalIndex ? "RETURN" : "MOVE";
+                _dragLandingLabel.text = mergeRanks.TryGetValue(cardId, out var landingRank) ? "RANK " + (landingRank >= 3 ? "III" : "II") : destination == _dragOriginalIndex ? "RETURN" : "MOVE";
             }
         }
 

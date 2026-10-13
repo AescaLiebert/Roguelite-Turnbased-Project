@@ -141,7 +141,7 @@ namespace FightingAllstar.Presentation.Combat
                 // LocalBattleSession may already have resolved an enemy-first turn. Display the opening state first.
                 _snapshot = initialState.Clone();
                 _displayState = BattlePlaybackState.BeforeOpeningDeal(initialState);
-                SpawnFighterViews(_snapshot);
+                SpawnFighterViews(_snapshot, encounter);
                 _stage = gameObject.AddComponent<BattleStagePresenter>();
                 _stage.Initialize(_fighterViews, _snapshot);
                 SetBattleHudVisible(false);
@@ -209,16 +209,17 @@ namespace FightingAllstar.Presentation.Combat
             }
         }
 
-        private void SpawnFighterViews(CoreBattleState state)
+        private void SpawnFighterViews(CoreBattleState state, EncounterProjection encounter)
         {
             _fighterViews.Clear();
             _fighterGroundOffsets.Clear();
             _fighterBillboards.Clear();
-            SpawnTeamViews(state.Player, "Hero");
-            SpawnTeamViews(state.Opponent, "Enemy");
+            SpawnTeamViews(state.Player, "Hero", encounter?.PlayerTeam, false);
+            SpawnTeamViews(state.Opponent, "Enemy", encounter?.EnemyTeam, true);
         }
 
-        private void SpawnTeamViews(BattleTeamState team, string anchorPrefix)
+        private void SpawnTeamViews(BattleTeamState team, string anchorPrefix,
+            IReadOnlyList<EncounterFighterSnapshot> encounterTeam, bool useEncounterLevel)
         {
             foreach (var fighter in team.Fighters)
             {
@@ -241,7 +242,7 @@ namespace FightingAllstar.Presentation.Combat
                 WireOpponentTarget(view, fighter.Id);
                 if (fighter.IsReserve) view.SetActive(false);
                 _fighterViews[fighter.Id] = view;
-                CreateCoreBillboard(fighter, view.transform);
+                CreateCoreBillboard(fighter, view.transform, encounterTeam, useEncounterLevel);
             }
         }
 
@@ -274,16 +275,24 @@ namespace FightingAllstar.Presentation.Combat
             target.Initialize(fighterId, SelectTarget);
         }
 
-        private void CreateCoreBillboard(FighterState fighter, Transform target)
+        private void CreateCoreBillboard(FighterState fighter, Transform target,
+            IReadOnlyList<EncounterFighterSnapshot> encounterTeam, bool useEncounterLevel)
         {
             var factory = FindFirstObjectByType<FighterWorldHudFactory>(FindObjectsInactive.Include);
             if (factory == null) return;
             var attrId = fighter.Definition?.AttributeId;
             var level = 1;
             var character = LoadCharacter(fighter.Definition?.Id);
+            if (useEncounterLevel && encounterTeam != null)
+                foreach (var encounterFighter in encounterTeam)
+                    if (encounterFighter != null && encounterFighter.FighterId == fighter.Id && encounterFighter.Level > 0)
+                    {
+                        level = encounterFighter.Level;
+                        break;
+                    }
             if (character != null)
             {
-                if (character.FighterLevel > 0) level = character.FighterLevel;
+                if (!useEncounterLevel && character.FighterLevel > 0) level = character.FighterLevel;
                 if (string.IsNullOrEmpty(attrId))
                 {
                     attrId = "attribute." + character.FighterAttribute.ToString().ToLowerInvariant();
@@ -361,7 +370,7 @@ namespace FightingAllstar.Presentation.Combat
             for (var index = team.Hand.Count - 1; index >= 0; index--)
             {
                 var view = _handCardViews[team.Hand[team.Hand.Count - 1 - index].Id];
-                if (view.parent != _handRow || _handRow.IndexOf(view) != index) _handRow.Insert(index, view);
+                if (_dragCardId == null && (view.parent != _handRow || _handRow.IndexOf(view) != index)) _handRow.Insert(index, view);
             }
             if (!string.IsNullOrEmpty(_tooltipCardId) && !presentIds.Contains(_tooltipCardId)) HideTooltip();
             LayoutHandCards();
@@ -383,7 +392,8 @@ namespace FightingAllstar.Presentation.Combat
             var rowWidth = _handRow.resolvedStyle.width;
             if (rowWidth <= 0f) return;
 
-            var team = _draft?.Preview ?? _snapshot?.Player;
+            var team = _isPlayingEvents || _isAnimatingCards || !_openingSequenceComplete
+                ? _displayState?.Player : _draft?.Preview ?? _snapshot?.Player;
             var capacity = Mathf.Max(count, team?.HandCapacity ?? 7);
             var step = HandStep(rowWidth, CardWidth, capacity, 20f);
             var totalWidth = CardWidth + (count - 1) * step;
@@ -391,7 +401,9 @@ namespace FightingAllstar.Presentation.Combat
 
             for (var index = 0; index < count; index++)
             {
-                var card = _handRow[index];
+                // Z-order changes during a hold must not move logical hand slots.
+                var id = team != null && index < team.Hand.Count ? team.Hand[team.Hand.Count - 1 - index].Id : null;
+                var card = id != null && _handCardViews.TryGetValue(id, out var view) ? view : _handRow[index];
                 card.style.position = Position.Absolute;
                 card.style.left = left + index * step;
                 card.style.width = CardWidth;
@@ -848,6 +860,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void BindBattleHud()
         {
+            _cardArt = Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt");
             if (battleDocument == null) battleDocument = GetComponent<UIDocument>();
             if (battleDocument == null)
             {
@@ -945,7 +958,7 @@ namespace FightingAllstar.Presentation.Combat
             if (isHandCard)
             {
                 button.Add(new CardEnergyElement { name = "card-merge-hint", Foreground = true });
-                var mergeBadge = new Label("MERGE") { name = "card-merge-badge", pickingMode = PickingMode.Ignore };
+                var mergeBadge = new Label { name = "card-merge-badge", pickingMode = PickingMode.Ignore };
                 mergeBadge.AddToClassList("card-merge-badge");
                 mergeBadge.style.display = DisplayStyle.None;
                 button.Add(mergeBadge);
@@ -954,15 +967,19 @@ namespace FightingAllstar.Presentation.Combat
             button.SetEnabled(onTap != null);
             if (onTap != null)
             {
+                // Card gestures own capture; Button's Clickable must not compete with the first hold.
+                button.clickable = null;
+                button.RegisterCallback<NavigationSubmitEvent>(evt => { if (CanPlan) onTap(); evt.StopPropagation(); });
                 var holding = false;
                 var dragging = false;
                 var pointerStart = Vector3.zero;
+                var pointerCurrent = Vector3.zero;
                 var pointerId = -1;
                 var originalLogicalIndex = -1;
                 IVisualElementScheduledItem holdJob = null;
                 button.RegisterCallback<PointerDownEvent>(evt =>
                 {
-                    if (!CanPlan) return;
+                    if (!CanPlan || pointerId >= 0 || evt.button != 0) return;
                     if (isHandCard)
                     {
                         originalLogicalIndex = (_draft?.Preview ?? _snapshot.Player).Hand.FindIndex(item => item.Id == card.Id);
@@ -973,16 +990,18 @@ namespace FightingAllstar.Presentation.Combat
                     holding = false;
                     dragging = false;
                     pointerStart = evt.position;
+                    pointerCurrent = evt.position;
                     pointerId = evt.pointerId;
                     button.CapturePointer(pointerId);
                     holdJob?.Pause();
                     holdJob = button.schedule.Execute(() =>
                     {
+                        if (pointerId < 0 || !CanPlan || !button.HasPointerCapture(pointerId)) return;
                         holding = true;
                         onHoldStarted?.Invoke();
-                        if (isHandCard) UpdateHandDrag(card.Id, new Vector2(pointerStart.x, pointerStart.y), Vector2.zero);
+                        if (isHandCard) UpdateHandDrag(card.Id, new Vector2(pointerCurrent.x, pointerCurrent.y), new Vector2(pointerCurrent.x - pointerStart.x, pointerCurrent.y - pointerStart.y));
                     }).StartingIn(250);
-                    evt.StopPropagation();
+                    evt.StopImmediatePropagation();
                 }, TrickleDown.TrickleDown);
                 button.RegisterCallback<PointerUpEvent>(evt =>
                 {
@@ -1005,7 +1024,7 @@ namespace FightingAllstar.Presentation.Combat
                     var changedSlot = wasDragging && destination >= 0 && destination != originalLogicalIndex && CanPlan;
                     ClearHandDrag(changedSlot);
                     if (!changedSlot) cardTree.style.translate = new Translate(0, 0);
-                    evt.StopPropagation();
+                    evt.StopImmediatePropagation();
 
                     // Dismiss tooltip upon release if it was opened
                     if (wasHolding)
@@ -1032,6 +1051,7 @@ namespace FightingAllstar.Presentation.Combat
                 button.RegisterCallback<PointerMoveEvent>(evt =>
                 {
                     if (pointerId != evt.pointerId || !CanPlan) return;
+                    pointerCurrent = evt.position;
                     var delta = evt.position - pointerStart;
                     if (dragging || delta.sqrMagnitude > 36f)
                     {
@@ -1040,7 +1060,8 @@ namespace FightingAllstar.Presentation.Combat
                         if (!holding) { holding = true; onHoldStarted?.Invoke(); }
                         if (isHandCard) UpdateHandDrag(card.Id, new Vector2(evt.position.x, evt.position.y), new Vector2(delta.x, delta.y));
                     }
-                });
+                    evt.StopImmediatePropagation();
+                }, TrickleDown.TrickleDown);
                 button.RegisterCallback<PointerCancelEvent>(evt =>
                 {
                     holdJob?.Pause();
@@ -1144,7 +1165,8 @@ namespace FightingAllstar.Presentation.Combat
                 !(_trainingMode && owner.Side == TeamSide.Player);
         }
 
-        private static readonly Dictionary<SkillType, Sprite> _skillTypeSprites = new Dictionary<SkillType, Sprite>();
+        private static CharacterKitArtSO _cardArt;
+        private static CharacterKitArtSO CardArt => _cardArt != null ? _cardArt : _cardArt = Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt");
 
         private static SkillType GetCardSkillType(CardState card, FighterState owner)
         {
@@ -1163,54 +1185,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private static Sprite LoadSkillTypeSprite(SkillType type)
         {
-            if (_skillTypeSprites.TryGetValue(type, out var cached) && cached != null)
-                return cached;
-
-            var fileName = type switch
-            {
-                SkillType.Attack => "Cardtype_Attack",
-                SkillType.Buff => "Cardtype_buff",
-                SkillType.Debuff => "Cardtype_Debuff",
-                SkillType.DebuffAtk => "Cardtype_Debuffatk",
-                SkillType.Heal => "Cardtype_Heal",
-                SkillType.Stance => "Cardtype_Stance",
-                SkillType.Ultimate => null,
-                _ => "Cardtype_Attack"
-            };
-            if (string.IsNullOrEmpty(fileName)) return null;
-
-#if UNITY_EDITOR
-            var edSprite = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Project/Art/UI/" + fileName + ".png");
-            if (edSprite != null)
-            {
-                _skillTypeSprites[type] = edSprite;
-                return edSprite;
-            }
-#endif
-            var res = Resources.Load<Sprite>("UI/" + fileName);
-            if (res != null)
-            {
-                _skillTypeSprites[type] = res;
-                return res;
-            }
-
-            var filePath = System.IO.Path.Combine(Application.dataPath, "Project", "Art", "UI", fileName + ".png");
-            if (System.IO.File.Exists(filePath))
-            {
-                try
-                {
-                    var bytes = System.IO.File.ReadAllBytes(filePath);
-                    var tex = new Texture2D(128, 128, TextureFormat.RGBA32, false);
-                    if (tex.LoadImage(bytes))
-                    {
-                        var sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
-                        _skillTypeSprites[type] = sprite;
-                        return sprite;
-                    }
-                }
-                catch { }
-            }
-            return null;
+            return CardArt?.Type(type);
         }
 
         private Texture2D RankFrameTexture(int rank) => Mathf.Clamp(rank, 1, 3) switch
@@ -1285,7 +1260,6 @@ namespace FightingAllstar.Presentation.Combat
             var character = LoadCharacter(owner.Definition.Id);
             var lookup = ResolveCardLookup(card, owner, character);
             var (description, keywords, statuses) = ExtractCardDetails(card, owner, character);
-            var type = GetCardSkillType(card, owner);
             return new InspectorCardTooltipData
             {
                 Title = GetCardTitle(card, owner, character),
@@ -1293,7 +1267,7 @@ namespace FightingAllstar.Presentation.Combat
                 Keywords = keywords,
                 Statuses = statuses,
                 CharacterIcon = ResolveCharacterIcon(owner, character),
-                CardTypeIcon = LoadSkillTypeSprite(type)
+                CardTypeIcon = CardArt?.SkillIcon(card, owner)
             };
         }
 
@@ -1356,10 +1330,10 @@ namespace FightingAllstar.Presentation.Combat
                 _tooltipCharacterIcon.scaleMode = ScaleMode.ScaleAndCrop;
             }
 
-            var skillType = GetCardSkillType(card, owner);
             if (_tooltipTypeIcon != null)
             {
-                _tooltipTypeIcon.sprite = LoadSkillTypeSprite(skillType);
+                _tooltipTypeIcon.sprite = CardArt?.SkillIcon(card, owner);
+                _tooltipTypeIcon.scaleMode = ScaleMode.ScaleToFit;
                 _tooltipTypeIcon.style.display = _tooltipTypeIcon.sprite != null ? DisplayStyle.Flex : DisplayStyle.None;
             }
 

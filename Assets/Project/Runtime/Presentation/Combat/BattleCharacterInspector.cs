@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using FightingAllstar.Presentation;
+using FightingAllstar.Presentation.Navigation;
 
 namespace FightingAllstar.Presentation.Combat
 {
@@ -62,7 +63,8 @@ namespace FightingAllstar.Presentation.Combat
                 if(text==null || text.rectTransform.rect.width<=0) continue;
                 var element=text.transform.parent.GetComponent<LayoutElement>();
                 if(element==null) continue;
-                var height=Mathf.Max(112,text.GetPreferredValues(text.text,text.rectTransform.rect.width,0).y+32);
+                var padding=Mathf.Max(32,text.rectTransform.offsetMin.y-text.rectTransform.offsetMax.y);
+                var height=Mathf.Max(112,text.GetPreferredValues(text.text,text.rectTransform.rect.width,0).y+padding);
                 element.minHeight=Mathf.Max(element.minHeight,112);
                 if(Mathf.Abs(element.preferredHeight-height)>1) element.preferredHeight=height;
             }
@@ -147,45 +149,37 @@ namespace FightingAllstar.Presentation.Combat
 
             Heading(content, "PASSIVE");
 
-            var row = Box(content, "Own passive", new Color(.065f, .205f, .29f));
+            var preview = Box(content, "Passive artwork", new Color(.97f, .90f, .74f)); Height(preview, 130);
+            var passiveIcon = Picture(preview, "Passive icon", passive.Icon != null ? passive.Icon : portrait?.Invoke(fighter.Definition.Id));
+            passiveIcon.anchorMin = passiveIcon.anchorMax = new Vector2(.5f, .5f); passiveIcon.pivot = new Vector2(.5f, .5f);
+            passiveIcon.sizeDelta = new Vector2(110, 110); passiveIcon.anchoredPosition = Vector2.zero;
+            var row = Box(content, "Own passive", new Color(.325f, .282f, .224f));
             Height(row, 112);
-            var stripe = Box(row, "Accent", Accent);
-            Stretch(stripe); stripe.anchorMax = new Vector2(0, 1); stripe.sizeDelta = new Vector2(3, 0);
-
-            var iconSprite = passive.Icon ?? portrait?.Invoke(fighter.Definition.Id);
-            var icon = Picture(row, "Passive icon", iconSprite);
-            Place(icon, 16, 18, 54, 54);
-
-            int badgeCount = passive.Statuses?.Count ?? 0;
-            if (badgeCount > 0)
-            {
-                for (int i = 0; i < badgeCount; i++)
+            var conditions = Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt")?.PassiveConditions(passive.SourceType).Where(c => c.icon != null).ToList();
+            var badgeCount = (passive.Statuses?.Count ?? 0) + (conditions?.Count ?? 0);
+            var badgeIndex = 0;
+            if (conditions != null)
+                foreach (var condition in conditions)
                 {
-                    var badge = passive.Statuses[i];
-                    var bIcon = Picture(row, "Passive status icon " + badge.Name, badge.Icon);
-                    Place(bIcon, -10 - (badgeCount - i) * 32, 18, 28, 28, true);
+                    var conditionIcon = Picture(row, "Passive condition " + condition.label, condition.icon);
+                    Place(conditionIcon, -10 - (badgeCount - badgeIndex++) * 32, 14, 28, 28, true);
                 }
-            }
-            else
+            foreach (var badge in passive.Statuses ?? new List<CombatStatusBadgeData>())
             {
-                var source = Picture(row, "Source portrait", portrait?.Invoke(fighter.Definition.Id));
-                Place(source, -66, 18, 48, 48, true);
+                var statusIcon = Picture(row, "Passive status icon " + badge.Name, badge.Icon);
+                Place(statusIcon, -10 - (badgeCount - badgeIndex++) * 32, 14, 28, 28, true);
             }
-
-            var meta = passive.SourceType;
-            if (!string.IsNullOrEmpty(passive.Restriction)) meta += "  ·  " + passive.Restriction;
-            if (fighter.IsReserve && !meta.Contains("SUB")) meta += "  ·  SUB";
-
-            var textContent = "<b>" + Name(fighter) + "</b> <size=70%><color=#94BACB>" + meta + "</color></size>\n" +
-                              "<size=19>" + passive.FormattedDescription + "</size>";
+            var title = Text(row, passive.Title, 20); Place(title.rectTransform, 16, 12, -(badgeCount * 32 + 36), 30);
+            title.enableAutoSizing = true; title.fontSizeMin = 14; title.fontSizeMax = 20;
+            var textContent = passive.FormattedDescription;
             if (!string.IsNullOrWhiteSpace(passive.Keywords))
             {
                 textContent += "\n<size=15>" + passive.Keywords + "</size>";
             }
 
-            var text = Text(row, textContent, 22);
+            var text = Text(row, textContent, 19);
             text.richText = true;
-            Stretch(text.rectTransform, 86, 14, Mathf.Max(84, badgeCount * 32 + 20), 14);
+            Stretch(text.rectTransform, 16, 54, 16, 14);
             fittedRows.Add(text);
         }
         public static string StatValue(FighterState fighter,StatId stat,StatBlock effective)
@@ -259,36 +253,49 @@ namespace FightingAllstar.Presentation.Combat
         private void ShowCard(int slot,int rank)
         {
             DismissCard();popup=Box(transform,"Card detail overlay",new Color(0,.01f,.025f,.85f));Stretch(popup);
-            var card=Box(popup,"Card details",Surface);card.anchorMin=new Vector2(.25f,.20f);card.anchorMax=new Vector2(.75f,.80f);card.offsetMin=card.offsetMax=Vector2.zero;
-            var title=Text(card,CardName(slot),22);Place(title.rectTransform,24,18,-98,40);
+            var card=Box(popup,"Card details",new Color(.97f,.90f,.74f));card.anchorMin=new Vector2(.23f,.08f);card.anchorMax=new Vector2(.77f,.92f);card.offsetMin=card.offsetMax=Vector2.zero;
+            var title=Text(card,slot==0?"ULTIMATE DETAILS":"SKILL DETAILS",26,new Color(.33f,.24f,.15f));Place(title.rectTransform,24,18,-98,40);title.alignment=TextAlignmentOptions.Center;
             var close=Button(card,"Close card","×",DismissCard);Place(close,-66,20,42,40,true);
-            var choices=Box(card,"Card levels",Color.clear);Place(choices,24,78,-48,42);Horizontal(choices,6);
+            close.GetComponent<Image>().color=new Color(.62f,.10f,.12f);
+            var kitArt=Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt");
+            var charObj=characterLookup?.Invoke(selected.Definition.Id);
+            float copyTop;
+            if(slot==0)
+            {
+                var hero=Box(card,"Ultimate card preview",Color.clear);Place(hero,24,68,-48,192);CardPreview(hero,slot,3,kitArt,charObj);
+                var current=Text(card,"CURRENT LEVEL "+selected.ConstellationTier,18,new Color(.41f,.29f,.13f));Place(current.rectTransform,24,263,-48,28);current.alignment=TextAlignmentOptions.Center;
+                copyTop=360;
+            }
+            else copyTop=320;
+            var choices=Box(card,"Card levels",Color.clear);Place(choices,24,slot==0?298:76,-48,slot==0?48:228);Horizontal(choices,6);
             for(int i=slot==0?0:1;i<=(slot==0?5:3);i++)
             {
-                int level=i;var choice=Button(choices,(slot==0?"Level ":"Rank ")+i,(slot==0?"Lv ":"Rank ")+i,()=>ShowCard(slot,level),i==rank);
+                if(slot!=0&&i>1){var arrow=Text(choices,"→",38,new Color(.80f,.56f,.13f));arrow.alignment=TextAlignmentOptions.Center;var arrowLayout=arrow.gameObject.AddComponent<LayoutElement>();arrowLayout.preferredWidth=38;arrowLayout.flexibleWidth=0;}
+                int level=i;var choice=Button(choices,(slot==0?"Level ":"Rank ")+i,slot==0?"Lv "+i+(i==selected.ConstellationTier?"\n<size=11>CURRENT</size>":""):"",()=>ShowCard(slot,level),i==rank);
+                choice.GetComponent<Image>().color=i==rank?new Color(.12f,.75f,.84f,.35f):Color.clear;
+                if(slot==0){choice.GetComponent<Image>().color=i==rank?new Color(.76f,.90f,.87f):new Color(.94f,.84f,.65f);choice.GetComponentInChildren<TextMeshProUGUI>().color=new Color(.33f,.24f,.15f);}
                 choice.gameObject.AddComponent<LayoutElement>().flexibleWidth=1;
+                if(slot!=0){CardPreview(choice,slot,i,kitArt,charObj);var caption=Text(choice,"R"+i,17,new Color(.33f,.24f,.15f));Place(caption.rectTransform,0,200, -1,24);caption.alignment=TextAlignmentOptions.Center;}
             }
-            var root=Box(card,"Card description",Color.clear);Stretch(root,24,140,24,22);var content=Scroll(root,"Card scroll");
+            var root=Box(card,"Card description",new Color(.325f,.282f,.224f));Stretch(root,0,copyTop,0,0);
+            var inset=Box(root,"Description inset",Color.clear);Stretch(inset,20,16,20,16);var content=Scroll(inset,"Card scroll");
             var skill=selected.Definition.Skills.FirstOrDefault(s=>s.Slot==slot);
             var skillRank=skill?.Ranks.FirstOrDefault(r=>r.Rank==rank);
             var ultimate=selected.Definition.UltimateTiers.FirstOrDefault(t=>t.Tier==rank);
             bool exists=slot==0?ultimate!=null:skillRank!=null;
-            var scope=(slot==0?ultimate?.Effect?.Target:(skillRank?.HasCardKind==true?skillRank.TargetScope:skill?.TargetScope))?.ToString();
             var tooltip=cardTooltip?.Invoke(selected,slot,rank);
-            var cardHeader=Box(content,"Tooltip card header",Raised);Height(cardHeader,70);
-            var ownerIcon=Picture(cardHeader,"Character portrait",tooltip?.CharacterIcon??portrait(selected.Definition.Id));Place(ownerIcon,8,4,60,60);
-            var typeIcon=Picture(cardHeader,"Card type icon",tooltip?.CardTypeIcon);Place(typeIcon,76,23,24,24);
+            var cardHeader=Box(content,"Tooltip card header",Color.clear);Height(cardHeader,56);
+            var typeIcon=Picture(cardHeader,"Skill icon",tooltip?.CardTypeIcon);Place(typeIcon,8,12,32,32);
             if(tooltip?.CardTypeIcon==null)typeIcon.gameObject.SetActive(false);
             var statusBadges=tooltip?.Statuses??new List<CoreBattleSceneController.StatusBadgeData>();
             var headerTitle=Text(cardHeader,tooltip?.Title??CardName(slot),20);headerTitle.enableWordWrapping=true;headerTitle.enableAutoSizing=true;headerTitle.fontSizeMin=14;headerTitle.fontSizeMax=20;
-            Stretch(headerTitle.rectTransform,110,14,Mathf.Max(14,statusBadges.Count*34+8),12);headerTitle.alignment=TextAlignmentOptions.MidlineLeft;
+            Stretch(headerTitle.rectTransform,52,12,Mathf.Max(14,statusBadges.Count*34+8),12);headerTitle.alignment=TextAlignmentOptions.MidlineLeft;
             for(int i=0;i<statusBadges.Count;i++)
             {
                 var icon=Picture(cardHeader,"Tooltip status icon "+statusBadges[i].Name,statusBadges[i].Icon);
                 Place(icon,-10-(statusBadges.Count-i)*32,20,28,28,true);
             }
             var rankLabel=Text(content,(slot==0?"ULTIMATE LEVEL ":"RANK ")+rank,14,Accent);Height(rankLabel.rectTransform,24);
-            if(!string.IsNullOrEmpty(scope)){var target=Text(content,"Target: "+Label(scope),17,Muted);Height(target.rectTransform,28);}
             var divider=Box(content,"Tooltip divider",new Color(.88f,.70f,.38f,.6f));Height(divider,1);
             var descriptionText=tooltip?.Description;
             if(string.IsNullOrWhiteSpace(descriptionText))descriptionText=exists?(slot==0?ultimate?.Description:skillRank?.Description):"No card data is authored for this level.";
@@ -297,6 +304,19 @@ namespace FightingAllstar.Presentation.Combat
             {
                 var keywords=Text(content,tooltip.Keywords,15,new Color(.34f,.74f,.93f));keywords.fontStyle=FontStyles.Bold;keywords.enableWordWrapping=true;var kwElement=keywords.gameObject.AddComponent<LayoutElement>();kwElement.minHeight=40;
             }
+        }
+        private void CardPreview(RectTransform parent,int slot,int rank,CharacterKitArtSO art,CharacterObject character)
+        {
+            var face=Box(parent,"Rank card artwork",Color.clear);face.anchorMin=face.anchorMax=new Vector2(.5f,1);face.pivot=new Vector2(.5f,1);face.anchoredPosition=new Vector2(0,-4);face.sizeDelta=new Vector2(104,188);
+            var sprite=cardArt?.Invoke(selected,slot);if(sprite==null)sprite=portrait?.Invoke(selected.Definition.Id);
+            var crop=Box(face,"Artwork crop",Color.clear);Stretch(crop,3,4,3,18);crop.gameObject.AddComponent<RectMask2D>();
+            var artwork=Picture(crop,"Card image",sprite);artwork.anchorMin=artwork.anchorMax=new Vector2(.5f,.5f);artwork.pivot=new Vector2(.5f,.5f);artwork.anchoredPosition=Vector2.zero;
+            var factor=sprite!=null?Mathf.Max(98/sprite.rect.width,166/sprite.rect.height):1;
+            artwork.sizeDelta=sprite!=null?sprite.rect.size*factor:new Vector2(98,166);artwork.GetComponent<Image>().preserveAspect=true;
+            var frame=new GameObject("Rank frame",typeof(RectTransform),typeof(RawImage));frame.transform.SetParent(face,false);Stretch((RectTransform)frame.transform);frame.GetComponent<RawImage>().texture=art?.Rank(rank);frame.GetComponent<RawImage>().raycastTarget=false;
+            var skill=slot==1?character?.Skill1:character?.Skill2;
+            var type=slot==0?null:art?.Type(skill?.GetRankData(rank)?.skillType??SkillType.Attack);
+            if(type!=null){var icon=Picture(face,"Card badge",type);Place(icon,-30,6,24,24,true);}
         }
         private static string Describe(StatusInstance status)
         {
@@ -344,14 +364,10 @@ namespace FightingAllstar.Presentation.Combat
         private static RectTransform Scroll(RectTransform root,string name)
         {
             var scroll=root.gameObject.AddComponent<ScrollRect>();scroll.horizontal=false;scroll.movementType=ScrollRect.MovementType.Clamped;
-            var viewport=Box(root,"Viewport",Color.clear);Stretch(viewport,0,0,12,0);viewport.gameObject.AddComponent<RectMask2D>();
+            var viewport=Box(root,"Viewport",Color.clear);Stretch(viewport);viewport.gameObject.AddComponent<RectMask2D>();
             var content=Box(viewport,name,Color.clear);content.anchorMin=new Vector2(0,1);content.anchorMax=Vector2.one;content.pivot=new Vector2(.5f,1);content.sizeDelta=Vector2.zero;
             var layout=content.gameObject.AddComponent<VerticalLayoutGroup>();layout.spacing=8;layout.childControlHeight=true;layout.childForceExpandHeight=false;layout.childControlWidth=true;layout.childForceExpandWidth=true;
             content.gameObject.AddComponent<ContentSizeFitter>().verticalFit=ContentSizeFitter.FitMode.PreferredSize;scroll.viewport=viewport;scroll.content=content;
-            var track=Box(root,"Scroll bar",Raised);track.anchorMin=new Vector2(1,0);track.anchorMax=Vector2.one;track.pivot=new Vector2(1,.5f);track.sizeDelta=new Vector2(5,0);track.anchoredPosition=Vector2.zero;
-            var handle=Box(track,"Handle",Muted);Stretch(handle);
-            var scrollbar=track.gameObject.AddComponent<Scrollbar>();scrollbar.direction=Scrollbar.Direction.BottomToTop;scrollbar.handleRect=handle;scrollbar.targetGraphic=handle.GetComponent<Image>();
-            scroll.verticalScrollbar=scrollbar;scroll.verticalScrollbarVisibility=ScrollRect.ScrollbarVisibility.AutoHide;
             return content;
         }
         private static void Stretch(RectTransform r,float l=0,float t=0,float right=0,float b=0){r.anchorMin=Vector2.zero;r.anchorMax=Vector2.one;r.offsetMin=new Vector2(l,b);r.offsetMax=new Vector2(-right,-t);}

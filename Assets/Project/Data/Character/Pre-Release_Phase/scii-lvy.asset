@@ -20,10 +20,9 @@ MonoBehaviour:
   traitIds:
   - trait.female
   - trait.soul-calibur
-  passiveSourceDescription: 'When Ivy lands a critical hit with an attack, grants
-    all allies ATK +10% for 2 turns. Soul Calibur: own Max HP +10% and Crit Resistance
-    +10 percentage points; ATK +12% only while attacking, without stacking or a lasting
-    bonus.'
+  passiveSourceDescription: "When Ivy lands a critical hit with an attack, grants
+    all allies ATK +10% for 2 turns. \n\n[Soul Calibur: own Max HP +10% and Crit
+    Defense +10%; When attacking will Increase ATK by +12%]"
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 05809237145220a4ba7043e3cf537521, type: 2}
@@ -52,10 +51,10 @@ MonoBehaviour:
     AttackBp: 1935
     DefenseBp: 2035
     HealthBp: 2135
-  Classpower: 3750
-  attack: 450
-  defense: 360
-  health: 6900
+  Classpower: 3620
+  attack: 520
+  defense: 280
+  health: 5700
   SecondaryStats:
     PierceRate: 10
     Resistance: 10

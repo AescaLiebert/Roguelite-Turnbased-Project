@@ -6,9 +6,9 @@
             <AttributeOverrides element-name="section-title" text="BATTLE / CHARACTER LOADOUT"/>
         </ui:Instance>
         <ui:VisualElement class="screen-body">
-            <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-content: center; justify-content: center; border-bottom-width: 0; margin-bottom: 10px;">
-                <ui:Label text="PREPARE YOUR TEAM" class="loadout-title heavy" style="width: 1498px; height: 63px;"/>
-                <ui:Button name="loadout-play" text="ENTER BATTLE  ›" class="action-button primary-action" style="height: 81px; width: 341px;"/>
+            <ui:VisualElement class="loadout-heading">
+                <ui:Label text="PREPARE YOUR TEAM" class="loadout-title heavy"/>
+                <ui:Button name="loadout-play" text="ENTER BATTLE  ›" class="action-button primary-action"/>
             </ui:VisualElement>
             <ui:VisualElement class="loadout-content">
                 <ui:VisualElement class="formation-panel surface-panel">

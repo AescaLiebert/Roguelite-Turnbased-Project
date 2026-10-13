@@ -217,7 +217,10 @@ namespace FightingAllstar.Presentation.Route
             var rewardHeading = new VisualElement(); rewardHeading.AddToClassList("stage-reward-heading-row"); _choicePanel.Add(rewardHeading);
             rewardHeading.Add(new Label("REWARDS") { name = "stage-reward-heading" });
             var basket = new Label(DungeonRewards.ArtifactBasketLabel(_run.RewardPhase, _run.RewardSubPhase)); basket.AddToClassList("stage-basket-badge"); rewardHeading.Add(basket);
-            var rewards = new VisualElement { name = "stage-reward-grid" }; _choicePanel.Add(rewards);
+            var rewardScroll = new ScrollView(ScrollViewMode.Horizontal)
+            { name = "stage-reward-scroll", horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
+            rewardScroll.AddToClassList("stage-reward-scroll"); _choicePanel.Add(rewardScroll);
+            var rewards = new VisualElement { name = "stage-reward-grid" }; rewardScroll.Add(rewards);
             ItemRewardView.Populate(rewards, DungeonRewards.Preview(_run, node), _document.rootVisualElement,
                 rule: item => DungeonRewards.PreviewRule(item, _run.DifficultyBonusPercent, node.Type,
                     new DungeonProfile { Phase = _run.RewardPhase, SubPhase = _run.RewardSubPhase, Mode = _run.Mode }),
@@ -246,10 +249,10 @@ namespace FightingAllstar.Presentation.Route
             header.Add(CharacterIconView.Create(character, 104, fighter.IsReserve ? "SUB" : (fighter.FormationSlot + 1).ToString()));
             var identity = new VisualElement(); identity.AddToClassList("enemy-popup-identity"); header.Add(identity);
             var name = new Label(d?.DisplayName ?? fighter.DefinitionId); name.AddToClassList("enemy-popup-name"); identity.Add(name);
-            identity.Add(new Label(DungeonProfile.SeriesDisplayName(d?.SeriesId) + " · C" + fighter.ConstellationTier));
+            identity.Add(new Label(DungeonProfile.SeriesDisplayName(d?.SeriesId) + " · Lv. " + fighter.Level + " · C" + fighter.ConstellationTier));
             identity.Add(new Label("HP  " + fighter.CurrentHealth.ToString("N0") + " / " + (stats?.MaxHealth ?? 0).ToString("N0")));
             var dismiss = new Button(close) { name = "close-enemy-info", text = "×", tooltip = "Close enemy details" }; dismiss.AddToClassList("enemy-popup-close"); header.Add(dismiss);
-            var scroll = new ScrollView(ScrollViewMode.Vertical) { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Auto }; scroll.AddToClassList("enemy-popup-scroll"); dialog.Add(scroll);
+            var scroll = new ScrollView(ScrollViewMode.Vertical) { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden }; scroll.AddToClassList("enemy-popup-scroll"); dialog.Add(scroll);
             var basic = new VisualElement(); BasicStatPreview.Render(basic, stats); scroll.Add(basic);
             if (stats != null)
             {
@@ -339,7 +342,7 @@ namespace FightingAllstar.Presentation.Route
             var caption = new Label(!granted ? "Your rewards are saved. Inventory delivery will retry automatically." :
                 _run.Status == RunStatus.Completed ? "Dungeon cleared. Your rewards are saved." : "Stage cleared. Prepare your team for the next stage."); caption.AddToClassList("body-copy"); dialog.Add(caption);
             var scroll = new ScrollView(ScrollViewMode.Horizontal) { name = "victory-reward-scroll",
-                horizontalScrollerVisibility = ScrollerVisibility.Auto, verticalScrollerVisibility = ScrollerVisibility.Hidden };
+                horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
             scroll.AddToClassList("reward-item-strip"); dialog.Add(scroll);
             var rewards = new VisualElement { name = "victory-reward-items" }; scroll.Add(rewards);
             rewards.style.flexWrap = Wrap.NoWrap;

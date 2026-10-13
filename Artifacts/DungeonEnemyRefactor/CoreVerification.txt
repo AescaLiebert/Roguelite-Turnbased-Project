@@ -1,0 +1,6 @@
+PASS: 9,879 focused core assertions, including availability, alias matching, enemy upgrade snapshots, minions, Nightmare gear/random constellations, multi-hit/AOE action passives, stance cancellation, transfer refresh, counter/status behavior, playback and dungeon architecture.
+PASS: 101 neutral status, stance, counter, healing, immunity and attribute assertions.
+PASS: Unity compilation completed without errors.
+PASS: 48 focused Unity UI assertions at 1920x1080, 1280x720 and 768x1024. Screenshots and UI verification are in this folder.
+Existing broad suite failures: First-hit status ran late; Regular preview must show possible series materials once and exclude premium materials. Both reproduced against unchanged HEAD core/checks in Temp/DungeonEnemyBaseline.
+All balance values remain starting values awaiting the documented playtest.

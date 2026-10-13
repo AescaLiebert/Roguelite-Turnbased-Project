@@ -81,7 +81,7 @@ namespace FightingAllstar.Core.Run
         public static readonly string[] SubPhaseNames = { "Launch", "Begin", "Middle", "Late", "META" };
 
         public bool Accepts(CharacterDefinition character) => character != null &&
-            (string.IsNullOrEmpty(SeriesId) || string.Equals(SeriesId, character.SeriesId, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(SeriesId) || string.Equals(NormalizeSeriesId(SeriesId), NormalizeSeriesId(character.SeriesId), StringComparison.OrdinalIgnoreCase)) &&
             (Phase == 0 || IncludesCategory(character.CategoryId)) &&
             (EligibleCharacterIds == null || EligibleCharacterIds.Count == 0 || EligibleCharacterIds.Contains(character.Id));
 
@@ -97,7 +97,7 @@ namespace FightingAllstar.Core.Run
 
         public static string SeriesDisplayName(string seriesId)
         {
-            switch (seriesId?.ToLowerInvariant())
+            switch (NormalizeSeriesId(seriesId))
             {
                 case null: case "": case "*": return "Open Circuit";
                 case "series.kof": return "KOF";
@@ -107,6 +107,10 @@ namespace FightingAllstar.Core.Run
                 default: return seriesId.Replace("series.", "");
             }
         }
+
+        // Existing Soul Calibur assets use series.sc; entry policies use the full stable name.
+        public static string NormalizeSeriesId(string seriesId) => string.Equals(seriesId?.Trim(), "series.sc", StringComparison.OrdinalIgnoreCase)
+            ? "series.soulcalibur" : seriesId?.Trim().ToLowerInvariant();
 
         public static DungeonProfile Filtered(string seriesId, int phase, int subPhase)
         {
@@ -232,6 +236,8 @@ namespace FightingAllstar.Core.Run
     [Serializable]
     public sealed class EncounterFighterSnapshot
     {
+        public int Level = 1;
+        public DungeonEnemyKind EnemyKind;
         public string FighterId;
         public string DefinitionId;
         public CharacterDefinition Definition;
@@ -242,6 +248,7 @@ namespace FightingAllstar.Core.Run
         public bool IsReserve;
 
         public EncounterFighterSnapshot Clone() => new EncounterFighterSnapshot { FighterId = FighterId, DefinitionId = DefinitionId,
+            Level = Level, EnemyKind = EnemyKind,
             Definition = Definition?.Clone(), Stats = Stats?.Clone(), CurrentHealth = CurrentHealth,
             ConstellationTier = ConstellationTier, FormationSlot = FormationSlot, IsReserve = IsReserve };
     }

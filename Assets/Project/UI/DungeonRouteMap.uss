@@ -65,7 +65,7 @@
 .victory-reward-dialog .modal-title { white-space: normal; margin-bottom: 14px; }
 .victory-reward-dialog .modal-scroll { min-height: 160px; flex-basis: auto; }
 .victory-reward-dialog .primary-button { flex-shrink: 0; }
-.victory-reward-dialog .reward-item-strip { flex-grow: 0; flex-shrink: 0; min-height: 178px; max-height: 190px; }
+.victory-reward-dialog .reward-item-strip { flex-grow: 0; flex-shrink: 0; height: 190px; min-height: 190px; max-height: 190px; }
 .victory-reward-dialog .reward-strip-hint { flex-shrink: 0; }
 .compact-layout .support-preview { padding: 16px; }
 .compact-layout .node-actions .support-value { font-size: 32px; }
@@ -130,9 +130,11 @@
 
 .stage-detail { width: 46%; }
 .compact-layout .stage-detail { width: 62%; }
-.victory-reward-dialog .reward-item-strip { height: 116px; min-height: 116px; max-height: 116px; }
-
-.reward-item-strip { height: 136px; min-height: 136px; max-height: 136px; }
-.victory-reward-dialog .reward-item-strip { height: 136px; min-height: 136px; max-height: 136px; }
 
 .compact-layout .route-header-actions Button { min-height: 40px; padding: 6px 12px; margin-top: 0; font-size: 20px; }
+
+/* Enlarged reward tiles retain their footer and scroll horizontally when necessary. */
+.stage-reward-scroll { height: 170px; min-height: 170px; flex-shrink: 0; }
+.stage-reward-scroll .dungeon-reward-preview { width: auto; flex-shrink: 0; }
+.compact-layout .stage-detail { width: 64%; }
+.narrow-layout .stage-detail { width: 100%; height: 72%; }

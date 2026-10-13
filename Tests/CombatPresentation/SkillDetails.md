@@ -1,0 +1,19 @@
+# Skill, ultimate, passive and first-hold presentation
+
+Skill details compare three authored rank cards (R1 → R2 → R3) above a separate description panel. Selecting a rank changes the description, status badges and selected outline without replacing the character-menu popup. Ultimate details expose levels 0–5 and retain a separate current-level marker while browsing. The battle character inspector uses the same card sequence and level conventions.
+
+Passive details show the authored passive image, falling back to the character portrait when none is assigned. The source/type and restriction labels are removed. Existing `passive_condition_*` artwork represents field/reserve activation and allowed battle modes; restrictions that are part of the passive's authored description remain in that description. Status icons still come from `CombatDetailFormatter`.
+
+`CharacterKitArt.asset` explicitly references bronze/silver/gold frames, existing card badges, the new `icon_skill_*` glyphs and passive conditions. Cards keep their authored type badges. Tooltip headers use Ultimate, Buff, Recovery, Stance, Single Target or AOE glyphs. Attack, attack/debuff and pure debuff actions use their actual targeting scope, while unchanged status icons identify their effects. No editor-only asset lookup or filesystem loading is needed for these icons in builds.
+
+The primary pointer gesture owns capture, including the first timed hold. The built-in Button click manipulator no longer competes with it; keyboard submit remains supported. The hold tracks the latest pointer position, and logical hand slots remain stable when the selected card changes drawing order. A stationary inspection or a drag back to the original slot releases without spending an action. Release, cancellation and capture loss dismiss the tooltip and clear temporary card effects. Existing hold timing and merge effects remain; the literal Merge label is removed, while a real pending rank increase still shows its rank.
+
+Player experience: rank artwork, arrows and a persistent current-level marker improve clarity; in-place rank switching and stable pointer capture improve response; authored card/status/condition icons preserve the game's visual fit. Persistent levels remain unchanged by browsing. Existing card lift, merge glow and cues continue to provide feedback.
+
+Run `RunArtifactImprovementsUiChecks.ps1 -SkillDetails` for the isolated 1920×1080 and 1280×720 character-menu fixture. Run **Fighting Allstar > Validation > Skill Details and First Hold** for the disposable battle fixture. Neither fixture changes a player's formation or run save. Portrait layouts are outside the target.
+
+2026-10-13 verification: 130 character-menu assertions passed across the two landscape sizes, including nonblank card artwork, stable R1/R2/R3 switching, every ultimate level, unchanged current-level ownership, unchanged status sprites, condition icons and runtime glyph mappings. The focused battle fixture passed 16 assertions covering the first delayed hold, repeated pointer movement, release without an action, capture-loss cancellation, correct tooltip glyphs, removed Merge text, and native battle inspector rank/ultimate layouts. Captures and reports are preserved in `Artifacts/SkillDetails`.
+
+The broader deck fixture's merge-flash sampling check failed to observe the white impact above its opacity threshold during a concurrent import run. The focused gesture/UI fixture does not validate that animation peak. No merge animation parameters were changed here.
+
+Manual follow-up: on a mouse and touch device, hold the first card after opening battle, move it left and right, return it to its slot, then release. Repeat with capture interruption and rapid rank browsing. The card should keep following the pointer, and browsing should never alter owned ultimate progression.

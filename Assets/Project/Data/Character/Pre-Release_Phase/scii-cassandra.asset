@@ -21,8 +21,8 @@ MonoBehaviour:
   - trait.female
   - trait.soul-calibur
   passiveSourceDescription: "After attacking, gain ATK equal to 50% of current DEF
-    for 2 turns. \n\n[Soul Calibur: own Max HP +10%, Crit Resistance +10%; ATK +12%
-    only while attacking]"
+    for 2 turns. \n\n[Soul Calibur: own Max HP +10% and Crit Defense +10%; When attacking
+    will Increase ATK by +12%]"
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 8c6f65b29ec126844a2b37183e9e5484, type: 2}

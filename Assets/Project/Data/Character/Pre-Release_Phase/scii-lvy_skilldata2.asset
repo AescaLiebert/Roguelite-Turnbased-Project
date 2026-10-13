@@ -16,14 +16,13 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: Deals 150% ATK damage to all enemies, removes their buffs, and cancels
-      their stances.
+  - description: Deals 150% ATK damage to all enemies
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
-        Range: 1
-        Reaction: 0
+        HitCount: 8
+        Range: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-ivy.skill.2.rank.1
       Kind: 0
@@ -122,221 +121,14 @@ MonoBehaviour:
       Target: 3
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
-      Sequence:
-      - Timing: 2
-        BatchId: 
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-            Reaction: 0
-            ReactionTiming: 0
-          Id: fighter.scii-ivy.skill.2.remove-buffs
-          Kind: 4
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 10000
-          KeywordFactorBp: 10000
-          KeywordId: 
-          Conditions: []
-          StatusRecipe:
-            Id: 
-            NameKey: 
-            Polarity: 0
-            Color: 0
-            Behavior: 0
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 1
-            DefaultPotencyBp: 0
-            BarrierCoefficientBp: 0
-            BarrierSourceStat: 0
-            BarrierDurationPolicy: 0
-            BarrierAmountPolicy: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 10000
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 1
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-                Reaction: 0
-                ReactionTiming: 0
-              Kind: 0
-              Target: 1
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 10000
-              Magnitude: 0
-              KeywordId: 
-              Timing: 3
-              HealSource: 3
-              HealAmount: 0
-              HealCoefficientBp: 10000
-              StatusRecipeId: 
-              StatusPolarity: 1
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 1
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 10000
-            MaximumAmount: 2147483647
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 3
-      - Timing: 2
-        BatchId: 
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-            Reaction: 0
-            ReactionTiming: 0
-          Id: fighter.scii-ivy.skill.2.remove-stances
-          Kind: 8
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 10000
-          KeywordFactorBp: 10000
-          KeywordId: 
-          Conditions: []
-          StatusRecipe:
-            Id: 
-            NameKey: 
-            Polarity: 0
-            Color: 0
-            Behavior: 0
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 1
-            DefaultPotencyBp: 0
-            BarrierCoefficientBp: 0
-            BarrierSourceStat: 0
-            BarrierDurationPolicy: 0
-            BarrierAmountPolicy: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 10000
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 1
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-                Reaction: 0
-                ReactionTiming: 0
-              Kind: 0
-              Target: 1
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 10000
-              Magnitude: 0
-              KeywordId: 
-              Timing: 3
-              HealSource: 3
-              HealAmount: 0
-              HealCoefficientBp: 10000
-              StatusRecipeId: 
-              StatusPolarity: 1
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 1
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 10000
-            MaximumAmount: 2147483647
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 3
-  - description: Deals 250% ATK damage to all enemies, removes their buffs, and cancels
-      their stances.
+      Sequence: []
+  - description: Deals 250% ATK damage to all enemies and cancels their stances.
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-ivy.skill.2.rank.2
       Kind: 0
@@ -436,109 +228,6 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence:
-      - Timing: 2
-        BatchId: 
-        Effect:
-          Attack:
-            HitCount: 1
-            Range: 0
-            Reaction: 0
-            ReactionTiming: 0
-          Id: fighter.scii-ivy.skill.2.remove-buffs
-          Kind: 4
-          Family: 0
-          Scaling: 0
-          ScalingStat: 0
-          Magnitude: 0
-          CoefficientBp: 10000
-          KeywordFactorBp: 10000
-          KeywordId: 
-          Conditions: []
-          StatusRecipe:
-            Id: 
-            NameKey: 
-            Polarity: 0
-            Color: 0
-            Behavior: 0
-            Stacking: 0
-            Identity: 0
-            DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 1
-            DefaultPotencyBp: 0
-            BarrierCoefficientBp: 0
-            BarrierSourceStat: 0
-            BarrierDurationPolicy: 0
-            BarrierAmountPolicy: 0
-            BypassDebuffImmunity: 0
-            BreakRule: 0
-            DisableMask: 0
-            Tags: []
-            Modifiers: []
-            PeriodicDamage:
-              Family: 3
-              Timing: 2
-              Scaling: 1
-              CoefficientBp: 10000
-              FixedAmount: 0
-              ConsumeOnTrigger: 0
-            PeriodicHealing:
-              Timing: 1
-              Scaling: 0
-              CoefficientBp: 10000
-              FixedAmount: 0
-            DebuffImmunity: 0
-            AdditionalDamageImmunity: 0
-            Taunt: 0
-            EvadeAttacks: 0
-            StanceChildren: []
-            RecoverDamageTakenBp: 0
-            CounterEnabled: 0
-            CounterCategory: 0
-            CounterTarget: 1
-            CounterConditions: []
-            CounterEffect:
-              Attack:
-                HitCount: 1
-                Range: 0
-                Reaction: 0
-                ReactionTiming: 0
-              Kind: 0
-              Target: 1
-              Family: 0
-              Scaling: 0
-              CoefficientBp: 10000
-              Magnitude: 0
-              KeywordId: 
-              Timing: 3
-              HealSource: 3
-              HealAmount: 0
-              HealCoefficientBp: 10000
-              StatusRecipeId: 
-              StatusPolarity: 1
-              StatusApplyChanceBp: 10000
-              StatusDurationOverride: 0
-              StatusStackCount: 1
-              StatusPotencyBp: 0
-              PowerGaugeAmount: 0
-              Sequence: []
-            SurviveLethalCharges: 0
-            IgnoreCritResistanceBp: 0
-            IgnoreCritDefenseBp: 0
-            ImmuneStatusTags: []
-          StatusDurationOverride: 0
-          StatusStackCount: 1
-          StatusPotencyBp: 0
-          StatusApplyChanceBp: 10000
-          HealValue:
-            Source: 0
-            FixedAmount: 0
-            CoefficientBp: 10000
-            MaximumAmount: 2147483647
-          HealScalingStat: 0
-          HealCoefficientBp: 0
-          PowerGaugeAmount: 0
-          Target: 3
       - Timing: 2
         BatchId: 
         Effect:
@@ -647,9 +336,9 @@ MonoBehaviour:
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-ivy.skill.2.rank.3
       Kind: 0

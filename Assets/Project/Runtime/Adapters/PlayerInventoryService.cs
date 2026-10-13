@@ -220,18 +220,13 @@ public sealed class PlayerInventoryService : MonoBehaviour
         var artifact = snapshot.items.Artifacts.Find(a => a.InstanceId == artifactId);
         if (artifact == null) { error = "This artifact is no longer in your backpack."; return false; }
         if (artifact.EquippedCharacterId == characterInstanceId) return true;
-        if (!string.IsNullOrEmpty(artifact.EquippedCharacterId))
-        {
-            var owner = snapshot.FindOwned(artifact.EquippedCharacterId);
-            var definition = owner == null ? null : FindDefinition(owner.definitionId);
-            error = "Unequip this artifact from " + (definition != null ? definition.name : "its current fighter") + " first.";
-            return false;
-        }
         var next = snapshot.items.Clone();
-        // Replacing a slot returns its previous piece to the backpack; no artifact is consumed.
+        // Commit the whole swap together. An empty destination transfers the piece;
+        // an occupied destination sends its previous piece to the original owner.
+        var previousOwner = artifact.EquippedCharacterId ?? string.Empty;
         foreach (var equipped in next.Artifacts)
             if (equipped.EquippedCharacterId == characterInstanceId && equipped.Slot == artifact.Slot)
-                equipped.EquippedCharacterId = string.Empty;
+                equipped.EquippedCharacterId = previousOwner;
         next.Artifacts.Find(a => a.InstanceId == artifactId).EquippedCharacterId = characterInstanceId;
         return CommitArtifactInventory(next, out error);
     }

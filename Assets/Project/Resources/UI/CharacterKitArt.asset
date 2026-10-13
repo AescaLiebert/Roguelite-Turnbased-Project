@@ -11,8 +11,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3cb9a2dc40028f74eb233ca2e307a039, type: 3}
   m_Name: CharacterKitArt
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   rankOne: {fileID: 2800000, guid: 730d2d85e012acf41ae69b213f9a1090, type: 3}
+  rankTwo: {fileID: 2800000, guid: 16447786b09ddc24591864ca96109896, type: 3}
   rankThree: {fileID: 2800000, guid: f677aba8e5d37fc4992ab8f028fa790d, type: 3}
   attack: {fileID: 21300000, guid: 0a7cd5f32120e2d4da42d14214aacff0, type: 3}
   buff: {fileID: 21300000, guid: b95d4952c8f459d4096b8152ae0420e4, type: 3}
@@ -20,3 +21,14 @@ MonoBehaviour:
   attackDebuff: {fileID: 21300000, guid: 5ce20a48bff3a4742a7c2784dbcbbb0b, type: 3}
   recovery: {fileID: 21300000, guid: 68b7e91cd010c3e418d1ac4fc49af174, type: 3}
   stance: {fileID: 21300000, guid: a1fb9884eb701494094963fefae5bc66, type: 3}
+  skillSingleTarget: {fileID: 21300000, guid: 489bff835ee23e142847032c65df7896, type: 3}
+  skillAoe: {fileID: 21300000, guid: 9584dd44c10c883488c8359263495812, type: 3}
+  skillBuff: {fileID: 21300000, guid: 2d1cf3d8a74f8904e99963a68a2daa9a, type: 3}
+  skillRecovery: {fileID: 21300000, guid: 89d080d8d3af4ee4d905d355588c31dd, type: 3}
+  skillStance: {fileID: 21300000, guid: 46ae137875a0594409c0dc18320f9be3, type: 3}
+  skillUltimate: {fileID: 21300000, guid: e20d29ee07d023e478f65ff75e4383eb, type: 3}
+  passiveOnField: {fileID: 21300000, guid: 8419a5134b4b7244e93e2072cce1f091, type: 3}
+  passiveSub: {fileID: 21300000, guid: 2605c21aa509eee4e8455984aea147e7, type: 3}
+  passiveAll: {fileID: 21300000, guid: a1e0c287f57dd27479619bc00d95446b, type: 3}
+  passivePvp: {fileID: 21300000, guid: a24ffae820de371409a6f3adbb23d18e, type: 3}
+  passivePve: {fileID: 21300000, guid: 2529b896f176bf0408f1719778cbb0d5, type: 3}

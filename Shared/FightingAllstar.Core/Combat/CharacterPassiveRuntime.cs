@@ -24,7 +24,8 @@ namespace FightingAllstar.Core.Combat
     }
 
     /// <summary>Committed facts, not presentation/animation callbacks. Only supported facts are exposed.</summary>
-    internal sealed class PassiveFact
+    [Serializable]
+    public sealed class PassiveFact
     {
         public long Sequence;
         public PassiveEventKind Kind;
@@ -43,6 +44,7 @@ namespace FightingAllstar.Core.Combat
         public bool WasBlocked;
         public int HitIndex = 1;
         public int HitCount = 1;
+        public PassiveFact Clone() => (PassiveFact)MemberwiseClone();
     }
 
     internal sealed class ReactionBinding
@@ -292,14 +294,41 @@ namespace FightingAllstar.Core.Combat
         public static void NotifyDamageResolved(BattleState state, FighterState source, FighterState target, int damageAmount,
             string rootActionId = null, bool cardOrigin = false, bool isUltimate = false,
             DamageFamily family = DamageFamily.Normal, CardCategory category = CardCategory.Attack, int cardRank = 0,
-            bool wasCritical = false, bool wasBlocked = false, int hitIndex = 1, int hitCount = 1)
+            bool wasCritical = false, bool wasBlocked = false, int hitIndex = 1, int hitCount = 1,
+            bool deferUntilActionResolved = false)
         {
             if (state == null || target == null || damageAmount <= 0) return;
-            Dispatch(state, new PassiveFact { Kind = PassiveEventKind.DamageResolved, TurnSide = state.ActingSide,
+            var fact = new PassiveFact { Kind = PassiveEventKind.DamageResolved, TurnSide = state.ActingSide,
                 ActorId = source?.Id, TargetId = target.Id, RootActionId = rootActionId, DamageAmount = damageAmount,
                 CardOrigin = cardOrigin, IsUltimate = isUltimate, DamageFamily = family, CardCategory = category,
                 CardRank = cardRank, WasCritical = wasCritical, WasBlocked = wasBlocked,
-                HitIndex = hitIndex, HitCount = Math.Max(1, hitCount) });
+                HitIndex = hitIndex, HitCount = Math.Max(1, hitCount) };
+            if (deferUntilActionResolved && !string.IsNullOrEmpty(rootActionId))
+            {
+                var previous = state.PendingPassiveDamageFacts.Find(f => f.RootActionId == rootActionId &&
+                    f.ActorId == fact.ActorId && f.TargetId == fact.TargetId && f.DamageFamily == family);
+                if (previous == null) state.PendingPassiveDamageFacts.Add(fact);
+                else
+                {
+                    previous.DamageAmount = (int)Math.Min(int.MaxValue, (long)previous.DamageAmount + damageAmount);
+                    previous.WasCritical |= wasCritical; previous.WasBlocked |= wasBlocked;
+                    previous.HitCount = Math.Max(previous.HitCount, fact.HitCount);
+                    previous.HitIndex = Math.Max(previous.HitIndex, hitIndex);
+                }
+            }
+            else Dispatch(state, fact);
+        }
+
+        /// <summary>Evaluate attack facts against the statuses left by this action, with any-hit crit/block facts.</summary>
+        public static void ResolveActionDamageReactions(BattleState state, string rootActionId)
+        {
+            var facts = state.PendingPassiveDamageFacts.FindAll(f => f.RootActionId == rootActionId);
+            state.PendingPassiveDamageFacts.RemoveAll(f => f.RootActionId == rootActionId);
+            foreach (var fact in facts)
+            {
+                fact.HitIndex = fact.HitCount;
+                Dispatch(state, fact);
+            }
         }
 
         /// <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
@@ -402,6 +431,17 @@ namespace FightingAllstar.Core.Combat
                                 fact.HitIndex < fact.HitCount && command.Kind == PassiveCommandKind.ExecuteEffect &&
                                 command.Effect?.Kind == CardEffectOperationKind.Damage &&
                                 command.Effect.Damage?.Family == DamageFamily.Additional) continue;
+                            // One activation per command/owner/action, even across hits and area targets.
+                            // Status tick notifications with no root action remain independent events.
+                            if (fact.Kind == PassiveEventKind.DamageResolved && !string.IsNullOrEmpty(fact.RootActionId))
+                            {
+                                var receipt = fact.RootActionId + "\0" + owner.Id + "\0" + binding.SourceId + "\0" +
+                                    rule.Id + "\0" + passed + "\0" + commands.IndexOf(command);
+                                if (rule.LimitScope == PassiveLimitScope.RootActionTarget)
+                                    receipt += "\0" + fact.TargetId;
+                                if (state.PassiveDamageReactionReceipts.Contains(receipt)) continue;
+                                state.PassiveDamageReactionReceipts.Add(receipt);
+                            }
                             var basis = command.ValueSource == PassiveValueSource.ActualGaugeLost ? Math.Max(0, -fact.GaugeDelta) : 1;
                             var amount = (int)Math.Min(int.MaxValue, (long)basis * command.Amount);
                             if (command.Kind == PassiveCommandKind.IncrementCounter)

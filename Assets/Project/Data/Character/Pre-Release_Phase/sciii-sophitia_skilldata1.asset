@@ -16,13 +16,13 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 05734c98ee363d94395d210da3fb980c, type: 3}
   statusVisuals: []
   ranks:
-  - description: Deals 200% ATK Flood damage to all enemies in 2 hits.
+  - description: Deals 200% ATK Flood damage to single target.
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 2
+        HitCount: 1
         Range: 0
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: fighter.sciii-sophitia.skill.1.rank.1
       Kind: 0
@@ -122,13 +122,13 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - description: Deals 360% ATK Flood damage to all enemies in 2 hits.
+  - description: Deals 360% ATK Flood damage to single target.
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 2
+        HitCount: 1
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.sciii-sophitia.skill.1.rank.2
       Kind: 0
@@ -228,13 +228,13 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - description: Deals 500% ATK Flood damage to all enemies in 2 hits.
+  - description: Deals 500% ATK Flood damage to single target.
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 2
+        HitCount: 1
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.sciii-sophitia.skill.1.rank.3
       Kind: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 2
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []

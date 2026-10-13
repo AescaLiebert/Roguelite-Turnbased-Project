@@ -23,6 +23,7 @@ namespace FightingAllstar.Presentation.Navigation
         private sealed class Binding
         {
             private readonly VisualElement _root, _panel, _inventory;
+            private readonly CombatClassFeedback _ccFeedback;
             private CharacterObject _character;
             private int _previewTier;
             private bool _open, _subscribed, _upgrading;
@@ -35,6 +36,7 @@ namespace FightingAllstar.Presentation.Navigation
             public Binding(VisualElement root, VisualElement panel)
             {
                 _root = root; _panel = panel; _inventory = root.Q("character-inventory");
+                _ccFeedback = new CombatClassFeedback(root);
                 Click("hub-close", Close);
                 foreach (var tab in Tabs) { var selected = tab; Click("hub-tab-" + tab, () => SelectTab(selected)); }
                 Click("hub-stat-details", () => CharacterDetailPopup.Stats(_panel, _character));
@@ -64,6 +66,7 @@ namespace FightingAllstar.Presentation.Navigation
             {
                 if (!_open) _previousSection = _root.Q<Label>("section-title")?.text;
                 _open = true; _character = character; _previewTier = Tier;
+                _ccFeedback.Reset(PlayerInventoryService.Instance.SubjectId + ":" + Owned.instanceId, PlayerInventoryService.Instance.GetCharacterStats(character).CombatClass);
                 CharacterDetailPopup.Close(_panel); ItemRewardView.CloseTooltip(_root);
                 if (_inventory != null) _inventory.style.display = DisplayStyle.None;
                 var section = _root.Q<Label>("section-title"); if (section != null) section.text = "FIGHTER DETAILS";
@@ -83,6 +86,7 @@ namespace FightingAllstar.Presentation.Navigation
             {
                 if (!_open) return;
                 _open = false; AccountHeaderView.ClearBackOverride(_root, this); ArtifactWorkshopView.CloseAll(_root); CharacterDetailPopup.Close(_panel); ItemRewardView.CloseTooltip(_root); ScreenMotion.Hide(_panel);
+                _ccFeedback.Hide();
                 if (_inventory != null) _inventory.style.display = DisplayStyle.Flex;
                 var section = _root.Q<Label>("section-title"); if (section != null) section.text = _previousSection ?? "CHARACTERS";
                 _root.Q("inventory-grid")?.Q<Button>("character-" + _character.DefinitionId)?.Focus();
@@ -115,6 +119,7 @@ namespace FightingAllstar.Presentation.Navigation
                 if (portrait != null) { portrait.sprite = _character.FighterFull != null ? _character.FighterFull : _character.FighterPic != null ? _character.FighterPic : _character.FighterIcon; portrait.scaleMode = ScaleMode.ScaleToFit; }
                 var icon = _panel.Q("hub-character-icon"); if (icon != null) { icon.Clear(); icon.Add(CharacterIconView.Create(_character, 84)); }
                 var stats = PlayerInventoryService.Instance.GetCharacterStats(_character);
+                _ccFeedback.Observe(PlayerInventoryService.Instance.SubjectId + ":" + Owned.instanceId, stats.CombatClass);
                 BasicStatPreview.Render(_panel.Q("hub-stats"), stats);
                 RefreshCards(); RefreshUpgrade(stats); BuildConstellation();
                 ArtifactWorkshopView.Display(_root, _panel.Q("hub-page-artifacts"), _character);
@@ -126,6 +131,8 @@ namespace FightingAllstar.Presentation.Navigation
                 for (var slot = 0; slot <= 2; slot++)
                 {
                     var card = _panel.Q("hub-card-" + slot); if (card == null) continue;
+                    var face = card.Q<Button>("card-button");
+                    if (face != null) { face.style.width = Length.Percent(100); face.style.height = Length.Percent(100); face.style.minHeight = 0; face.style.flexShrink = 0; }
                     var skill = slot == 1 ? _character.Skill1 : _character.Skill2;
                     var image = card.Q<Image>("artwork");
                     if (image != null) { image.sprite = slot == 0 ? (_character.Ultimate?.icon != null ? _character.Ultimate.icon : _character.FighterIcon) : (skill?.cardIcon != null ? skill.cardIcon : _character.FighterIcon); image.scaleMode = ScaleMode.ScaleAndCrop; image.pickingMode = PickingMode.Ignore; }
@@ -133,7 +140,12 @@ namespace FightingAllstar.Presentation.Navigation
                     if (frame != null) { frame.image = slot == 0 ? art?.rankThree : art?.rankOne; frame.scaleMode = ScaleMode.StretchToFill; }
                     var label = card.Q<Label>("card-skill-slot"); if (label != null) label.text = slot == 0 ? "ULT" : slot.ToString();
                     var type = card.Q<Image>("card-skill-type");
-                    if (type != null) { type.sprite = slot == 0 ? null : art?.Type(skill?.ranks?.FirstOrDefault()?.skillType ?? SkillType.Attack); type.style.display = type.sprite != null ? DisplayStyle.Flex : DisplayStyle.None; }
+                    if (type != null)
+                    {
+                        type.sprite = slot == 0 ? null : art?.Type(skill?.ranks?.FirstOrDefault()?.skillType ?? SkillType.Attack);
+                        type.style.display = type.sprite != null ? DisplayStyle.Flex : DisplayStyle.None;
+                        if (slot != 0) { type.style.top = 5; type.style.right = 5; type.style.width = 26; type.style.height = 26; }
+                    }
                     var glow = card.Q("card-holo-glow"); if (glow != null) glow.style.display = slot == 0 ? DisplayStyle.Flex : DisplayStyle.None;
                     var button = card.Q<Button>("card-button"); if (button != null) button.tooltip = slot == 0 ? "Inspect ultimate · C" + Tier : "Inspect skill " + slot + " · R1–R3";
                 }
@@ -218,7 +230,7 @@ namespace FightingAllstar.Presentation.Navigation
             private void Click(string name, Action action) { var button = _panel.Q<Button>(name); if (button != null) button.clicked += action; }
             private void Text(string name, string value) { var label = _panel.Q<Label>(name); if (label != null) label.text = value ?? string.Empty; }
             private void Subscribe() { if (_subscribed) return; PlayerInventoryService.InventoryChanged += Changed; _subscribed = true; }
-            private void Unsubscribe() { AccountHeaderView.ClearBackOverride(_root, this); if (!_subscribed) return; PlayerInventoryService.InventoryChanged -= Changed; _subscribed = false; }
+            private void Unsubscribe() { _ccFeedback.Hide(); AccountHeaderView.ClearBackOverride(_root, this); if (!_subscribed) return; PlayerInventoryService.InventoryChanged -= Changed; _subscribed = false; }
             private void Changed() { if (!_open) return; if (Owned == null) { Close(); return; } Refresh(); }
         }
     }

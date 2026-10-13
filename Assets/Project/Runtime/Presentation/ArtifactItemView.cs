@@ -24,7 +24,7 @@ namespace FightingAllstar.Presentation
         public static string RarityStars(ArtifactInstance artifact) => new string('★', Mathf.Clamp((int)(artifact?.Rarity ?? ArtifactRarity.Common), 1, 5));
         public static string RarityClass(ArtifactInstance artifact) => "artifact-rarity-" + Mathf.Clamp((int)(artifact?.Rarity ?? ArtifactRarity.Common), 1, 5);
 
-        public static Button CreateTile(VisualElement root, ArtifactInstance artifact, Action click = null)
+        public static Button CreateTile(VisualElement root, ArtifactInstance artifact, Action click = null, bool showOwner = true)
         {
             if (artifact == null) return new Button();
             AttachStyle(root);
@@ -39,15 +39,15 @@ namespace FightingAllstar.Presentation
                     if (click != null) click(); else ShowTooltip(root, display, tile);
                 })
                 { name = "artifact-" + display.InstanceId, tooltip = Name(display) + " · " + RarityStars(display) + " · +" + display.Level + " · " + StatText(display.MainStat) +
-                    (!string.IsNullOrEmpty(display.EquippedCharacterId) ? " · Equipped: " + ownerName : "") };
+                    (showOwner && !string.IsNullOrEmpty(display.EquippedCharacterId) ? " · Equipped: " + ownerName : "") };
             tile.AddToClassList("item-reward-tile"); tile.AddToClassList("artifact-item-tile");
             tile.AddToClassList("item-kind-artifact");
-            ItemRewardView.StandardizeTile(tile); tile.Add(CreateFrame(display));
+            ItemRewardView.StandardizeTile(tile); tile.Add(CreateFrame(display, showOwner));
             tile.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) ItemRewardView.CloseTooltip(root); });
             return tile;
         }
 
-        internal static VisualElement CreateFrame(ArtifactInstance display)
+        internal static VisualElement CreateFrame(ArtifactInstance display, bool showOwner = true)
         {
             var frame = ItemRewardView.CreateFrame((int)display.Rarity);
             var image = new VisualElement { pickingMode = PickingMode.Ignore }; image.AddToClassList("artifact-item-icon"); image.AddToClassList("item-reward-icon");
@@ -55,11 +55,11 @@ namespace FightingAllstar.Presentation
             ItemRewardView.AddQuantityFooter(frame, "+" + display.Level);
             var stars = Label(RarityStars(display), "artifact-rarity-stars"); stars.AddToClassList(RarityClass(display)); stars.pickingMode = PickingMode.Ignore; frame.Add(stars);
             if (display.Favourite) frame.Add(FavouriteLock());
-            if (!string.IsNullOrEmpty(display.EquippedCharacterId)) frame.Add(Avatar(EquippedCharacter(display), "artifact-owner-avatar"));
+            if (showOwner && !string.IsNullOrEmpty(display.EquippedCharacterId)) frame.Add(Avatar(EquippedCharacter(display), "artifact-owner-avatar"));
             return frame;
         }
 
-        public static void FillDetails(VisualElement container, ArtifactInstance artifact, bool showSetBonuses = true, string characterInstanceId = null, bool showMetadata = true, bool showMainStat = true)
+        public static void FillDetails(VisualElement container, ArtifactInstance artifact, bool showSetBonuses = true, string characterInstanceId = null, bool showMetadata = true, bool showMainStat = true, bool showOwner = true)
         {
             if (container == null || artifact == null) return;
             var display = artifact.Clone(); ArtifactRules.Normalize(display); container.Clear();
@@ -88,7 +88,7 @@ namespace FightingAllstar.Presentation
                 var count = equipped == null ? 0 : ArtifactRules.SetCount(equipped, display.Set);
                 FillSetDetails(container, display.Set, count);
             }
-            if (!string.IsNullOrEmpty(display.EquippedCharacterId))
+            if (showOwner && !string.IsNullOrEmpty(display.EquippedCharacterId))
             {
                 var character = EquippedCharacter(display);
                 var ownership = new VisualElement(); ownership.AddToClassList("artifact-detail-ownership");

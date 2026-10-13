@@ -20,9 +20,8 @@ MonoBehaviour:
   traitIds:
   - trait.female
   - trait.soul-calibur
-  passiveSourceDescription: 'PvP only: reduces enemy ATK by 16%. Soul Calibur: own
-    Max HP +10% and Crit Resistance +10 percentage points; ATK +12% only while attacking,
-    without stacking or a lasting bonus.'
+  passiveSourceDescription: "PvP only: reduces enemy ATK by 16%. \n\n[Soul Calibur:
+    own Max HP +10% and Crit Defense +10%; When attacking will Increase ATK by +12%]"
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: bc1ee21fd0be79f44b4a2c848faaf51e, type: 2}
@@ -51,22 +50,22 @@ MonoBehaviour:
     AttackBp: 1935
     DefenseBp: 2035
     HealthBp: 2135
-  Classpower: 3750
-  attack: 450
-  defense: 360
-  health: 6900
+  Classpower: 3580
+  attack: 400
+  defense: 300
+  health: 6050
   SecondaryStats:
-    PierceRate: 35
-    Resistance: 5
+    PierceRate: 20
+    Resistance: 7
     Regenerate: 10
-    CritChance: 20
-    CritDmg: 135
-    CritResistance: 35
-    CritDefense: 20
+    CritChance: 25
+    CritDmg: 150
+    CritResistance: 27
+    CritDefense: 15
     RecoveryRate: 110
-    BlockChance: 20
-    BlockPower: 25
-    LifeSteal: 17
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 3
     AvoidanceRate: 100
     EvadeRate: 0
     ControlRate: 100

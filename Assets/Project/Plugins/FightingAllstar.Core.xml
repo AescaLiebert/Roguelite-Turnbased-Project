@@ -131,6 +131,9 @@
         <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.Refresh(FightingAllstar.Core.Combat.BattleState,System.Collections.Generic.ISet{System.String},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Int32})">
             <summary>Rebuild derived contributions after authoritative mutations. Never adds/removes real statuses.</summary>
         </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ResolveActionDamageReactions(FightingAllstar.Core.Combat.BattleState,System.String)">
+            <summary>Evaluate attack facts against the statuses left by this action, with any-hit crit/block facts.</summary>
+        </member>
         <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ChangePowerGauge(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,System.Int32,System.String,System.Boolean,System.Boolean)">
             <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
         </member>
@@ -232,6 +235,12 @@
         </member>
         <member name="T:FightingAllstar.Core.Economy.LocalEconomyService">
             <summary>Disposable offline economy simulation. It grants no online entitlement or trusted currency.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.DungeonEnemyFactory">
+            <summary>Starting balance values. Enemy equipment and levels are frozen with the route.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Run.DungeonEnemyFactory.RecommendedCombatClass(FightingAllstar.Core.Run.DungeonProfile,System.Collections.Generic.IReadOnlyList{FightingAllstar.Core.Content.CharacterDefinition},System.Int32)">
+            <summary>Conservative recommendation across several deterministic route samples, including bosses.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Run.DungeonDifficulty">
             <summary>Five player-facing levels; percentages remain an internal, legacy-compatible enemy scaling value.</summary>

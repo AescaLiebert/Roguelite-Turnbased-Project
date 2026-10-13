@@ -1,0 +1,11 @@
+.cc-change-feedback { position: absolute; left: 0; right: 0; bottom: 40px; align-items: center; }
+.cc-change-arrow { width: 72px; height: 72px; margin-bottom: 8px; }
+.cc-change-bar { flex-direction: row; align-items: center; justify-content: center; padding: 10px 26px; max-width: 94%; min-height: 64px; border-width: 2px; border-color: rgb(166, 207, 214); border-radius: 18px; background-color: rgba(13, 38, 48, .97); }
+.cc-change-bar Label { font-size: 38px; -unity-font-style: bold; color: rgb(243, 247, 234); white-space: nowrap; }
+.cc-change-bar .cc-change-caption { font-size: 22px; margin-right: 20px; color: rgb(161, 204, 215); }
+#cc-change-delta { margin-left: 30px; color: rgb(170, 239, 67); font-size: 32px; }
+.cc-decrease #cc-change-delta { color: rgb(255, 105, 111); }
+.cc-decrease .cc-change-bar { border-color: rgb(217, 142, 151); }
+.compact-layout .cc-change-bar Label { font-size: 30px; }
+.compact-layout #cc-change-delta { font-size: 26px; }
+.compact-layout .cc-change-arrow { width: 56px; height: 56px; }

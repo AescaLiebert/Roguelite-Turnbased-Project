@@ -24,7 +24,7 @@ MonoBehaviour:
       Attack:
         HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.skill.1.rank.1
       Kind: 0
@@ -352,7 +352,7 @@ MonoBehaviour:
       Attack:
         HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.skill.1.rank.2
       Kind: 0
@@ -674,13 +674,13 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 1
   - description: Deals damage equal to 300% ATK to single target. apply Shock and
-      increasing damage received by 40% to target for 2 turns.
+      increasing damage received by 40% to target for 3 turns.
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 2
         Range: 0
-        Reaction: 0
+        Reaction: 3
         ReactionTiming: 0
       Id: fighter.scii-cassandra.skill.1.rank.3
       Kind: 0
@@ -911,7 +911,7 @@ MonoBehaviour:
             Stacking: 1
             Identity: 0
             DurationClock: 1
-            DefaultDuration: 2
+            DefaultDuration: 3
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
@@ -988,7 +988,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-          StatusDurationOverride: 2
+          StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000

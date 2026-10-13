@@ -63,19 +63,22 @@ namespace FightingAllstar.Presentation.Navigation
 
         private sealed class Loadout
         {
-            private readonly VisualElement _root, _host, _stage, _details, _sets, _identityIcon;
-            private readonly Label _name, _meta, _message;
+            private readonly VisualElement _root, _host, _stage, _details, _sets;
+            private readonly Label _message;
             private readonly Button[] _slots = new Button[6];
             private CharacterObject _character;
             private string _subject, _selected;
+            private string _inspectionKey, _inspectionOwner;
+            private int _inspectionSetCount;
             private ArtifactSlot _slot;
+            private EquipmentPicker _equipment;
             private string CharacterId => Inventory?.FindOwnedByDefinition(_character.DefinitionId)?.instanceId;
+            private void SetMessage(string text) { if (_message != null) _message.text = text ?? string.Empty; }
             public Loadout(VisualElement root, VisualElement host)
             {
                 _root = root; _host = host; host.AddToClassList("artifact-loadout");
                 if (host.Q("artifact-character-stage") == null) { host.Clear(); Resources.Load<VisualTreeAsset>("UI/ArtifactLoadout").CloneTree(host); }
-                _name = host.Q<Label>("artifact-fighter-name"); _meta = host.Q<Label>("artifact-fighter-meta");
-                _identityIcon = host.Q("artifact-fighter-icon"); _stage = host.Q("artifact-character-stage");
+                _stage = host.Q("artifact-character-stage");
                 for (var i = 0; i < 6; i++) { var index = i; _slots[i] = _stage.Q<Button>("artifact-slot-" + i); _slots[i].clicked += () => SelectSlot(index); }
                 // Reuse the existing CharacterHub portrait. Only equipment controls join its hero area.
                 _stage.RemoveFromHierarchy(); root.Q(className: "hub-hero").Add(_stage);
@@ -87,9 +90,7 @@ namespace FightingAllstar.Presentation.Navigation
             {
                 if (_subject != Inventory.SubjectId) { _subject = Inventory.SubjectId; _selected = null; ArtifactWorkshopView.CloseAll(_root); }
                 if (_character != character) { _selected = null; _slot = ArtifactSlot.Flower; }
-                _character = character; _name.text = character.FighterName;
-                _meta.text = character.FighterRarity + " · " + character.FighterAttribute.ToString().ToUpperInvariant() + "\n" + DungeonProfile.SeriesDisplayName(character.SeriesId);
-                _identityIcon.Clear(); _identityIcon.Add(CharacterIconView.Create(character, 84)); Refresh();
+                _character = character; Refresh();
             }
             private void Refresh()
             {
@@ -100,7 +101,7 @@ namespace FightingAllstar.Presentation.Navigation
                     for (var rarity = 1; rarity <= 5; rarity++) button.RemoveFromClassList("item-frame-" + rarity);
                     if (i == 5) { var locked = ItemRewardView.EmptyFrame("LOCKED"); locked.Q<Label>(className: "item-empty-icon").text = "◇"; button.Add(locked); button.tooltip = "Holy Relics are not available yet."; continue; }
                     var slot = (ArtifactSlot)i; var piece = equipped.FirstOrDefault(a => a.Slot == slot); button.EnableInClassList("selected", _slot == slot);
-                    button.Add(piece != null ? ArtifactItemView.CreateFrame(piece) : ItemRewardView.EmptyFrame(ArtifactRules.SlotName(slot).ToUpperInvariant()));
+                    button.Add(piece != null ? ArtifactItemView.CreateFrame(piece, showOwner: false) : ItemRewardView.EmptyFrame(ArtifactRules.SlotName(slot).ToUpperInvariant()));
                     button.tooltip = piece == null ? "Choose a " + ArtifactRules.SlotName(slot) : ArtifactItemView.Name(piece);
                 }
                 _sets.Clear();
@@ -112,48 +113,152 @@ namespace FightingAllstar.Presentation.Navigation
                 }
                 _sets.style.display = _sets.childCount == 0 ? DisplayStyle.None : DisplayStyle.Flex;
                 if (_selected == null) _selected = equipped.FirstOrDefault(a => a.Slot == _slot)?.InstanceId;
-                Inspect();
+                Inspect(); _equipment?.Refresh();
             }
             private void SelectSlot(int index)
             {
-                if (index == 5) { _message.text = "Holy Relics are not available yet."; return; }
-                _message.text = ""; _slot = (ArtifactSlot)index;
+                if (index == 5) { SetMessage("Holy Relics are not available yet."); return; }
+                SetMessage(""); _slot = (ArtifactSlot)index;
                 _selected = Inventory.GetEquippedArtifacts(CharacterId).FirstOrDefault(a => a.Slot == _slot)?.InstanceId;
                 Refresh(); if (_selected == null) Picker();
             }
             private void Inspect()
             {
-                _details.Clear(); for (var rarity = 1; rarity <= 5; rarity++) _details.RemoveFromClassList("item-frame-" + rarity);
+                var details = _details;
                 var piece = _selected == null ? null : Inventory.FindArtifact(_selected);
-                var icon = new VisualElement(); icon.AddToClassList("artifact-tooltip-icon");
-                if (piece != null) { var sprite = ArtifactItemView.Icon(piece); if (sprite != null) icon.style.backgroundImage = new StyleBackground(sprite); }
-                _details.AddToClassList("item-frame-" + (int)(piece?.Rarity ?? ArtifactRarity.Common));
-                var content = ItemRewardView.CreateTooltipPanels(_details, piece == null ? ArtifactRules.SlotName(_slot) : ArtifactItemView.Name(piece),
-                    ArtifactRules.SlotName(_slot) + " · Artifact", (int)(piece?.Rarity ?? ArtifactRarity.Common), icon, level: piece?.Level, mainStat: piece?.MainStat);
-                var preview = _details.Q("item-tooltip-preview-panel"); var actions = Box(preview, "artifact-preview-actions", "artifact-inspection-actions");
+                var presentation = piece?.Clone(); if (presentation != null) presentation.EquippedCharacterId = string.Empty;
+                var key = CharacterId + ":" + (presentation == null ? "empty:" + _slot : JsonUtility.ToJson(presentation));
+                var rebuild = key != _inspectionKey;
+                VisualElement content;
+                if (rebuild)
+                {
+                    details.Clear(); for (var rarity = 1; rarity <= 5; rarity++) details.RemoveFromClassList("item-frame-" + rarity);
+                    var icon = new VisualElement(); icon.AddToClassList("artifact-tooltip-icon");
+                    if (piece != null) { var sprite = ArtifactItemView.Icon(piece); if (sprite != null) icon.style.backgroundImage = new StyleBackground(sprite); }
+                    details.AddToClassList("item-frame-" + (int)(piece?.Rarity ?? ArtifactRarity.Common));
+                    content = ItemRewardView.CreateTooltipPanels(details, piece == null ? ArtifactRules.SlotName(_slot) : ArtifactItemView.Name(piece),
+                        ArtifactRules.SlotName(_slot) + " · Artifact", (int)(piece?.Rarity ?? ArtifactRarity.Common), icon, level: piece?.Level, mainStat: piece?.MainStat);
+                    _inspectionKey = key;
+                }
+                else content = details.Q(className: "item-tooltip-content");
+                var preview = details.Q("item-tooltip-preview-panel");
+                var actions = preview.Q("artifact-inspection-actions") ?? Box(preview, "artifact-preview-actions", "artifact-inspection-actions"); actions.Clear();
                 Button(actions, "CHANGE", Picker, "artifact-button", "artifact-change");
                 if (piece == null)
                 {
-                    _details.Q<Label>(className: "item-tooltip-preview-stars").text = "EMPTY SLOT";
+                    content.Clear();
+                    details.Q<Label>(className: "item-tooltip-preview-stars").text = "EMPTY SLOT";
                     Label(content, "Choose an artifact for this slot.", "artifact-empty-copy");
                     Button(actions, "UNEQUIP", () => { }, "artifact-button", "artifact-unequip").SetEnabled(false);
                     Button(actions, "ENHANCE  ›", () => { }, "artifact-primary", "artifact-enhance").SetEnabled(false); return;
                 }
-                ArtifactItemView.FillDetails(content, piece, true, CharacterId, showMetadata: false, showMainStat: false);
-                var favourite = Button(preview, piece.Favourite ? "★" : "☆", () =>
-                { if (!Inventory.TrySetArtifactFavourite(piece.InstanceId, !piece.Favourite, out var error)) _message.text = error; else Inspect(); }, "artifact-preview-favourite", "artifact-favourite");
+                var setCount = ArtifactRules.SetCount(Inventory.GetEquippedArtifacts(CharacterId), piece.Set);
+                if (rebuild) ArtifactItemView.FillDetails(content, piece, true, CharacterId, showMetadata: false, showMainStat: false,
+                    showOwner: piece.EquippedCharacterId != CharacterId);
+                else if (_inspectionOwner != piece.EquippedCharacterId || _inspectionSetCount != setCount)
+                {
+                    // Keep the same artwork, stat rows and scroll view when equipment changes.
+                    // Only the live set/ownership sections and action state need updating.
+                    var updated = new VisualElement();
+                    ArtifactItemView.FillDetails(updated, piece, true, CharacterId, showMetadata: false, showMainStat: false,
+                        showOwner: piece.EquippedCharacterId != CharacterId);
+                    foreach (var section in new[] { "artifact-set-details", "artifact-detail-ownership" })
+                    {
+                        content.Q(className: section)?.RemoveFromHierarchy();
+                        var replacement = updated.Q(className: section); if (replacement != null) content.Add(replacement);
+                    }
+                }
+                _inspectionOwner = piece.EquippedCharacterId; _inspectionSetCount = setCount;
+                var favourite = preview.Q<Button>("artifact-favourite") ?? Button(preview, piece.Favourite ? "★" : "☆", () =>
+                { if (!Inventory.TrySetArtifactFavourite(piece.InstanceId, !piece.Favourite, out var error)) SetMessage(error); Refresh(); }, "artifact-preview-favourite", "artifact-favourite");
                 favourite.tooltip = piece.Favourite ? "Favourite · protected" : "Mark as favourite to protect from enhancement consumption";
                 var equippedHere = piece.EquippedCharacterId == CharacterId;
                 var equippedElsewhere = !string.IsNullOrEmpty(piece.EquippedCharacterId) && !equippedHere;
-                if (equippedHere) Button(actions, "UNEQUIP", () => { if (!Inventory.TryUnequipArtifact(CharacterId, piece.Slot, out var error)) _message.text = error; else _selected = null; Refresh(); }, "artifact-button", "artifact-unequip");
-                else Button(actions, "EQUIP", () => { if (!Inventory.TryEquipArtifact(piece.InstanceId, CharacterId, out var error)) _message.text = error; Refresh(); }, "artifact-button", "artifact-equip").SetEnabled(!equippedElsewhere);
-                Button(actions, "ENHANCE  ›", () => new Workshop(_root, piece.InstanceId), "artifact-primary", "artifact-enhance").SetEnabled(piece.Level < 20);
-                if (piece.Level >= 20) Label(content, "MAX ENHANCEMENT · +20", "artifact-cap-state");
+                if (equippedHere) Button(actions, "UNEQUIP", () => { SetMessage(Inventory.TryUnequipArtifact(CharacterId, piece.Slot, out var error) ? "" : error); Refresh(); }, "artifact-button", "artifact-unequip");
+                else
+                {
+                    var swap = equippedElsewhere && Inventory.GetEquippedArtifacts(CharacterId).Any(a => a.Slot == piece.Slot);
+                    var equip = Button(actions, swap ? "SWAP & EQUIP" : "EQUIP", () =>
+                    { SetMessage(Inventory.TryEquipArtifact(piece.InstanceId, CharacterId, out var error) ? "" : error); Refresh(); }, "artifact-button", "artifact-equip");
+                    equip.tooltip = swap ? "Exchange this slot with the fighter currently wearing this artifact." : "Equip this artifact in its matching slot.";
+                }
+                Button(actions, "ENHANCE  ›", () => { _equipment?.Close(); new Workshop(_root, piece.InstanceId); }, "artifact-primary", "artifact-enhance").SetEnabled(piece.Level < 20);
+                if (piece.Level >= 20 && content.Q(className: "artifact-cap-state") == null) Label(content, "MAX ENHANCEMENT · +20", "artifact-cap-state");
             }
             private void Picker()
             {
-                OpenPicker(_root, "CHOOSE " + ArtifactRules.SlotName(_slot).ToUpperInvariant(), Inventory.GetItemInventorySnapshot().Artifacts.Where(a => a.Slot == _slot),
-                    piece => { _selected = piece.InstanceId; _message.text = ""; Inspect(); }, _slots[(int)_slot]);
+                if (_equipment != null) return;
+                _equipment = new EquipmentPicker(this);
+                _equipment.Refresh();
+            }
+
+            private sealed class EquipmentPicker
+            {
+                private readonly Loadout _loadout;
+                private readonly VisualElement _panel, _hero, _portrait, _strip;
+                private readonly StyleEnum<DisplayStyle> _portraitDisplay, _stageDisplay;
+                private readonly PickerPanel _picker;
+                private bool _closed;
+                public EquipmentPicker(Loadout loadout)
+                {
+                    _loadout = loadout;
+                    _hero = loadout._root.Q(className: "hub-hero");
+                    _portrait = loadout._root.Q("hub-portrait"); _portraitDisplay = _portrait.style.display; _stageDisplay = loadout._stage.style.display;
+                    _portrait.style.display = DisplayStyle.None; loadout._stage.style.display = DisplayStyle.None;
+                    _hero.AddToClassList("artifact-inventory-open");
+                    _panel = Box(_hero, "artifact-equipment-inventory", "artifact-equipment-inventory");
+                    var pickerHost = Box(_panel, "artifact-equipment-picker-host");
+                    var scroll = new ScrollView(ScrollViewMode.Horizontal) { name = "artifact-equipped-scroll", horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
+                    scroll.AddToClassList("artifact-equipped-scroll"); scroll.AddToClassList("artifact-character-preview"); _panel.Add(scroll);
+                    _strip = Box(scroll, "artifact-equipped-strip", "artifact-equipped-strip");
+                    _picker = OpenPicker(loadout._root, "ARTIFACT INVENTORY", Inventory.GetItemInventorySnapshot().Artifacts, piece =>
+                    { loadout._selected = piece.InstanceId; loadout._slot = piece.Slot; loadout.SetMessage(""); loadout.Refresh(); },
+                        loadout._slots[(int)loadout._slot], dock: pickerHost, restore: Close, keepOpen: true, initialSlot: (int)loadout._slot,
+                        isSelected: piece => piece.InstanceId == loadout._selected);
+                    AccountHeaderView.OverrideBack(loadout._root, this, Close, "Back to artifacts");
+                    _panel.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) { Close(); evt.StopPropagation(); } });
+                    _panel.RegisterCallback<DetachFromPanelEvent>(_ => { AccountHeaderView.ClearBackOverride(loadout._root, this); });
+                }
+                public void Refresh()
+                {
+                    if (_closed) return;
+                    _strip.Clear();
+                    var compact = _loadout._root.ClassListContains("compact-layout");
+                    var identity = Box(_strip, "artifact-strip-character"); identity.Add(CharacterIconView.Create(_loadout._character, compact ? 64 : 92));
+                    identity.tooltip = _loadout._character.FighterName;
+                    var equipped = Inventory.GetEquippedArtifacts(_loadout.CharacterId);
+                    for (var i = 0; i < 5; i++)
+                    {
+                        var slot = (ArtifactSlot)i; var piece = equipped.FirstOrDefault(a => a.Slot == slot);
+                        var tile = ItemRewardView.EmptyTile(() =>
+                        {
+                            _loadout._slot = slot; _loadout._selected = Inventory.GetEquippedArtifacts(_loadout.CharacterId).FirstOrDefault(a => a.Slot == slot)?.InstanceId;
+                            _picker.SetSlot?.Invoke((int)slot); _loadout.Refresh();
+                        }, ArtifactRules.SlotName(slot).ToUpperInvariant(), "artifact-strip-slot-" + i);
+                        if (piece != null) { tile.Clear(); tile.Add(ArtifactItemView.CreateFrame(piece, showOwner: false)); }
+                        CompactSlot(tile, compact);
+                        tile.EnableInClassList("selected", slot == _loadout._slot); tile.tooltip = ArtifactRules.SlotName(slot) + (piece == null ? " · Empty" : " · " + ArtifactItemView.Name(piece));
+                        _strip.Add(tile);
+                    }
+                    _picker.Rebuild?.Invoke();
+                }
+                private static void CompactSlot(VisualElement tile, bool compact)
+                {
+                    var width = compact ? 88 : 116;
+                    var height = compact ? 108 : 138;
+                    tile.style.width = tile.style.minWidth = width; tile.style.height = tile.style.minHeight = height;
+                    tile.style.marginLeft = tile.style.marginRight = compact ? 2 : 6;
+                    var frame = tile.Q(className: "item-reward-frame"); frame.style.width = width - 4; frame.style.height = height - 4;
+                    var icon = frame.Q(className: "artifact-item-icon"); if (icon != null) icon.style.height = height - 28;
+                    var footer = frame.Q(className: "item-reward-amount"); footer.style.height = 20;
+                }
+                public void Close()
+                {
+                    if (_closed) return; _closed = true;
+                    AccountHeaderView.ClearBackOverride(_loadout._root, this); _picker.Close(); _panel.RemoveFromHierarchy();
+                    _hero.RemoveFromClassList("artifact-inventory-open"); _portrait.style.display = _portraitDisplay; _loadout._stage.style.display = _stageDisplay;
+                    _loadout._equipment = null; _loadout._slots[(int)_loadout._slot].Focus();
+                }
             }
         }
 
@@ -161,9 +266,11 @@ namespace FightingAllstar.Presentation.Navigation
         {
             private readonly VisualElement _root, _panel, _focus;
             private readonly Action _restore;
+            private bool _closed;
             public Action Rebuild;
+            public Action<int> SetSlot;
             public PickerPanel(VisualElement root, VisualElement panel, VisualElement focus, Action restore) { _root = root; _panel = panel; _focus = focus; _restore = restore; }
-            public void Close() { ItemRewardView.CloseTooltip(_root); _panel.RemoveFromHierarchy(); _restore?.Invoke(); _focus?.Focus(); }
+            public void Close() { if (_closed) return; _closed = true; ItemRewardView.CloseTooltip(_root); _panel.RemoveFromHierarchy(); _restore?.Invoke(); if (_focus?.panel != null) _focus.Focus(); }
         }
 
         private static void DismissPicker(VisualElement root)
@@ -172,7 +279,7 @@ namespace FightingAllstar.Presentation.Navigation
             if (panel?.userData is PickerPanel picker) picker.Close(); else panel?.RemoveFromHierarchy();
         }
 
-        private static void OpenPicker(VisualElement root, string title, IEnumerable<ArtifactInstance> pieces, Action<ArtifactInstance> select, VisualElement focus, HashSet<string> selected = null, bool multiple = false, VisualElement dock = null, Action restore = null)
+        private static PickerPanel OpenPicker(VisualElement root, string title, IEnumerable<ArtifactInstance> pieces, Action<ArtifactInstance> select, VisualElement focus, HashSet<string> selected = null, bool multiple = false, VisualElement dock = null, Action restore = null, bool keepOpen = false, int initialSlot = -1, Func<ArtifactInstance, bool> isSelected = null)
         {
             DismissPicker(root);
             var source = pieces.ToList(); var subject = Inventory.SubjectId;
@@ -189,13 +296,17 @@ namespace FightingAllstar.Presentation.Navigation
             var sets = new DropdownField(new List<string> { "All oaths", "Striker’s Oath", "Bulwark’s Oath", "Lifebloom’s Oath" }, 0) { name = "artifact-picker-set" }; filters.Add(sets);
             var rarities = new DropdownField(new List<string> { "All rarities", "Common", "Uncommon", "Rare", "SR", "SSR" }, 0) { name = "artifact-picker-rarity" }; filters.Add(rarities);
             var slots = new DropdownField(new List<string> { "All slots", "Flower", "Feather", "Sand Clock", "Goblet", "Crown" }, 0) { name = "artifact-picker-slot" }; filters.Add(slots);
+            slots.index = initialSlot + 1; panel.SetSlot = slot => slots.index = slot + 1;
             var count = Label(dialog, "", "artifact-eyebrow", "artifact-picker-count");
-            var scroll = new ScrollView(ScrollViewMode.Vertical) { name = "artifact-picker-scroll", horizontalScrollerVisibility = ScrollerVisibility.Hidden }; scroll.AddToClassList("artifact-picker-scroll"); dialog.Add(scroll);
+            var scroll = new ScrollView(ScrollViewMode.Vertical) { name = "artifact-picker-scroll", horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden }; scroll.AddToClassList("artifact-picker-scroll"); dialog.Add(scroll);
             var grid = Box(scroll, "artifact-picker-grid", "artifact-picker-grid");
             var empty = Label(dialog, "", "artifact-empty", "artifact-picker-empty");
             Action rebuild = () =>
             {
+                if (overlay.panel == null && root.panel != null) return;
                 if (Inventory.SubjectId != subject) { ItemRewardView.CloseTooltip(root); panel.Close(); return; }
+                var focused = root.panel?.focusController.focusedElement as VisualElement;
+                var focusedTile = focused != null && grid.Contains(focused) ? focused.name : null;
                 grid.Clear(); var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
                 var currentSource = source.Select(a => byId.TryGetValue(a.InstanceId, out var current) ? current : null).Where(a => a != null && (!multiple || (!a.Favourite && string.IsNullOrEmpty(a.EquippedCharacterId)))).ToList();
                 var shown = currentSource.Where(a => (sets.index == 0 || (int)a.Set == sets.index - 1) && (rarities.index == 0 || (int)a.Rarity == rarities.index) && (slots.index == 0 || (int)a.Slot == slots.index - 1) &&
@@ -205,24 +316,27 @@ namespace FightingAllstar.Presentation.Navigation
                 empty.text = currentSource.Count == 0 ? "No eligible artifacts. Win dungeon battles to obtain more." : "No artifacts match these filters."; empty.style.display = shown.Count == 0 ? DisplayStyle.Flex : DisplayStyle.None;
                 foreach (var piece in shown)
                 {
-                    var tile = ArtifactItemView.CreateTile(root, piece, () => { select(piece); if (multiple) { grid.Q<Button>("picker-" + piece.InstanceId)?.EnableInClassList("material-selected", selected.Contains(piece.InstanceId)); count.text = shown.Count + " ARTIFACTS  ·  " + selected.Count + " SELECTED"; } else panel.Close(); });
+                    var tile = ArtifactItemView.CreateTile(root, piece, () => { select(piece); if (multiple) { grid.Q<Button>("picker-" + piece.InstanceId)?.EnableInClassList("material-selected", selected.Contains(piece.InstanceId)); count.text = shown.Count + " ARTIFACTS  ·  " + selected.Count + " SELECTED"; } else if (!keepOpen) panel.Close(); });
                     tile.name = "picker-" + piece.InstanceId; tile.EnableInClassList("material-selected", selected?.Contains(piece.InstanceId) ?? false);
+                    tile.EnableInClassList("selected", isSelected?.Invoke(piece) ?? false);
                     var item = Box(grid, "artifact-picker-item"); item.Add(tile);
                     if (multiple)
                     {
                         Button(item, "INSPECT", () => ArtifactItemView.ShowTooltip(root, piece, tile), "artifact-inspect-link");
                     }
                 }
+                if (!string.IsNullOrEmpty(focusedTile)) grid.Q<Button>(focusedTile)?.Focus();
             };
             panel.Rebuild = rebuild;
             search.RegisterValueChangedCallback(_ => rebuild()); sets.RegisterValueChangedCallback(_ => rebuild()); rarities.RegisterValueChangedCallback(_ => rebuild()); slots.RegisterValueChangedCallback(_ => rebuild());
             PlayerInventoryService.InventoryChanged += rebuild;
             overlay.RegisterCallback<DetachFromPanelEvent>(_ => PlayerInventoryService.InventoryChanged -= rebuild);
-            rebuild(); if (dock == null) Button(dialog, multiple ? "DONE" : "CANCEL", panel.Close, "artifact-button"); search.Focus();
+            rebuild(); if (dock == null) Button(dialog, multiple ? "DONE" : "CANCEL", panel.Close, "artifact-button"); search.Focus(); return panel;
         }
 
         private sealed class Workshop
         {
+            private const int MaterialSlots = 15;
             private readonly VisualElement _root, _overlay, _stats, _materials;
             private readonly Label _title, _level, _xpText, _cost, _note, _result, _balance;
             private readonly ProgressBar _xp;
@@ -285,7 +399,7 @@ namespace FightingAllstar.Presentation.Navigation
             {
                 if (Inventory.SubjectId != _subject) { Close(); return; }
                 var piece = Inventory.FindArtifact(_target); if (piece == null) { Close(); return; }
-                _title.text = ArtifactItemView.Name(piece); _balance.text = "COINS  " + Inventory.Coins.ToString("N0");
+                _title.text = ArtifactItemView.Name(piece); if (_balance != null) _balance.text = "COINS  " + Inventory.Coins.ToString("N0");
                 var artwork = _overlay.Q<Image>("enhance-art"); artwork.sprite = ArtifactItemView.Icon(piece); artwork.scaleMode = ScaleMode.ScaleToFit;
                 _overlay.Q<Label>("enhance-art-meta").text = ArtifactRules.SetName(piece.Set) + "  ·  " + new string('★', (int)piece.Rarity);
                 var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
@@ -305,7 +419,11 @@ namespace FightingAllstar.Presentation.Navigation
                     if (!byId.TryGetValue(id, out var artifact)) continue;
                     var tile = ArtifactItemView.CreateTile(_root, artifact, () => { _fodder.Remove(id); Refresh(); }); tile.AddToClassList("enhance-material-tile"); _materials.Add(tile);
                 }
-                var add = ItemRewardView.EmptyTile(PickMaterials, "—", "enhance-empty-material"); add.tooltip = "Select enhancement materials"; add.SetEnabled(piece.Level < 20); _materials.Add(add);
+                for (var i = _fodder.Count; i < MaterialSlots; i++)
+                {
+                    var add = ItemRewardView.EmptyTile(PickMaterials, "—", "enhance-empty-material-" + i); add.tooltip = "Select enhancement materials · " + _fodder.Count + " / " + MaterialSlots;
+                    add.SetEnabled(piece.Level < 20); _materials.Add(add);
+                }
                 _cost.text = "REQUIRED COINS  " + (_preview?.CoinCost ?? 0).ToString("N0");
                 _note.text = _fodder.Count == 0 && piece.Level < 20 ? "Select artifacts to enhance." : error ?? (piece.Level >= 20 ? "Maximum enhancement reached." : "Materials are consumed only after you review and confirm enhancement.");
                 if (_preview != null && _preview.ExcessExperience > 0) _note.text += "  " + _preview.ExcessExperience.ToString("N0") + " XP exceeds +20 and will be lost.";
@@ -325,7 +443,12 @@ namespace FightingAllstar.Presentation.Navigation
                 var hero = _overlay.Q("enhance-hero"); hero.style.display = DisplayStyle.None;
                 _overlay.AddToClassList("material-picker-open");
                 OpenPicker(_root, "ENHANCEMENT MATERIALS", Inventory.GetItemInventorySnapshot().Artifacts.Where(a => a.InstanceId != _target && !a.Favourite && string.IsNullOrEmpty(a.EquippedCharacterId)), piece =>
-                { if (!_fodder.Add(piece.InstanceId)) _fodder.Remove(piece.InstanceId); _result.text = ""; Refresh(); }, _overlay.Q("enhance-add"), _fodder, true, _overlay.Q("enhance-picker-host"), () =>
+                {
+                    if (_fodder.Contains(piece.InstanceId)) _fodder.Remove(piece.InstanceId);
+                    else if (_fodder.Count < MaterialSlots) _fodder.Add(piece.InstanceId);
+                    else { _note.text = "All 15 material slots are filled. Remove a material to replace it."; return; }
+                    _result.text = ""; Refresh();
+                }, _overlay.Q("enhance-add"), _fodder, true, _overlay.Q("enhance-picker-host"), () =>
                 { hero.style.display = DisplayStyle.Flex; _overlay.RemoveFromClassList("material-picker-open"); });
             }
             private void AutoAdd()
@@ -335,7 +458,7 @@ namespace FightingAllstar.Presentation.Navigation
                 var remaining = ArtifactRules.RequiredXp(target.Rarity, target.Level) - target.Experience;
                 var candidates = Inventory.GetItemInventorySnapshot().Artifacts.Where(a => a.InstanceId != _target && !a.Favourite && string.IsNullOrEmpty(a.EquippedCharacterId) && (int)a.Rarity <= _autoRarity.index + 1)
                     .OrderBy(a => a.Rarity).ThenBy(a => a.Level).ThenBy(a => a.InstanceId, StringComparer.Ordinal);
-                foreach (var piece in candidates) { if (remaining <= 0) break; _fodder.Add(piece.InstanceId); remaining -= ArtifactRules.FodderXp(piece); }
+                foreach (var piece in candidates) { if (remaining <= 0 || _fodder.Count >= MaterialSlots) break; _fodder.Add(piece.InstanceId); remaining -= ArtifactRules.FodderXp(piece); }
                 Refresh(); if (_fodder.Count == 0) _note.text = "No eligible artifacts at this rarity. Favourites and equipped artifacts stay protected.";
             }
             private void Confirm()
@@ -349,7 +472,7 @@ namespace FightingAllstar.Presentation.Navigation
                 if (_fodder.Count > 0)
                 {
                     Label(dialog, "These exact artifacts will be permanently consumed:", "artifact-warning");
-                    var scroll = new ScrollView(ScrollViewMode.Vertical); scroll.AddToClassList("artifact-confirm-scroll"); dialog.Add(scroll);
+                    var scroll = new ScrollView(ScrollViewMode.Vertical) { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden }; scroll.AddToClassList("artifact-confirm-scroll"); dialog.Add(scroll);
                     var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
                     foreach (var id in preview.FodderIds)
                     {

@@ -19,7 +19,7 @@
         </ui:VisualElement>
         <ui:Label name="backpack-note" class="backpack-note condensed" />
         <ui:Label name="backpack-empty" class="backpack-empty condensed" />
-        <ui:ScrollView name="backpack-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" class="backpack-scroll">
+        <ui:ScrollView name="backpack-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="backpack-scroll">
             <ui:VisualElement name="backpack-grid" class="backpack-grid" />
         </ui:ScrollView>
     </ui:VisualElement>

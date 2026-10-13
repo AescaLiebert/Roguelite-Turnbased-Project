@@ -7,7 +7,7 @@ namespace FightingAllstar.Core.Run
 {
     public static class RouteGenerator
     {
-        public const int CurrentGeneratorVersion = 3;
+        public const int CurrentGeneratorVersion = 4;
         private const int RequiredRows = 9;
 
         public static List<RouteNodeState> Generate(DungeonProfile profile, IReadOnlyList<CharacterDefinition> catalog,
@@ -180,14 +180,9 @@ namespace FightingAllstar.Core.Run
             IReadOnlyList<CharacterDefinition> catalog, int difficulty, DeterministicRandom rng)
         {
             var pool = EligibleCandidates(profile, catalog);
-            var difficultyForNode = difficulty + (node.Row * profile.DifficultyIncreasePerRowPercent);
-            if (node.Type == RouteNodeType.Elite) difficultyForNode += profile.EliteDifficultyBonusPercent;
-            if (node.Type == RouteNodeType.Boss) difficultyForNode += profile.BossDifficultyBonusPercent;
-            difficultyForNode = Math.Min(100, difficultyForNode);
-
             var template = SelectFormationTemplate(node.Type, profile, rng);
             if (template != null)
-                return BuildTeamFromTemplate(node, template, difficultyForNode, catalog, rng);
+                return BuildTeamFromTemplate(node, template, difficulty, profile, catalog, rng);
 
             var selected = new List<CharacterDefinition>();
             foreach (var restriction in profile.Restrictions)
@@ -218,15 +213,8 @@ namespace FightingAllstar.Core.Run
             var result = new List<EncounterFighterSnapshot>(4);
             for (var i = 0; i < 4; i++)
             {
-                var definition = selected[i].Clone();
-                var stats = CharacterProgression.StatsAtLevel(definition.BaseStats, definition.StatGrowth, 1);
-                stats.Attack = ScaleBasicStat(stats.Attack, difficultyForNode);
-                stats.Defense = ScaleBasicStat(stats.Defense, difficultyForNode);
-                stats.MaxHealth = ScaleBasicStat(stats.MaxHealth, difficultyForNode);
-                CombatClassRules.Recalculate(stats);
-                result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
-                    DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
-                    ConstellationTier = rng.Next(6), FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
+                var constellation = rng.Next(6);
+                result.Add(DungeonEnemyFactory.Create(selected[i], node, profile, difficulty, i, constellation, rng));
             }
             return result;
         }
@@ -256,22 +244,16 @@ namespace FightingAllstar.Core.Run
         }
 
         private static List<EncounterFighterSnapshot> BuildTeamFromTemplate(RouteNodeState node,
-            EnemyFormationTemplate template, int difficulty, IReadOnlyList<CharacterDefinition> catalog, DeterministicRandom rng)
+            EnemyFormationTemplate template, int difficulty, DungeonProfile profile, IReadOnlyList<CharacterDefinition> catalog, DeterministicRandom rng)
         {
             var result = new List<EncounterFighterSnapshot>(4);
             for (var i = 0; i < template.Fighters.Count; i++)
             {
                 var member = template.Fighters[i];
-                var definition = FindDefinition(catalog, member.FighterId).Clone();
-                var stats = CharacterProgression.StatsAtLevel(definition.BaseStats, definition.StatGrowth, 1);
-                stats.Attack = ScaleBasicStat(stats.Attack, difficulty);
-                stats.Defense = ScaleBasicStat(stats.Defense, difficulty);
-                stats.MaxHealth = ScaleBasicStat(stats.MaxHealth, difficulty);
-                CombatClassRules.Recalculate(stats);
-                result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
-                    DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
-                    ConstellationTier = member.ConstellationTier < 0 ? rng.Next(6) : member.ConstellationTier,
-                    FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
+                var constellation = DungeonDifficulty.Level(difficulty) == 5 || member.ConstellationTier < 0
+                    ? rng.Next(6) : member.ConstellationTier;
+                result.Add(DungeonEnemyFactory.Create(FindDefinition(catalog, member.FighterId), node, profile,
+                    difficulty, i, constellation, rng));
             }
             return result;
         }
@@ -314,6 +296,5 @@ namespace FightingAllstar.Core.Run
             return true;
         }
 
-        private static int ScaleBasicStat(int value, int difficulty) => (int)((long)Math.Max(0, value) * (100 + difficulty) / 100);
     }
 }

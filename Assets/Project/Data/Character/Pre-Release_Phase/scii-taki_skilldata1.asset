@@ -17,8 +17,8 @@ MonoBehaviour:
   statusVisuals:
   - {fileID: 11400000, guid: 9191cd02dfd07f545b890c65068eed25, type: 2}
   ranks:
-  - description: Deals 120% ATK damage to one enemy and reduces their Max HP by 30%
-      for 2 turns.
+  - description: Deals 120% ATK damage to one enemy and reduces their HP-Related
+      Stats by 10% for 2 turns.
     skillType: 5
     runtimeEffect:
       Attack:
@@ -144,11 +144,11 @@ MonoBehaviour:
           Conditions: []
           StatusRecipe:
             Id: status.decrease.hp-related
-            NameKey: Decrease Max HP
+            NameKey: Decrease HP-Related
             Polarity: 1
             Color: 0
             Behavior: 1
-            Stacking: 1
+            Stacking: 0
             Identity: 0
             DurationClock: 1
             DefaultDuration: 2
@@ -168,14 +168,14 @@ MonoBehaviour:
               Bundle: 0
               Family: 0
               Operation: 1
-              Amount: -3000
+              Amount: -1000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 3
               SerializedFamily: -1
-              SerializedOperation: -1
+              SerializedOperation: 0
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -240,8 +240,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-  - description: Deals 240% ATK damage to one enemy and reduces their Max HP by 30%
-      for 2 turns.
+  - description: Deals 120% ATK damage to one enemy and reduces their HP-Related
+      Stats by 20% for 2 turns.
     skillType: 5
     runtimeEffect:
       Attack:
@@ -367,11 +367,11 @@ MonoBehaviour:
           Conditions: []
           StatusRecipe:
             Id: status.decrease.hp-related
-            NameKey: Decrease Max HP
+            NameKey: Decrease HP-Related
             Polarity: 1
             Color: 0
             Behavior: 1
-            Stacking: 1
+            Stacking: 0
             Identity: 0
             DurationClock: 1
             DefaultDuration: 2
@@ -391,14 +391,14 @@ MonoBehaviour:
               Bundle: 0
               Family: 0
               Operation: 1
-              Amount: -3000
+              Amount: -2000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 3
               SerializedFamily: -1
-              SerializedOperation: -1
+              SerializedOperation: 0
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -463,8 +463,8 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-  - description: Deals 360% ATK damage to one enemy and reduces their Max HP by 30%
-      for 2 turns.
+  - description: Deals 120% ATK damage to one enemy and reduces their HP-Related
+      Stats by 30% for 3 turns.
     skillType: 5
     runtimeEffect:
       Attack:
@@ -590,14 +590,14 @@ MonoBehaviour:
           Conditions: []
           StatusRecipe:
             Id: status.decrease.hp-related
-            NameKey: Decrease Max HP
+            NameKey: Decrease HP-Related
             Polarity: 1
             Color: 0
             Behavior: 1
-            Stacking: 1
+            Stacking: 0
             Identity: 0
             DurationClock: 1
-            DefaultDuration: 2
+            DefaultDuration: 3
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
@@ -617,11 +617,11 @@ MonoBehaviour:
               Amount: -3000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 3
               SerializedFamily: -1
-              SerializedOperation: -1
+              SerializedOperation: 0
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -673,7 +673,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-          StatusDurationOverride: 2
+          StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000

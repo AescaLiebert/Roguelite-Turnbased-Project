@@ -116,6 +116,8 @@ namespace FightingAllstar.Core.Combat
         public List<RunBoonDefinition> RunBoons = new List<RunBoonDefinition>();
         public List<string> ActivePassiveAuras = new List<string>();
         public List<PendingPassiveEffect> PendingPassiveEffects = new List<PendingPassiveEffect>();
+        public List<PassiveFact> PendingPassiveDamageFacts = new List<PassiveFact>();
+        public List<string> PassiveDamageReactionReceipts = new List<string>();
 
         public BattleState Clone()
         {
@@ -129,6 +131,8 @@ namespace FightingAllstar.Core.Combat
             foreach (var aura in ActivePassiveAuras) copy.ActivePassiveAuras.Add(aura);
             foreach (var pending in PendingPassiveEffects)
                 copy.PendingPassiveEffects.Add(pending?.Clone());
+            foreach (var fact in PendingPassiveDamageFacts) copy.PendingPassiveDamageFacts.Add(fact.Clone());
+            copy.PassiveDamageReactionReceipts.AddRange(PassiveDamageReactionReceipts);
             return copy;
         }
         public BattleTeamState Team(TeamSide side) => side == TeamSide.Player ? Player : Opponent;

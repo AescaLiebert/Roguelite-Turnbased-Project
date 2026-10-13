@@ -1,4 +1,4 @@
-param([switch]$TrainingOnly, [switch]$DungeonPolicyOnly, [switch]$NeutralStatusOnly, [switch]$DungeonRewardsOnly, [switch]$DungeonArchitectureOnly)
+param([switch]$TrainingOnly, [switch]$DungeonPolicyOnly, [switch]$NeutralStatusOnly, [switch]$DungeonRewardsOnly, [switch]$DungeonArchitectureOnly, [switch]$DungeonEnemiesOnly)
 $ErrorActionPreference = 'Stop'
 $battleRepo = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $battleScratch = Join-Path $battleRepo 'Temp/BattlePlaybackChecks'
@@ -11,7 +11,9 @@ $battleChecks = Join-Path $PSScriptRoot '*.cs'
   <ItemGroup><ProjectReference Include="$battleCore"/><Compile Include="$battleChecks"/></ItemGroup>
 </Project>
 "@ | Set-Content (Join-Path $battleScratch 'Checks.csproj')
-if ($DungeonArchitectureOnly) {
+if ($DungeonEnemiesOnly) {
+    dotnet run --project (Join-Path $battleScratch 'Checks.csproj') --configuration Release --nologo -- --dungeon-enemies
+} elseif ($DungeonArchitectureOnly) {
     dotnet run --project (Join-Path $battleScratch 'Checks.csproj') --configuration Release --nologo -- --dungeon-architecture
 } elseif ($DungeonRewardsOnly) {
     dotnet run --project (Join-Path $battleScratch 'Checks.csproj') --configuration Release --nologo -- --dungeon-rewards

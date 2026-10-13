@@ -46,6 +46,7 @@ public class CharacterLoadOut : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     [SerializeField] private Image fighterAttribute;
     [SerializeField] private Image fighterSeries;
     [SerializeField] private Image hpIcon;
+    [SerializeField] private Image healthBarFill;
     [SerializeField] private Image atkIcon;
     [SerializeField] private Image defIcon;
     [SerializeField] private TextMeshProUGUI atkText;
@@ -125,6 +126,7 @@ public class CharacterLoadOut : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         SetText(defText, string.Empty);
         SetText(hpText, string.Empty);
         SetText(levelText, string.Empty);
+        if (healthBarFill != null) healthBarFill.transform.parent.gameObject.SetActive(false);
         SetIconVisible(atkIcon, false);
         SetIconVisible(defIcon, false);
         SetIconVisible(hpIcon, false);
@@ -166,15 +168,42 @@ public class CharacterLoadOut : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         SetIconVisible(atkIcon, true);
         SetIconVisible(defIcon, true);
         SetIconVisible(hpIcon, true);
-        SetText(atkText, Mathf.RoundToInt(character.attack).ToString("N0"));
-        SetText(defText, Mathf.RoundToInt(character.defense).ToString("N0"));
-        SetText(hpText, Mathf.RoundToInt(character.health).ToString("N0"));
+        var stats = FightingAllstar.Presentation.Loadout.LoadoutStats.Resolve(character);
+        SetText(atkText, stats.Attack.ToString("N0"));
+        SetText(defText, stats.Defense.ToString("N0"));
+        SetText(hpText, stats.MaxHealth.ToString("N0"));
         var runFighter = FightingAllstar.Presentation.Route.DungeonFlowContext.ActiveRun?.Roster?.Find(f => f.DefinitionId == character.DefinitionId);
-        if (runFighter != null)
-            SetText(hpText, runFighter.IsDefeated ? "DEFEATED" : runFighter.CurrentHealth.ToString("N0") + " / " + runFighter.Stats.MaxHealth.ToString("N0"));
+        EnsureHealthBar();
+        if (healthBarFill != null)
+        {
+            healthBarFill.transform.parent.gameObject.SetActive(true);
+            var remaining = runFighter == null ? stats.MaxHealth : runFighter.IsDefeated ? 0 : runFighter.CurrentHealth;
+            healthBarFill.fillAmount = Mathf.Clamp01(remaining / (float)Math.Max(1, stats.MaxHealth));
+        }
         var level = owned == null ? 1 : Mathf.Max(1, owned.level);
         var constellation = owned == null ? 0 : Mathf.Max(0, owned.constellationTier);
         SetText(levelText, $"Lv. {level}  ·  C{constellation}");
+    }
+
+    private void EnsureHealthBar()
+    {
+        if (healthBarFill == null && hpText != null)
+        {
+            var track = new GameObject("LoadoutHealthBar", typeof(RectTransform), typeof(Image));
+            track.transform.SetParent(hpText.transform, false);
+            var rect = (RectTransform)track.transform; rect.anchorMin = new Vector2(0, 0); rect.anchorMax = new Vector2(1, 0);
+            rect.pivot = new Vector2(.5f, 1); rect.anchoredPosition = new Vector2(0, -2); rect.sizeDelta = new Vector2(0, 5);
+            var background = track.GetComponent<Image>(); background.color = new Color(.18f, .23f, .27f); background.raycastTarget = false;
+            var fill = new GameObject("Fill", typeof(RectTransform), typeof(Image)); fill.transform.SetParent(track.transform, false);
+            var fillRect = (RectTransform)fill.transform; fillRect.anchorMin = Vector2.zero; fillRect.anchorMax = Vector2.one;
+            fillRect.offsetMin = fillRect.offsetMax = Vector2.zero; healthBarFill = fill.GetComponent<Image>();
+            var texture = Texture2D.whiteTexture;
+            healthBarFill.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(.5f, .5f));
+            healthBarFill.color = new Color(.41f, .88f, .52f); healthBarFill.raycastTarget = false;
+        }
+        if (healthBarFill == null) return;
+        healthBarFill.type = Image.Type.Filled; healthBarFill.fillMethod = Image.FillMethod.Horizontal;
+        healthBarFill.fillOrigin = 0;
     }
 
     public void ToggleSelectionVisual(bool isSelected)
