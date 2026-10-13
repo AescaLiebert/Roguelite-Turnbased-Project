@@ -23,11 +23,11 @@ namespace FightingAllstar.Presentation.Combat
         [Tooltip("Icon sprite for the status (used in world HUD, card badges, and tooltips)")]
         [SerializeField] private Sprite icon;
 
-        [Tooltip("Actor model effect. Automatic reads the status recipe's stat modifiers and stun tag.")]
+        [Tooltip("Actor model effect. Automatic reads stat modifiers, status tags/IDs and card-disable semantics.")]
         [SerializeField] private ActorVisualEffectKind actorVisualEffect = ActorVisualEffectKind.Automatic;
 
         [Header("Classification")]
-        [Tooltip("Polarity of the status: Buff or Debuff")]
+        [Tooltip("Polarity of the status: Buff, Neutral (healing/stance), or Debuff")]
         [SerializeField] private StatusPolarity polarity = StatusPolarity.Debuff;
 
         [Tooltip("Alternative aliases or keywords for fuzzy matching (e.g. 'ignite', 'burn')")]
@@ -240,7 +240,9 @@ namespace FightingAllstar.Presentation.Combat
         {
             var keys = polarity == StatusPolarity.Buff
                 ? new[] { "stat_up", "Status_StatUp", "buff_default", "default_buff" }
-                : new[] { "stat_down", "Status_StatDown", "debuff_default", "default_debuff" };
+                : polarity == StatusPolarity.Neutral
+                    ? new[] { "neutral_default", "default_neutral" }
+                    : new[] { "stat_down", "Status_StatDown", "debuff_default", "default_debuff" };
 
             foreach (var key in keys)
             {

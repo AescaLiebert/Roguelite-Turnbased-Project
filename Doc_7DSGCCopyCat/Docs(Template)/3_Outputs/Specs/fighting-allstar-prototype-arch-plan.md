@@ -139,7 +139,7 @@ The requested NoSQL AST is useful as a serialized content format. It must not co
 
 Use stable string definition IDs such as `fighter.kyo94` and `skill.kyo94.flame-strike`; numeric catalog IDs, if needed, are 32-bit or larger. `int(8)` is ambiguous and an 8-bit integer is too small for a growing roster. The migration table preserves legacy ID 0 as valid and maps it to `fighter.kyo94`; zero must not mean missing. Owned instances use server-generated IDs. In a match, use stable `TeamId`, `FighterId`, `CardInstanceId`, `StatusInstanceId`, and monotonic `EventId`; none depends on display name, Unity object identity, or collection enumeration order. Changing a display/localized name never changes identity.
 
-`nameKey` and `descriptionKey` point to localization entries. Store traits as references to a validated trait catalog. Separate `attribute`, `roleTags`, `strategyTags`, and `attackPatternTags`: meta triangles are interactions between effects, not a universal hidden bonus from the word "Burst". Preserve source Red/Green/Yellow/Blue and the guide four-way relation table; Light/Darkness are explicit aura rules. Never map by enum ordinal.
+`nameKey` and `descriptionKey` point to localization entries. Store traits as references to a validated trait catalog. Separate `attribute`, `roleTags`, `strategyTags`, and `attackPatternTags`: meta triangles are interactions between effects, not a universal hidden bonus from the word "Burst". Preserve source Red/Green/Yellow/Purple/Blue and the five-way relation table; Light (−10% received damage) and Darkness (+10% dealt damage) are standalone explicit aura rules outside the cycle. Never map by enum ordinal.
 
 ### Stat units and arithmetic
 

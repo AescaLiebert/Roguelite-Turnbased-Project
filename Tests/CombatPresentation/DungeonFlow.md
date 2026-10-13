@@ -8,7 +8,7 @@
 - Dungeon selection filters exactly by series, phase and sub-phase. CharacterObject.ID supplies the four-digit category; SourceId remains provenance. Empty categories cannot fall back to unrelated enemies. Four distinct eligible enemy definitions and one owned eligible fighter are needed.
 - Entry creates a fresh seed, route, and four-member enemy snapshots. The map opens at the bottom. A route choice reveals its enemy formation; Prepare team opens loadout; Play opens Battle.
 - Run formation changes autosave in the account-scoped run file. Reopening loadout restores them. CharacterLoadOut filters owned characters through the active dungeon policy without locking committed characters to the run.
-- Completion grants the existing idempotent run reward and clears the run; defeat and abandonment clear it too. Permanent ownership and currency remain. Legacy account-level formation fields are discarded on load and omitted from meaningful persistence.
+- Each victory grants an idempotent reward receipt and presents a reward popup. Boss victory completes the run. Defeat keeps the run active and its stage retryable; defeated characters remain unavailable for the rest of the run. Only explicit abandonment clears a lost run. See DungeonArchitecture.md for state rules and validation.
 - Existing runs retain their pinned enemies; start a fresh run to use changed authored combat data. Legacy runs can still be abandoned from the map.
 - CharacterRegistrySync updates asset references when authored character assets change. It never regenerates character, card, or passive configuration.
 
@@ -29,9 +29,9 @@ The scene fade is a **starting value of 0.2 seconds**, measured in unscaled time
 2. Clarity: WIP-Phase/Launch shows 10XX candidates. Pre-Release/Launch shows 20XX and is unavailable until authored content supports it. All nine phases and five sub-phases remain selectable.
 3. Route: confirm Start is at the bottom and Boss at the top; paths connect only legal successors. Preview every active/reserve enemy before entering.
 4. Save: assign and reorder four owned fighters, return to the route and reopen loadout. Restart play mode during the run and repeat. The same seed, enemies and slots must return.
-5. Loadout adjustments: win an encounter with wounds or a defeated fighter. Reopen loadout: all eligible owned fighters remain available through the dungeon policy filter without locking committed characters to the formation.
+5. Loadout adjustments: win an encounter with wounds or a defeated fighter. Reopen loadout: wounded HP persists; defeated fighters are unequipped, blocked, crossed out and sorted last. Eligible replacements remain available.
 6. Abuse/stress: rapidly click navigation, draw and route actions. No double spend, duplicate navigation, route skip, team reroll, free healing or duplicate completion reward.
-7. Terminal: abandon, lose, and complete separate test runs. Reopen loadout and start a new run: no old formation should appear, while owned fighters and currency remain.
+7. Lose a test run and verify it stays active after a restart. Retry using replacements, then explicitly abandon. Complete another run and start fresh: old wounds/defeat/buffs must not carry forward, while ownership and granted currency remain.
 8. Readability: inspect MainMenu, banner, ten-result grid, dungeon filters and map at 1280×720 and 1920×1080. Confirm no clipping, unreadable labels or invisible route controls.
 
 Visual references inform the banner rail/hero/actions/result composition and the narrow, bottom-up staggered labyrinth platforms. The implementation uses the project's existing character and UI art.

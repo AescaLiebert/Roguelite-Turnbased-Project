@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 668ac4c1349149e68d9ff4f013dad007, type: 3}
+  m_Name: ItemIconArt
+  m_EditorClassIdentifier: 
+  diamond: {fileID: 21300000, guid: 8e87def46588434d893d3bd94d775dca, type: 3}
+  coin: {fileID: 21300000, guid: e1550acb614d423ca790c4ec87c87859, type: 3}
+  artifactDust: {fileID: 21300000, guid: 2c8209301cf649a5be959d2abf3ceb82, type: 3}
+  kofTournamentInsignia: {fileID: 21300000, guid: 2c5d5921044a49be943a77dfb523c963, type: 3}
+  phaseCrests:
+  - {fileID: 21300000, guid: 306b86e968b24ecfbd3fe2f3f6ea6589, type: 3}
+  - {fileID: 21300000, guid: 9419b47411f9431a935a76c09816bb79, type: 3}
+  - {fileID: 21300000, guid: 5e9bf5224c4d4f09a188f2e160ec4153, type: 3}
+  - {fileID: 21300000, guid: d902bc65b8524e6193c81354e9b26e1c, type: 3}
+  - {fileID: 21300000, guid: fef08ece612d493a85021d6234694ffb, type: 3}
+  - {fileID: 21300000, guid: f823732354db4a35b455ec0f47f0a796, type: 3}
+  - {fileID: 21300000, guid: aa7011d5253045fb94f9fd9a1acf82a7, type: 3}
+  - {fileID: 21300000, guid: 0d1167236cc44e489fbdf92cf925bb9c, type: 3}
+  - {fileID: 21300000, guid: 8464e14aeb6542b2a9f431f32b51fcb7, type: 3}
+  subPhaseSigils:
+  - {fileID: 21300000, guid: ca9b47fc79324d71af28a079c385c146, type: 3}
+  - {fileID: 21300000, guid: 58bb6a528b4749d4a01dd48e34eb3e98, type: 3}
+  - {fileID: 21300000, guid: 188b5da796eb4bf7be871d473ac9f81c, type: 3}
+  - {fileID: 21300000, guid: b8bcab73e0f04e69b71c9a33b0dd3062, type: 3}
+  - {fileID: 21300000, guid: 2ea4ec8ba0e94312a32a4e2755cbae9a, type: 3}

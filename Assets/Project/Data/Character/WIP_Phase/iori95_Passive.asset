@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
   m_Name: iori95_Passive
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
-  statusVisuals: []
+  statusVisuals:
+  - {fileID: 11400000, guid: 8abe0a2e8e154aa5890c1610f31d6d15, type: 2}
+  - {fileID: 11400000, guid: e060b0f648064173aec886b62cc1fb87, type: 2}
   definition:
     Id: fighter.iori95.passive.source
     Auras:
@@ -50,7 +52,7 @@ MonoBehaviour:
         SerializedFamily: -1
         SerializedOperation: -1
     Reactions:
-    - Id: bonus-max-health-damage-vs-kyo-team
+    - Id: bonus-max-health-damage-vs-kyo
       Gate:
         MinimumTier: 0
         MaximumTier: 5
@@ -58,6 +60,7 @@ MonoBehaviour:
         Presence: 0
         AllowDefeatedOwner: 0
       Trigger: 6
+      DamageTiming: 1
       OwnTeamTurnOnly: 0
       ActorRelation: 1
       TargetRelation: 3
@@ -76,22 +79,14 @@ MonoBehaviour:
       MaximumActivations: 1
       CooldownOwnerTurns: 0
       Conditions:
-      - Kind: 20
+      - Kind: 18
         RecipeId: 
         Tag: 
-        StringValue: 
+        StringValue: trait.kyo
         Threshold: 1
         Negate: 0
         Logic: 0
-        Subject: 0
-        RosterFilter:
-          Relation: 3
-          IncludeOwner: 1
-          IncludeReserve: 1
-          AttributeId: 
-          TraitId: trait.kyo
-          SeriesId: 
-        InitialRoster: 0
+        Subject: 3
       Commands:
       - Kind: 2
         CounterKey: 
@@ -108,6 +103,7 @@ MonoBehaviour:
           Damage:
             Family: 2
             Scaling: 2
+            StatSource: 1
             ScalingStat: 0
             FixedAmount: 0
             CoefficientBp: 500
@@ -115,7 +111,7 @@ MonoBehaviour:
             AttackEffectId: 
             CannotCrit: 1
             CannotBlock: 1
-            ScaleFromTargetMaxHealth: 1
+            ScaleFromTargetMaxHealth: 0
           Status:
             StatusRecipeId: 
             DurationOverride: 0
@@ -168,6 +164,8 @@ MonoBehaviour:
                 Attack:
                   HitCount: 1
                   Range: 0
+                  Reaction: 0
+                  ReactionTiming: 0
                 Kind: 0
                 Target: 1
                 Family: 0
@@ -238,6 +236,8 @@ MonoBehaviour:
                 Attack:
                   HitCount: 1
                   Range: 0
+                  Reaction: 0
+                  ReactionTiming: 0
                 Kind: 0
                 Target: 1
                 Family: 0
@@ -305,6 +305,8 @@ MonoBehaviour:
                 Attack:
                   HitCount: 1
                   Range: 0
+                  Reaction: 0
+                  ReactionTiming: 0
                 Kind: 0
                 Target: 1
                 Family: 0
@@ -347,6 +349,7 @@ MonoBehaviour:
         Presence: 0
         AllowDefeatedOwner: 0
       Trigger: 6
+      DamageTiming: 1
       OwnTeamTurnOnly: 0
       ActorRelation: 1
       TargetRelation: 3
@@ -441,6 +444,8 @@ MonoBehaviour:
                 Attack:
                   HitCount: 1
                   Range: 0
+                  Reaction: 0
+                  ReactionTiming: 0
                 Kind: 0
                 Target: 1
                 Family: 0
@@ -468,8 +473,8 @@ MonoBehaviour:
             CoefficientBp: 5000
             Stats: 0000000001000000
             SourceStatus:
-              Id: 
-              NameKey: 
+              Id: status.buff.extort
+              NameKey: status.buff.extort
               Polarity: 0
               Color: 0
               Behavior: 1
@@ -511,6 +516,8 @@ MonoBehaviour:
                 Attack:
                   HitCount: 1
                   Range: 0
+                  Reaction: 0
+                  ReactionTiming: 0
                 Kind: 0
                 Target: 1
                 Family: 0
@@ -535,8 +542,8 @@ MonoBehaviour:
               IgnoreCritDefenseBp: 0
               ImmuneStatusTags: []
             TargetStatus:
-              Id: 
-              NameKey: 
+              Id: status.debuff.extort
+              NameKey: status.debuff.extort
               Polarity: 1
               Color: 0
               Behavior: 1
@@ -578,6 +585,8 @@ MonoBehaviour:
                 Attack:
                   HitCount: 1
                   Range: 0
+                  Reaction: 0
+                  ReactionTiming: 0
                 Kind: 0
                 Target: 1
                 Family: 0

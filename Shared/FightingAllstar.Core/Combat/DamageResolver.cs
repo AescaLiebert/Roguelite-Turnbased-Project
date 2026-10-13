@@ -72,7 +72,9 @@ namespace FightingAllstar.Core.Combat
 
                 // Attacker bonus damage (e.g. Joe95 aura passive, damage dealt buffs) calculates first on attacker's attack
                 var trueBonus = isTrue ? 3000 : 0;
-                var outgoingBp = Math.Max(0L, 10000L + policy.OutgoingIncreaseBp - policy.OutgoingDecreaseBp + trueBonus);
+                var conditionalOutgoing = critical ? 0 : Math.Max(0, policy.NonCriticalOutgoingIncreaseBp);
+                var outgoingBp = Math.Max(0L, 10000L + policy.OutgoingIncreaseBp - policy.OutgoingDecreaseBp +
+                    conditionalOutgoing + trueBonus);
                 var finalOffenseNumerator = totalOffenseNumerator * outgoingBp;
 
                 // In-contact with target defense: Target Defense stat subtracted once from finalized attacker's attack
@@ -96,6 +98,10 @@ namespace FightingAllstar.Core.Combat
             }
             else
             {
+                // Additional starts with its own authored percentage of the selected stat.
+                // DOT amounts are already snapshotted by their status recipe.
+                if (family == DamageFamily.Additional)
+                    Multiply(ref numerator, ref denominator, Math.Max(0, packet.CoefficientBp), 10000);
                 Multiply(ref numerator, ref denominator,
                     Math.Max(0, 10000L + policy.FamilyDealtIncreaseBp - policy.FamilyDealtDecreaseBp), 10000);
                 Multiply(ref numerator, ref denominator,

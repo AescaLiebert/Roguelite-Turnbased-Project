@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.chang94
   runtimeReady: 1
-  sourceId: 26
-  sourceRecord: 27
   familyId: family.chang
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -28,12 +26,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 3
   passiveDefinition: {fileID: 11400000, guid: 2bcb2dc68470440bb347ad3c14d547b0, type: 2}
-  id: 1026
+  id: 1103
   fighterName: Chang Koehan 94
-  fighterTag: Chang
   fighterPic: {fileID: 21300000, guid: 19f8996dfa2626e46bb7dc39902cf25a, type: 3}
   fighterIcon: {fileID: 21300000, guid: 95cc7b2aa1ad08449bd28c79627e54c5, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 19f8996dfa2626e46bb7dc39902cf25a, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -50,6 +47,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2371
   attack: 250
   defense: 300

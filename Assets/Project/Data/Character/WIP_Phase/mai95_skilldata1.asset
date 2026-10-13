@@ -16,22 +16,24 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: ba8917f0d7a12ba418d0e205627ce9dc, type: 3}
   statusVisuals: []
   ranks:
-  - description: "Inflicts damage equal to 120% of ATK. applies 1 Ignites to enemy for 2 turns"
+  - description: Inflicts damage equal to 180% of ATK. applies 1 Ignites to enemy
+      for 3 turns
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.mai95.skill.1.rank.1
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 12000
+      CoefficientBp: 18000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +104,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -113,12 +117,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.mai95.skill.1.ignite
           Kind: 1
           Family: 0
@@ -128,7 +136,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.ignite
@@ -139,9 +146,10 @@ MonoBehaviour:
             Stacking: 2
             Identity: 0
             DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 10
+            DefaultDuration: 3
+            MaxStacks: 1000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -151,11 +159,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 2
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 2
               Amount: 1000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -182,6 +196,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -205,8 +221,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 2
+          StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
@@ -219,13 +234,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
-  - description: "Inflicts damage equal to 240% of ATK. Removes buff and applies 2 Ignites to enemy for 2 turns"
+  - description: Inflicts damage equal to 240% of ATK. Removes buff and applies 2
+      Ignites to enemy for 2 turns
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.mai95.skill.1.rank.2
       Kind: 0
       Family: 0
@@ -235,7 +252,6 @@ MonoBehaviour:
       CoefficientBp: 24000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -249,6 +265,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -280,6 +297,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -303,7 +322,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -317,12 +335,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 1
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.mai95.skill.1.remove-buffs
           Kind: 4
           Family: 0
@@ -332,7 +354,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -346,6 +367,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -377,6 +399,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -400,7 +424,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -414,12 +437,14 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.mai95.skill.1.ignite
           Kind: 1
           Family: 0
@@ -429,7 +454,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.ignite
@@ -440,9 +464,10 @@ MonoBehaviour:
             Stacking: 2
             Identity: 0
             DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 10
+            DefaultDuration: 3
+            MaxStacks: 1000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -452,11 +477,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 2
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 2
               Amount: 1000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -483,6 +514,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -506,8 +539,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 2
+          StatusDurationOverride: 3
           StatusStackCount: 2
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
@@ -520,13 +552,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
-  - description: "Inflicts damage equal to 360% of ATK. Removes buff and applies 3 Ignites to enemy for 3 turns"
+  - description: Inflicts damage equal to 360% of ATK. Removes buff and applies 3
+      Ignites to enemy for 4 turns
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.mai95.skill.1.rank.3
       Kind: 0
       Family: 0
@@ -536,7 +570,6 @@ MonoBehaviour:
       CoefficientBp: 36000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -550,6 +583,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -581,6 +615,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -604,7 +640,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -618,12 +653,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 1
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.mai95.skill.1.remove-buffs
           Kind: 4
           Family: 0
@@ -633,7 +672,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -647,6 +685,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -678,6 +717,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -701,7 +742,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -715,12 +755,14 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.mai95.skill.1.ignite
           Kind: 1
           Family: 0
@@ -730,7 +772,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.ignite
@@ -741,9 +782,10 @@ MonoBehaviour:
             Stacking: 2
             Identity: 0
             DurationClock: 1
-            DefaultDuration: 2
-            MaxStacks: 10
+            DefaultDuration: 4
+            MaxStacks: 1000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -753,11 +795,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 2
               Stat: 0
+              Bundle: 0
               Family: 0
               Operation: 2
               Amount: 1000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -784,6 +832,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -807,8 +857,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 3
+          StatusDurationOverride: 4
           StatusStackCount: 3
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
@@ -821,4 +870,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []

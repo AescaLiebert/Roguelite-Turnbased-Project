@@ -14,6 +14,7 @@ namespace FightingAllstar.Presentation.Route
         [SerializeField] private DungeonEntryController entry;
         [SerializeField] private DungeonRouteMapController routeMap;
         [SerializeField] private string battleScene = "Battle";
+        public bool HasBattleResultPresentation { get; private set; }
 
         private void Awake()
         {
@@ -44,16 +45,17 @@ namespace FightingAllstar.Presentation.Route
         {
             if (LocalEncounterContext.TryConsumeResult(out var battle))
             {
+                HasBattleResultPresentation = true;
                 if (entry != null) entry.gameObject.SetActive(false);
                 if (routeMap != null) routeMap.gameObject.SetActive(true);
                 if (routeMap == null)
                     Debug.LogError("Could not apply local battle result to the run: Route map is missing.", this);
                 else if (!routeMap.ApplyBattleResult(battle, battle.MatchId + ":result", out var error))
                     Debug.LogError("Could not apply local battle result to the run: " + error, this);
-                ClaimCompletedRunRewardIfNeeded();
+                DeliverSavedVictoryRewards();
                 return;
             }
-            ClaimCompletedRunRewardIfNeeded();
+            DeliverSavedVictoryRewards();
         }
 
         /// <summary>Supply snapshots from the owning app composition, then show dungeon entry.</summary>
@@ -86,14 +88,17 @@ namespace FightingAllstar.Presentation.Route
         {
             if (routeMap == null || entry == null) return false;
             var run = new LocalRunStateStore().TryLoad(out var saved) ? saved : null;
-            if (run == null || run.Status == RunStatus.Completed || run.Status == RunStatus.Defeated || run.Status == RunStatus.Abandoned)
-                return false;
+            if (!CanResumeRun(run)) return false;
             DungeonFlowContext.SetCatalog(catalog);
             entry.gameObject.SetActive(false);
             routeMap.gameObject.SetActive(true);
             routeMap.SetRun(run);
             return true;
         }
+
+        public static bool CanResumeRun(RunState run) => run != null &&
+            (run.Status == RunStatus.InProgress || run.Status == RunStatus.InBattle ||
+                run.Status == RunStatus.Completed && run.Rewards.Exists(r => !r.CompletionBonus && !run.PresentedRewardIds.Contains(r.Id)));
 
         private void OnRunStarted(RunState run)
         {
@@ -111,21 +116,22 @@ namespace FightingAllstar.Presentation.Route
             SceneManager.LoadScene("Scene-CharacterLoadOut");
         }
 
-        private void ClaimCompletedRunRewardIfNeeded()
+        private void DeliverSavedVictoryRewards()
         {
             var store = new LocalRunStateStore();
-            if (!store.TryLoad(out var run) || run == null || run.Status != RunStatus.Completed || run.RewardClaimed) return;
+            if (!store.TryLoad(out var run) || run == null) return;
             var inventory = PlayerInventoryService.Instance;
             if (inventory == null)
             {
-                Debug.LogError("Could not grant the completed run reward: player inventory is not initialized.", this);
+                Debug.LogError("Could not deliver saved victory rewards: player inventory is not initialized.", this);
                 return;
             }
-            var granted = inventory.GrantRunReward(run.RunId, run.RewardQuoteDiamonds);
-            run.RewardClaimed = true;
-            store.Clear();
-            DungeonFlowContext.Clear();
-            Debug.Log("Account run reward " + run.RunId + (granted ? " granted " + run.RewardQuoteDiamonds + " Diamonds." : " was already claimed."), this);
+            foreach (var receipt in run.Rewards) inventory.GrantDungeonReward(receipt);
+            if (run.Status == RunStatus.Completed && !run.RewardClaimed)
+            {
+                run.RewardClaimed = true;
+            }
+            store.Save(run);
         }
     }
 }

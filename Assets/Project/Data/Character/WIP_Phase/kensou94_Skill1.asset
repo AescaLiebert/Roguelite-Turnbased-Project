@@ -16,22 +16,23 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: Inflicts Sever damage equal to 150% of ATK
+  - description: Inflicts Sever damage equal to 200% of ATK
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 15000
+      CoefficientBp: 20000
       KeywordFactorBp: 10000
       KeywordId: attack.sever
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +46,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +81,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +106,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -113,23 +119,26 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
-  - description: Inflicts Sever damage equal to 300% of ATK
+  - description: Inflicts Sever damage equal to 360% of ATK
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 36000
       KeywordFactorBp: 10000
       KeywordId: attack.sever
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -143,6 +152,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -174,6 +187,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -197,7 +212,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -211,6 +225,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - description: Inflicts Sever damage equal to 450% of ATK
     skillType: 0
@@ -218,6 +234,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -227,7 +245,6 @@ MonoBehaviour:
       CoefficientBp: 45000
       KeywordFactorBp: 10000
       KeywordId: attack.sever
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -241,6 +258,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -272,6 +293,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -295,7 +318,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -309,4 +331,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []

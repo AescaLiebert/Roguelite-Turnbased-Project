@@ -1,0 +1,687 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
+  m_Name: scii-cassandra_skilldata2
+  m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
+  cardName: "SCII Cassandra \xB7 Thunder Force"
+  cardIcon: {fileID: 21300000, guid: d0216d6b21e145a49af5ac29a35a9162, type: 3}
+  statusVisuals: []
+  ranks:
+  - description: Deals 120% ATK damage to all enemies. Increases own DEF by 20% for
+      2 turns.
+    skillType: 0
+    runtimeEffect:
+      Attack:
+        HitCount: 8
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: fighter.scii-cassandra.skill.2.rank.1
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 12000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 3
+        BatchId: 
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.increase.DEF
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.increase.DEF
+            NameKey: Increase Defense
+            Polarity: 0
+            Color: 0
+            Behavior: 1
+            Stacking: 1
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers:
+            - Target: 0
+              Stat: 1
+              Bundle: 0
+              Family: 0
+              Operation: 1
+              Amount: 2000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 0
+  - description: Deals 210% ATK damage to all enemies. Increases own DEF by 40% for
+      2 turns.
+    skillType: 0
+    runtimeEffect:
+      Attack:
+        HitCount: 8
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: fighter.scii-cassandra.skill.2.rank.2
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 21000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 3
+        BatchId: 
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.increase.DEF
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.increase.DEF
+            NameKey: Increase Defense
+            Polarity: 0
+            Color: 0
+            Behavior: 1
+            Stacking: 1
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers:
+            - Target: 0
+              Stat: 1
+              Bundle: 0
+              Family: 0
+              Operation: 1
+              Amount: 4000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 0
+  - description: Deals 300% ATK damage to all enemies. Increases own DEF by 60% for
+      2 turns.
+    skillType: 0
+    runtimeEffect:
+      Attack:
+        HitCount: 8
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: fighter.scii-cassandra.skill.2.rank.3
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 30000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 3
+        BatchId: 
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.increase.DEF
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.increase.DEF
+            NameKey: Increase Defense
+            Polarity: 0
+            Color: 0
+            Behavior: 1
+            Stacking: 1
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers:
+            - Target: 0
+              Stat: 1
+              Bundle: 0
+              Family: 0
+              Operation: 1
+              Amount: 6000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 0

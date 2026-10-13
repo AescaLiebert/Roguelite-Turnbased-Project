@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/Resources/UI/Artifacts.uss?fileID=7433441132597879392&amp;guid=0dc35d09c6a14a66ad5a9c9d4628ee74&amp;type=3#Artifacts"/>
+    <ui:VisualElement name="artifact-loadout" class="artifact-loadout" style="position: relative;">
+        <ui:VisualElement class="hub-identity artifact-hub-identity">
+            <ui:VisualElement name="artifact-fighter-icon" class="hub-character-icon" style="background-image: none; display: flex;"/>
+            <ui:VisualElement class="hub-identity-copy">
+                <ui:Label name="artifact-fighter-name" class="hub-name heavy"/>
+                <ui:Label name="artifact-fighter-meta" class="hub-meta condensed"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="artifact-character-stage" picking-mode="Ignore" class="artifact-hub-slots" style="display: flex;">
+            <ui:Button name="artifact-slot-0" class="artifact-equipment-slot slot-left slot-row-0" style="width: 134.4px; height: 158.4px; margin-left: 100px;"/>
+            <ui:Button name="artifact-slot-1" class="artifact-equipment-slot slot-left slot-row-1" style="height: 158.4px; width: 134.4px; margin-left: 100px;"/>
+            <ui:Button name="artifact-slot-2" class="artifact-equipment-slot slot-left slot-row-2" style="width: 134.4px; height: 158.4px; margin-left: 100px;"/>
+            <ui:Button name="artifact-slot-3" class="artifact-equipment-slot slot-right slot-row-0" style="margin-right: 100px; height: 158.4px; width: 134.4px;"/>
+            <ui:Button name="artifact-slot-4" class="artifact-equipment-slot slot-right slot-row-1" style="width: 134.4px; height: 158.4px; margin-right: 100px;"/>
+            <ui:Button name="artifact-slot-5" class="artifact-equipment-slot slot-right slot-row-2" style="margin-right: 100px; width: 134.4px; height: 158.4px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="artifact-active-sets" class="artifact-active-overview"/>
+        <ui:VisualElement name="artifact-detail-panel" class="artifact-inspection item-tooltip-dialog artifact-inspection-card" style="position: relative;"/>
+        <ui:Label name="artifact-loadout-message" class="artifact-feedback"/>
+    </ui:VisualElement>
+</ui:UXML>

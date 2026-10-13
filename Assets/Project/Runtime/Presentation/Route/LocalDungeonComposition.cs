@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 using FightingAllstar.Core.Run;
-using FightingAllstar.Presentation.Combat;
+using FightingAllstar.Presentation.Content;
 using UnityEngine;
 
 namespace FightingAllstar.Presentation.Route
@@ -13,7 +13,6 @@ namespace FightingAllstar.Presentation.Route
     public sealed class LocalDungeonComposition : MonoBehaviour
     {
         [SerializeField] private DungeonFlowController flow;
-        [SerializeField] private CombatContentSource contentSource;
 
 
         private void Start()
@@ -23,16 +22,13 @@ namespace FightingAllstar.Presentation.Route
                 Debug.LogError("Local dungeon composition has no DungeonFlowController reference.", this);
                 return;
             }
-            if (contentSource == null)
-            {
-                const string message = "Dungeon entry is unavailable because no runtime-ready combat content source is assigned.";
-                flow.ShowEntryUnavailable(message);
-                Debug.LogWarning(message, this);
-                return;
-            }
+            if (flow.HasBattleResultPresentation) return;
             try
             {
-                var catalog = contentSource.LoadCatalog();
+                var catalog = CharacterObjectCatalogBuilder.Load(null);
+                var errors = FightingAllstar.Core.Content.ContentValidator.Validate(catalog);
+                if (errors.Count > 0)
+                    throw new InvalidOperationException("Combat content is invalid: " + string.Join("; ", errors));
                 if (flow.ResumeSavedRun(catalog.Characters)) return;
                 var inventory = PlayerInventoryService.Instance;
                 if (inventory == null) throw new InvalidOperationException("Player inventory is not initialized. Return to Gacha and try again.");

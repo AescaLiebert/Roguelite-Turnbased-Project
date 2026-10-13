@@ -15,7 +15,9 @@ MonoBehaviour:
   id: debuff.immunity
   displayName: Debuff Immunity
   icon: {fileID: 21300000, guid: e46be59cd120b5f4c8a6a4d1c246d080, type: 3}
+  actorVisualEffect: 0
   polarity: 0
   keywords:
   - Debuff Immunity
+  - debuff.immunity
   description: 

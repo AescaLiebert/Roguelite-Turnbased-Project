@@ -7,7 +7,7 @@ namespace FightingAllstar.Core.Run
 {
     public static class RouteGenerator
     {
-        public const int CurrentGeneratorVersion = 2;
+        public const int CurrentGeneratorVersion = 3;
         private const int RequiredRows = 9;
 
         public static List<RouteNodeState> Generate(DungeonProfile profile, IReadOnlyList<CharacterDefinition> catalog,
@@ -32,13 +32,13 @@ namespace FightingAllstar.Core.Run
                     if (node.Type == RouteNodeType.Battle || node.Type == RouteNodeType.Elite || node.Type == RouteNodeType.Boss)
                         node.EnemyTeamSnapshot = GenerateEnemyTeam(node, profile, catalog, difficultyBonusPercent, rng);
                     if (node.Type == RouteNodeType.Boon || node.Type == RouteNodeType.Elite)
-                        node.BoonOfferIds = DrawBoonOffers(profile, rng, profile.BoonIds.Count);
+                        node.StatBoost = DungeonStatBoost.Generate(seed, node.Id);
                     nodes.Add(node);
                 }
             }
 
             foreach (var node in nodes)
-                if (node.Row + 1 < RequiredRows)
+                if (node.Row + 1 < profile.Rows.Count)
                     foreach (var successor in nodes)
                         if (successor.Row == node.Row + 1)
                         {
@@ -48,23 +48,26 @@ namespace FightingAllstar.Core.Run
                                 node.OutgoingNodeIds.Add(successor.Id);
                         }
 
-            if (!ValidateGraph(nodes, out var graphError)) throw new InvalidOperationException(graphError);
+            if (!ValidateGraph(nodes, out var graphError, profile.Mode == DungeonMode.SeriesChallengeBoss)) throw new InvalidOperationException(graphError);
             var start = nodes.Find(node => node.Row == 0 && node.Type == RouteNodeType.Start);
             start.Progress = RouteNodeProgress.Completed;
             foreach (var id in start.OutgoingNodeIds) nodes.Find(node => node.Id == id).Progress = RouteNodeProgress.Reachable;
             return nodes;
         }
 
-        public static bool ValidateGraph(IReadOnlyList<RouteNodeState> nodes, out string error)
+        public static bool ValidateGraph(IReadOnlyList<RouteNodeState> nodes, out string error, bool seriesChallengeBoss = false)
         {
             error = null;
             if (nodes == null || nodes.Count == 0) { error = "Route has no nodes."; return false; }
             var byId = new Dictionary<string, RouteNodeState>(StringComparer.Ordinal);
-            var rowCounts = new int[RequiredRows];
+            var requiredRows = seriesChallengeBoss ? 2 : RequiredRows;
+            if (seriesChallengeBoss && (nodes.Count != 2 || nodes[0].Type != RouteNodeType.Start || nodes[1].Type != RouteNodeType.Boss))
+            { error = "Series Challenge requires one Start and one Boss."; return false; }
+            var rowCounts = new int[requiredRows];
             foreach (var node in nodes)
             {
                 if (node == null || string.IsNullOrWhiteSpace(node.Id) || byId.ContainsKey(node.Id)) { error = "Route contains a missing or duplicate node id."; return false; }
-                if (node.Row < 0 || node.Row >= RequiredRows) { error = "Route node is outside the nine-row floor."; return false; }
+                if (node.Row < 0 || node.Row >= requiredRows) { error = "Route node is outside the floor."; return false; }
                 byId.Add(node.Id, node);
                 rowCounts[node.Row]++;
             }
@@ -76,20 +79,20 @@ namespace FightingAllstar.Core.Run
             foreach (var node in nodes)
             {
                 if (node.Row == 0 && node.Type == RouteNodeType.Start) starts++;
-                if (node.Row == RequiredRows - 1 && node.Type == RouteNodeType.Boss) bosses++;
+                if (node.Row == requiredRows - 1 && node.Type == RouteNodeType.Boss) bosses++;
                 if (node.Type == RouteNodeType.Rest) rests++;
                 foreach (var id in node.OutgoingNodeIds)
                 {
                     if (!byId.TryGetValue(id, out var next) || next.Row != node.Row + 1)
                     { error = "Route edges must point to an existing node in the next row."; return false; }
                 }
-                if (node.Row < RequiredRows - 1 && node.OutgoingNodeIds.Count == 0)
+                if (node.Row < requiredRows - 1 && node.OutgoingNodeIds.Count == 0)
                 { error = "Every non-final route node must lead to the next row."; return false; }
                 if (new HashSet<string>(node.OutgoingNodeIds, StringComparer.Ordinal).Count != node.OutgoingNodeIds.Count)
                 { error = "Route node contains a duplicate outgoing edge."; return false; }
             }
-            if (starts != 1 || bosses < 1 || rests < 1) { error = "Route needs one start, a boss, and at least one Rest node."; return false; }
-            if (!CanReach(nodes, byId, startsWithRest: true)) { error = "Route has no Start→Rest→Boss path."; return false; }
+            if (starts != 1 || bosses < 1 || !seriesChallengeBoss && rests < 1) { error = "Route needs one start, a boss, and a Rest on regular routes."; return false; }
+            if (!seriesChallengeBoss && !CanReach(nodes, byId, startsWithRest: true)) { error = "Route has no Start→Rest→Boss path."; return false; }
             if (!CanReach(nodes, byId, startsWithRest: false)) { error = "Route has no Start→Boss path."; return false; }
             return true;
         }
@@ -99,14 +102,17 @@ namespace FightingAllstar.Core.Run
             if (profile == null || string.IsNullOrWhiteSpace(profile.Id)) throw new ArgumentException("A stable dungeon profile id is required.");
             if (profile.GeneratorVersion != CurrentGeneratorVersion) throw new InvalidOperationException("Unsupported route generator version.");
             if (difficulty < 0 || difficulty > 100 || difficulty % 5 != 0) throw new ArgumentOutOfRangeException(nameof(difficulty), "Difficulty must be 0-100 in five-point steps.");
-            if (profile.Rows == null || profile.Rows.Count != RequiredRows) throw new InvalidOperationException("A floor must declare exactly nine rows.");
-            for (var row = 0; row < RequiredRows; row++)
+            var requiredRows = profile.Mode == DungeonMode.SeriesChallengeBoss ? 2 : RequiredRows;
+            if (profile.Mode == DungeonMode.SeriesChallengeBoss && string.IsNullOrEmpty(profile.SeriesId))
+                throw new InvalidOperationException("Series Challenge Boss requires a specific series.");
+            if (profile.Rows == null || profile.Rows.Count != requiredRows) throw new InvalidOperationException("The floor has an invalid row count.");
+            for (var row = 0; row < requiredRows; row++)
                 if (profile.Rows[row] == null || profile.Rows[row].Row != row || profile.Rows[row].Choices == null || profile.Rows[row].Choices.Length == 0)
                     throw new InvalidOperationException("Floor rows must be ordered, nonempty, and numbered 0-8.");
             if (profile.Rows[0].Choices.Length != 1 || profile.Rows[0].Choices[0] != RouteNodeType.Start)
                 throw new InvalidOperationException("First route row must contain one Start node.");
-            if (profile.Rows[8].Choices.Length == 0) throw new InvalidOperationException("Final route row must contain a Boss.");
-            foreach (var type in profile.Rows[8].Choices) if (type != RouteNodeType.Boss) throw new InvalidOperationException("Final route row only accepts Boss nodes.");
+            if (profile.Rows[requiredRows - 1].Choices.Length == 0) throw new InvalidOperationException("Final route row must contain a Boss.");
+            foreach (var type in profile.Rows[requiredRows - 1].Choices) if (type != RouteNodeType.Boss) throw new InvalidOperationException("Final route row only accepts Boss nodes.");
             if (profile.EnemyConstellationTier < 0 || profile.EnemyConstellationTier > 5) throw new InvalidOperationException("Enemy constellation tier must be 0-5.");
             if (profile.PresetTeamChancePercent < 0 || profile.PresetTeamChancePercent > 100)
                 throw new InvalidOperationException("Preset team chance must be 0-100 percent.");
@@ -114,12 +120,6 @@ namespace FightingAllstar.Core.Run
                 profile.EliteDifficultyBonusPercent < 0 || profile.EliteDifficultyBonusPercent > 100 ||
                 profile.BossDifficultyBonusPercent < 0 || profile.BossDifficultyBonusPercent > 100)
                 throw new InvalidOperationException("Dungeon difficulty increases must be 0-100 percent.");
-            if (profile.BoonIds == null || profile.BoonIds.Count < 3 || profile.Boons == null || profile.Boons.Count < 3)
-                throw new InvalidOperationException("Boon rows require at least three compatible authored boon definitions.");
-            var boonIds = new HashSet<string>(StringComparer.Ordinal);
-            foreach (var boon in profile.Boons)
-                if (boon == null || string.IsNullOrWhiteSpace(boon.Id) || !boonIds.Add(boon.Id) || !profile.BoonIds.Contains(boon.Id))
-                    throw new InvalidOperationException("Boon definitions need unique stable ids present in the profile offer pool.");
             if (catalog == null) throw new ArgumentNullException(nameof(catalog));
             var catalogErrors = ContentValidator.Validate(new ContentCatalog { Characters = new List<CharacterDefinition>(catalog) });
             if (catalogErrors.Count > 0)
@@ -219,11 +219,11 @@ namespace FightingAllstar.Core.Run
             for (var i = 0; i < 4; i++)
             {
                 var definition = selected[i].Clone();
-                var stats = definition.BaseStats.Clone();
+                var stats = CharacterProgression.StatsAtLevel(definition.BaseStats, definition.StatGrowth, 1);
                 stats.Attack = ScaleBasicStat(stats.Attack, difficultyForNode);
                 stats.Defense = ScaleBasicStat(stats.Defense, difficultyForNode);
                 stats.MaxHealth = ScaleBasicStat(stats.MaxHealth, difficultyForNode);
-                stats.CombatClass = ScaleBasicStat(stats.CombatClass, difficultyForNode);
+                CombatClassRules.Recalculate(stats);
                 result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
                     DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
                     ConstellationTier = rng.Next(6), FormationSlot = Math.Min(i, 2), IsReserve = i == 3 });
@@ -263,11 +263,11 @@ namespace FightingAllstar.Core.Run
             {
                 var member = template.Fighters[i];
                 var definition = FindDefinition(catalog, member.FighterId).Clone();
-                var stats = definition.BaseStats.Clone();
+                var stats = CharacterProgression.StatsAtLevel(definition.BaseStats, definition.StatGrowth, 1);
                 stats.Attack = ScaleBasicStat(stats.Attack, difficulty);
                 stats.Defense = ScaleBasicStat(stats.Defense, difficulty);
                 stats.MaxHealth = ScaleBasicStat(stats.MaxHealth, difficulty);
-                stats.CombatClass = ScaleBasicStat(stats.CombatClass, difficulty);
+                CombatClassRules.Recalculate(stats);
                 result.Add(new EncounterFighterSnapshot { FighterId = node.Id + ":enemy:" + i + ":" + definition.Id,
                     DefinitionId = definition.Id, Definition = definition, Stats = stats, CurrentHealth = stats.MaxHealth,
                     ConstellationTier = member.ConstellationTier < 0 ? rng.Next(6) : member.ConstellationTier,
@@ -280,19 +280,6 @@ namespace FightingAllstar.Core.Run
         {
             foreach (var character in catalog) if (character != null && character.Id == id) return character;
             return null;
-        }
-
-        private static List<string> DrawBoonOffers(DungeonProfile profile, DeterministicRandom rng, int count)
-        {
-            var pool = new List<string>(profile.BoonIds);
-            var offers = new List<string>(count);
-            while (offers.Count < count)
-            {
-                var index = rng.Next(pool.Count);
-                offers.Add(pool[index]);
-                pool.RemoveAt(index);
-            }
-            return offers;
         }
 
         private static bool CanReach(IReadOnlyList<RouteNodeState> nodes, Dictionary<string, RouteNodeState> byId, bool startsWithRest)

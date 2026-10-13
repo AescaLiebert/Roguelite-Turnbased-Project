@@ -2,7 +2,7 @@
 slug: fighting-allstar-gdd
 status: needs-human
 source: manual
-gdd_tags: [identity, visual-audio, platform-input, core-loop, items, enemies, mechanics, roster, dungeons, ai, tuning, inspirations, tech-stack, prototype-truth, scene-roles, system-ownership, architecture, guardrails, roadmap]
+gdd_tags: [identity, visual-audio, actor-camera, platform-input, core-loop, items, enemies, mechanics, roster, dungeons, ai, tuning, inspirations, tech-stack, prototype-truth, scene-roles, system-ownership, architecture, guardrails, roadmap]
 owner: game-design-agent
 human_checkpoint: required
 next_agent: human
@@ -13,15 +13,19 @@ blocked_by: []
 
 Design draft • 2026-10-01 • First prototype and full-game direction
 
+Actor/camera state contract updated • 2026-10-09 • Owner-confirmed presentation rules
+
 ## Purpose and decision status
 
 **Screen/economy revision:** see [banners and route design](../3_Outputs/Specs/fighting-allstar-economy-route-design.md), [battle screen states](../3_Outputs/Specs/fighting-allstar-battle-screen-states.md) and [Unity implementation phase plan](../3_Outputs/Specs/fighting-allstar-unity-implementation-plan.md). Owner-confirmed rates/costs, forward route choices, persistent HP, Rest and entry difficulty supersede earlier defaults.300-pull selector semantics remain proposed pending clarification.
 
 **Actual-source revision (2026-10-01):** incorporates the supplied guide, 29 WIP characters and effect catalogs. Character tables are external. Conflict decisions and generated values remain reviewable proposals; no runtime kits are implemented by this document.
 
+**Actor/camera revision (2026-10-09):** [Actor and camera state architecture](#actor-and-camera-state-architecture), `@tag:actor-camera`, records the owner's confirmed execution sequence and latest framing/support/ultimate corrections. It is the canonical contract for future presentation work, superseding older generic camera descriptions and historical reference notes. It does not change combat formulas or approve unrelated proposed GDD sections.
+
 Fighting Allstar is a 3D card battle RPG about assembling a team whose fighters create opportunities for one another, then adapting that team to a dungeon and its opponents. Its signature is several overlapping counterplay relationships: a strong team has weaknesses, and the player can answer those weaknesses through roster selection, card sequencing, and run boon choices.
 
-**Confirmed** means stated by the owner in the 2026-10-01 request. **Observed** means inspected in this repository; it does not mean verified in a running build. **Proposed** means a concrete recommendation prepared for review. All mechanics, content, scope quantities, timing, economy, and tuning below are **Proposed** unless explicitly marked Confirmed or Observed. They are not claims about the exact rules of Grand Cross. This draft preserves its card battle inspiration while specifying Fighting Allstar's own rules.
+**Confirmed** means stated by the owner in the 2026-10-01 request or an explicitly dated owner clarification below. **Observed** means inspected in this repository; it does not mean verified in a running build. **Proposed** means a concrete recommendation prepared for review. All mechanics, content, scope quantities, timing, economy, and tuning below are **Proposed** unless explicitly marked Confirmed or Observed. They are not claims about the exact rules of Grand Cross. This draft preserves its card battle inspiration while specifying Fighting Allstar's own rules.
 
 The completed documents are review inputs. Runtime implementation, dependency changes, scene/build changes, and deployment are later work. This GDD is the design reference; [the architecture plan](../3_Outputs/Specs/fighting-allstar-prototype-arch-plan.md) describes the implementation boundary and [the test plan](../3_Outputs/TestPlans/fighting-allstar-prototype-test-plan.md) defines verification. There is no claim that the new design is already implemented.
 
@@ -65,7 +69,7 @@ The completed documents are review inputs. Runtime implementation, dependency ch
 
 Use stylized 3D fighters with distinct silhouettes and readable stance changes. Prototype art can be capsules, available placeholder models, and simple particles. Gameplay signs must remain legible before visual polish: target outline, health, shield, PG, taunt, Ignite, and harmful status icons. Attributes use a symbol and written name as well as color.
 
-The planning camera shows both formations and the action queue. On confirmation it may frame the acting fighter and targets, then returns to the same planning angle. A camera cut never hides a target-selection change, a reserve entry, or a counter. A reduced-motion setting disables shake, aggressive zoom, and flashes. Ultimate cinematics are skippable presentation; simulation is unaffected by skip, playback speed, or low frame rate.
+The planning camera shows both formations and the action queue. Card playback follows the owner-confirmed [actor/camera state contract](#actor-and-camera-state-architecture): type/rank-specific framing, direct chaining between queued actors, and an overhead return when the queue ends. The ultimate Rest lead-in is an explicit exception to direct chaining. A camera cut never hides a target-selection change, reserve entry, or counter. A reduced-motion setting disables shake, aggressive zoom, and flashes. Ultimate cinematics are skippable presentation; simulation is unaffected by skip, playback speed, or low frame rate.
 
 Sound carries information: a card snap confirms a selection, a distinct chime confirms a merge, a deeper cue announces an ultimate, and contrasting impact sounds distinguish ordinary, critical, blocked, and absorbed damage. Music shifts between preparation, battle pressure, and result screens. Captions and visual cues carry any meaning conveyed by sound. Haptics are optional.
 
@@ -86,6 +90,131 @@ Sound carries information: a card snap confirms a selection, a distinct chime co
 **Owner-confirmed combat feedback rule (2026-10-06):** Floating combat text for both damage and healing always shows the full resolved event amount, even when that amount exceeds the target's remaining HP or missing HP. Do not clamp or suppress the displayed number because HP reaches zero or MaxHP. Clamp only the authoritative HP state: damage cannot take HP below zero, and healing cannot raise HP above MaxHP. Show all feedback events, including zero-effective recovery at full HP and recovery blocked by Infect; a blocked recovery displays **“Can't Recovery”** instead of a heal number. Critical, block, Endurance, shield, lifesteal, Rejuvenation, and other effect feedback remain visible whenever their corresponding events resolve.
 
 Juice starts with restrained hit flash, impact audio, and short card movement. Screen shake and haptics default off in the earliest functional slice until the player can read an entire turn. Their amplitude and duration require device playtesting; no unvalidated camera value is a dependency of battle logic. Jump timing, coyote time, world movement buffering, and collision response are not applicable to this combat model.
+
+<!-- @tag:actor-camera -->
+## Actor and camera state architecture
+
+**Confirmed by the owner, 2026-10-09.** These are required behavioral rules, not optional animation style suggestions. Latest explicit owner corrections take precedence over old clips, historical test notes, and generic camera prose. Future specs must reference `@tag:actor-camera`; update this section and its regression checks together when the owner changes a rule. Detailed fixture notes are [actor execution](../../../Tests/CombatPresentation/ActorDrivenExecution.md), [multi-hit attacks](../../../Tests/CombatPresentation/MultiHit.md), and [target reactions](../../../Tests/CombatPresentation/HitReactions.md).
+
+### Responsibility and authority
+
+The player should recognize who is preparing, what action is happening, and when everyone is ready for the next card. Preparation retains charge/skill cues; each impact retains its recorded visual and audio feedback. Wider portraits improve readability without removing ranked spectacle. None of these presentation states adds a combat cost, status, RNG roll, or player action.
+
+| Layer | Owns | Must not do |
+| --- | --- | --- |
+| Combat authority | Accepted actions, damage/healing, per-hit outcomes, status/stance facts, deaths and event order | Depend on camera, Animator, Transform, tween completion, or frame rate |
+| Event playback | Consume recorded events in order; coordinate hit, reaction, clip and action-completion barriers | Recalculate damage, reroll crit/block, change recipients, or grant extra actions |
+| Actor phase controller | `Rest`, `WindUp`, `Action`, `Recovery`; authored clip selection/completion and fallback feedback | Decide combat outcomes or turn ownership |
+| Stage/camera presenter | Observe actor phases; choose shots; follow offensive caster; restore saved poses | Follow displaced victims or invent an unrelated recovery/ultimate camera state |
+| Target reaction controller | Temporary displacement/poses, sustained-hit holds, ready barrier and restoration | Change formation slots, targeting, damage immunity, or combat stun state |
+
+```mermaid
+flowchart LR
+    Results[Recorded combat events] --> Playback[Event playback]
+    Playback --> Actor[Actor phases]
+    Actor --> Stage[Stage and camera presenter]
+    Playback --> Reactions[Target reactions]
+    Actor --> Ready[Clip and recovery barriers]
+    Reactions --> Ready
+    Ready --> Queue[Next recorded action or overhead Rest]
+```
+
+**Observed implementation mapping:** `ActorCardPresentation` owns actor phases; `BattleStagePresenter` owns choreography/camera and reaction readiness; `CoreBattleSceneController` coordinates recorded event playback. This describes the current presentation boundary, not a claim that all online architecture in this GDD is complete.
+
+### Actor phases and exit barriers
+
+Normal offensive sequence: `Rest → WindUp → Action → Recovery → Rest`. Buff/Heal Rank 1: `Rest → Action → Recovery → Rest`; Rank 2/3 retain WindUp. Actor Rest means the fighter is ready; it does **not** force an overhead camera while another card is queued.
+
+| Phase | Entry and visible behavior | Exit condition |
+| --- | --- | --- |
+| Rest | Formation/home pose and idle; a recorded valid card/counter creates the next execution context | Enter WindUp, or skip directly to Action for ordinary Rank 1 Buff/Heal |
+| WindUp | Preparation/anticipation before Attack, AttackDebuff, Debuff or Stance; support uses the rank rules below | Preparation feedback and any authored WindUp clip finish; ultimate reveal also finishes before Action |
+| Action | Perform close/ranged attack, debuff, stance, buff or heal; execute all authored hit/effect beats | Strike motion, recorded hit/effect windows, authored Action clip and pending target reactions finish or release at the no-more-hits boundary |
+| Recovery | Return the caster to saved position, rotation and scale; stationary casts still settle visibly | Home pose and any authored Recovery clip finish, then actor becomes Rest/ready |
+
+Missing phase clips/Animator states must use procedural anticipation, strike/cast, and recovery feedback; do not silently omit a required phase. Animator markers synchronize authored impacts, while generated multi-hit templates own their impact timing. Broken/looping clips use a bounded watchdog rather than blocking playback forever. This is a playback safeguard, not permission to resolve combat from animation callbacks.
+
+### Camera states, compositions and rank matrix
+
+There are exactly three camera states: **Rest** (saved overhead drafting view), **WindUp** (caster preparation framing), and **Action** (execution framing). Rear caster, face, and full-team views are compositions within those states. Recovery returns to the saved rear WindUp composition or holds the support Action shot; it is not a fourth camera state.
+
+All face shots show approximately the **upper two-thirds of the body**, not an extreme face/head close-up. Rank 3/ultimate may use stronger angle/roll, but cannot tighten the body crop. Fit the actual fighter geometry and viewport, leaving readable HUD space. Use the same rules for player/opponent and portrait/landscape.
+
+| Card family / target | Rank | WindUp camera | Action camera | Recovery camera |
+| --- | --- | --- | --- | --- |
+| Attack, AttackDebuff, Debuff, Stance | 1 | Fast visible move behind caster; offensive actor and selected opponents face one another | Rear execution view follows attacking caster, looking toward captured target position(s) | Follow caster home to saved rear WindUp pose/angle/FOV |
+| Same offensive families | 2/3 | Jump cut to two-thirds-body front portrait | Jump cut back behind caster at Action entry, then same caster-follow sequence; ranked flair must preserve framing rules | Return to saved rear WindUp, settling any ranked Action roll |
+| Buff/Heal, self | 1 | Skip actor WindUp; cut behind caster, framing full opposing formation like offensive AoE | Hold this rear shot throughout Action | Hold rear; proceed to next queue entry |
+| Buff/Heal, self | 2 | Jump cut to two-thirds-body portrait | At Action entry, jump cut to **exactly the Rank 1 self-cast camera**; hold it | Hold rear; no late Action camera change |
+| Buff/Heal, self | 3 | Jump cut to two-thirds-body portrait | Hold face shot until the entire Action ends | Only then cut to saved rear WindUp; proceed to queue |
+| Buff/Heal, selected ally or whole team | 1 | Skip actor WindUp; cut to rear view of full allied formation | Hold full allied team view, even for one selected ally | Hold team view until next queue entry/Rest |
+| Buff/Heal, selected ally or whole team | 2 | Jump cut to caster's two-thirds-body portrait | At Action entry, jump cut to **exactly the Rank 1 full-team camera**; hold it | Hold team view; no late caster-rear reset |
+| Buff/Heal, selected ally or whole team | 3 | Cut to full allied rear-team view; no face introduction | Hold full allied team view | Hold team view until next queue entry/Rest |
+
+**Self-target Stance is offensive presentation, not Buff/Heal.** It performs its stance action without an enemy lunge and returns behind the caster. Support/self scope comes from authored targeting, not merely which unit survives. An ordinary selected-ally heal is not a self-cast or single-body shot.
+
+**Cuts versus movement:** Buff/Heal camera changes are immediate cuts with no interpolation. Offensive travel is fast and visible, and follows only the caster during Action/home return; ranked face/rear resets are deliberate cuts. After support, the next queued card entry cuts rather than interpolating away from the support shot. Ultimate lead-in overrides this queue-cut rule with the explicit movement below.
+
+### Captured target focus and formation
+
+- Capture focus positions, target bounds, source direction, actor geometry and rear WindUp shot when the execution context is created. Reserve the action's reaction envelope before impacts, including knockup apex/landing where recorded.
+- During offensive Action, camera may follow the **caster root**, while looking toward captured world focus. It must not lock to a victim Transform, refocus from recoil/death, or chase a knocked/flying target. Impact/crit adds no camera shake.
+- AoE camera and animation always retain the **whole opposing formation**, including vacant/defeated slots with one enemy left. Do not convert AoE presentation into single-target framing; actual recipients still follow recorded combat events.
+- Non-self support Action always frames the full allied formation. Reserves join the formation framing registry on entry; temporary visual displacement never moves a formation slot.
+- Derive opposing facing from formation positions, not stale anchor yaw. Keep imported model-yaw correction above the Animator root so a clip cannot reverse logical facing or camera front/rear.
+
+### Multi-hit and enemy reaction coordination
+
+The 1–10-hit, Close/Long, Single/AoE template settings apply only to **Damage-kind** effects, regardless of card category. Preserve the four hit-count families (heavy single, two-hit slash, three-hit combo, editable barrage) in all four range/scope combinations. The card's authored damage is the **whole attack**, split across hits by combat authority; each hit has its own eligible crit/block outcome. Playback consumes those results and never multiplies the card total by hit count or shares one outcome across all hits.
+
+`BeforeAction` is once per action; `Damaging` is once at the first hit before its damage; `AfterDamage` is once after the last actual hit; `AfterAction` remains once per action. Intermediate hits remain inside one Action. Barrage beat duration decreases as count increases so more hits do not linearly lengthen execution. Approach and attacker recovery occur once, not once per hit.
+
+| Reaction | Required presentation |
+| --- | --- |
+| Hit / None | Light recoil / no motion; recorded damage, numbers and audio still display |
+| KnockBack | Displace away from attacker, hold a grounded recoil posture, stand, then run to saved home |
+| KnockDown | Trip face down at the same horizontal place, then get up |
+| KnockUp | Launch upward **and away**, mostly upright in flight; readable apex, descending drop, touchdown, back fall, get-up at landing point, return home |
+
+Use the visible foot/ground anchor, not an assumed feet-pivot: centre/hip-pivot models must not lie flat while rising, orbit their origin, hover or clip the floor on landing. These movements are visual displacement, not extra damage, a stun effect, collision combat, or a new targeting position.
+
+- Active stance tolerates **all** hit motion; this is not damage immunity. A successful cancellation of an existing stance forces one KnockBack, overriding that recipient's authored reaction for the remainder of the action. Cancellation with no active stance forces nothing. A utility stance-removal event can cause this override without becoming a Damage template.
+- First/Last/EveryHit reaction timing is editable. An early strong reaction launches/displaces once and holds its apex/prone/recoil pose through the remaining hits. Do not restart the full sequence or snap home on each hit; later light/None hits cannot cut it short.
+- The final hit releases the hold and lets fall/get-up/return finish. If there are no more hits (including an evaded/skipped final packet), the action barrier releases remaining holds. **Attacker Recovery and the next card wait until every affected target is ready.** Each AoE recipient applies its own stance/reaction facts independently.
+- New ultimate SO tiers default to **KnockUp / LastHit** for Damage. Defaults remain editable and must not overwrite existing authored assets. Normal ultimate hits do not need separate forced-knockup runtime logic.
+- Preserve recorded original-recipient and overkill feedback through the card's last hit; HP remains clamped and actual HP-loss rules unchanged. Defer defeat/reserve presentation to the recorded action boundary so a reserve cannot inherit unfinished strikes.
+
+### Ultimate, queue and cleanup transitions
+
+Ultimate presentation sequence: `previous action/reactions recover → visible move to owner's overhead Rest → brief Rest pause → portrait/title overlay (Rest camera held) → actor WindUp/energy reveal → rear Action reset and execution → Recovery → queued actor or Rest`. This reuses the three camera states; it does not add hero/detail shots or live target tracking. The pullback must remain visible **even after Buff/Heal** and finish before the overlay appears.
+
+Normal cards chain directly to the next owner's WindUp/Rank 1 support entry without an overhead detour. Recovery holds its final rear/team composition while a current-turn card/counter is queued. An empty queue returns to overhead drafting; turn/status/battle boundaries close that queue rather than mistaking a later turn's card for a same-queue continuation. Ultimate is the documented Rest detour exception.
+
+Skip, Restore, disable or scene teardown cancels camera travel/follow, actor motion, reaction holds and callbacks; restores saved active poses/scales/facing and drafting camera/FOV; and clears portrait/energy/HUD execution state. No stale coroutine may move the restored camera later. Missing actors must not strand playback. Skip changes presentation only: authoritative damage, costs, RNG, deaths and rewards stay unchanged.
+
+### Starting tuning values and consistency tests
+
+These are **starting values observed in the current presentation**, not immutable design constants or measured reference-game values. Retune durations with final art; do not retune away the state order, support cuts, target snapshots or readiness barriers.
+
+| Timing | Starting value | Quick test and adjustment |
+| --- | --- | --- |
+| Ordinary offensive camera entry: WindUp / Action / Rest | 140 / 120 / 160 ms | Alternating owners must show rapid travel without lag; increase by 20 ms if unintentionally cut, decrease by 20 ms if dragging |
+| Actor WindUp: Rank 1 / 2 / 3 / ultimate | 180 / 650 / 850 / 800 ms, plus authored completion where needed | Observer identifies preparation before impact; shorten if queue drags, lengthen if missed; never trim a valid authored clip early |
+| Actor/camera home recovery | 320 ms, plus authored Recovery completion | Return reads as one coherent movement and ends before next actor; shorten/lengthen only after readiness and pose restoration pass |
+| Ultimate Rest travel, then overhead pause | 450 ms + 350 ms | Attack→ultimate and team-heal→ultimate show continuous pullback before overlay; adjust travel/pause in 50 ms steps if missed or slow |
+| Barrage strike-beat budget | 720 ms shared across 4–10 hits; related projectile beats also scale with count | Compare 4/10 hits at same range/scope: execution must not grow linearly with count; tune the shared budget, never add repeated approach/recovery |
+| Malformed animation/motion watchdog | 8 s | Broken/looping clip cannot deadlock queue; log/inspect the asset rather than treat timeout as a normal phase transition |
+
+Required regression/acceptance cases:
+
+1. **Readability/new player:** identify preparing actor, affected team and each impact without explanation; all portraits show upper two-thirds body with HUD clear.
+2. **Rank/target matrix:** both sides and viewport orientations; Rank 2 Buff/Heal self, selected ally and team must face-cut into the exact Rank 1 Action shot. Rank 3 self holds face until Action ends; Rank 3 team holds team view.
+3. **Caster/target separation:** close/ranged offensive caster follows correctly; move/launch only the victim and confirm focus/angle/FOV do not chase it. Recovery restores the saved rear WindUp, including ranked roll.
+4. **Stress/skill:** queue different owners and mixed categories; ten-hit AoE with shields, crit/block, stance tolerance/cancellation, an early launch and one survivor. Count per-hit feedback; first/last effect windows occur once; no next card while anyone is unready.
+5. **Ultimate/abuse:** enter from offensive and support shots; overlay waits for Rest arrival. Skip during travel, face, projectiles, held reaction, overlay, reveal and return; confirm cleanup stays restored and authoritative results are identical.
+6. **Asset edge cases:** absent Animator/phase clips, looping clips, animated model yaw, centre-pivot launch/landing, death during combo and reserve entry. Final-art feel requires owner playtesting; a fixture pass is not art approval.
+
+Observed regression entry points: [actor/camera runner](../../../Tests/CombatPresentation/RunActorExecutionVisual.ps1) (`-Focused`, `-Moves`, `-Polish`, `-Facing`), [multi-hit runner](../../../Tests/CombatPresentation/RunMultiHitVisual.ps1), [reaction runner](../../../Tests/CombatPresentation/RunHitReactionVisual.ps1), and [ultimate/HUD runner](../../../Tests/CombatPresentation/RunCinematicHudVisual.ps1). These use isolated fixture projects; distinguish their evidence from a live-scene/art review.
 
 <!-- @tag:platform-input -->
 ## Platform and input philosophy
@@ -197,9 +326,15 @@ Three active fighters and one reserve; no duplicate definition IDs within a team
 
 ### Attributes and interacting meta relationships
 
-Source cycle **Red→Green→Yellow→Blue→Red**: advantage +20%, disadvantage −20% Normal damage. Opposite pairs neutral in this draft. Light/Darkness carry nonstacking team modifiers from the guide but have no WIP fighters. Traits use actual catalog tags (Women, Japan, Fire Elements, Psycho Soldier, etc.), independently of roles/attributes.
+Source cycle **Red→Green→Yellow→Purple→Blue→Red**: advantage +20%, disadvantage −20% Normal damage. Non-adjacent attribute pairs and identical attributes are neutral (1.0x).
 
-Proposed strategy triangles: **setup burst→recovery sustain→PG denial→setup burst**; **buffed offense→raw damage/defense→dispel/Rupture→buffed offense**. These are matchup hypotheses based on actual card costs, not hidden bonuses or guaranteed outcomes. Attribute is a four-way cycle. Paired-side tests must establish whether these soft counters actually emerge.
+Standalone attributes outside the cycle:
+- **Darkness**: Standalone attribute, outside the cycle and always neutral against all attributes. Team passive aura: grants **+10% dealt damage** to the living team if existing within the roster (does not stack per Darkness attribute).
+- **Light**: Standalone attribute, outside the cycle and always neutral against all attributes. Team passive aura: grants **−10% received damage** to the living team if existing within the roster (does not stack per Light attribute).
+
+Traits use actual catalog tags (Women, Japan, Fire Elements, Psycho Soldier, etc.), independently of roles/attributes.
+
+Proposed strategy triangles: **setup burst→recovery sustain→PG denial→setup burst**; **buffed offense→raw damage/defense→dispel/Rupture→buffed offense**. These are matchup hypotheses based on actual card costs, not hidden bonuses or guaranteed outcomes. Attribute is a five-way cycle (**Red→Green→Yellow→Purple→Blue→Red**). Paired-side tests must establish whether these soft counters actually emerge.
 
 ### Damage and status rules
 
@@ -214,6 +349,8 @@ All passives register; On-Field runs only while active, SUB is proposed to remai
 Validate teams → BattleStart/passives/opening cards → TurnStart/triggers/heal/deaths/reserve/budget/draw → Planning → PreAction → Hit batches → Additional/reflect/deaths → PostAction/counters/follow-ups/reserve → next queued action → TurnEnd/DOT/end triggers/expiry → opposing TurnStart. Terminal result is checked at defined batch boundaries; a remaining living reserve enters before a team is declared defeated. Both rosters eliminated together is a draw.
 
 Batch damage is simultaneous for its target set. Lifesteal uses actual HP removed, excluding shield/overkill; zero-HP fighters cannot heal. Reactions use stable priority/side/slot/source order and lineage guards; no recursive reflect. Destructive death records a separate −1% display sentinel with actual HP clamped0. Animation plays recorded results and never controls state. Turn cap40 is a starting value; reaching it is a draw, not a fabricated winner.
+
+This authoritative resolution timeline is distinct from the [actor/camera presentation state machine](#actor-and-camera-state-architecture), `@tag:actor-camera`. Presentation waits at recorded hit/clip/reaction barriers but cannot use those callbacks to decide combat outcomes.
 
 <!-- @tag:roster -->
 ## Character content and team synergy
@@ -274,7 +411,7 @@ Source numerical anchors: hand7; PG5; source rank3 and baseline stats; attribute
 | T-UI / T-DEVICE | Feedback≤100ms; Android30FPS / PC60FPS | Record target devices; 9/10 intended selections; enlarge targets before changing rules |
 | T-DAMAGE / T-STATUS | Source-contract formulas, variance95–105%; default unspecified duration2, Ignite cap10 | Golden vectors and cap/control abuse tests; narrow variance/stack duration if prediction or agency fails |
 | T-BASE / T-SKILL / T-CONST | Actual source stat/rank3 anchors; generated ranks and C0–C5 outside GDD | Compare action efficiency and C0 counter access; reduce generated progression if it erases counterplay |
-| T-ATTR | Source cycle±20%; neutral1; Light/Darkness10% aura | Paired attribute swaps; report domination before proposing a source-rule change |
+| T-ATTR | Source 5-way cycle±20%; neutral1; Darkness +10% dealt / Light −10% received aura | Paired attribute swaps; report domination before proposing a source-rule change |
 | T-CC | Sum authored Class_Combat; tie recorded random | Matched teams first-side win target45–55%; revise initiative if advantage persists |
 | T-ECON | Confirmed160/1600 pulls;4%featuredSSR/36%SR/60%R;300-pull featured guarantee. Proposed selector milestone,320 base completion Diamonds and1600 one-time onboarding grant | Receipt, rate and boundary tests; measure runs/time per chosen featured; improve deterministic acquisition if restrictions stall |
 | T-RUN / T-RECOVER / T-BOON | Proposed9-row floor with forward choices; persistentHP; Rest40%living heal OR30%single revive; difficulty0..100%; linked route specification | Validate all routes, no automatic heal, partial casualties and once-only Rest; tune rest/reward based on complete-run tests |
@@ -363,6 +500,8 @@ These are the two **Confirmed target names**, not existing scene files. Current 
 
 Architecture serves reversible planning, deterministic battles, and clear online authority. The detailed contracts, migration plan, host options, and ownership boundaries live in [the first prototype architecture plan](../3_Outputs/Specs/fighting-allstar-prototype-arch-plan.md). This section supplies the design invariants that plan must preserve.
 
+Combat presentation has its own confirmed [actor/camera state architecture](#actor-and-camera-state-architecture), `@tag:actor-camera`. Future implementations must retain that actor-owned phase flow, caster-only camera follow, captured target focus, rank/target matrix and reaction-ready barrier while preserving the authority boundary below.
+
 ### Three separate forms of character data
 
 | Data | Proposed fields | Lifetime |
@@ -395,6 +534,7 @@ The local mode is a development/practice mode with separate storage. It can gran
 - MainMenu and Combat target scenes; Unity, UI Toolkit, LeanTween, UnityMCP tooling, Firebase, Cloudflare.
 - Card movement/merge/reset, PG/ultimates, statuses, critical/block, additional damage, lifesteal, counters/follow-ups, DOT, and reserve-aware passive registration.
 - Online outcomes derive from server execution; local AI tests can swap backend without changing combat rules.
+- Future card/actor/camera changes follow `@tag:actor-camera`; owner-approved revisions update its matrix and regressions together instead of copying historical camera behavior.
 
 ### Five-component evaluation
 

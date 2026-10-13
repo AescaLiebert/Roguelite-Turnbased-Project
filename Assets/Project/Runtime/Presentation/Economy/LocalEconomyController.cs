@@ -231,7 +231,7 @@ namespace FightingAllstar.Presentation.Economy
                 var row = new VisualElement();
                 row.AddToClassList("collection-row");
                 var description = new Label((fighter?.DisplayName ?? entry.CharacterId) + " · " + entry.Rarity +
-                    (owned == null ? " · Not owned" : " · C" + owned.ConstellationTier + " · " + owned.CrestCount + " crest(s)") +
+                    (owned == null ? " · Not owned" : " · C" + owned.ConstellationTier + " · " + owned.CrestCount + " crest(s) · " + owned.DuplicateTokenCount + " bound dupe(s)") +
                     (fighter != null && !fighter.RuntimeReady ? " · Not playable" : string.Empty));
                 description.AddToClassList("collection-name");
                 row.Add(description);
@@ -340,7 +340,7 @@ namespace FightingAllstar.Presentation.Economy
             if (_wallet != null) _wallet.text = "LOCAL WALLET · " + _state.Diamonds.ToString("N0") + " Diamonds";
             if (_guarantee != null) _guarantee.text = "Featured guarantee · " + _service.GuaranteePulls + " / 300";
             if (_selectorCount != null) _selectorCount.text = "Selectors · " + _service.UnclaimedSelectors;
-            if (_tokens != null) _tokens.text = "Collection Tokens · " + _state.CollectionTokens;
+            if (_tokens != null) _tokens.text = "Character-Bound Dupes · " + _state.Roster.Where(x => x != null).Sum(x => x.DuplicateTokenCount);
             RenderCollection();
             RenderFormation();
         }
@@ -419,7 +419,7 @@ namespace FightingAllstar.Presentation.Economy
             {
                 case CharacterGrantKind.NewCharacter: return "NEW · unlocked C0";
                 case CharacterGrantKind.DuplicateCrest: return "+1 crest (C" + outcome.ConstellationTier + ")";
-                default: return "+1 Collection Token (C6 duplicate)";
+                default: return "+1 character-bound dupe token (C6 duplicate)";
             }
         }
         private void SetNotice(string text) { if (_notice != null) _notice.text = text ?? string.Empty; }

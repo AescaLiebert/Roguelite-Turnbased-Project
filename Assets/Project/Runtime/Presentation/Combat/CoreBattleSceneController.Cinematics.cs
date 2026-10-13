@@ -103,6 +103,7 @@ namespace FightingAllstar.Presentation.Combat
             ResetDamageTotal();
             _ultimateOverlay?.RemoveFromHierarchy();
             _ultimateOverlay = null;
+            if (_executionOverlay != null) _executionOverlay.style.visibility = StyleKeyword.Null;
             SetUltimateHud(false);
         }
     }

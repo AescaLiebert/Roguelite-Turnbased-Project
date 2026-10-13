@@ -15,7 +15,8 @@ MonoBehaviour:
   id: status.stance.immunity
   displayName: Stance Debuff Immunity
   icon: {fileID: 21300000, guid: c48e586c9a5ac8f4e982a2966a64a8b0, type: 3}
-  polarity: 0
+  actorVisualEffect: 0
+  polarity: 2
   keywords:
   - status.stance.immunity
   description: 

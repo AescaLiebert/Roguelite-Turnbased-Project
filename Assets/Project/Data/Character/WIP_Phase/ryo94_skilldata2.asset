@@ -16,9 +16,15 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 42853c9a482e2bc468c764c9222d900d, type: 3}
   statusVisuals: []
   ranks:
-  - description: "Assumes a Stance for 1 turn and heals 30% of diminished HP at the start of the next turn."
+  - description: Assumes a Stance for 1 turn and heals 30% of diminished HP at the
+      start of the next turn.
     skillType: 3
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: ryo94.skill2.rank1
       Kind: 1
       Family: 0
@@ -28,20 +34,20 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: status.stance
         NameKey: status.stance
         Polarity: 2
         Color: 0
-        Behavior: 8
+        Behavior: 72
         Stacking: 0
         Identity: 0
         DurationClock: 0
         DefaultDuration: 1
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -56,52 +62,25 @@ MonoBehaviour:
           ConsumeOnTrigger: 0
         PeriodicHealing:
           Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
+          Scaling: 4
+          CoefficientBp: 3000
           FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
         EvadeAttacks: 0
-        StanceChildren:
-        - Id: status.stance.recovery
-          NameKey: status.stance.recovery
-          DebuffImmunity: 0
-          AdditionalDamageImmunity: 0
-          EvadeAttacks: 0
-          Taunt: 0
-          RecoverDamageTakenBp: 3000
-          Modifiers: []
-          CounterEnabled: 0
-          CounterCategory: 0
-          CounterTarget: 1
-          CounterConditions: []
-          CounterEffect:
-            Kind: 0
-            Target: 1
-            Family: 0
-            Scaling: 0
-            CoefficientBp: 10000
-            Magnitude: 0
-            KeywordId: 
-            Timing: 3
-            HealSource: 3
-            HealAmount: 0
-            HealCoefficientBp: 10000
-            StatusRecipeId: 
-            StatusPolarity: 1
-            StatusApplyChanceBp: 10000
-            StatusDurationOverride: 0
-            StatusStackCount: 1
-            StatusPotencyBp: 0
-            PowerGaugeAmount: 0
-            Sequence: []
+        StanceChildren: []
         RecoverDamageTakenBp: 0
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
         CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -125,7 +104,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -140,9 +118,15 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 0
       Sequence: []
-  - description: "Assumes a Stance which grants Debuff Immunity for 1 turn. Heals 50% of diminished HP at the start of the next turn."
+  - description: Assumes a Stance which grants Debuff Immunity for 1 turn. Heals
+      50% of diminished HP at the start of the next turn.
     skillType: 3
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: ryo94.skill2.rank2
       Kind: 1
       Family: 0
@@ -152,20 +136,20 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: status.stance
         NameKey: status.stance
         Polarity: 2
         Color: 0
-        Behavior: 8
+        Behavior: 72
         Stacking: 0
         Identity: 0
         DurationClock: 0
         DefaultDuration: 1
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -180,8 +164,8 @@ MonoBehaviour:
           ConsumeOnTrigger: 0
         PeriodicHealing:
           Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
+          Scaling: 4
+          CoefficientBp: 5000
           FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
@@ -201,38 +185,11 @@ MonoBehaviour:
           CounterTarget: 1
           CounterConditions: []
           CounterEffect:
-            Kind: 0
-            Target: 1
-            Family: 0
-            Scaling: 0
-            CoefficientBp: 10000
-            Magnitude: 0
-            KeywordId: 
-            Timing: 3
-            HealSource: 3
-            HealAmount: 0
-            HealCoefficientBp: 10000
-            StatusRecipeId: 
-            StatusPolarity: 1
-            StatusApplyChanceBp: 10000
-            StatusDurationOverride: 0
-            StatusStackCount: 1
-            StatusPotencyBp: 0
-            PowerGaugeAmount: 0
-            Sequence: []
-        - Id: status.stance.recovery
-          NameKey: status.stance.recovery
-          DebuffImmunity: 0
-          AdditionalDamageImmunity: 0
-          EvadeAttacks: 0
-          Taunt: 0
-          RecoverDamageTakenBp: 5000
-          Modifiers: []
-          CounterEnabled: 0
-          CounterCategory: 0
-          CounterTarget: 1
-          CounterConditions: []
-          CounterEffect:
+            Attack:
+              HitCount: 1
+              Range: 0
+              Reaction: 0
+              ReactionTiming: 0
             Kind: 0
             Target: 1
             Family: 0
@@ -258,6 +215,11 @@ MonoBehaviour:
         CounterTarget: 1
         CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -281,7 +243,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 1
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -296,9 +257,15 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 0
       Sequence: []
-  - description: "Assumes a Stance which grants Debuff Immunity and Evades when attacked for 1 turn. Heals 50% of diminished HP at the start of the next turn."
+  - description: Assumes a Stance which grants Debuff Immunity and Evades when attacked
+      for 1 turn. Heals 50% of diminished HP at the start of the next turn.
     skillType: 3
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: ryo94.skill2.rank3
       Kind: 1
       Family: 0
@@ -308,20 +275,20 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: status.stance
         NameKey: status.stance
         Polarity: 2
         Color: 0
-        Behavior: 8
+        Behavior: 72
         Stacking: 0
         Identity: 0
         DurationClock: 0
         DefaultDuration: 1
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -336,8 +303,8 @@ MonoBehaviour:
           ConsumeOnTrigger: 0
         PeriodicHealing:
           Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
+          Scaling: 4
+          CoefficientBp: 5000
           FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
@@ -357,6 +324,11 @@ MonoBehaviour:
           CounterTarget: 1
           CounterConditions: []
           CounterEffect:
+            Attack:
+              HitCount: 1
+              Range: 0
+              Reaction: 0
+              ReactionTiming: 0
             Kind: 0
             Target: 1
             Family: 0
@@ -389,38 +361,11 @@ MonoBehaviour:
           CounterTarget: 1
           CounterConditions: []
           CounterEffect:
-            Kind: 0
-            Target: 1
-            Family: 0
-            Scaling: 0
-            CoefficientBp: 10000
-            Magnitude: 0
-            KeywordId: 
-            Timing: 3
-            HealSource: 3
-            HealAmount: 0
-            HealCoefficientBp: 10000
-            StatusRecipeId: 
-            StatusPolarity: 1
-            StatusApplyChanceBp: 10000
-            StatusDurationOverride: 0
-            StatusStackCount: 1
-            StatusPotencyBp: 0
-            PowerGaugeAmount: 0
-            Sequence: []
-        - Id: status.stance.recovery
-          NameKey: status.stance.recovery
-          DebuffImmunity: 0
-          AdditionalDamageImmunity: 0
-          EvadeAttacks: 0
-          Taunt: 0
-          RecoverDamageTakenBp: 5000
-          Modifiers: []
-          CounterEnabled: 0
-          CounterCategory: 0
-          CounterTarget: 1
-          CounterConditions: []
-          CounterEffect:
+            Attack:
+              HitCount: 1
+              Range: 0
+              Reaction: 0
+              ReactionTiming: 0
             Kind: 0
             Target: 1
             Family: 0
@@ -446,6 +391,11 @@ MonoBehaviour:
         CounterTarget: 1
         CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -469,7 +419,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 1
       StatusStackCount: 1
       StatusPotencyBp: 0

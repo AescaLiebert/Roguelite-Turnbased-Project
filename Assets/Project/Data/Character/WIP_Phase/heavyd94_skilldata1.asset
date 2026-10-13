@@ -16,20 +16,22 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 13abf67351cc047409673ded8141334c, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts damage equal to 133.33% of ATK, Increases own Critical
-      Chance by 16.67% for 1 turns
+  - description: Inflicts damage equal to 200% of ATK, Increases own Critical Chance
+      by 20% for 2 turns
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 3
         Range: 0
+        Reaction: 2
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 20000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -45,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -112,21 +117,137 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      Sequence: []
-  - description: Inflicts damage equal to 266.67% of ATK, Increases own Critical
-      Chance by 33.33% for 2 turns
+      Batches: []
+      Sequence:
+      - Timing: 3
+        BatchId: 
+        Effect:
+          Attack:
+            HitCount: 0
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 0
+          KeywordFactorBp: 0
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.increase.crit-chance
+            NameKey: status.increase.crit-chance
+            Polarity: 0
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 0
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers:
+            - Target: 0
+              Stat: 0
+              Bundle: 0
+              Family: 0
+              Operation: 0
+              Amount: 2000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 0
+              SerializedTarget: 0
+              SerializedStat: 7
+              SerializedBundle: 0
+              SerializedFamily: 0
+              SerializedOperation: 2
+            PeriodicDamage:
+              Family: 0
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 0
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 0
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 0
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 0
+              Magnitude: 0
+              KeywordId: 
+              Timing: 0
+              HealSource: 0
+              HealAmount: 0
+              HealCoefficientBp: 0
+              StatusRecipeId: 
+              StatusPolarity: 0
+              StatusApplyChanceBp: 0
+              StatusDurationOverride: 0
+              StatusStackCount: 0
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 0
+            MaximumAmount: 0
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 0
+  - description: Inflicts damage equal to 300% of ATK, Increases own Critical Chance
+      by 30% for 2 turns
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 3
         Range: 0
+        Reaction: 2
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 30000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -142,6 +263,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -173,6 +295,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -209,21 +333,137 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      Sequence: []
+      Batches: []
+      Sequence:
+      - Timing: 3
+        BatchId: 
+        Effect:
+          Attack:
+            HitCount: 0
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 0
+          KeywordFactorBp: 0
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.increase.crit-chance
+            NameKey: status.increase.crit-chance
+            Polarity: 0
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 0
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers:
+            - Target: 0
+              Stat: 0
+              Bundle: 0
+              Family: 0
+              Operation: 0
+              Amount: 3000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 0
+              SerializedTarget: 0
+              SerializedStat: 7
+              SerializedBundle: 0
+              SerializedFamily: 0
+              SerializedOperation: 2
+            PeriodicDamage:
+              Family: 0
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 0
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 0
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 0
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 0
+              Magnitude: 0
+              KeywordId: 
+              Timing: 0
+              HealSource: 0
+              HealAmount: 0
+              HealCoefficientBp: 0
+              StatusRecipeId: 
+              StatusPolarity: 0
+              StatusApplyChanceBp: 0
+              StatusDurationOverride: 0
+              StatusStackCount: 0
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 0
+            MaximumAmount: 0
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 0
   - description: Inflicts damage equal to 400% of ATK, Increases own Critical Chance
-      by 50% for 2 turns
+      by 40% for 2 turns
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 3
         Range: 0
+        Reaction: 2
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 45000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -239,6 +479,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -270,6 +511,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -306,4 +549,118 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      Sequence: []
+      Batches: []
+      Sequence:
+      - Timing: 3
+        BatchId: 
+        Effect:
+          Attack:
+            HitCount: 0
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 0
+          KeywordFactorBp: 0
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.increase.crit-chance
+            NameKey: status.increase.crit-chance
+            Polarity: 0
+            Color: 0
+            Behavior: 1
+            Stacking: 2
+            Identity: 0
+            DurationClock: 0
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers:
+            - Target: 0
+              Stat: 0
+              Bundle: 0
+              Family: 0
+              Operation: 0
+              Amount: 4000
+              ScaleByStatusPotency: 0
+              PotencyCoefficientBp: 0
+              SerializedTarget: 0
+              SerializedStat: 7
+              SerializedBundle: 0
+              SerializedFamily: 0
+              SerializedOperation: 2
+            PeriodicDamage:
+              Family: 0
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 0
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 0
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 0
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 0
+              Magnitude: 0
+              KeywordId: 
+              Timing: 0
+              HealSource: 0
+              HealAmount: 0
+              HealCoefficientBp: 0
+              StatusRecipeId: 
+              StatusPolarity: 0
+              StatusApplyChanceBp: 0
+              StatusDurationOverride: 0
+              StatusStackCount: 0
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 0
+            MaximumAmount: 0
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 0

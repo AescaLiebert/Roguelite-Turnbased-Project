@@ -24,6 +24,18 @@ public static class ActorVisualEffectPlayChecks
     private static Quaternion _rotation;
     private static readonly ActorVisualEffectKind[] Debuffs = { ActorVisualEffectKind.Paralyze,ActorVisualEffectKind.Bleed,
         ActorVisualEffectKind.Poison,ActorVisualEffectKind.Shock,ActorVisualEffectKind.Ignite };
+    private static readonly ActorVisualEffectKind[] Specials = { ActorVisualEffectKind.CardDisable,ActorVisualEffectKind.ExtortBuff,
+        ActorVisualEffectKind.ExtortDebuff,ActorVisualEffectKind.Explosion,ActorVisualEffectKind.Rejuvenation };
+
+    private static StatusInstance Special(ActorVisualEffectKind kind)
+    {
+        var buff=kind==ActorVisualEffectKind.ExtortBuff || kind==ActorVisualEffectKind.Rejuvenation;
+        var name=kind==ActorVisualEffectKind.CardDisable ? "disable-attack" : kind==ActorVisualEffectKind.ExtortBuff || kind==ActorVisualEffectKind.ExtortDebuff ? "extort" : kind.ToString().ToLowerInvariant();
+        var id="status."+(buff ? "buff." : "debuff.")+name;
+        return new StatusInstance { InstanceId=id,RecipeId=id,Recipe=new StatusRecipeDefinition { Id=id,
+            Polarity=buff ? StatusPolarity.Buff : StatusPolarity.Debuff,Behavior=kind==ActorVisualEffectKind.CardDisable ? StatusBehavior.Disable : StatusBehavior.None,
+            DisableMask=kind==ActorVisualEffectKind.CardDisable ? CardCategoryMask.Attack : CardCategoryMask.None } };
+    }
 
     private static StatusInstance Debuff(ActorVisualEffectKind kind,string source="one")
     {
@@ -56,6 +68,9 @@ public static class ActorVisualEffectPlayChecks
 
     public static void Run()
     {
+        try { SpecialStatusVisualChecks.Run(); }
+        catch(Exception error)
+        { var ev = Path.GetFullPath(Path.Combine(Application.dataPath, "../Evidence")); Directory.CreateDirectory(ev); File.WriteAllText(Path.Combine(ev, "play-checks.txt"),"FAIL: "+error); Debug.LogException(error); EditorApplication.Exit(1); return; }
         EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
         EditorSceneManager.SaveScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene(),"Assets/AVEProbe.unity");
         SessionState.SetBool(Running,true);
@@ -185,21 +200,92 @@ public static class ActorVisualEffectPlayChecks
             }
             else if (_step==6)
             {
-                _fighter.IsAlive=true; _stage.SyncActorVisualEffects(_fighter);
-                UnityEngine.Object.Destroy(_actor); Next(7,.1);
+                _fighter.IsAlive=true; _fighter.Statuses.Instances.Clear();
+                foreach(var kind in Specials)
+                {
+                    var status=Special(kind); _fighter.Statuses.Instances.Add(status);
+                    Check(ActorVisualEffectRules.PersistentStatus(status.Recipe)==kind,"Special status rules: "+kind);
+                }
+                foreach(var mask in new[] { CardCategoryMask.Attack,CardCategoryMask.Buff,CardCategoryMask.Debuff,CardCategoryMask.Recovery,
+                    CardCategoryMask.Stance,CardCategoryMask.Ultimate,CardCategoryMask.RankTwoOrThree,CardCategoryMask.CardEffects,CardCategoryMask.AllCards })
+                    Check(ActorVisualEffectRules.PersistentStatus(new StatusRecipeDefinition { Id="fixture.disable",Behavior=StatusBehavior.Disable,DisableMask=mask })==ActorVisualEffectKind.CardDisable,
+                        "Every card restriction must share the generic symbol: "+mask);
+                Check(ActorVisualEffectRules.PersistentStatus(new StatusRecipeDefinition { Id="status.debuff.disable-recovery",Behavior=StatusBehavior.PreventsRecovery })==ActorVisualEffectKind.None,
+                    "Recovery prevention alone must not disable a card.");
+                _stage.SyncActorVisualEffects(_fighter);
+                Check(_effect.ActiveStatusCount==5 && !_effect.IsUnableToAct,"Card restrictions must not masquerade as stun/paralyze.");
+                Check(_effect.ActiveStatusEnterCount==0,"Special snapshot reconciliation must start idle only.");
+                foreach(var status in _fighter.Statuses.Instances) Grant(status);
+                Check(_effect.ActiveStatusEnterCount==5,"Special grants must enter."); Next(7,.2);
+            }
+            else if (_step==7)
+            {
+                foreach(var kind in Specials)
+                    Check(_actor.transform.Find("AVE "+kind+" Particles/Enter").GetComponent<ParticleSystem>().particleCount>0,"Special entrance must emit: "+kind);
+                var up=_actor.transform.Find("AVE ExtortBuff Particles/Idle").GetComponent<ParticleSystem>().velocityOverLifetime.y;
+                var down=_actor.transform.Find("AVE ExtortDebuff Particles/Idle").GetComponent<ParticleSystem>().velocityOverLifetime.y;
+                Check(up.constantMin>0 && down.constantMax<0,"Extort auras must visibly move in opposite directions.");
+                Next(8,1.6);
+            }
+            else if (_step==8)
+            {
+                Check(_effect.ActiveStatusCount==5 && _effect.ActiveStatusEnterCount==0,"Special idle must persist beyond grant duration.");
+                foreach(var kind in Specials)
+                    Check(_actor.transform.Find("AVE "+kind+" Particles/Idle").GetComponent<ParticleSystem>().particleCount>0,"Special idle must emit: "+kind);
+                _stage.SetPersistentEffectsHidden("fighter",true);
+                Check(_actor.GetComponentsInChildren<ParticleSystem>().Length==0,"All special idle effects must hide in cinematics.");
+                _stage.SetPersistentEffectsHidden("fighter",false);
+                Check(_effect.ActiveStatusCount==5 && _effect.ActiveStatusEnterCount==0,"Special idle must restore without another grant.");
+                _fighter.Statuses.Instances.Clear(); _stage.SyncActorVisualEffects(_fighter);
+                Check(_effect.ActiveStatusCount==0 && !_effect.IsExploding,"Cleanse must not detonate Explosion.");
+                _stage.ActorStatusDamageFeedback(new BattleEvent { Kind=BattleEventKind.DamageApplied,TargetId="fighter",StatusRecipeId="status.debuff.bleed" });
+                Check(!_effect.IsExploding,"Other DOT damage must not detonate Explosion.");
+                _stage.ActorStatusDamageFeedback(new BattleEvent { Kind=BattleEventKind.DamageApplied,TargetId="fighter",StatusRecipeId="status.debuff.explosion" });
+                Check(_effect.IsExploding,"Explosion status damage must launch an independent impact.");
+                _fighter.IsAlive=false; _stage.SyncActorVisualEffects(_fighter);
+                Check(_effect.IsExploding && _effect.ActiveStatusCount==0,"Lethal state sync must retain impact while clearing idle.");
+                Next(9,.2);
+            }
+            else if (_step==9)
+            {
+                var burst=_actor.transform.Find("AVE ExplosionDetonation Particles/Enter").GetComponent<ParticleSystem>();
+                Check(burst.particleCount>0,"Explosion must emit actual impact shards.");
+                Next(10,1);
+            }
+            else if (_step==10)
+            {
+                Check(!_effect.IsExploding,"Detonation must expire independently of the status clock.");
+                _effect.Explode(); _stage.Restore(); Check(!_effect.IsExploding,"Skip must clear detonation.");
+                _fighter.IsAlive=true; _fighter.Statuses.Instances.Add(Special(ActorVisualEffectKind.ExtortBuff));
+                _fighter.Statuses.Instances.Add(Special(ActorVisualEffectKind.Rejuvenation)); _stage.SyncActorVisualEffects(_fighter);
+                _actor.SetActive(false); Check(_effect.ActiveStatusCount==0,"Disable must clear new buffs as well as debuffs.");
+                _actor.SetActive(true); _stage.SyncActorVisualEffects(_fighter);
+                _effect.Explode(); _stage.BeginDefeat("fighter"); Next(11,.2);
+            }
+            else if (_step==11)
+            {
+                Check(_actor.activeInHierarchy && _effect.IsExploding,"Explosion impact must remain visible while the defeated actor falls.");
+                Next(12,.6);
+            }
+            else if (_step==12)
+            {
+                Check(!_actor.activeInHierarchy && !_effect.IsExploding,"Completed defeat must clear the impact and actor.");
+                _actor.SetActive(true); _stage.SyncActorVisualEffects(_fighter);
+                UnityEngine.Object.Destroy(_actor); Next(13,.1);
             }
             else
             {
                 Check(_actor==null,"Actor destruction must release the status hierarchy.");
-                Check(_errors==0,"Runtime must produce no Unity errors.");
-                Directory.CreateDirectory("Evidence"); File.WriteAllText("Evidence/play-checks.txt","PASS: "+_checks+" AVE Play Mode checks\n"+
+                var ev = Path.GetFullPath(Path.Combine(Application.dataPath, "../Evidence"));
+                Directory.CreateDirectory(ev); File.WriteAllText(Path.Combine(ev, "play-checks.txt"),"PASS: "+_checks+" AVE Play Mode checks\n"+
                     "Unrelated Unity Editor SearchDatabase startup errors: "+_editorIndexErrors+"\n");
                 Debug.Log("PASS: "+_checks+" AVE Play Mode checks"); SessionState.SetBool(Running,false); EditorApplication.Exit(0);
             }
         }
         catch (Exception error)
         {
-            Directory.CreateDirectory("Evidence"); File.WriteAllText("Evidence/play-checks.txt","FAIL: "+error);
+            var ev = Path.GetFullPath(Path.Combine(Application.dataPath, "../Evidence"));
+            Directory.CreateDirectory(ev); File.WriteAllText(Path.Combine(ev, "play-checks.txt"),"FAIL: "+error);
             Debug.LogException(error); SessionState.SetBool(Running,false); EditorApplication.Exit(1);
         }
     }

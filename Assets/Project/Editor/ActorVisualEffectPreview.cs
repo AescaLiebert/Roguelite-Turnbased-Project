@@ -15,7 +15,11 @@ namespace FightingAllstar.EditorTools
     {
         private static readonly string[] Labels = { "ATK increase", "DEF increase", "HP increase",
             "ATK decrease", "DEF decrease", "HP decrease", "Stun / unable to act", "Barrier",
-            "Paralyze", "Bleed", "Poison", "Shock", "Ignite", "All five debuffs" };
+            "Paralyze", "Bleed", "Poison", "Shock", "Ignite", "All five debuffs",
+            "Disable Card", "Extort buff / power up", "Extort debuff / power down", "Explosion grant / armed", "Rejuvenation", "Explosion detonation",
+            "Ultimate Ready Aura" };
+        private static readonly ActorVisualEffectKind[] Specials = { ActorVisualEffectKind.CardDisable, ActorVisualEffectKind.ExtortBuff,
+            ActorVisualEffectKind.ExtortDebuff, ActorVisualEffectKind.Explosion, ActorVisualEffectKind.Rejuvenation };
         private static readonly ActorVisualEffectKind[] Debuffs = { ActorVisualEffectKind.Paralyze,
             ActorVisualEffectKind.Bleed, ActorVisualEffectKind.Poison, ActorVisualEffectKind.Shock, ActorVisualEffectKind.Ignite };
         private static readonly ActorVisualEffectKind[] Kinds = { ActorVisualEffectKind.AttackIncrease,
@@ -42,12 +46,12 @@ namespace FightingAllstar.EditorTools
             _selected = EditorGUILayout.Popup("Effect", _selected, Labels);
             _animate = EditorGUILayout.Toggle("Animate", _animate);
             _time = EditorGUILayout.Slider("Sample time", _time, 0, 3.5f);
-            EditorGUILayout.HelpBox("Stat effects play once. Debuffs enter briefly, then loop until removed. Paralyze and stun flinch on a disabled turn. Tuning: Resources/ActorVisualEffectSettings.", MessageType.Info);
+            EditorGUILayout.HelpBox("Statuses enter briefly, then loop until removed. Extort auras rise/sink. Explosion detonation is a separate short impact. Tuning: Resources/ActorVisualEffectSettings.", MessageType.Info);
             if (GUILayout.Button("Validate and capture all effects")) RunValidation();
             var rect = GUILayoutUtility.GetRect(100, 100, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
             if (Event.current.type != EventType.Repaint) return;
             if (_fixture == null) _fixture = new Fixture();
-            var time = _animate ? (float)((EditorApplication.timeSinceStartup-_started) % (_selected >= 8 ? 3.5 : 1.4)) : _time;
+            var time = _animate ? (float)((EditorApplication.timeSinceStartup-_started) % (_selected >= 8 && _selected != 19 ? 3.5 : 1.4)) : _time;
             _fixture.Pose(_selected, time);
             _fixture.Preview.BeginPreview(rect, GUIStyle.none);
             _fixture.Preview.Render();
@@ -91,8 +95,8 @@ namespace FightingAllstar.EditorTools
                 check(ActorVisualEffectRules.PersistentDebuff(DebuffGrant(kind).Recipe) == kind, "Debuff semantics: " + kind);
             check(ActorVisualEffectRules.PersistentDebuff(new StatusRecipeDefinition { Id="status.debuff.posion" }) == ActorVisualEffectKind.Poison,
                 "The legacy Poison spelling must work.");
-            check(ActorVisualEffectRules.PersistentDebuff(new StatusRecipeDefinition { Id="status.debuff.seal" }) == ActorVisualEffectKind.None,
-                "Generic card seals must not look paralyzed.");
+            check(ActorVisualEffectRules.PersistentStatus(new StatusRecipeDefinition { Id="status.debuff.seal",Behavior=StatusBehavior.Disable }) == ActorVisualEffectKind.CardDisable,
+                "Generic card seals need the card-disable symbol.");
 
             using (var fixture = new Fixture())
             {
@@ -195,6 +199,22 @@ namespace FightingAllstar.EditorTools
                 check(Quaternion.Angle(rotation,model.localRotation)>5,"Paralyze must flinch without a stun.");
                 effect.ClearAll();
                 check(model.localPosition==position && Quaternion.Angle(rotation,model.localRotation)<.01f,"Paralyze cleanup must restore the model.");
+                var specialGrid = new Texture2D(1800,900,TextureFormat.RGB24,false);
+                for(var i=0;i<Specials.Length;i++)
+                {
+                    for(var row=0;row<2;row++)
+                    {
+                        var tile=fixture.Capture(14+i,row==0 ? .25f : 2.2f,360,450);
+                        specialGrid.SetPixels(i*360,(1-row)*450,360,450,tile.GetPixels()); DestroyImmediate(tile);
+                    }
+                    check(effect.ActiveStatusCount==1 && effect.ActiveStatusEnterCount==0,"Special status idle must persist: "+Specials[i]);
+                }
+                specialGrid.Apply(); File.WriteAllBytes(Path.Combine(folder,"special-status-enter-idle.png"),specialGrid.EncodeToPNG()); DestroyImmediate(specialGrid);
+                var explosionTile=fixture.Capture(19,.2f,640,720);
+                File.WriteAllBytes(Path.Combine(folder,"explosion-detonation.png"),explosionTile.EncodeToPNG()); DestroyImmediate(explosionTile);
+                check(effect.IsExploding,"Explosion must have a visible impact.");
+                effect.SamplePreview(1.1f,fixture.Preview.camera);
+                check(!effect.IsExploding,"Explosion impact must self-expire.");
                 // Three simultaneous grants stay bounded and do not alter camera bounds.
                 effect.ClearAll(); fixture.Stage.SetShieldAura("fixture",false);
                 foreach (var kind in new[] { ActorVisualEffectKind.AttackIncrease,ActorVisualEffectKind.DefenseIncrease,ActorVisualEffectKind.HealthIncrease }) effect.Play(kind);
@@ -203,12 +223,22 @@ namespace FightingAllstar.EditorTools
                 var boundsMethod = typeof(BattleStagePresenter).GetMethod("FighterBounds",BindingFlags.Static|BindingFlags.NonPublic);
                 var bounds = (Bounds)boundsMethod.Invoke(null,new object[] { fixture.Actor.transform });
                 check(bounds.size.y < 3.1f, "AVE geometry must be excluded from actor camera bounds.");
+
+                // Validate Ultimate Ready Aura creation, capture, and cleanup
+                effect.ClearAll();
+                fixture.Stage.SetUltimateReady("fixture", true);
+                check(fixture.Actor.GetComponentInChildren<UltimateReadyAura>() != null, "SetUltimateReady must create UltimateReadyAura.");
+                var ultTile = fixture.Capture(20, 0.45f, 640, 720);
+                File.WriteAllBytes(Path.Combine(folder, "ultimate-ready-aura.png"), ultTile.EncodeToPNG());
+                DestroyImmediate(ultTile);
                 fixture.Stage.ClearAuras();
+                check(fixture.Actor.GetComponentInChildren<UltimateReadyAura>() == null, "ClearAuras must release UltimateReadyAura.");
                 check(effect.ActiveGrantCount == 0 && !effect.IsStunned, "Scene cleanup must clear AVE.");
             }
             File.WriteAllText(Path.Combine(folder,"checks.txt"),"PASS: " + checks + " actor visual effect checks\n" +
                 "Stat grid: ATK / DEF / HP increase on top; decreases below.\n" +
-                "Debuff grid: Paralyze / Bleed / Poison / Shock / Ignite; entrance above, idle below.\n");
+                "Debuff grid: Paralyze / Bleed / Poison / Shock / Ignite; entrance above, idle below.\n" +
+                "Ultimate Ready Aura captured.\n");
             Debug.Log("PASS: " + checks + " Actor Visual Effect checks. Captures: " + folder);
         }
 
@@ -268,14 +298,23 @@ namespace FightingAllstar.EditorTools
             public void Pose(int index, float age)
             {
                 Effect.ClearAll(); Stage.SetShieldAura("fixture",index == 7);
+                Stage.SetUltimateReady("fixture", index == 20);
                 if (index < 6) Effect.Play(Kinds[index]);
                 if (index == 6) { Effect.Synchronize(true); Effect.Flinch(); }
-                if (index >= 8)
+                if (index >= 8 && index <= 13)
                 {
                     var kinds=index==13 ? Debuffs : new[] { Debuffs[index-8] };
                     Effect.SynchronizeDebuffs(kinds);
                     foreach(var kind in kinds) Effect.EnterDebuff(kind);
                     if (index==8) Effect.Flinch();
+                }
+                if (index >= 14 && index < 19)
+                { Effect.SynchronizeStatuses(new[] { Specials[index-14] }); Effect.EnterStatus(Specials[index-14]); }
+                if (index==19) Effect.Explode();
+                if (index == 20)
+                {
+                    var readyAura = Actor.GetComponentInChildren<UltimateReadyAura>();
+                    if (readyAura != null) readyAura.Evaluate(age);
                 }
                 Effect.SamplePreview(age,Preview.camera);
             }

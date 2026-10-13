@@ -16,12 +16,15 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 9135e91d46413e9419534e29675a61af, type: 3}
   statusVisuals: []
   ranks:
-  - description: "Inflict Explodes damage equal to 100% of ATK (applies Explosion to enemy)"
+  - description: Inflict Explodes damage equal to 100% of ATK (applies Explosion
+      to enemy)
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -31,7 +34,6 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +104,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -119,6 +123,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.explosion
           Kind: 1
           Family: 0
@@ -128,12 +134,11 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.explosion
             NameKey: 
-            Polarity: 0
+            Polarity: 1
             Color: 0
             Behavior: 2
             Stacking: 0
@@ -142,6 +147,7 @@ MonoBehaviour:
             DefaultDuration: 1
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -173,6 +179,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -196,7 +204,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 0
           StatusPotencyBp: 0
@@ -210,13 +217,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          Sequence: []
-  - description: "Inflict Explodes damage equal to 150% of ATK (applies Explosion to enemy)"
+  - description: Inflict Explodes damage equal to 150% of ATK (applies Explosion
+      to enemy)
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -226,7 +235,6 @@ MonoBehaviour:
       CoefficientBp: 15000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -240,6 +248,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -271,6 +280,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -294,7 +305,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -314,6 +324,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.explosion
           Kind: 1
           Family: 0
@@ -323,12 +335,11 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.explosion
             NameKey: 
-            Polarity: 0
+            Polarity: 1
             Color: 0
             Behavior: 2
             Stacking: 0
@@ -337,6 +348,7 @@ MonoBehaviour:
             DefaultDuration: 1
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -368,6 +380,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -391,7 +405,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 0
           StatusPotencyBp: 0
@@ -405,13 +418,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          Sequence: []
-  - description: "Inflict Explodes damage equal to 250% of ATK (applies Explosion to enemy 2 turns)"
+  - description: Inflict Explodes damage equal to 250% of ATK (applies Explosion
+      to enemy 2 turns)
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -421,7 +436,6 @@ MonoBehaviour:
       CoefficientBp: 25000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -435,6 +449,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -466,6 +481,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -489,7 +506,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -509,6 +525,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.explosion
           Kind: 1
           Family: 0
@@ -518,12 +536,11 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.explosion
             NameKey: 
-            Polarity: 0
+            Polarity: 1
             Color: 0
             Behavior: 2
             Stacking: 0
@@ -532,6 +549,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -563,6 +581,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -586,7 +606,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 0
           StatusPotencyBp: 0
@@ -600,4 +619,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          Sequence: []

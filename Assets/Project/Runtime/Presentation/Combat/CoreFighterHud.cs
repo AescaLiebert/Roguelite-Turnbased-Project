@@ -22,11 +22,12 @@ namespace FightingAllstar.Presentation.Combat
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private bool tintBorderWithAttribute = false;
 
-        [Header("7 Attribute Colors")]
+        [Header("8 Attribute Colors")]
         [SerializeField] private Color blueAttributeColor = new Color(0.145f, 0.388f, 0.922f, 1f);     // #2563EB Blue
         [SerializeField] private Color redAttributeColor = new Color(0.863f, 0.149f, 0.149f, 1f);      // #DC2626 Red
         [SerializeField] private Color greenAttributeColor = new Color(0.086f, 0.639f, 0.290f, 1f);    // #16A34A Green
         [SerializeField] private Color yellowAttributeColor = new Color(0.918f, 0.702f, 0.031f, 1f);   // #EAB308 Yellow
+        [SerializeField] private Color purpleAttributeColor = new Color(0.659f, 0.333f, 0.969f, 1f);   // #A855F7 Purple
         [SerializeField] private Color darknessAttributeColor = new Color(0.231f, 0.110f, 0.329f, 1f); // #3B1C54 Darkness
         [SerializeField] private Color lightAttributeColor = new Color(0.996f, 0.941f, 0.541f, 1f);    // #FEF08A Light
         [SerializeField] private Color infinityAttributeColor = new Color(0.92f, 0.97f, 1f, 1f);       // White Crystal
@@ -35,6 +36,7 @@ namespace FightingAllstar.Presentation.Combat
         [SerializeField] private GameObject statusIconPrefab;
 
         private Text _levelTextFallback;
+        private TMP_Text _artifactActiveText;
 
         private Image _powerGaugeFill;
         private Image _shieldFill;
@@ -145,7 +147,8 @@ namespace FightingAllstar.Presentation.Combat
             if (lower.Contains("red")) return redAttributeColor;
             if (lower.Contains("green")) return greenAttributeColor;
             if (lower.Contains("yellow") || lower.Contains("gold")) return yellowAttributeColor;
-            if (lower.Contains("darkness") || lower.Contains("dark") || lower.Contains("shadow") || lower.Contains("purple") || lower.Contains("void")) return darknessAttributeColor;
+            if (lower.Contains("purple")) return purpleAttributeColor;
+            if (lower.Contains("darkness") || lower.Contains("dark") || lower.Contains("shadow") || lower.Contains("void")) return darknessAttributeColor;
             if (lower.Contains("light") || lower.Contains("holy") || lower.Contains("sun")) return lightAttributeColor;
             if (lower.Contains("infinity") || lower.Contains("crystal")) return infinityAttributeColor;
 
@@ -191,6 +194,26 @@ namespace FightingAllstar.Presentation.Combat
             if (healthSlider == null) return;
             healthSlider.maxValue = Mathf.Max(1, maxHealth);
             healthSlider.value = Mathf.Clamp(currentHealth, 0, healthSlider.maxValue);
+        }
+
+        public void SetArtifactState(FighterState fighter)
+        {
+            var active = ArtifactRules.ActiveSets(fighter);
+            if (_artifactActiveText == null && active.Count > 0)
+            {
+                var label = new GameObject("Artifact Active", typeof(RectTransform), typeof(CanvasRenderer), typeof(TextMeshProUGUI));
+                label.transform.SetParent(healthSlider != null ? healthSlider.transform : transform, false);
+                var rect = label.GetComponent<RectTransform>();
+                rect.anchorMin = rect.anchorMax = new Vector2(.5f, 1);
+                rect.pivot = new Vector2(.5f, 0); rect.anchoredPosition = new Vector2(0, 7); rect.sizeDelta = new Vector2(230, 30);
+                _artifactActiveText = label.GetComponent<TextMeshProUGUI>();
+                if (levelText != null && levelText.font != null) _artifactActiveText.font = levelText.font;
+                _artifactActiveText.fontSize = 14; _artifactActiveText.color = new Color(1, .84f, .5f);
+                _artifactActiveText.alignment = TextAlignmentOptions.Center; _artifactActiveText.raycastTarget = false;
+            }
+            if (_artifactActiveText == null) return;
+            _artifactActiveText.gameObject.SetActive(active.Count > 0);
+            if (active.Count > 0) _artifactActiveText.text = "Artifact Active · " + string.Join(" / ", active);
         }
 
         public void SetPowerGauge(int powerGauge) => SetPowerGauge(powerGauge, -1);
@@ -592,8 +615,11 @@ namespace FightingAllstar.Presentation.Combat
                 var rawId = !string.IsNullOrEmpty(status.InstanceId) ? status.InstanceId : recipeId;
                 var baseId = seenBaseIds.Add(rawId) ? rawId : $"{rawId}_{i}";
                 var isGrey = status.Recipe != null && status.Recipe.Color == StatusColor.Grey;
-                var isBuff = status.Recipe != null && status.Recipe.Polarity == StatusPolarity.Buff;
-                var category = (isGrey ? 0 : 2) + (isBuff ? 0 : 1);
+                var polarity = status.Recipe?.Polarity ?? StatusPolarity.Neutral;
+                // Buff and Neutral statuses share one floor, retaining source order.
+                // Debuffs follow them in a separate floor for each color group.
+                var polarityOrder = polarity == StatusPolarity.Debuff ? 1 : 0;
+                var category = (isGrey ? 0 : 2) + polarityOrder;
 
                 for (var s = 0; s < allowedStacks; s++)
                 {

@@ -216,6 +216,7 @@ namespace FightingAllstar.Presentation.Combat
         public void SamplePreview(float elapsed, Camera camera)
         {
             foreach (var effect in _debuffs.Values) effect.SamplePreview(elapsed);
+            _detonation?.SamplePreview(elapsed);
             Evaluate(Time.unscaledTime + elapsed, camera);
         }
 #endif
@@ -323,16 +324,17 @@ namespace FightingAllstar.Presentation.Combat
             }
         }
 
-        public void ClearTransient()
+        public void ClearTransient(bool preserveImpact = false)
         {
             foreach (var burst in _bursts.Values) { burst.Active = false; if (burst.Root != null) burst.Root.gameObject.SetActive(false); }
             _flinchStarted = -100f;
             foreach (var effect in _debuffs.Values) effect.ClearEnter();
+            if (!preserveImpact) _detonation?.SetActive(false);
         }
 
-        public void ClearAll()
+        public void ClearAll(bool preserveImpact = false)
         {
-            ClearTransient(); RestorePose(); _stunned = false; ClearDebuffs();
+            ClearTransient(preserveImpact); RestorePose(); _stunned = false; ClearDebuffs(preserveImpact);
             if (_stunRoot != null) _stunRoot.gameObject.SetActive(false);
         }
 
@@ -344,6 +346,7 @@ namespace FightingAllstar.Presentation.Combat
             if (_stunRoot != null) ActorVisualEffectGeometry.Release(_stunRoot.gameObject);
             _geometry?.Dispose();
             foreach (var effect in _debuffs.Values) effect.Dispose();
+            _detonation?.Dispose();
             if (_ownsSettings) ActorVisualEffectGeometry.Release(_settings);
         }
     }

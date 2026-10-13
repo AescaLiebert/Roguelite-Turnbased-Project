@@ -54,7 +54,7 @@ namespace FightingAllstar.Core.Content
                     Tags = new List<string> { CombatTags.Ignite, "status.dot" },
                     Modifiers = new List<StatModifierDefinition> { new StatModifierDefinition {
                         Target = ModifierTarget.AnyDamageReceived, Operation = ModifierOperation.PercentagePoints, Amount = 1000 } } },
-                new StatusRecipeDefinition { Id = "status.buff.rejuvenation", Polarity = StatusPolarity.Buff,
+                new StatusRecipeDefinition { Id = "status.buff.rejuvenation", Polarity = StatusPolarity.Neutral,
                     Behavior = StatusBehavior.Heal, Stacking = StatusStackingPolicy.AddStacks, MaxStacks = 3,
                     DefaultDuration = 2, PeriodicHealing = new PeriodicHealingDefinition {
                         Timing = StatusTickTiming.TargetTurnStart, Scaling = StatusHealScaling.TurnStartRecovery,

@@ -47,6 +47,9 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -116,8 +119,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
-  - description: Inflict Sever damage equal to 300% of ATK
+  - description: Inflict Sever damage equal to 320% of ATK
     skillType: 0
     runtimeEffect:
       Attack:
@@ -131,7 +136,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 30000
+      CoefficientBp: 32000
       KeywordFactorBp: 10000
       KeywordId: attack.sever
       Conditions: []
@@ -148,6 +153,9 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -217,6 +225,8 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - description: Inflict Sever damage equal to 450% of ATK
     skillType: 0
@@ -249,6 +259,9 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -318,4 +331,6 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []

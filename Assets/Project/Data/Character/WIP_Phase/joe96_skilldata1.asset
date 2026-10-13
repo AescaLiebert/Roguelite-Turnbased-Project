@@ -16,8 +16,109 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 095eb5430beb41246877851e5a32deb8, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts damage equal to 70% of ATK applies bleeding to enemy for
-      1 turns
+  - description: Inflicts damage equal to 120% of ATK on all enemies
+    skillType: 0
+    runtimeEffect:
+      Attack:
+        HitCount: 2
+        Range: 0
+        Reaction: 3
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 12000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      Sequence: []
+  - description: Inflicts damage equal to 120% of ATK applies Debuff Card Disable
+      to enemy for 1 turns
     skillType: 5
     runtimeEffect:
       Attack:
@@ -117,111 +218,108 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      Sequence: []
-  - description: Inflicts damage equal to 140% of ATK applies bleeding to enemy for
-      2 turns
-    skillType: 5
-    runtimeEffect:
-      Attack:
-        HitCount: 2
-        Range: 0
-        Reaction: 0
-        ReactionTiming: 0
-      Id: 
-      Kind: 0
-      Family: 0
-      Scaling: 0
-      ScalingStat: 0
-      Magnitude: 0
-      CoefficientBp: 12000
-      KeywordFactorBp: 10000
-      KeywordId: 
-      Conditions: []
-      StatusRecipe:
-        Id: 
-        NameKey: 
-        Polarity: 0
-        Color: 0
-        Behavior: 0
-        Stacking: 0
-        Identity: 0
-        DurationClock: 1
-        DefaultDuration: 2
-        MaxStacks: 1
-        DefaultPotencyBp: 0
-        BarrierCoefficientBp: 0
-        BypassDebuffImmunity: 0
-        BreakRule: 0
-        DisableMask: 0
-        Tags: []
-        Modifiers: []
-        PeriodicDamage:
-          Family: 3
-          Timing: 2
-          Scaling: 1
-          CoefficientBp: 10000
-          FixedAmount: 0
-          ConsumeOnTrigger: 0
-        PeriodicHealing:
-          Timing: 1
-          Scaling: 0
-          CoefficientBp: 10000
-          FixedAmount: 0
-        DebuffImmunity: 0
-        AdditionalDamageImmunity: 0
-        Taunt: 0
-        EvadeAttacks: 0
-        StanceChildren: []
-        RecoverDamageTakenBp: 0
-        CounterEnabled: 0
-        CounterCategory: 0
-        CounterTarget: 1
-        CounterConditions: []
-        CounterEffect:
+      Sequence:
+      - Timing: 3
+        Effect:
           Attack:
-            HitCount: 1
+            HitCount: 0
             Range: 0
             Reaction: 0
             ReactionTiming: 0
-          Kind: 0
-          Target: 1
+          Id: 
+          Kind: 1
           Family: 0
           Scaling: 0
-          CoefficientBp: 10000
+          ScalingStat: 0
           Magnitude: 0
+          CoefficientBp: 0
+          KeywordFactorBp: 0
           KeywordId: 
-          Timing: 3
-          HealSource: 3
-          HealAmount: 0
-          HealCoefficientBp: 10000
-          StatusRecipeId: 
-          StatusPolarity: 1
-          StatusApplyChanceBp: 10000
-          StatusDurationOverride: 0
+          Conditions: []
+          StatusRecipe:
+            Id: status.disable.debuff
+            NameKey: status.disable.debuff
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 0
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 2
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 0
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 0
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 0
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 0
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 0
+              Magnitude: 0
+              KeywordId: 
+              Timing: 0
+              HealSource: 0
+              HealAmount: 0
+              HealCoefficientBp: 0
+              StatusRecipeId: 
+              StatusPolarity: 0
+              StatusApplyChanceBp: 0
+              StatusDurationOverride: 0
+              StatusStackCount: 0
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 0
+            MaximumAmount: 0
+          HealScalingStat: 0
+          HealCoefficientBp: 0
           PowerGaugeAmount: 0
-          Sequence: []
-        SurviveLethalCharges: 0
-        IgnoreCritResistanceBp: 0
-        IgnoreCritDefenseBp: 0
-        ImmuneStatusTags: []
-      StatusDurationOverride: 0
-      StatusStackCount: 1
-      StatusPotencyBp: 0
-      StatusApplyChanceBp: 10000
-      HealValue:
-        Source: 0
-        FixedAmount: 0
-        CoefficientBp: 10000
-        MaximumAmount: 2147483647
-      HealScalingStat: 0
-      HealCoefficientBp: 0
-      PowerGaugeAmount: 0
-      Target: 3
-      Sequence: []
-  - description: Inflicts damage equal to 210% of ATK applies bleeding to enemy for
-      3 turns
+          Target: 3
+  - description: Inflicts damage equal to 180% of ATK applies Debuff and Buff Card
+      Disable to enemy for 2 turns
     skillType: 5
     runtimeEffect:
       Attack:
@@ -321,4 +419,202 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
-      Sequence: []
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 0
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 0
+          KeywordFactorBp: 0
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.disable.debuff
+            NameKey: status.disable.debuff
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 0
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 2
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 0
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 0
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 0
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 0
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 0
+              Magnitude: 0
+              KeywordId: 
+              Timing: 0
+              HealSource: 0
+              HealAmount: 0
+              HealCoefficientBp: 0
+              StatusRecipeId: 
+              StatusPolarity: 0
+              StatusApplyChanceBp: 0
+              StatusDurationOverride: 0
+              StatusStackCount: 0
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 0
+            MaximumAmount: 0
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 0
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: 
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 0
+          KeywordFactorBp: 0
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.disable.buff
+            NameKey: status.disable.buff
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 0
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 4
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 0
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 0
+              Scaling: 0
+              CoefficientBp: 0
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 0
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 0
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 0
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 0
+              Magnitude: 0
+              KeywordId: 
+              Timing: 0
+              HealSource: 0
+              HealAmount: 0
+              HealCoefficientBp: 0
+              StatusRecipeId: 
+              StatusPolarity: 0
+              StatusApplyChanceBp: 0
+              StatusDurationOverride: 0
+              StatusStackCount: 0
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 0
+            MaximumAmount: 0
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3

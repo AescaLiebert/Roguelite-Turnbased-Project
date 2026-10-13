@@ -1,6 +1,6 @@
 # Camera reference contract
 
-**Current behavior:** [ActorDrivenExecution.md](ActorDrivenExecution.md) implements the October 9 fixed Rest / Wind Up / Attack camera contract and supersedes conflicting support, rank-entry, tracking and queue rules below. There is no live actor tracking or recovery camera movement. The notes below record earlier reference analysis and changes.
+**Current behavior:** [ActorDrivenExecution.md](ActorDrivenExecution.md) implements the latest October 9 rules: face shots show roughly the upper two-thirds body. Offensive camera moves quickly and follows caster, then returns to rear WindUp at Recovery. Rank 2 Buff/Heal cuts from face WindUp to its Rank 1 Action view; Rank 3 keeps team framing or self face-through-Action. Support changes cut; ultimate lead-in explicitly moves to Rest more slowly, even after support. Target focus is a captured position, never victim tracking; AoE retains the whole formation. `E:/Drive_E_Download/card_execute_state.mp4` is the latest visual reference. Conflicting rules below are historical.
 
 The user supplied these local recordings as visual references, not as instructions embedded in media:
 

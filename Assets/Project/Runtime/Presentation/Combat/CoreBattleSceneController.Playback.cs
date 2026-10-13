@@ -439,6 +439,7 @@ namespace FightingAllstar.Presentation.Combat
             var visible = false;
             foreach (var item in batch)
             {
+                if (item.Kind == BattleEventKind.DamageApplied) _stage.ActorStatusDamageFeedback(item);
                 BattlePlaybackState.Apply(_displayState, item);
                 UpdateDisplayedHud(item.TargetId);
                 if (item.Kind == BattleEventKind.StatusApplied || item.Kind == BattleEventKind.StatusRemoved ||
@@ -767,6 +768,7 @@ namespace FightingAllstar.Presentation.Combat
                         item.Card != null && effectCategory == CardCategory.AttackDebuff);
                     yield break;
                 case BattleEventKind.DamageApplied:
+                    _stage.ActorStatusDamageFeedback(item);
                     BattlePlaybackState.Apply(_displayState, item);
                     UpdateDisplayedHud(item.TargetId);
                     var textLifetimeScale = item.HitCount > 3
@@ -970,6 +972,7 @@ namespace FightingAllstar.Presentation.Combat
             if (!_fighterBillboards.TryGetValue(id, out var hud) || hud == null) return;
             var maximumHealth = StatusSystem.GetEffectiveStats(fighter).MaxHealth;
             hud.SetCoreHealth(fighter.Health, maximumHealth);
+            hud.SetArtifactState(fighter);
             hud.SetShield(fighter.Shield, maximumHealth);
             var shownStatuses = fighter.Statuses.Instances.ConvertAll(status => status.Clone());
             foreach (var status in shownStatuses)
@@ -1369,6 +1372,13 @@ namespace FightingAllstar.Presentation.Combat
             SetControls(false);
             ClearExecution();
             if (_targetReticle != null) _targetReticle.SetVisible(false);
+            if (!_trainingMode && !FightingAllstar.Adapters.LocalEncounterContext.IsPreview &&
+                FightingAllstar.Presentation.Route.DungeonFlowContext.ActiveRun?.PendingBattleId == _snapshot.MatchId)
+            {
+                // Battle playback has finished: return straight to the run's victory grant popup or retryable stage.
+                FinishBattle();
+                return;
+            }
             if (_resultPanel != null) _resultPanel.style.display = DisplayStyle.Flex;
             if (_resultTitle != null) _resultTitle.text = _snapshot.IsDraw ? "DRAW" :
                 _snapshot.Winner == TeamSide.Player ? "VICTORY" : "DEFEAT";

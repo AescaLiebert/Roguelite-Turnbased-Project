@@ -12,6 +12,7 @@ namespace FightingAllstar.Presentation.Combat
         private Material _shieldSurfaceMaterial;
         private Material _shieldNodeMaterial;
         private readonly Dictionary<string, ActorVisualEffect> _actorEffects = new Dictionary<string, ActorVisualEffect>();
+        private readonly Dictionary<string, HashSet<string>> _explosionRecipes = new Dictionary<string, HashSet<string>>();
 
         private ActorVisualEffect ActorEffects(string id)
         {
@@ -34,9 +35,16 @@ namespace FightingAllstar.Presentation.Combat
             SetShieldAura(fighter.Id, visible && fighter.Shield > 0);
             var effect = ActorEffects(fighter.Id);
             if (effect == null) return;
-            if (!visible) { effect.ClearAll(); return; }
+            if (!visible) { _explosionRecipes.Remove(fighter.Id); effect.ClearAll(preserveImpact: !fighter.IsAlive); return; }
+            if (!_explosionRecipes.TryGetValue(fighter.Id, out var explosionIds))
+            { explosionIds = new HashSet<string>(); _explosionRecipes.Add(fighter.Id, explosionIds); }
+            explosionIds.Clear();
+            if (fighter.Statuses?.Instances != null)
+                foreach (var status in fighter.Statuses.Instances)
+                    if (ActorVisualEffectRules.PersistentStatus(status?.Recipe) == ActorVisualEffectKind.Explosion)
+                        explosionIds.Add(status.RecipeId ?? status.Recipe.Id);
             effect.Synchronize(ActorVisualEffectRules.IsStunned(fighter), _suppressedPersistentEffects.Contains(fighter.Id));
-            effect.SynchronizeDebuffs(ActorVisualEffectRules.PersistentDebuffs(fighter));
+            effect.SynchronizeStatuses(ActorVisualEffectRules.PersistentStatuses(fighter));
         }
 
         /// <returns>How long playback should allow a supported grant effect to settle.</returns>
@@ -53,12 +61,27 @@ namespace FightingAllstar.Presentation.Combat
             if (effect == null || !effect.isActiveAndEnabled) return 0;
             var kinds = ActorVisualEffectRules.GrantedEffects(applied, item.StatusesAfter);
             foreach (var kind in kinds) effect.Play(kind);
-            var debuff = ActorVisualEffectRules.PersistentDebuff(applied.Recipe);
-            if (debuff != ActorVisualEffectKind.None) effect.EnterDebuff(debuff);
+            var debuff = ActorVisualEffectRules.PersistentStatus(applied.Recipe);
+            if (debuff != ActorVisualEffectKind.None) effect.EnterStatus(debuff);
+            if (debuff == ActorVisualEffectKind.Explosion)
+            {
+                if (!_explosionRecipes.TryGetValue(item.TargetId, out var explosionIds))
+                { explosionIds = new HashSet<string>(); _explosionRecipes.Add(item.TargetId, explosionIds); }
+                explosionIds.Add(applied.RecipeId ?? applied.Recipe.Id);
+            }
             if (item.ShieldChanged && item.ShieldAfter > 0) ShieldActivated(item.TargetId);
             if (kinds.Count > 0 || debuff != ActorVisualEffectKind.None) PlayCue(applied.Recipe.Polarity == StatusPolarity.Debuff ? 1 : 3);
             return Mathf.Max(kinds.Count > 0 ? effect.GrantDuration : 0,
                 debuff != ActorVisualEffectKind.None ? effect.DebuffEnterDuration : 0);
+        }
+
+        public void ActorStatusDamageFeedback(BattleEvent item)
+        {
+            if (item == null || item.Kind != BattleEventKind.DamageApplied ||
+                (!ActorVisualEffectRules.IsExplosionDamage(item) &&
+                !(item.TargetId != null && !string.IsNullOrEmpty(item.StatusRecipeId) && _explosionRecipes.TryGetValue(item.TargetId, out var ids) && ids.Contains(item.StatusRecipeId)))) return;
+            ActorEffects(item.TargetId)?.Explode();
+            PlayCue(2);
         }
 
         public IEnumerator PresentStunnedTurn(BattleState state, TeamSide side)
@@ -88,6 +111,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void ClearActorVisualEffects(bool transientOnly = false)
         {
+            if (!transientOnly) _explosionRecipes.Clear();
             foreach (var effect in _actorEffects.Values)
                 if (effect != null) { if (transientOnly) effect.ClearTransient(); else effect.ClearAll(); }
         }

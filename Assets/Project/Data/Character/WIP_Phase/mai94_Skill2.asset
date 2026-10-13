@@ -16,12 +16,14 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: "Inflicts 120% of ATK to all enemies"
+  - description: Inflicts 120% of ATK to all enemies
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -31,7 +33,6 @@ MonoBehaviour:
       CoefficientBp: 12000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +46,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +78,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +103,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -113,13 +116,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
-  - description: "Inflicts 120% of ATK, Disable enemy from using recovery cards for 2 turns."
+  - description: Inflicts 120% of ATK, Disable enemy from using recovery cards for
+      2 turns.
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -129,7 +136,6 @@ MonoBehaviour:
       CoefficientBp: 12000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -143,6 +149,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -174,6 +181,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -197,7 +206,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -211,12 +219,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.disable-heal
           Kind: 1
           Family: 0
@@ -226,7 +238,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.disable-heal
@@ -240,6 +251,7 @@ MonoBehaviour:
             DefaultDuration: 1
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 8
@@ -272,6 +284,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -295,8 +309,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 2
+          StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
@@ -309,13 +322,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          Sequence: []
-  - description: "Inflicts 180% of ATK, Disable enemy from using recovery cards for 2 turns."
+  - description: Inflicts 180% of ATK, Disable enemy from using recovery cards for
+      1 turns.
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -325,7 +340,6 @@ MonoBehaviour:
       CoefficientBp: 18000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -339,6 +353,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -370,6 +385,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -393,7 +410,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -407,12 +423,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.disable-recovery
           Kind: 1
           Family: 0
@@ -422,7 +442,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.disable-heal
@@ -436,6 +455,7 @@ MonoBehaviour:
             DefaultDuration: 1
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 8
@@ -468,6 +488,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -491,7 +513,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -505,4 +526,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-          Sequence: []

@@ -16,19 +16,21 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 17fd06f2ae5ddb54eb8463a667d0eee5, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts 93.33% of ATK and inflicts 1 Ignite stack for 1 turn.
-    skillType: 2
+  - description: Inflicts 110% of ATK and inflicts 1 Ignite stack for 2 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: fighter.iori95.skill.2.rank.1
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 9333
+      CoefficientBp: 11000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -44,6 +46,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -75,6 +78,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -110,13 +115,15 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
       Sequence:
-      - Timing: 2
+      - Timing: 3
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.iori95.skill.2.ignite.rank.1
           Kind: 1
           Family: 0
@@ -139,6 +146,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 10
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -185,6 +193,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -208,7 +218,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-          StatusDurationOverride: 1
+          StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
@@ -221,19 +231,21 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-  - description: Inflicts 186.67% of ATK and inflicts 2 Ignite stacks for 2 turns.
-    skillType: 2
+  - description: Inflicts 180% of ATK and inflicts 2 Ignite stacks for 2 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: fighter.iori95.skill.2.rank.2
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 18667
+      CoefficientBp: 18000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -249,6 +261,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -280,6 +293,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -315,13 +330,15 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
       Sequence:
       - Timing: 2
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.iori95.skill.2.ignite.rank.2
           Kind: 1
           Family: 0
@@ -344,6 +361,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 10
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -390,6 +408,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -427,11 +447,13 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 1
   - description: Inflicts 280% of ATK and inflicts 2 Ignite stacks for 3 turns.
-    skillType: 2
+    skillType: 5
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: fighter.iori95.skill.2.rank.3
       Kind: 0
       Family: 0
@@ -454,6 +476,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -485,6 +508,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -520,13 +545,15 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
       Sequence:
       - Timing: 2
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.iori95.skill.2.ignite.rank.3
           Kind: 1
           Family: 0
@@ -549,6 +576,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 10
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -595,6 +623,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0

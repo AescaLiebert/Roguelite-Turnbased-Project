@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d047978978fea9d46af1e2f436eb1653, type: 3}
+  m_Name: StarterPlayerInventoryProfile
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventoryProfileSO
+  profile:
+    schemaVersion: 1
+    subjectId: guest:local-development
+    diamonds: 166000
+    featuredGuaranteeProgress: 100
+    selectorEntitlements: 0
+    duplicateTokens: 0
+    characterDupeTokens:
+    - characterDefinitionId: fighter.goro94
+      amount: 5
+    - characterDefinitionId: fighter.chin94
+      amount: 1
+    - characterDefinitionId: fighter.lucky94
+      amount: 4
+    - characterDefinitionId: fighter.benimaru94
+      amount: 1
+    - characterDefinitionId: fighter.brian94
+      amount: 1
+    - characterDefinitionId: fighter.kensou94
+      amount: 1
+    artifactAutoSelectRarity: 1
+    characters:
+    - instanceId: a301a3eb6dcc44b0bb556599288a6b16
+      definitionId: fighter.kyo94
+      constellationTier: 3
+      level: 10
+      levelCap: 10
+    - instanceId: 9299d10ba347431b8a43a5874d98befe
+      definitionId: fighter.benimaru94
+      constellationTier: 5
+      level: 10
+      levelCap: 10
+    - instanceId: 33f35d69789a4d1bbfeb46a16c824d2c
+      definitionId: fighter.goro94
+      constellationTier: 5
+      level: 10
+      levelCap: 10
+    - instanceId: 2f21359b4c1d44d3882e67d07930c087
+      definitionId: fighter.heavyd94
+      constellationTier: 5
+      level: 1
+      levelCap: 10
+    - instanceId: 76b49ff3429d47418b3c91eadad4b2b1
+      definitionId: fighter.joe94
+      constellationTier: 5
+      level: 1
+      levelCap: 10
+    - instanceId: f64745259349487ca4d88703b09d4c18
+      definitionId: fighter.king94
+      constellationTier: 2
+      level: 1
+      levelCap: 10
+    - instanceId: 4b9d2043aa1447eeab7c500eb3a41029
+      definitionId: fighter.kensou94
+      constellationTier: 5
+      level: 1
+      levelCap: 10
+    - instanceId: 627e38397bfc4737b246e718f42aa318
+      definitionId: fighter.lucky94
+      constellationTier: 5
+      level: 1
+      levelCap: 10
+    - instanceId: 031a188f267245a5830425cecd447211
+      definitionId: fighter.brian94
+      constellationTier: 5
+      level: 1
+      levelCap: 10
+    - instanceId: 21526a7c19f74c0886557a3654d4c139
+      definitionId: fighter.choi94
+      constellationTier: 4
+      level: 1
+      levelCap: 10
+    - instanceId: a0ba9bd7adbb4384828fd61ef757e07a
+      definitionId: fighter.chin94
+      constellationTier: 5
+      level: 1
+      levelCap: 10
+    - instanceId: d1601323b5d94e279e51299dadff9938
+      definitionId: fighter.andy94
+      constellationTier: 2
+      level: 1
+      levelCap: 10
+    - instanceId: 6eae2f952a1e4f02ba99300dde56aed4
+      definitionId: fighter.shingo97
+      constellationTier: 3
+      level: 10
+      levelCap: 10
+    - instanceId: e6937eb54f004d2fb6587d81a4f1229a
+      definitionId: fighter.ralf94
+      constellationTier: 1
+      level: 1
+      levelCap: 10
+    - instanceId: 47a16ea33afd45bd88fdd21279209f6b
+      definitionId: fighter.ryo94
+      constellationTier: 2
+      level: 1
+      levelCap: 10
+    - instanceId: 847ab3e2e724418192826a174a48675b
+      definitionId: fighter.clark94
+      constellationTier: 2
+      level: 1
+      levelCap: 10
+    - instanceId: db93e533ae95421ea90144ccdfc5e4f9
+      definitionId: fighter.joe96
+      constellationTier: 4
+      level: 1
+      levelCap: 10
+    - instanceId: ff3f03a2bd994774b66d4dea7b0e1480
+      definitionId: fighter.yuri94
+      constellationTier: 2
+      level: 1
+      levelCap: 10
+    - instanceId: d3a10d8732f846e4aeb27e01622c3721
+      definitionId: fighter.mai94
+      constellationTier: 4
+      level: 1
+      levelCap: 10
+    - instanceId: bdff45ae4a9a42e3beb092afbede9243
+      definitionId: fighter.chang94
+      constellationTier: 0
+      level: 1
+      levelCap: 10
+    - instanceId: 380c462acdc04bc1871d3c82b90f116a
+      definitionId: fighter.scii-taki
+      constellationTier: 0
+      level: 1
+      levelCap: 10
+    formation:
+    - 
+    - 
+    - 
+    - 
+    dungeonFormations: []
+    claimedRunRewards: []
+    items:
+      Coins: 9977125
+      Materials:
+      - ItemId: material.phase.1
+        Amount: 4
+      - ItemId: material.subphase.0
+        Amount: 4
+      - ItemId: material.series.series.kof
+        Amount: 5
+      - ItemId: material.phase.2
+        Amount: 2
+      - ItemId: material.subphase.3
+        Amount: 2
+      - ItemId: material.artifact-dust
+        Amount: 1
+      Artifacts:
+      - InstanceId: 8edaa6d16b3e48db8ce43a0b57fa6bd5:reward:r1n0:artifact:0
+        ItemId: artifact.bulwark.flower
+        SourceRunId: 8edaa6d16b3e48db8ce43a0b57fa6bd5
+        SourceNodeId: r1n0
+        Rarity: 1
+        SchemaVersion: 1
+        Seed: -1156019025
+        Level: 2
+        Experience: 70
+        Set: 1
+        Slot: 0
+        Favourite: 0
+        EquippedCharacterId: a301a3eb6dcc44b0bb556599288a6b16
+        MainStat:
+          Stat: 0
+          Percent: 1
+          Value: 180
+        Substats: []
+      - InstanceId: 8edaa6d16b3e48db8ce43a0b57fa6bd5:reward:r2n1:artifact:0
+        ItemId: artifact.striker.feather
+        SourceRunId: 8edaa6d16b3e48db8ce43a0b57fa6bd5
+        SourceNodeId: r2n1
+        Rarity: 1
+        SchemaVersion: 1
+        Seed: -1815319301
+        Level: 0
+        Experience: 0
+        Set: 0
+        Slot: 1
+        Favourite: 0
+        EquippedCharacterId: a301a3eb6dcc44b0bb556599288a6b16
+        MainStat:
+          Stat: 0
+          Percent: 0
+          Value: 12
+        Substats: []
+      ClaimedReceiptIds:
+      - 8edaa6d16b3e48db8ce43a0b57fa6bd5:reward:r1n0
+      - 8edaa6d16b3e48db8ce43a0b57fa6bd5:reward:r2n1
+      - 8fefe93e92264a53b4339dc0a0766862:reward:r1n0

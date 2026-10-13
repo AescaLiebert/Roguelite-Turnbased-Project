@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.mai94
   runtimeReady: 1
-  sourceId: 3
-  sourceRecord: 4
   familyId: family.mai
   seriesId: series.kof
   role: Crowd Control
@@ -27,12 +25,11 @@ MonoBehaviour:
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 2ea00c52e373cae489821d63d3acfed1, type: 2}
-  id: 1003
+  id: 1203
   fighterName: Mai Shiranui 94
-  fighterTag: family.mai
   fighterPic: {fileID: 21300000, guid: 9156169f3227e134bbbbfd5bd78e966d, type: 3}
   fighterIcon: {fileID: 21300000, guid: c95b46d50a30c8f46a00b56c7effa27f, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 9156169f3227e134bbbbfd5bd78e966d, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -49,6 +46,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2790
   attack: 225
   defense: 190

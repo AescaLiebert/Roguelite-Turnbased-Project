@@ -47,6 +47,9 @@ namespace FightingAllstar.Core.Content
         public int Defense;
         public int MaxHealth;
         public int CombatClass;
+        public bool HasDerivedCombatClass;
+        public int CombatClassReferenceValue, CombatClassFlatBonus;
+        public long CombatClassReferenceScore, CombatClassGrowthScore;
         public int PierceBp;
         public int ResistanceBp;
         public int RegenerationBp;
@@ -128,6 +131,7 @@ namespace FightingAllstar.Core.Content
     {
         public DamageFamily Family;
         public int OutgoingIncreaseBp;
+        public int NonCriticalOutgoingIncreaseBp;
         public int OutgoingDecreaseBp;
         public int IncomingIncreaseBp;
         public int IncomingDecreaseBp;
@@ -253,6 +257,9 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class EffectDefinition : EffectOperationDefinition
     {
+        /// <summary>Extra damage dealt when this card hits a target with attribute advantage, in basis points.</summary>
+        public int AttributeAdvantageDamageBonusBp;
+        public List<CardEffectBatchDefinition> Batches = new List<CardEffectBatchDefinition>();
         // Sequence steps use EffectStepDefinition, which cannot contain another Sequence.
         // This keeps Unity's serialized graph finite while preserving one authored step layer.
         public List<CardEffectStep> Sequence = new List<CardEffectStep>();
@@ -261,6 +268,8 @@ namespace FightingAllstar.Core.Content
         {
             var copy = new EffectDefinition();
             CopyOperationTo(copy);
+            copy.AttributeAdvantageDamageBonusBp = AttributeAdvantageDamageBonusBp;
+            if (Batches != null) foreach (var batch in Batches) copy.Batches.Add(batch?.Clone());
             if (Sequence != null) foreach (var step in Sequence) copy.Sequence.Add(step == null ? null : step.Clone());
             return copy;
         }
@@ -289,9 +298,19 @@ namespace FightingAllstar.Core.Content
     public sealed class CardEffectStep
     {
         public CardEffectTiming Timing = CardEffectTiming.Damaging;
+        public string BatchId;
         public EffectOperationDefinition Effect;
         public CardEffectStep Clone() => new CardEffectStep { Timing = Timing,
+            BatchId = BatchId,
             Effect = Effect == null ? null : Effect.CloneOperation() };
+    }
+
+    [Serializable]
+    public sealed class CardEffectBatchDefinition
+    {
+        public string Id;
+        public int ApplyChanceBp = 10000;
+        public CardEffectBatchDefinition Clone() => (CardEffectBatchDefinition)MemberwiseClone();
     }
 
     [Serializable]
@@ -490,6 +509,8 @@ namespace FightingAllstar.Core.Content
         public string RarityId;
         public List<string> TraitIds = new List<string>();
         public StatBlock BaseStats = new StatBlock();
+        public CharacterStatGrowth StatGrowth = new CharacterStatGrowth();
+        public List<FightingAllstar.Core.Run.ArtifactInstance> ArtifactLoadout = new List<FightingAllstar.Core.Run.ArtifactInstance>();
         public List<SkillDefinition> Skills = new List<SkillDefinition>();
         public string PassiveId;
         public PassiveSourceDefinition PassiveSource;
@@ -505,8 +526,9 @@ namespace FightingAllstar.Core.Content
             var copy = new CharacterDefinition { SchemaVersion = SchemaVersion, RuntimeReady = RuntimeReady, Id = Id, SourceId = SourceId,
                 CategoryId = CategoryId, SourceRecord = SourceRecord, DisplayName = DisplayName, FamilyId = FamilyId, Role = Role,
                 SeriesId = SeriesId, AttributeId = AttributeId, RarityId = RarityId, BaseStats = BaseStats == null ? null : BaseStats.Clone(),
-                PassiveId = PassiveId, StatsProvenance = StatsProvenance };
+                PassiveId = PassiveId, StatsProvenance = StatsProvenance, StatGrowth = StatGrowth?.Clone() };
             if (TraitIds != null) copy.TraitIds.AddRange(TraitIds);
+            if (ArtifactLoadout != null) foreach (var artifact in ArtifactLoadout) copy.ArtifactLoadout.Add(artifact?.Clone());
             if (SourceTraits != null) copy.SourceTraits.AddRange(SourceTraits);
             if (ReviewNotes != null) copy.ReviewNotes.AddRange(ReviewNotes);
             copy.PassiveSource = PassiveSource == null ? null : PassiveSource.Clone();

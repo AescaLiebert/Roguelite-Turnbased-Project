@@ -54,6 +54,19 @@ namespace FightingAllstar.Presentation.Combat
                 _readyTags[fighter.Id] = tag;
                 StartCoroutine(RevealReadyTag(tag));
             }
+            if (state.Opponent?.Fighters != null)
+            {
+                foreach (var fighter in state.Opponent.Fighters)
+                {
+                    var hasCard = state.Opponent.Hand != null && state.Opponent.Hand.Any(c => c.OwnerFighterId == fighter.Id && c.Kind == CardKind.Ultimate);
+                    if (_isPlayingEvents && _executionIndex >= 0)
+                        hasCard |= _executionEvents.Skip(_executionIndex).Any(e => e.Kind == BattleEventKind.CardPlayed &&
+                            e.SourceId == fighter.Id && e.Card?.Kind == CardKind.Ultimate);
+                    var ready = _hudRevealed && state.Phase != BattlePhase.Complete && fighter.IsAlive && !fighter.IsReserve &&
+                        fighter.PowerGauge >= CardRules.UltimateGaugeCost && hasCard;
+                    _stage.SetUltimateReady(fighter.Id, ready);
+                }
+            }
         }
 
         private IEnumerator RevealReadyTag(VisualElement tag)
@@ -74,66 +87,43 @@ namespace FightingAllstar.Presentation.Combat
                 yield return _stage.PrepareUltimate(fighter?.Side ?? _displayState.ActingSide);
             if (_effectsLayer == null) yield break;
             var character = fighter == null ? null : LoadCharacter(fighter.Definition.Id);
-            var overlay = new VisualElement { name = "ultimate-cut-in", pickingMode = PickingMode.Ignore };
+                        var art = character?.FighterFull != null ? character.FighterFull :
+                character?.FighterPic != null ? character.FighterPic : character?.FighterIcon;
+            var accent = UltimateAccent(character?.FighterAttribute ?? FighterAttribute.Purple);
+            var overlay = new UltimateCutInView(art, character?.Ultimate?.ultimateName ?? "Ultimate Move",
+                character?.FighterName ?? fighter?.Definition.DisplayName ?? "", accent);
             _ultimateOverlay = overlay;
-            overlay.AddToClassList("ultimate-cut-in");
-            var streaks = new List<VisualElement>();
-            for (var i = 0; i < 9; i++)
-            {
-                var streak = new VisualElement { pickingMode = PickingMode.Ignore };
-                streak.AddToClassList("ultimate-speed-line");
-                streak.style.top = Length.Percent(14 + i * 8);
-                streak.style.height = i % 3 == 0 ? 10 : 3;
-                streak.style.opacity = .25f + i % 3 * .2f;
-                overlay.Add(streak); streaks.Add(streak);
-            }
-            var slash = new VisualElement { pickingMode = PickingMode.Ignore };
-            slash.AddToClassList("ultimate-slash");
-            overlay.Add(slash);
-            var portrait = new Image { sprite = character?.FighterFull != null ? character.FighterFull : character?.FighterIcon,
-                scaleMode = ScaleMode.ScaleToFit, pickingMode = PickingMode.Ignore };
-            portrait.AddToClassList("ultimate-cut-in-portrait");
-            slash.Add(portrait);
-            var copy = new VisualElement { pickingMode = PickingMode.Ignore };
-            copy.AddToClassList("ultimate-cut-in-copy");
-            var kicker = new Label("ULTIMATE") { pickingMode = PickingMode.Ignore };
-            kicker.AddToClassList("ultimate-cut-in-kicker"); copy.Add(kicker);
-            var title = new Label(character?.Ultimate?.ultimateName ?? "Ultimate Move") { pickingMode = PickingMode.Ignore };
-            title.AddToClassList("ultimate-cut-in-title"); copy.Add(title);
-            var name = new Label(character?.FighterName ?? fighter?.Definition.DisplayName ?? "") { pickingMode = PickingMode.Ignore };
-            name.AddToClassList("ultimate-cut-in-name"); copy.Add(name);
-            overlay.Add(copy);
             _effectsLayer.Add(overlay);
+            var executionVisibility = _executionOverlay?.style.visibility;
+            if (_executionOverlay != null) _executionOverlay.style.visibility = Visibility.Hidden;
             _stage?.PlayCue(4);
             try
             {
-                var width = Mathf.Max(600f, _effectsLayer.resolvedStyle.width);
-                yield return BattleStagePresenter.Tween(.22f, t =>
+                yield return BattleStagePresenter.Tween(UltimateCutInView.Duration, t =>
                 {
-                    overlay.style.opacity = Mathf.Clamp01(t * 4f);
-                    slash.style.translate = new Translate(-width * (1 - t), 0);
-                    portrait.style.translate = new Translate(-width * .2f * (1 - t), 0);
-                    copy.style.translate = new Translate(width * .25f * (1 - t), 0);
-                });
-                yield return BattleStagePresenter.Tween(.65f, t =>
-                {
-                    portrait.style.scale = new Scale(Vector3.one * (1f + t * .08f));
-                    for (var i = 0; i < streaks.Count; i++)
-                        streaks[i].style.translate = new Translate((t * (i % 2 == 0 ? 1f : -1f)) * width * .25f, 0);
-                });
-                yield return BattleStagePresenter.Tween(.2f, t =>
-                {
-                    slash.style.translate = new Translate(width * t, 0);
-                    copy.style.opacity = 1 - t;
-                    overlay.style.opacity = 1f - t * t;
-                });
+                    var width = Mathf.Max(1, _effectsLayer.resolvedStyle.width);
+                    var height = Mathf.Max(1, _effectsLayer.resolvedStyle.height);
+                    overlay.Apply(t * UltimateCutInView.Duration, width, height);
+                }, smooth: false);
             }
             finally
             {
                 overlay.RemoveFromHierarchy();
                 if (_ultimateOverlay == overlay) _ultimateOverlay = null;
+                if (_executionOverlay != null && executionVisibility.HasValue)
+                    _executionOverlay.style.visibility = executionVisibility.Value;
             }
         }
+
+        private static Color UltimateAccent(FighterAttribute attribute) => attribute switch
+        {
+            FighterAttribute.Blue => new Color(.25f, .65f, 1f),
+            FighterAttribute.Red => new Color(1f, .3f, .38f),
+            FighterAttribute.Green => new Color(.3f, .95f, .65f),
+            FighterAttribute.Yellow => new Color(1f, .8f, .3f),
+            FighterAttribute.Light => new Color(1f, .88f, .65f),
+            _ => new Color(.72f, .4f, 1f)
+        };
 
         private Dictionary<string, Vector2> CaptureHandPositions()
         {

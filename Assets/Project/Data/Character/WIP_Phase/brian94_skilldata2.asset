@@ -17,12 +17,15 @@ MonoBehaviour:
   statusVisuals:
   - {fileID: 11400000, guid: 7777a5140ef51a045b12ed713e0a13f2, type: 2}
   ranks:
-  - description: Grants all allies a barrier equal to 125% of ATK for 1 turn.
+  - description: Creates a barrier around all allies equal to 125% of Attack for
+      2 turns.
     skillType: 1
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.brian94.skill.2.rank.1
       Kind: 1
       Family: 0
@@ -34,7 +37,7 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
-        Id: status.buff.brian94.barrier
+        Id: status.buff.barrier
         NameKey: Barrier
         Polarity: 0
         Color: 0
@@ -42,7 +45,7 @@ MonoBehaviour:
         Stacking: 0
         Identity: 0
         DurationClock: 1
-        DefaultDuration: 1
+        DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 12500
@@ -79,6 +82,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -102,7 +107,7 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-      StatusDurationOverride: 1
+      StatusDurationOverride: 2
       StatusStackCount: 1
       StatusPotencyBp: 0
       StatusApplyChanceBp: 10000
@@ -116,12 +121,15 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 4
       Sequence: []
-  - description: Grants all allies a barrier equal to 250% of ATK for 2 turns.
+  - description: Creates a barrier around all allies equal to 250% of Attack for
+      2 turns.
     skillType: 1
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.brian94.skill.2.rank.2
       Kind: 1
       Family: 0
@@ -133,7 +141,7 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
-        Id: status.buff.brian94.barrier
+        Id: status.buff.barrier
         NameKey: Barrier
         Polarity: 0
         Color: 0
@@ -178,6 +186,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -221,6 +231,8 @@ MonoBehaviour:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.brian94.skill.2.rank.3
       Kind: 1
       Family: 0
@@ -232,7 +244,7 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
-        Id: status.buff.brian94.barrier
+        Id: status.buff.barrier
         NameKey: Barrier
         Polarity: 0
         Color: 0
@@ -277,6 +289,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0

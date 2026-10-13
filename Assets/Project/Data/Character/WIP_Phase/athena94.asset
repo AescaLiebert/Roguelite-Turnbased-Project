@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.athena94
   runtimeReady: 1
-  sourceId: 11
-  sourceRecord: 12
   familyId: family.athena
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -28,12 +26,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 5
   passiveDefinition: {fileID: 11400000, guid: 8e462954b86dc844db29948c39b6c01a, type: 2}
-  id: 1011
+  id: 1001
   fighterName: Asumiya Athena 94
-  fighterTag: family.athena
   fighterPic: {fileID: 21300000, guid: 632cc314415a1ca47842477d2a7703c7, type: 3}
   fighterIcon: {fileID: 21300000, guid: 312b64eab8f013444a72531835cddfa1, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 632cc314415a1ca47842477d2a7703c7, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -50,6 +47,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 3501
   attack: 500
   defense: 370

@@ -10,20 +10,27 @@ namespace FightingAllstar.Presentation.Combat
         private bool _paralyzed;
         private float _paralyzeStarted;
         private float _bodyRadius = .5f;
+        private ActorDebuffVisual _detonation;
 
         public bool IsParalyzed => _paralyzed;
         public bool IsUnableToAct => _stunned || _paralyzed;
+        public bool IsExploding => _detonation != null && _detonation.Active;
+        public int ActiveStatusCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active) n++; return n; } }
+        public int ActiveStatusEnterCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering) n++; return n; } }
         public float DebuffEnterDuration { get { Ensure(); return _settings.DebuffEnterDuration; } }
-        public int ActiveDebuffCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active) n++; return n; } }
-        public int ActiveDebuffEnterCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering) n++; return n; } }
+        public int ActiveDebuffCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && ActorVisualEffectRules.IsPersistentDebuff(effect.Kind)) n++; return n; } }
+        public int ActiveDebuffEnterCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering && ActorVisualEffectRules.IsPersistentDebuff(effect.Kind)) n++; return n; } }
 
         /// <summary>Reconcile idle effects with state. Stack count and snapshot refreshes never replay entrances.</summary>
         public void SynchronizeDebuffs(IReadOnlyList<ActorVisualEffectKind> kinds)
+        { SynchronizeStatuses(kinds); }
+
+        public void SynchronizeStatuses(IReadOnlyList<ActorVisualEffectKind> kinds)
         {
             Ensure();
             var desired = new HashSet<ActorVisualEffectKind>();
             if (kinds != null) foreach (var kind in kinds)
-                if (ActorVisualEffectRules.IsPersistentDebuff(kind)) desired.Add(kind);
+                if (ActorVisualEffectRules.IsPersistentStatus(kind)) desired.Add(kind);
             foreach (var kind in desired) Debuff(kind).SetActive(true);
             foreach (var pair in _debuffs) if (!desired.Contains(pair.Key)) pair.Value.SetActive(false);
             var wasParalyzed = _paralyzed;
@@ -35,13 +42,26 @@ namespace FightingAllstar.Presentation.Combat
 
         /// <summary>Only an accepted status grant should call this, including refreshes of an existing status.</summary>
         public void EnterDebuff(ActorVisualEffectKind kind)
+        { EnterStatus(kind); }
+
+        public void EnterStatus(ActorVisualEffectKind kind)
         {
-            if (!ActorVisualEffectRules.IsPersistentDebuff(kind) || !isActiveAndEnabled) return;
+            if (!ActorVisualEffectRules.IsPersistentStatus(kind) || !isActiveAndEnabled) return;
             Ensure();
             Debuff(kind).Enter();
             if (kind == ActorVisualEffectKind.Paralyze && !_paralyzed)
             { _paralyzed = true; _paralyzeStarted = Time.unscaledTime; CapturePose(); }
             UpdateDebuffDensity();
+        }
+
+        public void Explode()
+        {
+            if (!isActiveAndEnabled) return;
+            Ensure();
+            if (_detonation == null) _detonation = new ActorDebuffVisual(transform, ActorVisualEffectKind.ExplosionDetonation,
+                _height, _bodyRadius, _groundOffset, _settings);
+            // A confirmed impact remains visible even when cinematic idle suppression is active.
+            _detonation.Enter();
         }
 
         private ActorDebuffVisual Debuff(ActorVisualEffectKind kind)
@@ -55,13 +75,14 @@ namespace FightingAllstar.Presentation.Combat
 
         private void UpdateDebuffDensity()
         {
-            var density = _settings.DebuffParticleDensity / Mathf.Sqrt(Mathf.Max(1, ActiveDebuffCount));
+            var density = _settings.DebuffParticleDensity / Mathf.Sqrt(Mathf.Max(1, ActiveStatusCount));
             foreach (var effect in _debuffs.Values) effect.SetDensity(density);
         }
 
         private void EvaluateDebuffs(float now, Camera camera)
         {
             foreach (var effect in _debuffs.Values) effect.Evaluate(now, camera);
+            _detonation?.Evaluate(now, camera);
             if (!_paralyzed || _stunned || _hidden || _model == null) return;
             if (!_poseCaptured) CapturePose();
             var age = now - _paralyzeStarted;
@@ -73,9 +94,10 @@ namespace FightingAllstar.Presentation.Combat
                 Mathf.Sin(flinch * Mathf.PI * 8) * kick * 2 + twitch * .6f);
         }
 
-        private void ClearDebuffs()
+        private void ClearDebuffs(bool preserveImpact = false)
         {
             foreach (var effect in _debuffs.Values) effect.SetActive(false);
+            if (!preserveImpact) _detonation?.SetActive(false);
             _paralyzed = false;
         }
     }

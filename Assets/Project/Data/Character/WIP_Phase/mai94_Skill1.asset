@@ -16,22 +16,23 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: Inflict Rupture damage of 200% ATK
+  - description: Inflict Rupture damage of 160% ATK
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 2
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 20000
+      CoefficientBp: 16000
       KeywordFactorBp: 10000
       KeywordId: attack.rupture
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +46,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +78,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +103,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -113,23 +116,25 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence: []
-  - description: Inflict Rupture damage of 300% ATK
+  - description: Inflict Rupture damage of 240% ATK
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 2
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 20000
+      CoefficientBp: 24000
       KeywordFactorBp: 10000
       KeywordId: attack.rupture
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -143,6 +148,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -174,6 +180,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -197,7 +205,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -211,6 +218,7 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence: []
   - description: Inflict Rupture damage of 400% ATK
     skillType: 0
@@ -218,6 +226,8 @@ MonoBehaviour:
       Attack:
         HitCount: 2
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -227,7 +237,6 @@ MonoBehaviour:
       CoefficientBp: 40000
       KeywordFactorBp: 10000
       KeywordId: attack.rupture
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -241,6 +250,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -272,6 +282,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -295,7 +307,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -309,4 +320,5 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence: []

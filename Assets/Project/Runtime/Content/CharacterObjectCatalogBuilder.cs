@@ -72,8 +72,8 @@ namespace FightingAllstar.Presentation.Content
                 RuntimeReady = true,
                 Id = character.DefinitionId,
                 CategoryId = character.ID,
-                SourceId = "source." + character.SourceId,
-                SourceRecord = character.SourceRecord,
+                SourceId = character.DefinitionId,
+                SourceRecord = 0,
                 DisplayName = character.FighterName,
                 FamilyId = character.FamilyId,
                 Role = character.Role,
@@ -81,6 +81,7 @@ namespace FightingAllstar.Presentation.Content
                 AttributeId = "attribute." + character.FighterAttribute.ToString().ToLowerInvariant(),
                 RarityId = "rarity." + character.FighterRarity.ToString().ToLowerInvariant(),
                 BaseStats = stats,
+                StatGrowth = character.LevelGrowth?.Clone() ?? new CharacterStatGrowth(),
                 PassiveId = passive.Id,
                 PassiveSource = new PassiveSourceDefinition
                 {
@@ -223,6 +224,8 @@ namespace FightingAllstar.Presentation.Content
         private static void SanitizeRecipe(StatusRecipeDefinition recipe)
         {
             if (recipe == null || string.IsNullOrWhiteSpace(recipe.Id)) return;
+            recipe.NormalizePolarity();
+            if (recipe.Polarity == StatusPolarity.Neutral) return;
             var id = recipe.Id.ToLowerInvariant();
             if (id.StartsWith("status.debuff.") || id.StartsWith("status.disable.") || id.StartsWith("status.decrease."))
             {

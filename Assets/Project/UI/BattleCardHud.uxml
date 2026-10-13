@@ -38,11 +38,11 @@
         <ui:VisualElement name="battle-card-tray" class="battle-card-tray" style="background-color: rgba(8, 13, 21, 0); border-top-color: rgba(0, 0, 0, 0); bottom: 0%; height: 350px;">
             <ui:Label name="execution-label" picking-mode="Ignore" class="execution-label" style="display: none;"/>
             <ui:VisualElement name="card-tooltip-container" picking-mode="Ignore" class="card-tooltip-container" style="display: flex; left: 0%; right: 0%; height: 280px; bottom: 82%;">
-                <ui:VisualElement picking-mode="Ignore" class="tooltip-card-box" style="border-left-color: rgb(224, 186, 102); border-right-color: rgb(224, 186, 102); border-top-color: rgb(224, 186, 102); border-bottom-color: rgb(224, 186, 102); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; height: 182px; width: 661px;">
+                <ui:VisualElement picking-mode="Ignore" class="tooltip-card-box" style="border-left-color: rgb(224, 186, 102); border-right-color: rgb(224, 186, 102); border-top-color: rgb(224, 186, 102); border-bottom-color: rgb(224, 186, 102); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
                     <ui:VisualElement picking-mode="Ignore" class="tooltip-character-frame" style="border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 100px; height: 100px; min-width: 100px; min-height: 100px; top: 30px;">
                         <ui:Image name="tooltip-character-icon" picking-mode="Ignore" class="tooltip-character-icon"/>
                     </ui:VisualElement>
-                    <ui:VisualElement picking-mode="Ignore" class="tooltip-content-column" style="height: 163px;">
+                    <ui:VisualElement picking-mode="Ignore" class="tooltip-content-column">
                         <ui:VisualElement picking-mode="Ignore" class="tooltip-header-row">
                             <ui:VisualElement picking-mode="Ignore" class="tooltip-title-group">
                                 <ui:Image name="tooltip-type-icon" picking-mode="Ignore" class="tooltip-type-icon"/>

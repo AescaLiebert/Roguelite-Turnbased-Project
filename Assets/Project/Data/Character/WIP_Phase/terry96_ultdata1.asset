@@ -117,9 +117,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
   - level: 1
-    description: Inflicts Charge damage equal to 472.5% of ATK.
+    description: Inflicts Charge damage equal to 500% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
@@ -133,7 +134,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 47250
+      CoefficientBp: 50000
       KeywordFactorBp: 10000
       KeywordId: attack.charge
       Conditions: []
@@ -219,9 +220,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
   - level: 2
-    description: Inflicts Charge damage equal to 495% of ATK.
+    description: Inflicts Charge damage equal to 550% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
@@ -235,7 +237,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 49500
+      CoefficientBp: 55000
       KeywordFactorBp: 10000
       KeywordId: attack.charge
       Conditions: []
@@ -321,9 +323,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
   - level: 3
-    description: Inflicts Charge damage equal to 517.5% of ATK.
+    description: Inflicts Charge damage equal to 600% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
@@ -337,7 +340,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 51750
+      CoefficientBp: 60000
       KeywordFactorBp: 10000
       KeywordId: attack.charge
       Conditions: []
@@ -423,9 +426,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
   - level: 4
-    description: Inflicts Charge damage equal to 540% of ATK.
+    description: Inflicts Charge damage equal to 650% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
@@ -439,7 +443,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 54000
+      CoefficientBp: 65000
       KeywordFactorBp: 10000
       KeywordId: attack.charge
       Conditions: []
@@ -525,9 +529,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
   - level: 5
-    description: Inflicts Charge damage equal to 562.5% of ATK.
+    description: Inflicts Charge damage equal to 700% of ATK.
     skillType: 0
     runtimeEffect:
       Attack:
@@ -541,7 +546,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 56250
+      CoefficientBp: 70000
       KeywordFactorBp: 10000
       KeywordId: attack.charge
       Conditions: []
@@ -627,4 +632,5 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []

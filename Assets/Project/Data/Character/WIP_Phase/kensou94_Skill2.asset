@@ -16,14 +16,16 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: Heals diminished HP of 1 ally by 20%
+  - description: Heals diminished HP of 1 ally by 30%
     skillType: 4
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
-      Kind: 9
+      Kind: 2
       Family: 0
       Scaling: 0
       ScalingStat: 0
@@ -31,7 +33,6 @@ MonoBehaviour:
       CoefficientBp: 0
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +46,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +81,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +106,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -113,12 +119,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 2
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 2
           Family: 0
@@ -128,7 +139,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -142,6 +152,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -173,6 +187,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -196,7 +212,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -204,21 +219,22 @@ MonoBehaviour:
           HealValue:
             Source: 5
             FixedAmount: 0
-            CoefficientBp: 2000
+            CoefficientBp: 3000
             MaximumAmount: 2147483647
           HealScalingStat: 0
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 2
-          Sequence: []
-  - description: Heals diminished HP of 1 ally by 35%
+  - description: Heals diminished HP of 1 ally by 50%
     skillType: 4
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
-      Kind: 9
+      Kind: 2
       Family: 0
       Scaling: 0
       ScalingStat: 0
@@ -226,7 +242,6 @@ MonoBehaviour:
       CoefficientBp: 0
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -240,6 +255,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -271,6 +290,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -294,7 +315,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -308,12 +328,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 2
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 2
           Family: 0
@@ -323,7 +348,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -337,6 +361,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -368,6 +396,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -391,7 +421,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -399,21 +428,22 @@ MonoBehaviour:
           HealValue:
             Source: 5
             FixedAmount: 0
-            CoefficientBp: 3500
+            CoefficientBp: 5000
             MaximumAmount: 2147483647
           HealScalingStat: 0
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 2
-          Sequence: []
-  - description: Heals diminished HP of 1 ally by 65%
+  - description: Heals diminished HP of 1 ally by 80%
     skillType: 4
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
-      Kind: 9
+      Kind: 2
       Family: 0
       Scaling: 0
       ScalingStat: 0
@@ -421,7 +451,6 @@ MonoBehaviour:
       CoefficientBp: 0
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -435,6 +464,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -466,6 +499,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -489,7 +524,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -503,12 +537,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 2
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 2
           Family: 0
@@ -518,7 +557,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -532,6 +570,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -563,6 +605,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -586,7 +630,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -594,10 +637,9 @@ MonoBehaviour:
           HealValue:
             Source: 5
             FixedAmount: 0
-            CoefficientBp: 6500
+            CoefficientBp: 8000
             MaximumAmount: 2147483647
           HealScalingStat: 0
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 2
-          Sequence: []

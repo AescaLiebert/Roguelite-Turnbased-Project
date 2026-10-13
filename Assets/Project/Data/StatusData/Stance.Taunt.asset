@@ -15,7 +15,8 @@ MonoBehaviour:
   id: status.stance.taunt
   displayName: Taunt
   icon: {fileID: 21300000, guid: d32b534149783ce4e8da98a4172dc97f, type: 3}
-  polarity: 0
+  actorVisualEffect: 0
+  polarity: 2
   keywords:
   - status.stance.taunt
   - Taunt

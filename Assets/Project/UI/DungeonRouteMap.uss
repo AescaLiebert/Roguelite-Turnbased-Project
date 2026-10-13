@@ -1,32 +1,31 @@
-.route-root { flex-grow: 1; min-height: 0; height: 100%; overflow: hidden; background-color: rgb(13, 17, 26); color: rgb(238, 242, 248); padding: 22px; }
-.route-header { flex-direction: row; align-items: center; justify-content: space-between; min-height: 68px; border-bottom-width: 1px; border-bottom-color: rgb(53, 63, 79); }
-.eyebrow { color: rgb(110, 194, 210); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
-.route-title { margin-top: 4px; font-size: 21px; -unity-font-style: bold; }
-.route-summary { margin-top: 4px; color: rgb(155, 170, 190); font-size: 12px; }
-.route-header-actions { flex-direction: row; align-items: center; }
-.run-hp-strip { flex-direction: row; min-height: 58px; align-items: center; justify-content: center; }
-.run-fighter, .run-fighter-defeated { margin: 4px; padding: 9px 12px; background-color: rgb(30, 38, 52); border-bottom-width: 2px; border-bottom-color: rgb(71, 151, 132); font-size: 11px; }
-.run-fighter-defeated { color: rgb(201, 132, 129); border-bottom-color: rgb(150, 78, 78); }
-.route-rows { width: 100%; flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 0; }
-.route-row { flex-direction: row; align-items: center; min-height: 68px; border-bottom-width: 1px; border-bottom-color: rgb(36, 45, 60); }
-#route-row-label { width: 65px; color: rgb(130, 148, 174); font-size: 10px; -unity-font-style: bold; }
-.route-nodes { flex-direction: row; flex-grow: 1; justify-content: space-evenly; }
-.route-node { min-width: 150px; max-width: 245px; min-height: 49px; margin: 3px; padding: 6px; white-space: normal; background-color: rgb(34, 45, 62); color: rgb(228, 234, 242); border-bottom-width: 2px; border-bottom-color: rgb(77, 131, 158); font-size: 10px; }
-.route-node-selected { background-color: rgb(49, 87, 103); border-bottom-color: rgb(216, 186, 115); }
-.route-node-completed { background-color: rgb(31, 67, 60); border-bottom-color: rgb(71, 151, 132); }
-.route-node-locked { opacity: 0.35; }
-.node-actions { min-height: 72px; padding: 12px; background-color: rgb(23, 29, 41); flex-direction: row; flex-wrap: wrap; align-items: center; }
-#choice-title { width: 100%; margin-bottom: 6px; color: rgb(223, 197, 130); font-size: 11px; -unity-font-style: bold; }
-.node-actions Label { margin: 4px 10px 4px 0; font-size: 11px; color: rgb(187, 199, 215); }
-.primary-button, .quiet-button { min-height: 34px; margin: 4px; padding: 6px 12px; background-color: rgb(49, 128, 146); color: white; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; font-size: 11px; }
-.quiet-button { background-color: rgb(37, 46, 62); color: rgb(212, 222, 235); }
-.route-error { min-height: 18px; margin-top: 6px; color: rgb(229, 144, 131); font-size: 11px; }
-.labyrinth-content { flex-direction: column; flex-grow: 1; flex-basis: 0; min-height: 0; overflow: hidden; }
-.stage-detail { width: 100%; min-height: 170px; flex-grow: 1; flex-basis: 0; flex-shrink: 0; padding: 10px 14px; background-color: rgb(20, 28, 40); }
-.stage-detail-heading { flex-direction: row; justify-content: space-between; align-items: center; min-height: 22px; }
-.stage-detail-title { color: rgb(223, 197, 130); font-size: 11px; -unity-font-style: bold; letter-spacing: 1px; }
-.legend-copy { white-space: normal; color: rgb(154, 184, 198); margin: 0; font-size: 10px; }
+@import url("project://database/Assets/Project/Resources/UI/ScreenShell.uss?fileID=7433441132597879392&guid=6d1566d098bce684493804ab080e2ee6&type=3#ScreenShell");
+.route-root { background-color: rgb(13, 17, 26); }
+.route-header { flex-direction: row; align-items: center; flex-shrink: 0; justify-content: space-between; padding-bottom: 20px; margin-bottom: 20px; border-bottom-width: 1px; border-bottom-color: rgb(61, 90, 112); }
+.route-heading { flex-grow: 1; min-width: 0; }
+.route-title { font-size: 38px; margin-bottom: 10px; white-space: normal; }
+.route-header-actions { flex-direction: row; flex-wrap: wrap; justify-content: flex-end; }
+.route-header-actions Button { margin-left: 12px; margin-top: 8px; }
+.route-rows { flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 0; margin-right: 28px; }
+.stage-detail { width: 34%; min-width: 340px; min-height: 0; }
+.node-actions { flex-shrink: 0; margin-top: 12px; }
+.node-actions Label { font-size: 20px; color: rgb(172, 203, 226); white-space: normal; margin-bottom: 16px; }
+.node-actions > Label, .node-actions > Button { flex-shrink: 0; }
+.node-actions .character-grid-name { margin-bottom: 0; }
+#choice-title { font-size: 28px; color: rgb(253, 221, 153); -unity-font-definition: url("../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.primary-button { min-height: 58px; padding: 12px 20px; margin-top: 12px; background-color: rgb(43, 107, 127); border-width: 1px; border-color: rgb(126, 180, 211); font-size: 23px; white-space: normal; }
+.primary-button:hover { background-color: rgb(54, 137, 156); }
+.route-error { flex-shrink: 0; min-height: 22px; margin-top: 14px; color: rgb(242, 183, 146); }
 .labyrinth-board { align-self: center; flex-shrink: 0; background-color: rgb(12, 25, 32); }
+.compact-layout .stage-detail { width: 42%; min-width: 300px; }
+.compact-layout .route-title { font-size: 28px; }
+.compact-layout .node-actions Label { font-size: 17px; margin-bottom: 8px; }
+.compact-layout .stage-detail .section-heading { margin-bottom: 6px; font-size: 24px; }
+.compact-layout .primary-button { min-height: 44px; font-size: 20px; padding: 8px 12px; }
+.narrow-layout .route-header { flex-direction: column; align-items: stretch; }
+.narrow-layout .route-header-actions { justify-content: flex-start; }
+.narrow-layout .route-header-actions Button { font-size: 20px; margin-left: 0; margin-right: 10px; }
+.narrow-layout .route-rows { margin-right: 0; flex-grow: 1; margin-bottom: 18px; }
+.narrow-layout .stage-detail { width: 100%; min-width: 0; height: 52%; flex-shrink: 0; padding: 16px; }
 .labyrinth-tile { position: absolute; width: 116px; height: 96px; white-space: normal; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold; background-color: rgb(37, 57, 73); color: rgb(227, 223, 208); border-width: 2px; border-color: rgb(72, 105, 122); border-radius: 24px; }
 .tile-boss { background-color: rgb(72, 35, 64); color: rgb(228, 177, 220); border-color: rgb(168, 98, 154); }
 .tile-elite { background-color: rgb(74, 45, 46); color: rgb(242, 183, 145); }
@@ -35,16 +34,105 @@
 .progress-locked, .progress-bypassed { opacity: 0.4; }
 .progress-completed { background-color: rgb(39, 74, 73); border-color: rgb(98, 184, 174); }
 .progress-reachable, .progress-selected { border-width: 3px; border-color: rgb(243, 209, 127); color: white; }
-.node-actions { flex-direction: column; flex-wrap: nowrap; align-items: stretch; flex-grow: 1; min-height: 0; padding: 4px 0; }
-.node-actions Label { white-space: normal; }
-.stage-description { flex-shrink: 0; }
-.enemy-info-grid { width: 100%; min-height: 140px; flex-grow: 1; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; margin-top: 4px; }
-.enemy-info-card { flex-direction: row; align-items: center; justify-content: center; flex-grow: 1; flex-basis: 0; min-width: 0; margin: 3px; padding: 4px; }
-.prepare-team-button { width: 100%; flex-shrink: 0; margin-top: auto; }
+
 .labyrinth-tile { font-size: 12px; align-items: center; justify-content: center; }
+.tile-inspected { border-color: rgb(103, 222, 244); border-width: 3px; }
+.stage-inspection-scroll { flex-grow: 1; flex-basis: 0; min-height: 0; }
+#enemy-info-grid .character-grid-card { width: 88px; height: 136px; min-height: 0; padding: 4px; }
+#enemy-info-grid #character-icon { width: 76px; height: 76px; }
+#enemy-info-grid .character-grid-name { font-size: 14px; }
 .tile-icon { width: 46px; height: 46px; -unity-background-scale-mode: scale-to-fit; background-image: url('../Art/UI/swords.png'); }
 .tile-start .tile-icon { background-image: url('../Art/UI/Blue_Arrow_Up_Darker.png'); }
 .tile-rest .tile-icon { background-image: url('../Art/UI/Cardtype_Heal.png'); }
-.tile-boon .tile-icon { background-image: url('../Art/UI/Icon_Diamond.png'); }
+.tile-boon .tile-icon { background-image: url('../Art/UI/Currency/Diamond.png'); }
 .tile-elite .tile-icon { background-image: url('../Art/UI/shield.png'); }
 .tile-boss .tile-icon { background-image: url('../Art/UI/sword.png'); }
+.support-preview { flex-shrink: 0; padding: 22px; margin-top: 12px; margin-bottom: 8px; background-color: rgb(12, 27, 40); border-width: 1px; border-color: rgb(95, 155, 175); border-left-width: 4px; }
+.support-boon { border-color: rgb(176, 139, 85); background-color: rgb(30, 26, 35); }
+.support-heading { flex-direction: row; align-items: center; margin-bottom: 12px; }
+.support-heading-copy { flex-grow: 1; min-width: 0; }
+.support-emblem { width: 58px; height: 58px; margin-right: 18px; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; }
+.support-rest .support-emblem { background-image: url('../Art/UI/Cardtype_Heal.png'); }
+.support-boon .support-emblem { background-image: url('../Art/UI/Currency/Diamond.png'); }
+.node-actions .support-title { font-size: 22px; letter-spacing: 1px; color: rgb(245, 230, 199); -unity-font-definition: url('../Art/UI/MainMenu/BarlowCondensed-ExtraBoldItalic.ttf'); margin-bottom: 4px; }
+.node-actions .support-value { font-size: 36px; color: rgb(164, 230, 193); -unity-font-definition: url('../Art/UI/MainMenu/BarlowCondensed-ExtraBoldItalic.ttf'); margin-bottom: 0; }
+.node-actions .support-boon .support-value { color: rgb(255, 218, 145); }
+.node-actions .support-copy { font-size: 19px; color: rgb(172, 194, 211); }
+.recovery-fighter { flex-direction: row; align-items: center; margin-top: 12px; padding-top: 8px; border-top-width: 1px; border-top-color: rgb(45, 70, 84); }
+.node-actions .recovery-fighter Label { flex-grow: 1; margin-left: 12px; margin-bottom: 0; font-size: 17px; }
+.victory-reward-overlay { top: 0; background-color: rgba(3, 8, 17, .94); }
+.victory-reward-dialog { width: 1180px; max-width: 94%; flex-grow: 0; min-height: 360px; border-top-width: 4px; border-top-color: rgb(255, 215, 140); }
+.victory-reward-dialog .modal-title { white-space: normal; margin-bottom: 14px; }
+.victory-reward-dialog .modal-scroll { min-height: 160px; flex-basis: auto; }
+.victory-reward-dialog .primary-button { flex-shrink: 0; }
+.victory-reward-dialog .reward-item-strip { flex-grow: 0; flex-shrink: 0; min-height: 178px; max-height: 190px; }
+.victory-reward-dialog .reward-strip-hint { flex-shrink: 0; }
+.compact-layout .support-preview { padding: 16px; }
+.compact-layout .node-actions .support-value { font-size: 32px; }
+
+/* Formation and rewards take precedence over inline inspection copy. */
+.stage-detail { width: 42%; min-width: 0; }
+.compact-layout .stage-detail { width: 46%; min-width: 0; padding: 16px; }
+.node-actions { margin-top: 0; }
+.stage-identity { flex-direction: row; align-items: center; margin-bottom: 10px; }
+.stage-emblem { width: 48px; height: 48px; flex-shrink: 0; margin-right: 14px; -unity-background-scale-mode: scale-to-fit; background-image: url('../Art/UI/swords.png'); }
+.stage-boss { background-image: url('../Art/UI/sword.png'); }
+.stage-elite { background-image: url('../Art/UI/shield.png'); }
+.stage-rest { background-image: url('../Art/UI/Cardtype_Heal.png'); }
+.stage-boon { background-image: url('../Art/UI/Currency/Diamond.png'); }
+.node-actions #choice-title { margin: 0; }
+.node-actions .stage-status { align-self: flex-start; padding: 4px 10px; margin: 0 0 10px; font-size: 14px; background-color: rgb(35, 45, 58); color: rgb(175, 185, 198); }
+.node-actions .stage-status.available { color: rgb(158, 239, 185); background-color: rgb(26, 62, 48); }
+.node-actions .stage-tactic { font-size: 14px; margin-bottom: 14px; color: rgb(166, 184, 206); }
+.stage-formation-heading, .stage-reward-heading-row { flex-direction: row; align-items: center; justify-content: space-between; margin-top: 14px; margin-bottom: 10px; }
+.node-actions .stage-formation-heading Label, .node-actions .stage-reward-heading-row Label { margin: 0; font-size: 20px; }
+.node-actions .stage-team-cc { color: rgb(241, 215, 158); -unity-font-style: bold; }
+#enemy-info-grid { flex-direction: row; flex-wrap: nowrap; min-width: 0; margin-bottom: 16px; }
+#enemy-info-grid .character-grid-card { width: auto; flex-basis: 0; flex-grow: 1; min-width: 0; height: 168px; min-height: 168px; margin: 3px; padding: 5px; }
+#enemy-info-grid .character-grid-name { font-size: 14px; height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.node-actions .stage-basket-badge { font-size: 14px; color: rgb(158, 223, 185); }
+#stage-reward-grid.dungeon-reward-preview .item-reward-tile { padding: 2px; margin: 2px; }
+#stage-reward-grid.dungeon-reward-preview .item-reward-frame { height: 86px; }
+.compact-layout #enemy-info-grid .character-grid-card { height: 144px; min-height: 144px; padding: 4px; }
+.compact-layout #enemy-info-grid .character-grid-name { font-size: 12px; }
+.compact-layout .stage-emblem { width: 36px; height: 36px; margin-right: 10px; }
+.compact-layout .node-actions .stage-formation-heading Label, .compact-layout .node-actions .stage-reward-heading-row Label { font-size: 16px; }
+.compact-layout #stage-reward-grid.dungeon-reward-preview .item-reward-frame { height: 70px; }
+.enemy-info-overlay { top: 84px; background-color: rgba(3, 8, 17, .86); }
+.enemy-info-dialog { width: 720px; max-width: 94%; max-height: 94%; padding: 22px; background-color: rgb(10, 23, 37); border-width: 1px; border-color: rgb(123, 178, 207); border-top-width: 3px; border-top-color: rgb(240, 203, 136); }
+.enemy-popup-header { flex-direction: row; align-items: center; margin-bottom: 18px; flex-shrink: 0; }
+.enemy-popup-identity { flex-grow: 1; min-width: 0; margin-left: 18px; }
+.enemy-popup-identity Label { color: rgb(172, 201, 223); font-size: 18px; white-space: normal; margin-bottom: 6px; }
+.enemy-popup-identity .enemy-popup-name { font-size: 28px; color: rgb(252, 232, 191); }
+.enemy-popup-close { width: 40px; height: 40px; align-self: flex-start; padding: 0; margin-left: 10px; background-color: rgb(35, 55, 73); border-width: 0; font-size: 28px; }
+.enemy-popup-scroll { flex-shrink: 1; min-height: 0; }
+.enemy-popup-scroll Foldout { margin-top: 14px; }
+.enemy-popup-scroll Foldout Label { font-size: 18px; color: rgb(204, 219, 232); white-space: normal; }
+.enemy-popup-scroll Foldout > .unity-foldout__content { padding: 12px; background-color: rgb(18, 35, 51); }
+.enemy-secondary-stat { flex-direction: row; justify-content: space-between; padding: 4px 0; }
+.compact-layout .enemy-info-dialog { padding: 16px; width: 650px; }
+.compact-layout .enemy-popup-identity .enemy-popup-name { font-size: 24px; }
+
+.node-actions .artifact-rarity-stars { font-size: 11px; margin: 0; }
+.node-actions .item-reward-tier { font-size: 11px; margin: 0; }
+
+.stage-identity #choice-title { flex-grow: 1; min-width: 0; }
+.node-actions .stage-identity .stage-status { margin: 0 0 0 10px; align-self: center; flex-shrink: 0; }
+.compact-layout .route-heading > .section-heading { display: none; }
+.compact-layout .route-header { padding-bottom: 12px; margin-bottom: 12px; }
+.compact-layout .stage-detail > .section-heading { display: none; }
+.compact-layout .stage-formation-heading, .compact-layout .stage-reward-heading-row { margin-top: 8px; margin-bottom: 6px; }
+.compact-layout #enemy-info-grid { margin-bottom: 10px; }
+.compact-layout .node-actions .stage-identity .stage-status { font-size: 12px; padding: 3px 6px; }
+
+.compact-layout .node-actions .artifact-rarity-stars { font-size: 10px; margin: 0; }
+.compact-layout .node-actions .item-reward-tier { font-size: 10px; margin: 0; }
+
+.stage-detail { width: 46%; }
+.compact-layout .stage-detail { width: 62%; }
+.victory-reward-dialog .reward-item-strip { height: 116px; min-height: 116px; max-height: 116px; }
+
+.reward-item-strip { height: 136px; min-height: 136px; max-height: 136px; }
+.victory-reward-dialog .reward-item-strip { height: 136px; min-height: 136px; max-height: 136px; }
+
+.compact-layout .route-header-actions Button { min-height: 40px; padding: 6px 12px; margin-top: 0; font-size: 20px; }

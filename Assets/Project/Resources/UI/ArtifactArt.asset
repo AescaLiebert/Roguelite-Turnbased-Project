@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae5e23a84e6438bb54c1698b40d9682, type: 3}
+  m_Name: ArtifactArt
+  m_EditorClassIdentifier: 
+  striker:
+  - {fileID: 21300000, guid: cc7839dc4c1c4838982aa3b6e62a0f63, type: 3}
+  - {fileID: 21300000, guid: affb213db52c49eabc05f5a4d29561f3, type: 3}
+  - {fileID: 21300000, guid: bd8c8545ac644ae48654c2fad5b6d412, type: 3}
+  - {fileID: 21300000, guid: 63211c631fb246d7bc5cec86b041258c, type: 3}
+  - {fileID: 21300000, guid: 07f1d2087c724a35a1fb9ba48259c188, type: 3}
+  bulwark:
+  - {fileID: 21300000, guid: 0e15940a4081401681123a3c3ecca714, type: 3}
+  - {fileID: 21300000, guid: 8ce8c159b2a04498b77f844fa56373e9, type: 3}
+  - {fileID: 21300000, guid: da57137602bc4950a99a2f4d469b40b9, type: 3}
+  - {fileID: 21300000, guid: bc124c94ba24487aab84a83622c42df8, type: 3}
+  - {fileID: 21300000, guid: 0477c16e0b2f431d85e29e8a8bd9bacb, type: 3}
+  lifebloom:
+  - {fileID: 21300000, guid: 64c3b7b400174c24bb14e16d8b68050a, type: 3}
+  - {fileID: 21300000, guid: d389ab96dd4344f5bac934d1cbed086c, type: 3}
+  - {fileID: 21300000, guid: 974d6579a4844540a7b8dd48f9aab7a1, type: 3}
+  - {fileID: 21300000, guid: 6f9e14af8140406abaa8e1883ffff075, type: 3}
+  - {fileID: 21300000, guid: 3380bc2f623c4f2f9e524ded980047cd, type: 3}

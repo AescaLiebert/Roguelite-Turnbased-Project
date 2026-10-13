@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: benimaru94_Skill2
   m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
   cardName: "Benimaru 94 \xB7 Skill 2"
-  cardIcon: {fileID: 0}
+  cardIcon: {fileID: 21300000, guid: ed0379e6b6f729243b3fb75b7444a4fb, type: 3}
   statusVisuals: []
   ranks:
-  - description: "Inflict damage equal to 120% of ATK, Depletes enemy ult gauge by 1 gauges"
+  - description: Inflict damage equal to 120% of ATK, Depletes enemy ult gauge by
+      1 gauges
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 3
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -31,7 +34,6 @@ MonoBehaviour:
       CoefficientBp: 12000
       KeywordFactorBp: 10000
       KeywordId: attack.depletes
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +47,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +82,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +107,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -113,12 +120,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 6
           Family: 0
@@ -128,7 +140,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -142,6 +153,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -173,6 +188,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -196,7 +213,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -210,13 +226,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -1
           Target: 1
-          Sequence: []
-  - description: "Inflict damage equal to 300% of ATK, Depletes enemy ult gauge by 1 gauges"
+  - description: Inflict damage equal to 300% of ATK, Depletes enemy ult gauge by
+      1 gauges
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 3
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -226,7 +244,6 @@ MonoBehaviour:
       CoefficientBp: 30000
       KeywordFactorBp: 10000
       KeywordId: attack.depletes
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -240,6 +257,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -271,6 +292,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -294,7 +317,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -308,12 +330,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 6
           Family: 0
@@ -323,7 +350,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -337,6 +363,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -368,6 +398,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -391,7 +423,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -405,13 +436,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -1
           Target: 1
-          Sequence: []
-  - description: "Inflict damage equal to 450% of ATK, Depletes enemy ult gauge by 3 gauges"
+  - description: Inflict damage equal to 450% of ATK, Depletes enemy ult gauge by
+      3 gauges
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 3
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -421,7 +454,6 @@ MonoBehaviour:
       CoefficientBp: 45000
       KeywordFactorBp: 10000
       KeywordId: attack.depletes
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -435,6 +467,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -466,6 +502,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -489,7 +527,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -503,12 +540,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 6
           Family: 0
@@ -518,7 +560,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -532,6 +573,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -563,6 +608,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -586,7 +633,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 0
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -600,4 +646,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: -3
           Target: 1
-          Sequence: []

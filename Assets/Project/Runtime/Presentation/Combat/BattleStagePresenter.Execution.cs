@@ -25,7 +25,6 @@ namespace FightingAllstar.Presentation.Combat
             public Vector3 Direction;
             public CameraShot WindUpShot;
             public CameraShot SupportShot;
-            public CameraShot ActionShot;
             public readonly Dictionary<Transform, Quaternion> TargetRotations = new Dictionary<Transform, Quaternion>();
             public bool Support => Category == CardCategory.Buff || Category == CardCategory.Recovery;
         }
@@ -126,21 +125,23 @@ namespace FightingAllstar.Presentation.Combat
             _attackRoll = 0;
             _execution.WindUpShot = AttackShot(source, _execution.Direction);
             _execution.Portrait = (_execution.Rank >= 2 || ultimate) &&
-                (!_execution.Support || _execution.SelfTarget);
-            _cutFromSupport = _execution.Support;
+                (!_execution.Support || _execution.SelfTarget || _execution.Rank == 2);
             if (_execution.Support)
             {
                 _execution.SupportShot = _execution.SelfTarget
-                    ? _execution.Portrait ? PortraitShot(source, _execution.Rank >= 3 || ultimate) : _execution.WindUpShot
+                    ? _execution.Portrait && _execution.Rank != 2 ? PortraitShot(source, _execution.Rank >= 3 || ultimate) : _execution.WindUpShot
                     : FrameBounds(_execution.TargetBounds, -Facing(source) + Vector3.up * .45f, 48f, 0f, 1.4f);
-                ApplyShot(_execution.SupportShot);
             }
 
-            // Rank 1 support skips anticipation, but its cast shot is already in place.
-            if (_execution.Support && _execution.Rank == 1 && !ultimate) yield break;
+            // Support cuts are immediate. Rank 1 skips the actor's WindUp phase too.
+            if (_execution.Support && _execution.Rank == 1 && !ultimate)
+            {
+                _cutFromSupport = true;
+                CutToShot(_execution.SupportShot);
+                yield break;
+            }
             var authored = actor.Enter(ActorCardPhase.WindUp);
-            if (!_execution.Support && !_execution.Portrait)
-                ApplyShot(_execution.WindUpShot);
+            yield return WaitForCameraTransition();
             if (!authored) TriggerIfPresent(source, ultimate ? "Ultimate" : "Charge");
             PlayCue(ultimate ? 4 : 3);
             if (_execution.Portrait) Pulse(sourceId, ultimate ? new Color(1f, .55f, .08f) : new Color(.6f, .8f, 1f));
@@ -170,17 +171,42 @@ namespace FightingAllstar.Presentation.Combat
             if (_execution.Support)
             {
                 _attackRoll = 0;
-                if (phase == ActorCardPhase.WindUp || phase == ActorCardPhase.Action)
-                    ApplyShot(_execution.SupportShot);
-                // Recovery remains in Attack; there is no fourth recovery camera shot.
+                _cutFromSupport = true;
+                if (phase == ActorCardPhase.WindUp && _execution.Portrait)
+                    CutToShot(PortraitShot(source, _execution.Rank >= 3 || _execution.Ultimate));
+                else if (phase == ActorCardPhase.WindUp || phase == ActorCardPhase.Action)
+                    CutToShot(_execution.SupportShot);
+                else if (phase == ActorCardPhase.Recovery && _execution.SelfTarget)
+                    CutToShot(_execution.WindUpShot);
+                // Rank 2 cuts from face WindUp to its Rank 1 shot at Action entry.
+                // Rank 3 self support retains its face until Action finishes; team
+                // support holds the Action team shot through Recovery.
                 return;
             }
-            if (phase == ActorCardPhase.WindUp && _execution.Portrait)
-                ApplyShot(PortraitShot(source, _execution.Rank >= 3 || _execution.Ultimate));
+            if (phase == ActorCardPhase.WindUp)
+            {
+                _followAttackerCamera = false;
+                if (_execution.Portrait)
+                    CutToShot(PortraitShot(source, _execution.Rank >= 3 || _execution.Ultimate));
+                else if (_cutFromSupport) CutToShot(_execution.WindUpShot);
+                else MoveToShot(_execution.WindUpShot, source.position, windUpCameraDuration);
+                _cutFromSupport = false;
+            }
             else if (phase == ActorCardPhase.Action)
             {
-                ApplyShot(_execution.ActionShot);
+                if (_execution.Portrait) CutToShot(_execution.WindUpShot);
+                _followAttackerCamera = true;
+                MoveToShot(AttackShot(source, _execution.Direction), source.position, attackCameraDuration);
             }
+            else if (phase == ActorCardPhase.Recovery)
+            { CancelCameraTransition(); _followAttackerCamera = false; }
+        }
+
+        private void CutToShot(CameraShot shot)
+        {
+            CancelCameraTransition();
+            _followAttackerCamera = false;
+            ApplyShot(shot);
         }
 
         private void ApplyShot(CameraShot shot)
@@ -191,7 +217,7 @@ namespace FightingAllstar.Presentation.Combat
         }
 
         private IEnumerator EnterAction(string sourceId, IReadOnlyList<string> targetIds, CardCategory category, bool area, string trigger,
-            bool useAnimationTiming = false, Vector3? attackPosition = null, HitReaction reaction = HitReaction.Hit)
+            bool useAnimationTiming = false, HitReaction reaction = HitReaction.Hit)
         {
             // Public preview/legacy callers can still enter an action directly.
             if (_execution == null || _execution.SourceId != sourceId)
@@ -214,22 +240,23 @@ namespace FightingAllstar.Presentation.Combat
                     _execution.WindUpShot = AttackShot(source, _execution.Direction);
                     if (_execution.Support)
                     {
-                        _execution.Portrait = _execution.Rank >= 2 && _execution.SelfTarget;
+                        _execution.Portrait = (_execution.Rank >= 2 || _execution.Ultimate) &&
+                            (_execution.SelfTarget || _execution.Rank == 2);
                         _execution.SupportShot = _execution.SelfTarget
-                            ? _execution.Portrait ? PortraitShot(source, _execution.Rank >= 3) : _execution.WindUpShot
+                            ? _execution.Portrait && _execution.Rank != 2 ? PortraitShot(source, _execution.Rank >= 3 || _execution.Ultimate) : _execution.WindUpShot
                             : FrameBounds(_execution.TargetBounds, -Facing(source) + Vector3.up * .45f, 48f, 0f, 1.4f);
-                        _cutFromSupport = true;
                     }
                 }
             }
             if (useAnimationTiming && TryView(sourceId, out var actionSource)) PrepareAnimationTiming(actionSource);
-            if (!_execution.Support && TryView(sourceId, out var shotSource))
+            if (!_execution.Support)
             {
                 SnapshotReactionPath(sourceId, targetIds, reaction);
                 _attackRoll = !_execution.SelfTarget && (_execution.Rank >= 3 || _execution.Ultimate) ? -7f : 0f;
-                _execution.ActionShot = AttackShot(shotSource, _execution.Direction, attackPosition);
             }
             _execution.Actor.Enter(ActorCardPhase.Action, trigger);
+            // Camera travel overlaps the actor's approach/cast, rather than adding an
+            // extra action pause. Impact synchronization still waits for the shot to settle.
         }
 
         public IEnumerator CompleteExecution(bool hasQueuedAction, TeamSide side)
@@ -240,6 +267,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void EndExecutionContext()
         {
+            _followAttackerCamera = false;
             if (_execution == null) return;
             if (_execution.Actor != null)
             {

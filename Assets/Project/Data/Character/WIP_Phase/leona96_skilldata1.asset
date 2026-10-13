@@ -16,20 +16,22 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 2fe7778e05e27034aa4c87465091e41d, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts damage equal to 120% of ATK and causes Bleed to enemy for
+  - description: Inflicts damage equal to 140% of ATK and causes Bleed to enemy for
       2 turns
     skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 6
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 12000
+      CoefficientBp: 14000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -45,6 +47,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +82,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -112,12 +120,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.bleed
           Kind: 1
           Family: 0
@@ -140,6 +153,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -171,6 +188,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -214,6 +233,8 @@ MonoBehaviour:
       Attack:
         HitCount: 6
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -236,6 +257,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -267,6 +292,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -303,12 +330,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.bleed
           Kind: 1
           Family: 0
@@ -331,6 +363,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -362,6 +398,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -400,11 +438,13 @@ MonoBehaviour:
           Target: 1
   - description: Inflicts damage equal to 375% of ATK and causes Bleed to enemy for
       3 turns
-    skillType: 2
+    skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 6
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -427,6 +467,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -458,6 +502,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -494,12 +540,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.bleed
           Kind: 1
           Family: 0
@@ -522,6 +573,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -553,6 +608,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0

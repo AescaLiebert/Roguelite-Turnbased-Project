@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/Resources/UI/ScreenShell.uss?fileID=7433441132597879392&amp;guid=6d1566d098bce684493804ab080e2ee6&amp;type=3#ScreenShell"/>
+    <ui:VisualElement name="account-header" class="account-header">
+        <ui:Button name="account-back" text="‹" tooltip="Back" class="account-back"/>
+        <ui:VisualElement picking-mode="Ignore" class="account-brand">
+            <ui:VisualElement picking-mode="Ignore" class="account-brand-atlas"/>
+        </ui:VisualElement>
+        <ui:Label name="section-title" text="HOME" class="account-section"/>
+        <ui:VisualElement class="account-spacer"/>
+        <ui:Button name="account-diamond-channel" tooltip="Diamond balance" class="account-currency" style="border-top-left-radius: 18px; border-top-right-radius: 18px; border-bottom-right-radius: 18px; border-bottom-left-radius: 18px;">
+            <ui:VisualElement picking-mode="Ignore" class="account-diamond"/>
+            <ui:VisualElement picking-mode="Ignore" class="account-currency-copy">
+                <ui:Label name="account-wallet" text="—" class="account-wallet"/>
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button name="account-coin-channel" tooltip="Coin balance" class="account-currency" style="border-top-left-radius: 18px; border-top-right-radius: 18px; border-bottom-right-radius: 18px; border-bottom-left-radius: 18px;">
+            <ui:VisualElement picking-mode="Ignore" class="account-coin"/>
+            <ui:VisualElement picking-mode="Ignore" class="account-currency-copy">
+                <ui:Label name="account-coins" text="—" class="account-wallet"/>
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:VisualElement class="account-profile" style="border-top-left-radius: 18px; border-top-right-radius: 18px; border-bottom-right-radius: 18px; border-bottom-left-radius: 18px;">
+            <ui:VisualElement picking-mode="Ignore" class="account-avatar">
+                <ui:VisualElement picking-mode="Ignore" class="account-avatar-atlas"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="account-profile-copy">
+                <ui:Label name="account-name" text="Rookie" class="account-name"/>
+                <ui:Label name="account-caption" text="LOCAL PLAYER" class="account-caption"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

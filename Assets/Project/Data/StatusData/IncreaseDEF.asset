@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: IncreaseDEF
   m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
   id: status.increase.DEF
-  displayName: Increase DEF
+  displayName: Increase Defense
   icon: {fileID: 21300000, guid: 1802658d1b39d5c4abc2866681efe216, type: 3}
+  actorVisualEffect: 0
   polarity: 0
   keywords:
-  - Increase DEF
+  - Increase Defense
   - status.increase.DEF
   description: 

@@ -16,20 +16,22 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: b8b59a1508d19774292060880bd3ad81, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts damage equal to 65% of ATK and has a 16.67% chance to Remove
-      Buffs and Stun the enemy for 1 turns
-    skillType: 2
+  - description: Inflicts 200% of ATK and has a 15% shared chance to remove Stances
+      and Buffs and Stun the enemy for 3 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 20000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -45,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -112,21 +117,327 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      Sequence: []
-  - description: Inflicts damage equal to 130% of ATK and has a 33.33% chance to
-      Remove Buffs and Stun the enemy for 2 turns
-    skillType: 2
+      Batches:
+      - Id: lucky94.dispel-and-stun
+        ApplyChanceBp: 1500
+      Sequence:
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.remove-stance
+          Kind: 8
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: 
+            NameKey: 
+            Polarity: 0
+            Color: 0
+            Behavior: 0
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.remove-buffs
+          Kind: 4
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: 
+            NameKey: 
+            Polarity: 0
+            Color: 0
+            Behavior: 0
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: Stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags:
+            - control.stun
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+  - description: Inflicts 200% of ATK and has a 30% shared chance to remove Stances
+      and Buffs and Stun the enemy for 3 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 20000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -142,6 +453,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -173,6 +485,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -209,21 +523,327 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      Sequence: []
-  - description: Inflicts damage equal to 195% of ATK and has a 50% chance to Remove
-      Buffs and Stun the enemy for 3 turns
-    skillType: 2
+      Batches:
+      - Id: lucky94.dispel-and-stun
+        ApplyChanceBp: 3000
+      Sequence:
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.remove-stance
+          Kind: 8
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: 
+            NameKey: 
+            Polarity: 0
+            Color: 0
+            Behavior: 0
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.remove-buffs
+          Kind: 4
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: 
+            NameKey: 
+            Polarity: 0
+            Color: 0
+            Behavior: 0
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: Stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags:
+            - control.stun
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+  - description: Inflicts 250% of ATK and has a 50% shared chance to remove Stances
+      and Buffs and Stun the enemy for 3 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 25000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -239,6 +859,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -270,6 +891,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -306,4 +929,308 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
-      Sequence: []
+      Batches:
+      - Id: lucky94.dispel-and-stun
+        ApplyChanceBp: 5000
+      Sequence:
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.remove-stance
+          Kind: 8
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: 
+            NameKey: 
+            Polarity: 0
+            Color: 0
+            Behavior: 0
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.remove-buffs
+          Kind: 4
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: 
+            NameKey: 
+            Polarity: 0
+            Color: 0
+            Behavior: 0
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
+      - Timing: 3
+        BatchId: lucky94.dispel-and-stun
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: lucky94.skill2.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: Stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags:
+            - control.stun
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1

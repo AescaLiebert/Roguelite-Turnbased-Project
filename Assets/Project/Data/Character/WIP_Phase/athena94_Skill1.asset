@@ -16,12 +16,15 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: "Inflict damage equal to 150% of ATK, Decrease enemy recovery rate by 40% 1 turns"
+  - description: Inflict damage equal to 150% of ATK, Decrease enemy recovery rate
+      by 40% 1 turns
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 2
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -31,7 +34,6 @@ MonoBehaviour:
       CoefficientBp: 15000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -45,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -99,7 +104,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -119,6 +123,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.stat.recovery
           Kind: 1
           Family: 0
@@ -128,7 +134,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.recoveryrate
@@ -142,6 +147,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -150,11 +156,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 11
+              Bundle: 0
               Family: 0
               Operation: 2
               Amount: -40
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -181,6 +193,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -204,7 +218,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 1
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -218,13 +231,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
-  - description: "Inflict damage equal to 260% of ATK, Decrease enemy recovery rate by 60% 2 turns"
+  - description: Inflict damage equal to 260% of ATK, Decrease enemy recovery rate
+      by 60% 2 turns
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 2
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -234,7 +249,6 @@ MonoBehaviour:
       CoefficientBp: 26000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -248,6 +262,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -279,6 +294,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -302,7 +319,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -322,6 +338,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.stat.recovery
           Kind: 1
           Family: 0
@@ -331,7 +349,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.recoveryrate
@@ -345,6 +362,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -353,11 +371,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 11
+              Bundle: 0
               Family: 0
               Operation: 2
               Amount: -60
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -384,6 +408,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -407,7 +433,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -421,13 +446,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
-  - description: "Inflict damage equal to 400% of ATK, Decrease enemy recovery rate by 80% 2 turns"
+  - description: Inflict damage equal to 400% of ATK, Decrease enemy recovery rate
+      by 80% 2 turns
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 2
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -437,7 +464,6 @@ MonoBehaviour:
       CoefficientBp: 40000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -451,6 +477,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -482,6 +509,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -505,7 +534,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -525,6 +553,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.debuff.stat.recovery
           Kind: 1
           Family: 0
@@ -534,7 +564,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: status.debuff.recoveryrate
@@ -548,6 +577,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -556,11 +586,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 11
+              Bundle: 0
               Family: 0
               Operation: 2
               Amount: -8000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -587,6 +623,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -610,7 +648,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -624,4 +661,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []

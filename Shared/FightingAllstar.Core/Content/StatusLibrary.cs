@@ -90,7 +90,8 @@ namespace FightingAllstar.Core.Content
         public static string GetDisplayName(string recipeId, StatusPolarity polarity = StatusPolarity.Debuff)
         {
             if (string.IsNullOrWhiteSpace(recipeId))
-                return polarity == StatusPolarity.Buff ? "Buff Applied" : "Debuff Applied";
+                return polarity == StatusPolarity.Buff ? "Buff Applied" :
+                    polarity == StatusPolarity.Neutral ? "Status Applied" : "Debuff Applied";
 
             var trimmed = recipeId.Trim();
             if (DisplayNames.TryGetValue(trimmed, out var displayName))
@@ -98,8 +99,8 @@ namespace FightingAllstar.Core.Content
 
             // Normalize and parse components
             var lower = trimmed.ToLowerInvariant();
-            var isBuff = lower.Contains(".buff.") || polarity == StatusPolarity.Buff;
-            var isDebuff = lower.Contains(".debuff.") || polarity == StatusPolarity.Debuff;
+            var isBuff = polarity != StatusPolarity.Neutral && (lower.Contains(".buff.") || polarity == StatusPolarity.Buff);
+            var isDebuff = polarity != StatusPolarity.Neutral && (lower.Contains(".debuff.") || polarity == StatusPolarity.Debuff);
 
             // Strip prefix hierarchy
             var lastDot = trimmed.LastIndexOf('.');
@@ -144,12 +145,14 @@ namespace FightingAllstar.Core.Content
                 return "sword";
             if (lower.Contains("defense") && polarity == StatusPolarity.Buff)
                 return "shield";
-            if ((lower.Contains("hp") || lower.Contains("heal") || lower.Contains("recovery") || lower.Contains("regen")) && polarity == StatusPolarity.Buff)
+            if ((lower.Contains("hp") || lower.Contains("heal") || lower.Contains("recovery") || lower.Contains("regen")) && polarity != StatusPolarity.Debuff)
                 return "heart";
 
             // Fallback by polarity
             if (polarity == StatusPolarity.Buff)
                 return "Cardtype_buff";
+            if (polarity == StatusPolarity.Neutral)
+                return "Cardtype_Stance";
 
             return "Cardtype_Debuff";
         }

@@ -1,11 +1,11 @@
-param([switch]$Focused, [switch]$Facing)
+param([switch]$Focused, [switch]$Facing, [switch]$Moves, [switch]$Polish)
 $ErrorActionPreference = 'Stop'
 $actorRepo = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
-$actorProject = Join-Path $actorRepo 'Temp/ActorExecutionVisualProject'
+$actorProject = Join-Path $actorRepo $(if ($Polish) { 'Temp/CameraPolishVisualProject' } elseif ($Moves) { 'Temp/CameraMoveVisualProject' } else { 'Temp/ActorExecutionVisualProject' })
 $actorEditor = 'C:/Program Files/Unity/Hub/Editor/6000.3.4f1/Editor/Unity.exe'
 New-Item -ItemType Directory -Force "$actorProject/Assets/Editor", "$actorProject/Assets/Plugins", "$actorProject/Assets/Runtime", "$actorProject/ProjectSettings" | Out-Null
 Copy-Item -LiteralPath "$actorRepo/ProjectSettings/ProjectVersion.txt" -Destination "$actorProject/ProjectSettings/ProjectVersion.txt"
-foreach ($actorFile in @('BattleStagePresenter.cs', 'BattleStagePresenter.Camera.cs', 'BattleStagePresenter.Cinematics.cs', 'BattleStagePresenter.Execution.cs', 'BattleStagePresenter.MultiHit.cs', 'BattleStagePresenter.Ultimate.cs', 'BattleStagePresenter.Reactions.cs', 'BattleStagePresenter.ActorVisualEffects.cs', 'ActorVisualEffect.cs', 'ActorVisualEffect.Debuffs.cs', 'ActorDebuffVisual.cs', 'ActorVisualEffectGeometry.cs', 'ActorVisualEffectRules.cs', 'ActorVisualEffectSettings.cs', 'CardAnimationTiming.cs', 'ActorCardPresentation.cs', 'BattleFighterView.cs')) {
+foreach ($actorFile in @('BattleStagePresenter.cs', 'BattleStagePresenter.Camera.cs', 'BattleStagePresenter.Cinematics.cs', 'BattleStagePresenter.Execution.cs', 'BattleStagePresenter.MultiHit.cs', 'BattleStagePresenter.Ultimate.cs', 'BattleStagePresenter.Reactions.cs', 'BattleStagePresenter.ActorVisualEffects.cs', 'ActorVisualEffect.cs', 'ActorVisualEffect.Debuffs.cs', 'ActorDebuffVisual.cs', 'ActorDebuffVisual.Special.cs', 'ActorVisualEffectGeometry.cs', 'ActorVisualEffectRules.cs', 'ActorVisualEffectSettings.cs', 'CardAnimationTiming.cs', 'ActorCardPresentation.cs', 'BattleFighterView.cs')) {
     Copy-Item -LiteralPath "$actorRepo/Assets/Project/Runtime/Presentation/Combat/$actorFile" -Destination "$actorProject/Assets/Runtime/$actorFile"
 }
 Copy-Item -LiteralPath "$PSScriptRoot/CameraReferenceChecks.cs" -Destination "$actorProject/Assets/Editor/CameraReferenceChecks.cs"
@@ -17,7 +17,7 @@ Copy-Item -LiteralPath "$actorRepo/Assets/Project/Plugins/FightingAllstar.Core.d
 $actorNewtonsoft = Get-ChildItem "$actorRepo/Library/PackageCache" -Recurse -Filter Newtonsoft.Json.dll | Where-Object { $_.FullName -match 'Runtime' } | Select-Object -First 1
 if ($null -eq $actorNewtonsoft) { throw 'Cannot find the project Newtonsoft.Json runtime dependency.' }
 Copy-Item -LiteralPath $actorNewtonsoft.FullName -Destination "$actorProject/Assets/Plugins/Newtonsoft.Json.dll"
-$actorMethod = if ($Facing) { 'CameraReferenceChecks.RunFacing' } elseif ($Focused) { 'CameraReferenceChecks.RunFocused' } else { 'CameraReferenceChecks.Run' }
+$actorMethod = if ($Polish) { 'CameraReferenceChecks.RunPolish' } elseif ($Moves) { 'CameraReferenceChecks.RunMoves' } elseif ($Facing) { 'CameraReferenceChecks.RunFacing' } elseif ($Focused) { 'CameraReferenceChecks.RunFocused' } else { 'CameraReferenceChecks.Run' }
 $actorProcess = Start-Process -FilePath $actorEditor -WindowStyle Hidden -PassThru -ArgumentList @('-batchmode', '-projectPath', ('"' + $actorProject + '"'), '-executeMethod', $actorMethod, '-logFile', ('"' + "$actorProject/visual.log" + '"'))
 Write-Output "Actor camera fixture process: $($actorProcess.Id)"
 Write-Output "Log: $actorProject/visual.log"

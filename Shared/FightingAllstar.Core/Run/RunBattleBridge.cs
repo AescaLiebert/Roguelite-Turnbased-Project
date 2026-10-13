@@ -8,7 +8,12 @@ namespace FightingAllstar.Core.Run
     /// <summary>Maps a frozen route encounter to the disposable shared battle engine and back to run HP.</summary>
     public static class RunBattleBridge
     {
-        public static BattleState CreateLocalBattle(EncounterProjection encounter, ulong seed, TeamSide firstSide = TeamSide.Player, bool training = false)
+        /// <summary>Production entry: fresh combat and card streams, with no dungeon seed input.</summary>
+        public static BattleState CreateLocalBattle(EncounterProjection encounter, TeamSide firstSide = TeamSide.Player)
+            => CreateLocalBattle(encounter, BattleEntropy.CreateSeed(), firstSide, cardDrawSeed: BattleEntropy.CreateSeed());
+
+        // Explicit entropy is retained for repeatable tests and training fixtures only.
+        public static BattleState CreateLocalBattle(EncounterProjection encounter, ulong seed, TeamSide firstSide = TeamSide.Player, bool training = false, ulong? cardDrawSeed = null)
         {
             if (encounter == null || string.IsNullOrWhiteSpace(encounter.BattleId)) throw new ArgumentException("Encounter projection is missing.");
             if (encounter.PlayerTeam == null || encounter.PlayerTeam.Count < 1 || encounter.PlayerTeam.Count > 4)
@@ -33,7 +38,7 @@ namespace FightingAllstar.Core.Run
 
             var battle = BattleEngine.Create(encounter.BattleId, playerDefinitions, playerTiers,
                 enemyDefinitions, enemyTiers, seed, firstSide, encounter.ChosenBoons,
-                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam), training: training);
+                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam), cardDrawSeed: cardDrawSeed, training: training);
             MapFighterIds(battle, battle.Player, encounter.PlayerTeam);
             MapFighterIds(battle, battle.Opponent, encounter.EnemyTeam);
             CharacterPassiveRuntime.Refresh(battle);
@@ -56,7 +61,8 @@ namespace FightingAllstar.Core.Run
             {
                 var battleFighter = battle.Player.FindFighter(fighter.RunFighterId);
                 // Battle-only MaxHP contributions are not permanent run-stat upgrades.
-                var hp = fighter.IsDefeated || battleFighter == null ? 0 : Math.Max(0, Math.Min(fighter.Stats.MaxHealth, battleFighter.Health));
+                var hp = fighter.IsDefeated ? 0 : battleFighter == null ? fighter.CurrentHealth :
+                    Math.Max(0, Math.Min(fighter.Stats.MaxHealth, battleFighter.Health));
                 results.Add(new BattleFighterResult { RunFighterId = fighter.RunFighterId,
                     CurrentHealth = hp, IsDefeated = hp == 0 });
             }

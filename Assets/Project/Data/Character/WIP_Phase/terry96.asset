@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.terry96
   runtimeReady: 1
-  sourceId: 14
-  sourceRecord: 15
   familyId: family.terry
   seriesId: series.kof
   role: Crowd Control, Heavy Tank
@@ -28,12 +26,11 @@ MonoBehaviour:
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 24fd521f71c90e142a5e415ededa8094, type: 2}
-  id: 1014
+  id: 1314
   fighterName: Terry Bogard 96
-  fighterTag: Terry
   fighterPic: {fileID: 21300000, guid: f7565e32d337aef4ebc3c9411a56efa1, type: 3}
   fighterIcon: {fileID: 21300000, guid: 1d8fc6ce2f6164948bd301e9e5f6955f, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: f7565e32d337aef4ebc3c9411a56efa1, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -50,6 +47,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 3524
   attack: 420
   defense: 450

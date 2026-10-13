@@ -469,7 +469,7 @@ public static class BuildRequestedCompleteCharacterSOs
     {
         var oldCharacterPath = CharacterPath + "/iori96.asset";
         var oldCharacter = AssetDatabase.LoadAssetAtPath<CharacterObject>(oldCharacterPath);
-        if (oldCharacter == null || oldCharacter.DefinitionId != "fighter.iori96" || oldCharacter.SourceId != 30)
+        if (oldCharacter == null || oldCharacter.DefinitionId != "fighter.iori96")
             return;
         foreach (var path in new[]
         {
@@ -724,9 +724,10 @@ public static class BuildRequestedCompleteCharacterSOs
 
         passive.Reactions.Add(new FightingAllstar.Core.Content.PassiveReactionDefinition
         {
-            Id = "bonus-max-health-damage-vs-kyo-team",
+            Id = "bonus-max-health-damage-vs-kyo",
             Gate = IoriGate(),
             Trigger = FightingAllstar.Core.Content.PassiveEventKind.DamageResolved,
+            DamageTiming = FightingAllstar.Core.Content.PassiveDamageTiming.FinalHit,
             ActorRelation = FightingAllstar.Core.Content.PassiveRelation.Self,
             TargetRelation = FightingAllstar.Core.Content.PassiveRelation.Enemies,
             CardOriginOnly = true,
@@ -734,15 +735,9 @@ public static class BuildRequestedCompleteCharacterSOs
             {
                 new FightingAllstar.Core.Content.EffectConditionDefinition
                 {
-                    Kind = FightingAllstar.Core.Content.EffectConditionKind.RosterCountAtLeast,
-                    Threshold = 1,
-                    RosterFilter = new FightingAllstar.Core.Content.PassiveTargetFilter
-                    {
-                        Relation = FightingAllstar.Core.Content.PassiveRelation.Enemies,
-                        IncludeOwner = true,
-                        IncludeReserve = true,
-                        TraitId = "trait.kyo"
-                    }
+                    Kind = FightingAllstar.Core.Content.EffectConditionKind.TargetTraitIs,
+                    Subject = FightingAllstar.Core.Content.ConditionSubject.EventTarget,
+                    StringValue = "trait.kyo"
                 }
             },
             Commands =
@@ -761,11 +756,11 @@ public static class BuildRequestedCompleteCharacterSOs
                         {
                             Family = FightingAllstar.Core.Content.DamageFamily.Additional,
                             Scaling = FightingAllstar.Core.Content.StatScaling.MaxHealth,
+                            StatSource = FightingAllstar.Core.Content.DamageStatSource.Target,
                             CoefficientBp = 500,
                             KeywordFactorBp = 10000,
                             CannotCrit = true,
-                            CannotBlock = true,
-                            ScaleFromTargetMaxHealth = true
+                            CannotBlock = true
                         }
                     }
                 }
@@ -776,6 +771,7 @@ public static class BuildRequestedCompleteCharacterSOs
             Id = "ultimate-steal-stats",
             Gate = IoriGate(),
             Trigger = FightingAllstar.Core.Content.PassiveEventKind.DamageResolved,
+            DamageTiming = FightingAllstar.Core.Content.PassiveDamageTiming.FinalHit,
             ActorRelation = FightingAllstar.Core.Content.PassiveRelation.Self,
             TargetRelation = FightingAllstar.Core.Content.PassiveRelation.Enemies,
             CardOriginOnly = true,
@@ -798,10 +794,10 @@ public static class BuildRequestedCompleteCharacterSOs
                         StatTransfer = new FightingAllstar.Core.Content.StatTransferRecipeDefinition
                         {
                             CoefficientBp = 5000,
-                            SourceStatus = BuildIoriTransferStatus("status.buff.iori95.extort",
+                            SourceStatus = BuildIoriTransferStatus("status.buff.extort",
                                 FightingAllstar.Core.Content.StatusPolarity.Buff,
                                 FightingAllstar.Core.Content.StatusDurationClock.TargetTurnStart),
-                            TargetStatus = BuildIoriTransferStatus("status.debuff.iori95.extort",
+                            TargetStatus = BuildIoriTransferStatus("status.debuff.extort",
                                 FightingAllstar.Core.Content.StatusPolarity.Debuff,
                                 FightingAllstar.Core.Content.StatusDurationClock.TargetTurnEnd)
                         }
@@ -845,8 +841,8 @@ public static class BuildRequestedCompleteCharacterSOs
         }
         foreach (var visualPath in new[]
         {
-            "Assets/Project/Data/StatusData/Iori95ExtortBuff.asset",
-            "Assets/Project/Data/StatusData/Iori95ExtortDebuff.asset"
+            "Assets/Project/Data/StatusData/ExtortBuff.asset",
+            "Assets/Project/Data/StatusData/ExtortDebuff.asset"
         })
         {
             var visual = AssetDatabase.LoadAssetAtPath<FightingAllstar.Presentation.Combat.StatusVisualData>(visualPath);
@@ -860,13 +856,10 @@ public static class BuildRequestedCompleteCharacterSOs
         var serialized = new SerializedObject(character);
         Set(serialized, "definitionId", "fighter.iori95");
         Set(serialized, "runtimeReady", true);
-        Set(serialized, "sourceId", 6);
-        Set(serialized, "sourceRecord", 7);
         Set(serialized, "id", 1006);
         Set(serialized, "fighterName", "Yagami Iori 95");
-        Set(serialized, "fighterTag", "Iori");
         Set(serialized, "passiveSourceDescription",
-            "Increases own damage dealt by 14% for each Ignite stack on enemies. When the enemy team has Kyo, deals bonus damage equal to 5% of the target's Max HP.");
+            "Increases own damage dealt by 14% for each Ignite stack on enemies. When attacking Kyo, deals additional damage equal to 5% of Kyo's current Max HP once on the final hit.");
         Set(serialized, "passiveDefinition", passiveAsset);
         Set(serialized, "traitIds", (character.TraitIds ?? Array.Empty<string>())
             .Where(trait => trait != "trait.iori" && trait != "trait.kyo-counter").ToArray());
@@ -1129,7 +1122,7 @@ public static class BuildRequestedCompleteCharacterSOs
             .Select(AssetDatabase.GUIDToAssetPath)
             .Select(path => AssetDatabase.LoadAssetAtPath<CharacterObject>(path))
             .Where(character => character != null)
-            .OrderBy(character => character.SourceId)
+            .OrderBy(character => character.ID)
             .ToList();
         registry.SetCharacters(characters);
         EditorUtility.SetDirty(registry);
@@ -1150,8 +1143,6 @@ public static class BuildRequestedCompleteCharacterSOs
         var serialized = new SerializedObject(character);
         Set(serialized, "definitionId", draft.definitionId);
         Set(serialized, "runtimeReady", draft.definitionId == "fighter.mai95");
-        Set(serialized, "sourceId", draft.sourceId);
-        Set(serialized, "sourceRecord", draft.sourceRecord);
         Set(serialized, "familyId", "family." + Slug(draft.familyId));
         Set(serialized, "seriesId", "series.kof");
         Set(serialized, "role", draft.role);
@@ -1162,7 +1153,6 @@ public static class BuildRequestedCompleteCharacterSOs
         Set(serialized, "passiveDefinition", passive);
         Set(serialized, "id", 1000 + draft.sourceId);
         Set(serialized, "fighterName", draft.name);
-        Set(serialized, "fighterTag", draft.familyId);
         var portrait = LoadCharacterSprite(draft.definitionId, true);
         Set(serialized, "fighterPic", portrait);
         Set(serialized, "fighterIcon", LoadCharacterSprite(draft.definitionId, false));

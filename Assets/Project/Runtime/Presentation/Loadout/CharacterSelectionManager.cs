@@ -90,7 +90,7 @@ public class CharacterSelectionManager : MonoBehaviour
             DungeonFlowContext.BeginDungeonFlowForEncounter(DungeonFlowContext.GetProfileForId(saved.ProfileId), saved, null);
         }
         RestoreSavedFormation();
-        PopulateCharacterGrid();
+        if (GetComponent<FightingAllstar.Presentation.Loadout.CharacterLoadoutView>() == null) PopulateCharacterGrid();
         UpdateTotalTeamCC();
 
         if (DungeonFlowContext.IsDungeonLoadoutMode)
@@ -130,6 +130,30 @@ public class CharacterSelectionManager : MonoBehaviour
         return characterSlots[index];
     }
 
+    public string TeamStatus => totalCCText == null ? string.Empty : totalCCText.text;
+
+    public bool TryAssignToSlot(int index, CharacterObject character, out string error)
+    {
+        error = null;
+        var slot = GetSlot(index);
+        if (slot?.LoadOutPosition == null) { error = "Choose a valid formation position."; return false; }
+        if (character != null && (!character.RuntimeReady || PlayerInventoryService.Instance?.FindOwnedByDefinition(character.DefinitionId) == null))
+        { error = "Choose an owned, battle-ready fighter."; return false; }
+        if (character != null && !DungeonFlowContext.IsCharacterEligible(DungeonFlowContext.ActiveProfile, character))
+        { error = "This fighter does not meet the dungeon policy."; return false; }
+        if (DungeonFlowContext.IsCharacterDefeated(character))
+        { error = "This fighter is defeated and unavailable for this run."; return false; }
+        currentSelectedLoadOut = slot.LoadOutPosition;
+        if (character == null) ClearCurrentSelectedSlot();
+        else AssignCharacterToLoadOut(character);
+        return true;
+    }
+
+    public void SwapFormationPositions(int first, int second)
+    {
+        SwapSlots(GetSlot(first)?.LoadOutPosition, GetSlot(second)?.LoadOutPosition);
+    }
+
     private void RestoreSavedFormation()
     {
         if (characterSlots == null) return;
@@ -146,7 +170,7 @@ public class CharacterSelectionManager : MonoBehaviour
         // 1. If in Dungeon Flow with an Active Run, check run formation or run roster
         if (run != null)
         {
-            if (run.Formation != null && run.Formation.Any(id => !string.IsNullOrEmpty(id)))
+            if (run.Formation != null && run.Formation.Count == 4)
             {
                 for (var i = 0; i < characterSlots.Count && i < run.Formation.Count; i++)
                 {
@@ -158,7 +182,7 @@ public class CharacterSelectionManager : MonoBehaviour
                 for (var i = 0; i < run.Roster.Count; i++)
                 {
                     var rf = run.Roster[i];
-                    if (rf == null) continue;
+                    if (rf == null || rf.IsDefeated || rf.CurrentHealth <= 0) continue;
                     var slot = (rf.OriginalFormationIndex >= 0 && rf.OriginalFormationIndex < characterSlots.Count)
                         ? rf.OriginalFormationIndex
                         : i;
@@ -172,7 +196,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
 
         // 2. If in Dungeon Mode and still empty, check profile dungeon formation
-        if (profile != null && !candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
+        if (run == null && profile != null && !candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
         {
             var dungeonFormation = inventory.GetDungeonFormation(profile.Id);
             if (dungeonFormation != null && dungeonFormation.Count == characterSlots.Count && dungeonFormation.Any(id => !string.IsNullOrEmpty(id)))
@@ -185,7 +209,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
 
         // 3. If still empty, check PlayerInventoryService snapshot formation
-        if (!candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
+        if (run == null && !candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
         {
             var savedFormation = inventory.Snapshot?.formation;
             if (savedFormation != null && savedFormation.Any(id => !string.IsNullOrEmpty(id)))
@@ -198,7 +222,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
 
         // 4. If still empty, check LocalEconomyStore
-        if (!candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
+        if (run == null && !candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
         {
             try
             {
@@ -223,7 +247,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
 
         // 5. If still empty, check if characterSlots already have AssignedCharacter pre-configured
-        if (!candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
+        if (run == null && !candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
         {
             for (var i = 0; i < characterSlots.Count; i++)
             {
@@ -240,7 +264,7 @@ public class CharacterSelectionManager : MonoBehaviour
         }
 
         // 6. If STILL empty, auto-fill slots with eligible owned characters
-        if (!candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
+        if (run == null && !candidateInstanceIds.Any(id => !string.IsNullOrEmpty(id)))
         {
             var eligible = definitions.Where(d => d != null && (profile == null || DungeonFlowContext.IsCharacterEligible(profile, d))).ToList();
             var used = new HashSet<string>(StringComparer.Ordinal);
@@ -273,7 +297,7 @@ public class CharacterSelectionManager : MonoBehaviour
             }
 
             var def = definitions.FirstOrDefault(c => c != null && c.DefinitionId == owned.definitionId);
-            if (def == null || (profile != null && !DungeonFlowContext.IsCharacterEligible(profile, def)))
+            if (def == null || DungeonFlowContext.IsCharacterDefeated(def) || (profile != null && !DungeonFlowContext.IsCharacterEligible(profile, def)))
             {
                 candidateInstanceIds[i] = string.Empty;
             }
@@ -326,7 +350,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
         var profile = DungeonFlowContext.IsDungeonLoadoutMode ? DungeonFlowContext.ActiveProfile : null;
 
-        foreach (var character in inventory.GetOwnedDefinitions())
+        foreach (var character in inventory.GetOwnedDefinitions().OrderBy(DungeonFlowContext.IsCharacterDefeated))
         {
             if (character == null) continue;
 
@@ -345,6 +369,21 @@ public class CharacterSelectionManager : MonoBehaviour
                 continue;
             }
             characterCard.SetCharacter(character);
+            if (DungeonFlowContext.IsCharacterDefeated(character))
+            {
+                var overlay = new GameObject("Defeated overlay", typeof(RectTransform), typeof(Image));
+                overlay.transform.SetParent(card.transform, false);
+                var rect = (RectTransform)overlay.transform;
+                rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = rect.offsetMax = Vector2.zero;
+                overlay.GetComponent<Image>().color = new Color(0, 0, 0, .75f);
+                var cross = new GameObject("Defeated cross", typeof(RectTransform), typeof(TextMeshProUGUI));
+                cross.transform.SetParent(overlay.transform, false);
+                var crossRect = (RectTransform)cross.transform;
+                crossRect.anchorMin = Vector2.zero; crossRect.anchorMax = Vector2.one; crossRect.offsetMin = crossRect.offsetMax = Vector2.zero;
+                var label = cross.GetComponent<TextMeshProUGUI>(); label.text = "×"; label.fontSize = 72;
+                label.alignment = TextAlignmentOptions.Center; label.color = Color.white; label.raycastTarget = false;
+                var button = card.GetComponent<Button>(); if (button != null) button.interactable = false;
+            }
         }
     }
 
@@ -365,6 +404,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public void AssignCharacterToLoadOut(CharacterObject character)
     {
+        if (DungeonFlowContext.IsCharacterDefeated(character)) return;
         var inventory = PlayerInventoryService.Instance;
         var targetIndex = characterSlots == null || currentSelectedLoadOut == null
             ? -1
@@ -513,6 +553,7 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             run.Formation = new List<string>(formation);
             new LocalRunStateStore().Save(run);
+            return;
         }
 
         // 2. If in Dungeon mode with profile, persist dungeon formation
@@ -559,37 +600,24 @@ public class CharacterSelectionManager : MonoBehaviour
             var characters = characterSlots.Select(s => s?.AssignedCharacter).ToList();
             if (!DungeonFlowContext.ValidateFormation(DungeonFlowContext.ActiveProfile, characters, out var error))
                 throw new InvalidOperationException(error);
-            var selected = new List<RunFighterState>();
-            var ids = new HashSet<string>();
+            var selected = new List<RunFighterSeed>();
             for (var slot = 0; slot < 4; slot++)
             {
                 var character = characters[slot];
                 if (character == null) continue;
                 var owned = inventory.FindOwnedByDefinition(character.DefinitionId);
-                if (owned == null || !ids.Add(owned.instanceId)) throw new InvalidOperationException("Choose unique owned fighters.");
-                var existing = run.Roster.Find(f => f.DefinitionId == character.DefinitionId);
-                if (existing != null)
-                {
-                    var fighter = existing.Clone();
-                    fighter.OriginalFormationIndex = slot;
-                    selected.Add(fighter);
-                }
-                else
-                {
-                    var definition = DungeonFlowContext.Catalog.Find(c => c.Id == character.DefinitionId && c.RuntimeReady);
-                    if (definition == null) throw new InvalidOperationException("This fighter is not ready for battle.");
-                    selected.Add(new RunFighterState { RunFighterId = owned.instanceId, DefinitionId = definition.Id,
-                        Stats = definition.BaseStats.Clone(), CurrentHealth = definition.BaseStats.MaxHealth,
-                        ConstellationTier = owned.constellationTier, OriginalFormationIndex = slot });
-                }
+                var definition = DungeonFlowContext.Catalog.Find(c => c.Id == character.DefinitionId && c.RuntimeReady);
+                if (owned == null || definition == null) throw new InvalidOperationException("Choose an owned, battle-ready fighter.");
+                selected.Add(inventory.CreateRunFighterSeed(definition, slot));
             }
-            var candidate = run.Clone();
-            candidate.Roster = selected;
+            if (!DungeonRunEngine.TrySetFormation(run, selected, DungeonFlowContext.Catalog, DungeonFlowContext.ActiveProfile,
+                run.Revision, run.RunId + ":formation:" + run.Revision, out var candidate, out error))
+                throw new InvalidOperationException(error);
             if (!DungeonRunEngine.TryBuildEncounter(candidate, DungeonFlowContext.Catalog, out var encounter, out error))
                 throw new InvalidOperationException(error);
             new LocalRunStateStore().Save(candidate);
             DungeonFlowContext.BeginDungeonFlowForEncounter(DungeonFlowContext.ActiveProfile, candidate, encounter);
-            LocalEncounterContext.Begin(encounter, candidate.Seed ^ (ulong)candidate.Revision);
+            LocalEncounterContext.Begin(encounter);
             SceneManager.LoadScene("Battle");
         }
         catch (Exception ex)

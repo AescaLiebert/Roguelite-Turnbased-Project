@@ -16,6 +16,8 @@ public static class CameraReferenceChecks
     static CameraReferenceChecks() { EditorApplication.update += Tick; }
     public static void RunFacing() { SessionState.SetBool("ActorChecksFacing", true); Run(); }
     public static void RunFocused() { SessionState.SetBool("ActorChecksFocused", true); Run(); }
+    public static void RunMoves() { SessionState.SetBool("ActorChecksMoves", true); Run(); }
+    public static void RunPolish() { SessionState.SetBool("ActorChecksPolish", true); Run(); }
     public static void Run()
     {
         var path = "Assets/AuthoredPhases.controller";
@@ -116,15 +118,17 @@ public sealed class CameraCheckRunner : MonoBehaviour
         var routine = StartCoroutine(Complete(action, () => done = true));
         var rotation = camera.transform.rotation;
         var phase = stage.ExecutionPhase;
+        var wasMoving = stage.CameraTransitionActive;
         int frame = 0;
         while (!done)
         {
             yield return null;
             var angle = Quaternion.Angle(rotation, camera.transform.rotation);
             // A frame can span more than 1/60 s in batch rendering; reject a jump relative to elapsed time.
-            if (phase == stage.ExecutionPhase)
+            if (phase == stage.ExecutionPhase && !wasMoving && !stage.CameraTransitionActive)
                 Require(angle < Mathf.Max(35f, Time.unscaledDeltaTime * 650f), name + " abrupt rotation " + angle);
             phase = stage.ExecutionPhase;
+            wasMoving = stage.CameraTransitionActive;
             rotation = camera.transform.rotation;
             if (++frame == 10) Capture(name + "-moving");
         }
@@ -147,18 +151,23 @@ public sealed class CameraCheckRunner : MonoBehaviour
         } while (!done);
         yield return routine;
     }
-    IEnumerator SingleCut(IEnumerator action, string name)
+    IEnumerator FastMove(IEnumerator action, string name)
     {
         var from = new Pose(camera.transform.position, camera.transform.rotation);
         var fromFov = camera.fieldOfView;
         var samples = new List<Pose>();
         var fovs = new List<float>();
+        var sawTransition = false;
+        var sawIntermediate = false;
+        var slowFrame = false;
         bool done = false;
         var routine = StartCoroutine(Complete(action, () => done = true));
         do
         {
             samples.Add(new Pose(camera.transform.position, camera.transform.rotation));
             fovs.Add(camera.fieldOfView);
+            sawTransition |= stage.CameraTransitionActive;
+            slowFrame |= Time.unscaledDeltaTime >= .1f;
             yield return null;
         } while (!done);
         yield return routine;
@@ -169,9 +178,185 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 Quaternion.Angle(samples[i].rotation, from.rotation) < .01f && Mathf.Abs(fovs[i] - fromFov) < .001f;
             var atEnd = Vector3.Distance(samples[i].position, to.position) < .001f &&
                 Quaternion.Angle(samples[i].rotation, to.rotation) < .01f && Mathf.Abs(fovs[i] - camera.fieldOfView) < .001f;
-            Require(atStart || atEnd, name + " interpolated between shots");
+            sawIntermediate |= !atStart && !atEnd;
+        }
+        var moved = Vector3.Distance(from.position, to.position) > .01f || Quaternion.Angle(from.rotation, to.rotation) > .1f;
+        Require(!stage.CameraTransitionActive, name + " returned with an unfinished camera move");
+        if (moved)
+        {
+            Require(sawTransition, name + " snapped without a camera transition");
+            Require(sawIntermediate || slowFrame, name + " had no in-between camera poses");
+        }
+        yield return null; yield return null;
+        Require(Vector3.Distance(to.position, camera.transform.position) < .001f &&
+            Quaternion.Angle(to.rotation, camera.transform.rotation) < .01f, name + " drifted after arrival");
+    }
+    IEnumerator SingleCut(IEnumerator action, string name)
+    {
+        var previous = new Pose(camera.transform.position, camera.transform.rotation);
+        var previousFov = camera.fieldOfView;
+        var changes = 0;
+        bool done = false;
+        var routine = StartCoroutine(Complete(action, () => done = true));
+        do
+        {
+            Require(!stage.CameraTransitionActive, name + " interpolated instead of cutting");
+            if (Vector3.Distance(previous.position, camera.transform.position) > .001f ||
+                Quaternion.Angle(previous.rotation, camera.transform.rotation) > .01f ||
+                Mathf.Abs(previousFov - camera.fieldOfView) > .001f) changes++;
+            previous = new Pose(camera.transform.position, camera.transform.rotation);
+            previousFov = camera.fieldOfView;
+            yield return null;
+        } while (!done);
+        yield return routine;
+        Require(changes <= 1, name + " changed shots more than once");
+    }
+    IEnumerator AwaitCameraStart()
+    {
+        var deadline = Time.realtimeSinceStartup + 1f;
+        while (!stage.CameraTransitionActive && Time.realtimeSinceStartup < deadline) yield return null;
+        Require(stage.CameraTransitionActive, "Phase snapped or never started camera travel");
+    }
+
+    void SameShot(Pose pose, float fov, string message)
+    {
+        Require(Vector3.Distance(camera.transform.position, pose.position) < .001f &&
+            Quaternion.Angle(camera.transform.rotation, pose.rotation) < .01f &&
+            Mathf.Abs(camera.fieldOfView - fov) < .001f, message);
+    }
+
+    void UpperBodyInFrame(string id)
+    {
+        var bounds = views[id].GetComponent<Renderer>().bounds;
+        var lower = bounds.min.y + bounds.size.y / 3f;
+        foreach (var y in new[] { lower, bounds.max.y })
+        foreach (var x in new[] { bounds.min.x, bounds.max.x })
+        foreach (var z in new[] { bounds.min.z, bounds.max.z })
+        {
+            var p = camera.WorldToViewportPoint(new Vector3(x, y, z));
+            Require(p.z > 0 && p.x > .02f && p.x < .98f && p.y > .02f && p.y < .98f,
+                "Face shot clipped the upper two-thirds body: " + p);
+        }
+        var head = camera.WorldToViewportPoint(new Vector3(bounds.center.x, bounds.max.y, bounds.center.z));
+        var waist = camera.WorldToViewportPoint(new Vector3(bounds.center.x, lower, bounds.center.z));
+        Require(head.y - waist.y < .8f && head.y - waist.y > .2f, "Face shot remained head-only or became too distant");
+    }
+
+    IEnumerator CameraPolishRegression(string prefix)
+    {
+        foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
+        {
+            var friendly = side == TeamSide.Player ? "p" : "e";
+            var hostile = side == TeamSide.Player ? "e" : "p";
+            var id = friendly + "1";
+            foreach (var category in new[] { CardCategory.Buff, CardCategory.Recovery })
+            foreach (var scope in new[] { 0, 1, 2 }) // Self, selected ally, full allied team.
+            {
+                var self = scope == 0;
+                var area = scope == 2;
+                var ids = self ? new[] { id } : area ? new[] { friendly + "0", id, friendly + "2" } : new[] { friendly + "2" };
+                stage.SnapToPlanning();
+                yield return stage.BeginExecution(id, ids[0], 1, false, category, ids, area, self);
+                yield return stage.SupportAction(id, ids, category);
+                var rankOneShot = new Pose(camera.transform.position, camera.transform.rotation);
+                var rankOneFov = camera.fieldOfView;
+                yield return stage.RecoverAttacker();
+                yield return SingleCut(stage.BeginExecution(id, ids[0], 2, false, category, ids, area, self), "Rank 2 support face WindUp");
+                Require(Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward) > 0,
+                    "Rank 2 support omitted face WindUp");
+                UpperBodyInFrame(id);
+                if (side == TeamSide.Player) Capture(prefix + "-rank2-" + category + "-scope" + scope + "-windup");
+                yield return SingleCut(stage.SupportAction(id, ids, category), "Rank 2 support face-to-rear Action cut");
+                SameShot(rankOneShot, rankOneFov, "Rank 2 support did not cut to exactly its Rank 1 camera");
+                if (!self) InFrame(friendly + "0", id, friendly + "2");
+                if (side == TeamSide.Player) Capture(prefix + "-rank2-" + category + "-scope" + scope + "-action");
+                yield return HeldShot(stage.RecoverAttacker(), "Rank 2 support recovery hold");
+                yield return SingleCut(stage.CompleteExecution(false, side), "Rank 2 support empty queue");
+                yield return stage.BeginExecution(id, ids[0], 3, false, category, ids, area, self);
+                if (self) UpperBodyInFrame(id); else InFrame(friendly + "0", id, friendly + "2");
+                yield return HeldShot(stage.SupportAction(id, ids, category), "Rank 3 support unchanged Action");
+                yield return stage.RecoverAttacker();
+            }
+            foreach (var rank in new[] { 2, 3 })
+            {
+                yield return stage.BeginExecution(id, hostile + "1", rank, false);
+                UpperBodyInFrame(id);
+                if (side == TeamSide.Player) Capture(prefix + "-rank" + rank + "-two-thirds-windup");
+                yield return stage.RecoverAttacker();
+            }
+            stage.SnapToPlanning();
         }
     }
+
+    IEnumerator RapidMovesRegression()
+    {
+        foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
+        {
+            stage.SnapToPlanning();
+            var skipRest = new Pose(camera.transform.position, camera.transform.rotation);
+            var restFov = camera.fieldOfView;
+            var id = side == TeamSide.Player ? "p1" : "e1";
+            var target = side == TeamSide.Player ? "e1" : "p1";
+            yield return FastMove(stage.BeginExecution(id, target, 1, false), "rapid Wind Up");
+            var windUp = new Pose(camera.transform.position, camera.transform.rotation);
+            var windUpFov = camera.fieldOfView;
+            stage.SnapToPlanning();
+            var prepare = stage.StartCoroutine(stage.BeginExecution(id, target, 1, false));
+            yield return AwaitCameraStart();
+            // Even the in-progress move must use its captured endpoint and pivot.
+            views[id].transform.position += new Vector3(20, 10, 20);
+            views[target].transform.position += new Vector3(-40, 20, 40);
+            yield return stage.WaitForCameraTransition();
+            SameShot(windUp, windUpFov, "Wind Up travel retargeted displaced actors");
+            stage.StopCoroutine(prepare); stage.SnapToPlanning();
+
+            yield return SingleCut(stage.BeginExecution(id, target, 3, false), "ranked face Wind Up");
+            Require(Vector3.Dot(camera.transform.position - views[id].transform.position,
+                views[id].transform.forward) > 0, "Ranked Wind Up missed the face cut");
+            stage.SnapToPlanning();
+
+            yield return stage.BeginExecution(id, target, 3, false);
+            yield return FastMove(stage.BeginDamageAttack(id, new[] { target }, 1, AttackRange.Long, false), "rapid Attack");
+            var attackPose = new Pose(camera.transform.position, camera.transform.rotation);
+            var attackFov = camera.fieldOfView;
+            stage.SnapToPlanning();
+            yield return stage.BeginExecution(id, target, 3, false);
+            var attack = stage.StartCoroutine(stage.BeginDamageAttack(id, new[] { target }, 1, AttackRange.Long, false));
+            yield return AwaitCameraStart();
+            views[target].transform.position += new Vector3(-40, 20, 40);
+            yield return stage.WaitForCameraTransition();
+            yield return attack; yield return null;
+            SameShot(attackPose, attackFov, "Attack camera tracked the displaced target");
+            views[id].transform.position += new Vector3(1, 0, .5f);
+            yield return null; yield return null;
+            Require(Vector3.Distance(camera.transform.position, attackPose.position) > .1f,
+                "Offensive Action did not follow its caster");
+            var followed = new Pose(camera.transform.position, camera.transform.rotation);
+            var followedFov = camera.fieldOfView;
+            views[target].transform.position += new Vector3(40, 20, -40);
+            yield return null; yield return null;
+            SameShot(followed, followedFov, "Caster follow also tracked its target");
+            yield return stage.RecoverAttacker();
+            SameShot(windUp, windUpFov, "Offensive Recovery did not restore its original rear Wind Up");
+            stage.SnapToPlanning();
+
+            foreach (var phase in new[] { ActorCardPhase.WindUp, ActorCardPhase.Action, ActorCardPhase.Rest })
+            {
+                if (phase != ActorCardPhase.WindUp) yield return stage.BeginExecution(id, target, 1, false);
+                var pending = phase == ActorCardPhase.WindUp ? stage.BeginExecution(id, target, 1, false) :
+                    phase == ActorCardPhase.Action ? stage.BeginDamageAttack(id, new[] { target }, 1, AttackRange.Long, false) :
+                    stage.ReturnToPlanning(TeamSide.Player);
+                stage.StartCoroutine(pending);
+                yield return AwaitCameraStart();
+                stage.SnapToPlanning();
+                yield return new WaitForSecondsRealtime(.35f);
+                Require(!stage.CameraTransitionActive, "Skip left a camera transition active");
+                SameShot(skipRest, restFov, "Cancelled transition overwrote restored Rest");
+                Require(stage.ExecutionPhase == ActorCardPhase.Rest, "Skip left actor in a card phase");
+            }
+        }
+    }
+
     IEnumerator FacingRegression(string prefix)
     {
         var playerAnchor = GameObject.Find("CharHeroPosition2").transform;
@@ -296,6 +481,18 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 camera.targetTexture.Release(); Destroy(camera.targetTexture); camera.targetTexture = null;
                 continue;
             }
+            if (SessionState.GetBool("ActorChecksMoves", false))
+            {
+                yield return RapidMovesRegression();
+                camera.targetTexture.Release(); Destroy(camera.targetTexture); camera.targetTexture = null;
+                continue;
+            }
+            if (SessionState.GetBool("ActorChecksPolish", false))
+            {
+                yield return CameraPolishRegression(prefix);
+                camera.targetTexture.Release(); Destroy(camera.targetTexture); camera.targetTexture = null;
+                continue;
+            }
             foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
             foreach (var category in new[] { CardCategory.Attack, CardCategory.AttackDebuff, CardCategory.Debuff,
                 CardCategory.Stance, CardCategory.Buff, CardCategory.Recovery })
@@ -319,7 +516,7 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 yield return stage.BeginExecution(sourceId, targetId, rank, false, category, ids);
                 var windUp = camera.transform.position;
                 Require(stage.ExecutionPhase == (support && rank == 1 ? ActorCardPhase.Rest : ActorCardPhase.WindUp), "Wrong preparation state");
-                if (support)
+                if (support && rank != 2)
                 {
                     InFrame(friendly + "0", friendly + "1", friendly + "2");
                     Require(Vector3.Dot(windUp - source.position, source.forward) < 0, "Support preparation did not cut to team rear");
@@ -356,14 +553,15 @@ public sealed class CameraCheckRunner : MonoBehaviour
                         Quaternion.Angle(beforeRotation, camera.transform.rotation) < .01f, "Camera locked to target Transform");
                     target.position = targetPosition;
                 }
-                yield return HeldShot(stage.RecoverAttacker(), name + "-recovery");
+                if (support) yield return HeldShot(stage.RecoverAttacker(), name + "-recovery");
+                else yield return Continuous(stage.RecoverAttacker(), name + "-recovery");
                 Require(stage.ExecutionPhase == ActorCardPhase.Rest, "Recovery did not finish");
                 Require(Vector3.Distance(source.position, home.position) < .001f && Quaternion.Angle(source.rotation, home.rotation) < .01f,
                     "Actor did not return to formation");
                 Require(Vector3.Dot(camera.transform.position - source.position, home.rotation * Vector3.forward) < 0,
                     "Recovery did not reset behind actor");
-                Require(Vector3.Distance(camera.transform.position, before) < .001f,
-                    "Recovery replaced the fixed Attack camera shot");
+                if (support) Require(Vector3.Distance(camera.transform.position, before) < .001f,
+                    "Team support lost its team shot during Recovery");
                 var expected = support && rank == 1 ? 3 : 4;
                 Require(phases.Count == expected && phases[expected - 3] == ActorCardPhase.Action &&
                     phases[expected - 2] == ActorCardPhase.Recovery && phases[expected - 1] == ActorCardPhase.Rest, "Wrong phase sequence");
@@ -374,8 +572,8 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 yield return stage.CompleteExecution(false, side);
                 Require(Vector3.Distance(rest, camera.transform.position) < .001f, "Empty queue did not return to rest");
             }
-            // Self support holds rear/AoE preparation at Rank 1, portrait at Rank 2/3
-            // throughout Action and Recovery. Stance still transitions to rear Action.
+            // Self support: Rank 2 face cuts to Rank 1 rear at Action entry;
+            // Rank 3 holds face through Action, then cuts behind at Recovery.
             foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
             foreach (var category in new[] { CardCategory.Buff, CardCategory.Recovery, CardCategory.Stance })
             foreach (var rank in new[] { 1, 2, 3 })
@@ -388,11 +586,13 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 else yield return prepare;
                 var selfBegan = camera.transform.position;
                 var action = stage.SupportAction(id, new[] { id }, category);
-                if (support) yield return HeldShot(action, "self-support Action");
-                else yield return Continuous(action, prefix + "-self-" + side + "-" + category + rank);
+                if (support && rank == 2) yield return SingleCut(action, "Rank 2 self-support Action rear cut");
+                else if (support) yield return HeldShot(action, "self-support Action");
+                else if (rank > 1) yield return SingleCut(action, prefix + "-self-" + side + "-" + category + rank);
+                else yield return FastMove(action, prefix + "-self-" + side + "-" + category + rank);
                 var direction = Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward);
-                Require(support && rank > 1 ? direction > 0 : direction < 0, "Self action used the wrong side of the actor");
-                if (support && rank == 1)
+                Require(support && rank == 3 ? direction > 0 : direction < 0, "Self action used the wrong side of the actor");
+                if (support && rank <= 2)
                 {
                     var enemy = side == TeamSide.Player ? "e" : "p";
                     InFrame(enemy + "0", enemy + "1", enemy + "2");
@@ -401,14 +601,13 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 if (!support && rank > 1)
                     Require(Vector3.Distance(selfBegan, camera.transform.position) > .1f, "Self action did not transition from portrait/rest");
                 if (side == TeamSide.Player && rank == 3) Capture(prefix + "-self-" + category);
-                yield return HeldShot(stage.RecoverAttacker(), "self Recovery");
-                Require(support && rank > 1
-                    ? Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward) > 0
-                    : Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward) < 0,
-                    "Self recovery replaced its Attack shot");
+                if (support) yield return SingleCut(stage.RecoverAttacker(), "self Recovery rear cut");
+                else yield return Continuous(stage.RecoverAttacker(), "self Stance Recovery");
+                Require(Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward) < 0,
+                    "Self Recovery did not restore behind the actor");
             }
             // Single-ally and whole-team support use the same fixed allied rear shot,
-            // including ranked cards. There is no portrait or late recovery rear reset.
+            // Rank 2 adds face WindUp, then cuts to that shot at Action entry.
             foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
             foreach (var category in new[] { CardCategory.Buff, CardCategory.Recovery })
             foreach (var rank in new[] { 1, 2, 3 })
@@ -420,10 +619,12 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 var ids = area ? new[] { friendly + "0", id, friendly + "2" } : new[] { friendly + "2" };
                 yield return stage.ReturnToPlanning(side, .05f);
                 yield return SingleCut(stage.BeginExecution(id, ids[0], rank, false, category, ids, area, false), "team-support preparation");
+                if (rank != 2) InFrame(friendly + "0", id, friendly + "2");
+                Require(Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward) * (rank == 2 ? 1 : -1) > 0,
+                    "Team support used the wrong WindUp shot");
+                if (rank == 2) yield return SingleCut(stage.SupportAction(id, ids, category), "Rank 2 team-support Action cut");
+                else yield return HeldShot(stage.SupportAction(id, ids, category), "team-support Action");
                 InFrame(friendly + "0", id, friendly + "2");
-                Require(Vector3.Dot(camera.transform.position - views[id].transform.position, views[id].transform.forward) < 0,
-                    "Ranked team support inserted a face shot");
-                yield return HeldShot(stage.SupportAction(id, ids, category), "team-support Action");
                 if (side == TeamSide.Player && area && rank == 3) Capture(prefix + "-team-" + category);
                 yield return HeldShot(stage.RecoverAttacker(), "team-support Recovery");
                 yield return HeldShot(stage.CompleteExecution(true, side), "team-support queued hold");
@@ -439,6 +640,20 @@ public sealed class CameraCheckRunner : MonoBehaviour
             {
                 yield return null;
                 Require(Vector3.Distance(camera.transform.position, turnPivot) > radius * .95f, "Turn camera crossed through the arena");
+                Require(Vector3.Dot(camera.transform.forward,
+                    (turnPivot + Vector3.up * 1.3f - camera.transform.position).normalized) > .99f,
+                    "Opponent turn camera looked away from the arena");
+            }
+            yield return turnMove;
+            turned = false;
+            turnMove = StartCoroutine(Complete(stage.Turn(TeamSide.Player, .75f), () => turned = true));
+            while (!turned)
+            {
+                yield return null;
+                Require(Vector3.Distance(camera.transform.position, turnPivot) > radius * .95f, "Reverse turn camera crossed through the arena");
+                Require(Vector3.Dot(camera.transform.forward,
+                    (turnPivot + Vector3.up * 1.3f - camera.transform.position).normalized) > .99f,
+                    "Player turn camera looked away from the arena");
             }
             yield return turnMove;
             // Different owners chain directly; Rank 1 support cuts on card entry.
@@ -446,7 +661,7 @@ public sealed class CameraCheckRunner : MonoBehaviour
             yield return stage.BeginDamageAttack("p0", new[] { "e0" }, 1, AttackRange.Close, false);
             RearComposition("p0", "e0");
             yield return stage.RecoverAttacker();
-            yield return SingleCut(stage.BeginExecution("p2", "e2", 1, false), prefix + "-queued-windup");
+            yield return FastMove(stage.BeginExecution("p2", "e2", 1, false), prefix + "-queued-windup");
             yield return stage.BeginDamageAttack("p2", new[] { "e2" }, 1, AttackRange.Long, false);
             yield return stage.RecoverAttacker();
             var previousRear = camera.transform.position;
@@ -509,7 +724,8 @@ public sealed class CameraCheckRunner : MonoBehaviour
                 yield return stage.ReturnToPlanning(TeamSide.Player, .05f);
                 yield return SingleCut(stage.BeginExecution("p1", id, rank, false, category, new[] { id }, false, selfTarget),
                     "authored support preparation");
-                yield return HeldShot(stage.SupportAction("p1", new[] { id }, category), "authored support Action");
+                if (rank == 2) yield return SingleCut(stage.SupportAction("p1", new[] { id }, category), "authored Rank 2 support Action cut");
+                else yield return HeldShot(stage.SupportAction("p1", new[] { id }, category), "authored support Action");
                 var actor = views["p1"].GetComponent<ActorCardPresentation>();
                 float recoveryNormalizedTime = 0;
                 Action<ActorCardPhase> observe = phase =>
@@ -518,7 +734,8 @@ public sealed class CameraCheckRunner : MonoBehaviour
                         recoveryNormalizedTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
                 };
                 actor.PhaseChanged += observe;
-                yield return HeldShot(stage.RecoverAttacker(), "authored support recovery hold");
+                if (selfTarget) yield return SingleCut(stage.RecoverAttacker(), "authored self-support recovery cut");
+                else yield return HeldShot(stage.RecoverAttacker(), "authored team-support recovery hold");
                 actor.PhaseChanged -= observe;
                 Require(recoveryNormalizedTime >= .99f, "Support Recovery changed shot before authored Action ended");
                 Require(stage.ExecutionPhase == ActorCardPhase.Rest, "Authored support did not finish Recovery");

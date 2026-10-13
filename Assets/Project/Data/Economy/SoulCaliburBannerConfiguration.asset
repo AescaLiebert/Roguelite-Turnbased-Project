@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c07d0f2d0b4efb8b559561372540af, type: 3}
+  m_Name: SoulCaliburBannerConfiguration
+  m_EditorClassIdentifier: Assembly-CSharp::SummonBannerConfigurationSO
+  bannerName: Soul Calibur
+  seriesId: series.sc
+  bannerArtwork: {fileID: 2800000, guid: d24795cb9d4be0d47912aea153c1c11b, type: 3}
+  thumbnail: {fileID: 0}
+  description: 
+  totalRateBasisPoints: 10000
+  rarityPools:
+  - rarity: 2
+    rateBasisPoints: 400
+    characters:
+    - {fileID: 11400000, guid: 6e464a4620e5be749b063f6add7ad3b5, type: 2}
+    - {fileID: 11400000, guid: 3752d9dc5a08ada42a400869b6fca8aa, type: 2}
+    - {fileID: 11400000, guid: 82c62888a8913d841a33c2f2deb53e74, type: 2}
+    - {fileID: 11400000, guid: 58ae248d8cfeaae41b4d9cc1167cdd79, type: 2}
+    - {fileID: 11400000, guid: db18138b7482db24d82db5d1b8c3622a, type: 2}
+  - rarity: 1
+    rateBasisPoints: 3600
+    characters:
+    - {fileID: 11400000, guid: 7ba5e6419c1f3534d9034c00fcae2e54, type: 2}
+    - {fileID: 11400000, guid: a38de42c00835014692a169dad5b2f76, type: 2}
+    - {fileID: 11400000, guid: 25f56b56141afc64ab893cb2f3a2cd99, type: 2}
+    - {fileID: 11400000, guid: 3e9cc42fac6e9a840b6f34b07404821e, type: 2}
+    - {fileID: 11400000, guid: 1b21f3f1f6a48a14ca09760ddd7b3cd6, type: 2}
+    - {fileID: 11400000, guid: f5d514b2b9c059c4d83f7929fd6ff00c, type: 2}
+    - {fileID: 11400000, guid: 66c403ff5545d4c47a7f3922e3932659, type: 2}
+    - {fileID: 11400000, guid: dd0eea70747eb5a4a9d554e00b41665b, type: 2}
+  - rarity: 0
+    rateBasisPoints: 6000
+    characters:
+    - {fileID: 11400000, guid: 9ae03d0744fc4adabbe461b682076e8a, type: 2}
+    - {fileID: 11400000, guid: e795cdb4eddf4304f9c2384b9d2d53c9, type: 2}
+    - {fileID: 11400000, guid: acdaf5ab2b7518c49a37a6ce25d0a86c, type: 2}
+    - {fileID: 11400000, guid: 821e496976796e7458983dfdc7d93d90, type: 2}
+    - {fileID: 11400000, guid: 8280681e25699874a8c8831363d47f1a, type: 2}
+    - {fileID: 11400000, guid: 19b9ed2c9a1a1004ea1fe405008909d4, type: 2}
+    - {fileID: 11400000, guid: 634cdedd7aa2434c9e367f852e8bbbdb, type: 2}
+    - {fileID: 11400000, guid: 0c77afcbe811be04dbde836b8a95a97a, type: 2}
+    - {fileID: 11400000, guid: c819b94da18eaf94dbd8b585329c676b, type: 2}
+    - {fileID: 11400000, guid: 3e584b02d179fe24194287b9a88b91c1, type: 2}
+    - {fileID: 11400000, guid: 43a277f2fc4869b489688e67373e1f7c, type: 2}
+    - {fileID: 11400000, guid: e5484ad3dc1776244a254fd759405aa2, type: 2}

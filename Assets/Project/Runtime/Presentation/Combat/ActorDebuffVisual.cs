@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 namespace FightingAllstar.Presentation.Combat
 {
     /// <summary>A pooled status entrance and low-density idle loop, attached to the actor model.</summary>
-    internal sealed class ActorDebuffVisual : IDisposable
+    internal sealed partial class ActorDebuffVisual : IDisposable
     {
         private sealed class Emitter
         {
@@ -30,17 +30,19 @@ namespace FightingAllstar.Presentation.Combat
         public ActorDebuffVisual(Transform actor, ActorVisualEffectKind kind, float height, float radius,
             float groundOffset, ActorVisualEffectSettings settings)
         {
-            Kind = kind; _height = height; _radius = radius; _enterDuration = settings.DebuffEnterDuration;
-            _color = kind == ActorVisualEffectKind.Paralyze ? settings.Paralyze : kind == ActorVisualEffectKind.Bleed ? settings.Bleed :
-                kind == ActorVisualEffectKind.Poison ? settings.Poison : kind == ActorVisualEffectKind.Shock ? settings.Shock : settings.Ignite;
+            Kind = kind; _height = height; _radius = radius;
+            _enterDuration = kind == ActorVisualEffectKind.ExplosionDetonation ? settings.ExplosionDuration : settings.DebuffEnterDuration;
+            _color = StatusColor(kind, settings);
             Root = new GameObject("AVE " + kind + " Particles").transform;
             Root.SetParent(actor,false); Root.localPosition = Vector3.up * groundOffset;
             // Upright gravity and billboards remain readable when the actor turns or flinches.
             Root.rotation = Quaternion.identity;
-            _enter = CreateEmitter("Enter", PrimaryShape, true, 0, true);
+            _enter = CreateEmitter("Enter", kind == ActorVisualEffectKind.Rejuvenation ? 7 : PrimaryShape, true, 0, true);
             var rate = kind == ActorVisualEffectKind.Bleed ? 10 : kind == ActorVisualEffectKind.Poison ? 5 :
                 kind == ActorVisualEffectKind.Ignite ? 14 : 3;
-            _idle.Add(new Emitter { System = CreateEmitter("Idle",PrimaryShape,false,rate,true), Rate = rate });
+            if (kind != ActorVisualEffectKind.ExplosionDetonation)
+                _idle.Add(new Emitter { System = CreateEmitter("Idle",PrimaryShape,false,SpecialRate(rate),true), Rate = SpecialRate(rate) });
+            AddSpecialEmitters();
             if (kind == ActorVisualEffectKind.Poison || kind == ActorVisualEffectKind.Ignite)
                 _idle.Add(new Emitter { System = CreateEmitter(kind == ActorVisualEffectKind.Poison ? "Bubbles" : "Embers",
                     kind == ActorVisualEffectKind.Poison ? 1 : 4, false, 5, false), Rate = 5 });
@@ -59,7 +61,7 @@ namespace FightingAllstar.Presentation.Combat
         }
 
         private int PrimaryShape => Kind == ActorVisualEffectKind.Bleed ? 0 : Kind == ActorVisualEffectKind.Poison ? 2 :
-            Kind == ActorVisualEffectKind.Ignite ? 3 : 4;
+            Kind == ActorVisualEffectKind.Ignite ? 3 : SpecialShape;
 
         private ParticleSystem CreateEmitter(string name,int shapeStyle,bool enter,float rate,bool primary)
         {
@@ -92,11 +94,12 @@ namespace FightingAllstar.Presentation.Combat
                 Kind==ActorVisualEffectKind.Poison || Kind==ActorVisualEffectKind.Ignite ? enter ? .4f : .15f : .8f),.12f);
             go.transform.localPosition=Vector3.up*_height*(Kind==ActorVisualEffectKind.Bleed ? .7f :
                 Kind==ActorVisualEffectKind.Poison ? .25f : Kind==ActorVisualEffectKind.Ignite ? enter ? .35f : .13f : .5f);
-            var velocity=ps.velocityOverLifetime; velocity.enabled=true; velocity.space=ParticleSystemSimulationSpace.Local;
+            var velocity=ps.velocityOverLifetime; velocity.space=ParticleSystemSimulationSpace.Local;
             velocity.x=new ParticleSystem.MinMaxCurve(enter ? -.55f : -.14f,enter ? .55f : .14f);
             velocity.z=new ParticleSystem.MinMaxCurve(-.12f,.12f);
             var speed=shapeStyle==0 ? -.6f : shapeStyle==2 ? .45f : shapeStyle==3 ? 1.4f : .7f;
             velocity.y=new ParticleSystem.MinMaxCurve(Mathf.Min(speed*.65f,speed),Mathf.Max(speed*.65f,speed));
+            velocity.enabled=true;
             var fade=ps.colorOverLifetime; fade.enabled=true;
             var gradient=new Gradient(); gradient.SetKeys(new[] { new GradientColorKey(Color.white,0),new GradientColorKey(Color.white,1) },
                 new[] { new GradientAlphaKey(0,0),new GradientAlphaKey(1,.12f),new GradientAlphaKey(.75f,.55f),new GradientAlphaKey(0,1) });
@@ -108,6 +111,7 @@ namespace FightingAllstar.Presentation.Combat
             var renderer=ps.GetComponent<ParticleSystemRenderer>(); renderer.sharedMaterial=material;
             renderer.renderMode=ParticleSystemRenderMode.Billboard; renderer.maxParticleSize=.2f;
             renderer.shadowCastingMode=ShadowCastingMode.Off; renderer.receiveShadows=false;
+            ConfigureSpecialEmitter(ps, enter, primary, shapeStyle);
             return ps;
         }
 
@@ -126,7 +130,7 @@ namespace FightingAllstar.Presentation.Combat
             if (active)
             {
                 _started=Time.unscaledTime; Root.gameObject.SetActive(!_hidden);
-                if (!_hidden) foreach(var emitter in _idle) emitter.System.Play(false);
+                if (!_hidden) StartIdle();
             }
             else
             {
@@ -139,21 +143,27 @@ namespace FightingAllstar.Presentation.Combat
         {
             SetActive(true); _entered=Time.unscaledTime; Entering=true;
             _enter.Stop(false,ParticleSystemStopBehavior.StopEmittingAndClear);
-            var emission=_enter.emission; emission.SetBursts(new[] { new ParticleSystem.Burst(0,(short)Mathf.Max(6,Mathf.RoundToInt(18*_density))) });
+            var emission=_enter.emission; emission.SetBursts(new[] { new ParticleSystem.Burst(0,EntranceCount()) });
             if (!_hidden) _enter.Play(false);
         }
 
         public void SetDensity(float density)
         {
             _density=density;
-            foreach(var emitter in _idle) { var emission=emitter.System.emission; emission.rateOverTime=emitter.Rate*density; }
+            foreach(var emitter in _idle) { var emission=emitter.System.emission; emission.rateOverTime=emitter.Rate*(IsMarker(emitter) ? 1 : density); }
         }
 
         public void SetHidden(bool hidden)
         {
             if (_hidden==hidden) return;
-            _hidden=hidden; Root.gameObject.SetActive(Active && !hidden);
-            if (Active && !hidden) foreach(var emitter in _idle) emitter.System.Play(false);
+            _hidden=hidden;
+            if(hidden)
+            {
+                ClearEnter();
+                foreach(var emitter in _idle) emitter.System.Stop(false,ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+            Root.gameObject.SetActive(Active && !hidden);
+            if (Active && !hidden) StartIdle();
         }
 
         public void Evaluate(float now,Camera camera)
@@ -168,6 +178,7 @@ namespace FightingAllstar.Presentation.Combat
             // Keep a thin emitter band on the visible surface instead of losing droplets/flames inside the model.
             PositionEmitter(_enter,toward);
             foreach(var emitter in _idle) PositionEmitter(emitter.System,toward);
+            if (EvaluateSpecial(now, camera, right, toward, enter)) return;
             for(var i=0;i<_lines.Count;i++)
             {
                 var line=_lines[i]; var index=i/2; var glow=(i&1)==0;

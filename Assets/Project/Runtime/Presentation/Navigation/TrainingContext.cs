@@ -27,6 +27,12 @@ namespace FightingAllstar.Presentation.Navigation
             var errors = ContentValidator.Validate(catalog);
             if (errors.Count > 0) throw new InvalidOperationException(string.Join("; ", errors));
             _player = playerDefinition;
+            var inventory = PlayerInventoryService.Instance;
+            var owned = inventory?.FindOwnedByDefinition(character.DefinitionId);
+            _player.ArtifactLoadout = inventory?.GetEquippedArtifacts(owned?.instanceId).Select(a => a.Clone()).ToList()
+                ?? new System.Collections.Generic.List<ArtifactInstance>();
+            var levelStats = CharacterProgression.StatsAtLevel(playerDefinition.BaseStats, playerDefinition.StatGrowth, owned?.level ?? 1);
+            _player.BaseStats = ArtifactRules.ApplyStats(levelStats, _player.ArtifactLoadout);
             _dummy = dummyDefinition;
             _tier = Math.Max(0, Math.Min(6, tier));
         }

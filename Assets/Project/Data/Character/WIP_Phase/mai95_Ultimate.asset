@@ -17,12 +17,14 @@ MonoBehaviour:
   statusVisuals: []
   levels:
   - level: 0
-    description: Inflicts 375% of ATK, increase own card rank
+    description: Inflicts 375% of ATK on all enemies, increase own card rank
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -32,7 +34,6 @@ MonoBehaviour:
       CoefficientBp: 37500
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -46,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -77,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -113,12 +117,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 7
           Family: 0
@@ -128,7 +136,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -142,6 +149,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -173,6 +181,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -210,12 +220,14 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 0
   - level: 1
-    description: Inflicts 410% of ATK, increase own card rank
+    description: Inflicts 410% of ATK on all enemies, increase own card rank
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -225,7 +237,6 @@ MonoBehaviour:
       CoefficientBp: 41000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -239,6 +250,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -270,6 +282,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -306,12 +320,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 7
           Family: 0
@@ -321,7 +339,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -335,6 +352,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -366,6 +384,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -403,12 +423,14 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 0
   - level: 2
-    description: Inflicts 445% of ATK, increase own card rank
+    description: Inflicts 445% of ATK on all enemies, increase own card rank
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -418,7 +440,6 @@ MonoBehaviour:
       CoefficientBp: 44500
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -432,6 +453,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -463,6 +485,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -499,12 +523,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 7
           Family: 0
@@ -514,7 +542,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -528,6 +555,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -559,6 +587,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -596,12 +626,14 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 0
   - level: 3
-    description: Inflicts 480% of ATK, increase own card rank
+    description: Inflicts 480% of ATK on all enemies, increase own card rank
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -611,7 +643,6 @@ MonoBehaviour:
       CoefficientBp: 48000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -625,6 +656,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -656,6 +688,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -692,12 +726,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 7
           Family: 0
@@ -707,7 +745,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -721,6 +758,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -752,6 +790,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -789,12 +829,14 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 0
   - level: 4
-    description: Inflicts 515% of ATK, increase own card rank
+    description: Inflicts 515% of ATK on all enemies, increase own card rank
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -804,7 +846,6 @@ MonoBehaviour:
       CoefficientBp: 51500
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -818,6 +859,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -849,6 +891,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -885,12 +929,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 7
           Family: 0
@@ -900,7 +948,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -914,6 +961,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -945,6 +993,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -982,12 +1032,14 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 0
   - level: 5
-    description: Inflicts 550% of ATK, increase own card rank
+    description: Inflicts 550% of ATK on all enemies, increase own card rank
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 10
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -997,7 +1049,6 @@ MonoBehaviour:
       CoefficientBp: 54000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -1011,6 +1062,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -1042,6 +1094,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -1078,12 +1132,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 7
           Family: 0
@@ -1093,7 +1151,6 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
             Id: 
@@ -1107,6 +1164,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -1138,6 +1196,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0

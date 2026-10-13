@@ -15,6 +15,7 @@ MonoBehaviour:
   id: status.disable.attack
   displayName: Disable Attack Card
   icon: {fileID: 21300000, guid: 5b0cf502e1f60df49a7de2898adc967f, type: 3}
+  actorVisualEffect: 14
   polarity: 1
   keywords:
   - status.debuff.disable.attack

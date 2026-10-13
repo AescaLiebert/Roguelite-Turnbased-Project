@@ -7,9 +7,19 @@ using FightingAllstar.Core.Content;
 
 namespace FightingAllstar.Core.Run
 {
-    /// <summary>Deterministic local run state machine. A trusted service must own this state for online rewards.</summary>
+    /// <summary>Run progression and fighter history, independent of seeded route generation and battle entropy.</summary>
     public static class DungeonRunEngine
     {
+        /// <summary>Read-only inspection of any platform, including locked, bypassed and completed nodes.</summary>
+        public static RouteNodeState InspectNode(RunState run, string nodeId) => run?.FindNode(nodeId)?.Clone();
+
+        public static bool CanEnterNode(RunState run, string nodeId)
+        {
+            var node = run?.FindNode(nodeId);
+            var current = run?.FindNode(run.CurrentNodeId);
+            return run != null && run.Status == RunStatus.InProgress && current?.Progress == RouteNodeProgress.Completed &&
+                node?.Progress == RouteNodeProgress.Reachable && current.OutgoingNodeIds.Contains(nodeId);
+        }
         public static RunState CreateRun(string runId, string userId, string requestId, DungeonProfile profile,
             int difficultyBonusPercent, ulong seed, string contentVersion, string contentHash,
             IReadOnlyList<RunFighterSeed> roster, IReadOnlyList<CharacterDefinition> catalog,
@@ -26,18 +36,21 @@ namespace FightingAllstar.Core.Run
             var state = new RunState { RunId = runId, UserId = userId, ProfileId = profile.Id,
                 ContentVersion = contentVersion, ContentHash = contentHash, GeneratorVersion = profile.GeneratorVersion,
                 DifficultyBonusPercent = difficultyBonusPercent, BaseCompletionDiamonds = baseCompletionDiamonds,
-                RewardQuoteDiamonds = Scale(baseCompletionDiamonds, 100 + difficultyBonusPercent), Seed = seed,
-                Revision = 1, Status = RunStatus.InProgress, Nodes = nodes };
+                RewardQuoteDiamonds = 0, Seed = seed,
+                Revision = 1, Status = RunStatus.InProgress, Nodes = nodes,
+                Mode = profile.Mode, RewardPhase = Math.Max(1, profile.Phase), RewardSubPhase = profile.SubPhase };
             foreach (var boon in profile.Boons) state.BoonDefinitionSnapshot.Add(boon.Clone());
-            for (var i = 0; i < roster.Count; i++)
+            for (var i = 0; i < (roster?.Count ?? 0); i++)
             {
                 var seedFighter = roster[i];
                 var definition = FindCatalogDefinition(catalog, seedFighter.Definition.Id).Clone();
                 var stats = (seedFighter.ResolvedStats ?? definition.BaseStats).Clone();
                 state.Roster.Add(new RunFighterState { RunFighterId = seedFighter.OwnedFighterId,
                     DefinitionId = definition.Id, Stats = stats,
+                    ArtifactLoadout = seedFighter.Definition.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(),
                     ConstellationTier = seedFighter.ConstellationTier, OriginalFormationIndex = seedFighter.FormationSlot,
                     CurrentHealth = stats.MaxHealth, IsDefeated = false });
+                state.Formation[seedFighter.FormationSlot] = seedFighter.OwnedFighterId;
             }
             state.CurrentNodeId = "r0n0";
             state.SelectedPath.Add(state.CurrentNodeId);
@@ -81,6 +94,77 @@ namespace FightingAllstar.Core.Run
             return true;
         }
 
+        public static bool TrySetFormation(RunState current, IReadOnlyList<RunFighterSeed> selected,
+            IReadOnlyList<CharacterDefinition> catalog, DungeonProfile profile, long expectedRevision, string requestId,
+            out RunState next, out string error)
+        {
+            next = null;
+            error = null;
+            var payload = HashPayload("formation", SnapshotJson.Serialize(selected), expectedRevision.ToString());
+            if (!PrepareCommand(current, expectedRevision, requestId, payload, out next, out error)) return false;
+            if (next != null) return true;
+            if (current.Status != RunStatus.InBattle) { error = "Select an encounter before preparing a team."; return false; }
+            if (profile == null || profile.Id != current.ProfileId) { error = "Formation must use the run's dungeon policy."; return false; }
+            try { ValidateRoster(profile, selected, catalog); }
+            catch (ArgumentException exception) { error = exception.Message; return false; }
+            var state = current.Clone();
+            state.Formation = new List<string> { "", "", "", "" };
+            foreach (var seed in selected)
+            {
+                var fighter = state.FindFighter(seed.OwnedFighterId);
+                if (fighter != null && fighter.DefinitionId != seed.Definition.Id)
+                { error = "Inventory id does not match this fighter's run history."; return false; }
+                if (fighter == null && state.Roster.Exists(f => f.DefinitionId == seed.Definition.Id))
+                { error = "This character already has run history under another inventory id."; return false; }
+                if (fighter != null && (fighter.IsDefeated || fighter.CurrentHealth <= 0))
+                { error = "Defeated fighters are unavailable for the remainder of this run."; return false; }
+                if (fighter == null)
+                {
+                    // Run fighters retain their original equipment even if account gear moves or is consumed.
+                    // A newly entering fighter must not reuse another fighter's frozen instance in this run.
+                    foreach (var artifact in seed.Definition.ArtifactLoadout ?? new List<ArtifactInstance>())
+                    {
+                        if (state.Roster.Exists(other => other.ArtifactLoadout != null &&
+                            other.ArtifactLoadout.Exists(locked => locked != null && locked.InstanceId == artifact.InstanceId)))
+                        {
+                            error = ArtifactRules.Name(artifact) + " is already assigned to another fighter in this run. Choose other equipment or start a new run.";
+                            return false;
+                        }
+                    }
+                    var definition = FindCatalogDefinition(catalog, seed.Definition.Id);
+                    var stats = (seed.ResolvedStats ?? definition.BaseStats).Clone();
+                    foreach (var boost in state.StatBoosts) boost.Apply(stats);
+                    fighter = new RunFighterState { RunFighterId = seed.OwnedFighterId, DefinitionId = definition.Id,
+                        Stats = stats, ArtifactLoadout = seed.Definition.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(),
+                        CurrentHealth = stats.MaxHealth, ConstellationTier = seed.ConstellationTier };
+                    state.Roster.Add(fighter);
+                }
+                fighter.OriginalFormationIndex = seed.FormationSlot;
+                state.Formation[seed.FormationSlot] = fighter.RunFighterId;
+            }
+            FinishCommand(state, requestId, payload);
+            next = state;
+            return true;
+        }
+
+        public static bool TryRetryBattle(RunState current, long expectedRevision, string requestId,
+            out RunState next, out string error)
+        {
+            var payload = HashPayload("retry", expectedRevision.ToString());
+            if (!PrepareCommand(current, expectedRevision, requestId, payload, out next, out error)) return false;
+            if (next != null) return true;
+            var node = current.FindNode(current.CurrentNodeId);
+            if (current.Status != RunStatus.InProgress || node == null || !IsEncounter(node.Type) ||
+                node.Progress != RouteNodeProgress.Selected || current.Rewards.Exists(r => r.NodeId == node.Id))
+            { error = "This stage has no defeated encounter to retry."; return false; }
+            var state = current.Clone();
+            state.Status = RunStatus.InBattle;
+            state.PendingBattleId = state.RunId + ":" + node.Id + ":attempt:" + (state.Revision + 1);
+            FinishCommand(state, requestId, payload);
+            next = state;
+            return true;
+        }
+
         public static bool TryBuildEncounter(RunState run, IReadOnlyList<CharacterDefinition> catalog,
             out EncounterProjection encounter, out string error)
         {
@@ -95,30 +179,29 @@ namespace FightingAllstar.Core.Run
                 DifficultyBonusPercent = run.DifficultyBonusPercent };
             var living = new List<RunFighterState>();
             var seenSlots = new HashSet<int>();
-            foreach (var fighter in run.Roster) if (fighter != null && !fighter.IsDefeated && fighter.CurrentHealth > 0) living.Add(fighter);
+            foreach (var fighter in run.Roster)
+                if (fighter != null && !fighter.IsDefeated && fighter.CurrentHealth > 0 && run.Formation.Contains(fighter.RunFighterId)) living.Add(fighter);
             living.Sort((a, b) => a.OriginalFormationIndex.CompareTo(b.OriginalFormationIndex));
             foreach (var fighter in living)
             {
                 if (result.PlayerTeam.Count >= 4) break;
-                if (!seenSlots.Add(fighter.OriginalFormationIndex)) continue;
+                var slot = run.Formation.IndexOf(fighter.RunFighterId);
+                if (!seenSlots.Add(slot)) { error = "Formation contains a duplicate position."; return false; }
                 var definition = FindCatalogDefinition(catalog, fighter.DefinitionId);
                 if (definition == null) { error = "Character definitions are missing the run fighter: " + fighter.DefinitionId; return false; }
+                var encounterDefinition = definition.Clone();
+                encounterDefinition.ArtifactLoadout = fighter.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>();
                 result.PlayerTeam.Add(new EncounterFighterSnapshot { FighterId = fighter.RunFighterId,
-                    DefinitionId = fighter.DefinitionId, Definition = definition.Clone(), Stats = fighter.Stats.Clone(),
+                    DefinitionId = fighter.DefinitionId, Definition = encounterDefinition, Stats = fighter.Stats.Clone(),
                     CurrentHealth = fighter.CurrentHealth, ConstellationTier = fighter.ConstellationTier,
-                    FormationSlot = Math.Min(fighter.OriginalFormationIndex, 2), IsReserve = fighter.OriginalFormationIndex == 3 });
+                    FormationSlot = Math.Min(slot, 2), IsReserve = slot == 3 });
             }
-            if (result.PlayerTeam.Count < 1)
+            if (result.PlayerTeam.Count < 1 || !result.PlayerTeam.Exists(f => !f.IsReserve))
             {
                 error = "Encounter needs one to four living player fighters.";
                 return false;
             }
             foreach (var enemy in node.EnemyTeamSnapshot) result.EnemyTeam.Add(enemy.Clone());
-            foreach (var boonId in run.ChosenBoons)
-            {
-                var boon = run.BoonDefinitionSnapshot.Find(item => item.Id == boonId);
-                if (boon != null) result.ChosenBoons.Add(boon.Clone());
-            }
             encounter = result;
             return true;
         }
@@ -143,23 +226,26 @@ namespace FightingAllstar.Core.Run
                 var fighter = state.FindFighter(result.RunFighterId);
                 fighter.CurrentHealth = result.CurrentHealth;
                 fighter.IsDefeated = result.IsDefeated;
+                if (fighter.IsDefeated)
+                    for (var slot = 0; slot < state.Formation.Count; slot++)
+                        if (state.Formation[slot] == fighter.RunFighterId) state.Formation[slot] = string.Empty;
             }
             state.CompletedBattleReceiptIds.Add(battleReceiptId);
             state.PendingBattleId = null;
             var node = state.FindNode(state.CurrentNodeId);
             var livingCount = state.Roster.FindAll(f => !f.IsDefeated && f.CurrentHealth > 0).Count;
-            if (livingCount == 0)
+            if (playerWon && livingCount > 0)
             {
-                state.Status = RunStatus.Defeated;
+                state.Rewards.Add(DungeonRewards.Victory(state, node));
             }
-            else if (playerWon && node.Type == RouteNodeType.Boss)
+            if (playerWon && node.Type == RouteNodeType.Boss)
             {
                 node.Progress = RouteNodeProgress.Completed;
                 state.Status = RunStatus.Completed;
             }
             else if (playerWon && node.Type == RouteNodeType.Elite)
             {
-                // Elite victory commits its encounter; the node stays selected until its one boon is claimed.
+                // Elite victory stays selected until its stat reward is claimed.
                 state.Status = RunStatus.InProgress;
             }
             else if (playerWon)
@@ -169,7 +255,8 @@ namespace FightingAllstar.Core.Run
             }
             else
             {
-                state.Status = RunStatus.Defeated;
+                // Keep the stage retryable. A wipe never ends the run; the player can bring replacements or abandon.
+                state.Status = RunStatus.InProgress;
             }
             FinishCommand(state, requestId, payload);
             next = state;
@@ -199,20 +286,17 @@ namespace FightingAllstar.Core.Run
                     if (fighter.CurrentHealth < fighter.Stats.MaxHealth && amount > 0) eligible = true;
                     fighter.CurrentHealth = (int)Math.Min(fighter.Stats.MaxHealth, (long)fighter.CurrentHealth + amount);
                 }
-                if (!eligible) { error = "No living fighter can benefit from healing; choose Continue or revive."; return false; }
+                if (!eligible) { error = "No living fighter can benefit from healing; choose Continue."; return false; }
             }
             else if (choice == RestChoice.ReviveOne)
             {
-                var fighter = state.FindFighter(fighterId);
-                if (fighter == null || !fighter.IsDefeated || fighter.CurrentHealth != 0)
-                { error = "Choose one defeated fighter to revive."; return false; }
-                fighter.CurrentHealth = RestRecoveryAmount(fighter.Stats.MaxHealth, 30);
-                fighter.IsDefeated = false;
+                error = "Defeated fighters are unavailable for the remainder of this run.";
+                return false;
             }
             else if (choice == RestChoice.Continue)
             {
                 foreach (var fighter in state.Roster)
-                    if (fighter.IsDefeated || fighter.CurrentHealth < fighter.Stats.MaxHealth)
+                    if (!fighter.IsDefeated && fighter.CurrentHealth > 0 && fighter.CurrentHealth < fighter.Stats.MaxHealth)
                     { error = "Continue is available only when no fighter can benefit from Rest."; return false; }
             }
             else { error = "Unknown Rest choice."; return false; }
@@ -235,11 +319,20 @@ namespace FightingAllstar.Core.Run
             var node = state.FindNode(state.CurrentNodeId);
             if (node == null || (node.Type != RouteNodeType.Boon && node.Type != RouteNodeType.Elite) || node.Progress != RouteNodeProgress.Selected)
             { error = "The selected node has no pending boon choice."; return false; }
-            if (!GetAvailableBoonOffers(state, node.Id).Contains(boonId))
-            { error = "That boon is not an available offer."; return false; }
-            if (!state.BoonDefinitionSnapshot.Exists(boon => boon.Id == boonId))
-            { error = "Boon definition is missing from the pinned run content."; return false; }
-            state.ChosenBoons.Add(boonId);
+            if (boonId != "stat-boost:" + node.Id)
+            { error = "That stat reward does not belong to the selected stage."; return false; }
+            if (node.Type == RouteNodeType.Elite && !state.Rewards.Exists(r => r.NodeId == node.Id))
+            { error = "Win the elite battle before claiming its stat reward."; return false; }
+            var boost = node.StatBoost ?? DungeonStatBoost.Generate(state.Seed, node.Id);
+            if (state.StatBoosts.Exists(b => b.NodeId == node.Id)) { error = "Stat reward already claimed."; return false; }
+            state.StatBoosts.Add(boost.Clone());
+            foreach (var fighter in state.Roster)
+                if (!fighter.IsDefeated && fighter.CurrentHealth > 0)
+                {
+                    var maxHealth = fighter.Stats.MaxHealth;
+                    boost.Apply(fighter.Stats);
+                    if (boost.Stat == StatId.MaxHealth) fighter.CurrentHealth += fighter.Stats.MaxHealth - maxHealth;
+                }
             CompleteNodeAndUnlock(state, node);
             FinishCommand(state, requestId, payload);
             next = state;
@@ -252,11 +345,23 @@ namespace FightingAllstar.Core.Run
             if (run == null) return available;
             var node = run.FindNode(nodeId);
             if (node == null || (node.Type != RouteNodeType.Boon && node.Type != RouteNodeType.Elite)) return available;
-            foreach (var id in node.BoonOfferIds)
-                if (!run.ChosenBoons.Contains(id) && !available.Contains(id)) available.Add(id);
-            var limit = node.Type == RouteNodeType.Elite ? 1 : 3;
-            if (available.Count > limit) available.RemoveRange(limit, available.Count - limit);
+            if (!run.StatBoosts.Exists(b => b.NodeId == node.Id)) available.Add("stat-boost:" + node.Id);
             return available;
+        }
+
+        public static bool TryAcknowledgeReward(RunState current, string receiptId, long expectedRevision, string requestId,
+            out RunState next, out string error)
+        {
+            var payload = HashPayload("acknowledge-reward", receiptId, expectedRevision.ToString());
+            if (!PrepareCommand(current, expectedRevision, requestId, payload, out next, out error)) return false;
+            if (next != null) return true;
+            if (!current.Rewards.Exists(r => r.Id == receiptId && !r.CompletionBonus))
+            { error = "Victory reward receipt is missing."; return false; }
+            var state = current.Clone();
+            if (!state.PresentedRewardIds.Contains(receiptId)) state.PresentedRewardIds.Add(receiptId);
+            FinishCommand(state, requestId, payload);
+            next = state;
+            return true;
         }
 
         public static bool TryAbandon(RunState current, long expectedRevision, string requestId,
@@ -320,6 +425,7 @@ namespace FightingAllstar.Core.Run
             var ids = new HashSet<string>(StringComparer.Ordinal);
             var definitions = new HashSet<string>(StringComparer.Ordinal);
             var formationSlots = new HashSet<int>();
+            var artifactIds = new HashSet<string>(StringComparer.Ordinal);
             var hasActiveFighter = false;
             foreach (var fighter in roster)
             {
@@ -334,6 +440,14 @@ namespace FightingAllstar.Core.Run
                     throw new ArgumentException("Only formation position four can be the reserve.");
                 if (!fighter.IsReserve) hasActiveFighter = true;
                 if (fighter.ConstellationTier < 0 || fighter.ConstellationTier > 5) throw new ArgumentOutOfRangeException(nameof(roster), "Constellation tier must be 0-5.");
+                var artifactSlots = new HashSet<ArtifactSlot>();
+                foreach (var artifact in fighter.Definition.ArtifactLoadout ?? new List<ArtifactInstance>())
+                {
+                    if (artifact == null || string.IsNullOrEmpty(artifact.InstanceId) ||
+                        !Enum.IsDefined(typeof(ArtifactSlot), artifact.Slot) || !Enum.IsDefined(typeof(ArtifactSet), artifact.Set) ||
+                        !artifactSlots.Add(artifact.Slot) || !artifactIds.Add(artifact.InstanceId))
+                        throw new ArgumentException("Run equipment must use unique artifact instances in valid fixed slots.");
+                }
                 var catalogDefinition = FindCatalogDefinition(catalog, fighter.Definition.Id);
                 if (catalogDefinition == null)
                     throw new ArgumentException("Run roster definition is missing from the pinned content catalog: " + fighter.Definition.Id);
@@ -385,7 +499,10 @@ namespace FightingAllstar.Core.Run
                 if (fighter == null || !seen.Add(result.RunFighterId)) { error = "Battle result has an unknown or duplicate run fighter id."; return false; }
                 if (result.CurrentHealth < 0 || result.CurrentHealth > fighter.Stats.MaxHealth || result.IsDefeated != (result.CurrentHealth == 0))
                 { error = "Battle result HP is outside the frozen run HP range."; return false; }
-                if (!result.IsDefeated) living++;
+                if (fighter.IsDefeated && !result.IsDefeated || !state.Formation.Contains(fighter.RunFighterId) &&
+                    (result.CurrentHealth != fighter.CurrentHealth || result.IsDefeated != fighter.IsDefeated))
+                { error = "Battle results cannot revive defeated fighters or change benched fighters."; return false; }
+                if (!result.IsDefeated && state.Formation.Contains(fighter.RunFighterId)) living++;
             }
             if (playerWon && living == 0) { error = "A victory cannot leave every run fighter defeated."; return false; }
             return true;

@@ -7,7 +7,7 @@ Copy-Item -LiteralPath "$reactionRepo/Assets/Resources/ActorVisualEffects.shader
 Copy-Item -LiteralPath "$reactionRepo/Assets/Project/Prefabs/In-Game-CharacterPrefab.prefab", "$reactionRepo/Assets/Project/Prefabs/In-Game-CharacterPrefab.prefab.meta" -Destination "$reactionProject/Assets/Production"
 Copy-Item -LiteralPath "$reactionRepo/ProjectSettings/ProjectVersion.txt" -Destination "$reactionProject/ProjectSettings/ProjectVersion.txt"
 $reactionScripts = Get-ChildItem "$reactionRepo/Assets/Project/Runtime/Presentation/Combat" -Filter '*.cs' | Where-Object {
-    $_.Name -like 'BattleStagePresenter*' -or $_.Name -like 'ActorVisualEffect*' -or $_.Name -in @('ActorDebuffVisual.cs', 'CardAnimationTiming.cs', 'ActorCardPresentation.cs', 'BattleFighterView.cs')
+    $_.Name -like 'BattleStagePresenter*' -or $_.Name -like 'ActorVisualEffect*' -or $_.Name -in @('ActorDebuffVisual.cs', 'ActorDebuffVisual.Special.cs', 'CardAnimationTiming.cs', 'ActorCardPresentation.cs', 'BattleFighterView.cs')
 }
 foreach ($reactionScript in $reactionScripts) { Copy-Item -LiteralPath $reactionScript.FullName -Destination "$reactionProject/Assets/Runtime/$($reactionScript.Name)" }
 Copy-Item -LiteralPath "$reactionRepo/Assets/Project/Runtime/Content/StatusVisualData.cs", "$reactionRepo/Assets/Project/Runtime/Content/StatusVisualDataCatalog.cs" -Destination "$reactionProject/Assets/Runtime"

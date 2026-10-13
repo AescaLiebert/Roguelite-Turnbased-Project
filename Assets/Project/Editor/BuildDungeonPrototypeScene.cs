@@ -57,24 +57,13 @@ namespace FightingAllstar.EditorTools
             EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.SaveAssets();
             PatchDocumentPanelReferences();
-            Debug.Log("Built isolated dungeon prototype scene at " + ScenePath + ". Assign a runtime-ready content catalog and roster to enable entry.");
+            Debug.Log("Built isolated dungeon prototype scene. Runtime-ready CharacterObject assets and the enemy template library are loaded from ScriptableObjects.");
         }
 
         private static void ConfigureLocalComposition(LocalDungeonComposition composition, DungeonFlowController flow)
         {
             var serialized = new SerializedObject(composition);
             serialized.FindProperty("flow").objectReferenceValue = flow;
-            serialized.FindProperty("contentSource").objectReferenceValue = null;
-            serialized.FindProperty("userId").stringValue = "local-development-user";
-            var roster = serialized.FindProperty("roster");
-            roster.arraySize = 4;
-            for (var i = 0; i < roster.arraySize; i++)
-            {
-                var fighter = roster.GetArrayElementAtIndex(i);
-                fighter.FindPropertyRelative("OwnedFighterId").stringValue = string.Empty;
-                fighter.FindPropertyRelative("DefinitionId").stringValue = string.Empty;
-                fighter.FindPropertyRelative("ConstellationTier").intValue = 0;
-            }
             serialized.ApplyModifiedPropertiesWithoutUndo();
             EditorUtility.SetDirty(composition);
         }

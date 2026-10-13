@@ -20,7 +20,7 @@ MonoBehaviour:
       Gate:
         MinimumTier: 0
         MaximumTier: 5
-        Modes: 2
+        Modes: -1
         Presence: 0
         AllowDefeatedOwner: 0
       Targets:
@@ -32,15 +32,22 @@ MonoBehaviour:
         SeriesId: 
       Scaling: 0
       ScalingKey: 
+      ScalingRelation: 0
       SourceStat: 0
       MaximumUnits: 2147483647
       Modifiers:
       - Target: 1
         Stat: 0
+        Bundle: 0
         Family: 0
         Operation: 2
         Amount: 1500
         ScaleByStatusPotency: 0
         PotencyCoefficientBp: 10000
+        SerializedTarget: -1
+        SerializedStat: -1
+        SerializedBundle: -1
+        SerializedFamily: -1
+        SerializedOperation: -1
     Reactions: []
     Triggers: []

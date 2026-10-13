@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.choi94
   runtimeReady: 1
-  sourceId: 25
-  sourceRecord: 26
   familyId: family.choi
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -28,12 +26,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 5
   passiveDefinition: {fileID: 11400000, guid: 8092412b78c94b40b76c69326627789e, type: 2}
-  id: 1025
+  id: 1125
   fighterName: Choi Bouge 94
-  fighterTag: Choi
   fighterPic: {fileID: 21300000, guid: 5087104c636165842980912fbdd8306a, type: 3}
   fighterIcon: {fileID: 21300000, guid: bf856c25fdf9e43438fec167db4658a0, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 5087104c636165842980912fbdd8306a, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -50,6 +47,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2761
   attack: 350
   defense: 120

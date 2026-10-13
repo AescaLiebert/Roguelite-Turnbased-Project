@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.brian94
   runtimeReady: 1
-  sourceId: 27
-  sourceRecord: 28
   familyId: family.brian
   seriesId: series.kof
   role: 4th Slot Support (Sub), Supporters
@@ -26,12 +24,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 2a44948706034ca4f95cc5a996a972e7, type: 2}
-  id: 1027
+  id: 1301
   fighterName: Brian 94
-  fighterTag: Brian
   fighterPic: {fileID: 21300000, guid: fa51a0ed55973f14e975b2b371610ab5, type: 3}
   fighterIcon: {fileID: 21300000, guid: dbeceedb27931f94f860d90ab445126c, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: fa51a0ed55973f14e975b2b371610ab5, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -48,6 +45,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2700
   attack: 260
   defense: 250
@@ -64,7 +65,7 @@ MonoBehaviour:
     BlockChance: 20
     BlockPower: 30
     LifeSteal: 5
-    AvoidanceRate: 0
+    AvoidanceRate: 100
     EvadeRate: 0
     ControlRate: 100
     PerceptionRate: 100

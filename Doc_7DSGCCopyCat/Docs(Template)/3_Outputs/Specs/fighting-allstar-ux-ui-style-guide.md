@@ -230,6 +230,17 @@ The generated images below are direction-setting concepts, not captures of Unity
 | Choose dungeon and difficulty | [View PNG](../Reports/visual-design/fighting-allstar-dungeon-selection-mockup.png) |
 | Dungeon map and stage inspection | [View PNG](../Reports/visual-design/fighting-allstar-dungeon-map-stage-inspection-mockup.png) |
 | 3D in-battle stage — top-view camera and light pastel models | [View PNG](../Reports/visual-design/fighting-allstar-3d-battle-stage-topview-mockup.png) |
+| Character inventory grid | [View PNG](../Reports/visual-design/fighting-allstar-character-inventory-mockup.png) |
+| Individual fighter hub | [View PNG](../Reports/visual-design/fighting-allstar-fighter-detail-hub-mockup.png) |
+
+### Character inventory and fighter hub
+
+- The collection grid represents owned fighters only when the `Owned` filter is active. Character counts, ownership, and progression come from the account profile; generated concept values are not account data.
+- Keep portraits large enough for quick identity recognition. Show fighter name, rarity, attribute symbol plus written attribute, and active/reserve state without making rarity the dominant measure of team value.
+- Filtering should refine the existing collection predictably by ownership, series, attribute, or rarity. Selection opens the fighter hub without changing the player's active formation.
+- The Kit panel shows the fighter's actual passive scope/trigger, regular skills, rank, target type, and ultimate. Use concise names first, with full rules available on inspect.
+- Constellation shows the six confirmed states from C0/5 through C5/5. Mark the current state and preview the next ultimate change before an upgrade. Constellation must not hide an essential team role behind duplicates.
+- The Artifacts tab may be visible as a planned destination, but the current prototype should clearly label Holy Relics/equipment as disabled or deferred. Do not invent relic slots, set bonuses, stats, or costs.
 
 ### Player questions answered without opening another panel
 

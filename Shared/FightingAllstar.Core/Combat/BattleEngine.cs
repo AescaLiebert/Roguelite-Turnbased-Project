@@ -13,12 +13,19 @@ namespace FightingAllstar.Core.Combat
 
         private sealed class ActionResolutionContext
         {
+            public bool RequiresSuccessfulHit;
+            public bool HitsResolved;
+            public readonly HashSet<string> AttackTargets = new HashSet<string>(StringComparer.Ordinal);
+            public readonly HashSet<string> SuccessfulHitTargets = new HashSet<string>(StringComparer.Ordinal);
+            public readonly Dictionary<string, bool> BatchRolls = new Dictionary<string, bool>(StringComparer.Ordinal);
+            public readonly List<Action> DeferredHitEffects = new List<Action>();
             public readonly Dictionary<string, long> HealthDamageBySource = new Dictionary<string, long>(StringComparer.Ordinal);
             public readonly Dictionary<string, long> ReflectNumeratorByOwner = new Dictionary<string, long>(StringComparer.Ordinal);
             public readonly Dictionary<string, string> ReflectSourceByOwner = new Dictionary<string, string>(StringComparer.Ordinal);
 
             public void Record(FighterState source, FighterState target, int healthLost, int incomingDamage, int reflectDamageBp)
             {
+                if (incomingDamage > 0 && target != null) SuccessfulHitTargets.Add(target.Id);
                 if (healthLost > 0 && source != null)
                     HealthDamageBySource[source.Id] = Math.Min(long.MaxValue, HealthDamageBySource.GetValueOrDefault(source.Id) + healthLost);
                 if (incomingDamage > 0 && target != null && reflectDamageBp > 0)
@@ -208,11 +215,15 @@ namespace FightingAllstar.Core.Combat
             var targets = ResolveActionTargets(state, owner, card, action.TargetFighterId, rng);
             if (targets.Count == 0) { Fizzle(state, action, owner.Id, "No living active target remained."); return true; }
             var target = targets[0];
+            var resolution = new ActionResolutionContext {
+                RequiresSuccessfulHit = effect.Kind == EffectKind.Damage && IsAttack(category) };
+            resolution.AttackTargets.UnionWith(targets.ConvertAll(item => item.Id));
             team.Hand.RemoveAt(index);
             if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
             else if (!owner.PowerGaugeDisabled) owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
             EmitActionTiming(state, owner, card, CardEffectTiming.BeforeAction);
-            ApplyCardEffectSteps(state, rng, owner, target, effect, card.Id, CardEffectTiming.BeforeAction, card.Kind == CardKind.Ultimate);
+            ApplyCardEffectSteps(state, rng, owner, target, effect, card.Id, CardEffectTiming.BeforeAction,
+                card.Kind == CardKind.Ultimate, resolution: resolution);
             CharacterPassiveRuntime.Refresh(state);
             AddEvent(state, BattleEventKind.CardPlayed, owner.Id, target.Id, card.Id, card.Rank, "Card played.");
             state.Events[state.Events.Count - 1].Card = card.Clone();
@@ -223,7 +234,7 @@ namespace FightingAllstar.Core.Combat
             foreach (var actionTarget in targets)
                 ApplyCardEffectSteps(state, rng, owner, actionTarget, effect, card.Id, CardEffectTiming.Damaging,
                     card.Kind == CardKind.Ultimate, includeGroupEffects: actionTarget == targets[0],
-                    suppressDebuffStatusEffects: false);
+                    resolution: resolution);
             CharacterPassiveRuntime.Refresh(state);
             var mergedAfterPlay = new List<BattleEvent>();
             CardRules.MergeAdjacent(team, null, mergedAfterPlay);
@@ -237,40 +248,36 @@ namespace FightingAllstar.Core.Combat
                 foreach (var supportTarget in targets)
                 {
                     ApplyCardEffectSteps(state, rng, owner, supportTarget, effect, card.Id, CardEffectTiming.AfterDamage,
-                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0]);
+                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0], resolution: resolution);
                 }
                 EmitActionTiming(state, owner, card, CardEffectTiming.AfterAction);
                 foreach (var supportTarget in targets)
                     ApplyCardEffectSteps(state, rng, owner, supportTarget, effect, card.Id, CardEffectTiming.AfterAction,
-                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0]);
+                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0], resolution: resolution);
                 ResolvePendingPassiveEffects(state, card.Id);
                 AddEvent(state, BattleEventKind.ActionCompleted, owner.Id, null, card.Id, 0, "Action complete.");
                 CheckOutcome(state);
                 return true;
             }
-            var resolution = new ActionResolutionContext();
             var pendingDefeats = ResolveDamageHits(state, owner, targets, card, effect, rng, resolution);
             EmitActionTiming(state, owner, card, CardEffectTiming.AfterDamage);
+            ResolveDeferredHitEffects(resolution);
             foreach (var actionTarget in targets)
             {
                 ApplyCardEffectSteps(state, rng, owner, actionTarget, effect, card.Id, CardEffectTiming.AfterDamage,
-                    card.Kind == CardKind.Ultimate, CardDamageTotal(state, card.Id, actionTarget.Id), actionTarget == targets[0],
+                    card.Kind == CardKind.Ultimate, CardHealthDamageTotal(state, card.Id, actionTarget.Id), actionTarget == targets[0],
                     (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)),
-                    suppressDebuffStatusEffects: true);
+                    resolution: resolution);
             }
-            ApplySuccessfulHitDebuffStepsForTargets(state, rng, owner, targets, effect, card,
-                CardEffectTiming.AfterDamage, resolution);
             CharacterPassiveRuntime.Refresh(state);
             EmitActionTiming(state, owner, card, CardEffectTiming.AfterAction);
             foreach (var actionTarget in targets)
             {
                 ApplyCardEffectSteps(state, rng, owner, actionTarget, effect, card.Id, CardEffectTiming.AfterAction,
-                    card.Kind == CardKind.Ultimate, CardDamageTotal(state, card.Id, actionTarget.Id), includeGroupEffects: actionTarget == targets[0],
+                    card.Kind == CardKind.Ultimate, CardHealthDamageTotal(state, card.Id, actionTarget.Id), includeGroupEffects: actionTarget == targets[0],
                     actualHealthDamage: (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)),
-                    suppressDebuffStatusEffects: true);
+                    resolution: resolution);
             }
-            ApplySuccessfulHitDebuffStepsForTargets(state, rng, owner, targets, effect, card,
-                CardEffectTiming.AfterAction, resolution);
             ResolvePendingPassiveEffects(state, card.Id);
             AddEvent(state, BattleEventKind.ActionCompleted, owner.Id, null, card.Id, 0, "Action complete.");
             ApplyPendingDefeats(state, pendingDefeats, card.Id, owner, card);
@@ -320,19 +327,21 @@ namespace FightingAllstar.Core.Combat
                         ? new List<FighterState> { attacker } : ResolveActionTargets(state, defender, counter, attacker.Id, rng);
                     if (targets.Count == 0) continue;
                     var effect = recipe.CounterEffect.ToRuntimeEffect();
-                    var resolution = new ActionResolutionContext();
+                    var counterDealsDamage = IsAttack(counter.Category) && effect.Kind == EffectKind.Damage;
+                    var resolution = new ActionResolutionContext { RequiresSuccessfulHit = counterDealsDamage };
+                    resolution.AttackTargets.UnionWith(targets.ConvertAll(item => item.Id));
                     EmitActionTiming(state, defender, counter, CardEffectTiming.BeforeAction);
-                    ApplyCardEffectSteps(state, rng, defender, targets[0], effect, counter.Id, CardEffectTiming.BeforeAction);
+                    ApplyCardEffectSteps(state, rng, defender, targets[0], effect, counter.Id, CardEffectTiming.BeforeAction,
+                        resolution: resolution);
                     AddEvent(state, BattleEventKind.CounterStarted, defender.Id, targets[0].Id, counter.Id, 0, "COUNTER");
                     var started = state.Events[state.Events.Count - 1];
                     started.Card = counter.Clone();
                     started.TargetIds = targets.ConvertAll(f => f.Id);
-                    var counterDealsDamage = IsAttack(counter.Category) && effect.Kind == EffectKind.Damage;
                     SetAttackFacts(started, effect, counterDealsDamage);
                     EmitActionTiming(state, defender, counter, CardEffectTiming.Damaging);
                     foreach (var target in targets)
                         ApplyCardEffectSteps(state, rng, defender, target, effect, counter.Id, CardEffectTiming.Damaging,
-                            includeGroupEffects: target == targets[0], suppressDebuffStatusEffects: false);
+                            includeGroupEffects: target == targets[0], resolution: resolution);
                     if (counterDealsDamage)
                     {
                         ResolveDamageHits(state, defender, targets, counter, effect, rng, resolution);
@@ -343,25 +352,20 @@ namespace FightingAllstar.Core.Combat
                             ApplyCardUtilityEffectSingle(state, rng, defender, target, effect, counter.Id, false);
                     }
                     EmitActionTiming(state, defender, counter, CardEffectTiming.AfterDamage);
+                    ResolveDeferredHitEffects(resolution);
                     foreach (var target in targets)
                     {
                         ApplyCardEffectSteps(state, rng, defender, target, effect, counter.Id, CardEffectTiming.AfterDamage,
-                            counter.Kind == CardKind.Ultimate, CardDamageTotal(state, counter.Id, target.Id), includeGroupEffects: target == targets[0],
-                            suppressDebuffStatusEffects: counterDealsDamage);
+                            counter.Kind == CardKind.Ultimate, CardHealthDamageTotal(state, counter.Id, target.Id), includeGroupEffects: target == targets[0],
+                            resolution: resolution);
                     }
-                    if (counterDealsDamage)
-                        ApplySuccessfulHitDebuffStepsForTargets(state, rng, defender, targets, effect, counter,
-                            CardEffectTiming.AfterDamage, resolution);
                     EmitActionTiming(state, defender, counter, CardEffectTiming.AfterAction);
                     foreach (var target in targets)
                     {
                         ApplyCardEffectSteps(state, rng, defender, target, effect, counter.Id, CardEffectTiming.AfterAction,
-                            counter.Kind == CardKind.Ultimate, CardDamageTotal(state, counter.Id, target.Id), includeGroupEffects: target == targets[0],
-                            suppressDebuffStatusEffects: counterDealsDamage);
+                            counter.Kind == CardKind.Ultimate, CardHealthDamageTotal(state, counter.Id, target.Id), includeGroupEffects: target == targets[0],
+                            resolution: resolution);
                     }
-                    if (counterDealsDamage)
-                        ApplySuccessfulHitDebuffStepsForTargets(state, rng, defender, targets, effect, counter,
-                            CardEffectTiming.AfterAction, resolution);
                     ResolvePendingPassiveEffects(state, counter.Id);
                     AddEvent(state, BattleEventKind.CounterEnded, defender.Id, attacker.Id, counter.Id, 0, "Counter complete.");
                     if (IsAttack(counter.Category) && effect.Kind == EffectKind.Damage)
@@ -468,6 +472,10 @@ namespace FightingAllstar.Core.Combat
             foreach (var passiveId in calculation.TriggeredPassiveReactionIds)
                 AddEvent(state, BattleEventKind.PassiveTriggered, owner.Id, target.Id, card.Id, 0,
                     "Passive Trigger: " + passiveId);
+            if (effect.AttributeAdvantageDamageBonusBp > 0 &&
+                AttributeRules.GetAffinity(owner.Definition?.AttributeId, target.Definition?.AttributeId) == AttributeAffinity.Advantage)
+                calculation.Policy.OutgoingIncreaseBp = (int)Math.Min(int.MaxValue,
+                    (long)calculation.Policy.OutgoingIncreaseBp + effect.AttributeAdvantageDamageBonusBp);
             var attacker = calculation.Attacker;
             var defender = calculation.Defender;
             var baseAmount = effect.Scaling switch
@@ -504,6 +512,7 @@ namespace FightingAllstar.Core.Combat
             state.Events[state.Events.Count - 1].WasEndured = damage.WasEndured;
             state.Events[state.Events.Count - 1].Affinity = AttributeRules.GetAffinity(owner.Definition?.AttributeId, target.Definition?.AttributeId);
             state.Events[state.Events.Count - 1].ShieldLost = damage.ShieldLost;
+            state.Events[state.Events.Count - 1].HealthLost = target.CannotDie ? 0 : damage.HealthLost;
             if (barrierBroken)
                 state.Events[state.Events.Count - 1].StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             state.Events[state.Events.Count - 1].HitIndex = hitIndex;
@@ -522,10 +531,12 @@ namespace FightingAllstar.Core.Combat
                 Math.Max(0, Math.Min(10000, StatusSystem.GetEffectiveStats(target).ReflectDamageBp)));
             CharacterPassiveRuntime.NotifyDamageResolved(state, owner, target, damage.CalculatedDamage, card.Id,
                 cardOrigin: true, isUltimate: card.Kind == CardKind.Ultimate, family: effect.Family,
-                category: CardRules.GetEffectCategory(card), cardRank: card.Rank, wasCritical: damage.WasCritical, wasBlocked: damage.WasBlocked);
+                category: CardRules.GetEffectCategory(card), cardRank: card.Rank, wasCritical: damage.WasCritical,
+                wasBlocked: damage.WasBlocked, hitIndex: hitIndex, hitCount: hitCount);
 
             var hasSequenceGaugeDrain = effect?.Sequence != null && effect.Sequence.Exists(s => s?.Effect?.Kind == EffectKind.ChangePowerGauge);
-            if (hitIndex == hitCount && !hasSequenceGaugeDrain && target.IsAlive && target.Health > 0)
+            if (hitIndex == hitCount && !hasSequenceGaugeDrain && target.IsAlive && target.Health > 0 &&
+                (resolution?.SuccessfulHitTargets.Contains(target.Id) ?? damage.CalculatedDamage > 0))
             {
                 var drain = 0;
                 if (effect.PowerGaugeAmount < 0) drain = -effect.PowerGaugeAmount;
@@ -616,74 +627,91 @@ namespace FightingAllstar.Core.Combat
         private static void ApplyCardEffectSteps(BattleState state, DeterministicRandom rng, FighterState owner, FighterState target,
             EffectDefinition rootEffect, string cardId, CardEffectTiming timing, bool isUltimate = false, int triggeringDamage = 0,
             bool includeGroupEffects = true, int actualHealthDamage = 0,
-            bool suppressDebuffStatusEffects = false, bool onlyDebuffStatusEffects = false)
+            ActionResolutionContext resolution = null)
         {
             if (rootEffect?.Sequence == null) return;
             foreach (var step in rootEffect.Sequence)
             {
                 if (step?.Effect == null || step.Timing != timing || step.Effect.Kind == EffectKind.Damage) continue;
-                var isDebuffStatus = IsDebuffStatusEffect(step.Effect);
-                if ((suppressDebuffStatusEffects && isDebuffStatus) || (onlyDebuffStatusEffects && !isDebuffStatus)) continue;
                 if (!includeGroupEffects && (step.Effect.Target == EffectTargetScope.AllAllies ||
                     step.Effect.Target == EffectTargetScope.Self || step.Effect.Target == EffectTargetScope.AllEnemies)) continue;
                 var resolvedEffect = step.Effect.ToEffectDefinition();
-                ApplyCardUtilityEffect(state, rng, owner, target, resolvedEffect, cardId, isUltimate, triggeringDamage,
-                    actualHealthDamage);
+                var batch = string.IsNullOrWhiteSpace(step.BatchId) ? null :
+                    rootEffect.Batches?.Find(item => item?.Id == step.BatchId);
+                if (!string.IsNullOrWhiteSpace(step.BatchId) && batch == null) continue;
+                var hostileBatch = batch != null && rootEffect.Sequence.Exists(member =>
+                    member?.BatchId == batch.Id && IsHarmfulEffect(member.Effect) &&
+                    member.Effect.Target != EffectTargetScope.Self && member.Effect.Target != EffectTargetScope.AllAllies &&
+                    member.Effect.Target != EffectTargetScope.SelectedAlly);
+                foreach (var effectTarget in ResolveUtilityTargets(state, owner, target, resolvedEffect.Target))
+                {
+                    // Spread effects follow the selected attack's hit. Directly attacked recipients
+                    // still need their own successful hit, including each target of an area attack.
+                    var hitTarget = effectTarget.Side != owner.Side &&
+                        resolution?.AttackTargets.Contains(effectTarget.Id) == true ? effectTarget : target;
+                    var requiresHit = resolution?.RequiresSuccessfulHit == true &&
+                        (IsHarmfulEffect(resolvedEffect) && effectTarget.Side != owner.Side || hostileBatch);
+                    void ApplyStep()
+                    {
+                        if (!effectTarget.IsAlive || effectTarget.Health <= 0 ||
+                            requiresHit && (hitTarget == null || !resolution.SuccessfulHitTargets.Contains(hitTarget.Id))) return;
+                        if (!EffectConditionsPass(state, owner, effectTarget, resolvedEffect, cardId, isUltimate)) return;
+                        if (batch != null)
+                        {
+                            // Batch chance belongs to the recipient, independently of the hit trigger.
+                            var chanceTarget = hostileBatch && effectTarget.Side == owner.Side ? target : effectTarget;
+                            if (chanceTarget == null || resolution == null) return;
+                            var key = batch.Id + "\0" + chanceTarget.Id;
+                            if (!resolution.BatchRolls.TryGetValue(key, out var won))
+                            {
+                                var chance = ResolveStatusApplyChanceBp(batch.ApplyChanceBp,
+                                    StatusSystem.GetEffectiveStats(owner).ControlBp,
+                                    StatusSystem.GetEffectiveStats(chanceTarget).AvoidanceBp, hostileBatch);
+                                won = chance >= 10000 || chance > 0 && rng != null && rng.NextBasisPoints() < chance;
+                                resolution.BatchRolls.Add(key, won);
+                            }
+                            if (!won) return;
+                        }
+                        var damageTarget = requiresHit ? hitTarget : effectTarget;
+                        ApplyCardUtilityEffectSingle(state, rng, owner, effectTarget, resolvedEffect, cardId, isUltimate,
+                            resolution?.HitsResolved == true ? CardHealthDamageTotal(state, cardId, damageTarget.Id) : triggeringDamage,
+                            resolution?.HitsResolved == true
+                                ? (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)) : actualHealthDamage,
+                            skipApplyChance: batch != null);
+                    }
+                    // Contact effects authored before damage wait for a successful damage hit.
+                    if (requiresHit && !resolution.HitsResolved) resolution.DeferredHitEffects.Add(ApplyStep);
+                    else ApplyStep();
+                }
             }
         }
 
-        private static bool IsDebuffStatusEffect(EffectOperationDefinition effect) =>
-            effect?.Kind == EffectKind.ApplyStatus && effect.StatusRecipe?.Polarity == StatusPolarity.Debuff;
+        private static bool IsHarmfulEffect(EffectOperationDefinition effect) => effect != null &&
+            (effect.Kind == EffectKind.ApplyStatus && effect.StatusRecipe?.Polarity == StatusPolarity.Debuff ||
+             effect.Kind == EffectKind.RemoveBuffs || effect.Kind == EffectKind.RemoveStance ||
+             effect.Kind == EffectKind.ChangePowerGauge && effect.PowerGaugeAmount < 0 ||
+             effect.Kind == EffectKind.ModifyCardRank && effect.Magnitude < 0);
 
-        private static BattleEvent FindCardDamageEvent(BattleState state, string cardId, string targetId) =>
-            state.Events.FindLast(e => e.Kind == BattleEventKind.DamageApplied && e.CardId == cardId && e.TargetId == targetId);
-
-        private static int CardDamageTotal(BattleState state, string cardId, string targetId)
+        private static void ResolveDeferredHitEffects(ActionResolutionContext resolution)
         {
+            resolution.HitsResolved = true;
+            foreach (var apply in resolution.DeferredHitEffects) apply();
+            resolution.DeferredHitEffects.Clear();
+        }
+
+        private static int CardHealthDamageTotal(BattleState state, string cardId, string targetId)
+        {
+            if (string.IsNullOrEmpty(cardId)) return 0;
             long total = 0;
             for (var i = state.Events.Count - 1; i >= 0; i--)
             {
                 var item = state.Events[i];
                 if (item.CardId != cardId) continue;
                 if (item.Kind == BattleEventKind.CardPlayed || item.Kind == BattleEventKind.CounterStarted) break;
-                if (item.Kind == BattleEventKind.DamageApplied && item.TargetId == targetId) total += item.Amount;
+                if (item.Kind == BattleEventKind.DamageApplied && item.TargetId == targetId)
+                    total += Math.Max(0, item.HealthLost);
             }
             return (int)Math.Min(int.MaxValue, total);
-        }
-
-        private static void ApplySuccessfulHitDebuffSteps(BattleState state, DeterministicRandom rng, FighterState owner,
-            FighterState target, EffectDefinition effect, CardState card, CardEffectTiming timing, int triggeringDamage,
-            int actualHealthDamage, bool includeGroupEffects)
-        {
-            ApplyCardEffectSteps(state, rng, owner, target, effect, card.Id, timing, card.Kind == CardKind.Ultimate,
-                triggeringDamage, includeGroupEffects, actualHealthDamage, onlyDebuffStatusEffects: true);
-        }
-
-        private static void ApplySuccessfulHitDebuffStepsForTargets(BattleState state, DeterministicRandom rng,
-            FighterState owner, List<FighterState> targets, EffectDefinition effect, CardState card,
-            CardEffectTiming timing, ActionResolutionContext resolution)
-        {
-            var firstSuccess = true;
-            foreach (var target in targets)
-            {
-                var hit = FindCardDamageEvent(state, card.Id, target.Id);
-                var total = CardDamageTotal(state, card.Id, target.Id);
-                if (hit != null && total == 0) continue;
-                ApplySuccessfulHitDebuffSteps(state, rng, owner, target, effect, card, timing,
-                    total,
-                    (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)),
-                    includeGroupEffects: firstSuccess);
-                firstSuccess = false;
-            }
-        }
-
-        private static void ApplyCardUtilityEffect(BattleState state, DeterministicRandom rng, FighterState owner, FighterState target,
-            EffectDefinition effect, string cardId, bool isUltimate = false, int triggeringDamage = 0, int actualHealthDamage = 0)
-        {
-            var targets = ResolveUtilityTargets(state, owner, target, effect.Target);
-            foreach (var effectTarget in targets)
-                ApplyCardUtilityEffectSingle(state, rng, owner, effectTarget, effect, cardId, isUltimate, triggeringDamage,
-                    actualHealthDamage);
         }
 
         private static List<FighterState> ResolveUtilityTargets(BattleState state, FighterState owner,
@@ -717,7 +745,8 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static void ApplyCardUtilityEffectSingle(BattleState state, DeterministicRandom rng, FighterState owner, FighterState effectTarget,
-            EffectDefinition effect, string cardId, bool isUltimate, int triggeringDamage = 0, int actualHealthDamage = 0)
+            EffectDefinition effect, string cardId, bool isUltimate, int triggeringDamage = 0, int actualHealthDamage = 0,
+            bool skipApplyChance = false)
         {
             if (effectTarget == null || !effectTarget.IsAlive || effectTarget.Health <= 0) return;
             if (!EffectConditionsPass(state, owner, effectTarget, effect, cardId, isUltimate)) return;
@@ -742,28 +771,15 @@ namespace FightingAllstar.Core.Combat
                             ? StatusDurationClock.TargetTurnStart
                             : StatusDurationClock.TargetTurnEnd;
                     }
-                    var resolvedTriggeringDamage = triggeringDamage;
-                    if (effectTarget != null && !string.IsNullOrEmpty(cardId))
-                    {
-                        var targetDamage = 0;
-                        for (int i = 0; i < state.Events.Count; i++)
-                        {
-                            var e = state.Events[i];
-                            if (e.Kind == BattleEventKind.DamageApplied && e.CardId == cardId && e.TargetId == effectTarget.Id)
-                            {
-                                targetDamage += e.Amount;
-                            }
-                        }
-                        if (targetDamage > 0)
-                        {
-                            resolvedTriggeringDamage = targetDamage;
-                        }
-                    }
+                    var targetHealthDamage = CardHealthDamageTotal(state, cardId, effectTarget.Id);
+                    var resolvedTriggeringDamage = targetHealthDamage > 0 ? targetHealthDamage : Math.Max(0, triggeringDamage);
                     var snapshot = new StatusSnapshot
                     {
                         SourceAttack = ownerStats.Attack,
+                        SourceDefense = ownerStats.Defense,
+                        SourceMaxHealth = ownerStats.MaxHealth,
                         TargetMaxHealth = targetStats.MaxHealth,
-                        TriggeringHealthDamage = resolvedTriggeringDamage > 0 ? resolvedTriggeringDamage : ownerStats.Attack,
+                        TriggeringHealthDamage = resolvedTriggeringDamage,
                         FixedAmount = effect.Magnitude
                     };
                     var isDebuff = appliedRecipe != null && appliedRecipe.Polarity == StatusPolarity.Debuff;
@@ -779,7 +795,8 @@ namespace FightingAllstar.Core.Combat
                     }
                     var applyChanceBp = ResolveStatusApplyChanceBp(effect.StatusApplyChanceBp, ownerStats.ControlBp,
                         targetStats.AvoidanceBp, isDebuff);
-                    if (applyChanceBp < 10000 && (applyChanceBp <= 0 || rng == null || rng.NextBasisPoints() >= applyChanceBp))
+                    if (!skipApplyChance && applyChanceBp < 10000 &&
+                        (applyChanceBp <= 0 || rng == null || rng.NextBasisPoints() >= applyChanceBp))
                         break;
 
                     var applyResult = appliedRecipe != null
@@ -801,7 +818,7 @@ namespace FightingAllstar.Core.Combat
                         statusEvt.StatusRecipeId = recipeId;
                         statusEvt.StatusOutcome = applyResult.Outcome;
                         statusEvt.StatusesAfter = effectTarget.Statuses.Instances.ConvertAll(s => s.Clone());
-                        if (barrier > 0)
+                        if (barrier != 0)
                         {
                             statusEvt.ShieldAfter = effectTarget.Shield;
                             statusEvt.ShieldChanged = true;
@@ -958,11 +975,27 @@ namespace FightingAllstar.Core.Combat
         {
             var recipe = new CardEffectRecipeDefinition { Id = "passive:" + operation.Id };
             recipe.Operations.Add(operation);
-            var resolved = CardEffectSystem.ResolveWindow(recipe, operation.Window, triggerContext);
+            List<ResolvedCardEffect> resolved;
+            if (operation.Kind == CardEffectOperationKind.Damage &&
+                operation.Target == EffectTargetScope.TriggerTarget && triggerContext.SelectedTarget != null)
+            {
+                // A damage reaction follows the hit that triggered it. Keep that target even
+                // when the primary hit reduced HP to zero so uncapped follow-up damage resolves.
+                resolved = CardEffectSystem.ConditionsPass(operation.Conditions, triggerContext,
+                    triggerContext.SelectedTarget)
+                    ? new List<ResolvedCardEffect> { new ResolvedCardEffect {
+                        Operation = operation.Clone(), Target = triggerContext.SelectedTarget } }
+                    : new List<ResolvedCardEffect>();
+            }
+            else
+            {
+                resolved = CardEffectSystem.ResolveWindow(recipe, operation.Window, triggerContext);
+            }
             foreach (var item in resolved)
             {
                 var target = item.Target;
-                if (target == null || !target.IsAlive || target.Health <= 0) continue;
+                if (target == null || !target.IsAlive && item.Operation.Kind != CardEffectOperationKind.Damage ||
+                    target.Health <= 0 && item.Operation.Kind != CardEffectOperationKind.Damage) continue;
                 var effect = new EffectDefinition { Target = EffectTargetScope.Self };
                 switch (item.Operation.Kind)
                 {
@@ -1083,39 +1116,12 @@ namespace FightingAllstar.Core.Combat
             FighterState target, DamageEffectRecipe recipe, string rootActionId)
         {
             if (state == null || source == null || target == null || recipe == null ||
-                !source.IsAlive || !target.IsAlive || target.Health <= 0) return;
+                !source.IsAlive) return;
 
             var calculation = AttackEffectSystem.Prepare(null, state, source, target, recipe.Family);
             var attacker = calculation.Attacker;
             var defender = calculation.Defender;
-            var baseAmount = recipe.ScaleFromTargetMaxHealth
-                ? defender.MaxHealth
-                : recipe.Scaling switch
-                {
-                    StatScaling.Attack => attacker.Attack,
-                    StatScaling.Defense => attacker.Defense,
-                    StatScaling.MaxHealth => attacker.MaxHealth,
-                    StatScaling.SpecificStat => attacker.Get(recipe.ScalingStat),
-                    _ => recipe.FixedAmount
-                };
-            var policy = calculation.Policy;
-            policy.CannotCrit |= recipe.CannotCrit;
-            policy.CannotBlock |= recipe.CannotBlock;
-            policy.BypassDefense |= recipe.ScaleFromTargetMaxHealth;
-            if (recipe.Family == DamageFamily.Additional)
-            {
-                policy.FamilyDealtIncreaseBp += policy.OutgoingIncreaseBp;
-                policy.FamilyDealtDecreaseBp += policy.OutgoingDecreaseBp;
-            }
-            var keywordFactor = (int)Math.Min(int.MaxValue,
-                (long)Math.Max(0, recipe.KeywordFactorBp) * calculation.KeywordFactorBp / 10000);
-            var packet = new DamagePacket
-            {
-                BaseAmount = Math.Max(0, baseAmount),
-                CoefficientBp = Math.Max(0, recipe.CoefficientBp),
-                KeywordFactorBp = keywordFactor,
-                Policy = policy
-            };
+            var packet = CardEffectSystem.CreateDamagePacket(recipe, calculation);
             var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, -1, -1);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
@@ -1126,6 +1132,7 @@ namespace FightingAllstar.Core.Combat
             damageEvent.HealthAfter = target.Health;
             damageEvent.ShieldAfter = target.Shield;
             damageEvent.ShieldLost = damage.ShieldLost;
+            damageEvent.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
             if (barrierBroken)
                 damageEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             damageEvent.WasEndured = damage.WasEndured;
@@ -1148,6 +1155,10 @@ namespace FightingAllstar.Core.Combat
         {
             if (application == null || application.PotencySource == StatusPotencySource.Authored)
                 return application?.PotencyBp ?? 0;
+
+            // Snapshot the owner's current DEF; the status modifier supplies the conversion ratio.
+            if (application.PotencySource == StatusPotencySource.EffectOwnerDefense)
+                return context?.EffectOwner == null ? 0 : StatusSystem.GetEffectiveStats(context.EffectOwner).Defense;
 
             var source = application.PotencySource switch
             {
@@ -1233,15 +1244,19 @@ namespace FightingAllstar.Core.Combat
         private static int GrantBarrierShield(FighterState target, StatusRecipeDefinition recipe,
             StatusInstance instance)
         {
+            recipe = instance?.Recipe ?? recipe;
             if (target == null || recipe == null || instance == null ||
-                (recipe.Behavior & StatusBehavior.Barrier) == 0 || recipe.BarrierCoefficientBp <= 0)
-                return 0;
-            var amount = (int)Math.Min(int.MaxValue, (long)Math.Max(0, instance.Snapshot?.SourceAttack ?? 0) *
-                recipe.BarrierCoefficientBp / 10000);
-            if (amount <= 0) return 0;
-            instance.ShieldRemaining = (int)Math.Min(int.MaxValue, (long)instance.ShieldRemaining + amount);
-            target.Shield = (int)Math.Min(int.MaxValue, (long)Math.Max(0, target.Shield) + amount);
-            return amount;
+                (recipe.Behavior & StatusBehavior.Barrier) == 0) return 0;
+            var amount = StatusContainer.BarrierCapacity(instance);
+            var previousShield = Math.Max(0, target.Shield);
+            var currentCapacity = Math.Max(0, instance.ShieldRemaining);
+            var nextCapacity = recipe.BarrierAmountPolicy == BarrierAmountPolicy.Accumulate
+                ? (int)Math.Min(int.MaxValue, (long)currentCapacity + amount)
+                : amount;
+            target.Shield = (int)Math.Min(int.MaxValue,
+                Math.Max(0L, (long)previousShield - currentCapacity) + nextCapacity);
+            instance.ShieldRemaining = nextCapacity;
+            return target.Shield - previousShield;
         }
 
         private static bool ConsumeBarrierShield(FighterState target, int amount)
@@ -1303,6 +1318,7 @@ namespace FightingAllstar.Core.Combat
                 evt.HealthAfter = source.Health;
                 evt.ShieldAfter = source.Shield;
                 evt.ShieldLost = shieldLost;
+                evt.HealthLost = healthLost;
                 if (barrierBroken)
                     evt.StatusesAfter = source.Statuses.Instances.ConvertAll(s => s.Clone());
                 CharacterPassiveRuntime.NotifyDamageResolved(state, reflector, source, reflected, rootActionId);
@@ -1427,6 +1443,9 @@ namespace FightingAllstar.Core.Combat
             CharacterPassiveRuntime.Notify(state, PassiveEventKind.TeamTurnStarted);
             ApplyStatusTicks(state, team, StatusTickTiming.TargetTurnStart);
             ApplyStanceRecovery(state, team);
+            // Resolve turn-start heals while their statuses are still active. A status whose
+            // duration reaches zero on this clock still gets its final scheduled tick.
+            ApplyTurnStartRecovery(state, team);
             var previousMaxHealth = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (var fighter in team.Fighters)
                 AdvanceStatuses(state, fighter, StatusDurationClock.TargetTurnStart, null, previousMaxHealth);
@@ -1446,7 +1465,6 @@ namespace FightingAllstar.Core.Combat
             }
             CharacterPassiveRuntime.Refresh(state);
             team.HandCapacity = CardRules.GetHandCapacity(team);
-            ApplyTurnStartRecovery(state, team);
             AddEvent(state, BattleEventKind.StatusResolutionEnded, side.ToString(), null, null, 0, "Turn-start statuses settled.");
             CheckOutcome(state);
             if (state.Winner.HasValue || state.IsDraw) return;
@@ -1548,6 +1566,7 @@ namespace FightingAllstar.Core.Combat
                     StatusHealScaling.SourceAttack => source == null ? 0 : StatusSystem.GetEffectiveStats(source).Attack,
                     StatusHealScaling.TargetMaxHealth => targetStats.MaxHealth,
                     StatusHealScaling.TurnStartRecovery => turnStartRecovery,
+                    StatusHealScaling.TargetMissingHealth => Math.Max(0, targetStats.MaxHealth - target.Health),
                     _ => healing.FixedAmount
                 };
                 var amount = (int)BigInteger.Min(int.MaxValue,
@@ -1658,6 +1677,7 @@ namespace FightingAllstar.Core.Combat
                 battleEvent.HealthAfter = target.Health;
                 battleEvent.ShieldAfter = target.Shield;
                 battleEvent.ShieldLost = damage.ShieldLost;
+                battleEvent.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
                 if (barrierBroken)
                     battleEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
                 battleEvent.WasEndured = damage.WasEndured;

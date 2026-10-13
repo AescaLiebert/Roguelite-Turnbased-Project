@@ -16,7 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: bf856c25fdf9e43438fec167db4658a0, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts damage equal to 120% of ATK and causes Bleed to enemy for
+  - description: Inflicts damage equal to 140% of ATK and causes Bleed to enemy for
       2 turns
     skillType: 5
     runtimeEffect:
@@ -31,7 +31,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 12000
+      CoefficientBp: 14000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -117,8 +117,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
@@ -205,7 +207,7 @@ MonoBehaviour:
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
           StatusDurationOverride: 2
-          StatusStackCount: 10
+          StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
           HealValue:
@@ -318,8 +320,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
@@ -519,8 +523,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1

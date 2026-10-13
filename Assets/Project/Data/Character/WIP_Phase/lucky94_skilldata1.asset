@@ -14,22 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
   cardName: "Lucky 94 \xB7 Skill 1"
   cardIcon: {fileID: 21300000, guid: b8b59a1508d19774292060880bd3ad81, type: 3}
-  statusVisuals: []
+  statusVisuals:
+  - {fileID: 11400000, guid: 38d4053ccaecb654485492443155ed58, type: 2}
+  - {fileID: 11400000, guid: 0d5d44844a0df4e458fd722bbb65b331, type: 2}
+  - {fileID: 11400000, guid: 5a1b382f880117a4ab84f5cdbceff864, type: 2}
+  - {fileID: 11400000, guid: de0e4e63ce41b22468d89e3203587d35, type: 2}
+  - {fileID: 11400000, guid: c615d6a8f9814212ab114c68c536dc60, type: 2}
   ranks:
-  - description: Inflicts damage equal to 41.67% of ATK, has a 8.33% chance to Disables
-      everything including Ultimate Moves except for Debuff Card 1 turns
-    skillType: 2
+  - description: Inflicts 120% of ATK and has a 10% shared chance to disable Attack, Stance, Healing, Buff, and Ultimate cards for 2 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 12000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -45,6 +51,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -76,6 +83,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -111,22 +120,141 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
-  - description: Inflicts damage equal to 83.33% of ATK, has a 16.67% chance to Disables
-      everything including Ultimate Moves except for Debuff Card 2 turns
-    skillType: 2
+      Target: 3
+      Batches:
+      - Id: lucky94.disable-cards
+        ApplyChanceBp: 1000
+      Sequence:
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.disable.attack
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.disable.attack
+            NameKey: Disable Attack Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 1
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-stance
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-stance
+            NameKey: Disable Stance
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 16
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-heal
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-heal
+            NameKey: Disable Healing Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 8
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.disable.buff
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.disable.buff
+            NameKey: Disable Buff Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 4
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-ultimate
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-ultimate
+            NameKey: Disable Ultimate Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 32
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+  - description: Inflicts 120% of ATK and has a 20% shared chance to disable Attack, Stance, Healing, Buff, and Ultimate cards for 2 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 12000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -142,6 +270,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -173,6 +302,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -208,22 +339,141 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
-  - description: Inflicts damage equal to 125% of ATK, has a 25% chance to Disables
-      everything including Ultimate Moves except for Debuff Card 2 turns
-    skillType: 2
+      Target: 3
+      Batches:
+      - Id: lucky94.disable-cards
+        ApplyChanceBp: 2000
+      Sequence:
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.disable.attack
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.disable.attack
+            NameKey: Disable Attack Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 1
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-stance
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-stance
+            NameKey: Disable Stance
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 16
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-heal
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-heal
+            NameKey: Disable Healing Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 8
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.disable.buff
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.disable.buff
+            NameKey: Disable Buff Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 4
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-ultimate
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-ultimate
+            NameKey: Disable Ultimate Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DisableMask: 32
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 2
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+  - description: Inflicts 180% of ATK and has a 30% shared chance to disable Attack, Stance, Healing, Buff, and Ultimate cards for 3 turns.
+    skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 18000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -239,6 +489,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -270,6 +521,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -305,5 +558,123 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Batches:
+      - Id: lucky94.disable-cards
+        ApplyChanceBp: 3000
+      Sequence:
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.disable.attack
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.disable.attack
+            NameKey: Disable Attack Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DisableMask: 1
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-stance
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-stance
+            NameKey: Disable Stance
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DisableMask: 16
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-heal
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-heal
+            NameKey: Disable Healing Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DisableMask: 8
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.disable.buff
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.disable.buff
+            NameKey: Disable Buff Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DisableMask: 4
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000
+      - Timing: 3
+        BatchId: lucky94.disable-cards
+        Effect:
+          Id: lucky94.skill1.status.debuff.disable-ultimate
+          Kind: 1
+          Target: 3
+          StatusRecipe:
+            Id: status.debuff.disable-ultimate
+            NameKey: Disable Ultimate Card
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 3
+            MaxStacks: 1
+            DisableMask: 32
+            Tags:
+            - control.card-seal
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusApplyChanceBp: 10000

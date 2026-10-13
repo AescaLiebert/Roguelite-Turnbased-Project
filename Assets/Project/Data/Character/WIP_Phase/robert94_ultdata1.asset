@@ -24,6 +24,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -46,6 +48,10 @@ MonoBehaviour:
         DefaultDuration: 0
         MaxStacks: 0
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -77,6 +83,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 0
           Family: 0
@@ -112,13 +120,18 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 0
+        BatchId: 
         Effect:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.crit-chance
           Kind: 1
           Family: 0
@@ -141,6 +154,10 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 1000000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -185,6 +202,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -229,6 +248,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -251,6 +272,10 @@ MonoBehaviour:
         DefaultDuration: 0
         MaxStacks: 0
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -282,6 +307,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 0
           Family: 0
@@ -317,13 +344,18 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 0
+        BatchId: 
         Effect:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.crit-chance
           Kind: 1
           Family: 0
@@ -346,6 +378,10 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 1000000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -390,6 +426,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -434,6 +472,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -456,6 +496,10 @@ MonoBehaviour:
         DefaultDuration: 0
         MaxStacks: 0
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -487,6 +531,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 0
           Family: 0
@@ -522,13 +568,18 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 0
+        BatchId: 
         Effect:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.crit-chance
           Kind: 1
           Family: 0
@@ -551,6 +602,10 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 1000000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -595,6 +650,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -639,6 +696,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -661,6 +720,10 @@ MonoBehaviour:
         DefaultDuration: 0
         MaxStacks: 0
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -692,6 +755,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 0
           Family: 0
@@ -727,13 +792,18 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 0
+        BatchId: 
         Effect:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.crit-chance
           Kind: 1
           Family: 0
@@ -756,6 +826,10 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 1000000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -800,6 +874,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -844,6 +920,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -866,6 +944,10 @@ MonoBehaviour:
         DefaultDuration: 0
         MaxStacks: 0
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -897,6 +979,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 0
           Family: 0
@@ -932,13 +1016,18 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 0
+        BatchId: 
         Effect:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.crit-chance
           Kind: 1
           Family: 0
@@ -961,6 +1050,10 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 1000000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -1005,6 +1098,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -1049,6 +1144,8 @@ MonoBehaviour:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -1071,6 +1168,10 @@ MonoBehaviour:
         DefaultDuration: 0
         MaxStacks: 0
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -1102,6 +1203,8 @@ MonoBehaviour:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 0
           Family: 0
@@ -1137,13 +1240,18 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 0
+        BatchId: 
         Effect:
           Attack:
             HitCount: 0
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.crit-chance
           Kind: 1
           Family: 0
@@ -1166,6 +1274,10 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 1000000
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -1210,6 +1322,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 0
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0

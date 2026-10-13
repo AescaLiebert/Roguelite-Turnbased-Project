@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="backpack-dialog" class="backpack-dialog">
+        <ui:VisualElement class="backpack-heading">
+            <ui:Label text="BACKPACK" class="backpack-title heavy" />
+            <ui:Label name="backpack-count" class="backpack-count condensed" />
+            <ui:Button name="backpack-close" text="CLOSE  ×" class="action-button" />
+        </ui:VisualElement>
+        <ui:VisualElement class="backpack-tabs">
+            <ui:Button name="backpack-tab-artifact" text="ARTIFACT" class="backpack-tab heavy" />
+            <ui:Button name="backpack-tab-material" text="MATERIAL" class="backpack-tab heavy" />
+            <ui:Button name="backpack-tab-dupe" text="CHARACTER DUPE" class="backpack-tab heavy" />
+        </ui:VisualElement>
+        <ui:VisualElement class="backpack-filters">
+            <ui:TextField name="backpack-search" label="SEARCH" class="backpack-search" />
+            <ui:DropdownField name="backpack-set-filter" label="SET" class="backpack-artifact-filter" />
+            <ui:DropdownField name="backpack-slot-filter" label="SLOT" class="backpack-artifact-filter" />
+            <ui:DropdownField name="backpack-rarity-filter" label="RARITY" class="backpack-artifact-filter" />
+            <ui:Toggle name="backpack-favourite-filter" label="FAVOURITES" class="backpack-artifact-filter backpack-favourite-filter" />
+        </ui:VisualElement>
+        <ui:Label name="backpack-note" class="backpack-note condensed" />
+        <ui:Label name="backpack-empty" class="backpack-empty condensed" />
+        <ui:ScrollView name="backpack-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto" class="backpack-scroll">
+            <ui:VisualElement name="backpack-grid" class="backpack-grid" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

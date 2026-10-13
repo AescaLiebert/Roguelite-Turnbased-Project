@@ -15,6 +15,7 @@ MonoBehaviour:
   id: status.debuff.bleed
   displayName: Bleed
   icon: {fileID: 21300000, guid: b8551aa14699b574481220c6568f51c2, type: 3}
+  actorVisualEffect: 10
   polarity: 1
   keywords:
   - Bleed

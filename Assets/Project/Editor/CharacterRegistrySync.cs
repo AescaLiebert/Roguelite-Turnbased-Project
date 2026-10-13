@@ -13,7 +13,7 @@ namespace FightingAllstar.EditorTools
         private static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom)
         {
             if (_queued || !imported.Concat(deleted).Concat(moved).Concat(movedFrom)
-                .Any(p => p.StartsWith("Assets/Project/Data/Character/") && p.EndsWith(".asset"))) return;
+                .Any(p => p.StartsWith("Assets/") && p.EndsWith(".asset"))) return;
             _queued = true;
             EditorApplication.delayCall += () => { _queued = false; Sync(); };
         }
@@ -22,7 +22,7 @@ namespace FightingAllstar.EditorTools
         {
             var registry = AssetDatabase.LoadAssetAtPath<CharacterObjectRegistrySO>("Assets/Resources/CharacterObjectRegistry.asset");
             if (registry == null) return;
-            var characters = AssetDatabase.FindAssets("t:CharacterObject", new[] { "Assets/Project/Data" })
+            var characters = AssetDatabase.FindAssets("t:CharacterObject", new[] { "Assets" })
                 .Select(AssetDatabase.GUIDToAssetPath).OrderBy(p => p)
                 .Select(AssetDatabase.LoadAssetAtPath<CharacterObject>).Where(c => c != null).ToArray();
             if (registry.Characters.SequenceEqual(characters)) return;

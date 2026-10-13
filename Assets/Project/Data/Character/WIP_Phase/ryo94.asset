@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.ryo94
   runtimeReady: 1
-  sourceId: 21
-  sourceRecord: 22
   familyId: family.ryo
   seriesId: series.kof
   role: Heavy Tank
@@ -29,10 +27,9 @@ MonoBehaviour:
   passiveDefinition: {fileID: 11400000, guid: 1b01f4ceddea43c5a18a251e1225e25a, type: 2}
   id: 1021
   fighterName: Ryo Sakazaki 94
-  fighterTag: Ryo
   fighterPic: {fileID: 21300000, guid: 463efe8849cc21a48bc5471759486073, type: 3}
   fighterIcon: {fileID: 21300000, guid: 42853c9a482e2bc468c764c9222d900d, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 463efe8849cc21a48bc5471759486073, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -49,6 +46,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2550
   attack: 270
   defense: 290

@@ -61,7 +61,9 @@ namespace FightingAllstar.Presentation.Combat
             {
                 if(text==null || text.rectTransform.rect.width<=0) continue;
                 var element=text.transform.parent.GetComponent<LayoutElement>();
+                if(element==null) continue;
                 var height=Mathf.Max(112,text.GetPreferredValues(text.text,text.rectTransform.rect.width,0).y+32);
+                element.minHeight=Mathf.Max(element.minHeight,112);
                 if(Mathf.Abs(element.preferredHeight-height)>1) element.preferredHeight=height;
             }
         }
@@ -122,7 +124,8 @@ namespace FightingAllstar.Presentation.Combat
             var hp=Text(health,"<color=#94AABD>HP</color>  "+selected.Health.ToString("N0")+" / "+effective.MaxHealth.ToString("N0")+
                 (selected.Shield>0?"    <color=#94AABD>SHIELD</color>  "+selected.Shield.ToString("N0"):""),20);Stretch(hp.rectTransform,16,12,16,8);
             Heading(content,"DETAILED STATS");
-            var stats=((StatId[])Enum.GetValues(typeof(StatId))).Where(s=>s>=StatId.Pierce&&s!=StatId.ReflectDamage).ToArray();
+            var stats=((StatId[])Enum.GetValues(typeof(StatId))).Where(s=>s>=StatId.Pierce&&
+                s!=StatId.ReflectDamage&&s!=StatId.Evade&&s!=StatId.Perception&&s!=StatId.Control&&s!=StatId.Avoidance).ToArray();
             for(int i=0;i<stats.Length;i+=2)
             {
                 var row=Box(content,"Stat row",Color.clear);Height(row,40);Horizontal(row,16);
@@ -134,11 +137,56 @@ namespace FightingAllstar.Presentation.Combat
                 }
             }
             var cc=Text(content,"Combat class  "+StatValue(selected,StatId.CombatClass,effective),17,Muted);Height(cc.rectTransform,32);
-            if(!string.IsNullOrWhiteSpace(selected.Definition.PassiveSource?.Description))
+            BuildPassiveSection(content, selected);
+        }
+                private void BuildPassiveSection(RectTransform content, FighterState fighter)
+        {
+            var charObj = characterLookup?.Invoke(fighter.Definition.Id);
+            var passive = CombatDetailFormatter.ExtractPassiveDetails(fighter, charObj, (id, pol) => StatusVisualData.GetSprite(id, pol));
+            if (string.IsNullOrWhiteSpace(passive.RawDescription)) return;
+
+            Heading(content, "PASSIVE");
+
+            var row = Box(content, "Own passive", new Color(.065f, .205f, .29f));
+            Height(row, 112);
+            var stripe = Box(row, "Accent", Accent);
+            Stretch(stripe); stripe.anchorMax = new Vector2(0, 1); stripe.sizeDelta = new Vector2(3, 0);
+
+            var iconSprite = passive.Icon ?? portrait?.Invoke(fighter.Definition.Id);
+            var icon = Picture(row, "Passive icon", iconSprite);
+            Place(icon, 16, 18, 54, 54);
+
+            int badgeCount = passive.Statuses?.Count ?? 0;
+            if (badgeCount > 0)
             {
-                Heading(content,"PASSIVE");
-                EffectRow(content,"Own passive",Name(selected),"Character passive",selected.Definition.PassiveSource.Description,selected,null,false);
+                for (int i = 0; i < badgeCount; i++)
+                {
+                    var badge = passive.Statuses[i];
+                    var bIcon = Picture(row, "Passive status icon " + badge.Name, badge.Icon);
+                    Place(bIcon, -10 - (badgeCount - i) * 32, 18, 28, 28, true);
+                }
             }
+            else
+            {
+                var source = Picture(row, "Source portrait", portrait?.Invoke(fighter.Definition.Id));
+                Place(source, -66, 18, 48, 48, true);
+            }
+
+            var meta = passive.SourceType;
+            if (!string.IsNullOrEmpty(passive.Restriction)) meta += "  ·  " + passive.Restriction;
+            if (fighter.IsReserve && !meta.Contains("SUB")) meta += "  ·  SUB";
+
+            var textContent = "<b>" + Name(fighter) + "</b> <size=70%><color=#94BACB>" + meta + "</color></size>\n" +
+                              "<size=19>" + passive.FormattedDescription + "</size>";
+            if (!string.IsNullOrWhiteSpace(passive.Keywords))
+            {
+                textContent += "\n<size=15>" + passive.Keywords + "</size>";
+            }
+
+            var text = Text(row, textContent, 22);
+            text.richText = true;
+            Stretch(text.rectTransform, 86, 14, Mathf.Max(84, badgeCount * 32 + 20), 14);
+            fittedRows.Add(text);
         }
         public static string StatValue(FighterState fighter,StatId stat,StatBlock effective)
         {
@@ -146,9 +194,8 @@ namespace FightingAllstar.Presentation.Combat
             bool ratio=stat>=StatId.Pierce;
             var value=ratio?(total/100d).ToString("0.##")+"%":total.ToString("N0");
             if(delta==0)return value;
-            double change=ratio?delta/100d:initial==0?delta:delta*100d/initial;
-            string unit=ratio||initial!=0?"%":"";
-            return "<color="+(delta>0?"#79E5A2":"#FF8894")+">"+value+"</color> <size=70%>("+change.ToString("+0.##;-0.##;0")+unit+")</size>";
+            string change=ratio?(delta/100d).ToString("+0.##;-0.##;0")+"%":(delta>0?"+":"")+delta.ToString("N0");
+            return "<color="+(delta>0?"#79E5A2":"#FF8894")+">"+value+"</color> <size=70%>("+change+")</size>";
         }
         private void BuildEffects(RectTransform content)
         {
@@ -160,7 +207,9 @@ namespace FightingAllstar.Presentation.Combat
                 var visual=StatusVisualData.Get(status.RecipeId,polarity);
                 string duration=status.Recipe?.DurationClock==StatusDurationClock.Permanent?"Permanent":status.RemainingDuration+" turn"+(status.RemainingDuration==1?"":"s");
                 var metadata=duration+(status.StackCount>1?"  ·  "+status.StackCount+" stacks":"");
-                var desc=string.IsNullOrWhiteSpace(visual?.Description)?Describe(status):visual.Description;
+                var desc=Describe(status);
+                if(string.IsNullOrWhiteSpace(desc))desc=visual?.Description;
+                if(string.IsNullOrWhiteSpace(desc))desc="Active combat effect.";
                 EffectRow(content,"Status "+status.RecipeId,StatusVisualData.GetDisplayName(status.RecipeId,polarity),metadata,desc,Find(status.SourceFighterId),status,polarity==StatusPolarity.Debuff);
             }
             Heading(content,"PASSIVE EFFECTS");
@@ -169,9 +218,8 @@ namespace FightingAllstar.Presentation.Combat
             foreach(var group in groups)
             {
                 var owner=Find(group.First().OwnerId);
-                var changes=string.Join("  ·  ",group.Select(c=>Label(c.Modifier.ResolvedStat.ToString())+" "+
-                    (c.Modifier.ResolvedOperation==ModifierOperation.Flat?c.Modifier.Amount.ToString("+0;-0;0"):(c.Modifier.Amount/100d).ToString("+0.##;-0.##;0")+"%")));
-                var description=owner?.Definition.PassiveSource?.Description;
+                var changes=string.Join("  ·  ",group.Select(c=>CombatDetailFormatter.DescribeModifier(c.Modifier,c.Modifier.Amount)));
+                var description=CombatDetailFormatter.HighlightKeywords(owner?.Definition.PassiveSource?.Description);
                 EffectRow(content,"Passive "+group.Key,Name(owner),"Passive"+(owner?.IsReserve==true?"  ·  SUB":""),
                     (string.IsNullOrWhiteSpace(description)?"":description+"\n")+"<color=#79DBEE>"+changes+"</color>",owner,null,false);
             }
@@ -186,7 +234,7 @@ namespace FightingAllstar.Presentation.Combat
             RectTransform icon=status!=null?hud(selected.Id)?.CreateInspectorStatusIcon(status,row):null;
             if(icon==null)icon=Picture(row,"Effect icon",status==null?(owner==null?null:portrait(owner.Definition.Id)):StatusVisualData.GetSprite(status.RecipeId,status.Recipe?.Polarity??StatusPolarity.Neutral));
             Place(icon,16,18,54,54);
-            var text=Text(row,"<b>"+title+"</b> <size=70%><color=#94BACB>"+meta+"</color></size>\n<size=17><color=#94BACB>From "+Name(owner)+(owner?.IsReserve==true?" · SUB":"")+"</color></size>\n<size=19>"+description+"</size>",22);
+            var text=Text(row,"<b>"+title+"</b> <size=70%><color=#94BACB>"+meta+"</color></size>\n<size=19>"+description+"</size>",22);
             Stretch(text.rectTransform,86,14,84,14);fittedRows.Add(text);
             var source=Picture(row,"Source portrait",owner==null?null:portrait(owner.Definition.Id));Place(source,-66,18,48,48,true);
         }
@@ -232,7 +280,7 @@ namespace FightingAllstar.Presentation.Combat
             var typeIcon=Picture(cardHeader,"Card type icon",tooltip?.CardTypeIcon);Place(typeIcon,76,23,24,24);
             if(tooltip?.CardTypeIcon==null)typeIcon.gameObject.SetActive(false);
             var statusBadges=tooltip?.Statuses??new List<CoreBattleSceneController.StatusBadgeData>();
-            var headerTitle=Text(cardHeader,tooltip?.Title??CardName(slot),20);
+            var headerTitle=Text(cardHeader,tooltip?.Title??CardName(slot),20);headerTitle.enableWordWrapping=true;headerTitle.enableAutoSizing=true;headerTitle.fontSizeMin=14;headerTitle.fontSizeMax=20;
             Stretch(headerTitle.rectTransform,110,14,Mathf.Max(14,statusBadges.Count*34+8),12);headerTitle.alignment=TextAlignmentOptions.MidlineLeft;
             for(int i=0;i<statusBadges.Count;i++)
             {
@@ -244,10 +292,10 @@ namespace FightingAllstar.Presentation.Combat
             var divider=Box(content,"Tooltip divider",new Color(.88f,.70f,.38f,.6f));Height(divider,1);
             var descriptionText=tooltip?.Description;
             if(string.IsNullOrWhiteSpace(descriptionText))descriptionText=exists?(slot==0?ultimate?.Description:skillRank?.Description):"No card data is authored for this level.";
-            var description=Text(content,descriptionText,17,new Color(.94f,.92f,.88f));description.richText=true;description.margin=new Vector4(3,2,3,4);description.gameObject.AddComponent<LayoutElement>().minHeight=48;
+            var description=Text(content,descriptionText,17,new Color(.94f,.92f,.88f));description.richText=true;description.enableWordWrapping=true;description.margin=new Vector4(3,2,3,4);var descElement=description.gameObject.AddComponent<LayoutElement>();descElement.minHeight=76;
             if(!string.IsNullOrWhiteSpace(tooltip?.Keywords))
             {
-                var keywords=Text(content,tooltip.Keywords,15,new Color(.34f,.74f,.93f));keywords.fontStyle=FontStyles.Bold;keywords.gameObject.AddComponent<LayoutElement>().minHeight=34;
+                var keywords=Text(content,tooltip.Keywords,15,new Color(.34f,.74f,.93f));keywords.fontStyle=FontStyles.Bold;keywords.enableWordWrapping=true;var kwElement=keywords.gameObject.AddComponent<LayoutElement>();kwElement.minHeight=40;
             }
         }
         private static string Describe(StatusInstance status)
@@ -259,8 +307,7 @@ namespace FightingAllstar.Presentation.Combat
             {
                 var amount = m.ScaleByStatusPotency ? (long)status.PotencyBp * m.PotencyCoefficientBp / 10000 : m.Amount;
                 if (r.Stacking == StatusStackingPolicy.AddStacks && m.Operation != ModifierOperation.Multiplier) amount *= Math.Max(1, status.StackCount);
-                parts.Add(Label((m.Target == ModifierTarget.Stat ? m.Stat.ToString() : m.Target.ToString())) + " " +
-                    (m.Operation == ModifierOperation.Flat ? amount.ToString("+0;-0;0") : (amount / 100d).ToString("+0.##;-0.##;0") + "%") + " (" + Label(m.Operation.ToString()) + ")");
+                parts.Add(CombatDetailFormatter.DescribeModifier(m,amount));
             }
             if (r.PeriodicDamage != null && (r.Behavior & StatusBehavior.DamageOverTime) != 0)
                 parts.Add("Deals " + (r.PeriodicDamage.Scaling == StatusSnapshotScaling.Fixed ? r.PeriodicDamage.FixedAmount.ToString() :
@@ -276,7 +323,7 @@ namespace FightingAllstar.Presentation.Combat
             if (r.SurviveLethalCharges > 0) parts.Add("Survives lethal damage " + r.SurviveLethalCharges + " time(s).");
             if (r.ImmuneStatusTags.Count > 0) parts.Add("Immune to: " + string.Join(", ", r.ImmuneStatusTags) + ".");
             if (!string.IsNullOrEmpty(status.ParentInstanceId)) parts.Add("Ends with its parent stance.");
-            return parts.Count > 0 ? string.Join(" ", parts) : Label(r.Behavior.ToString()) + " effect.";
+            return parts.Count > 0 ? string.Join(" ", parts) : string.Empty;
         }
 
         private static string Label(string s)=>System.Text.RegularExpressions.Regex.Replace(s??"","([a-z])([A-Z])","$1 $2").Replace('-',' ');
@@ -285,8 +332,9 @@ namespace FightingAllstar.Presentation.Combat
         {var g=new GameObject(name,typeof(RectTransform),typeof(Image));g.transform.SetParent(parent,false);g.GetComponent<Image>().color=color;return (RectTransform)g.transform;}
         private static RectTransform Picture(Transform parent,string name,Sprite sprite)
         {var r=Box(parent,name,sprite==null?new Color(.12f,.2f,.27f):Color.white);var image=r.GetComponent<Image>();image.sprite=sprite;image.preserveAspect=true;image.raycastTarget=false;return r;}
+        private static TMP_FontAsset inspectorFont;
         private static TextMeshProUGUI Text(Transform parent,string value,float size,Color? color=null)
-        {var g=new GameObject("Text",typeof(RectTransform));g.transform.SetParent(parent,false);var t=g.AddComponent<TextMeshProUGUI>();t.text=value;t.fontSize=size;t.color=color??new Color(.91f,.95f,1);t.raycastTarget=false;return t;}
+        {var g=new GameObject("Text",typeof(RectTransform));g.transform.SetParent(parent,false);var t=g.AddComponent<TextMeshProUGUI>();if(inspectorFont==null)inspectorFont=Resources.Load<TMP_FontAsset>("UI/BarlowCondensed-SemiBoldItalic SDF");if(inspectorFont!=null)t.font=inspectorFont;t.text=value;t.fontSize=size;t.color=color??new Color(.91f,.95f,1);t.raycastTarget=false;return t;}
         private static RectTransform Button(Transform parent,string name,string text,Action action,bool selected=false)
         {var r=Box(parent,name,selected?new Color(.09f,.30f,.38f):Raised);var button=r.gameObject.AddComponent<UnityEngine.UI.Button>();button.onClick.AddListener(()=>action());var label=Text(r,text,19,selected?Accent:Color.white);Stretch(label.rectTransform,6,3,6,3);label.alignment=TextAlignmentOptions.Center;return r;}
         private static void Heading(Transform parent,string text){var t=Text(parent,text,15,Accent);Height(t.rectTransform,30);}

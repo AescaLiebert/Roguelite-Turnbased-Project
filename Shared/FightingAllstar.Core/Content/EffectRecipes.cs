@@ -49,8 +49,11 @@ namespace FightingAllstar.Core.Content
     public enum StatusDurationClock { TargetTurnStart, TargetTurnEnd, SourceTurnEnd, ActionEnd, Permanent }
     public enum StatusTickTiming { None, TargetTurnStart, TargetTurnEnd, WhenTargetTakesDamage }
     public enum StatusSnapshotScaling { Fixed, TriggeringHealthDamage, SourceAttack, TargetMaxHealth }
-    public enum StatusHealScaling { Fixed, SourceAttack, TargetMaxHealth, TurnStartRecovery }
+    public enum StatusHealScaling { Fixed, SourceAttack, TargetMaxHealth, TurnStartRecovery, TargetMissingHealth }
     public enum StatusBreakRule { None, OnDamageTaken, OnCardUsed, OnSourceDefeated }
+    public enum BarrierSourceStat { Attack, Defense, MaxHealth }
+    public enum BarrierDurationPolicy { Refresh, Replace }
+    public enum BarrierAmountPolicy { Replace, Accumulate }
 
     [Flags]
     public enum CardCategoryMask
@@ -100,7 +103,9 @@ namespace FightingAllstar.Core.Content
         ActorWasNotDamagedSincePreviousTurnStart,
         ActorWasDamagedDuringPreviousEnemyTurn,
         ActorWasNotDamagedDuringPreviousEnemyTurn,
-        TargetIsLowestHealthEnemy
+        TargetIsLowestHealthEnemy,
+        ActorHasAttributeAdvantage,
+        ActorHasAttributeDisadvantage
     }
     public enum ConditionLogic { Leaf, All, Any, Not }
     public enum ConditionSubject { OperationTarget, Owner, Actor, EventTarget }
@@ -111,7 +116,8 @@ namespace FightingAllstar.Core.Content
         EffectOwnerStatus,
         TriggerActorStatus,
         TriggerTargetStatus,
-        OperationTargetStatus
+        OperationTargetStatus,
+        EffectOwnerDefense
     }
 
     public enum AttackEffectKind
@@ -183,7 +189,7 @@ namespace FightingAllstar.Core.Content
             return copy;
         }
         public StatusRecipeDefinition ToRecipe() => new StatusRecipeDefinition {
-            Id = Id, NameKey = NameKey, Polarity = StatusPolarity.Buff,
+            Id = Id, NameKey = NameKey, Polarity = StatusPolarity.Neutral,
             Behavior = StatusBehavior.Stance | (Taunt ? StatusBehavior.Taunt : StatusBehavior.None),
             DurationClock = StatusDurationClock.Permanent, DebuffImmunity = DebuffImmunity,
             AdditionalDamageImmunity = AdditionalDamageImmunity, EvadeAttacks = EvadeAttacks,
@@ -269,8 +275,11 @@ namespace FightingAllstar.Core.Content
         public int DefaultDuration = 2;
         public int MaxStacks = 1;
         public int DefaultPotencyBp;
-        /// <summary>Shield granted when this Barrier status is applied, as a fraction of its source's Attack.</summary>
+        /// <summary>Shield granted when this Barrier status is applied, as a fraction of its selected source stat.</summary>
         public int BarrierCoefficientBp;
+        public BarrierSourceStat BarrierSourceStat;
+        public BarrierDurationPolicy BarrierDurationPolicy;
+        public BarrierAmountPolicy BarrierAmountPolicy;
         public bool BypassDebuffImmunity;
         public StatusBreakRule BreakRule;
         public CardCategoryMask DisableMask;
@@ -302,9 +311,23 @@ namespace FightingAllstar.Core.Content
         [field: NonSerialized]
         public List<PassiveReactionDefinition> Reactions { get; set; } = new List<PassiveReactionDefinition>();
 
+        /// <summary>Preserves authored Neutral statuses and migrates legacy stance/healing buffs.</summary>
+        public void NormalizePolarity()
+        {
+            if (Polarity != StatusPolarity.Buff) return;
+            if ((Behavior & (StatusBehavior.Stance | StatusBehavior.Heal)) != 0)
+                Polarity = StatusPolarity.Neutral;
+            else if (!string.IsNullOrEmpty(Id) &&
+                (Id.StartsWith("status.debuff.", StringComparison.OrdinalIgnoreCase) ||
+                 Id.StartsWith("status.disable.", StringComparison.OrdinalIgnoreCase) ||
+                 Id.StartsWith("status.decrease.", StringComparison.OrdinalIgnoreCase)))
+                Polarity = StatusPolarity.Debuff;
+        }
+
         public StatusRecipeDefinition Clone()
         {
             var copy = (StatusRecipeDefinition)MemberwiseClone();
+            copy.NormalizePolarity();
             if (copy.Taunt) copy.Behavior |= StatusBehavior.Taunt;
             copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
             copy.Modifiers = new List<StatModifierDefinition>();
@@ -360,11 +383,14 @@ namespace FightingAllstar.Core.Content
         public EffectValueDefinition Clone() => (EffectValueDefinition)MemberwiseClone();
     }
 
+    public enum DamageStatSource { EffectOwner, Target }
+
     [Serializable]
     public sealed class DamageEffectRecipe
     {
         public DamageFamily Family;
         public StatScaling Scaling = StatScaling.Attack;
+        public DamageStatSource StatSource;
         public StatId ScalingStat = StatId.Attack;
         public int FixedAmount;
         public int CoefficientBp = 10000;
@@ -372,6 +398,7 @@ namespace FightingAllstar.Core.Content
         public string AttackEffectId;
         public bool CannotCrit;
         public bool CannotBlock;
+        // Compatibility for old recipes. New authoring uses StatSource + Scaling.
         public bool ScaleFromTargetMaxHealth;
         public DamageEffectRecipe Clone() => (DamageEffectRecipe)MemberwiseClone();
     }

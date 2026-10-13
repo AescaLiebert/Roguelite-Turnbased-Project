@@ -10,6 +10,8 @@ namespace FightingAllstar.Core.Combat
     {
         public int TriggeringHealthDamage;
         public int SourceAttack;
+        public int SourceDefense;
+        public int SourceMaxHealth;
         public int TargetMaxHealth;
         public int FixedAmount;
         public StatusSnapshot Clone() => (StatusSnapshot)MemberwiseClone();
@@ -99,13 +101,7 @@ namespace FightingAllstar.Core.Combat
             var recipe = request?.Recipe;
             if (recipe == null || string.IsNullOrWhiteSpace(recipe.Id))
                 return Rejected("A status recipe with a stable id is required.");
-            if (recipe.Polarity == StatusPolarity.Buff &&
-                (recipe.Id.StartsWith("status.debuff.", StringComparison.OrdinalIgnoreCase) ||
-                 recipe.Id.StartsWith("status.disable.", StringComparison.OrdinalIgnoreCase) ||
-                 recipe.Id.StartsWith("status.decrease.", StringComparison.OrdinalIgnoreCase)))
-            {
-                recipe.Polarity = StatusPolarity.Debuff;
-            }
+            recipe.NormalizePolarity();
             if (string.IsNullOrWhiteSpace(request.TargetFighterId)) return Rejected("A target fighter id is required.");
             if (recipe.DurationClock != StatusDurationClock.Permanent && ResolveDuration(request) <= 0)
                 return Rejected("A temporary status requires a positive duration.");
@@ -118,6 +114,20 @@ namespace FightingAllstar.Core.Combat
 
             var current = matches[matches.Count - 1];
             var incoming = CreateInstance(request);
+            if ((current.Recipe?.Behavior & StatusBehavior.Barrier) != 0 &&
+                (incoming.Recipe?.Behavior & StatusBehavior.Barrier) != 0)
+            {
+                var remainingDuration = current.RemainingDuration;
+                var skipNextDurationClock = current.SkipNextDurationClock;
+                ReplacePayload(current, incoming);
+                current.RemainingDuration = incoming.Recipe.BarrierDurationPolicy == BarrierDurationPolicy.Refresh
+                    ? Math.Max(remainingDuration, incoming.RemainingDuration)
+                    : incoming.RemainingDuration;
+                current.SkipNextDurationClock = incoming.Recipe.BarrierDurationPolicy == BarrierDurationPolicy.Refresh
+                    ? skipNextDurationClock || incoming.SkipNextDurationClock
+                    : incoming.SkipNextDurationClock;
+                return Result(StatusApplyOutcome.Replaced, current);
+            }
             switch (recipe.Stacking)
             {
                 case StatusStackingPolicy.RefreshDuration:
@@ -138,6 +148,8 @@ namespace FightingAllstar.Core.Combat
                 case StatusStackingPolicy.RefreshStronger:
                 default:
                     var strength = CompareStrength(incoming, current);
+                    if (strength == 0 && incoming.RemainingDuration > current.RemainingDuration)
+                        strength = 1;
                     if (strength > 0)
                     {
                         ReplacePayload(current, incoming);
@@ -251,17 +263,11 @@ namespace FightingAllstar.Core.Combat
                 if (periodic == null || periodic.Timing != timing) continue;
                 var basis = periodic.Scaling switch
                 {
-                    StatusSnapshotScaling.TriggeringHealthDamage => instance.Snapshot?.TriggeringHealthDamage > 0
-                        ? instance.Snapshot.TriggeringHealthDamage
-                        : (instance.Snapshot?.SourceAttack ?? 0),
+                    StatusSnapshotScaling.TriggeringHealthDamage => instance.Snapshot?.TriggeringHealthDamage ?? 0,
                     StatusSnapshotScaling.SourceAttack => instance.Snapshot?.SourceAttack ?? 0,
                     StatusSnapshotScaling.TargetMaxHealth => instance.Snapshot?.TargetMaxHealth ?? 0,
                     _ => periodic.FixedAmount > 0 ? periodic.FixedAmount : instance.Snapshot?.FixedAmount ?? 0
                 };
-                if (basis <= 0 && periodic.Scaling == StatusSnapshotScaling.TriggeringHealthDamage)
-                {
-                    basis = instance.Snapshot?.SourceAttack ?? 0;
-                }
                 var amount = (int)BigInteger.Min(int.MaxValue, BigInteger.Divide(
                     new BigInteger(Math.Max(0, basis)) * Math.Max(0, periodic.CoefficientBp), 10000));
                 if (amount <= 0 && !periodic.ConsumeOnTrigger) continue;
@@ -334,6 +340,8 @@ namespace FightingAllstar.Core.Combat
             if (result != 0) return result;
             result = PeriodicHealingStrength(left).CompareTo(PeriodicHealingStrength(right));
             if (result != 0) return result;
+            result = BarrierStrength(left).CompareTo(BarrierStrength(right));
+            if (result != 0) return result;
             result = RecipeEffectStrength(left.Recipe).CompareTo(RecipeEffectStrength(right.Recipe));
             if (result != 0) return result;
             return left.PotencyBp.CompareTo(right.PotencyBp);
@@ -342,7 +350,8 @@ namespace FightingAllstar.Core.Combat
         private static long ModifierStrength(StatusInstance instance)
         {
             long value = 0;
-            if (instance?.Recipe?.Modifiers != null) foreach (var modifier in instance.Recipe.Modifiers)
+            if (instance?.Recipe?.Modifiers != null && (instance.Recipe.Behavior & StatusBehavior.Stat) != 0)
+                foreach (var modifier in instance.Recipe.Modifiers)
             {
                 if (modifier == null) continue;
                 var amount = modifier.ScaleByStatusPotency
@@ -358,7 +367,7 @@ namespace FightingAllstar.Core.Combat
         private static long PeriodicDamageStrength(StatusInstance instance)
         {
             var recipe = instance?.Recipe;
-            if (recipe?.PeriodicDamage == null) return 0;
+            if (recipe?.PeriodicDamage == null || (recipe.Behavior & StatusBehavior.DamageOverTime) == 0) return 0;
             var periodic = recipe.PeriodicDamage;
             long basis = periodic.Scaling switch
             {
@@ -376,12 +385,13 @@ namespace FightingAllstar.Core.Combat
         private static long PeriodicHealingStrength(StatusInstance instance)
         {
             var periodic = instance?.Recipe?.PeriodicHealing;
-            if (periodic == null) return 0;
+            if (periodic == null || (instance.Recipe.Behavior & StatusBehavior.Heal) == 0) return 0;
             long basis = periodic.Scaling switch
             {
                 StatusHealScaling.SourceAttack => instance.Snapshot?.SourceAttack ?? 0,
                 StatusHealScaling.TargetMaxHealth => instance.Snapshot?.TargetMaxHealth ?? 0,
                 StatusHealScaling.Fixed => periodic.FixedAmount > 0 ? periodic.FixedAmount : instance.Snapshot?.FixedAmount ?? 0,
+                StatusHealScaling.TargetMissingHealth => 10000,
                 _ => 10000
             };
             return periodic.Scaling == StatusHealScaling.Fixed
@@ -390,12 +400,28 @@ namespace FightingAllstar.Core.Combat
                     new BigInteger(Math.Abs(basis)) * Math.Abs((long)periodic.CoefficientBp), 10000));
         }
 
+        private static long BarrierStrength(StatusInstance instance) =>
+            BarrierCapacity(instance);
+
+        public static int BarrierCapacity(StatusInstance instance)
+        {
+            var recipe = instance?.Recipe;
+            if (recipe == null || (recipe.Behavior & StatusBehavior.Barrier) == 0) return 0;
+            var basis = recipe.BarrierSourceStat switch
+            {
+                BarrierSourceStat.Defense => instance.Snapshot?.SourceDefense ?? 0,
+                BarrierSourceStat.MaxHealth => instance.Snapshot?.SourceMaxHealth ?? 0,
+                _ => instance.Snapshot?.SourceAttack ?? 0
+            };
+            return (int)Math.Min(int.MaxValue,
+                (long)Math.Max(0, basis) * Math.Max(0, recipe.BarrierCoefficientBp) / 10000);
+        }
+
         private static long RecipeEffectStrength(StatusRecipeDefinition recipe)
         {
             if (recipe == null) return 0;
             long value = Math.Abs((long)recipe.RecoverDamageTakenBp) + Math.Abs((long)recipe.IgnoreCritResistanceBp) +
-                Math.Abs((long)recipe.IgnoreCritDefenseBp) + Math.Max(0, recipe.SurviveLethalCharges) +
-                Math.Max(0, recipe.BarrierCoefficientBp);
+                Math.Abs((long)recipe.IgnoreCritDefenseBp) + Math.Max(0, recipe.SurviveLethalCharges);
             if (recipe.DebuffImmunity) value++;
             if (recipe.AdditionalDamageImmunity) value++;
             if (recipe.EvadeAttacks) value++;
@@ -447,6 +473,7 @@ namespace FightingAllstar.Core.Combat
             if (target == null || !target.IsAlive)
                 return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Target is not alive." };
             if (target.Statuses == null) target.Statuses = new StatusContainer();
+            recipe?.NormalizePolarity();
             if (recipe != null && recipe.Polarity == StatusPolarity.Debuff && !recipe.BypassDebuffImmunity &&
                 target.Statuses.Instances.Exists(s => s?.Recipe != null && (s.Recipe.DebuffImmunity ||
                     s.Recipe.ImmuneStatusTags.Exists(tag => recipe.Tags.Contains(tag)))))
@@ -465,7 +492,6 @@ namespace FightingAllstar.Core.Combat
                 {
                     var child = children[i]?.ToRecipe();
                     if (child == null) continue;
-                    child.Polarity = StatusPolarity.Buff;
                     child.Behavior |= StatusBehavior.Stance;
                     child.DurationClock = StatusDurationClock.Permanent;
                     target.Statuses.Instances.Add(new StatusInstance {
@@ -545,7 +571,6 @@ namespace FightingAllstar.Core.Combat
                 foreach (var contribution in fighter.PassiveContributions) passiveStats.Modifiers.Add(contribution.Modifier);
                 statuses.Add(new StatusInstance { Recipe = passiveStats });
             }
-            if (statuses.Count == 0) return effective;
             foreach (StatId stat in Enum.GetValues(typeof(StatId)))
             {
                 var baseValue = baseStats.Get(stat);
@@ -576,6 +601,7 @@ namespace FightingAllstar.Core.Combat
                 value = BigInteger.Divide(value * multiplier, 10000) + points;
                 effective.Set(stat, (int)BigInteger.Max(BigInteger.Zero, BigInteger.Min(int.MaxValue, value)));
             }
+            ArtifactRules.ApplyConditionalStats(fighter, effective);
             return effective;
         }
 
@@ -598,6 +624,13 @@ namespace FightingAllstar.Core.Combat
             }
             Accumulate(attacker, family, true, isUltimate, policy);
             Accumulate(defender, family, false, isUltimate, policy);
+            if (ArtifactRules.ActiveSets(attacker).Contains(ArtifactSet.Striker))
+            {
+                // Artifact Damage Dealt applies to every family. Additional/DOT use the family
+                // multiplier branch; their formula deliberately does not read generic outgoing buffs.
+                if (family == DamageFamily.Additional || family == DamageFamily.DamageOverTime) policy.FamilyDealtIncreaseBp += 500;
+                else policy.OutgoingIncreaseBp += 500;
+            }
             return policy;
         }
 

@@ -16,9 +16,15 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: "Inflict damage equal to 120% of ATK, decrease defense power 20% 1 turns"
+  - description: Inflict damage equal to 120% of ATK, decrease defense power 20%
+      2 turns
     skillType: 5
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -28,7 +34,7 @@ MonoBehaviour:
       CoefficientBp: 12000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -41,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -53,6 +60,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -62,7 +74,13 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -76,18 +94,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -97,9 +117,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 1
           Family: 0
@@ -109,7 +136,7 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
+          Conditions: []
           StatusRecipe:
             Id: status.debuff.defense
             NameKey: 
@@ -122,6 +149,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -130,11 +158,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 1
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -2000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -142,6 +176,11 @@ MonoBehaviour:
               CoefficientBp: 10000
               FixedAmount: 0
               ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
             DebuffImmunity: 0
             AdditionalDamageImmunity: 0
             Taunt: 0
@@ -151,7 +190,13 @@ MonoBehaviour:
             CounterEnabled: 0
             CounterCategory: 0
             CounterTarget: 1
+            CounterConditions: []
             CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -165,18 +210,20 @@ MonoBehaviour:
               HealCoefficientBp: 10000
               StatusRecipeId: 
               StatusPolarity: 1
+              StatusApplyChanceBp: 10000
               StatusDurationOverride: 0
               StatusStackCount: 1
+              StatusPotencyBp: 0
               PowerGaugeAmount: 0
               Sequence: []
             SurviveLethalCharges: 0
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
-          StatusDurationOverride: 1
+          StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
           HealValue:
             Source: 0
             FixedAmount: 0
@@ -186,10 +233,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
-  - description: "Inflict damage equal to 210% of ATK, decrease defense power 40% 2 turns"
+  - description: Inflict damage equal to 210% of ATK, decrease defense power 40%
+      2 turns
     skillType: 5
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -199,7 +251,7 @@ MonoBehaviour:
       CoefficientBp: 21000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -212,6 +264,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -224,6 +277,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -233,7 +291,13 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -247,18 +311,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -268,9 +334,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 1
           Family: 0
@@ -280,7 +353,7 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
+          Conditions: []
           StatusRecipe:
             Id: status.debuff.defense
             NameKey: 
@@ -293,6 +366,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -301,11 +375,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 1
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -313,6 +393,11 @@ MonoBehaviour:
               CoefficientBp: 10000
               FixedAmount: 0
               ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
             DebuffImmunity: 0
             AdditionalDamageImmunity: 0
             Taunt: 0
@@ -322,7 +407,13 @@ MonoBehaviour:
             CounterEnabled: 0
             CounterCategory: 0
             CounterTarget: 1
+            CounterConditions: []
             CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -336,18 +427,20 @@ MonoBehaviour:
               HealCoefficientBp: 10000
               StatusRecipeId: 
               StatusPolarity: 1
+              StatusApplyChanceBp: 10000
               StatusDurationOverride: 0
               StatusStackCount: 1
+              StatusPotencyBp: 0
               PowerGaugeAmount: 0
               Sequence: []
             SurviveLethalCharges: 0
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
           HealValue:
             Source: 0
             FixedAmount: 0
@@ -357,10 +450,15 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []
-  - description: "Inflict damage equal to 350% of ATK, decrease defense power 60% 2 turns"
+  - description: Inflict damage equal to 350% of ATK, decrease defense power 60%
+      2 turns
     skillType: 5
     runtimeEffect:
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -370,7 +468,7 @@ MonoBehaviour:
       CoefficientBp: 35000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
+      Conditions: []
       StatusRecipe:
         Id: 
         NameKey: 
@@ -383,6 +481,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -395,6 +494,11 @@ MonoBehaviour:
           CoefficientBp: 10000
           FixedAmount: 0
           ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
         DebuffImmunity: 0
         AdditionalDamageImmunity: 0
         Taunt: 0
@@ -404,7 +508,13 @@ MonoBehaviour:
         CounterEnabled: 0
         CounterCategory: 0
         CounterTarget: 1
+        CounterConditions: []
         CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -418,18 +528,20 @@ MonoBehaviour:
           HealCoefficientBp: 10000
           StatusRecipeId: 
           StatusPolarity: 1
+          StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
           StatusStackCount: 1
+          StatusPotencyBp: 0
           PowerGaugeAmount: 0
           Sequence: []
         SurviveLethalCharges: 0
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 0
       StatusStackCount: 1
       StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
       HealValue:
         Source: 0
         FixedAmount: 0
@@ -439,9 +551,16 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: 
           Kind: 1
           Family: 0
@@ -451,7 +570,7 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Tags: []
+          Conditions: []
           StatusRecipe:
             Id: status.debuff.defense
             NameKey: 
@@ -464,6 +583,7 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -472,11 +592,17 @@ MonoBehaviour:
             Modifiers:
             - Target: 0
               Stat: 1
+              Bundle: 0
               Family: 0
               Operation: 1
               Amount: -6000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
             PeriodicDamage:
               Family: 3
               Timing: 2
@@ -484,6 +610,11 @@ MonoBehaviour:
               CoefficientBp: 10000
               FixedAmount: 0
               ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
             DebuffImmunity: 0
             AdditionalDamageImmunity: 0
             Taunt: 0
@@ -493,7 +624,13 @@ MonoBehaviour:
             CounterEnabled: 0
             CounterCategory: 0
             CounterTarget: 1
+            CounterConditions: []
             CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -507,18 +644,20 @@ MonoBehaviour:
               HealCoefficientBp: 10000
               StatusRecipeId: 
               StatusPolarity: 1
+              StatusApplyChanceBp: 10000
               StatusDurationOverride: 0
               StatusStackCount: 1
+              StatusPotencyBp: 0
               PowerGaugeAmount: 0
               Sequence: []
             SurviveLethalCharges: 0
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
           HealValue:
             Source: 0
             FixedAmount: 0
@@ -528,4 +667,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 1
-          Sequence: []

@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -11,6 +12,8 @@ namespace FightingAllstar.Presentation.Navigation
     public sealed class FrontEndController : MonoBehaviour
     {
         [SerializeField] private SummonBannerConfigurationSO bannerConfiguration;
+        [SerializeField, Tooltip("Banners offered by this screen, in display order. The default banner is included once.")]
+        private List<SummonBannerConfigurationSO> availableBanners = new List<SummonBannerConfigurationSO>();
         private VisualElement _root, _banner, _results;
         private Label _wallet, _notice, _guarantee;
         private bool _busy;
@@ -24,8 +27,12 @@ namespace FightingAllstar.Presentation.Navigation
                 return;
             }
             _uiInitialized = false;
+            PlayerInventoryService.InventoryChanged -= InventoryChanged;
+            PlayerInventoryService.InventoryChanged += InventoryChanged;
             _root.schedule.Execute(InitializeUI).ExecuteLater(1);
         }
+        private void OnDisable() { PlayerInventoryService.InventoryChanged -= InventoryChanged; _uiInitialized = false; }
+        private void InventoryChanged() { if (_uiInitialized) Refresh(); }
 
         private void InitializeUI()
         {
@@ -49,16 +56,26 @@ namespace FightingAllstar.Presentation.Navigation
             });
             BindIfPresent("details", ShowDetails);
             BindIfPresent("selector", ShowSelectors);
+            var banners = new[] { bannerConfiguration }.Concat(availableBanners ?? new List<SummonBannerConfigurationSO>())
+                .Where(b => b != null).Distinct().ToList();
+            if (bannerConfiguration == null) bannerConfiguration = banners.FirstOrDefault();
             if (_notice != null)
             {
                 if (bannerConfiguration == null) _notice.text = "Assign a summon banner configuration in the Inspector.";
                 else if (!bannerConfiguration.Validate(out var bannerError)) _notice.text = bannerError;
             }
-            var hero = _root.Q<Image>("hero-art");
-            var character = PlayerInventoryService.Instance?.GetCatalog().FirstOrDefault(c => c != null && c.RuntimeReady && c.FighterRarity == FighterRarity.SSR);
-            if (hero != null && character != null) hero.sprite = character.FighterPic != null ? character.FighterPic : character.FighterIcon;
             MainMenuView.Initialize(_root);
+            CharacterInventoryView.Initialize(_root);
             GachaBannerView.Initialize(_root);
+            GachaBannerView.PopulateBanners(_root, banners, bannerConfiguration, SelectBanner);
+            AccountHeaderView.Bind(_root, _root.Q("gacha-stage") == null ? (System.Action)null : () => Navigate("MainMenu"));
+            Refresh();
+        }
+        private void SelectBanner(SummonBannerConfigurationSO banner)
+        {
+            if (_busy || banner == null) return;
+            bannerConfiguration = banner;
+            SetNotice(banner.Validate(out var error) ? null : error);
             Refresh();
         }
         private Label QueryLabel(params string[] names)
@@ -116,6 +133,7 @@ namespace FightingAllstar.Presentation.Navigation
         }
         private void Refresh()
         {
+            AccountHeaderView.Refresh(_root);
             var inventory = PlayerInventoryService.Instance;
             if (_wallet != null)
             {
@@ -154,16 +172,11 @@ namespace FightingAllstar.Presentation.Navigation
                 if (cards != null && _results != null && _banner != null)
                 {
                     cards.Clear();
-                    foreach (var character in draws)
-                    {
-                        var card = new VisualElement(); card.AddToClassList("result-card");
-                        card.Add(CharacterIconView.CreateFilling(character));
-                        cards.Add(card);
-                    }
+                    CharacterGridView.Populate(cards, draws);
                     var resultTitle = _root.Q<Label>("result-title");
                     if (resultTitle != null) resultTitle.text = count == 1 ? "FIGHTER SUMMONED" : "10 FIGHTERS SUMMONED";
                     _banner.style.display = DisplayStyle.None;
-                    _results.style.display = DisplayStyle.Flex;
+                    ScreenMotion.Show(_results);
                 }
                 else
                 {
@@ -197,9 +210,9 @@ namespace FightingAllstar.Presentation.Navigation
                 ". Independent draws; ten summons have no rarity guarantee.\n300 paid pulls earn an SSR selector."));
             foreach (var pool in bannerConfiguration.RarityPools)
             {
-                foreach (var character in pool.Characters)
-                    panel.Add(new Label(character.FighterName + " · " + pool.Rarity +
-                        (character.RuntimeReady ? string.Empty : " · Draft, battle locked")));
+                panel.Add(new Label(pool.Rarity + " · " + FormatRate(bannerConfiguration.GetRarityRateBasisPoints(pool.Rarity))));
+                var grid = new VisualElement(); panel.Add(grid);
+                CharacterGridView.Populate(grid, pool.Characters, badge: c => c.RuntimeReady ? null : "DRAFT");
             }
         }
         private void ShowSelectors()
@@ -213,12 +226,10 @@ namespace FightingAllstar.Presentation.Navigation
             if (bannerConfiguration == null || !bannerConfiguration.Validate(out _)) return;
             foreach (var pool in bannerConfiguration.RarityPools.Where(x => x.Rarity == FighterRarity.SSR))
             {
-                foreach (var character in pool.Characters)
-                {
-                    var selectedCharacter = character;
-                    var button = new Button(() => { inventory.TryClaimSelector(selectedCharacter, out var error); SetNotice(error ?? "Selector claimed."); Refresh(); ShowSelectors(); }) { text = character.FighterName };
-                    button.SetEnabled(inventory.SelectorEntitlements > 0); panel.Add(button);
-                }
+                var grid = new VisualElement(); panel.Add(grid);
+                CharacterGridView.Populate(grid, pool.Characters,
+                    selected => { inventory.TryClaimSelector(selected, out var error); SetNotice(error ?? "Selector claimed."); Refresh(); ShowSelectors(); },
+                    _ => inventory != null && inventory.SelectorEntitlements > 0);
             }
         }
 

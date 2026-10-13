@@ -16,19 +16,21 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 17fd06f2ae5ddb54eb8463a667d0eee5, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts 166.67% of ATK and increases Lifesteal by 10% for 1 turn.
+  - description: Inflicts 200% of ATK and increases Lifesteal by 10% for 2 turns.
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.iori95.skill.1.rank.1
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 16667
+      CoefficientBp: 20000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -44,6 +46,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -75,6 +81,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -111,12 +119,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
-      - Timing: 2
+      - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.iori95.skill.1.lifesteal.rank.1
           Kind: 1
           Family: 0
@@ -128,17 +141,21 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
-            Id: status.buff.iori95.lifesteal
-            NameKey: status.buff.iori95.lifesteal
-            Polarity: 0
+            Id: rejuvenation
+            NameKey: rejuvenation
+            Polarity: 2
             Color: 0
             Behavior: 1
             Stacking: 0
             Identity: 0
             DurationClock: 1
-            DefaultDuration: 1
+            DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -183,6 +200,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -219,19 +238,21 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-  - description: Inflicts 333.33% of ATK and increases Lifesteal by 20% for 2 turns.
+  - description: Inflicts 360% of ATK and increases Lifesteal by 20% for 2 turns.
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.iori95.skill.1.rank.2
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 33333
+      CoefficientBp: 36000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -247,6 +268,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -278,6 +303,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -314,12 +341,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
-      - Timing: 2
+      - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.iori95.skill.1.lifesteal.rank.2
           Kind: 1
           Family: 0
@@ -331,8 +363,8 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
-            Id: status.buff.iori95.lifesteal
-            NameKey: status.buff.iori95.lifesteal
+            Id: rejuvenation
+            NameKey: rejuvenation
             Polarity: 0
             Color: 0
             Behavior: 1
@@ -342,6 +374,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -386,6 +422,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0
@@ -426,8 +464,10 @@ MonoBehaviour:
     skillType: 0
     runtimeEffect:
       Attack:
-        HitCount: 1
+        HitCount: 4
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: fighter.iori95.skill.1.rank.3
       Kind: 0
       Family: 0
@@ -450,6 +490,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -481,6 +525,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -517,12 +563,17 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: fighter.iori95.skill.1.lifesteal.rank.3
           Kind: 1
           Family: 0
@@ -534,8 +585,8 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
-            Id: status.buff.iori95.lifesteal
-            NameKey: status.buff.iori95.lifesteal
+            Id: rejuvenation
+            NameKey: rejuvenation
             Polarity: 0
             Color: 0
             Behavior: 1
@@ -545,6 +596,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -589,6 +644,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 1
               Family: 0

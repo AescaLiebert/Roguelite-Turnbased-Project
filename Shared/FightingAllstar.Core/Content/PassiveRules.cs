@@ -13,10 +13,12 @@ namespace FightingAllstar.Core.Content
     public enum PassiveCommandKind
     {
         IncrementCounter, ChangePowerGauge, ExecuteEffect, SetCounter,
-        IncreaseCurrentAttackPercent, IncreaseCurrentDamageDealtPercent
+        IncreaseCurrentAttackPercent, IncreaseCurrentDamageDealtPercent,
+        IgnoreCurrentTargetCritDefensePercent, IncreaseCurrentDamageDealtByBaseStatPercent
     }
     public enum PassiveValueSource { Fixed, ActualGaugeLost }
     public enum PassiveLimitScope { None, Battle, OwnerTurn, RootAction, RootActionTarget, Event }
+    public enum PassiveDamageTiming { EachHit, FinalHit }
 
     [Serializable]
     public sealed class PassiveGate
@@ -73,6 +75,8 @@ namespace FightingAllstar.Core.Content
         public int CounterCap = int.MaxValue;
         public PassiveValueSource ValueSource;
         public int Amount = 1;
+        public StatId ScalingStat;
+        public int ScalingCoefficientBp = 10000;
         public CardEffectOperationDefinition Effect;
         public PassiveCommandDefinition Clone()
         {
@@ -88,6 +92,7 @@ namespace FightingAllstar.Core.Content
         public string Id;
         public PassiveGate Gate = new PassiveGate();
         public PassiveEventKind Trigger;
+        public PassiveDamageTiming DamageTiming;
         public bool OwnTeamTurnOnly;
         public PassiveRelation ActorRelation;
         public PassiveRelation TargetRelation;
@@ -137,6 +142,7 @@ namespace FightingAllstar.Core.Content
                 if (rule == null) { errors.Add("Null passive reaction."); continue; }
                 ValidateRule(rule.Id, rule.Gate, ids, errors);
                 if (!Enum.IsDefined(typeof(PassiveEventKind), rule.Trigger) ||
+                    !Enum.IsDefined(typeof(PassiveDamageTiming), rule.DamageTiming) ||
                     !Enum.IsDefined(typeof(PassiveRelation), rule.ActorRelation) ||
                     !Enum.IsDefined(typeof(PassiveRelation), rule.TargetRelation)) errors.Add(rule.Id + ": invalid trigger/filter.");
                 if ((rule.Commands == null || rule.Commands.Count == 0) &&
@@ -198,9 +204,19 @@ namespace FightingAllstar.Core.Content
                 (rule.Trigger != PassiveEventKind.GaugeChanged || !rule.RequireGaugeLoss))
                 errors.Add(rule.Id + ": gauge-loss values require a gauge-loss trigger.");
             if ((command.Kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
-                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent) &&
+                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent ||
+                 command.Kind == PassiveCommandKind.IgnoreCurrentTargetCritDefensePercent ||
+                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent) &&
                 (rule.Trigger != PassiveEventKind.BeforeDamage || command.ValueSource != PassiveValueSource.Fixed))
                 errors.Add(rule.Id + ": current damage modifiers require a fixed-value Before Damage reaction.");
+            if (command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent &&
+                !Enum.IsDefined(typeof(StatId), command.ScalingStat))
+                errors.Add(rule.Id + ": stat-scaled damage bonus requires a valid source stat.");
+            if (command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent &&
+                command.ScalingCoefficientBp < 0)
+                errors.Add(rule.Id + ": stat-scaled damage bonus modifier cannot be negative.");
+            if (command.Kind == PassiveCommandKind.IgnoreCurrentTargetCritDefensePercent && command.Amount > 10000)
+                errors.Add(rule.Id + ": crit-defense ignore cannot exceed 100%.");
             if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect == null)
                 errors.Add(rule.Id + ": effect command requires an operation.");
             if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect?.Kind == CardEffectOperationKind.TransferStats)

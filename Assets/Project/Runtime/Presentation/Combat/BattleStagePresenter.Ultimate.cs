@@ -7,6 +7,8 @@ namespace FightingAllstar.Presentation.Combat
     public sealed partial class BattleStagePresenter
     {
         private GameObject _ultimateReveal;
+        [Header("Ultimate Lead-In (starting value)")]
+        [SerializeField, Range(.08f, .4f)] private float ultimateRestCameraDuration = .22f;
         public bool UltimateRevealActive => _ultimateReveal != null;
         public bool UltimateLeadInActive { get; private set; }
 
@@ -15,15 +17,16 @@ namespace FightingAllstar.Presentation.Combat
             yield return RecoverAttacker();
             EndExecutionContext();
             if (_camera == null) yield break;
-            _cutFromSupport = false;
-            ApplyShot(PlanningShot(side));
             PlayCue(3);
             UltimateLeadInActive = true;
             try
             {
-                // Starting value: let the arena-wide anticipation read before the portrait.
-                // Tune with the ultimate lead-in playtest in ActorDrivenExecution.md.
-                yield return new WaitForSecondsRealtime(.35f);
+                // The ultimate lead-in deliberately travels even after support cards;
+                // normal support queue cuts must not erase this anticipation movement.
+                _cutFromSupport = false;
+                MoveToShot(PlanningShot(side), _arenaCenter, ultimateRestCameraDuration);
+                yield return WaitForCameraTransition();
+                // Begin the artwork as soon as the camera arrives; no idle anticipation pause.
             }
             finally { UltimateLeadInActive = false; }
         }

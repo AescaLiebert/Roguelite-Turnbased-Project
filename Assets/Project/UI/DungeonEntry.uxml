@@ -1,34 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:Style src="DungeonEntry.uss" />
-    <ui:VisualElement class="entry-root">
-        <ui:VisualElement name="series-browser" class="series-browser">
-            <ui:VisualElement class="entry-header">
-                <ui:Button name="back-menu" text="← HOME" class="quiet-button" />
-                <ui:VisualElement><ui:Label text="BATTLE / DUNGEONS" class="eyebrow" /><ui:Label text="Choose a dungeon" class="entry-title" /></ui:VisualElement>
-                <ui:Label text="SELECT SERIES" class="header-hint" />
-            </ui:VisualElement>
-            <ui:ScrollView name="series-cards" mode="Horizontal" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="Hidden" class="series-cards" />
-            <ui:Label name="series-status" text="Select a series to configure your dungeon." class="browser-status" />
-        </ui:VisualElement>
-        <ui:VisualElement name="configuration-overlay" class="configuration-overlay" style="display: none;">
-            <ui:VisualElement class="configuration-dialog">
-                <ui:VisualElement class="dialog-header"><ui:VisualElement><ui:Label text="RUN CONFIGURATION" class="eyebrow" /><ui:Label name="configuration-title" text="KOF / DUNGEON" class="dialog-title" /></ui:VisualElement><ui:Button name="close-configuration" text="×" tooltip="Close configuration" class="close-button" /></ui:VisualElement>
-                <ui:ScrollView class="configuration-body">
-                    <ui:Label text="PHASE" class="section-title" />
-                    <ui:DropdownField name="phase-filter" label="Release phase" />
-                    <ui:DropdownField name="subphase-filter" label="Sub-phase" />
-                    <ui:Label name="profile-description" class="entry-copy" />
-                    <ui:VisualElement class="difficulty-panel">
-                        <ui:Label text="DIFFICULTY &amp; REWARD" class="section-title" />
-                        <ui:Label name="difficulty-value" text="+0% enemy strength" class="difficulty-value" />
-                        <ui:SliderInt name="difficulty-slider" low-value="0" high-value="100" value="0" page-size="5" />
-                        <ui:Label name="reward-preview" text="Completion reward · 320 Diamonds" class="reward-preview" />
-                        <ui:Label text="Higher difficulty increases enemy strength and the completion reward. Difficulty is fixed when you enter." class="entry-copy" />
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="AccountHeader" src="project://database/Assets/Project/Resources/UI/AccountHeader.uxml?fileID=9197481963319205126&amp;guid=48842567732fe4840bdbaeeeaa1ebcf8&amp;type=3#AccountHeader"/>
+    <Style src="project://database/Assets/Project/UI/DungeonEntry.uss?fileID=7433441132597879392&amp;guid=df5c8ba7469a01044a14ef4055476e8f&amp;type=3#DungeonEntry"/>
+    <ui:VisualElement class="screen-root entry-root">
+        <ui:VisualElement name="dungeon-stage" class="screen-stage dungeon-stage" style="display: flex;">
+            <ui:VisualElement picking-mode="Ignore" class="screen-background arena-background" style="display: flex; background-image: none;"/>
+            <ui:Instance template="AccountHeader" class="account-header-instance">
+                <AttributeOverrides element-name="section-title" text="BATTLE / DUNGEONS"/>
+            </ui:Instance>
+            <ui:VisualElement name="series-browser" class="screen-body series-browser">
+                <ui:VisualElement class="headline">
+                    <ui:Label text="CHOOSE A" class="heavy"/>
+                    <ui:Label text="DUNGEON" class="headline-red heavy"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="adaptive-columns">
+                    <ui:VisualElement class="dungeon-browser">
+                        <ui:ScrollView name="dungeon-stage-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="dungeon-stage-scroll">
+                            <ui:VisualElement name="series-cards" class="series-cards">
+                                <ui:Button name="open-circuit" tooltip="Select OPEN CIRCUIT" class="dungeon-card stage-open">
+                                    <ui:VisualElement picking-mode="Ignore" class="card-copy">
+                                        <ui:Label text="OPEN CIRCUIT" class="card-title heavy"/>
+                                        <ui:Label text="ALL SERIES" class="stage-series condensed"/>
+                                        <ui:Label name="open-circuit-availability" text="CHECKING FIGHTERS" class="availability condensed"/>
+                                        <ui:Label text="9 ROUTE ROWS · BRANCHING PATHS" class="route-info condensed"/>
+                                    </ui:VisualElement>
+                                </ui:Button>
+                                <ui:Button name="kof" tooltip="Select KOF" class="dungeon-card stage-kof">
+                                    <ui:VisualElement picking-mode="Ignore" class="card-copy">
+                                        <ui:Label text="KOF" class="card-title heavy"/>
+                                        <ui:Label text="THE KING OF FIGHTERS" class="stage-series condensed"/>
+                                        <ui:Label name="kof-availability" text="CHECKING FIGHTERS" class="availability condensed"/>
+                                        <ui:Label text="9 ROUTE ROWS · BRANCHING PATHS" class="route-info condensed"/>
+                                    </ui:VisualElement>
+                                </ui:Button>
+                                <ui:Button name="tekken" tooltip="Select TEKKEN" class="dungeon-card stage-tekken">
+                                    <ui:VisualElement picking-mode="Ignore" class="card-copy">
+                                        <ui:Label text="TEKKEN" class="card-title heavy"/>
+                                        <ui:Label text="IRON FIST TOURNAMENT" class="stage-series condensed"/>
+                                        <ui:Label name="tekken-availability" text="CHECKING FIGHTERS" class="availability condensed"/>
+                                        <ui:Label text="9 ROUTE ROWS · BRANCHING PATHS" class="route-info condensed"/>
+                                    </ui:VisualElement>
+                                </ui:Button>
+                                <ui:Button name="soul-calibur" tooltip="Select SOUL CALIBUR" class="dungeon-card stage-soul">
+                                    <ui:VisualElement picking-mode="Ignore" class="card-copy">
+                                        <ui:Label text="SOUL CALIBUR" class="card-title heavy"/>
+                                        <ui:Label text="SOULS AND SWORDS" class="stage-series condensed"/>
+                                        <ui:Label name="soul-calibur-availability" text="CHECKING FIGHTERS" class="availability condensed"/>
+                                        <ui:Label text="9 ROUTE ROWS · BRANCHING PATHS" class="route-info condensed"/>
+                                    </ui:VisualElement>
+                                </ui:Button>
+                                <ui:Button name="genshin-impact" tooltip="Select GENSHIN IMPACT" class="dungeon-card stage-genshin">
+                                    <ui:VisualElement picking-mode="Ignore" class="card-copy">
+                                        <ui:Label text="GENSHIN IMPACT" class="card-title heavy"/>
+                                        <ui:Label text="TEYVAT" class="stage-series condensed"/>
+                                        <ui:Label name="genshin-impact-availability" text="CHECKING FIGHTERS" class="availability condensed"/>
+                                        <ui:Label text="9 ROUTE ROWS · BRANCHING PATHS" class="route-info condensed"/>
+                                    </ui:VisualElement>
+                                </ui:Button>
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                        <ui:Label name="series-status" class="body-copy browser-status"/>
                     </ui:VisualElement>
-                    <ui:Label name="entry-status" class="entry-status" />
+                    <ui:VisualElement class="dungeon-selection">
+                        <ui:VisualElement name="dungeon-stage-preview" class="dungeon-stage-preview surface-panel">
+                            <ui:Label name="configuration-title" text="OPEN CIRCUIT" class="selection-title heavy"/>
+                            <ui:VisualElement name="stage-filter" class="stage-filter">
+                                <ui:Label text="STAGE FILTER · UP TO" class="section-heading"/>
+                                <ui:VisualElement class="category-controls stage-filter-controls">
+                                    <ui:DropdownField name="phase-filter" label="Phase" tooltip="Includes the selected phase and all earlier phases by character ID."/>
+                                    <ui:DropdownField name="subphase-filter" label="Sub-Phase" tooltip="Includes this sub-phase and earlier sub-phases, plus every sub-phase of earlier phases."/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="difficulty-control">
+                                <ui:Label text="DIFFICULTY" class="condensed"/>
+                                <ui:SliderInt name="difficulty-slider" low-value="1" high-value="5" value="1" page-size="1"/>
+                                <ui:Label name="difficulty-value" text="1 · Easy" class="heavy"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="stage-overview">
+                                <ui:VisualElement class="stage-overview-row">
+                                    <ui:DropdownField name="dungeon-mode" label="MODE" class="stage-mode-field"/>
+                                    <ui:VisualElement picking-mode="Ignore" class="selection-arena">
+                                        <ui:VisualElement picking-mode="Ignore" class="selection-arena-atlas"/>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:Label name="stage-route-info" class="section-heading"/>
+                                <ui:Label text="Choose your route, then prepare your formation. Dungeon Preview shows fighters eligible for this stage filter." class="body-copy"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="reward-row">
+                                <ui:VisualElement class="reward-copy">
+                                    <ui:VisualElement class="reward-heading-row">
+                                        <ui:Label name="reward-preview" text="REWARD PREVIEW" class="reward-preview heavy"/>
+                                        <ui:Button name="preview-details" text="FIGHTER PREVIEW  ›" class="action-button preview-button"/>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="dungeon-rewards-scroll" class="reward-front-scroll">
+                                    <ui:VisualElement name="dungeon-reward-grid" class="dungeon-front-rewards"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:Button name="start-run-button" text="ENTER DUNGEON  ›" class="action-button primary-action enter-button heavy"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="configuration-overlay" class="modal-scrim" style="display: none; top: 0;">
+            <ui:VisualElement class="modal-dialog dungeon-preview-dialog">
+                <ui:VisualElement class="modal-toolbar">
+                    <ui:Label text="DUNGEON PREVIEW" class="modal-title"/>
+                    <ui:Button name="close-configuration" text="CLOSE" class="action-button"/>
+                </ui:VisualElement>
+                <ui:Label text="ELIGIBLE FIGHTERS" class="section-heading"/>
+                <ui:ScrollView name="dungeon-fighters-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
+                    <ui:VisualElement name="dungeon-preview-grid" class="character-grid"/>
                 </ui:ScrollView>
-                <ui:VisualElement class="dialog-footer"><ui:Button name="cancel-configuration" text="Cancel" class="quiet-button" /><ui:Button name="start-run-button" text="ENTER DUNGEON  →" class="primary-button" /></ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

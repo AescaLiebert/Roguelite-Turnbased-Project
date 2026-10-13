@@ -1,0 +1,1219 @@
+.artifact-loadout {
+    flex-grow: 1;
+    min-width: 0;
+    color: rgb(238, 240, 231);
+}
+
+.artifact-heading {
+    margin-bottom: 14px;
+}
+
+.artifact-title {
+    font-size: 34px;
+    white-space: normal;
+    color: rgb(255, 227, 179);
+}
+
+.artifact-copy {
+    font-size: 19px;
+    color: rgb(181, 204, 221);
+    white-space: normal;
+    margin-top: 6px;
+}
+
+.artifact-eyebrow {
+    font-size: 18px;
+    color: rgb(174, 198, 218);
+    white-space: normal;
+    margin: 6px 0 10px;
+}
+
+.artifact-loadout-body {
+    flex-direction: row;
+    min-width: 0;
+}
+
+.artifact-loadout-left {
+    width: 45%;
+    flex-shrink: 0;
+    padding-right: 28px;
+}
+
+.artifact-loadout-right {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+}
+
+.artifact-fighter-name {
+    font-size: 28px;
+    -unity-text-align: middle-center;
+    margin-bottom: 12px;
+}
+
+.artifact-stage {
+    height: 460px;
+    min-width: 0;
+    background-color: rgba(5, 17, 31, 0.48);
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(158, 183, 198, 0.4);
+}
+
+.artifact-character-art {
+    position: absolute;
+    left: 16%;
+    right: 16%;
+    top: 0;
+    bottom: 0;
+}
+
+.artifact-equipment-slot {
+    position: absolute;
+    width: 112px;
+    height: 132px;
+    border-width: 1px;
+    border-color: rgb(149, 130, 97);
+    background-color: rgba(13, 26, 40, 0.92);
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.artifact-equipment-slot:hover,
+.artifact-equipment-slot.selected {
+    border-width: 2px;
+    border-color: rgb(255, 212, 142);
+    background-color: rgb(43, 44, 43);
+}
+
+.slot-left {
+    left: 8px;
+}
+
+.slot-right {
+    right: 8px;
+}
+
+.slot-row-0 {
+    top: 12px;
+}
+
+.slot-row-1 {
+    top: 156px;
+}
+
+.slot-row-2 {
+    top: 300px;
+}
+
+.artifact-slot-icon {
+    width: 86px;
+    height: 86px;
+}
+
+.artifact-slot-empty {
+    color: rgb(128, 148, 168);
+    font-size: 44px;
+}
+
+.artifact-slot-caption {
+    font-size: 15px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    color: rgb(236, 222, 193);
+}
+
+.artifact-slot-state {
+    font-size: 14px;
+    color: rgb(255, 217, 149);
+}
+
+.artifact-totals {
+    font-size: 19px;
+    white-space: normal;
+    padding: 16px 10px;
+    background-color: rgba(8, 22, 36, 0.8);
+    color: rgb(237, 227, 204);
+}
+
+.artifact-set-summary {
+    padding: 12px;
+}
+
+.artifact-set-line {
+    font-size: 18px;
+    white-space: normal;
+    color: rgb(130, 158, 180);
+    margin: 4px 0;
+}
+
+.artifact-set-line.active {
+    color: rgb(145, 227, 184);
+}
+
+.artifact-inspection {
+    background-color: rgba(8, 20, 34, 0.96);
+    border-width: 1px;
+    border-color: rgb(101, 123, 143);
+    border-top-color: rgb(228, 185, 115);
+    padding: 26px;
+    min-height: 470px;
+}
+
+.artifact-inspection .artifact-detail-meta {
+    display: none;
+}
+
+.artifact-inspection .artifact-stat-row {
+    padding: 6px 0;
+}
+
+.artifact-equipment-dock {
+    display: none;
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(8, 20, 34, 0.98);
+    border-top-width: 1px;
+    border-top-color: rgb(155, 132, 92);
+    padding: 12px 18px 4px;
+    margin-top: 10px;
+}
+
+.artifact-mode .artifact-equipment-dock {
+    display: flex;
+}
+
+.artifact-dock-caption {
+    flex-grow: 1;
+    font-size: 22px;
+    white-space: normal;
+    color: rgb(239, 215, 171);
+    margin-right: 16px;
+}
+
+.artifact-view-slots {
+    display: none;
+}
+
+.narrow-layout .artifact-view-slots {
+    display: flex;
+}
+
+.narrow-layout .artifact-equipment-dock .artifact-button,
+.narrow-layout .artifact-equipment-dock .artifact-primary {
+    padding: 8px 12px;
+    font-size: 20px;
+}
+
+.narrow-layout .artifact-equipment-dock {
+    flex-wrap: wrap;
+}
+
+.narrow-layout .artifact-equipment-dock .artifact-dock-caption {
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.artifact-workshop-footer {
+    flex-shrink: 0;
+    padding-top: 12px;
+    border-top-width: 1px;
+    border-top-color: rgb(143, 123, 91);
+}
+
+.artifact-workshop-footer .artifact-commit-row {
+    margin-top: 0;
+}
+
+.artifact-workshop-footer .artifact-cost {
+    flex-grow: 1;
+}
+
+.artifact-workshop-footer .artifact-action-row {
+    margin-top: 0;
+}
+
+.artifact-empty-title {
+    font-size: 42px;
+    color: rgb(246, 228, 192);
+    margin: 24px 0;
+    white-space: normal;
+}
+
+.artifact-detail-heading {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.artifact-detail-art {
+    width: 128px;
+    height: 140px;
+    margin-right: 24px;
+    flex-shrink: 0;
+}
+
+.artifact-detail-identity {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.artifact-favourite {
+    border-width: 1px;
+    border-color: rgb(145, 126, 85);
+    background-color: rgb(33, 37, 40);
+    color: rgb(247, 218, 144);
+    font-size: 18px;
+    padding: 7px 12px;
+    align-self: flex-start;
+}
+
+.artifact-equipped-state {
+    color: rgb(155, 222, 192);
+    font-size: 18px;
+    white-space: normal;
+    padding: 14px 0;
+}
+
+.artifact-feedback {
+    color: rgb(255, 215, 154);
+    font-size: 18px;
+    white-space: normal;
+    margin-top: 12px;
+}
+
+.artifact-cap-state {
+    color: rgb(155, 230, 194);
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.artifact-action-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.artifact-button,
+.artifact-primary {
+    min-height: 44px;
+    padding: 8px 18px;
+    margin: 0 8px 8px 0;
+    border-width: 1px;
+    border-color: rgb(126, 147, 165);
+    background-color: rgb(22, 38, 54);
+    color: rgb(230, 237, 233);
+    font-size: 22px;
+}
+
+.artifact-primary {
+    border-color: rgb(238, 190, 117);
+    background-color: rgb(188, 47, 56);
+    color: rgb(255, 241, 214);
+}
+
+.artifact-button:hover {
+    background-color: rgb(45, 63, 77);
+}
+
+.artifact-primary:hover {
+    background-color: rgb(217, 59, 64);
+}
+
+.artifact-button:focus,
+.artifact-primary:focus {
+    border-width: 2px;
+    border-color: rgb(255, 231, 173);
+}
+
+.artifact-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 7, 16, 0.88);
+    align-items: center;
+    justify-content: center;
+}
+
+.artifact-picker-dialog {
+    width: 1060px;
+    max-width: 94%;
+    height: 780px;
+    max-height: 92%;
+    padding: 24px;
+    border-width: 1px;
+    border-color: rgb(215, 179, 122);
+    background-color: rgb(9, 23, 38);
+}
+
+.artifact-dialog-heading {
+    flex-direction: row;
+    align-items: center;
+}
+
+.artifact-dialog-heading .artifact-title {
+    flex-grow: 1;
+}
+
+.artifact-close {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    color: rgb(233, 224, 206);
+    background-color: rgb(27, 44, 60);
+    border-width: 1px;
+    border-color: rgb(126, 150, 172);
+}
+
+.artifact-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: flex-start;
+    height: 52px;
+    min-height: 52px;
+    max-height: 52px;
+    margin: 14px 0;
+}
+
+.artifact-filters > .unity-base-field {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 0;
+    min-width: 150px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    margin: 0 8px 8px 0;
+}
+
+.artifact-filters .unity-base-field__input,
+.artifact-auto-row .unity-base-field__input,
+.artifact-dust-field .unity-base-field__input {
+    min-height: 42px;
+    font-size: 18px;
+    background-color: rgb(22, 43, 60);
+    color: rgb(235, 235, 224);
+    border-width: 1px;
+    border-color: rgb(99, 132, 158);
+}
+
+.artifact-search > Label {
+    min-width: 54px;
+    color: rgb(184, 206, 226);
+    font-size: 16px;
+}
+
+.artifact-picker-scroll {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.artifact-picker-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 8px 0;
+}
+
+.artifact-picker-grid .item-reward-tile {
+    width: 136px;
+    margin: 0 10px 14px 0;
+}
+
+.artifact-picker-item {
+    width: 136px;
+    margin: 0 10px 14px 0;
+}
+
+.artifact-picker-item .item-reward-tile {
+    margin: 0;
+}
+
+.artifact-picker-item .item-reward-frame {
+    width: 112px;
+    height: 118px;
+}
+
+.artifact-picker-item .item-reward-name {
+    font-size: 16px;
+    min-height: 36px;
+    max-height: 42px;
+    overflow: hidden;
+}
+
+.material-selected .item-reward-frame {
+    border-width: 3px;
+    border-color: rgb(133, 238, 186);
+}
+
+.material-selected {
+    background-color: rgba(89, 179, 124, 0.2);
+}
+
+.artifact-inspect-link {
+    background-color: rgb(29, 47, 61);
+    border-width: 0;
+    font-size: 16px;
+    color: rgb(182, 210, 232);
+    min-height: 26px;
+    margin-top: 4px;
+}
+
+.artifact-empty {
+    font-size: 22px;
+    white-space: normal;
+    color: rgb(162, 183, 198);
+    margin: 24px 0;
+}
+
+.artifact-workshop-overlay {
+    position: absolute;
+    top: 84px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(8, 18, 31);
+}
+
+.artifact-workshop {
+    flex-grow: 1;
+    min-height: 0;
+    padding: 24px 36px;
+    background-color: rgba(51, 38, 31, 0.2);
+}
+
+.artifact-workshop-heading {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+
+.artifact-workshop-heading .artifact-title {
+    flex-grow: 1;
+    margin-left: 16px;
+}
+
+.artifact-workshop-heading .artifact-eyebrow {
+    margin-left: 20px;
+}
+
+.artifact-workshop-scroll {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.artifact-workshop-body {
+    flex-direction: row;
+    flex-grow: 1;
+    min-height: 0;
+    min-width: 0;
+}
+
+.artifact-workshop-left {
+    width: 43%;
+    flex-shrink: 0;
+    min-height: 0;
+    padding-right: 20px;
+}
+
+.artifact-workshop-right {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+.artifact-workshop-hero {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    min-height: 0;
+}
+
+.artifact-workshop-kicker {
+    font-size: 50px;
+    letter-spacing: 3px;
+    color: rgb(203, 166, 110);
+    align-self: flex-start;
+}
+
+.artifact-display-halo {
+    width: 370px;
+    height: 370px;
+    max-width: 100%;
+    border-radius: 185px;
+    border-width: 2px;
+    border-color: rgb(215, 179, 113);
+    background-color: rgba(107, 80, 41, 0.24);
+    align-items: center;
+    justify-content: center;
+    margin: 70px 0 36px;
+}
+
+.artifact-workshop-art {
+    width: 290px;
+    height: 290px;
+    max-width: 90%;
+}
+
+.artifact-art-meta {
+    font-size: 22px;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    color: rgb(244, 220, 170);
+}
+
+.artifact-workshop-details {
+    min-width: 0;
+    padding: 18px 24px 24px;
+    background-color: rgba(8, 22, 37, 0.9);
+    border-left-width: 1px;
+    border-left-color: rgb(108, 131, 148);
+}
+
+.artifact-xp-heading {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.artifact-enhance-level {
+    font-size: 36px;
+    color: rgb(255, 237, 194);
+}
+
+.artifact-xp {
+    height: 12px;
+    margin: 10px 0 20px;
+}
+
+.artifact-xp .unity-progress-bar__background {
+    background-color: rgb(39, 51, 67);
+    border-radius: 6px;
+}
+
+.artifact-xp .unity-progress-bar__progress {
+    background-color: rgb(194, 143, 233);
+    border-radius: 6px;
+}
+
+.artifact-xp .unity-progress-bar__title {
+    display: none;
+}
+
+.artifact-main-row,
+.artifact-stat-row {
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(91, 119, 144, 0.4);
+    padding: 10px 0;
+}
+
+.artifact-main-row {
+    border-top-width: 1px;
+    border-top-color: rgb(185, 149, 100);
+    background-color: rgba(156, 119, 58, 0.1);
+    padding: 14px 10px;
+}
+
+.artifact-stat-name {
+    font-size: 22px;
+    color: rgb(191, 209, 222);
+    flex-grow: 1;
+}
+
+.artifact-stat-value,
+.artifact-stat-gain {
+    font-size: 22px;
+    color: rgb(244, 232, 205);
+}
+
+.artifact-stat-gain {
+    color: rgb(141, 237, 184);
+}
+
+.artifact-main-row .artifact-stat-name,
+.artifact-main-row .artifact-stat-value,
+.artifact-main-row .artifact-stat-gain {
+    font-size: 28px;
+}
+
+.artifact-milestones {
+    font-size: 17px;
+    white-space: normal;
+    color: rgb(206, 166, 232);
+    margin: 12px 0;
+}
+
+.artifact-success {
+    font-size: 22px;
+    color: rgb(145, 240, 186);
+    white-space: normal;
+    margin: 8px 0;
+}
+
+.artifact-success.artifact-failed {
+    color: rgb(255, 157, 153);
+}
+
+.artifact-material-section {
+    border-top-width: 1px;
+    border-top-color: rgb(122, 111, 89);
+    padding-top: 14px;
+    margin-top: 16px;
+}
+
+.artifact-dust-field {
+    margin: 4px 0 12px;
+    font-size: 18px;
+}
+
+.artifact-dust-field > Label {
+    min-width: 282px;
+    color: rgb(190, 206, 218);
+}
+
+.artifact-auto-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.artifact-auto-rarity {
+    flex-grow: 1;
+    margin: 0 12px 8px 0;
+}
+
+.artifact-small {
+    font-size: 16px;
+    color: rgb(164, 190, 212);
+    white-space: normal;
+    margin: 5px 0 10px;
+}
+
+.artifact-selected-scroll {
+    min-height: 138px;
+    height: 138px;
+    margin-top: 12px;
+}
+
+.artifact-selected-materials {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.artifact-selected-materials .item-reward-tile {
+    width: 105px;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.artifact-selected-materials .item-reward-frame {
+    height: 112px;
+}
+
+.artifact-selected-materials .item-reward-frame {
+    width: 88px;
+    height: 100px;
+}
+
+.artifact-selected-materials .item-reward-name {
+    font-size: 15px;
+}
+
+.artifact-empty-materials {
+    font-size: 26px;
+    color: rgb(131, 154, 175);
+    padding: 30px 18px;
+}
+
+.artifact-commit-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.artifact-cost {
+    font-size: 23px;
+    color: rgb(255, 217, 145);
+    white-space: normal;
+}
+
+.artifact-confirm-dialog {
+    width: 670px;
+    max-width: 94%;
+    max-height: 90%;
+    padding: 28px;
+    background-color: rgb(10, 25, 40);
+    border-width: 1px;
+    border-color: rgb(234, 194, 128);
+}
+
+.artifact-warning {
+    font-size: 19px;
+    white-space: normal;
+    color: rgb(252, 180, 144);
+    margin: 12px 0;
+}
+
+.artifact-confirm-scroll {
+    max-height: 300px;
+    min-height: 0;
+    flex-shrink: 1;
+}
+
+.artifact-consume-row {
+    flex-direction: row;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(59, 79, 95);
+    padding: 8px 0;
+}
+
+.artifact-consume-icon {
+    width: 70px;
+    height: 70px;
+    margin-right: 14px;
+    flex-shrink: 0;
+}
+
+.artifact-consume-row .artifact-copy {
+    flex-grow: 1;
+    min-width: 0;
+    font-size: 16px;
+}
+
+.compact-layout .artifact-stage {
+    height: 395px;
+}
+
+.compact-layout .artifact-equipment-slot {
+    width: 88px;
+    height: 110px;
+}
+
+.compact-layout .artifact-slot-icon {
+    width: 66px;
+    height: 68px;
+}
+
+.compact-layout .slot-row-1 {
+    top: 138px;
+}
+
+.compact-layout .slot-row-2 {
+    top: 266px;
+}
+
+.compact-layout .artifact-inspection {
+    padding: 20px;
+}
+
+.compact-layout .artifact-title {
+    font-size: 28px;
+}
+
+.compact-layout .artifact-workshop {
+    padding: 14px 22px;
+}
+
+.compact-layout .artifact-workshop-hero {
+    padding: 18px;
+    min-height: 400px;
+}
+
+.compact-layout .artifact-workshop-kicker {
+    font-size: 40px;
+}
+
+.compact-layout .artifact-display-halo {
+    width: 220px;
+    height: 220px;
+    margin: 16px 0 20px;
+}
+
+.compact-layout .artifact-workshop-art {
+    width: 200px;
+    height: 200px;
+}
+
+.compact-layout .artifact-workshop-details {
+    padding: 14px 20px;
+}
+
+.narrow-layout .artifact-loadout-body {
+    flex-direction: column;
+}
+
+.narrow-layout .artifact-loadout-left {
+    width: 100%;
+    padding-right: 0;
+}
+
+.narrow-layout .artifact-stage {
+    height: 410px;
+}
+
+.narrow-layout .artifact-character-art {
+    left: 22%;
+    right: 22%;
+}
+
+.narrow-layout .artifact-loadout-right {
+    flex-basis: auto;
+}
+
+.narrow-layout .artifact-inspection {
+    min-height: 0;
+    margin-top: 14px;
+}
+
+.narrow-layout .artifact-workshop-body {
+    flex-direction: column;
+}
+
+.narrow-layout .artifact-workshop-hero {
+    width: 100%;
+    min-height: 270px;
+    padding: 14px;
+}
+
+.narrow-layout .artifact-workshop-kicker {
+    font-size: 30px;
+}
+
+.narrow-layout .artifact-display-halo {
+    width: 160px;
+    height: 160px;
+    margin: 8px 0 14px;
+}
+
+.narrow-layout .artifact-workshop-art {
+    width: 140px;
+    height: 140px;
+}
+
+.narrow-layout .artifact-workshop-details {
+    flex-basis: auto;
+}
+
+.narrow-layout .artifact-workshop-footer .artifact-commit-row {
+    flex-wrap: wrap;
+}
+
+.narrow-layout .artifact-workshop-footer .artifact-cost {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.narrow-layout .artifact-workshop-heading {
+    flex-wrap: wrap;
+}
+
+.narrow-layout .artifact-workshop-heading .artifact-title {
+    font-size: 24px;
+}
+
+.narrow-layout .artifact-workshop-heading .artifact-eyebrow {
+    margin: 4px 0 0 16px;
+}
+
+.narrow-layout .artifact-filters {
+    height: 104px;
+    min-height: 104px;
+    max-height: 104px;
+}
+
+.narrow-layout .artifact-filters > .unity-base-field {
+    min-width: 42%;
+}
+
+.narrow-layout .artifact-detail-art {
+    width: 96px;
+    height: 110px;
+    margin-right: 14px;
+}
+
+.artifact-set-summary-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.artifact-set-summary-row .artifact-set-line {
+    flex-grow: 1;
+}
+
+.artifact-set-threshold {
+    margin-left: 18px;
+    color: rgb(119, 134, 148);
+    font-size: 18px;
+}
+
+.artifact-set-threshold.active {
+    color: rgb(145, 227, 184);
+}
+
+.artifact-inspection-stars {
+    font-size: 22px;
+    color: rgb(246, 202, 118);
+}
+
+.artifact-dialog-heading,
+.artifact-picker-dialog > Label,
+.artifact-picker-dialog > Button {
+    flex-shrink: 0;
+}
+
+.artifact-picker-host {
+    display: none;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.material-picker-open .artifact-picker-host {
+    display: flex;
+}
+
+.material-picker-open .artifact-workshop-left {
+    width: 47%;
+}
+
+.artifact-picker-docked {
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.artifact-picker-docked .artifact-picker-dialog {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    padding: 16px;
+}
+
+.artifact-picker-docked .artifact-dialog-heading .artifact-title {
+    font-size: 24px;
+}
+
+.artifact-picker-docked .artifact-copy {
+    display: none;
+}
+
+.artifact-picker-docked .artifact-filters {
+    height: 104px;
+    min-height: 104px;
+    max-height: 104px;
+    margin: 10px 0 2px;
+}
+
+.artifact-picker-docked .artifact-filters > .unity-base-field {
+    min-width: 42%;
+}
+
+.artifact-picker-docked .artifact-picker-item {
+    width: 112px;
+    margin: 0 8px 12px 0;
+}
+
+.artifact-picker-docked .artifact-picker-item .item-reward-tile {
+    width: 112px;
+}
+
+.artifact-picker-docked .artifact-picker-item .item-reward-frame {
+    width: 102px;
+    height: 120px;
+}
+
+.artifact-picker-docked .artifact-inspect-link {
+    height: 24px;
+    min-height: 24px;
+    max-height: 24px;
+    padding: 0;
+    font-size: 14px;
+}
+
+.compact-layout .artifact-workshop-footer .artifact-cost {
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.narrow-layout .artifact-workshop-left,
+.narrow-layout.material-picker-open .artifact-workshop-left {
+    width: 100%;
+    height: 250px;
+    flex-shrink: 0;
+    padding-right: 0;
+    margin-bottom: 10px;
+}
+
+.narrow-layout .material-picker-open .artifact-workshop-left {
+    width: 100%;
+    height: 400px;
+}
+
+.narrow-layout .artifact-workshop-hero {
+    height: 250px;
+    min-height: 0;
+}
+
+.narrow-layout .artifact-workshop-right {
+    flex-basis: 0;
+    min-height: 0;
+}
+
+.narrow-layout .artifact-picker-docked .artifact-copy {
+    display: none;
+}
+
+.narrow-layout .artifact-picker-docked .artifact-picker-dialog {
+    padding: 12px;
+}
+
+.narrow-layout .artifact-picker-docked .artifact-picker-dialog > Button {
+    align-self: flex-end;
+}
+
+.narrow-layout .artifact-picker-docked .artifact-picker-item {
+    width: 104px;
+    margin-right: 6px;
+}
+
+.narrow-layout .artifact-picker-docked .artifact-picker-item .item-reward-tile {
+    width: 104px;
+}
+
+.narrow-layout .artifact-picker-docked .artifact-picker-item .item-reward-frame {
+    width: 96px;
+}
+
+.artifact-slot-stars {
+    font-size: 12px;
+    margin: 0;
+}
+
+.artifact-equipment-slot.item-frame-1 {
+    border-color: rgb(154, 162, 173);
+    background-color: rgb(49, 56, 68);
+}
+
+.artifact-equipment-slot.item-frame-2 {
+    border-color: rgb(114, 193, 129);
+    background-color: rgb(28, 68, 55);
+}
+
+.artifact-equipment-slot.item-frame-3 {
+    border-color: rgb(97, 176, 238);
+    background-color: rgb(23, 61, 99);
+}
+
+.artifact-equipment-slot.item-frame-4 {
+    border-color: rgb(191, 140, 242);
+    background-color: rgb(71, 43, 98);
+}
+
+.artifact-equipment-slot.item-frame-5 {
+    border-color: rgb(242, 197, 94);
+    background-color: rgb(101, 69, 30);
+}
+
+.artifact-equipment-slot.selected {
+    border-width: 3px;
+    border-color: rgb(255, 244, 201);
+}
+
+.artifact-workshop .unity-scroller--vertical,
+.artifact-picker-dialog .unity-scroller--vertical {
+    width: 12px;
+    background-color: rgb(15, 31, 46);
+}
+
+.artifact-workshop .unity-scroller__low-button,
+.artifact-workshop .unity-scroller__high-button,
+.artifact-picker-dialog .unity-scroller__low-button,
+.artifact-picker-dialog .unity-scroller__high-button {
+    display: none;
+}
+
+.artifact-workshop .unity-base-slider__tracker,
+.artifact-picker-dialog .unity-base-slider__tracker {
+    background-color: rgb(21, 40, 57);
+    border-width: 0;
+}
+
+.artifact-workshop .unity-base-slider__dragger,
+.artifact-picker-dialog .unity-base-slider__dragger {
+    background-color: rgb(115, 147, 167);
+    border-width: 0;
+    border-radius: 6px;
+}
+
+
+
+/* Equipment joins the existing hub hero; its inspector shares the tooltip panels. */
+.artifact-mode .hub-hero { display: flex; }
+.artifact-hub-slots { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.artifact-hub-slots .slot-left { left: 8px; }
+.artifact-hub-slots .slot-right { right: 8px; }
+.artifact-hub-slots .slot-row-0 { top: 18%; }
+.artifact-hub-slots .slot-row-1 { top: 44%; }
+.artifact-hub-slots .slot-row-2 { top: 70%; }
+.artifact-loadout { flex-grow: 1; min-height: 0; }
+.artifact-hub-identity { position: relative; left: auto; right: auto; bottom: auto; margin-bottom: 10px; padding: 18px; flex-shrink: 0; }
+.artifact-active-overview { flex-shrink: 0; margin-bottom: 8px; }
+.artifact-active-line { color: rgb(158, 230, 179); font-size: 16px; margin-bottom: 4px; white-space: normal; }
+.item-tooltip-dialog.artifact-inspection-card { position: relative; width: 100%; max-width: 100%; flex-grow: 1; flex-shrink: 1; min-height: 200px; padding: 0; margin: 0; }
+.artifact-inspection-card .item-tooltip-content-panel { flex-grow: 1; min-height: 0; }
+.artifact-inspection-card .item-tooltip-preview-panel { height: 196px; }
+.artifact-inspection-card .item-tooltip-preview-stars { bottom: 60px; }
+.artifact-preview-actions { position: absolute; left: 14px; right: 14px; bottom: 10px; flex-direction: row; justify-content: flex-end; }
+.artifact-preview-actions Button { min-height: 38px; padding: 6px 16px; margin-left: 8px; font-size: 18px; }
+.artifact-preview-favourite { position: absolute; right: 6px; top: 6px; width: 28px; height: 28px; padding: 0; font-size: 22px; background-color: rgba(21, 31, 44, .65); color: rgb(255, 221, 137); border-width: 0; }
+.artifact-loadout .artifact-feedback { flex-shrink: 0; margin: 0; font-size: 14px; }
+.artifact-equipment-dock { display: none; }
+.compact-layout .artifact-hub-identity { padding: 12px; margin-bottom: 10px; }
+.compact-layout .artifact-hub-identity .hub-name { font-size: 32px; }
+.compact-layout .artifact-hub-identity .hub-meta { font-size: 18px; }
+.compact-layout .artifact-inspection-card .item-tooltip-preview-panel { height: 174px; }
+.compact-layout .artifact-inspection-card .item-tooltip-preview-stars { bottom: 52px; }
+.compact-layout .artifact-preview-actions Button { min-height: 32px; padding: 4px 12px; font-size: 16px; }
+.compact-layout .artifact-hub-slots .artifact-equipment-slot { height: 102px; }
+.compact-layout .artifact-hub-slots .slot-row-0 { top: 16%; }
+.compact-layout .artifact-hub-slots .slot-row-1 { top: 42%; }
+.compact-layout .artifact-hub-slots .slot-row-2 { top: 68%; }
+
+#hub-page-artifacts > TemplateContainer { flex-grow: 1; min-height: 0; }
+
+.artifact-active-overview { flex-direction: row; flex-wrap: wrap; }
+.artifact-active-line { margin-right: 16px; }
+.artifact-inspection-card .item-tooltip-content .artifact-stat-row { padding: 0; margin-bottom: 6px; border-width: 0; min-height: 0; }
+.artifact-inspection-card .unity-scroll-view__vertical-scroller { width: 8px; }
+.compact-layout .artifact-active-line { font-size: 14px; }
+.compact-layout .artifact-inspection-card .item-tooltip-preview-panel { height: 158px; }
+.compact-layout .artifact-inspection-card .item-tooltip-preview-stars { top: 94px; bottom: auto; height: 18px; font-size: 16px; }
+.compact-layout .artifact-inspection-card #item-tooltip-main-value { top: 58px; }
+.compact-layout .artifact-inspection-card .item-tooltip-preview-icon { width: 106px; height: 102px; }
+
+.artifact-equipment-slot { padding: 0; background-color: rgba(0, 0, 0, 0); border-width: 0; }
+.artifact-equipment-slot .item-reward-amount { font-size: 12px; }
+.artifact-picker-item { width: 104px; min-width: 104px; }
+.artifact-selected-materials { flex-wrap: nowrap; }
+
+.artifact-workshop-footer .artifact-material-section { margin-top: 0; padding-top: 0; }
+.artifact-workshop-footer .artifact-selected-scroll { height: 140px; min-height: 140px; margin-top: 4px; }
+.compact-layout .artifact-workshop-footer .artifact-eyebrow { margin: 0 0 4px; font-size: 16px; }
+.compact-layout .artifact-workshop-footer .artifact-auto-row .unity-base-field__input { min-height: 32px; font-size: 15px; }
+.compact-layout .artifact-workshop-footer .artifact-auto-row Button { min-height: 32px; padding: 4px 10px; font-size: 16px; }
+.compact-layout .artifact-workshop-details .artifact-stat-row { padding: 4px 0; }
+.compact-layout .artifact-workshop-details .artifact-stat-row Label { font-size: 18px; }

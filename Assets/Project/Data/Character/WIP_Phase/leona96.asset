@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.leona96
   runtimeReady: 1
-  sourceId: 18
-  sourceRecord: 0
   familyId: family.leona
   seriesId: series.kof
   role: Glass Attacker
@@ -29,12 +27,11 @@ MonoBehaviour:
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 94ebcad408bb87846807b68310d8443b, type: 2}
-  id: 1018
+  id: 1418
   fighterName: Leona Heidern 96
-  fighterTag: Leona
   fighterPic: {fileID: 21300000, guid: 3525fd5530c0adc40a13f9f6d6c00024, type: 3}
   fighterIcon: {fileID: 21300000, guid: 2fe7778e05e27034aa4c87465091e41d, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 3525fd5530c0adc40a13f9f6d6c00024, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -51,6 +48,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 4000
   attack: 560
   defense: 290

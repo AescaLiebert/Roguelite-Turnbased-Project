@@ -15,6 +15,39 @@ MonoBehaviour:
   statusVisuals: []
   definition:
     Id: fighter.lucky94.passive.source
-    Auras: []
+    Auras:
+    - Id: self-control-up
+      Gate:
+        MinimumTier: 0
+        MaximumTier: 5
+        Modes: -1
+        Presence: 0
+        AllowDefeatedOwner: 0
+      Targets:
+        Relation: 1
+        IncludeOwner: 1
+        IncludeReserve: 0
+        AttributeId: 
+        TraitId: 
+        SeriesId: 
+      Scaling: 0
+      ScalingKey: 
+      ScalingRelation: 0
+      SourceStat: 0
+      MaximumUnits: 0
+      Modifiers:
+      - Target: 0
+        Stat: 0
+        Bundle: 0
+        Family: 0
+        Operation: 0
+        Amount: 1800
+        ScaleByStatusPotency: 0
+        PotencyCoefficientBp: 0
+        SerializedTarget: 0
+        SerializedStat: 17
+        SerializedBundle: 0
+        SerializedFamily: 0
+        SerializedOperation: 2
     Reactions: []
     Triggers: []

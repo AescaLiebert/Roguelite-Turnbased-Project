@@ -49,7 +49,7 @@ namespace FightingAllstar.Presentation.Combat
                     travel = Mathf.Min(travel, Vector3.Dot(target.position - source.position, _templateDirection) - separation);
                 end += _templateDirection * Mathf.Max(0, travel);
             }
-            yield return EnterAction(sourceId, targetIds, _execution?.Category ?? CardCategory.Attack, area, "Attack", false, end, reaction);
+            yield return EnterAction(sourceId, targetIds, _execution?.Category ?? CardCategory.Attack, area, "Attack", false, reaction);
             yield return AttackMotion(source, _templateTargets, _templateDirection, end);
             _templateAnchor = source.position;
             _templateFacing = Quaternion.LookRotation(_templateDirection);

@@ -135,6 +135,34 @@ public sealed class CinematicHudRunner : MonoBehaviour
             yield return null; yield return null;
             Require(root.worldBound.height > height * .9f, "HUD root did not fill its render target");
             var prefix = portrait ? "portrait" : "landscape";
+            Call("SetUltimateHud", true);
+            // Sample the actual production timeline at fixed times, independent of batch frame rate.
+            var cutView = new UltimateCutInView(character.FighterFull, "Butterfly Flurry", "Mai Shiranui", new Color(.65f, .35f, 1f));
+            root.Q<VisualElement>("battle-effects").Add(cutView);
+            cutView.Apply(0, width, height); yield return null;
+            Require(cutView.Q<Image>("ultimate-art").resolvedStyle.opacity < .01f &&
+                cutView.Q<Label>("ultimate-title").resolvedStyle.opacity < .01f, "Cut-in flashed content before entrance");
+            cutView.Apply(.04f, width, height); yield return null;
+            var arrivingArt = cutView.Q<Image>("ultimate-art");
+            Require(arrivingArt.resolvedStyle.opacity > .01f && arrivingArt.resolvedStyle.opacity < .99f, "Art did not ease into the opening");
+            Require(cutView.Q<Label>("ultimate-title").resolvedStyle.opacity < .01f, "Title ignored entrance stagger");
+            Capture(prefix + "-ultimate-opening");
+            cutView.Apply(.8f, width, height); yield return null;
+            Require(arrivingArt.parent == cutView && arrivingArt.scaleMode == ScaleMode.ScaleToFit, "Art was cropped inside a strip");
+            Require(arrivingArt.worldBound.yMin >= 0 && arrivingArt.worldBound.yMax <= height, "Full-art frame clipped vertically");
+            var titleBounds = cutView.Q<Label>("ultimate-title").worldBound;
+            Require(titleBounds.xMin >= 0 && titleBounds.xMax <= width && titleBounds.yMax <= height, "Ultimate title left the viewport");
+            Require(cutView.resolvedStyle.backgroundColor.a < .01f, "Opaque black backdrop returned");
+            Capture(prefix + "-ultimate-full-art");
+            cutView.Apply(UltimateCutInView.OpeningDuration + UltimateCutInView.HoldDuration + .21f, width, height);
+            yield return null;
+            Require(arrivingArt.resolvedStyle.opacity > .01f && arrivingArt.resolvedStyle.opacity < .99f, "Exit abruptly hid art");
+            Require(cutView.Q<Label>("ultimate-title").resolvedStyle.opacity < arrivingArt.resolvedStyle.opacity, "Text did not lead the exit");
+            Capture(prefix + "-ultimate-exit");
+            cutView.Apply(UltimateCutInView.Duration, width, height); yield return null;
+            Require(arrivingArt.resolvedStyle.opacity < .01f && cutView.Q("ultimate-wash").resolvedStyle.opacity < .01f, "Cut-in layers survived the exit");
+            cutView.RemoveFromHierarchy();
+            Call("SetUltimateHud", false);
             foreach (var side in new[] { TeamSide.Player, TeamSide.Opponent })
             {
                 var transition = controller.StartCoroutine(Guard((IEnumerator)Call("PresentTurnChange", side)));
@@ -176,15 +204,34 @@ public sealed class CinematicHudRunner : MonoBehaviour
                 yield return stage.SupportAction(source, new[] { source }, CardCategory.Buff);
                 yield return stage.RecoverAttacker();
                 Require(Vector3.Distance(viewCamera.transform.position, rest.position) > .1f, "Ultimate fixture did not start from prior card");
+                var previousShot = viewCamera.transform.position;
                 card.SourceId = source;
+                var travelStarted = Time.realtimeSinceStartup;
                 cut = controller.StartCoroutine(Guard((IEnumerator)Call("UltimateCutIn", card)));
-                yield return new WaitForSecondsRealtime(.1f);
+                var startDeadline = Time.realtimeSinceStartup + .5f;
+                while (!stage.CameraTransitionActive && Time.realtimeSinceStartup < startDeadline) yield return null;
+                Require(stage.CameraTransitionActive, "Ultimate return snapped instead of starting a camera move");
                 Require(stage.UltimateLeadInActive && stage.ExecutionPhase == ActorCardPhase.Rest,
-                    "Ultimate did not pause in Rest before the cut-in");
+                    "Ultimate did not enter overhead lead-in before the cut-in");
+                var intermediate = false;
+                var slowFrame = false;
+                while (stage.CameraTransitionActive)
+                {
+                    Require(root.Q("ultimate-cut-in") == null, "Ultimate portrait started before Rest camera arrival");
+                    intermediate |= Vector3.Distance(viewCamera.transform.position, previousShot) > .01f &&
+                        Vector3.Distance(viewCamera.transform.position, rest.position) > .01f;
+                    slowFrame |= Time.unscaledDeltaTime >= .3f;
+                    yield return null;
+                }
+                Require(intermediate || slowFrame, "Ultimate return had no intermediate camera poses");
+                Require(Time.realtimeSinceStartup - travelStarted >= .18f, "Ultimate camera return snapped");
                 Require(Vector3.Distance(viewCamera.transform.position, rest.position) < .001f &&
                     Quaternion.Angle(viewCamera.transform.rotation, rest.rotation) < .01f && Mathf.Abs(viewCamera.fieldOfView - restFov) < .001f,
-                    "Ultimate did not snap to the acting side's drafting camera");
-                Require(root.Q("ultimate-cut-in") == null, "Ultimate portrait hid the overhead anticipation");
+                    "Ultimate did not arrive at the acting side's drafting camera");
+                // The cut-in now starts on arrival, without the previous 350 ms idle pause.
+                var arrivalDeadline = Time.realtimeSinceStartup + .1f;
+                while (root.Q("ultimate-cut-in") == null && Time.realtimeSinceStartup < arrivalDeadline) yield return null;
+                Require(root.Q("ultimate-cut-in") != null, "Ultimate added a pause after camera arrival");
                 Require(root.Q<VisualElement>("battle-card-tray").resolvedStyle.opacity < .01f, "Ultimate lead-in did not hide hand");
                 Capture(prefix + "-ultimate-lead-in-" + side);
                 yield return new WaitForSecondsRealtime(.55f);
@@ -197,9 +244,10 @@ public sealed class CinematicHudRunner : MonoBehaviour
             card.SourceId = "p0";
             var reveal = stage.StartCoroutine(stage.BeginExecution("p0", "e1", 3, true));
             while (stage.ExecutionPhase != ActorCardPhase.WindUp) yield return null;
+            yield return stage.WaitForCameraTransition();
             var windUp = new Pose(viewCamera.transform.position, viewCamera.transform.rotation);
             var windUpFov = viewCamera.fieldOfView;
-            // BeginExecution enters Wind Up immediately, before actor/energy movement.
+            // The ranked face cut is settled before the world energy reveal.
             var revealDeadline = Time.realtimeSinceStartup + 1.85f;
             while (Time.realtimeSinceStartup < revealDeadline)
             {
@@ -223,8 +271,12 @@ public sealed class CinematicHudRunner : MonoBehaviour
             Require(!stage.UltimateLeadInActive && stage.ExecutionPhase == ActorCardPhase.Rest, "Interrupted overhead anticipation leaked");
             Require(root.Q<VisualElement>("battle-card-tray").resolvedStyle.opacity > .99f, "Interrupted anticipation hid hand");
             cut = controller.StartCoroutine(Guard((IEnumerator)Call("UltimateCutIn", card)));
-            yield return new WaitForSecondsRealtime(.7f); controller.StopCoroutine(cut); Call("ClearCinematicHud"); stage.SnapToPlanning();
+            var portraitDeadline = Time.realtimeSinceStartup + 2f;
+            while (root.Q("ultimate-cut-in") == null && Time.realtimeSinceStartup < portraitDeadline) yield return null;
+            Require(root.Q("ultimate-cut-in") != null, "Portrait interruption never reached the overlay");
+            yield return new WaitForSecondsRealtime(.3f); controller.StopCoroutine(cut); Call("ClearCinematicHud"); stage.SnapToPlanning();
             Require(root.Q("ultimate-cut-in") == null, "Interrupted portrait leaked");
+            Require(root.Q("card-execution-overlay").resolvedStyle.visibility == Visibility.Visible, "Interrupted portrait left execution panel hidden");
             reveal = stage.StartCoroutine(stage.BeginExecution("p0", "e1", 3, true));
             yield return new WaitForSecondsRealtime(1.4f); stage.SnapToPlanning();
             Require(!stage.UltimateRevealActive && stage.ExecutionPhase == ActorCardPhase.Rest, "Interrupted world reveal leaked");

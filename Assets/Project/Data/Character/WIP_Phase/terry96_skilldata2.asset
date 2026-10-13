@@ -16,7 +16,7 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 1d8fc6ce2f6164948bd301e9e5f6955f, type: 3}
   statusVisuals: []
   ranks:
-  - description: Reduces all enemies' defense-related stats by 13.33% for 1 turn.
+  - description: Reduces all enemies' defense-related stats by 20% for 2 turns.
     skillType: 2
     runtimeEffect:
       Attack:
@@ -129,8 +129,9 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
-  - description: Reduces all enemies' defense-related stats by 26.67% for 2 turns.
+  - description: Reduces all enemies' defense-related stats by 30% for 2 turns.
     skillType: 2
     runtimeEffect:
       Attack:
@@ -243,6 +244,7 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []
   - description: Reduces all enemies' defense-related stats by 40% for 3 turns.
     skillType: 2
@@ -357,4 +359,5 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      Batches: []
       Sequence: []

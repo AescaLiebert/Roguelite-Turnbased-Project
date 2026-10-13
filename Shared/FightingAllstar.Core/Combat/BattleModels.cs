@@ -197,6 +197,7 @@ namespace FightingAllstar.Core.Combat
         public bool WasEndured;
         public AttributeAffinity Affinity;
         public int ShieldLost;
+        public int HealthLost;
         public int EffectiveMaxHealth;
         public List<PassiveStatContribution> PassiveContributions = new List<PassiveStatContribution>();
         public BattleEvent Clone()

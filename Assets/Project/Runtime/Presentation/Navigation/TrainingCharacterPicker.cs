@@ -28,7 +28,9 @@ namespace FightingAllstar.Presentation.Navigation
             var sort = new DropdownField("Sort", new List<string> { "Name", "Rarity", "Character ID" }, 0); filters.Add(sort);
             var tier = new DropdownField("Constellation", Enumerable.Range(0, 7).Select(i => "C" + i).ToList(), 0); filters.Add(tier);
             var status = new Label(); status.AddToClassList("training-status"); panel.Add(status);
-            var scroll = new ScrollView(ScrollViewMode.Vertical); scroll.AddToClassList("training-scroll"); panel.Add(scroll);
+            var scroll = new ScrollView(ScrollViewMode.Vertical)
+            { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
+            scroll.AddToClassList("training-scroll"); panel.Add(scroll);
             var grid = new VisualElement(); grid.AddToClassList("training-grid"); scroll.Add(grid);
             Action refresh = () =>
             {

@@ -129,7 +129,7 @@ public class GachaChar : MonoBehaviour
             config => config.rarityName == character.FighterRarity.ToString());
             
         var attributeConfig = attributeConfigurations.FirstOrDefault(
-            config => config.attributeName == character.FighterAttribute.ToString());
+            config => config != null && config.attributeName == character.FighterAttribute.ToString());
 
         // Update UI elements
         UpdateUIElement(charIcon, character.FighterIcon);

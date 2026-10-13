@@ -269,6 +269,8 @@
 .tooltip-card-box {
     width: 96%;
     max-width: 660px;
+    min-height: 140px;
+    flex-shrink: 0;
     background-color: rgba(9, 13, 20, 0.95);
     border-width: 1.5px;
     border-color: rgba(224, 186, 102, 0.85);
@@ -301,6 +303,7 @@
 .tooltip-content-column {
     flex-direction: column;
     flex-grow: 1;
+    flex-shrink: 1;
     margin-left: 12px;
     min-width: 0;
 }
@@ -310,12 +313,16 @@
     align-items: center;
     justify-content: space-between;
     min-height: 28px;
+    width: 100%;
 }
 
 .tooltip-title-group {
     flex-direction: row;
     align-items: center;
+    flex-grow: 1;
     flex-shrink: 1;
+    min-width: 0;
+    margin-right: 8px;
 }
 
 .tooltip-type-icon {
@@ -324,6 +331,7 @@
     min-width: 24px;
     min-height: 24px;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 .tooltip-card-title {
@@ -332,6 +340,9 @@
     -unity-font-style: bold;
     -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(8, 12, 18);
+    white-space: normal;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .tooltip-status-grid {
@@ -339,6 +350,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
+    flex-shrink: 0;
+    max-width: 45%;
 }
 
 .tooltip-status-badge {
@@ -386,6 +399,9 @@
     font-size: 13px;
     white-space: normal;
     margin-bottom: 4px;
+    min-height: 48px;
+    flex-shrink: 0;
+    width: 100%;
 }
 
 .tooltip-keywords-desc {
@@ -393,6 +409,8 @@
     font-size: 12px;
     white-space: normal;
     -unity-font-style: bold;
+    flex-shrink: 0;
+    width: 100%;
 }
 
 .card-tooltip {
@@ -1361,7 +1379,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgb(5, 3, 12);
+    background-color: rgba(0, 0, 0, 0);
     overflow: hidden;
 }
 
@@ -1370,65 +1388,91 @@
     left: -25%;
     width: 150%;
     background-color: rgb(218, 22, 175);
-    rotate: -12deg;
+    rotate: -16deg;
+}
+
+.ultimate-wash {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .ultimate-slash {
     position: absolute;
     left: -15%;
     width: 130%;
-    top: 24%;
-    height: 55%;
-    rotate: -12deg;
-    overflow: hidden;
-    background-color: rgb(89, 9, 76);
-    border-top-width: 5px;
-    border-bottom-width: 5px;
+    top: 30%;
+    height: 36%;
+    rotate: -16deg;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
     border-top-color: rgb(255, 176, 239);
     border-bottom-color: rgb(255, 176, 239);
 }
 
 .ultimate-cut-in-portrait {
     position: absolute;
-    left: 8%;
-    right: 8%;
-    top: -28%;
-    bottom: -28%;
+    left: 3%;
+    right: 29%;
+    top: 3%;
+    bottom: 3%;
     width: auto;
     height: auto;
-    rotate: 12deg;
 }
 
 .ultimate-cut-in-copy {
     position: absolute;
-    left: 7%;
-    right: 7%;
-    top: auto;
-    bottom: 12%;
+    left: 62%;
+    right: 5%;
+    top: 49%;
+    bottom: auto;
     width: auto;
     height: auto;
 }
 
 .ultimate-cut-in-kicker {
     color: rgb(255, 173, 241);
-    font-size: 22px;
-    letter-spacing: 5px;
+    font-size: 16px;
+    letter-spacing: 4px;
     -unity-font-style: bold;
-    -unity-text-outline-width: 2px;
+    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(31, 4, 40);
 }
 
 .ultimate-cut-in-title {
     color: white;
-    font-size: 42px;
+    font-size: 36px;
     white-space: normal;
     -unity-font-style: bold;
-    -unity-text-outline-width: 3px;
+    -unity-text-outline-width: 1px;
     -unity-text-outline-color: rgb(40, 5, 46);
     text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.8);
 }
 
 .ultimate-cut-in-name {
-    color: rgb(235, 177, 234);
-    font-size: 18px;
+    color: rgb(230, 231, 246);
+    font-size: 17px;
+    white-space: normal;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgba(13, 16, 32, 0.9);
 }
+
+.ultimate-title-rule {
+    height: 3px;
+    width: 72px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transform-origin: left center;
+}
+
+.ultimate-portrait-layout .ultimate-cut-in-portrait {
+    left: 4%; right: 4%; top: 3%; bottom: 25%;
+}
+
+.ultimate-portrait-layout .ultimate-cut-in-copy {
+    left: 8%; right: 8%; top: auto; bottom: 7%;
+}
+
+.ultimate-portrait-layout .ultimate-cut-in-title { font-size: 38px; }

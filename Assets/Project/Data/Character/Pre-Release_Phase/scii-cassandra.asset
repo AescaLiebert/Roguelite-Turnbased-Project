@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: scii-cassandra
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.scii-cassandra
+  runtimeReady: 1
+  familyId: family.cassandra
+  seriesId: series.sc
+  role: Glass Attacker
+  traitIds:
+  - trait.female
+  - trait.soul-calibur
+  passiveSourceDescription: "After attacking, gain ATK equal to 50% of current DEF
+    for 2 turns. \n\n[Soul Calibur: own Max HP +10%, Crit Resistance +10%; ATK +12%
+    only while attacking]"
+  passiveSourceType: 1
+  passiveRestriction: 2
+  passiveDefinition: {fileID: 11400000, guid: 8c6f65b29ec126844a2b37183e9e5484, type: 2}
+  id: 2301
+  fighterName: '[Soul Calibur II] Cassandra'
+  fighterPic: {fileID: 21300000, guid: d24795cb9d4be0d47912aea153c1c11b, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 6e2921b81d712b648845b0108e9282ad, type: 3}
+  fighterFull: {fileID: 21300000, guid: d24795cb9d4be0d47912aea153c1c11b, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 21300000, guid: fb409e1f94bd6ac47ac9c727681d0026, type: 3}
+  fighterCard2: {fileID: 21300000, guid: d0216d6b21e145a49af5ac29a35a9162, type: 3}
+  fighterUltimate: {fileID: 21300000, guid: d0216d6b21e145a49af5ac29a35a9162, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: d22c1ae7facf676479ebe37ccbfa6bf5, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 44a2f1038a0289d458c30413aa476aae, type: 2}
+  Skill2: {fileID: 11400000, guid: db54f7c46195d7e439271996919fc26d, type: 2}
+  Ultimate: {fileID: 11400000, guid: 8c3da43555804f443a28cba750ff1d79, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 1935
+    DefenseBp: 2035
+    HealthBp: 2135
+  Classpower: 3750
+  attack: 450
+  defense: 360
+  health: 6900
+  SecondaryStats:
+    PierceRate: 35
+    Resistance: 5
+    Regenerate: 10
+    CritChance: 20
+    CritDmg: 135
+    CritResistance: 35
+    CritDefense: 20
+    RecoveryRate: 110
+    BlockChance: 20
+    BlockPower: 25
+    LifeSteal: 17
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

@@ -21,9 +21,15 @@ namespace FightingAllstar.Core.Combat
         public static AttackEffectCalculation Prepare(AttackEffectRecipeDefinition recipe, BattleState battle,
             FighterState source, FighterState target, DamageFamily family, CardState card = null)
         {
-            var result = new AttackEffectCalculation { Attacker = StatusSystem.GetEffectiveStats(source),
-                Defender = StatusSystem.GetEffectiveStats(target), Policy = StatusSystem.BuildDamagePolicy(source, target, family,
+            var additional = family == DamageFamily.Additional;
+            var result = new AttackEffectCalculation {
+                Attacker = StatusSystem.GetEffectiveStats(source),
+                Defender = StatusSystem.GetEffectiveStats(target),
+                Policy = StatusSystem.BuildDamagePolicy(source, target, family,
                     card?.Kind == CardKind.Ultimate) };
+            // Additional uses current effective stats as inputs to its authored formula.
+            // Normal before-damage boosts and attack keywords do not modify that formula.
+            if (additional) return result;
             CharacterPassiveRuntime.ApplyBeforeDamageReactions(battle, source, target, family, card, result);
             if (recipe == null) return result;
             switch (recipe.Kind)

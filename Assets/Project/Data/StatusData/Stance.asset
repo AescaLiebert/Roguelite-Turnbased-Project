@@ -15,7 +15,8 @@ MonoBehaviour:
   id: status.stance
   displayName: Stance
   icon: {fileID: 21300000, guid: 2696835e23cb0994bb08dfca8315b7c2, type: 3}
-  polarity: 0
+  actorVisualEffect: 0
+  polarity: 2
   keywords:
   - status.stance
   - Stance

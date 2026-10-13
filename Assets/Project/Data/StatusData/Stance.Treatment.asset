@@ -15,7 +15,8 @@ MonoBehaviour:
   id: status.stance.recovery
   displayName: Stance Treatment
   icon: {fileID: 21300000, guid: b2fccc5a479e3144d97b80471c6d5038, type: 3}
-  polarity: 0
+  actorVisualEffect: 0
+  polarity: 2
   keywords:
   - status.stance.recovery
   description: 

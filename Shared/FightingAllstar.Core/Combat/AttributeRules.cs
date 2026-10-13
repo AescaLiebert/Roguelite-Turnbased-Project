@@ -26,7 +26,8 @@ namespace FightingAllstar.Core.Combat
             if (atk == def || string.IsNullOrEmpty(atk) || string.IsNullOrEmpty(def))
                 return AttributeAffinity.Neutral;
 
-            // 4-way cycle (Red -> Green -> Yellow -> Blue -> Red) with 3-way triangle fallback
+            // 5-way cycle: Red -> Green -> Yellow -> Purple -> Blue -> Red
+            // Standalone attributes (Darkness, Light, Infinity) do not participate in the cycle and are always Neutral.
             switch (atk)
             {
                 case "red":
@@ -35,18 +36,23 @@ namespace FightingAllstar.Core.Combat
                     return AttributeAffinity.Neutral;
 
                 case "green":
-                    if (def == "yellow" || def == "blue") return AttributeAffinity.Advantage;
+                    if (def == "yellow") return AttributeAffinity.Advantage;
                     if (def == "red") return AttributeAffinity.Disadvantage;
                     return AttributeAffinity.Neutral;
 
                 case "yellow":
-                    if (def == "blue") return AttributeAffinity.Advantage;
+                    if (def == "purple") return AttributeAffinity.Advantage;
                     if (def == "green") return AttributeAffinity.Disadvantage;
+                    return AttributeAffinity.Neutral;
+
+                case "purple":
+                    if (def == "blue") return AttributeAffinity.Advantage;
+                    if (def == "yellow") return AttributeAffinity.Disadvantage;
                     return AttributeAffinity.Neutral;
 
                 case "blue":
                     if (def == "red") return AttributeAffinity.Advantage;
-                    if (def == "yellow" || def == "green") return AttributeAffinity.Disadvantage;
+                    if (def == "purple") return AttributeAffinity.Disadvantage;
                     return AttributeAffinity.Neutral;
 
                 default:

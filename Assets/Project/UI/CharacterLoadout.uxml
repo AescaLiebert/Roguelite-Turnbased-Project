@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="AccountHeader" src="project://database/Assets/Project/Resources/UI/AccountHeader.uxml?fileID=9197481963319205126&amp;guid=48842567732fe4840bdbaeeeaa1ebcf8&amp;type=3#AccountHeader"/>
+    <Style src="project://database/Assets/Project/UI/CharacterLoadout.uss?fileID=7433441132597879392&amp;guid=c1ab6688bf9298146bb70f9bf2fd49fc&amp;type=3#CharacterLoadout"/>
+    <ui:VisualElement class="screen-root loadout-root">
+        <ui:Instance template="AccountHeader" class="account-header-instance">
+            <AttributeOverrides element-name="section-title" text="BATTLE / CHARACTER LOADOUT"/>
+        </ui:Instance>
+        <ui:VisualElement class="screen-body">
+            <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-content: center; justify-content: center; border-bottom-width: 0; margin-bottom: 10px;">
+                <ui:Label text="PREPARE YOUR TEAM" class="loadout-title heavy" style="width: 1498px; height: 63px;"/>
+                <ui:Button name="loadout-play" text="ENTER BATTLE  ›" class="action-button primary-action" style="height: 81px; width: 341px;"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="loadout-content">
+                <ui:VisualElement class="formation-panel surface-panel">
+                    <ui:VisualElement class="formation-toolbar">
+                        <ui:Label text="FORMATION" class="section-heading"/>
+                        <ui:Label name="formation-stats" class="body-copy formation-stats"/>
+                        <ui:Button name="clear-position" text="CLEAR POSITION" class="action-button"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="formation-slots" class="formation-slots"/>
+                </ui:VisualElement>
+                <ui:VisualElement class="collection-panel surface-panel">
+                    <ui:VisualElement class="collection-toolbar">
+                        <ui:Label text="OWNED FIGHTERS" class="section-heading"/>
+                        <ui:Label name="collection-count" class="body-copy collection-count"/>
+                        <ui:TextField name="fighter-search" label="Search"/>
+                    </ui:VisualElement>
+                    <ui:ScrollView name="collection-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="collection-scroll">
+                        <ui:VisualElement name="collection-grid" class="character-grid"/>
+                    </ui:ScrollView>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

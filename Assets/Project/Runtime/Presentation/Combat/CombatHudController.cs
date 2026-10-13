@@ -74,7 +74,7 @@ namespace FightingAllstar.Presentation.Combat
         public void StartLocalEncounter(EncounterProjection encounter, ulong encounterSeed)
         {
             matchId = encounter.BattleId;
-            var state = RunBattleBridge.CreateLocalBattle(encounter, encounterSeed);
+            var state = RunBattleBridge.CreateLocalBattle(encounter);
             _session = new LocalBattleSession(state);
             _snapshot = _session.GetSnapshot();
             _draft = null;

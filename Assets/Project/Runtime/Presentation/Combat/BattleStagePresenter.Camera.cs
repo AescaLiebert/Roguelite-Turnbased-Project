@@ -9,10 +9,27 @@ namespace FightingAllstar.Presentation.Combat
         // Starting framing values, evaluated against the timestamped reference in
         // Tests/CombatPresentation/CameraReferences.md. Leave space for the execution banner.
         private const float CameraSafeHeight = .72f;
+        [Header("Camera Phase Moves (starting values)")]
+        [SerializeField, Range(.03f, .3f)] private float windUpCameraDuration = .14f;
+        [SerializeField, Range(.03f, .3f)] private float attackCameraDuration = .12f;
+        [SerializeField, Range(.03f, .3f)] private float restCameraDuration = .16f;
+        private Coroutine _cameraTransition;
+        private bool _followAttackerCamera;
+        public bool CameraTransitionActive { get; private set; }
         private float _attackRoll;
         private CardAnimationTiming _animationTiming;
         private Coroutine _actionMotion;
         private bool _actionMotionDone = true;
+
+        private void LateUpdate()
+        {
+            // Follow only the offensive caster root. Targets, their geometry and the
+            // reaction envelope were captured on entry, never read from a flying victim.
+            if (_followAttackerCamera && !CameraTransitionActive && _execution != null &&
+                !_execution.Support && _execution.Actor.Phase == ActorCardPhase.Action &&
+                TryView(_execution.SourceId, out var source))
+                ApplyShot(AttackShot(source, _execution.Direction));
+        }
 
         private void PrepareAnimationTiming(Transform source)
         {
@@ -31,8 +48,8 @@ namespace FightingAllstar.Presentation.Combat
             while (Time.realtimeSinceStartup < deadline)
             {
                 if (_animationTiming != null && _animationTiming.HasFirstHitEvent)
-                { if (_animationTiming.FirstHit) break; }
-                else if (_actionMotionDone) break;
+                { if (_animationTiming.FirstHit && !CameraTransitionActive) break; }
+                else if (_actionMotionDone && !CameraTransitionActive) break;
                 yield return null;
             }
         }
@@ -100,10 +117,11 @@ namespace FightingAllstar.Presentation.Combat
         private CameraShot PortraitShot(Transform source, bool dramatic)
         {
             var bounds = FighterBounds(source);
-            // Face/shoulder anticipation rather than a full-body front view. Geometry-based
-            // framing also works for placeholder/non-humanoid fighters with no head bone.
-            bounds.center += Vector3.up * bounds.extents.y * (dramatic ? .62f : .55f);
-            bounds.extents = new Vector3(bounds.extents.x, bounds.extents.y * (dramatic ? .34f : .42f), bounds.extents.z);
+            // Upper two-thirds composition for every face shot. Ranked/ultimate drama
+            // changes the angle/roll, never zooms back into a tight head-only crop.
+            // Geometry-based framing also supports fighters without a head bone.
+            bounds.center += Vector3.up * bounds.extents.y / 3f;
+            bounds.extents = new Vector3(bounds.extents.x, bounds.extents.y * (2f / 3f), bounds.extents.z);
             var front = Quaternion.AngleAxis(dramatic ? -20f : -12f, Vector3.up) * Facing(source);
             return FrameBounds(bounds, front + Vector3.up * (dramatic ? .12f : .06f),
                 44f, dramatic ? -9f : 0f, 1.1f);
@@ -141,12 +159,12 @@ namespace FightingAllstar.Presentation.Combat
             return new CameraShot { position = focus - forward * distance, rotation = rotation, fov = fov };
         }
 
-        private CameraShot AttackShot(Transform source, Vector3 direction, Vector3? attackPosition = null)
+        private CameraShot AttackShot(Transform source, Vector3 direction)
         {
-            var sourcePosition = attackPosition ?? source.position;
+            var sourcePosition = source.position;
             var height = _execution?.ActorHeight ?? FighterBounds(source).size.y;
             if (_execution != null && _execution.SelfTarget && !_execution.Support)
-                return FrameBounds(FighterBounds(source), -direction + Vector3.up * .25f, 48f, 0f, 1.18f);
+                return FrameBounds(_execution.TargetBounds, -direction + Vector3.up * .25f, 48f, 0f, 1.18f);
             var targets = _execution != null ? _execution.TargetBounds : FighterBounds(source);
             // Shoulder-height rear composition: caster in the lower left foreground, the
             // captured target position ahead. Only the target row needs full-body framing.
@@ -203,7 +221,51 @@ namespace FightingAllstar.Presentation.Combat
             var from = new Pose(_camera.transform.position, _camera.transform.rotation);
             var fov = _camera.fieldOfView;
             var direction = OrbitDirection(from.position - pivot, shot.position - pivot);
-            yield return Tween(duration, t => ApplyOrbit(from, fov, pivot, pivot, shot, t, direction));
+            yield return Tween(duration, t =>
+            {
+                var destination = shot;
+                if (_followAttackerCamera && _execution != null && TryView(_execution.SourceId, out var source))
+                    destination = AttackShot(source, _execution.Direction);
+                ApplyOrbit(from, fov, pivot, pivot, destination, t, direction);
+            });
+        }
+
+        private void MoveToShot(CameraShot shot, Vector3 pivot, float duration)
+        {
+            CancelCameraTransition();
+            if (_camera == null) return;
+            if (Vector3.Distance(_camera.transform.position, shot.position) < .001f &&
+                Quaternion.Angle(_camera.transform.rotation, shot.rotation) < .01f &&
+                Mathf.Abs(_camera.fieldOfView - shot.fov) < .001f)
+            { ApplyShot(shot); return; }
+            CameraTransitionActive = true;
+            // WindUp/Rest endpoints and pivot are snapshots. Offensive Action alone
+            // follows its caster; the target focus never follows a displaced victim.
+            _cameraTransition = StartCoroutine(MovePhaseCamera(shot, pivot, Mathf.Clamp(duration, .03f, 1f)));
+        }
+
+        private IEnumerator MovePhaseCamera(CameraShot shot, Vector3 pivot, float duration)
+        {
+            // Preserve the start pose for the phase-entry frame, not an instant first-step cut.
+            yield return null;
+            yield return OrbitCamera(pivot, shot, duration);
+            if (_followAttackerCamera && _execution != null && TryView(_execution.SourceId, out var source))
+                shot = AttackShot(source, _execution.Direction);
+            ApplyShot(shot);
+            CameraTransitionActive = false;
+            _cameraTransition = null;
+        }
+
+        public IEnumerator WaitForCameraTransition()
+        {
+            while (CameraTransitionActive) yield return null;
+        }
+
+        private void CancelCameraTransition()
+        {
+            if (_cameraTransition != null) StopCoroutine(_cameraTransition);
+            _cameraTransition = null;
+            CameraTransitionActive = false;
         }
 
         private static float OrbitDirection(Vector3 from, Vector3 to)
@@ -235,12 +297,13 @@ namespace FightingAllstar.Presentation.Combat
             var radius = Mathf.Lerp(a.magnitude, b.magnitude, t);
             var offset = new Vector3(Mathf.Sin(yaw) * Mathf.Cos(pitch), Mathf.Sin(pitch), Mathf.Cos(yaw) * Mathf.Cos(pitch));
             var position = pivot + offset * radius;
-            // Commit to one orbit direction. A moving target can cross the +/-180-degree
-            // boundary and make a shortest-path quaternion switch sides mid-transition.
-            var fromAngles = from.rotation.eulerAngles;
-            var toAngles = shot.rotation.eulerAngles;
-            var orientation = Quaternion.Euler(Mathf.LerpAngle(fromAngles.x, toAngles.x, t),
-                OrbitAngle(fromAngles.y, toAngles.y, t, direction), Mathf.LerpAngle(fromAngles.z, toAngles.z, t));
+            // Rotate with the chosen spatial arc. At a half-turn, an independent
+            // quaternion Slerp can choose the opposite yaw and face outside the arena.
+            // Interpolate only the remaining pitch/roll/focus correction locally.
+            var yawRotation = Quaternion.AngleAxis(yaw * Mathf.Rad2Deg - yawA, Vector3.up);
+            var endYawRotation = Quaternion.AngleAxis(OrbitAngle(yawA, yawB, 1f, direction) - yawA, Vector3.up);
+            var localEnd = Quaternion.Inverse(endYawRotation * from.rotation) * shot.rotation;
+            var orientation = yawRotation * from.rotation * Quaternion.Slerp(Quaternion.identity, localEnd, t);
             _camera.transform.SetPositionAndRotation(position, orientation);
             _camera.fieldOfView = Mathf.Lerp(fromFov, shot.fov, t);
         }

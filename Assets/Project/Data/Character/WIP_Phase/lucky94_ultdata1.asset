@@ -17,20 +17,21 @@ MonoBehaviour:
   statusVisuals: []
   levels:
   - level: 0
-    description: Inflicts damage equal to 250% of ATK and has a 40% chance to Stun
-      the enemy for 1 turn
-    skillType: 0
+    description: Inflict 225% of ATK, with a 40% chance to stun the enemy for 1 turn
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 22500
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -46,6 +47,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -77,6 +79,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -112,23 +116,123 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: status.debuff.stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 1
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 4000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
   - level: 1
-    description: Inflicts damage equal to 262.5% of ATK and has a 40% chance to Stun
-      the enemy for 1 turn
-    skillType: 0
+    description: Inflict 255% of ATK, with a 40% chance to stun the enemy for 1 turn
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 25500
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -144,6 +248,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -175,6 +280,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -210,23 +317,123 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: status.debuff.stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 1
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 4000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
   - level: 2
-    description: Inflicts damage equal to 275% of ATK and has a 40% chance to Stun
-      the enemy for 1 turn
-    skillType: 0
+    description: Inflict 285% of ATK, with a 40% chance to stun the enemy for 1 turn
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 28500
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -242,6 +449,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -273,6 +481,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -308,23 +518,123 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: status.debuff.stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 1
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 4000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
   - level: 3
-    description: Inflicts damage equal to 287.5% of ATK and has a 40% chance to Stun
-      the enemy for 1 turn
-    skillType: 0
+    description: Inflict 305% of ATK, with a 40% chance to stun the enemy for 1 turn
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 30500
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -340,6 +650,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -371,6 +682,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -406,23 +719,123 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: status.debuff.stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 1
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 4000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
   - level: 4
-    description: Inflicts damage equal to 300% of ATK and has a 40% chance to Stun
-      the enemy for 1 turn
-    skillType: 0
+    description: Inflict 335% of ATK, with a 40% chance to stun the enemy for 1 turn
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 33500
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -438,6 +851,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -469,6 +883,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -504,23 +920,123 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: status.debuff.stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 1
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 4000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1
   - level: 5
-    description: Inflicts damage equal to 312.5% of ATK and has a 40% chance to Stun
-      the enemy for 1 turn
-    skillType: 0
+    description: Inflict 365% of ATK, with a 40% chance to stun the enemy for 1 turn
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 36500
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -536,6 +1052,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -567,6 +1084,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -602,5 +1121,104 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 1
-      Sequence: []
+      Target: 3
+      Sequence:
+      - Timing: 3
+        Effect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stun
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            Id: status.debuff.stun
+            NameKey: status.debuff.stun
+            Polarity: 1
+            Color: 0
+            Behavior: 4
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 1
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 63
+            Tags: []
+            Modifiers: []
+            PeriodicDamage:
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 1
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 4000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 1

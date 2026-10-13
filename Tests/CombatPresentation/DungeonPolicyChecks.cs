@@ -15,11 +15,27 @@ internal static partial class BattlePlaybackChecks
                 var fighter = new CharacterDefinition { CategoryId = phase * 1000 + sub * 100 + 99, SeriesId = "series.kof" };
                 Check(profile.Accepts(fighter), "Phase category should match.");
                 Check(profile.Clone().Accepts(fighter.Clone()), "Clones lost category filters.");
+                for (var earlierPhase = 1; earlierPhase <= phase; earlierPhase++)
+                    for (var earlierSub = 0; earlierSub <= 4; earlierSub++)
+                    {
+                        var candidate = new CharacterDefinition { CategoryId = earlierPhase * 1000 + earlierSub * 100 + 99, SeriesId = "series.kof" };
+                        Check(profile.Accepts(candidate) == (earlierPhase < phase || earlierSub <= sub), "Stage cutoff does not follow the ID order.");
+                    }
                 fighter.CategoryId += 100;
-                Check(!profile.Accepts(fighter), "Other sub-phase leaked into category.");
+                Check(!profile.Accepts(fighter), "Future or invalid sub-phase leaked into the stage cutoff.");
                 fighter.CategoryId -= 100; fighter.SeriesId = "series.other";
                 Check(!profile.Accepts(fighter), "Other series leaked into category.");
             }
+        var season2Begin = DungeonProfile.Filtered("series.kof", 4, 1);
+        foreach (var id in new[] { 1000, 1499, 2000, 2499, 3000, 3499, 4000, 4099, 4100, 4199 })
+            Check(season2Begin.Accepts(new CharacterDefinition { CategoryId = id, SeriesId = "series.kof" }), "Season 2 Begin lost a current or past character: " + id);
+        foreach (var id in new[] { 0, 999, 1500, 1999, 2500, 3500, 4200, 5000, 9500, 10000 })
+            Check(!season2Begin.Accepts(new CharacterDefinition { CategoryId = id, SeriesId = "series.kof" }), "Future or malformed ID accepted: " + id);
+        var openCircuit = DungeonProfile.Filtered(null, 4, 1);
+        Check(openCircuit.SeriesId == null && openCircuit.Id == "dungeon.filter:*:4:1", "Open Circuit must persist an all-series cutoff.");
+        Check(openCircuit.Accepts(new CharacterDefinition { CategoryId = 1000, SeriesId = "series.tekken" }), "Open Circuit excluded a past fighter from another series.");
+        Check(!openCircuit.Accepts(new CharacterDefinition { CategoryId = 4200, SeriesId = "series.tekken" }), "Open Circuit ignored its stage cutoff.");
+        Check(DungeonProfile.Filtered("*", 4, 1).Clone().Accepts(new CharacterDefinition { CategoryId = 4199, SeriesId = "series.genshin-impact" }), "Restored all-series policy lost the cutoff.");
         var catalog = new List<CharacterDefinition>();
         for (var i = 0; i < 8; i++)
         {
@@ -73,7 +89,9 @@ internal static partial class BattlePlaybackChecks
         var clone = run.Clone(); clone.Formation[0] = "other";
         Check(run.Formation[0] == "owned-test", "Run formation clone aliases the save.");
         var rejected = false;
-        try { RouteGenerator.Generate(DungeonProfile.Filtered("series.kof", 9, 4), catalog, 0, 1); }
+        Check(RouteGenerator.Generate(DungeonProfile.Filtered("series.kof", 9, 4), catalog, 0, 1).Count > 0,
+            "Later stage should generate a route using past characters.");
+        try { RouteGenerator.Generate(DungeonProfile.Filtered("series.missing", 9, 4), catalog, 0, 1); }
         catch (InvalidOperationException) { rejected = true; }
         Check(rejected, "Empty category must not fall back to the full catalog.");
     }

@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.joe94
   runtimeReady: 1
-  sourceId: 15
-  sourceRecord: 16
   familyId: family.joe
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -27,12 +25,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: f338b077b599406bb1cd6055d252b186, type: 2}
-  id: 1015
+  id: 1115
   fighterName: Joe Higashi 94
-  fighterTag: Joe
   fighterPic: {fileID: 21300000, guid: 9c7181017bf070b4da0433d42941774e, type: 3}
   fighterIcon: {fileID: 21300000, guid: ff6db54a5176de84ca7fdd029d2c6692, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 9c7181017bf070b4da0433d42941774e, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -49,6 +46,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2750
   attack: 250
   defense: 200

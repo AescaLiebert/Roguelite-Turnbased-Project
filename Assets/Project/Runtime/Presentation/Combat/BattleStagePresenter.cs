@@ -66,15 +66,15 @@ namespace FightingAllstar.Presentation.Combat
             return true;
         }
 
-        public IEnumerator Turn(TeamSide side, float duration = .65f)
+        public IEnumerator Turn(TeamSide side, float duration = .16f)
         {
             yield return RecoverAttacker();
             EndExecutionContext();
             if (_camera == null) yield break;
             var shot = PlanningShot(side);
-            if (_cutFromSupport) ApplyShot(shot);
-            else yield return OrbitCamera(_arenaCenter, shot, duration);
-            _cutFromSupport = false;
+            if (_cutFromSupport) { CutToShot(shot); _cutFromSupport = false; }
+            else MoveToShot(shot, _arenaCenter, Mathf.Min(duration, restCameraDuration));
+            yield return WaitForCameraTransition();
         }
 
         private CameraShot PlanningShot(TeamSide side)
@@ -85,7 +85,7 @@ namespace FightingAllstar.Presentation.Combat
                 rotation = orbit * _planningRotation, fov = _homeFov };
         }
 
-        public IEnumerator ReturnToPlanning(TeamSide side, float duration = .4f)
+        public IEnumerator ReturnToPlanning(TeamSide side, float duration = .16f)
         {
             yield return Turn(side, duration);
         }
@@ -100,7 +100,7 @@ namespace FightingAllstar.Presentation.Combat
             var travel = Mathf.Max(0f, Vector3.Distance(source.position, target.position) - separation);
             var end = source.position + direction * travel;
             end.y = source.position.y;
-            yield return EnterAction(sourceId, new[] { targetId }, attackDebuff ? CardCategory.AttackDebuff : CardCategory.Attack, false, "Attack", true, end);
+            yield return EnterAction(sourceId, new[] { targetId }, attackDebuff ? CardCategory.AttackDebuff : CardCategory.Attack, false, "Attack", true);
             yield return StartAttackMotion(source, new[] { target }, direction, end);
         }
 
@@ -117,7 +117,7 @@ namespace FightingAllstar.Presentation.Combat
             center = SnapshotTargets(sourceId, targetIds, true, false).center;
             var direction = GroundDirection(center - source.position, Facing(source));
             var end = source.position + direction * Mathf.Min(1.2f, Vector3.Distance(source.position, center) * .12f);
-            yield return EnterAction(sourceId, targetIds, attackDebuff ? CardCategory.AttackDebuff : CardCategory.Attack, true, "Attack", true, end);
+            yield return EnterAction(sourceId, targetIds, attackDebuff ? CardCategory.AttackDebuff : CardCategory.Attack, true, "Attack", true);
             yield return StartAttackMotion(source, targets, direction, end);
         }
 
@@ -180,7 +180,7 @@ namespace FightingAllstar.Presentation.Combat
         public void BeginDefeat(string id)
         {
             if (string.IsNullOrEmpty(id)) return;
-            if (_actorEffects.TryGetValue(id, out var effect) && effect != null) effect.ClearAll();
+            if (_actorEffects.TryGetValue(id, out var effect) && effect != null) effect.ClearAll(preserveImpact: true);
             SetShieldAura(id, false);
             SetStance(id, false);
             _defeatAnimations.Add(StartCoroutine(Defeat(id)));
@@ -208,6 +208,10 @@ namespace FightingAllstar.Presentation.Combat
             { _attacker = null; yield break; }
             yield return WaitForActionEnd(_attacker);
             var authoredRecovery = _execution.Actor.Enter(ActorCardPhase.Recovery);
+            var recoverCamera = !_execution.Support && _camera != null;
+            var cameraStart = _camera != null ? new CameraShot { position = _camera.transform.position,
+                rotation = _camera.transform.rotation, fov = _camera.fieldOfView } : default;
+            var cameraEnd = _execution.WindUpShot;
             var start = new Pose(view.position, view.rotation);
             var startScale = view.localScale;
             yield return Tween(.32f, t =>
@@ -216,6 +220,10 @@ namespace FightingAllstar.Presentation.Combat
                     Quaternion.Slerp(start.rotation, pose.rotation, t));
                 // Procedural recovery feedback also covers stationary ranged/support casts.
                 if (!authoredRecovery) view.localScale = startScale * (1f - .025f * Mathf.Sin(t * Mathf.PI));
+                if (recoverCamera) ApplyShot(new CameraShot {
+                    position = Vector3.Lerp(cameraStart.position, cameraEnd.position, t),
+                    rotation = Quaternion.Slerp(cameraStart.rotation, cameraEnd.rotation, t),
+                    fov = Mathf.Lerp(cameraStart.fov, cameraEnd.fov, t) });
             });
             if (authoredRecovery) yield return _execution.Actor.WaitForAnimationEnd();
             view.SetPositionAndRotation(pose.position, pose.rotation);
@@ -260,6 +268,8 @@ namespace FightingAllstar.Presentation.Combat
 
         public void Restore()
         {
+            CancelCameraTransition();
+            _followAttackerCamera = false;
             _cutFromSupport = false;
             StopAllCoroutines();
             RestoreTargetReactions();

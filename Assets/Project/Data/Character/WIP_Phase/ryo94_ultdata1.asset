@@ -19,11 +19,13 @@ MonoBehaviour:
   - level: 0
     description: Inflict damage equal to 300% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
-    skillType: 0
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
@@ -33,7 +35,6 @@ MonoBehaviour:
       CoefficientBp: 30000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -47,6 +48,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -78,6 +83,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -114,13 +121,18 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
-          Id: status.decrease.atk
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.decrease.atk-related
           Kind: 1
           Family: 0
           Scaling: 0
@@ -129,11 +141,10 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
+            Id: status.decrease.atk-related
+            NameKey: status.decrease.atk-related
             Polarity: 1
             Color: 0
             Behavior: 1
@@ -143,6 +154,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -156,48 +171,9 @@ MonoBehaviour:
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 4
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 7
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 8
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 1
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
@@ -226,6 +202,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -263,23 +241,24 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 1
-    description: Inflict damage equal to 330% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 340% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
-    skillType: 0
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 33000
+      CoefficientBp: 34000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -293,6 +272,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -324,6 +307,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -360,13 +345,18 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
-          Id: status.decrease.atk
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.decrease.atk-related
           Kind: 1
           Family: 0
           Scaling: 0
@@ -375,11 +365,10 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
+            Id: status.decrease.atk-related
+            NameKey: status.decrease.atk-related
             Polarity: 1
             Color: 0
             Behavior: 1
@@ -389,6 +378,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -402,48 +395,9 @@ MonoBehaviour:
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 4
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 7
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 8
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 1
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
@@ -472,6 +426,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -509,23 +465,24 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 2
-    description: Inflict damage equal to 360% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 380% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
-    skillType: 0
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 36000
+      CoefficientBp: 38000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -539,6 +496,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -570,6 +531,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -606,13 +569,18 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
-          Id: status.decrease.atk
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.decrease.atk-related
           Kind: 1
           Family: 0
           Scaling: 0
@@ -621,11 +589,10 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
+            Id: status.decrease.atk-related
+            NameKey: status.decrease.atk-related
             Polarity: 1
             Color: 0
             Behavior: 1
@@ -635,6 +602,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -648,48 +619,9 @@ MonoBehaviour:
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 4
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 7
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 8
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 1
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
@@ -718,6 +650,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -755,23 +689,24 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 3
-    description: Inflict damage equal to 390% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 420% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
-    skillType: 0
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 39000
+      CoefficientBp: 42000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -785,6 +720,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -816,6 +755,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -852,13 +793,18 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
-          Id: status.decrease.atk
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.decrease.atk-related
           Kind: 1
           Family: 0
           Scaling: 0
@@ -867,11 +813,10 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
+            Id: status.decrease.atk-related
+            NameKey: status.decrease.atk-related
             Polarity: 1
             Color: 0
             Behavior: 1
@@ -881,6 +826,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -894,48 +843,9 @@ MonoBehaviour:
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 4
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 7
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 8
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 1
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
@@ -964,6 +874,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -1001,23 +913,24 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 4
-    description: Inflict damage equal to 420% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 460% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
-    skillType: 0
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 42000
+      CoefficientBp: 46000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -1031,6 +944,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -1062,6 +979,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -1098,13 +1017,18 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
-          Id: status.decrease.atk
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.decrease.atk-related
           Kind: 1
           Family: 0
           Scaling: 0
@@ -1113,11 +1037,10 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
+            Id: status.decrease.atk-related
+            NameKey: status.decrease.atk-related
             Polarity: 1
             Color: 0
             Behavior: 1
@@ -1127,6 +1050,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -1140,48 +1067,9 @@ MonoBehaviour:
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 4
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 7
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 8
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 1
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
@@ -1210,6 +1098,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -1247,23 +1137,24 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 5
-    description: Inflict damage equal to 450% of ATK, reduces enemy's attack-related
+    description: Inflict damage equal to 500% of ATK, reduces enemy's attack-related
       stats by 40% for 2 turns
-    skillType: 0
+    skillType: 6
     runtimeEffect:
       Attack:
         HitCount: 4
         Range: 1
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 45000
+      CoefficientBp: 50000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
         Id: 
@@ -1277,6 +1168,10 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -1308,6 +1203,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -1344,13 +1241,18 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
             Range: 0
-          Id: status.decrease.atk
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.decrease.atk-related
           Kind: 1
           Family: 0
           Scaling: 0
@@ -1359,11 +1261,10 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
-            Id: status.decrease.atk
-            NameKey: status.decrease.atk
+            Id: status.decrease.atk-related
+            NameKey: status.decrease.atk-related
             Polarity: 1
             Color: 0
             Behavior: 1
@@ -1373,6 +1274,10 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -1386,48 +1291,9 @@ MonoBehaviour:
               Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 4
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 7
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 8
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: -4000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 1
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
@@ -1456,6 +1322,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0

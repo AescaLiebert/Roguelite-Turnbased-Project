@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.chin94
   runtimeReady: 1
-  sourceId: 13
-  sourceRecord: 14
   familyId: family.chin
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -29,9 +27,8 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 3
   passiveDefinition: {fileID: 11400000, guid: 78c5045f1f7a7bb40ad125db776cd99d, type: 2}
-  id: 1013
+  id: 1113
   fighterName: Chin Gentsai 94
-  fighterTag: family.chin
   fighterPic: {fileID: 21300000, guid: 30d9822c8e5b04446aa8fc527646bd97, type: 3}
   fighterIcon: {fileID: 21300000, guid: 568e049429b35494f8f38006c3027e50, type: 3}
   fighterFull: {fileID: 0}
@@ -51,6 +48,11 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
+    CombatClassBp: 1011
   Classpower: 2630
   attack: 320
   defense: 120

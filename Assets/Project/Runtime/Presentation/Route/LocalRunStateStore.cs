@@ -55,19 +55,38 @@ namespace FightingAllstar.Presentation.Route
                 if (!File.Exists(candidate)) continue;
                 try
                 {
-                    run = SnapshotJson.Deserialize<RunState>(File.ReadAllText(candidate));
+                    var json = File.ReadAllText(candidate);
+                    run = SnapshotJson.Deserialize<RunState>(json);
                     if (run != null && !string.IsNullOrWhiteSpace(run.RunId))
                     {
-                        if (run.Formation == null || run.Formation.Count != 4 ||
-                            run.Formation.TrueForAll(string.IsNullOrEmpty) && run.Roster != null && run.Roster.Count > 0)
+                        if (json.IndexOf("\"RewardPhase\"", StringComparison.Ordinal) < 0)
+                        {
+                            var profile = DungeonFlowContext.GetProfileForId(run.ProfileId);
+                            run.RewardPhase = Math.Max(1, profile.Phase);
+                            run.RewardSubPhase = profile.SubPhase;
+                            run.Mode = profile.Mode;
+                        }
+                        if (run.Formation == null || run.Formation.Count != 4 || json.IndexOf("\"Formation\"", StringComparison.Ordinal) < 0)
                         {
                             run.Formation = new System.Collections.Generic.List<string> { "", "", "", "" };
                             if (run.Roster != null)
                                 foreach (var fighter in run.Roster)
-                                    if (fighter.OriginalFormationIndex >= 0 && fighter.OriginalFormationIndex < 4)
+                                    if (!fighter.IsDefeated && fighter.CurrentHealth > 0 && fighter.OriginalFormationIndex >= 0 && fighter.OriginalFormationIndex < 4)
                                         run.Formation[fighter.OriginalFormationIndex] =
                                             PlayerInventoryService.Instance?.FindOwnedByDefinition(fighter.DefinitionId)?.instanceId ?? fighter.RunFighterId;
                         }
+                        // Keep legacy routes/enemies/receipts intact while migrating run behavior.
+                        if (run.Status == RunStatus.Defeated) run.Status = RunStatus.InProgress;
+                        foreach (var fighter in run.Roster)
+                            if (fighter.IsDefeated || fighter.CurrentHealth <= 0)
+                                for (var slot = 0; slot < run.Formation.Count; slot++)
+                                    if (run.Formation[slot] == fighter.RunFighterId ||
+                                        run.Formation[slot] == PlayerInventoryService.Instance?.FindOwnedByDefinition(fighter.DefinitionId)?.instanceId)
+                                        run.Formation[slot] = string.Empty;
+                        foreach (var node in run.Nodes)
+                            if ((node.Type == RouteNodeType.Boon || node.Type == RouteNodeType.Elite) && node.StatBoost == null)
+                                node.StatBoost = DungeonStatBoost.Generate(run.Seed, node.Id);
+                        run.DataVersion = 2;
                         return true;
                     }
                     run = null;

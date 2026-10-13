@@ -41,6 +41,8 @@ namespace FightingAllstar.Core.Combat
         public int CardRank;
         public bool WasCritical;
         public bool WasBlocked;
+        public int HitIndex = 1;
+        public int HitCount = 1;
     }
 
     internal sealed class ReactionBinding
@@ -114,6 +116,20 @@ namespace FightingAllstar.Core.Combat
                             case PassiveCommandKind.IncreaseCurrentDamageDealtPercent:
                                 calculation.Policy.OutgoingIncreaseBp = (int)Math.Min(int.MaxValue,
                                     (long)calculation.Policy.OutgoingIncreaseBp + command.Amount);
+                                applied = true;
+                                break;
+                            case PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent:
+                                var baseStats = actor.Definition?.BaseStats;
+                                var scalingCoefficientBp = Math.Max(0, command.ScalingCoefficientBp);
+                                var scalingValue = Math.Max(0, baseStats?.Get(command.ScalingStat) ?? 0);
+                                calculation.Policy.NonCriticalOutgoingIncreaseBp = (int)Math.Min(int.MaxValue,
+                                    (long)calculation.Policy.NonCriticalOutgoingIncreaseBp +
+                                    (long)scalingValue * scalingCoefficientBp / 10000L);
+                                applied = true;
+                                break;
+                            case PassiveCommandKind.IgnoreCurrentTargetCritDefensePercent:
+                                calculation.Defender.CritDefenseBp = (int)Math.Max(0L,
+                                    (long)calculation.Defender.CritDefenseBp * (10000L - Math.Min(10000, command.Amount)) / 10000L);
                                 applied = true;
                                 break;
                         }
@@ -276,13 +292,14 @@ namespace FightingAllstar.Core.Combat
         public static void NotifyDamageResolved(BattleState state, FighterState source, FighterState target, int damageAmount,
             string rootActionId = null, bool cardOrigin = false, bool isUltimate = false,
             DamageFamily family = DamageFamily.Normal, CardCategory category = CardCategory.Attack, int cardRank = 0,
-            bool wasCritical = false, bool wasBlocked = false)
+            bool wasCritical = false, bool wasBlocked = false, int hitIndex = 1, int hitCount = 1)
         {
             if (state == null || target == null || damageAmount <= 0) return;
             Dispatch(state, new PassiveFact { Kind = PassiveEventKind.DamageResolved, TurnSide = state.ActingSide,
                 ActorId = source?.Id, TargetId = target.Id, RootActionId = rootActionId, DamageAmount = damageAmount,
                 CardOrigin = cardOrigin, IsUltimate = isUltimate, DamageFamily = family, CardCategory = category,
-                CardRank = cardRank, WasCritical = wasCritical, WasBlocked = wasBlocked });
+                CardRank = cardRank, WasCritical = wasCritical, WasBlocked = wasBlocked,
+                HitIndex = hitIndex, HitCount = Math.Max(1, hitCount) });
         }
 
         /// <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
@@ -357,6 +374,8 @@ namespace FightingAllstar.Core.Combat
                         var factActor = Find(state, fact.ActorId);
                         var factTarget = Find(state, fact.TargetId);
                         if (rule == null || rule.Trigger != fact.Kind || !ReactionAvailable(state, owner, binding) ||
+                            fact.Kind == PassiveEventKind.DamageResolved &&
+                                rule.DamageTiming == PassiveDamageTiming.FinalHit && fact.HitIndex < fact.HitCount ||
                             rule.OwnTeamTurnOnly && fact.TurnSide != owner.Side || rule.CardOriginOnly && !fact.CardOrigin ||
                             rule.ExcludeUltimate && fact.IsUltimate || rule.RequireGaugeLoss && fact.GaugeDelta >= 0 ||
                             rule.RequireCritical && !fact.WasCritical || rule.RequireBlocked && !fact.WasBlocked ||
@@ -377,6 +396,12 @@ namespace FightingAllstar.Core.Combat
                         {
                             if (command == null || command.Kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
                                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent) continue;
+                            // On-attack additional damage is one unsplit packet on the final hit,
+                            // regardless of a legacy reaction's per-hit timing setting.
+                            if (fact.Kind == PassiveEventKind.DamageResolved && fact.CardOrigin &&
+                                fact.HitIndex < fact.HitCount && command.Kind == PassiveCommandKind.ExecuteEffect &&
+                                command.Effect?.Kind == CardEffectOperationKind.Damage &&
+                                command.Effect.Damage?.Family == DamageFamily.Additional) continue;
                             var basis = command.ValueSource == PassiveValueSource.ActualGaugeLost ? Math.Max(0, -fact.GaugeDelta) : 1;
                             var amount = (int)Math.Min(int.MaxValue, (long)basis * command.Amount);
                             if (command.Kind == PassiveCommandKind.IncrementCounter)

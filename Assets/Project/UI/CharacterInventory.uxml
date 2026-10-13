@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/UI/CharacterInventory.uss?fileID=7433441132597879392&amp;guid=0e2fb5d55f4242e6977012a3a61d7184&amp;type=3#CharacterInventory"/>
+    <ui:VisualElement class="inventory-page">
+        <ui:VisualElement class="inventory-filters">
+            <ui:TextField name="inventory-search" label="Search" class="inventory-search"/>
+            <ui:DropdownField name="inventory-rarity" label="Rarity"/>
+            <ui:DropdownField name="inventory-attribute" label="Attribute"/>
+            <ui:DropdownField name="inventory-sort" label="Sort"/>
+            <ui:Button name="inventory-reset" text="RESET" class="action-button"/>
+        </ui:VisualElement>
+        <ui:VisualElement class="inventory-content">
+            <ui:VisualElement class="inventory-collection surface-panel">
+                <ui:ScrollView name="inventory-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="inventory-scroll">
+                    <ui:VisualElement name="inventory-grid" class="character-grid inventory-grid"/>
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

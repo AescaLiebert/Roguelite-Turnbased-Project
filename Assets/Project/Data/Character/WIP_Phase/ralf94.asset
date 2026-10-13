@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.ralf94
   runtimeReady: 1
-  sourceId: 20
-  sourceRecord: 21
   familyId: family.ralf
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -26,12 +24,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 38291e988642bb44dae86feb8d58d065, type: 2}
-  id: 1020
+  id: 1220
   fighterName: Ralf Jone 94
-  fighterTag: Ralf
   fighterPic: {fileID: 21300000, guid: bfd9eb6751b44654ca792be38c8110bd, type: 3}
   fighterIcon: {fileID: 21300000, guid: 5b9f2b48085f5c64fbf293f34183e794, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: bfd9eb6751b44654ca792be38c8110bd, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -48,23 +45,27 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2520
-  attack: 150
+  attack: 250
   defense: 300
   health: 5100
   SecondaryStats:
-    PierceRate: 0
-    Resistance: 15
+    PierceRate: 5
+    Resistance: 25
     Regenerate: 0
     CritChance: 5
     CritDmg: 120
-    CritResistance: 20
-    CritDefense: 20
+    CritResistance: 30
+    CritDefense: 30
     RecoveryRate: 110
     BlockChance: 5
     BlockPower: 0
     LifeSteal: 5
-    AvoidanceRate: 0
+    AvoidanceRate: 100
     EvadeRate: 0
     ControlRate: 100
     PerceptionRate: 100

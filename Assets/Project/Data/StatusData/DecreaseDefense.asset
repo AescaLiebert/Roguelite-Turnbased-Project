@@ -15,7 +15,9 @@ MonoBehaviour:
   id: status.decrease.defense
   displayName: Decrease Defense
   icon: {fileID: 21300000, guid: aa97b86a9d737e743b139cfb10518504, type: 3}
+  actorVisualEffect: 5
   polarity: 1
   keywords:
   - Decrease Defense
+  - status.decrease.defense
   description: 

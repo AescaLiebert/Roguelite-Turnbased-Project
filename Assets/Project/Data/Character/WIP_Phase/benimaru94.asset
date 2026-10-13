@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.benimaru94
   runtimeReady: 1
-  sourceId: 7
-  sourceRecord: 8
   familyId: family.benimaru
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -29,15 +27,14 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 4
   passiveDefinition: {fileID: 11400000, guid: d591c73cbea3d2348a38fdd110d53ec1, type: 2}
-  id: 1007
+  id: 1002
   fighterName: Benimaru 94
-  fighterTag: family.benimaru
   fighterPic: {fileID: 21300000, guid: f347c4bb4e97887419e11e959350c2a9, type: 3}
   fighterIcon: {fileID: 21300000, guid: 3634a0d27c4f87746a5eca6bc2b3cc28, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: f347c4bb4e97887419e11e959350c2a9, type: 3}
   fighterPassive: {fileID: 0}
-  fighterCard1: {fileID: 0}
-  fighterCard2: {fileID: 0}
+  fighterCard1: {fileID: 21300000, guid: 383ef5a8ff5a8e0418c6c1915f6164f0, type: 3}
+  fighterCard2: {fileID: 21300000, guid: ed0379e6b6f729243b3fb75b7444a4fb, type: 3}
   fighterUltimate: {fileID: 0}
   fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
   fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
@@ -51,6 +48,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2368
   attack: 320
   defense: 110

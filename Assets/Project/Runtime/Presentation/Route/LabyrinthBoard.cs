@@ -16,12 +16,13 @@ namespace FightingAllstar.Presentation.Route
         {
             _run = run;
             AddToClassList("labyrinth-board");
-            style.width = 620; style.height = 1420;
+            var boardHeight = (run.Nodes.FindAll(n => n.Column == 0).Count * 150) + 70;
+            style.width = 620; style.height = boardHeight;
             foreach (var node in run.Nodes)
             {
                 var count = run.Nodes.FindAll(n => n.Row == node.Row).Count;
                 var x = 310 + (node.Column - (count - 1) / 2f) * 154;
-                var y = 1310 - node.Row * 150 + (node.Column % 2 == 0 ? 15 : -15);
+                var y = boardHeight - 110 - node.Row * 150 + (node.Column % 2 == 0 ? 15 : -15);
                 _positions[node.Id] = new Vector2(x, y);
                 var button = new Button(() => choose(node.Id));
                 button.AddToClassList("labyrinth-tile");
@@ -33,7 +34,8 @@ namespace FightingAllstar.Presentation.Route
                 button.Insert(0, icon);
                 button.tooltip = node.Progress + (node.EnemyTeamSnapshot.Count == 0 ? "" : "\n" +
                     string.Join("\n", node.EnemyTeamSnapshot.ConvertAll(f => (f.IsReserve ? "Reserve: " : "Active " + (f.FormationSlot + 1) + ": ") + (f.Definition?.DisplayName ?? f.DefinitionId))));
-                button.SetEnabled(node.Progress == RouteNodeProgress.Reachable);
+                button.name = "route-node-" + node.Id;
+                // Every platform can be inspected; commitment is controlled by the detail panel.
                 Add(button);
                 if (node.Id == run.CurrentNodeId) CurrentTile = button;
             }

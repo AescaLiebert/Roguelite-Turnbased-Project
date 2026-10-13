@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9666d9fe4691a054dae7deae827391e9, type: 3}
+  m_Name: RuduceDamageTaken
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
+  id: status.reduce.damage-taken
+  displayName: Ruduce Damage Taken
+  icon: {fileID: 21300000, guid: baa91a031f92bde45befb8249a533c61, type: 3}
+  actorVisualEffect: 0
+  polarity: 0
+  keywords:
+  - Ruduce Damage Taken
+  - status.reduce.damage-taken
+  description: 

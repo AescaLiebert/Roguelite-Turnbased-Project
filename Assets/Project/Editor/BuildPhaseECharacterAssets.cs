@@ -495,8 +495,6 @@ public static class BuildPhaseECharacterAssets
         var serialized = new SerializedObject(character);
         Set(serialized, "definitionId", source.Id);
         Set(serialized, "runtimeReady", true);
-        Set(serialized, "sourceId", ParseSourceId(source.SourceId));
-        Set(serialized, "sourceRecord", source.SourceRecord);
         Set(serialized, "familyId", source.FamilyId);
         Set(serialized, "seriesId", source.SeriesId);
         Set(serialized, "role", source.Role);
@@ -508,7 +506,6 @@ public static class BuildPhaseECharacterAssets
             source.PassiveSource == null ? string.Empty : source.PassiveSource.Restriction));
         Set(serialized, "id", 1000 + ParseSourceId(source.SourceId));
         Set(serialized, "fighterName", source.DisplayName);
-        Set(serialized, "fighterTag", source.FamilyId);
         Set(serialized, "FighterAttribute", ParseAttribute(source.AttributeId));
         Set(serialized, "FighterRarity", ParseRarity(source.RarityId));
         Set(serialized, "fighterLevel", 1);

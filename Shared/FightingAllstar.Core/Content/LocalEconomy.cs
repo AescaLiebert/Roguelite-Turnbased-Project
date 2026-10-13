@@ -6,7 +6,7 @@ using FightingAllstar.Core.Content;
 namespace FightingAllstar.Core.Economy
 {
     public enum SummonRarity { R, SR, SSR }
-    public enum CharacterGrantKind { NewCharacter, DuplicateCrest, CollectionToken }
+    public enum CharacterGrantKind { NewCharacter, DuplicateCrest, CharacterDupeToken }
 
     [Serializable]
     public sealed class BannerPoolEntry
@@ -99,6 +99,7 @@ namespace FightingAllstar.Core.Economy
         public string DefinitionId;
         public int ConstellationTier;
         public int CrestCount;
+        public int DuplicateTokenCount;
         public LocalOwnedCharacter Clone() => (LocalOwnedCharacter)MemberwiseClone();
     }
 
@@ -135,6 +136,8 @@ namespace FightingAllstar.Core.Economy
         public CharacterGrantKind Kind;
         public int ConstellationTier;
         public int CrestCount;
+        public int DuplicateTokenCount;
+        // Kept only to read older profile snapshots. New grants never use a shared pool.
         public int CollectionTokens;
         public CharacterGrantOutcome Clone() => (CharacterGrantOutcome)MemberwiseClone();
     }
@@ -378,6 +381,15 @@ namespace FightingAllstar.Core.Economy
             return receipt;
         }
 
+        public void ConsumeCharacterDupeToken(string characterId)
+        {
+            var owned = FindOwned(characterId);
+            if (owned == null) throw new InvalidOperationException("Character is not owned.");
+            if (owned.DuplicateTokenCount < 1) throw new InvalidOperationException("No duplicate token is available for this character.");
+            owned.DuplicateTokenCount--;
+            _state.Revision++;
+        }
+
         public void SaveFormation(IReadOnlyList<string> definitionIds)
         {
             if (definitionIds == null || definitionIds.Count != 4)
@@ -439,8 +451,9 @@ namespace FightingAllstar.Core.Economy
             if (owned == null) return new CharacterGrantOutcome { CharacterId = characterId, Kind = CharacterGrantKind.NewCharacter,
                 ConstellationTier = 0, CrestCount = 0, CollectionTokens = _state.CollectionTokens };
             if (owned.ConstellationTier >= 5) return new CharacterGrantOutcome { CharacterId = characterId,
-                Kind = CharacterGrantKind.CollectionToken, ConstellationTier = owned.ConstellationTier,
-                CrestCount = owned.CrestCount, CollectionTokens = _state.CollectionTokens + 1 };
+                Kind = CharacterGrantKind.CharacterDupeToken, ConstellationTier = owned.ConstellationTier,
+                CrestCount = owned.CrestCount, DuplicateTokenCount = owned.DuplicateTokenCount == int.MaxValue ? int.MaxValue : owned.DuplicateTokenCount + 1,
+                CollectionTokens = _state.CollectionTokens };
             return new CharacterGrantOutcome { CharacterId = characterId, Kind = CharacterGrantKind.DuplicateCrest,
                 ConstellationTier = owned.ConstellationTier, CrestCount = owned.CrestCount + 1,
                 CollectionTokens = _state.CollectionTokens };
@@ -452,7 +465,7 @@ namespace FightingAllstar.Core.Economy
             if (outcome.Kind == CharacterGrantKind.NewCharacter)
                 _state.Roster.Add(new LocalOwnedCharacter { DefinitionId = outcome.CharacterId, ConstellationTier = 0 });
             else if (outcome.Kind == CharacterGrantKind.DuplicateCrest) owned.CrestCount++;
-            else _state.CollectionTokens++;
+            else if (owned.DuplicateTokenCount < int.MaxValue) owned.DuplicateTokenCount++;
         }
 
         private LocalOwnedCharacter FindOwned(string id) => _state.Roster.Find(x => x != null && x.DefinitionId == id);

@@ -16,19 +16,21 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 13abf67351cc047409673ded8141334c, type: 3}
   statusVisuals: []
   ranks:
-  - description: Inflicts damage equal to 200% of ATK
+  - description: Inflicts damage equal to 240% of Attack on single target.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 24000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -44,6 +46,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -75,6 +78,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -112,19 +117,21 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 1
       Sequence: []
-  - description: Inflicts damage equal to 400% of ATK
+  - description: Inflicts damage equal to 360% of Attack on single target.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 36000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -140,6 +147,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -171,6 +179,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -208,19 +218,21 @@ MonoBehaviour:
       PowerGaugeAmount: 0
       Target: 1
       Sequence: []
-  - description: Inflicts damage equal to 600% of ATK
+  - description: Inflicts damage equal to 600% of Attack on single target.
     skillType: 0
     runtimeEffect:
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 4
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 10000
+      CoefficientBp: 60000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -236,6 +248,7 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -267,6 +280,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0

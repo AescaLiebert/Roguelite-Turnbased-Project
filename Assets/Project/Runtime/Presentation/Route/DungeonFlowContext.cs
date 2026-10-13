@@ -24,6 +24,9 @@ namespace FightingAllstar.Presentation.Route
         public static int BaseCompletionDiamonds { get; private set; } = 320;
         public static bool IsDungeonLoadoutMode => ActiveProfile != null;
 
+        public static bool IsCharacterDefeated(CharacterObject character) => character != null &&
+            ActiveRun?.Roster.Exists(f => f.DefinitionId == character.DefinitionId && (f.IsDefeated || f.CurrentHealth <= 0)) == true;
+
         public static void BeginDungeonFlow(DungeonProfile profile, int difficulty, string userId, ulong seed,
             string contentVersion, string contentHash, IReadOnlyList<CharacterDefinition> catalog, int baseDiamonds)
         {
@@ -65,13 +68,27 @@ namespace FightingAllstar.Presentation.Route
             }
         }
 
+        public static DungeonProfile CreateEntryProfile(string seriesId, int phase, int subPhase, bool women = false, bool seriesBoss = false)
+        {
+            var profile = seriesBoss ? DungeonProfile.SeriesChallengeBoss(seriesId, phase, subPhase) : DungeonProfile.Filtered(seriesId, phase, subPhase);
+            profile.DisplayName = DungeonProfile.SeriesDisplayName(profile.SeriesId) + (women ? " · WOMEN’S EXHIBITION" : "") + (seriesBoss ? " · SERIES CHALLENGE BOSS" : "");
+            if (women)
+            {
+                profile.Id += ":women";
+                foreach (var restriction in DungeonProfile.WomenExhibition().Restrictions)
+                    profile.Restrictions.Add(restriction.Clone());
+            }
+            return EnemyTemplateLibrarySO.ApplyResourcesTo(profile);
+        }
+
         public static DungeonProfile GetProfileForId(string profileId)
         {
             if (profileId != null && profileId.StartsWith("dungeon.filter:", StringComparison.Ordinal))
             {
                 var parts = profileId.Split(':');
-                if (parts.Length == 4 && int.TryParse(parts[2], out var phase) && int.TryParse(parts[3], out var subPhase))
-                    return EnemyTemplateLibrarySO.ApplyResourcesTo(DungeonProfile.Filtered(parts[1], phase, subPhase));
+                if ((parts.Length == 4 || parts.Length == 5 && (parts[4] == "women" || parts[4] == "series-boss")) &&
+                    int.TryParse(parts[2], out var phase) && int.TryParse(parts[3], out var subPhase))
+                    return CreateEntryProfile(parts[1], phase, subPhase, parts.Length == 5 && parts[4] == "women", parts.Length == 5 && parts[4] == "series-boss");
             }
             if (string.Equals(profileId, "dungeon.green-accord", StringComparison.OrdinalIgnoreCase))
                 return EnemyTemplateLibrarySO.ApplyResourcesTo(DungeonProfile.GreenAccord());

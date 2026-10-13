@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: scii-taki
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.scii-taki
+  runtimeReady: 1
+  familyId: family.taki
+  seriesId: series.sc
+  role: Assassin
+  traitIds:
+  - trait.female
+  - trait.soul-calibur
+  passiveSourceDescription: 'PvP only: reduces enemy ATK by 16%. Soul Calibur: own
+    Max HP +10% and Crit Resistance +10 percentage points; ATK +12% only while attacking,
+    without stacking or a lasting bonus.'
+  passiveSourceType: 1
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: bc1ee21fd0be79f44b4a2c848faaf51e, type: 2}
+  id: 2303
+  fighterName: '[Soul Calibur II] Taki'
+  fighterPic: {fileID: 21300000, guid: 57341aa81e403174d9f7c7e8a7b449c3, type: 3}
+  fighterIcon: {fileID: 21300000, guid: ae4c5e3facda33649975c0aac4bdd96d, type: 3}
+  fighterFull: {fileID: 21300000, guid: 57341aa81e403174d9f7c7e8a7b449c3, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 21300000, guid: ae4c5e3facda33649975c0aac4bdd96d, type: 3}
+  fighterCard2: {fileID: 21300000, guid: ae4c5e3facda33649975c0aac4bdd96d, type: 3}
+  fighterUltimate: {fileID: 21300000, guid: ae4c5e3facda33649975c0aac4bdd96d, type: 3}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 414755ec9a75a2346bfa63baa7b495b4, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: e4ed1e2da31e9d44481db1542743e23d, type: 2}
+  Skill2: {fileID: 11400000, guid: 97765732ec18bed4c83cb6e1c1712935, type: 2}
+  Ultimate: {fileID: 11400000, guid: 3cdcb27ac67cfbc4f8e6e0910de2046f, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 1935
+    DefenseBp: 2035
+    HealthBp: 2135
+  Classpower: 3750
+  attack: 450
+  defense: 360
+  health: 6900
+  SecondaryStats:
+    PierceRate: 35
+    Resistance: 5
+    Regenerate: 10
+    CritChance: 20
+    CritDmg: 135
+    CritResistance: 35
+    CritDefense: 20
+    RecoveryRate: 110
+    BlockChance: 20
+    BlockPower: 25
+    LifeSteal: 17
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

@@ -17,7 +17,7 @@ MonoBehaviour:
   statusVisuals: []
   ranks:
   - description: Inflicts 120% of ATK and reduces the target's Critical Chance by
-      26.67% for 1 turn.
+      20% for 1 turns.
     skillType: 5
     runtimeEffect:
       Attack:
@@ -117,8 +117,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
@@ -231,7 +233,7 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 1
   - description: Inflicts 240% of ATK and reduces the target's Critical Chance by
-      53.33% for 2 turns.
+      50% for 2 turns.
     skillType: 5
     runtimeEffect:
       Attack:
@@ -331,8 +333,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1
@@ -446,7 +450,7 @@ MonoBehaviour:
           Target: 1
   - description: Inflicts 360% of ATK and reduces the target's Critical Chance by
       80% for 2 turns.
-    skillType: 0
+    skillType: 5
     runtimeEffect:
       Attack:
         HitCount: 2
@@ -545,8 +549,10 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
           Attack:
             HitCount: 1

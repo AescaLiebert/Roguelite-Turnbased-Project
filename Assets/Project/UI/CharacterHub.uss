@@ -1,0 +1,227 @@
+@import url("project://database/Assets/Project/Resources/UI/ScreenShell.uss?fileID=7433441132597879392&guid=6d1566d098bce684493804ab080e2ee6&type=3#ScreenShell");
+.hub-page { flex-grow: 1; min-width: 0; min-height: 0; flex-direction: row; background-color: rgba(7, 15, 26, .30); }
+.hub-background { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-image: url("../Art/UI/DungeonEntry/ArenaBackground.png"); -unity-background-scale-mode: scale-and-crop; }
+.hub-background-tint { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(5, 12, 23, .40); }
+.hub-hero { width: 39%; flex-shrink: 0; min-height: 0; overflow: hidden; }
+.hub-portrait { flex-grow: 1; min-height: 0; width: 100%; }
+.hub-identity { position: absolute; left: 22px; right: 8px; bottom: 28px; flex-direction: row; align-items: center; padding: 18px; border-left-width: 8px; border-left-color: rgb(238, 40, 54); background-color: rgba(8, 15, 25, .90); }
+.hub-character-icon { flex-shrink: 0; margin-right: 16px; }
+.hub-identity-copy { flex-grow: 1; min-width: 0; }
+.hub-name { font-size: 54px; white-space: normal; }
+.hub-meta { font-size: 28px; color: rgb(110, 235, 204); white-space: normal; }
+.hub-progression { font-size: 24px; margin-top: 8px; color: rgb(176, 205, 234); white-space: normal; }
+.hub-details { flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 0; padding: 24px 28px 24px 12px; }
+.hub-tabs { flex-direction: row; flex-shrink: 0; margin-bottom: 18px; }
+.hub-tab { flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 68px; border-width: 1px; border-color: rgb(84, 125, 158); background-color: rgba(9, 20, 35, .96); color: rgb(159, 183, 218); font-size: 28px; padding: 8px 4px; white-space: normal; }
+.hub-tab:hover { background-color: rgb(37, 53, 74); }
+.hub-tab.selected { background-color: rgb(196, 25, 43); border-color: rgb(255, 83, 80); color: rgb(255, 244, 230); border-bottom-width: 3px; }
+.hub-scroll { flex-grow: 1; flex-basis: 0; min-height: 0; }
+.hub-tab-page { padding-right: 2px; }
+.hub-card { background-color: rgba(8, 18, 31, .97); border-width: 1px; border-color: rgb(101, 145, 176); border-top-color: rgb(211, 53, 58); padding: 20px; margin-bottom: 16px; flex-direction: row; min-width: 0; }
+.hub-column { flex-direction: column; }
+.hub-passive { min-height: 160px; align-items: center; }
+.hub-skill-art { width: 104px; height: 112px; flex-shrink: 0; margin-right: 18px; border-width: 2px; border-color: rgb(211, 54, 59); background-color: rgb(41, 19, 32); -unity-background-scale-mode: scale-to-fit; justify-content: center; align-items: center; }
+.hub-art-placeholder { font-size: 56px; color: rgb(246, 69, 77); }
+.hub-card-copy { flex-grow: 1; flex-basis: 0; min-width: 0; }
+.hub-eyebrow { font-size: 22px; color: rgb(161, 185, 220); margin-bottom: 8px; white-space: normal; }
+.hub-card-title { font-size: 32px; margin-bottom: 8px; white-space: normal; }
+.hub-rules { font-size: 23px; color: rgb(190, 211, 233); white-space: normal; }
+.hub-rank-row { flex-direction: row; align-items: center; margin-bottom: 14px; }
+.hub-rank-row > Label { flex-grow: 1; margin-bottom: 0; }
+.hub-rank { width: 60px; height: 38px; margin-left: 8px; border-width: 1px; border-color: rgb(188, 52, 66); background-color: rgb(15, 26, 42); color: rgb(232, 101, 103); font-size: 23px; }
+.hub-rank.selected { background-color: rgb(193, 24, 43); color: white; }
+.hub-skills { flex-direction: row; }
+.hub-skill { flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 210px; }
+.hub-first-card { margin-right: 14px; }
+.hub-skill .hub-skill-art { width: 88px; height: 96px; margin-right: 14px; }
+.hub-skill .hub-card-title { font-size: 28px; }
+.hub-ultimate { border-color: rgb(232, 187, 103); background-color: rgba(63, 47, 25, .97); min-height: 154px; }
+.hub-ultimate .hub-skill-art { border-color: rgb(237, 194, 115); }
+.hub-ultimate .hub-card-title, .hub-ultimate .hub-eyebrow { color: rgb(255, 225, 166); }
+.hub-summary-row { flex-direction: row; }
+.hub-summary { flex-direction: column; flex-grow: 1; flex-basis: 0; min-width: 0; }
+.hub-link { min-height: 34px; margin-top: 12px; border-width: 0; background-color: rgba(0, 0, 0, 0); color: rgb(180, 208, 238); font-size: 23px; -unity-text-align: middle-left; }
+.hub-link:hover { color: white; background-color: rgb(31, 51, 71); }
+.hub-footer { flex-shrink: 0; flex-direction: row; align-items: center; padding-top: 16px; }
+.hub-footer-caption { flex-grow: 1; font-size: 18px; color: rgb(164, 193, 219); }
+.hub-back { min-height: 64px; font-size: 30px; }
+.hub-page-title { font-size: 44px; white-space: normal; margin-bottom: 12px; }
+.hub-note { font-size: 20px; color: rgb(171, 196, 218); white-space: normal; margin-bottom: 18px; flex-shrink: 0; width: 100%; }
+.hub-deferred { min-height: 56px; font-size: 28px; }
+.hub-stats { flex-direction: row; flex-wrap: wrap; }
+.hub-stat { flex-grow: 1; min-width: 130px; margin: 0 10px 14px 0; padding: 14px; background-color: rgb(15, 32, 47); border-left-width: 2px; border-left-color: rgb(170, 198, 227); }
+.hub-stat Label { white-space: normal; }
+.hub-stat-value { font-size: 34px; }
+#hub-level-preview { margin: 12px 0; font-size: 23px; }
+#hub-level-preview .unity-base-field__input { min-height: 40px; color: white; background-color: rgb(21, 39, 57); }
+.hub-constellation-track { flex-direction: row; justify-content: space-between; padding: 28px 12px; margin-bottom: 16px; border-width: 1px; border-color: rgb(90, 131, 164); background-color: rgba(8, 18, 31, .95); }
+.hub-node { flex-grow: 1; align-items: center; min-width: 0; }
+.hub-node-button { width: 74px; height: 74px; border-radius: 37px; border-width: 2px; border-color: rgb(75, 104, 135); color: rgb(136, 162, 191); background-color: rgb(17, 28, 43); font-size: 27px; }
+.hub-node-button.unlocked { border-color: rgb(210, 57, 65); color: rgb(255, 219, 197); }
+.hub-node-button.selected { border-color: rgb(255, 214, 141); background-color: rgb(98, 40, 47); color: white; }
+.hub-node-state { margin-top: 10px; font-size: 18px; color: rgb(160, 189, 221); }
+.hub-equipment-slots { flex-direction: row; flex-wrap: wrap; margin-bottom: 16px; }
+.hub-equipment-slot { flex-grow: 1; flex-basis: 0; min-width: 120px; min-height: 150px; margin: 4px; border-width: 1px; border-color: rgb(91, 132, 165); background-color: rgba(8, 20, 34, .97); align-items: center; justify-content: center; }
+.hub-equipment-slot.selected { border-color: rgb(248, 207, 133); background-color: rgb(32, 42, 55); }
+.hub-equipment-symbol { font-size: 50px; color: rgb(129, 158, 189); }
+.hub-equipment-caption { font-size: 22px; color: rgb(163, 192, 221); margin-top: 12px; }
+.compact-layout .hub-details { padding: 16px; }
+.compact-layout .hub-identity { left: 12px; bottom: 16px; padding: 12px; }
+.compact-layout .hub-name { font-size: 38px; }
+.compact-layout .hub-meta { font-size: 22px; }
+.compact-layout .hub-progression { font-size: 20px; }
+.compact-layout .hub-tab { min-height: 52px; font-size: 20px; }
+.compact-layout .hub-tabs { margin-bottom: 12px; }
+.compact-layout .hub-card { padding: 14px; margin-bottom: 12px; }
+.compact-layout .hub-passive { min-height: 132px; }
+.compact-layout .hub-skill { min-height: 180px; }
+.compact-layout .hub-skill-art { width: 70px; height: 82px; margin-right: 12px; }
+.compact-layout .hub-skill .hub-skill-art { width: 52px; height: 62px; margin-right: 10px; }
+.compact-layout .hub-card-title, .compact-layout .hub-skill .hub-card-title { font-size: 24px; }
+.compact-layout .hub-rules { font-size: 18px; }
+.compact-layout .hub-eyebrow { font-size: 18px; }
+.compact-layout .hub-ultimate { min-height: 132px; }
+.compact-layout .hub-footer { padding-top: 10px; }
+.compact-layout .hub-back { min-height: 52px; font-size: 24px; padding: 8px 16px; }
+.compact-layout .hub-page-title { font-size: 34px; }
+.compact-layout .hub-node-button { width: 58px; height: 58px; border-radius: 29px; font-size: 23px; }
+.compact-layout .hub-node-state { font-size: 16px; }
+.narrow-layout .hub-page { flex-direction: column; }
+.narrow-layout .hub-hero { width: 100%; height: 240px; flex-shrink: 0; }
+.narrow-layout .hub-portrait { width: 40%; align-self: flex-start; }
+.narrow-layout .hub-identity { left: 32%; right: 16px; bottom: 24px; border-left-width: 4px; }
+.narrow-layout .hub-character-icon { display: none; }
+.narrow-layout .hub-name { font-size: 40px; }
+.narrow-layout .hub-details { padding-top: 0; }
+.narrow-layout .hub-footer-caption { display: none; }
+.narrow-layout .hub-back { flex-grow: 1; }
+.narrow-layout .hub-skills { flex-direction: column; }
+.narrow-layout .hub-skill.hub-first-card { margin-right: 0; }
+.narrow-layout .hub-skill { flex-basis: auto; min-height: 120px; }
+.hub-panel-heading { flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.hub-panel-heading .hub-page-title { flex-grow: 1; margin-bottom: 0; }
+.hub-kit-icons { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 14px 8px; }
+.hub-kit-card { width: 114px; height: 182px; min-height: 182px; margin-right: 26px; margin-bottom: 12px; flex-shrink: 0; }
+.hub-kit-card #card-button { width: 108px; height: 178px; min-height: 178px; }
+.hub-kit-card #card-skill-slot { font-size: 15px; }
+.hub-passive-icon { width: 100px; height: 100px; min-height: 100px; flex-shrink: 0; border-radius: 50px; border-width: 2px; border-color: rgb(89, 210, 223); padding: 8px; background-color: rgb(9, 45, 57); margin: 0 8px 12px 0; }
+.hub-passive-icon:hover, .hub-passive-icon:focus { border-color: rgb(255, 221, 156); }
+#hub-passive-image { width: 80px; height: 80px; min-height: 80px; flex-shrink: 0; border-radius: 42px; }
+.hub-passive-marker { position: absolute; right: 0; bottom: 0; width: 30px; height: 30px; border-radius: 15px; background-color: rgb(16, 77, 89); color: white; -unity-text-align: middle-center; font-size: 20px; }
+.hub-materials { margin: 16px 0; flex-wrap: wrap; }
+.hub-materials .item-reward-tile { width: 130px; margin-right: 10px; }
+.hub-materials .item-reward-name { font-size: 16px; }
+.hub-materials .material-shortage .item-reward-frame { border-color: rgb(255, 106, 121); }
+.hub-material-requirement { white-space: normal; font-size: 17px; color: rgb(134, 225, 178); }
+.material-shortage .hub-material-requirement { color: rgb(255, 135, 148); }
+.hub-upgrade-result { color: rgb(135, 237, 187); white-space: normal; font-size: 22px; padding: 10px 0; }
+.hub-detail-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 8, 18, 0.88); justify-content: center; align-items: center; }
+.hub-detail-dialog { width: 680px; max-width: 94%; max-height: 92%; min-height: 480px; flex-shrink: 0; padding: 24px; border-width: 1px; border-color: rgb(232, 187, 103); background-color: rgb(8, 20, 34); overflow: hidden; }
+.hub-detail-heading { flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-shrink: 0; width: 100%; }
+.hub-detail-title { flex-grow: 1; flex-shrink: 1; min-width: 0; white-space: normal; font-size: 30px; color: rgb(255, 224, 162); margin-right: 12px; }
+.hub-detail-scroll { flex-grow: 1; flex-shrink: 0; min-height: 320px; width: 100%; }
+.hub-detail-scroll .unity-scroll-view__content-container { flex-shrink: 0; min-height: 100%; width: 100%; max-width: 100%; }
+.hub-detail-scroll .unity-scroll-view__content-viewport { width: 100%; max-width: 100%; overflow: hidden; }
+.hub-detail-choices { flex-direction: row; flex-wrap: wrap; margin-bottom: 18px; flex-shrink: 0; }
+.hub-detail-choices Button { flex-grow: 1; min-width: 50px; min-height: 42px; font-size: 20px; background-color: rgb(22, 39, 55); color: rgb(192, 214, 235); border-width: 1px; border-color: rgb(71, 122, 155); }
+.hub-detail-choices Button.selected { border-color: rgb(245, 204, 133); color: rgb(255, 226, 163); }
+.hub-tooltip-header { flex-direction: row; align-items: center; justify-content: space-between; padding: 12px; background-color: rgb(16, 39, 55); margin-bottom: 12px; min-height: 66px; flex-shrink: 0; width: 100%; box-sizing: border-box; }
+.hub-tooltip-icons { flex-direction: row; align-items: center; flex-shrink: 0; margin-right: 8px; }
+.hub-tooltip-icons Image { width: 42px; height: 42px; margin-right: 6px; flex-shrink: 0; }
+.hub-tooltip-title { flex-grow: 1; flex-shrink: 1; min-width: 0; font-size: 21px; color: rgb(255, 255, 255); white-space: normal; margin-right: 8px; }
+.hub-tooltip-status-grid { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-end; flex-shrink: 0; max-width: 45%; }
+.hub-tooltip-status-grid Image { width: 36px; height: 36px; margin-left: 6px; margin-bottom: 2px; flex-shrink: 0; }
+.hub-tooltip-header > Image { width: 42px; height: 42px; margin-right: 8px; flex-shrink: 0; }
+.hub-tooltip-header > Label { flex-grow: 1; flex-shrink: 1; min-width: 0; font-size: 21px; white-space: normal; margin-right: 8px; }
+.hub-tooltip-description { font-size: 23px; color: rgb(241, 235, 219); white-space: normal; padding: 12px 0; border-top-width: 1px; border-top-color: rgb(162, 130, 79); min-height: 84px; flex-shrink: 0; width: 100%; }
+.hub-tooltip-keywords { font-size: 19px; white-space: normal; flex-shrink: 0; width: 100%; margin-top: 6px; }
+.hub-detail-stat { flex-direction: row; justify-content: space-between; padding: 10px; margin-bottom: 5px; background-color: rgb(15, 33, 49); flex-shrink: 0; }
+.hub-detail-stat Label { font-size: 20px; white-space: normal; }
+.compact-layout .hub-stat { min-width: 100px; padding: 10px; }
+.compact-layout .hub-stat-value { font-size: 27px; }
+.compact-layout .hub-kit-card { margin-right: 18px; }
+.narrow-layout .hub-hero { height: 180px; }
+.narrow-layout .hub-kit-card { margin-right: 22px; }
+
+/* One progression view, with the current action determined by the level cap. */
+.hub-upgrade-page { padding: 8px 12px 12px 4px; }
+.hub-upgrade-page .hub-page-title { margin-bottom: 4px; }
+.hub-upgrade-fighter { font-size: 24px; color: rgb(178, 213, 232); margin-bottom: 16px; white-space: normal; }
+.hub-upgrade-level-row { flex-direction: row; align-items: center; flex-shrink: 0; padding: 12px 0; border-bottom-width: 1px; border-bottom-color: rgba(164, 196, 226, .4); margin-bottom: 12px; }
+.hub-upgrade-level { font-size: 34px; flex-shrink: 0; }
+.hub-upgrade-cap-preview { flex-grow: 1; -unity-text-align: middle-right; margin-left: 12px; font-size: 21px; color: rgb(231, 211, 159); white-space: normal; }
+.hub-upgrade-stats { margin-bottom: 28px; flex-shrink: 0; }
+.hub-upgrade-stat-row { flex-direction: row; align-items: center; min-height: 56px; padding: 8px 12px; border-bottom-width: 1px; border-bottom-color: rgba(167, 194, 221, .14); background-color: rgba(12, 29, 45, .55); }
+.hub-upgrade-stat-row Label { font-size: 25px; }
+.hub-upgrade-stat-label { width: 28%; flex-shrink: 0; color: rgb(192, 216, 233); }
+.hub-upgrade-stat-current { flex-grow: 1; flex-basis: 0; min-width: 0; -unity-text-align: middle-right; }
+.hub-upgrade-stat-arrow { width: 52px; flex-shrink: 0; -unity-text-align: middle-center; color: rgb(142, 168, 194); }
+.hub-upgrade-stat-next { width: 35%; flex-shrink: 0; -unity-text-align: middle-right; color: rgb(178, 235, 155); }
+.hub-upgrade-material-section { flex-shrink: 0; margin-bottom: 10px; }
+.hub-upgrade-material-title { font-size: 25px; color: rgb(241, 215, 158); }
+.hub-upgrade-page .hub-materials { flex-wrap: nowrap; margin: 8px 0; }
+.hub-upgrade-page .hub-materials .item-reward-tile { width: 120px; min-height: 130px; margin: 0 14px 0 0; padding: 4px; }
+.hub-upgrade-page .hub-materials .item-reward-frame { width: 106px; height: 106px; }
+.hub-upgrade-page .hub-materials .item-reward-name { display: none; }
+.hub-upgrade-page .hub-material-requirement { font-size: 18px; margin-top: 4px; }
+.hub-upgrade-state { font-size: 18px; margin-bottom: 14px; }
+.hub-upgrade-action-row { flex-direction: row; align-items: center; flex-shrink: 0; padding-top: 16px; border-top-width: 1px; border-top-color: rgba(164, 196, 226, .4); }
+.hub-upgrade-coin-icon { width: 34px; height: 34px; margin-right: 10px; }
+.hub-upgrade-coin-copy { flex-grow: 1; min-width: 0; }
+.hub-upgrade-coin-cost { font-size: 26px; }
+.hub-upgrade-coin-owned { font-size: 15px; color: rgb(174, 198, 219); }
+.hub-upgrade-coin-cost.material-shortage { color: rgb(255, 135, 148); }
+#hub-upgrade-action { width: 42%; min-height: 66px; font-size: 30px; margin-left: 14px; }
+.compact-layout .hub-upgrade-page { padding: 0 4px; }
+.compact-layout .hub-upgrade-page .hub-page-title { font-size: 28px; margin-bottom: 2px; }
+.compact-layout .hub-upgrade-fighter { font-size: 18px; margin-bottom: 8px; }
+.compact-layout .hub-upgrade-level-row { padding: 6px 0; margin-bottom: 8px; }
+.compact-layout .hub-upgrade-level { font-size: 26px; }
+.compact-layout .hub-upgrade-cap-preview { font-size: 16px; }
+.compact-layout .hub-upgrade-stats { margin-bottom: 14px; }
+.compact-layout .hub-upgrade-stat-row { min-height: 32px; padding: 4px 8px; }
+.compact-layout .hub-upgrade-stat-row Label { font-size: 20px; }
+.compact-layout .hub-upgrade-stat-arrow { width: 32px; }
+.compact-layout .hub-upgrade-material-title { font-size: 20px; }
+.compact-layout .hub-upgrade-page .hub-materials .item-reward-tile { width: 92px; min-height: 96px; margin-right: 12px; padding: 2px; }
+.compact-layout .hub-upgrade-page .hub-materials .item-reward-frame { width: 80px; height: 80px; }
+.compact-layout .hub-upgrade-page .hub-material-requirement { font-size: 14px; margin-top: 2px; }
+.compact-layout .hub-upgrade-material-section { margin-bottom: 4px; }
+.compact-layout .hub-upgrade-state { font-size: 15px; margin-bottom: 8px; }
+.compact-layout .hub-upgrade-action-row { padding-top: 8px; }
+.compact-layout .hub-upgrade-coin-cost { font-size: 22px; }
+.compact-layout #hub-upgrade-action { min-height: 48px; font-size: 24px; padding: 8px 12px; }
+
+.hub-upgrade-page { background-color: rgba(7, 19, 34, .82); border-top-width: 2px; border-top-color: rgb(208, 52, 63); }
+.hub-upgrade-action-row { justify-content: flex-end; }
+
+.hub-scroll .hub-fitted-content { flex-grow: 1; }
+.hub-upgrade-page { flex-grow: 1; min-height: 100%; justify-content: space-between; padding-bottom: 0; }
+.hub-upgrade-preview { flex-shrink: 0; align-self: stretch; }
+.hub-upgrade-controls { flex-shrink: 0; align-self: stretch; margin-top: 20px; }
+.hub-upgrade-controls .hub-upgrade-action-row { padding-bottom: 0; }
+.compact-layout .hub-upgrade-controls { margin-top: 12px; }
+.hub-upgrade-page .hub-materials .item-reward-tile { min-height: 114px; }
+.compact-layout .hub-upgrade-page .hub-materials .item-reward-tile { min-height: 86px; }
+.hub-materials .material-shortage .item-reward-amount { color: rgb(190, 52, 68); }
+.hub-materials .item-reward-amount { font-size: 16px; }
+.compact-layout .hub-materials .item-reward-amount { font-size: 14px; }
+
+.compact-layout #hub-page-kit .hub-name { font-size: 32px; }
+.compact-layout #hub-page-kit .hub-meta { font-size: 18px; }
+.compact-layout #hub-page-kit .hub-card { padding: 10px; margin-bottom: 8px; }
+.compact-layout #hub-page-kit .hub-panel-heading { margin-bottom: 8px; }
+.compact-layout #hub-page-kit #hub-stat-details { min-height: 38px; padding: 6px 12px; font-size: 22px; }
+.compact-layout #hub-page-kit .hub-kit-icons { padding: 6px 8px; }
+.compact-layout #hub-page-kit .hub-kit-card { width: 92px; height: 144px; min-height: 144px; margin-right: 22px; margin-bottom: 4px; flex-shrink: 0; }
+.compact-layout #hub-page-kit .hub-kit-card #card-button { width: 86px; height: 140px; min-height: 140px; }
+.compact-layout #hub-page-kit .hub-passive-icon { width: 80px; height: 80px; min-height: 80px; margin: 0 4px; flex-shrink: 0; }
+.compact-layout #hub-page-kit #hub-passive-image { width: 64px; height: 64px; min-height: 64px; flex-shrink: 0; }
+.compact-layout .hub-detail-dialog { min-height: 420px; max-height: 90%; flex-shrink: 0; }
+.compact-layout .hub-detail-scroll { min-height: 260px; flex-shrink: 0; }
+.compact-layout .hub-tooltip-description { min-height: 70px; flex-shrink: 0; }
+.compact-layout .hub-tooltip-title { font-size: 18px; }
+.compact-layout .hub-tooltip-header { min-height: 56px; padding: 8px 10px; }
+.compact-layout .hub-tooltip-icons Image { width: 34px; height: 34px; margin-right: 4px; }
+.compact-layout .hub-tooltip-status-grid Image { width: 30px; height: 30px; margin-left: 4px; }
+

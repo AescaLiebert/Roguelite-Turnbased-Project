@@ -164,6 +164,33 @@
         <member name="T:FightingAllstar.Core.Combat.TurnExecutionState">
             <summary>A frozen turn queue shared by both sides. Card availability is checked at execution.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Content.ArtifactRules">
+            <summary>
+            Artifact identity, deterministic rolls, equipment and guaranteed enhancement.
+            Economy and roll ranges are starting values; the authored thresholds and set effects are fixed.
+            </summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.Generate(System.String,FightingAllstar.Core.Content.ArtifactRarity,System.Int32)">
+            <summary>All six basic main forms are initially allowed on each slot.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.Normalize(FightingAllstar.Core.Run.ArtifactInstance)">
+            <summary>Migrates old rarity-only instances without changing their unique receipt identity.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.ApplyStats(FightingAllstar.Core.Content.StatBlock,System.Collections.Generic.IEnumerable{FightingAllstar.Core.Run.ArtifactInstance})">
+            <summary>Percentage basic lines and both set thresholds add against the unequipped base stat.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.ApplyConditionalStats(FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Content.StatBlock)">
+            <summary>Evaluated after ordinary status modifiers so the threshold follows live max HP.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.RepairLines(FightingAllstar.Core.Run.ArtifactInstance)">
+            <summary>Repairs damaged imported data without rerolling the valid lines or their upgrades.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.CharacterStatGrowth">
+            <summary>Linear growth as a fraction of level-one stats, in basis points per level.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.CombatClassRules">
+            <summary>Starting weights: HP .2, ATK 1, DEF 1.5, secondary percentage points 100. Integer score units are tenths.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Content.CombatTags">
             <summary>Stable vocabulary for status tags and effect keywords; values are content IDs, not display text.</summary>
         </member>
@@ -176,6 +203,9 @@
         <member name="F:FightingAllstar.Core.Content.EffectOperationDefinition.StatusApplyChanceBp">
             <summary>Authored status proc chance in basis points; 10000 is 100% and zero is 0%.</summary>
         </member>
+        <member name="F:FightingAllstar.Core.Content.EffectDefinition.AttributeAdvantageDamageBonusBp">
+            <summary>Extra damage dealt when this card hits a target with attribute advantage, in basis points.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Content.StatBundleRules">
             <summary>Defines which stats a bundle modifier affects and the operation used for each member.</summary>
         </member>
@@ -186,7 +216,10 @@
             <summary>Reusable choreography presets. Hit count remains editable from 1 through 10.</summary>
         </member>
         <member name="F:FightingAllstar.Core.Content.StatusRecipeDefinition.BarrierCoefficientBp">
-            <summary>Shield granted when this Barrier status is applied, as a fraction of its source's Attack.</summary>
+            <summary>Shield granted when this Barrier status is applied, as a fraction of its selected source stat.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.StatusRecipeDefinition.NormalizePolarity">
+            <summary>Preserves authored Neutral statuses and migrates legacy stance/healing buffs.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.SnapshotJson">
             <summary>Serializes plain combat snapshots, including recursive effect-condition trees.</summary>
@@ -200,11 +233,26 @@
         <member name="T:FightingAllstar.Core.Economy.LocalEconomyService">
             <summary>Disposable offline economy simulation. It grants no online entitlement or trusted currency.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Run.DungeonDifficulty">
+            <summary>Five player-facing levels; percentages remain an internal, legacy-compatible enemy scaling value.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.DungeonRewards">
+            <summary>Starting reward values. Kept separate from route and combat RNG; inspections never roll rewards.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Run.DungeonRunEngine">
-            <summary>Deterministic local run state machine. A trusted service must own this state for online rewards.</summary>
+            <summary>Run progression and fighter history, independent of seeded route generation and battle entropy.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Run.DungeonRunEngine.InspectNode(FightingAllstar.Core.Run.RunState,System.String)">
+            <summary>Read-only inspection of any platform, including locked, bypassed and completed nodes.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Run.DungeonStatBoost">
+            <summary>A generated, run-only stat reward. Never supplies randomness to a battle.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Run.RunBattleBridge">
             <summary>Maps a frozen route encounter to the disposable shared battle engine and back to run HP.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Run.RunBattleBridge.CreateLocalBattle(FightingAllstar.Core.Run.EncounterProjection,FightingAllstar.Core.Combat.TeamSide)">
+            <summary>Production entry: fresh combat and card streams, with no dungeon seed input.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Run.EnemyFormationTemplate">
             <summary>A complete, authored enemy formation owned by one dungeon policy.</summary>

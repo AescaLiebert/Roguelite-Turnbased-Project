@@ -12,6 +12,11 @@ namespace FightingAllstar.Adapters
         public static CoreBattleState CompletedBattle { get; private set; }
         public static bool IsPreview { get; private set; }
 
+        public static void Begin(EncounterProjection encounter)
+        {
+            Begin(encounter, BattleEntropy.CreateSeed());
+        }
+
         public static void Begin(EncounterProjection encounter, ulong seed, bool previewOnly = false)
         {
             PendingEncounter = encounter;

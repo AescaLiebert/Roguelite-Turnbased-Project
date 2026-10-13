@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: lucky94
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.lucky94
-  runtimeReady: 0
-  sourceId: 28
-  sourceRecord: 29
+  runtimeReady: 1
   familyId: family.lucky
   seriesId: series.kof
   role: Crowd Control
@@ -26,12 +24,11 @@ MonoBehaviour:
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 95e00d7e0c716d84cb9add9f508b35b0, type: 2}
-  id: 1028
+  id: 1328
   fighterName: Lucky 94
-  fighterTag: Lucky
   fighterPic: {fileID: 21300000, guid: 515e11d3b2e226b42ae032e7d0d42979, type: 3}
   fighterIcon: {fileID: 21300000, guid: b8b59a1508d19774292060880bd3ad81, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 515e11d3b2e226b42ae032e7d0d42979, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -42,18 +39,22 @@ MonoBehaviour:
   fighterModelYawOffset: 0
   Skill1: {fileID: 11400000, guid: f1d4bd329a9ec3844a6c0b0cc8af85cf, type: 2}
   Skill2: {fileID: 11400000, guid: 0943ccce1d3ece047858b3e53934a247, type: 2}
-  Ultimate: {fileID: 11400000, guid: 4c66e357c8b881f4691b6aeda8505508, type: 2}
+  Ultimate: {fileID: 11400000, guid: 3ba930238c648e04f92b1037ddc9a182, type: 2}
   FighterAttribute: 1
   FighterRarity: 0
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2600
-  attack: 230
+  attack: 300
   defense: 170
   health: 3900
   SecondaryStats:
-    PierceRate: 10
+    PierceRate: 50
     Resistance: 15
     Regenerate: 10
     CritChance: 10
@@ -64,7 +65,7 @@ MonoBehaviour:
     BlockChance: 10
     BlockPower: 20
     LifeSteal: 5
-    AvoidanceRate: 0
+    AvoidanceRate: 100
     EvadeRate: 0
     ControlRate: 100
     PerceptionRate: 100

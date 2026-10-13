@@ -81,7 +81,7 @@ namespace FightingAllstar.Presentation.Combat
                 _readyAuras.Remove(id);
             }
             if (!ready || !TryView(id, out var view)) return;
-            var aura = CreateEnergy(FighterGroundPosition(view), new Color(1f, .76f, .08f), true, FighterRadius(view) + .25f);
+            var aura = UltimateReadyAura.Create(view, FighterGroundPosition(view), FighterRadius(view), FighterHeight(view));
             aura.transform.SetParent(view, true);
             aura.SetActive(!_suppressedPersistentEffects.Contains(id));
             _readyAuras[id] = aura;
@@ -206,9 +206,11 @@ namespace FightingAllstar.Presentation.Combat
             emission.rateOverTime = loop ? 26 : 0;
             if (!loop) emission.SetBursts(new[] { new ParticleSystem.Burst(0, 28) });
             var velocity = particles.velocityOverLifetime;
-            velocity.enabled = true;
             velocity.space = ParticleSystemSimulationSpace.World;
+            velocity.x = 0f;
             velocity.y = 1.2f;
+            velocity.z = 0f;
+            velocity.enabled = true;
             var fade = particles.colorOverLifetime;
             fade.enabled = true;
             var gradient = new Gradient();

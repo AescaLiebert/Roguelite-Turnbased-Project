@@ -1,0 +1,214 @@
+.item-reward-grid { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; }
+.item-reward-tile { width: 96px; min-height: 110px; flex-shrink: 0; margin: 4px; padding: 4px; align-items: center; background-color: rgba(14, 26, 42, .45); border-width: 0; }
+.item-reward-tile:hover, .item-reward-tile:focus { background-color: rgba(61, 84, 109, .8); }
+.item-reward-frame { width: 66px; height: 66px; border-width: 2px; border-radius: 5px; background-color: rgb(24, 32, 45); }
+.item-frame-1 { border-color: rgb(154, 162, 173); background-color: rgb(49, 56, 68); }
+.item-frame-2 { border-color: rgb(114, 193, 129); background-color: rgb(28, 68, 55); }
+.item-frame-3 { border-color: rgb(97, 176, 238); background-color: rgb(23, 61, 99); }
+.item-frame-4 { border-color: rgb(191, 140, 242); background-color: rgb(71, 43, 98); }
+.item-frame-5 { border-color: rgb(242, 197, 94); background-color: rgb(101, 69, 30); }
+.item-reward-icon { width: 100%; height: 100%; }
+.authored-item-icon { -unity-background-scale-mode: scale-to-fit; }
+.item-reward-name { font-size: 14px; color: rgb(226, 233, 241); white-space: normal; -unity-text-align: middle-center; margin-top: 5px; }
+.item-reward-amount { position: absolute; bottom: 0; right: 2px; font-size: 17px; -unity-font-style: bold; color: white; background-color: rgba(0, 0, 0, .65); padding: 0 3px; }
+.item-reward-tier { position: absolute; top: 2px; left: 3px; font-size: 11px; -unity-font-style: bold; color: white; background-color: rgba(0, 0, 0, .45); padding: 0 3px; }
+.item-tooltip-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0); }
+.item-tooltip-dialog { position: absolute; width: 360px; max-width: 94%; padding: 16px; border-width: 2px; border-radius: 6px; }
+.item-tooltip-heading { flex-direction: row; align-items: center; padding-right: 22px; }
+.item-tooltip-icon { width: 54px; height: 54px; flex-shrink: 0; margin-right: 12px; }
+.item-tooltip-copy { flex-grow: 1; min-width: 0; }
+.item-tooltip-dialog Label { font-size: 17px; color: rgb(239, 243, 247); white-space: normal; }
+.item-tooltip-dialog .item-tooltip-name { font-size: 23px; -unity-font-style: bold; }
+.item-tooltip-dialog .item-tooltip-category { font-size: 12px; color: rgb(225, 214, 182); margin-top: 3px; }
+#item-tooltip-amount { margin-top: 12px; padding-top: 10px; border-top-width: 1px; border-top-color: rgba(235, 239, 245, .3); }
+.item-tooltip-rule { margin-top: 10px; }
+.item-tooltip-description { margin-top: 10px; }
+.item-tooltip-close { position: absolute; right: 4px; top: 4px; width: 28px; height: 28px; padding: 0; margin: 0; font-size: 24px; color: white; background-color: rgba(0, 0, 0, .25); border-width: 0; }
+.backpack-overlay { position: absolute; left: 0; right: 0; top: 84px; bottom: 0; padding: 24px; align-items: center; justify-content: center; background-color: rgba(7, 13, 24, .78); }
+.backpack-dialog { width: 1180px; max-width: 100%; height: 100%; max-height: 850px; padding: 24px; border-width: 1px; border-color: rgb(118, 162, 204); background-color: rgba(12, 24, 41, .97); }
+.backpack-heading { flex-direction: row; align-items: center; margin-bottom: 18px; flex-shrink: 0; }
+.backpack-title { font-size: 38px; color: rgb(247, 237, 210); }
+.backpack-count { flex-grow: 1; -unity-text-align: middle-right; margin-right: 24px; color: rgb(175, 205, 232); font-size: 21px; }
+.backpack-tabs { flex-direction: row; flex-shrink: 0; margin-bottom: 12px; }
+.backpack-tab { flex-grow: 1; flex-basis: 0; margin-right: 6px; padding: 12px 10px; font-size: 25px; color: rgb(213, 231, 247); background-color: rgb(24, 45, 67); border-width: 1px; border-color: rgb(71, 112, 150); }
+.backpack-tab.selected { color: rgb(255, 239, 200); background-color: rgb(112, 30, 43); border-color: rgb(235, 116, 91); }
+.backpack-note { font-size: 17px; color: rgb(176, 205, 232); white-space: normal; margin-bottom: 14px; flex-shrink: 0; }
+.backpack-empty { color: rgb(233, 211, 165); font-size: 18px; margin-bottom: 12px; white-space: normal; flex-shrink: 0; }
+.backpack-scroll { flex-grow: 1; flex-basis: 0; min-height: 0; }
+.backpack-grid { flex-direction: row; flex-wrap: wrap; align-content: flex-start; }
+.backpack-grid .item-reward-tile, .backpack-empty-slot { width: 102px; height: 122px; min-height: 0; margin: 5px; padding: 6px; border-width: 1px; border-color: rgba(128, 163, 197, .22); background-color: rgba(54, 70, 89, .28); }
+.backpack-grid .item-reward-frame { width: 88px; height: 104px; }
+.backpack-grid .item-reward-name { display: none; }
+.backpack-grid .item-reward-tier { font-size: 13px; }
+.backpack-grid .item-reward-amount { font-size: 20px; }
+.compact-layout .item-reward-tile { width: 82px; min-height: 104px; margin: 3px; }
+.compact-layout .item-reward-frame { width: 54px; height: 54px; }
+.compact-layout .item-reward-name { font-size: 12px; }
+.compact-layout .backpack-grid .item-reward-tile, .compact-layout .backpack-empty-slot { width: 94px; height: 112px; min-height: 0; margin: 4px; }
+.compact-layout .backpack-grid .item-reward-frame { width: 80px; height: 94px; }
+.narrow-layout .backpack-overlay { padding: 12px; }
+.narrow-layout .backpack-dialog { padding: 14px; }
+.narrow-layout .backpack-tab { font-size: 21px; }
+.stage-inspection-scroll { flex-grow: 1; flex-basis: 0; min-height: 0; }
+.stage-inspection-status { font-size: 17px; color: rgb(172, 203, 226); white-space: normal; }
+.stage-enemy-inspector { margin-top: 12px; padding: 12px; background-color: rgb(18, 28, 39); }
+.stage-enemy-inspector Label { white-space: normal; font-size: 17px; color: rgb(203, 221, 232); margin-bottom: 10px; }
+.stage-reward-heading { font-size: 19px; color: rgb(237, 206, 151); margin-top: 14px; }
+.node-actions .item-reward-name { font-size: 13px; margin-bottom: 0; color: rgb(221, 231, 237); }
+.node-actions .item-reward-amount { font-size: 17px; margin-bottom: 0; color: white; }
+.artifact-item-icon { width: 100%; height: 100%; background-size: contain; background-position: center; background-repeat: no-repeat; }
+.artifact-favourite-marker { position: absolute; right: 2px; top: 2px; width: 22px; height: 22px; border-radius: 5px; background-color: rgba(8, 17, 29, .82); }
+.artifact-item-tile .item-reward-amount { left: 0; right: 0; bottom: 0; height: 21px; padding: 1px 5px; font-size: 16px; color: rgb(36, 47, 62); -unity-text-align: middle-right; background-color: rgb(225, 221, 207); }
+.artifact-item-tile .artifact-item-icon { position: absolute; left: 4px; right: 4px; top: 4px; bottom: 36px; width: auto; height: auto; padding: 0; }
+.artifact-rarity-stars { position: absolute; left: 2px; right: 2px; bottom: 21px; height: 17px; padding: 0; font-size: 11px; -unity-font-style: bold; -unity-text-align: middle-center; color: rgb(255, 215, 117); background-color: rgba(6, 16, 29, .3); }
+.artifact-owner-avatar { position: absolute; left: 2px; top: 2px; width: 26px; height: 26px; border-radius: 13px; border-width: 1px; border-color: rgb(245, 224, 175); background-color: rgb(23, 44, 65); background-size: cover; background-position: center; background-repeat: no-repeat; overflow: hidden; }
+.artifact-avatar-fallback { color: rgb(244, 230, 191); -unity-text-align: middle-center; font-size: 20px; }
+.artifact-rarity-1, Label.artifact-rarity-1, .artifact-details .artifact-rarity-1 { color: rgb(202, 207, 215); }
+.artifact-rarity-2, Label.artifact-rarity-2, .artifact-details .artifact-rarity-2 { color: rgb(153, 227, 168); }
+.artifact-rarity-3, Label.artifact-rarity-3, .artifact-details .artifact-rarity-3 { color: rgb(143, 210, 255); }
+.artifact-rarity-4, Label.artifact-rarity-4, .artifact-details .artifact-rarity-4 { color: rgb(217, 172, 255); }
+.artifact-rarity-5, Label.artifact-rarity-5, .artifact-details .artifact-rarity-5 { color: rgb(255, 220, 124); }
+.item-kind-artifact .item-reward-name, .item-kind-artifact .item-reward-tier { display: none; }
+.artifact-item-tile.selected { border-width: 2px; border-color: rgb(255, 218, 135); background-color: rgba(146, 100, 43, .5); }
+.artifact-item-tile.ineligible { opacity: .42; }
+.artifact-tooltip-dialog { width: 410px; padding: 18px; background-color: rgb(18, 29, 44); border-radius: 9px; }
+.artifact-tooltip-icon { width: 76px; height: 76px; flex-shrink: 0; margin-right: 12px; background-size: contain; background-position: center; background-repeat: no-repeat; }
+.artifact-tooltip-scroll { flex-shrink: 1; min-height: 0; margin-top: 10px; }
+.artifact-details { flex-shrink: 0; }
+.artifact-details Label { white-space: normal; color: rgb(226, 234, 241); font-size: 17px; }
+.artifact-details .artifact-detail-meta { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.artifact-details .artifact-detail-stars { font-size: 16px; margin-right: 12px; -unity-font-style: bold; }
+.artifact-details .artifact-detail-slot { color: rgb(190, 207, 226); font-size: 13px; }
+.artifact-main-stat { padding: 12px 0; border-top-width: 1px; border-top-color: rgba(204, 224, 240, .24); border-bottom-width: 1px; border-bottom-color: rgba(204, 224, 240, .24); }
+.artifact-details .artifact-main-value { font-size: 36px; color: rgb(250, 216, 142); -unity-font-style: bold; }
+.artifact-substats { padding: 12px 0; }
+.artifact-stat-row { flex-direction: row; justify-content: space-between; margin-bottom: 7px; }
+.artifact-stat-label { flex-grow: 1; flex-shrink: 1; margin-right: 8px; }
+.artifact-details .artifact-stat-value { color: rgb(179, 215, 246); -unity-font-style: bold; }
+.artifact-set-details { padding: 12px 0; border-top-width: 1px; border-top-color: rgba(204, 224, 240, .24); }
+.artifact-details .artifact-set-name { color: rgb(163, 227, 190); font-size: 19px; -unity-font-style: bold; margin-bottom: 9px; }
+.artifact-details .artifact-set-bonus { margin-bottom: 6px; font-size: 15px; color: rgb(136, 151, 167); }
+.artifact-details .artifact-set-bonus.active { color: rgb(156, 232, 181); }
+.artifact-details .artifact-set-condition { margin-top: 3px; color: rgb(136, 151, 167); font-size: 15px; }
+.artifact-details .artifact-set-condition.active { color: rgb(173, 219, 190); }
+.artifact-detail-muted, .artifact-details .artifact-detail-muted { color: rgb(164, 185, 207); font-size: 13px; margin-top: 9px; white-space: normal; }
+.artifact-detail-ownership { flex-direction: row; align-items: center; margin-top: 12px; }
+.artifact-detail-avatar { width: 34px; height: 34px; flex-shrink: 0; margin-right: 10px; border-radius: 17px; border-width: 1px; border-color: rgb(214, 199, 160); background-color: rgb(23, 44, 65); background-size: cover; background-position: center; background-repeat: no-repeat; overflow: hidden; }
+.artifact-details .artifact-detail-equipped { color: rgb(174, 224, 236); font-size: 14px; flex-grow: 1; }
+.artifact-favourite-button { flex-shrink: 0; padding: 10px 12px; margin: 12px 0 0; border-width: 1px; border-color: rgb(122, 159, 189); color: rgb(211, 227, 240); background-color: rgb(27, 46, 65); font-size: 14px; -unity-font-style: bold; }
+.artifact-favourite-button.selected { color: rgb(255, 224, 143); border-color: rgb(229, 193, 114); background-color: rgb(61, 48, 33); }
+.backpack-filters { flex-direction: row; flex-wrap: wrap; align-items: flex-end; flex-shrink: 0; margin-bottom: 8px; }
+.backpack-filters .unity-base-field { flex-direction: column; align-items: stretch; margin: 0 8px 8px 0; min-width: 130px; }
+.backpack-filters .unity-base-field__label { min-width: 0; margin-bottom: 5px; color: rgb(169, 192, 215); font-size: 12px; letter-spacing: 1px; }
+.backpack-filters .unity-base-field__input { min-height: 34px; padding: 6px 9px; border-width: 1px; border-color: rgb(75, 111, 146); background-color: rgb(19, 35, 54); color: rgb(233, 240, 247); font-size: 15px; }
+.backpack-filters .backpack-search { flex-grow: 1; min-width: 190px; }
+.backpack-filters .backpack-favourite-filter { min-width: 100px; }
+.backpack-favourite-filter .unity-toggle__input { justify-content: center; }
+.backpack-grid .artifact-item-tile .item-reward-frame { width: 88px; height: 104px; }
+.backpack-grid .artifact-item-icon { padding: 0; }
+.compact-layout .backpack-grid .artifact-item-tile .item-reward-frame { width: 80px; height: 94px; }
+.reward-item-strip { flex-shrink: 0; min-height: 166px; margin-top: 12px; margin-bottom: 12px; }
+.reward-item-strip .unity-scroll-view__content-container { flex-direction: row; flex-wrap: nowrap; }
+.reward-item-strip .item-reward-grid { flex-direction: row; flex-wrap: nowrap; flex-shrink: 0; }
+.reward-item-strip .item-reward-tile { width: 126px; min-height: 152px; margin: 4px 8px 4px 0; padding: 8px; }
+.reward-item-strip .item-reward-frame { width: 100px; height: 100px; }
+.reward-item-strip .item-reward-name { font-size: 14px; max-height: 42px; overflow: hidden; }
+.reward-item-strip .artifact-item-icon { padding: 0; }
+.reward-strip-hint { color: rgb(169, 197, 220); font-size: 14px; white-space: normal; margin-bottom: 12px; }
+.compact-layout .reward-item-strip .item-reward-tile { width: 110px; min-height: 144px; }
+.compact-layout .reward-item-strip .item-reward-frame { width: 88px; height: 88px; }
+.narrow-layout .backpack-filters .unity-base-field { min-width: 130px; }
+.narrow-layout .backpack-heading { flex-wrap: wrap; }
+.narrow-layout .backpack-title { font-size: 30px; }
+
+/* Dungeon inspection and granted rewards use larger boxes than backpack tiles. */
+#stage-reward-grid .item-reward-tile { width: 124px; min-height: 132px; padding: 6px; margin: 4px; }
+#stage-reward-grid .item-reward-frame { width: 110px; height: 110px; }
+#stage-reward-grid .item-reward-name { display: none; }
+#stage-reward-grid .artifact-item-tile .item-reward-icon { position: absolute; left: 4px; right: 4px; top: 4px; bottom: 38px; width: auto; height: auto; }
+.reward-item-strip { min-height: 190px; }
+.reward-item-strip .item-reward-tile { width: 146px; min-height: 176px; }
+.reward-item-strip .item-reward-frame { width: 124px; height: 124px; }
+.compact-layout #stage-reward-grid .item-reward-tile { width: 102px; min-height: 110px; }
+.compact-layout #stage-reward-grid .item-reward-frame { width: 88px; height: 88px; }
+.compact-layout .reward-item-strip .item-reward-tile { width: 126px; min-height: 156px; }
+.compact-layout .reward-item-strip .item-reward-frame { width: 104px; height: 104px; }
+
+.dungeon-reward-preview { width: 100%; flex-direction: row; flex-wrap: nowrap; min-width: 0; }
+.dungeon-reward-preview .item-reward-tile { width: auto; flex-basis: 0; flex-grow: 1; flex-shrink: 1; min-width: 0; }
+.dungeon-reward-preview .item-reward-frame { width: 100%; }
+#stage-reward-grid.dungeon-reward-preview .item-reward-tile { width: auto; min-width: 0; height: 110px; min-height: 110px; padding: 4px; margin: 2px; }
+#stage-reward-grid.dungeon-reward-preview .item-reward-frame { width: 100%; height: 96px; }
+.compact-layout #stage-reward-grid.dungeon-reward-preview .item-reward-tile { height: 96px; min-height: 96px; }
+.compact-layout #stage-reward-grid.dungeon-reward-preview .item-reward-frame { height: 82px; }
+.reward-item-strip .item-reward-grid { flex-wrap: nowrap; }
+
+.reward-item-strip .item-reward-name { white-space: nowrap; text-overflow: ellipsis; height: 24px; max-height: 24px; }
+
+/* Reference-style item card: rarity name bar, icon preview, parchment content. */
+.item-tooltip-dialog, .artifact-tooltip-dialog { width: 360px; padding: 0; border-radius: 0; overflow: hidden; }
+.item-tooltip-name-panel { flex-shrink: 0; min-height: 44px; padding: 10px 38px 10px 14px; background-color: rgba(0, 0, 0, .22); }
+.item-tooltip-name-panel .item-tooltip-name { font-size: 22px; color: rgb(255, 245, 224); }
+.item-tooltip-preview-panel { flex-shrink: 0; height: 142px; padding: 12px 14px; background-color: rgba(255, 235, 191, .12); }
+.item-tooltip-preview-panel .item-tooltip-category { width: 48%; margin: 0; font-size: 14px; color: rgb(249, 239, 219); }
+.item-tooltip-preview-panel .item-tooltip-preview-icon { position: absolute; right: 14px; top: 8px; width: 132px; height: 126px; margin: 0; background-size: contain; background-position: center; background-repeat: no-repeat; }
+.item-tooltip-preview-panel .item-tooltip-preview-icon.artifact-item-icon { left: auto; bottom: auto; }
+.item-tooltip-preview-panel .item-tooltip-preview-stars { position: absolute; left: 14px; bottom: 12px; font-size: 21px; color: rgb(255, 218, 95); -unity-font-style: bold; }
+.item-tooltip-content-panel { flex-shrink: 1; min-height: 0; background-color: rgb(237, 229, 210); }
+.item-tooltip-content { padding: 14px 16px; flex-shrink: 0; }
+.item-tooltip-content Label { font-size: 16px; color: rgb(72, 78, 85); white-space: normal; }
+.item-tooltip-content #item-tooltip-amount { margin-top: 0; padding-top: 0; border-top-width: 0; font-size: 14px; }
+.item-tooltip-content .item-tooltip-rule { padding-top: 10px; border-top-width: 1px; border-top-color: rgba(84, 75, 61, .22); }
+.item-tooltip-content .item-tooltip-description { font-size: 14px; color: rgb(101, 100, 95); }
+.item-tooltip-content .artifact-main-stat { padding: 8px 0; border-top-width: 0; border-bottom-color: rgba(84, 75, 61, .2); }
+.item-tooltip-content .artifact-main-value { font-size: 30px; color: rgb(70, 74, 79); }
+.item-tooltip-content .artifact-tooltip-level { align-self: flex-start; padding: 2px 6px; background-color: rgb(75, 80, 86); color: rgb(255, 249, 231); font-size: 13px; -unity-font-style: bold; }
+.item-tooltip-content .artifact-substats { padding: 10px 0; }
+.item-tooltip-content .artifact-stat-value { color: rgb(79, 91, 104); }
+.item-tooltip-content .artifact-set-details { padding: 10px 0; border-top-color: rgba(84, 75, 61, .2); }
+.item-tooltip-content .artifact-set-name { font-size: 17px; color: rgb(51, 137, 70); margin-bottom: 7px; -unity-font-style: bold; }
+.item-tooltip-content .artifact-set-bonus, .item-tooltip-content .artifact-set-condition { color: rgb(121, 123, 126); font-size: 15px; }
+.item-tooltip-content .artifact-set-bonus.active, .item-tooltip-content .artifact-set-condition.active { color: rgb(39, 125, 64); }
+.item-tooltip-content .artifact-detail-muted { font-size: 13px; color: rgb(113, 113, 110); }
+.item-tooltip-content .artifact-detail-equipped { color: rgb(57, 92, 113); }
+.item-tooltip-content .artifact-favourite-button { font-size: 13px; padding: 8px; margin-top: 10px; }
+.compact-layout .item-tooltip-dialog { width: 340px; }
+.compact-layout .item-tooltip-preview-panel { height: 124px; }
+.compact-layout .item-tooltip-preview-panel .item-tooltip-preview-icon { width: 116px; height: 112px; }
+.compact-layout .item-tooltip-name-panel .item-tooltip-name { font-size: 20px; }
+.compact-layout .item-tooltip-content { padding: 12px 14px; }
+.artifact-preview-tile .artifact-rarity-stars { bottom: 2px; }
+.dungeon-reward-preview .artifact-preview-tile .item-reward-icon { bottom: 22px; }
+
+.item-tooltip-dialog.item-frame-1 { background-color: rgb(84, 89, 98); }
+.item-tooltip-dialog.item-frame-2 { background-color: rgb(64, 114, 85); }
+.item-tooltip-dialog.item-frame-3 { background-color: rgb(63, 106, 149); }
+.item-tooltip-dialog.item-frame-4 { background-color: rgb(111, 76, 145); }
+.item-tooltip-dialog.item-frame-5 { background-color: rgb(158, 108, 56); }
+
+.item-tooltip-name-panel { flex-direction: row; align-items: center; }
+.item-tooltip-name-panel .item-tooltip-name { flex-shrink: 1; min-width: 0; }
+.item-tooltip-name-panel .item-tooltip-level { flex-shrink: 0; margin-left: 8px; padding: 2px 6px; background-color: rgba(24, 33, 44, .8); color: rgb(255, 248, 229); font-size: 16px; -unity-font-style: bold; }
+.item-tooltip-preview-panel #item-tooltip-main-stat { position: absolute; left: 14px; top: 48px; width: 48%; font-size: 14px; color: rgb(247, 231, 207); }
+.item-tooltip-preview-panel #item-tooltip-main-value { position: absolute; left: 14px; top: 66px; width: 48%; font-size: 30px; color: rgb(255, 250, 237); -unity-font-style: bold; }
+.compact-layout .item-tooltip-preview-panel #item-tooltip-main-stat { top: 38px; }
+.compact-layout .item-tooltip-preview-panel #item-tooltip-main-value { top: 55px; font-size: 26px; }
+
+.item-tooltip-content .artifact-stat-row { min-height: 0; padding: 0; margin-bottom: 6px; background-color: rgba(0, 0, 0, 0); border-width: 0; }
+
+/* All quantities and artifact levels use the same centered white tile footer. */
+.item-reward-frame .item-reward-amount, .artifact-item-tile .item-reward-amount { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; padding: 1px 4px; -unity-text-align: middle-center; font-size: 16px; -unity-font-style: bold; color: rgb(54, 60, 70); background-color: rgb(244, 240, 226); border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; }
+.has-item-footer .item-reward-icon { position: absolute; left: 4px; right: 4px; top: 4px; bottom: 26px; width: auto; height: auto; }
+.artifact-item-tile .has-item-footer .artifact-item-icon { bottom: 42px; }
+.artifact-item-tile .artifact-rarity-stars { bottom: 22px; }
+.artifact-preview-tile .artifact-rarity-stars { bottom: 2px; }
+
+.item-reward-name { display: none; }
+.item-reward-frame .item-reward-amount, .artifact-item-tile .item-reward-amount { background-color: rgba(255, 250, 238, .72); height: 20px; }
+.item-empty-icon { flex-grow: 1; -unity-text-align: middle-center; font-size: 38px; color: rgb(178, 191, 207); padding-bottom: 12px; }
+.item-reward-frame .artifact-rarity-stars { bottom: 20px; }
+.artifact-preview-tile .artifact-rarity-stars { bottom: 2px; color: rgb(67, 58, 40); background-color: rgba(0, 0, 0, 0); }
+.reward-item-strip { height: 116px; min-height: 116px; max-height: 116px; }
+
+.reward-item-strip { height: 136px; min-height: 136px; max-height: 136px; }
+.victory-reward-dialog .reward-item-strip { height: 136px; min-height: 136px; max-height: 136px; }

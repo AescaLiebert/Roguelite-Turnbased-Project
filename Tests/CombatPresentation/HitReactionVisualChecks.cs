@@ -39,7 +39,7 @@ public sealed class HitReactionVisualRunner : MonoBehaviour
             Quaternion.Angle(_camera.transform.rotation, _heldCamera.rotation) > .01f ||
             Mathf.Abs(_camera.fieldOfView - _heldFov) > .001f)
         {
-            Debug.LogError("REACTION VISUAL FAIL: Attack camera followed movement, shook or reframed.");
+            Debug.LogError("REACTION VISUAL FAIL: Stationary caster camera followed a victim, shook or reframed.");
             EditorApplication.Exit(1);
         }
         _checks++;
@@ -50,6 +50,14 @@ public sealed class HitReactionVisualRunner : MonoBehaviour
         _heldFov = _camera.fieldOfView; _checkCamera = true;
     }
     private IEnumerator Start() { yield return Guard(Run()); }
+    private IEnumerator WaitForAnimatorState(Animator animator, string state)
+    {
+        // CrossFade is .08 s. A fixed .07 s wait can sample the old state on a
+        // busy batch Editor; wait for observable completion, with a bounded timeout.
+        var deadline = Time.realtimeSinceStartup + .5f;
+        do { yield return null; }
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(state) && Time.realtimeSinceStartup < deadline);
+    }
     private IEnumerator Guard(IEnumerator routine)
     {
         while (true)
@@ -256,10 +264,10 @@ public sealed class HitReactionVisualRunner : MonoBehaviour
         yield return null;
         var authoredReturn = StartCoroutine(_stage.React(Hit("target", HitReaction.KnockBack)));
         yield return null; SampleReactionPhase("target", .8f);
-        yield return new WaitForSecondsRealtime(.07f);
+        yield return WaitForAnimatorState(runAnimator, "Run");
         Require(runAnimator.GetCurrentAnimatorStateInfo(0).IsName("Run"), "Return did not play the authored Run state.");
         yield return authoredReturn;
-        yield return new WaitForSecondsRealtime(.07f);
+        yield return WaitForAnimatorState(runAnimator, "Idle");
         Require(runAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle"), "Completed return left the rig running.");
         var interruptedReturn = StartCoroutine(_stage.React(Hit("target", HitReaction.KnockBack)));
         yield return null; SampleReactionPhase("target", .8f);
@@ -326,15 +334,13 @@ public sealed class HitReactionVisualRunner : MonoBehaviour
         {
             var sourceHome = _views["source"].transform.position;
             yield return _stage.BeginExecution("source", "target", 1, false);
-            // Observe from Action entry, including the approach before the first hit.
-            var sourceActor = _views["source"].GetComponent<ActorCardPresentation>();
-            Action<ActorCardPhase> observe = phase => { if (phase == ActorCardPhase.Action) HoldCamera(); };
-            sourceActor.PhaseChanged += observe;
             yield return _stage.BeginDamageAttack("source", new[] { "target", "stance" }, 10, range, true, HitReaction.KnockUp);
-            sourceActor.PhaseChanged -= observe;
             for (var index = 1; index <= 10; index++)
             {
+                _checkCamera = false; // The camera is allowed to follow the attacking caster.
                 yield return _stage.DamageHit(index, new[] { "target", "stance" });
+                yield return null; // LateUpdate settles caster framing before victim motion.
+                HoldCamera();
                 var packet = Hit("target", HitReaction.KnockUp); packet.HitIndex = index; packet.HitCount = 10;
                 var resisted = Hit("stance", HitReaction.None); resisted.HitIndex = index; resisted.HitCount = 10;
                 yield return _stage.ReactMultiple(new[] { packet, resisted }, .1f);
@@ -346,6 +352,7 @@ public sealed class HitReactionVisualRunner : MonoBehaviour
                         "Displaced airborne recipient was outside the action shot.");
                 }
             }
+            _checkCamera = false;
             yield return _stage.WaitForLastHit();
             yield return _stage.RecoverAttacker();
             Require(_stage.TargetsReady && Vector3.Distance(_views["source"].transform.position, sourceHome) < .001f,

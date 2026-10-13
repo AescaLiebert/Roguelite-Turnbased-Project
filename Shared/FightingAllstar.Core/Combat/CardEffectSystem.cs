@@ -74,18 +74,25 @@ namespace FightingAllstar.Core.Combat
         {
             if (recipe == null) throw new ArgumentNullException(nameof(recipe));
             var calculation = AttackEffectSystem.Prepare(attackEffect, battle, source, target, recipe.Family);
-            var sourceStats = calculation.Attacker;
-            var baseAmount = recipe.Scaling switch
+            return CreateDamagePacket(recipe, calculation);
+        }
+
+        internal static DamagePacket CreateDamagePacket(DamageEffectRecipe recipe, AttackEffectCalculation calculation)
+        {
+            var stats = recipe.StatSource == DamageStatSource.Target || recipe.ScaleFromTargetMaxHealth
+                ? calculation.Defender : calculation.Attacker;
+            var scaling = recipe.ScaleFromTargetMaxHealth ? StatScaling.MaxHealth : recipe.Scaling;
+            var baseAmount = scaling switch
             {
-                StatScaling.Attack => sourceStats.Attack,
-                StatScaling.Defense => sourceStats.Defense,
-                StatScaling.MaxHealth => sourceStats.MaxHealth,
-                StatScaling.SpecificStat => sourceStats.Get(recipe.ScalingStat),
+                StatScaling.Attack => stats.Attack,
+                StatScaling.Defense => stats.Defense,
+                StatScaling.MaxHealth => stats.MaxHealth,
+                StatScaling.SpecificStat => stats.Get(recipe.ScalingStat),
                 _ => recipe.FixedAmount
             };
             var policy = calculation.Policy;
-            policy.CannotCrit |= recipe.CannotCrit;
-            policy.CannotBlock |= recipe.CannotBlock;
+            policy.CannotCrit |= recipe.CannotCrit || recipe.Family == DamageFamily.Additional;
+            policy.CannotBlock |= recipe.CannotBlock || recipe.Family == DamageFamily.Additional;
             return new DamagePacket { BaseAmount = Math.Max(0, baseAmount),
                 CoefficientBp = Math.Max(0, recipe.CoefficientBp), KeywordFactorBp = Math.Max(0,
                     (int)Math.Min(int.MaxValue, (long)recipe.KeywordFactorBp * calculation.KeywordFactorBp / 10000)),
@@ -164,6 +171,12 @@ namespace FightingAllstar.Core.Combat
                     return context.EffectOwner != null && context.Actor.Side != context.EffectOwner.Side;
                 case EffectConditionKind.TargetAttributeIs:
                     return MatchesContentId(subject?.Definition?.AttributeId, condition.StringValue, "attribute.");
+                case EffectConditionKind.ActorHasAttributeAdvantage:
+                    return subject != null && AttributeRules.GetAffinity(source?.Definition?.AttributeId,
+                        subject.Definition?.AttributeId) == AttributeAffinity.Advantage;
+                case EffectConditionKind.ActorHasAttributeDisadvantage:
+                    return subject != null && AttributeRules.GetAffinity(source?.Definition?.AttributeId,
+                        subject.Definition?.AttributeId) == AttributeAffinity.Disadvantage;
                 case EffectConditionKind.WasCritical: return context.WasCritical;
                 case EffectConditionKind.WasBlocked: return context.WasBlocked;
                 case EffectConditionKind.SourceGaugeAtLeast: return source.PowerGauge >= condition.Threshold;

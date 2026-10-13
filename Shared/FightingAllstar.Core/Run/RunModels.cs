@@ -73,28 +73,61 @@ namespace FightingAllstar.Core.Run
     [Serializable]
     public sealed class DungeonProfile
     {
+        public DungeonMode Mode;
         public string SeriesId;
         public int Phase;
         public int SubPhase;
-        public static readonly string[] PhaseNames = { "WIP-Phase", "Pre-Release", "Official-Release", "Season2", "Season3", "Season4", "MidGame", "LateGame", "EndGame" };
-        public static readonly string[] SubPhaseNames = { "Launch", "Begin", "Middle", "Late", "End" };
+        public static readonly string[] PhaseNames = { "WIP-Phase", "Pre-Release", "Official-Release", "Season2", "Season3", "Season4", "MidGame", "LateGame", "META" };
+        public static readonly string[] SubPhaseNames = { "Launch", "Begin", "Middle", "Late", "META" };
 
         public bool Accepts(CharacterDefinition character) => character != null &&
             (string.IsNullOrEmpty(SeriesId) || string.Equals(SeriesId, character.SeriesId, StringComparison.OrdinalIgnoreCase)) &&
-            (Phase == 0 || character.CategoryId >= 1000 && character.CategoryId <= 9499 &&
-                character.CategoryId / 1000 == Phase && character.CategoryId / 100 % 10 == SubPhase) &&
+            (Phase == 0 || IncludesCategory(character.CategoryId)) &&
             (EligibleCharacterIds == null || EligibleCharacterIds.Count == 0 || EligibleCharacterIds.Contains(character.Id));
+
+        // IDs encode phase / sub-phase / character index. The chosen stage is an inclusive
+        // release cutoff, so every earlier phase and sub-phase remains eligible.
+        private bool IncludesCategory(int categoryId)
+        {
+            if (categoryId < 1000 || categoryId > 9499) return false;
+            var phase = categoryId / 1000;
+            var subPhase = categoryId / 100 % 10;
+            return subPhase <= 4 && (phase < Phase || phase == Phase && subPhase <= SubPhase);
+        }
+
+        public static string SeriesDisplayName(string seriesId)
+        {
+            switch (seriesId?.ToLowerInvariant())
+            {
+                case null: case "": case "*": return "Open Circuit";
+                case "series.kof": return "KOF";
+                case "series.tekken": return "Tekken";
+                case "series.soulcalibur": return "Soul Calibur";
+                case "series.genshin-impact": return "Genshin Impact";
+                default: return seriesId.Replace("series.", "");
+            }
+        }
 
         public static DungeonProfile Filtered(string seriesId, int phase, int subPhase)
         {
-            if (string.IsNullOrWhiteSpace(seriesId) || phase < 1 || phase > 9 || subPhase < 0 || subPhase > 4)
-                throw new ArgumentException("Choose a series, phase 1-9 and sub-phase 0-4.");
-            var profile = CreateBase("dungeon.filter:" + seriesId + ":" + phase + ":" + subPhase,
-                seriesId.Replace("series.", "").ToUpperInvariant() + " · " + PhaseNames[phase - 1] + " / " + SubPhaseNames[subPhase]);
+            if (phase < 1 || phase > 9 || subPhase < 0 || subPhase > 4)
+                throw new ArgumentException("Choose phase 1-9 and sub-phase 0-4.");
+            seriesId = string.IsNullOrWhiteSpace(seriesId) || seriesId == "*" ? null : seriesId.Trim();
+            var profile = CreateBase("dungeon.filter:" + (seriesId ?? "*") + ":" + phase + ":" + subPhase,
+                SeriesDisplayName(seriesId) + " · " + PhaseNames[phase - 1] + " / " + SubPhaseNames[subPhase]);
             profile.SeriesId = seriesId; profile.Phase = phase; profile.SubPhase = subPhase;
             profile.Rows[2].Choices = new[] { RouteNodeType.Battle, RouteNodeType.Battle, RouteNodeType.Elite };
             profile.Rows[4].Choices = new[] { RouteNodeType.Boon, RouteNodeType.Battle, RouteNodeType.Boon };
             profile.Rows[6].Choices = new[] { RouteNodeType.Rest, RouteNodeType.Battle, RouteNodeType.Elite };
+            return profile;
+        }
+        public static DungeonProfile SeriesChallengeBoss(string seriesId, int phase, int subPhase)
+        {
+            var profile = Filtered(seriesId, phase, subPhase);
+            profile.Mode = DungeonMode.SeriesChallengeBoss;
+            profile.Id += ":series-boss";
+            profile.DisplayName += " · SERIES CHALLENGE BOSS";
+            profile.Rows = new List<RouteRowDefinition> { Row(0, RouteNodeType.Start), Row(1, RouteNodeType.Boss) };
             return profile;
         }
         public string Id;
@@ -118,7 +151,7 @@ namespace FightingAllstar.Core.Run
                 EnemyConstellationTier = EnemyConstellationTier, PresetTeamChancePercent = PresetTeamChancePercent,
                 DifficultyIncreasePerRowPercent = DifficultyIncreasePerRowPercent,
                 EliteDifficultyBonusPercent = EliteDifficultyBonusPercent, BossDifficultyBonusPercent = BossDifficultyBonusPercent,
-                SeriesId = SeriesId, Phase = Phase, SubPhase = SubPhase };
+                SeriesId = SeriesId, Phase = Phase, SubPhase = SubPhase, Mode = Mode };
             copy.EligibleCharacterIds.AddRange(EligibleCharacterIds);
             foreach (var restriction in Restrictions) copy.Restrictions.Add(restriction.Clone());
             if (EnemyFormationTemplates != null)
@@ -159,20 +192,13 @@ namespace FightingAllstar.Core.Run
                     Row(6, RouteNodeType.Rest, RouteNodeType.Battle),
                     Row(7, RouteNodeType.Elite, RouteNodeType.Elite),
                     Row(8, RouteNodeType.Boss)
-                }, Boons = DefaultBoons() };
+                } };
             foreach (var boon in profile.Boons) profile.BoonIds.Add(boon.Id);
             return profile;
         }
 
         private static RouteRowDefinition Row(int row, params RouteNodeType[] choices) => new RouteRowDefinition { Row = row, Choices = choices };
 
-        private static List<RunBoonDefinition> DefaultBoons() => new List<RunBoonDefinition>
-        {
-            new RunBoonDefinition { Id = "boon.lingering-venom", Name = "Lingering Venom", Description = "+25% Poison, Bleed, and Shock damage.", EffectKind = RunBoonEffectKind.StatusDamageIncrease, MagnitudeBp = 2500 },
-            new RunBoonDefinition { Id = "boon.restorative-rhythm", Name = "Restorative Rhythm", Description = "After the first cleanse each owner turn, grant a shield equal to 60% of caster ATK.", EffectKind = RunBoonEffectKind.FirstCleanseShield, MagnitudeBp = 6000 },
-            new RunBoonDefinition { Id = "boon.mirror-sigil", Name = "Mirror Sigil", Description = "Reflect 15% of direct HP loss from the first enemy root action after owner TurnStart.", EffectKind = RunBoonEffectKind.ReflectFirstRootAction, MagnitudeBp = 1500 },
-            new RunBoonDefinition { Id = "boon.opening-plan", Name = "Opening Plan", Description = "If the enemy takes the first turn, your lowest-slot active fighter starts with +1 PG.", EffectKind = RunBoonEffectKind.StartPowerGauge, MagnitudePoints = 1 }
-        };
     }
 
     [Serializable]
@@ -192,13 +218,14 @@ namespace FightingAllstar.Core.Run
         public string RunFighterId;
         public string DefinitionId;
         public StatBlock Stats;
+        public List<ArtifactInstance> ArtifactLoadout = new List<ArtifactInstance>();
         public int ConstellationTier;
         public int OriginalFormationIndex;
         public int CurrentHealth;
         public bool IsDefeated;
 
         public RunFighterState Clone() => new RunFighterState { RunFighterId = RunFighterId, DefinitionId = DefinitionId,
-            Stats = Stats?.Clone(), ConstellationTier = ConstellationTier,
+            Stats = Stats?.Clone(), ArtifactLoadout = ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(), ConstellationTier = ConstellationTier,
             OriginalFormationIndex = OriginalFormationIndex, CurrentHealth = CurrentHealth, IsDefeated = IsDefeated };
     }
 
@@ -230,11 +257,14 @@ namespace FightingAllstar.Core.Run
         public List<string> OutgoingNodeIds = new List<string>();
         public List<EncounterFighterSnapshot> EnemyTeamSnapshot = new List<EncounterFighterSnapshot>();
         public List<string> BoonOfferIds = new List<string>();
+        public bool ShouldSerializeBoonOfferIds() => false;
         public string TacticalTag;
+        public DungeonStatBoost StatBoost;
 
         public RouteNodeState Clone()
         {
-            var copy = new RouteNodeState { Id = Id, Row = Row, Column = Column, Type = Type, Progress = Progress, TacticalTag = TacticalTag };
+            var copy = new RouteNodeState { Id = Id, Row = Row, Column = Column, Type = Type, Progress = Progress, TacticalTag = TacticalTag,
+                StatBoost = StatBoost?.Clone() };
             copy.OutgoingNodeIds.AddRange(OutgoingNodeIds);
             foreach (var fighter in EnemyTeamSnapshot) copy.EnemyTeamSnapshot.Add(fighter.Clone());
             copy.BoonOfferIds.AddRange(BoonOfferIds);
@@ -252,8 +282,20 @@ namespace FightingAllstar.Core.Run
     }
 
     [Serializable]
+    public sealed class DungeonGenerationData
+    {
+        // Only route content belongs to dungeon generation. Player/account state and battle RNG do not.
+        public ulong Seed;
+        public int GeneratorVersion;
+        public List<RouteNodeState> Nodes = new List<RouteNodeState>();
+    }
+
+    [Serializable]
     public sealed class RunState
     {
+        public DungeonMode Mode;
+        public int RewardPhase = 1, RewardSubPhase;
+        public List<DungeonRewardReceipt> Rewards = new List<DungeonRewardReceipt>();
         public string RunId;
         public string UserId;
         public string ProfileId;
@@ -261,18 +303,28 @@ namespace FightingAllstar.Core.Run
         public string ContentHash;
         public string CurrentNodeId;
         public string PendingBattleId;
-        public int GeneratorVersion;
+        public int DataVersion = 2;
+        public DungeonGenerationData Generation = new DungeonGenerationData();
+        // Compatibility accessors also accept old flat saves; new saves write Generation only.
+        public int GeneratorVersion { get => Generation.GeneratorVersion; set => Generation.GeneratorVersion = value; }
+        public bool ShouldSerializeGeneratorVersion() => false;
         public int DifficultyBonusPercent;
         public int BaseCompletionDiamonds = 320;
         public int RewardQuoteDiamonds;
-        public ulong Seed;
+        public ulong Seed { get => Generation.Seed; set => Generation.Seed = value; }
+        public bool ShouldSerializeSeed() => false;
         public long Revision;
         public RunStatus Status;
         public List<RunFighterState> Roster = new List<RunFighterState>();
-        public List<RouteNodeState> Nodes = new List<RouteNodeState>();
+        public List<RouteNodeState> Nodes { get => Generation.Nodes; set => Generation.Nodes = value; }
+        public bool ShouldSerializeNodes() => false;
+        public List<DungeonStatBoost> StatBoosts = new List<DungeonStatBoost>();
+        public List<string> PresentedRewardIds = new List<string>();
         public List<string> SelectedPath = new List<string>();
         public List<string> ChosenBoons = new List<string>();
         public List<RunBoonDefinition> BoonDefinitionSnapshot = new List<RunBoonDefinition>();
+        public bool ShouldSerializeChosenBoons() => false;
+        public bool ShouldSerializeBoonDefinitionSnapshot() => false;
         public List<string> CompletedBattleReceiptIds = new List<string>();
         public List<RunCommandReceipt> CommandReceipts = new List<RunCommandReceipt>();
         public bool RewardClaimed;
@@ -285,7 +337,11 @@ namespace FightingAllstar.Core.Run
                 ContentHash = ContentHash, CurrentNodeId = CurrentNodeId, PendingBattleId = PendingBattleId,
                 GeneratorVersion = GeneratorVersion, DifficultyBonusPercent = DifficultyBonusPercent,
                 BaseCompletionDiamonds = BaseCompletionDiamonds, RewardQuoteDiamonds = RewardQuoteDiamonds, Seed = Seed,
-                Revision = Revision, Status = Status, RewardClaimed = RewardClaimed };
+                Revision = Revision, Status = Status, RewardClaimed = RewardClaimed,
+                Mode = Mode, RewardPhase = RewardPhase, RewardSubPhase = RewardSubPhase, DataVersion = DataVersion };
+            foreach (var boost in StatBoosts) copy.StatBoosts.Add(boost.Clone());
+            copy.PresentedRewardIds.AddRange(PresentedRewardIds);
+            if (Rewards != null) foreach (var reward in Rewards) copy.Rewards.Add(reward.Clone());
             foreach (var fighter in Roster) copy.Roster.Add(fighter.Clone());
             foreach (var node in Nodes) copy.Nodes.Add(node.Clone());
             copy.SelectedPath.AddRange(SelectedPath);

@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.yuri98
   runtimeReady: 1
-  sourceId: 23
-  sourceRecord: 0
   familyId: family.yuri
   seriesId: series.kof
   role: 4th Slot Support (Sub)
@@ -28,12 +26,11 @@ MonoBehaviour:
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: b19ba5f1f9801014a847513d1093fa88, type: 2}
-  id: 1023
+  id: 1223
   fighterName: Yuri Sakazaki 98
-  fighterTag: Yuri
   fighterPic: {fileID: 21300000, guid: 5be8e5f7d3ac9174c8001a2be3b84412, type: 3}
   fighterIcon: {fileID: 21300000, guid: 48a26524b3ca4bf46894eb42cb31dd53, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 5be8e5f7d3ac9174c8001a2be3b84412, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -50,6 +47,10 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 3619
   attack: 420
   defense: 300

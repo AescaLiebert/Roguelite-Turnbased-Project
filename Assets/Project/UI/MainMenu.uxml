@@ -1,100 +1,45 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="AccountHeader" src="project://database/Assets/Project/Resources/UI/AccountHeader.uxml?fileID=9197481963319205126&amp;guid=48842567732fe4840bdbaeeeaa1ebcf8&amp;type=3#AccountHeader"/>
+    <ui:Template name="CharacterHub" src="project://database/Assets/Project/UI/CharacterHub.uxml?fileID=9197481963319205126&amp;guid=74baf65dec0f45b79b33f97766ac1989&amp;type=3#CharacterHub"/>
+    <ui:Template name="CharacterInventory" src="project://database/Assets/Project/UI/CharacterInventory.uxml?fileID=9197481963319205126&amp;guid=adcd4876974d4a55be5a1828ba65c810&amp;type=3#CharacterInventory"/>
     <Style src="project://database/Assets/Project/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=6b0ce8f0cd1b4e5c9c1762f831f4a8d7&amp;type=3#MainMenu"/>
-    <ui:VisualElement name="menu-viewport" class="menu-viewport">
-        <ui:VisualElement name="menu-stage" class="menu-stage" style="width: 1920px; height: 1080px;">
-            <ui:VisualElement name="hero-art" picking-mode="Ignore" class="arena-background" style="width: 1920px; height: 1080px;"/>
-            <ui:VisualElement name="header-surface" picking-mode="Ignore" class="header-surface"/>
-            <ui:VisualElement name="brand-art" picking-mode="Ignore" class="brand-art"/>
-            <ui:Label text="HOME" class="home-tab display"/>
-            <ui:VisualElement picking-mode="Ignore" class="home-underline"/>
-            <ui:Label text="TOURNAMENT EXPEDITION" class="expedition-tab display"/>
-            <ui:VisualElement class="wallet-chip">
-                <ui:VisualElement name="diamond-art" picking-mode="Ignore" class="diamond-art"/>
-                <ui:Label name="wallet" text="—" class="wallet display"/>
-                <ui:Label text="+" tooltip="Diamonds" class="wallet-plus"/>
-            </ui:VisualElement>
-            <ui:VisualElement class="profile-chip">
-                <ui:VisualElement name="avatar-art" picking-mode="Ignore" class="avatar-art"/>
-                <ui:Label text="Rookie" class="profile-name display"/>
-                <ui:Label text="LOCAL PLAYER" class="profile-detail display"/>
-            </ui:VisualElement>
-            <ui:VisualElement class="season-line">
-                <ui:Label text="SEASON 01" class="season display"/>
-                <ui:VisualElement picking-mode="Ignore" class="season-rule"/>
-            </ui:VisualElement>
-            <ui:Label text="YOUR NEXT" class="headline headline-first display-heavy"/>
-            <ui:VisualElement class="headline-second">
-                <ui:Label text="LEGEND" class="legend display-heavy"/>
-                <ui:Label text="STARTS HERE" class="starts-here display-heavy"/>
-            </ui:VisualElement>
-            <ui:Label text="FIGHTERS. RIVALS. HIGHER GROUND." class="tagline display"/>
-            <ui:VisualElement picking-mode="Ignore" class="headline-rule">
-                <ui:VisualElement class="red-tick"/>
-            </ui:VisualElement>
-            <ui:VisualElement name="route-card" class="route-card">
-                <ui:VisualElement name="route-surface" picking-mode="Ignore" class="fill"/>
-                <ui:VisualElement name="route-art" picking-mode="Ignore" class="route-art"/>
-                <ui:Label text="OPEN CIRCUIT" class="route-title display-heavy"/>
-                <ui:VisualElement picking-mode="Ignore" class="route-divider"/>
-                <ui:VisualElement name="team-icon" picking-mode="Ignore" class="fact-icon team-icon"/>
-                <ui:VisualElement name="path-icon" picking-mode="Ignore" class="fact-icon path-icon"/>
-                <ui:VisualElement name="reward-icon" picking-mode="Ignore" class="fact-icon reward-icon"/>
-                <ui:Label text="3 ACTIVE + 1 RESERVE" class="route-fact team-fact display"/>
-                <ui:Label text="LINEAR ROUTE" class="route-fact path-fact display"/>
-                <ui:Label text="REWARDS" class="route-fact reward-fact display"/>
-            </ui:VisualElement>
-            <ui:Button name="battle" tooltip="Open dungeon selection" class="battle-button">
-                <ui:VisualElement name="battle-surface" picking-mode="Ignore" class="fill"/>
-                <ui:VisualElement name="battle-emblem" picking-mode="Ignore" class="battle-emblem"/>
-                <ui:Label text="ENTER OPEN CIRCUIT" picking-mode="Ignore" class="battle-label display-heavy"/>
-                <ui:Label text="›" picking-mode="Ignore" class="battle-arrow"/>
-            </ui:Button>
-            <ui:VisualElement class="fighter-caption">
-                <ui:VisualElement name="caption-surface" picking-mode="Ignore" class="fill"/>
-                <ui:Label name="fighter-caption-label" text="YOUR FIGHTER" class="caption-overline display"/>
-                <ui:Label text="READY FOR THE RING" class="caption-title display-heavy"/>
-                <ui:VisualElement picking-mode="Ignore" class="caption-divider"/>
-                <ui:Label name="fighter-tier" text="C0 / 6" class="fighter-tier display"/>
-            </ui:VisualElement>
-            <ui:VisualElement name="squad-panel" class="squad-panel">
-                <ui:Label name="lineup-label" text="STARTER LINEUP" class="lineup-label display"/>
-                <ui:VisualElement name="slot-0" class="fighter-slot slot-0">
-                    <ui:VisualElement name="portrait-0" picking-mode="Ignore" class="fill"/>
-                    <ui:Label name="fighter-name-0" text="KYO" class="slot-name display-heavy"/>
-                    <ui:VisualElement name="badge-0" picking-mode="Ignore" class="slot-badge"/>
-                    <ui:Label name="fighter-role-0" text="ACTIVE" class="slot-role display"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="slot-1" class="fighter-slot slot-1">
-                    <ui:VisualElement name="portrait-1" picking-mode="Ignore" class="fill"/>
-                    <ui:Label name="fighter-name-1" text="CHIN" class="slot-name display-heavy"/>
-                    <ui:VisualElement name="badge-1" picking-mode="Ignore" class="slot-badge"/>
-                    <ui:Label name="fighter-role-1" text="ACTIVE" class="slot-role display"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="slot-2" class="fighter-slot slot-2">
-                    <ui:VisualElement name="portrait-2" picking-mode="Ignore" class="fill"/>
-                    <ui:Label name="fighter-name-2" text="KENSOU" class="slot-name display-heavy"/>
-                    <ui:VisualElement name="badge-2" picking-mode="Ignore" class="slot-badge"/>
-                    <ui:Label name="fighter-role-2" text="ACTIVE" class="slot-role display"/>
-                </ui:VisualElement>
-                <ui:VisualElement name="slot-3" class="fighter-slot slot-3">
-                    <ui:VisualElement name="portrait-3" picking-mode="Ignore" class="fill"/>
-                    <ui:Label name="fighter-name-3" text="KING" class="slot-name display-heavy"/>
-                    <ui:VisualElement name="badge-3" picking-mode="Ignore" class="slot-badge reserve-badge"/>
-                    <ui:Label name="fighter-role-3" text="RESERVE" class="slot-role display"/>
+    <ui:VisualElement name="menu-viewport" class="screen-root menu-viewport">
+        <ui:VisualElement name="menu-stage" class="screen-stage menu-stage">
+            <ui:VisualElement picking-mode="Ignore" class="screen-background arena-background" style="background-image: url(&quot;project://database/Assets/Project/Art/UI/MainMenu-Background.png?fileID=2800000&amp;guid=182edc30b511c6044b83664b0c59729a&amp;type=3#MainMenu-Background&quot;); background-size: contain; top: 0; right: 0; bottom: 0; left: 0;"/>
+            <ui:VisualElement picking-mode="Ignore" class="screen-background arena-background" style="background-image: url(&quot;project://database/Assets/Project/Art/Character/SplashArt/cassandra-soulcalibur-ii-scenic-splash-v2.png?fileID=2800000&amp;guid=d24795cb9d4be0d47912aea153c1c11b&amp;type=3#cassandra-soulcalibur-ii-scenic-splash-v2&quot;); background-size: contain; top: -30px; right: -86px; bottom: -37px; left: 339px;"/>
+            <ui:Instance template="AccountHeader" class="account-header-instance">
+                <AttributeOverrides element-name="section-title" text="HOME"/>
+            </ui:Instance>
+            <ui:VisualElement name="home-screen" class="screen-body home-body">
+                <ui:VisualElement class="home-menu">
+                    <ui:VisualElement name="route-card" class="route-card surface-panel" style="display: none;">
+                        <ui:VisualElement name="route-art" picking-mode="Ignore" class="route-art">
+                            <ui:Label name="route-series" class="route-series condensed"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="route-copy">
+                            <ui:Label text="CURRENT DUNGEON" class="route-eyebrow condensed"/>
+                            <ui:Label name="current-dungeon-name" class="route-title display-heavy"/>
+                            <ui:Label name="current-dungeon-stage" class="route-fact display"/>
+                            <ui:Label name="current-dungeon-difficulty" class="route-fact display"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Button name="battle" text="ENTER DUNGEON  ›" tooltip="Choose a dungeon" class="action-button primary-action battle-button display-heavy"/>
+                    <ui:Button name="summon" tooltip="Open summon banners" class="action-button utility-button summon-button">
+                        <ui:VisualElement name="summon-icon" picking-mode="Ignore" class="summon-icon"/>
+                        <ui:Label text="SUMMON  ›" picking-mode="Ignore" class="display-heavy"/>
+                    </ui:Button>
+                    <ui:Button name="character-inventory-open" text="CHARACTERS  ›" tooltip="Browse your owned fighters" class="action-button utility-button inventory-button display-heavy"/>
+                    <ui:VisualElement class="home-small-actions">
+                        <ui:Button name="training" tooltip="Choose a fighter for practice" class="action-button utility-button training-button">
+                            <ui:VisualElement name="training-icon" picking-mode="Ignore" class="training-icon"/>
+                            <ui:Label text="PRACTICE  ›" picking-mode="Ignore" class="display-heavy"/>
+                        </ui:Button>
+                        <ui:Button name="backpack" text="BACKPACK  ›" tooltip="Browse artifacts, materials and character dupes" class="action-button utility-button backpack-button display-heavy"/>
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:Button name="summon" tooltip="Open summon banners" class="utility-button summon-button">
-                <ui:VisualElement name="summon-surface" picking-mode="Ignore" class="fill"/>
-                <ui:VisualElement name="summon-icon" picking-mode="Ignore" class="summon-icon"/>
-                <ui:Label text="SUMMON" picking-mode="Ignore" class="utility-label display-heavy"/>
-                <ui:Label text="›" picking-mode="Ignore" class="utility-arrow"/>
-            </ui:Button>
-            <ui:Button name="training" tooltip="Choose a fighter for practice" class="utility-button training-button">
-                <ui:VisualElement name="training-surface" picking-mode="Ignore" class="fill"/>
-                <ui:VisualElement name="training-icon" picking-mode="Ignore" class="training-icon"/>
-                <ui:Label text="PRACTICE" picking-mode="Ignore" class="utility-label display-heavy"/>
-                <ui:Label text="›" picking-mode="Ignore" class="utility-arrow"/>
-            </ui:Button>
+            <ui:Instance template="CharacterInventory" name="character-inventory" class="inventory-screen" style="display: none;"/>
+            <ui:Instance template="CharacterHub" name="character-hub" class="inventory-screen" style="display: none;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

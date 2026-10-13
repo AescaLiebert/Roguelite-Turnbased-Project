@@ -135,6 +135,7 @@ public sealed class PassiveReactionDefinitionPropertyDrawer : PropertyDrawer
     {
         var trigger = PassiveDrawerFields.EnumValue<PassiveEventKind>(property, "Trigger");
         var fields = new List<string> { "Id", "Gate", "Trigger" };
+        if (trigger == PassiveEventKind.DamageResolved) fields.Add("DamageTiming");
         if (trigger == PassiveEventKind.TeamTurnStarted || trigger == PassiveEventKind.TeamTurnEnded)
             fields.Add("OwnTeamTurnOnly");
         fields.Add("ActorRelation");
@@ -200,6 +201,11 @@ public sealed class PassiveCommandDefinitionPropertyDrawer : PropertyDrawer
         if (kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
             kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent)
             fields.Add("Amount");
+        if (kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent)
+        {
+            fields.Add("ScalingStat");
+            fields.Add("ScalingCoefficientBp");
+        }
         if (kind == PassiveCommandKind.ExecuteEffect)
         {
             fields.Add("Effect");
@@ -250,11 +256,15 @@ internal static class EffectDrawerFields
             fields.Add("CoefficientBp");
             fields.Add("KeywordFactorBp");
             fields.Add("KeywordId");
+            if (includeSequence) fields.Add("AttributeAdvantageDamageBonusBp");
         }
         else if (kind == EffectKind.ApplyStatus)
         {
             fields.Add("StatusRecipe");
-            fields.Add("StatusApplyChanceBp");
+            var stepPath = property.propertyPath.EndsWith(".Effect")
+                ? property.propertyPath.Substring(0, property.propertyPath.Length - ".Effect".Length) : null;
+            var batchId = stepPath == null ? null : property.serializedObject.FindProperty(stepPath + ".BatchId");
+            if (batchId == null || string.IsNullOrWhiteSpace(batchId.stringValue)) fields.Add("StatusApplyChanceBp");
             fields.Add("StatusDurationOverride");
             fields.Add("StatusStackCount");
             fields.Add("StatusPotencyBp");
@@ -271,7 +281,39 @@ internal static class EffectDrawerFields
         {
             fields.Add("Magnitude");
         }
-        if (includeSequence) fields.Add("Sequence");
+        if (includeSequence)
+        {
+            fields.Add("Batches");
+            fields.Add("Sequence");
+        }
+        return fields.ToArray();
+    }
+}
+
+[CustomPropertyDrawer(typeof(DamageEffectRecipe))]
+public sealed class DamageEffectRecipePropertyDrawer : PropertyDrawer
+{
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Height(property, label, GetFields(property));
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Draw(position, property, label, GetFields(property));
+
+    private static string[] GetFields(SerializedProperty property)
+    {
+        var family = PassiveDrawerFields.EnumValue<DamageFamily>(property, "Family");
+        var scaling = PassiveDrawerFields.EnumValue<StatScaling>(property, "Scaling");
+        var fields = new List<string> { "Family", "Scaling" };
+        if (scaling == StatScaling.Fixed) fields.Add("FixedAmount");
+        else fields.Add("StatSource");
+        if (scaling == StatScaling.SpecificStat) fields.Add("ScalingStat");
+        fields.Add("CoefficientBp");
+        if (family == DamageFamily.Normal || family == DamageFamily.True || family == DamageFamily.Destructive)
+        {
+            fields.Add("KeywordFactorBp");
+            fields.Add("AttackEffectId");
+            if (family != DamageFamily.Destructive) fields.AddRange(new[] { "CannotCrit", "CannotBlock" });
+        }
         return fields.ToArray();
     }
 }
@@ -347,7 +389,9 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
             "BypassDebuffImmunity", "BreakRule", "Tags"
         };
 
-        if (stacking == StatusStackingPolicy.AddStacks || stacking == StatusStackingPolicy.IndependentStacks)
+        if ((behavior & StatusBehavior.Barrier) != 0) fields.Remove("Stacking");
+        if ((behavior & StatusBehavior.Barrier) == 0 &&
+            (stacking == StatusStackingPolicy.AddStacks || stacking == StatusStackingPolicy.IndependentStacks))
             fields.Add("MaxStacks");
         if (transferTemplate) fields.Remove("Behavior");
         if ((behavior & (StatusBehavior.Stat | StatusBehavior.DamageOverTime)) != 0 && !transferTemplate)
@@ -355,6 +399,8 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
         // Transfer modifiers are snapshots computed from the selected Stats and coefficient.
         if ((behavior & StatusBehavior.Stat) != 0 && !transferTemplate) fields.Add("Modifiers");
         if ((behavior & StatusBehavior.DamageOverTime) != 0) fields.Add("PeriodicDamage");
+        if ((behavior & StatusBehavior.Barrier) != 0)
+            fields.AddRange(new[] { "BarrierSourceStat", "BarrierCoefficientBp", "BarrierDurationPolicy", "BarrierAmountPolicy" });
         if ((behavior & StatusBehavior.Heal) != 0) fields.Add("PeriodicHealing");
         if ((behavior & StatusBehavior.Disable) != 0) fields.Add("DisableMask");
         if ((behavior & StatusBehavior.Stance) != 0)
@@ -409,13 +455,22 @@ public sealed class StatusApplicationRecipePropertyDrawer : PropertyDrawer
 [CustomPropertyDrawer(typeof(CardEffectStep))]
 public sealed class CardEffectStepPropertyDrawer : PropertyDrawer
 {
-    private static readonly string[] Fields = { "Timing", "Effect" };
+    private static readonly string[] Fields = { "Timing", "BatchId", "Effect" };
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
         PassiveDrawerFields.Height(property, label, Fields);
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
         PassiveDrawerFields.Draw(position, property, label, Fields);
+}
+
+[CustomPropertyDrawer(typeof(CardEffectBatchDefinition))]
+public sealed class CardEffectBatchDefinitionPropertyDrawer : PropertyDrawer
+{
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Height(property, label, "Id", "ApplyChanceBp");
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Draw(position, property, label, "Id", "ApplyChanceBp");
 }
 
 [CustomPropertyDrawer(typeof(CounterEffectDefinition))]
@@ -617,7 +672,7 @@ internal static class PassiveDrawerFields
                 y += Spacing;
                 var childHeight = EditorGUI.GetPropertyHeight(child, true);
                 var childRect = new Rect(position.x, y, position.width, childHeight);
-                if (name == "StatusApplyChanceBp" || name == "ProcChanceBp")
+                if (name == "StatusApplyChanceBp" || name == "ProcChanceBp" || name == "ApplyChanceBp")
                 {
                     var percent = child.intValue / 100f;
                     EditorGUI.BeginChangeCheck();
@@ -627,6 +682,52 @@ internal static class PassiveDrawerFields
                     if (EditorGUI.EndChangeCheck())
                         child.intValue = Mathf.RoundToInt(percent * 100f);
                 }
+                else if (name == "AttributeAdvantageDamageBonusBp")
+                {
+                    EditorGUI.BeginChangeCheck();
+                    var percent = EditorGUI.FloatField(childRect,
+                        new GUIContent("Advantage Damage Bonus (%)", "Additional damage dealt by this card when its target has attribute advantage. 30 = +30%."),
+                        child.intValue / 100f);
+                    if (EditorGUI.EndChangeCheck()) child.intValue = Mathf.RoundToInt(Mathf.Max(0f, percent) * 100f);
+                }
+                else if (name == "BarrierCoefficientBp")
+                {
+                    var sourceStat = PassiveDrawerFields.EnumValue<BarrierSourceStat>(property, "BarrierSourceStat");
+                    var sourceStatName = sourceStat switch
+                    {
+                        BarrierSourceStat.Defense => "Source DEF",
+                        BarrierSourceStat.MaxHealth => "Source Max HP",
+                        _ => "Source ATK"
+                    };
+                    EditorGUI.BeginChangeCheck();
+                    var percent = EditorGUI.FloatField(childRect,
+                        new GUIContent("Barrier (% of " + sourceStatName + ")", "Shield capacity based on the source's current selected stat when applied. 375 = 375%."),
+                        child.intValue / 100f);
+                    if (EditorGUI.EndChangeCheck()) child.intValue = Mathf.RoundToInt(Mathf.Max(0f, percent) * 100f);
+                }
+                else if (name == "ScalingStat" && property.type == "PassiveCommandDefinition")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Base Stat", "Its unmodified value is added as a damage dealt increase for non-critical hits. For Crit Chance, 3,500 adds +35% damage. Status buffs and debuffs do not change this value."), true);
+                else if (name == "ScalingCoefficientBp" && property.type == "PassiveCommandDefinition")
+                {
+                    EditorGUI.BeginChangeCheck();
+                    var percent = EditorGUI.FloatField(childRect,
+                        new GUIContent("Stat Modifier (%)", "Multiplier applied to the selected base stat. 100% adds the stat value as a damage dealt increase."),
+                        child.intValue / 100f);
+                    if (EditorGUI.EndChangeCheck()) child.intValue = Mathf.RoundToInt(Mathf.Max(0f, percent) * 100f);
+                }
+                else if (name == "BarrierSourceStat")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Barrier Source Stat", "Current effective Attack, Defense, or Max HP is snapshotted when this barrier is applied."), true);
+                else if (name == "BarrierDurationPolicy")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Duration on Reapply", "Refresh keeps the longer remaining duration; Replace uses the newly applied duration."), true);
+                else if (name == "BarrierAmountPolicy")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Barrier Amount on Reapply", "Replace resets this barrier to the newly calculated amount; Accumulate adds it to the current remaining barrier."), true);
+                else if (name == "Stacking" && property.type == "StatusRecipeDefinition")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Stacking", "Refresh Stronger replaces a stronger effect, or an equally strong effect with longer remaining duration. Weaker effects cannot replace stronger ones."), true);
                 else if (name == "CoefficientBp" && property.type == "StatTransferRecipeDefinition")
                 {
                     EditorGUI.BeginChangeCheck();
@@ -642,12 +743,24 @@ internal static class PassiveDrawerFields
                 else if (name == "KeywordFactorBp")
                     EditorGUI.PropertyField(childRect, child,
                         new GUIContent("Keyword Factor Bp", "10,000 = normal keyword scaling."), true);
+                else if (name == "StatSource" && property.type == "DamageEffectRecipe")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Stat Source", "Whose current effective stat supplies the formula: Effect Owner or resolved Target. Stat buffs/debuffs affect this input. Additional uses only Additional-family damage modifiers."), true);
+                else if (name == "DamageTiming")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Damage Timing", "Each Hit reacts to every damage hit. Final Hit reacts once per attacked target on the final hit. On-attack Additional damage always resolves on the final hit."), true);
+                else if (name == "BatchId")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Chance Batch ID", "Optional ID from this card's Batches list. All steps in that batch share one chance roll per target; individual status chances are ignored."), true);
+                else if (name == "Batches")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Chance Batches", "Shared chance gates for sequence steps. A failed roll skips every effect in that batch, including removal and gauge changes."), true);
                 else if (name == "Modifiers")
                     EditorGUI.PropertyField(childRect, child,
                         new GUIContent("Modifiers", "Requires Behavior to include Stat. Add a modifier with Target = Stat to change any stat, including Defense."), true);
                 else if (name == "Behavior" && property.type == "StatusRecipeDefinition")
                     EditorGUI.PropertyField(childRect, child,
-                        new GUIContent("Behavior", "Enable Stat to expose the Modifiers list for stat changes."), true);
+                        new GUIContent("Behavior", "Enable Stat to expose Modifiers. Enable Barrier to configure its source stat, capacity, and reapplication behavior."), true);
                 else if (name == "Amount" && property.type == "StatModifierDefinition")
                 {
                     var operation = PassiveDrawerFields.EnumValue<ModifierOperation>(property, "Operation");

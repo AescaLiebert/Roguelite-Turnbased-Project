@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
   definitionId: fighter.kyo94
   runtimeReady: 1
-  sourceId: 1
-  sourceRecord: 2
   familyId: family.kyo
   seriesId: series.kof
   role: Glass Attacker
@@ -31,12 +29,11 @@ MonoBehaviour:
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: f648936a229990443bc3379dcc890e43, type: 2}
-  id: 1001
+  id: 1008
   fighterName: Kusanagi Kyo 94
-  fighterTag: family.kyo
-  fighterPic: {fileID: 21300000, guid: 02f6b4cd77a57504ab7986bbcbb2d01e, type: 3}
+  fighterPic: {fileID: 21300000, guid: fa692b7d084c71f4392dc73d5bf7a8e1, type: 3}
   fighterIcon: {fileID: 21300000, guid: 5b2d1b828c66ec546bb4e38d04dc61b0, type: 3}
-  fighterFull: {fileID: 0}
+  fighterFull: {fileID: 21300000, guid: 02f6b4cd77a57504ab7986bbcbb2d01e, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
@@ -53,9 +50,13 @@ MonoBehaviour:
   fighterLevel: 1
   fighterAwakening: 0
   fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
   Classpower: 2794
-  attack: 290
-  defense: 320
+  attack: 360
+  defense: 290
   health: 4700
   SecondaryStats:
     PierceRate: 20
@@ -68,7 +69,7 @@ MonoBehaviour:
     RecoveryRate: 112
     BlockChance: 0
     BlockPower: 20
-    LifeSteal: 5
+    LifeSteal: 10
     AvoidanceRate: 100
     EvadeRate: 0
     ControlRate: 100

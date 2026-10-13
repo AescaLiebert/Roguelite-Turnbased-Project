@@ -151,14 +151,14 @@ namespace FightingAllstar.Presentation.Economy
 
         private static void EnsureStarterRoster(LocalEconomyState state)
         {
-            var starters = new[] { "fighter.kyo94", "fighter.chin94", "fighter.kensou94", "fighter.king94" };
+            var starters = new[] { "fighter.kyo94", "fighter.benimaru94", "fighter.goro94" };
             state.Roster = state.Roster ?? new System.Collections.Generic.List<LocalOwnedCharacter>();
             foreach (var id in starters)
                 if (!state.Roster.Exists(owned => owned != null && owned.DefinitionId == id))
                     state.Roster.Add(new LocalOwnedCharacter { DefinitionId = id, ConstellationTier = 0 });
             if (state.FormationDefinitionIds == null || state.FormationDefinitionIds.Count != 4 ||
                 !state.FormationDefinitionIds.Exists(id => !string.IsNullOrEmpty(id)))
-                state.FormationDefinitionIds = new System.Collections.Generic.List<string>(starters);
+                state.FormationDefinitionIds = new System.Collections.Generic.List<string> { "fighter.kyo94", "fighter.benimaru94", "fighter.goro94", "" };
         }
 
         private static string GetSubjectKey()

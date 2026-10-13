@@ -10,6 +10,7 @@ public enum FighterAttribute
         Green,
         Blue,
         Yellow,
+        Purple,
         Darkness,
         Light,
         Infinity
@@ -96,8 +97,6 @@ public static class CharacterPassiveMetadata
         [Header("Stable Content Identity")]
         [SerializeField] private string definitionId;
         [SerializeField] private bool runtimeReady;
-        [SerializeField] private int sourceId;
-        [SerializeField] private int sourceRecord;
         [SerializeField] private string familyId;
         [SerializeField] private string seriesId;
         [SerializeField] private string role;
@@ -111,7 +110,6 @@ public static class CharacterPassiveMetadata
         [Header("Basic Information")]
         [SerializeField] private int id;
         [SerializeField] private string fighterName;
-        [SerializeField] private string fighterTag;
         
         [Header("Visual Assets")]
         [SerializeField] private Sprite fighterPic;
@@ -141,6 +139,8 @@ public static class CharacterPassiveMetadata
         [SerializeField] private int fighterLevel = 1;
         [SerializeField] private int fighterAwakening = 0;
         [SerializeField] private int fighterUltimateLevel = 1;
+        [Tooltip("Starting values. Basis points of level-one stats gained each level; only these four stats grow.")]
+        public CharacterStatGrowth LevelGrowth = new CharacterStatGrowth();
         
         [Header("Primary Stats")]
         [SerializeField] public float Classpower;
@@ -154,8 +154,6 @@ public static class CharacterPassiveMetadata
         public int ID => id;
         public string DefinitionId => definitionId;
         public bool RuntimeReady => runtimeReady;
-        public int SourceId => sourceId;
-        public int SourceRecord => sourceRecord;
         public string FamilyId => familyId;
         public string SeriesId => seriesId;
         public string Role => role;
@@ -169,6 +167,10 @@ public static class CharacterPassiveMetadata
         public Sprite FighterPic => fighterPic;
         public Sprite FighterIcon => fighterIcon;
         public Sprite FighterFull => fighterFull;
+        public Sprite FighterPassive => fighterPassive;
+        public Sprite FighterCard1 => fighterCard1;
+        public Sprite FighterCard2 => fighterCard2;
+        public Sprite FighterUltimate => fighterUltimate;
 
         public GameObject Fighter3DPrefab => fighter3DPrefab;
         public float FighterModelYawOffset => fighterModelYawOffset;
@@ -182,9 +184,9 @@ public static class CharacterPassiveMetadata
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             
-            return id == other.id 
-                   && fighterName == other.fighterName 
-                   && fighterTag == other.fighterTag;
+            return id == other.id
+                   && fighterName == other.fighterName
+                   && definitionId == other.definitionId;
         }
 
         public override bool Equals(object obj)
@@ -202,7 +204,7 @@ public static class CharacterPassiveMetadata
             {
                 var hashCode = id;
                 hashCode = (hashCode * 397) ^ (fighterName != null ? fighterName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (fighterTag != null ? fighterTag.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (definitionId != null ? definitionId.GetHashCode() : 0);
                 return hashCode;
             }
         }

@@ -17,9 +17,65 @@ internal static partial class BattlePlaybackChecks
 
     public static void Main(string[] args)
     {
+        if (args.Contains("--seong-passive"))
+        {
+            SeongPassiveChecks();
+            Console.WriteLine("PASS: Seong Mi-Na conditional damage and Crit Defense passive assertions.");
+            return;
+        }
+        if (args.Contains("--sophitia-passive"))
+        {
+            SophitiaPassiveChecks();
+            Console.WriteLine("PASS: Sophitia's non-critical Crit Chance damage bonus and Taunt stack assertions.");
+            return;
+        }
+        if (args.Contains("--dungeon-architecture"))
+        {
+            DungeonArchitectureChecks(); DungeonRewardChecks(); DungeonPolicyChecks();
+            Console.WriteLine("PASS: " + _assertions + " dungeon architecture and regression assertions.");
+            return;
+        }
+        if (args.Contains("--dungeon-rewards"))
+        {
+            DungeonRewardChecks(); DungeonPolicyChecks();
+            Console.WriteLine("PASS: " + _assertions + " dungeon inspection, reward, item inventory and policy assertions.");
+            return;
+        }
+        if (args.Contains("--neutral-status"))
+        {
+            NeutralStatusChecks();
+            CardKindAndStanceChecks();
+            ConditionalEffectAndCounterChecks();
+            RejuvenationRuntimeChecks();
+            EvadeAndImmunityFeedbackChecks();
+            PierceAndWeakpointRecipeChecks();
+            Console.WriteLine("PASS: " + _assertions + " Neutral status, stance, counter, healing, immunity and attribute assertions.");
+            return;
+        }
+        if (args.Contains("--dungeon-policy"))
+        {
+            DungeonPolicyChecks();
+            Console.WriteLine("PASS: " + _assertions + " dungeon policy assertions.");
+            return;
+        }
+        if (args.Contains("--ignite"))
+        {
+            IgniteIndependentDurationChecks();
+            Console.WriteLine("PASS: " + _assertions + " ignite independent assertions.");
+            return;
+        }
         HitReactionChecks();
         if (args.Contains("--hit-reactions")) { Console.WriteLine("PASS: " + _assertions + " reaction assertions."); return; }
         StatTransferChecks();
+        SeongPassiveChecks();
+        SophitiaPassiveChecks();
+        if (args.Contains("--additional-damage"))
+        {
+            AdditionalDamageChecks();
+            Console.WriteLine("PASS: additional damage overkill and Ultimate exclusion assertions.");
+            return;
+        }
+        AdditionalDamageChecks();
         DeckFeedbackQueueChecks();
         if (args.Contains("--deck-feedback")) { Console.WriteLine("PASS: " + _assertions + " deck feedback assertions."); return; }
         if (args.Contains("--stat-transfer")) { Console.WriteLine("PASS: " + _assertions + " stat transfer assertions."); return; }
@@ -31,6 +87,7 @@ internal static partial class BattlePlaybackChecks
         ConditionalEffectAndCounterChecks();
         EnemyAiPlannerTacticalChecks();
         CardKindAndStanceChecks();
+        NeutralStatusChecks();
         ActionTimingChecks();
         CardDrawRandomnessUsesItsOwnStream();
         OpeningAndFullBattleReplay();
@@ -57,6 +114,8 @@ internal static partial class BattlePlaybackChecks
         CardTooltipAndKeywordChecks();
         DungeonFormationIsolationAndAbandonChecks();
         DungeonPolicyChecks();
+        DungeonRewardChecks();
+        DungeonArchitectureChecks();
         CheckWeakpointRuptureAndKingPierce();
         EvadeAndImmunityFeedbackChecks();
         YuriSkill2RefreshStrongerChecks();
@@ -1491,13 +1550,35 @@ internal static partial class BattlePlaybackChecks
         Check(!joeIgniteResult.WasEndured && joeIgniteResult.CalculatedDamage == 61,
             $"Outgoing bonus damage must scale attack before DEF and Ignite applies post-DEF (expected 61, got {joeIgniteResult.CalculatedDamage})");
 
-        // Case D: Attribute affinity resolution via AttributeRules and StatusSystem.BuildDamagePolicy
+        // Case D: Attribute affinity resolution via AttributeRules and StatusSystem.BuildDamagePolicy (5-way cycle: Red -> Green -> Yellow -> Purple -> Blue -> Red)
         Check(AttributeRules.GetAffinity("attribute.red", "attribute.green") == AttributeAffinity.Advantage, "Red must have advantage over Green");
         Check(AttributeRules.GetAffinity("attribute.green", "attribute.red") == AttributeAffinity.Disadvantage, "Green must have disadvantage against Red");
-        Check(AttributeRules.GetAffinity("attribute.green", "attribute.blue") == AttributeAffinity.Advantage, "Green must have advantage over Blue");
+        Check(AttributeRules.GetAffinity("attribute.green", "attribute.yellow") == AttributeAffinity.Advantage, "Green must have advantage over Yellow");
+        Check(AttributeRules.GetAffinity("attribute.yellow", "attribute.green") == AttributeAffinity.Disadvantage, "Yellow must have disadvantage against Green");
+        Check(AttributeRules.GetAffinity("attribute.yellow", "attribute.purple") == AttributeAffinity.Advantage, "Yellow must have advantage over Purple");
+        Check(AttributeRules.GetAffinity("attribute.purple", "attribute.yellow") == AttributeAffinity.Disadvantage, "Purple must have disadvantage against Yellow");
+        Check(AttributeRules.GetAffinity("attribute.purple", "attribute.blue") == AttributeAffinity.Advantage, "Purple must have advantage over Blue");
+        Check(AttributeRules.GetAffinity("attribute.blue", "attribute.purple") == AttributeAffinity.Disadvantage, "Blue must have disadvantage against Purple");
         Check(AttributeRules.GetAffinity("attribute.blue", "attribute.red") == AttributeAffinity.Advantage, "Blue must have advantage over Red");
         Check(AttributeRules.GetAffinity("attribute.red", "attribute.blue") == AttributeAffinity.Disadvantage, "Red must have disadvantage against Blue");
+
+        // Non-adjacent pairs in 5-way cycle must be Neutral
+        Check(AttributeRules.GetAffinity("attribute.green", "attribute.blue") == AttributeAffinity.Neutral, "Green vs Blue must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.red", "attribute.yellow") == AttributeAffinity.Neutral, "Red vs Yellow must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.red", "attribute.purple") == AttributeAffinity.Neutral, "Red vs Purple must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.green", "attribute.purple") == AttributeAffinity.Neutral, "Green vs Purple must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.yellow", "attribute.blue") == AttributeAffinity.Neutral, "Yellow vs Blue must be neutral");
         Check(AttributeRules.GetAffinity("attribute.red", "attribute.red") == AttributeAffinity.Neutral, "Same attribute must be neutral");
+
+        // Standalone attributes: Darkness and Light are outside the cycle and always neutral to all attributes
+        Check(AttributeRules.GetAffinity("attribute.darkness", "attribute.red") == AttributeAffinity.Neutral, "Darkness vs Red must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.red", "attribute.darkness") == AttributeAffinity.Neutral, "Red vs Darkness must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.darkness", "attribute.purple") == AttributeAffinity.Neutral, "Darkness vs Purple must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.purple", "attribute.darkness") == AttributeAffinity.Neutral, "Purple vs Darkness must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.darkness", "attribute.blue") == AttributeAffinity.Neutral, "Darkness vs Blue must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.yellow", "attribute.darkness") == AttributeAffinity.Neutral, "Yellow vs Darkness must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.light", "attribute.darkness") == AttributeAffinity.Neutral, "Light vs Darkness must be neutral");
+        Check(AttributeRules.GetAffinity("attribute.darkness", "attribute.darkness") == AttributeAffinity.Neutral, "Darkness vs Darkness must be neutral");
 
         var redFighter = new FighterState { Definition = new CharacterDefinition { Id = "red_f", AttributeId = "attribute.red" } };
         var greenFighter = new FighterState { Definition = new CharacterDefinition { Id = "green_f", AttributeId = "attribute.green" } };

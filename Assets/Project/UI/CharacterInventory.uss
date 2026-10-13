@@ -1,0 +1,178 @@
+@import url("project://database/Assets/Project/Resources/UI/ScreenShell.uss?fileID=7433441132597879392&guid=6d1566d098bce684493804ab080e2ee6&type=3#ScreenShell");
+
+.inventory-page {
+    flex-grow: 1;
+    min-width: 0;
+    min-height: 0;
+    padding: 28px 40px;
+    background-color: rgb(8, 18, 30);
+    -unity-font-definition: url("../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf");
+}
+
+.inventory-heading {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 18px;
+}
+
+.inventory-title {
+    flex-grow: 1;
+    min-width: 0;
+    font-size: 54px;
+    white-space: normal;
+}
+
+
+
+.inventory-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.inventory-filters .unity-base-field {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 150px;
+    flex-direction: column;
+    margin-right: 14px;
+    margin-bottom: 10px;
+}
+
+.inventory-filters .inventory-search {
+    flex-grow: 2;
+    min-width: 200px;
+}
+
+.inventory-filters .unity-base-field__label {
+    min-width: 0;
+    margin-bottom: 4px;
+    color: rgb(157, 198, 228);
+    font-size: 18px;
+}
+
+.inventory-filters .unity-base-field__input {
+    min-height: 42px;
+    border-radius: 0;
+    border-width: 1px;
+    border-color: rgb(89, 128, 158);
+    background-color: rgb(19, 38, 55);
+    color: rgb(241, 236, 223);
+    font-size: 20px;
+}
+
+#inventory-reset {
+    min-height: 42px;
+    margin-bottom: 10px;
+}
+
+.inventory-count {
+    flex-shrink: 0;
+    margin: 4px 0 16px;
+    color: rgb(155, 194, 222);
+}
+
+.inventory-content {
+    flex-direction: row;
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+    min-height: 0;
+}
+
+.inventory-collection {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
+    min-height: 0;
+    padding: 14px;
+    margin-right: 0;
+}
+
+.inventory-scroll {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: 0;
+}
+
+.inventory-grid {
+    justify-content: flex-start;
+}
+
+.inventory-grid .character-grid-card {
+    width: 150px;
+    height: 180px;
+    margin: 6px;
+}
+
+.inventory-grid .character-grid-name {
+    height: 24px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
+}
+
+.inventory-grid .character-grid-card.selected {
+    border-color: rgb(255, 226, 164);
+    background-color: rgb(34, 52, 67);
+}
+
+.compact-layout .inventory-page {
+    padding: 20px;
+}
+
+.compact-layout .inventory-title {
+    font-size: 36px;
+}
+
+.compact-layout .inventory-heading {
+    margin-bottom: 10px;
+}
+
+.compact-layout .inventory-filters .unity-base-field {
+    min-width: 120px;
+    margin-right: 10px;
+}
+
+.compact-layout .inventory-filters .unity-base-field__label {
+    font-size: 16px;
+}
+
+.compact-layout .inventory-filters .unity-base-field__input {
+    min-height: 34px;
+    font-size: 17px;
+}
+
+.compact-layout #inventory-reset {
+    min-height: 34px;
+}
+
+.compact-layout .inventory-count {
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.compact-layout .inventory-collection {
+    margin-right: 0;
+    padding: 8px;
+}
+
+.narrow-layout .inventory-content {
+    flex-direction: column;
+}
+
+.narrow-layout .inventory-collection {
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.narrow-layout .inventory-title {
+    font-size: 30px;
+}
+
+.character-grid {
+}

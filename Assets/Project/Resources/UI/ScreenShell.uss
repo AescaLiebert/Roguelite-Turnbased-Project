@@ -1,0 +1,97 @@
+.screen-root { flex-grow: 1; width: 100%; height: 100%; min-width: 0; min-height: 0; overflow: hidden; background-color: rgb(7, 12, 21); color: rgb(244, 239, 225); }
+.screen-stage { flex-grow: 1; min-width: 0; min-height: 0; }
+.screen-background { position: absolute; left: 0; right: 0; top: 0; bottom: 0; -unity-background-scale-mode: scale-and-crop; }
+.screen-body { flex-grow: 1; flex-basis: 0; min-width: 0; min-height: 0; padding: 28px 40px; }
+Label { margin: 0; padding: 0; }
+Button { border-radius: 0; margin: 0; color: rgb(244, 239, 225); -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.screen-root Button:disabled { opacity: .45; }
+.screen-root Button:focus { border-color: rgb(255, 226, 164); }
+.display, .condensed { -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.display-heavy, .heavy, .condensed-heavy { -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-ExtraBoldItalic.ttf"); }
+.account-header { height: 84px; flex-shrink: 0; flex-direction: row; align-items: center; padding: 6px 20px; background-color: rgba(6, 14, 25, .32); border-bottom-width: 1px; border-bottom-color: rgba(119, 165, 200, .32); }
+.account-header .account-back { width: 42px; height: 60px; flex-shrink: 0; padding: 0; border-width: 0; background-color: rgba(0, 0, 0, 0); font-size: 52px; color: rgb(245, 244, 232); }
+.account-brand { width: 300px; height: 46px; flex-shrink: 0; overflow: hidden; }
+.account-brand-atlas { position: absolute; left: -40px; top: -14px; width: 1672px; height: 941px; background-image: url("MainMenu/ReferenceAtlas.png"); -unity-background-scale-mode: stretch-to-fill; }
+.account-section { margin-left: 20px; font-size: 27px; letter-spacing: 1px; color: rgb(209, 230, 247); -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.account-spacer { flex-grow: 1; min-width: 12px; }
+.account-header .account-currency { flex-direction: row; align-items: center; width: 166px; min-width: 0; height: 58px; flex-shrink: 0; padding: 6px 12px; margin-left: 10px; border-width: 1px; border-color: rgba(148, 187, 222, .55); border-radius: 4px; background-color: rgba(9, 20, 38, .78); }
+.account-header .account-currency:hover { border-color: rgb(230, 205, 155); background-color: rgba(20, 38, 61, .9); }
+.account-diamond { width: 34px; height: 34px; flex-shrink: 0; background-image: url("../../Art/UI/Currency/Diamond.png"); -unity-background-scale-mode: scale-to-fit; }
+.account-coin { width: 34px; height: 34px; flex-shrink: 0; background-image: url("../../Art/UI/Currency/Coin.png"); -unity-background-scale-mode: scale-to-fit; }
+.account-currency-copy { flex-grow: 1; min-width: 0; margin-left: 10px; }
+.account-currency-label { font-size: 12px; color: rgb(158, 192, 224); -unity-text-align: middle-right; }
+.account-wallet { font-size: 25px; color: rgb(255, 250, 237); -unity-text-align: middle-right; -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.account-profile { margin-left: 14px; flex-direction: row; align-items: center; flex-shrink: 0; padding: 3px 12px 3px 4px; height: 64px; border-radius: 4px; border-width: 1px; border-color: rgba(148, 187, 222, .4); background-color: rgba(9, 20, 38, .78); }
+.account-avatar { width: 56px; height: 56px; overflow: hidden; flex-shrink: 0; }
+.account-avatar-atlas { position: absolute; left: -1158.4px; top: -3.2px; width: 1672px; height: 941px; scale: 0.8 0.8; transform-origin: top left; background-image: url("MainMenu/ReferenceAtlas.png"); -unity-background-scale-mode: stretch-to-fill; }
+.account-profile-copy { margin-left: 12px; min-width: 96px; }
+.account-name { font-size: 26px; color: rgb(255, 249, 236); -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.account-caption { font-size: 13px; color: rgb(168, 201, 229); -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.adaptive-columns { flex-direction: row; flex-grow: 1; flex-basis: 0; min-height: 0; min-width: 0; }
+.section-heading { font-size: 28px; letter-spacing: 1px; color: rgb(164, 204, 236); margin-bottom: 12px; -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.body-copy { font-size: 20px; white-space: normal; color: rgb(165, 201, 227); }
+.surface-panel { background-color: rgba(8, 18, 30, .96); border-width: 1px; border-color: rgb(112, 157, 190); padding: 22px; }
+.action-button { min-height: 54px; padding: 12px 24px; border-width: 1px; border-color: rgb(120, 174, 211); background-color: rgb(15, 31, 47); font-size: 26px; }
+.primary-action { background-color: rgb(197, 20, 40); border-color: rgb(255, 80, 74); font-size: 40px; min-height: 82px; }
+.action-button:hover { background-color: rgb(33, 57, 77); }
+.primary-action:hover { background-color: rgb(225, 35, 51); }
+.action-button:active { scale: 0.98 0.98; }
+.character-grid { flex-direction: row; flex-wrap: wrap; align-content: flex-start; min-width: 0; }
+.character-grid-card { width: 148px; min-height: 172px; flex-shrink: 0; align-items: center; margin: 6px; padding: 8px; border-width: 1px; border-color: rgb(61, 89, 112); background-color: rgba(10, 23, 37, .96); }
+.character-grid-card > .character-icon { flex-shrink: 0; }
+.character-grid-name { width: 100%; font-size: 18px; white-space: normal; -unity-text-align: middle-center; margin-top: 7px; -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-SemiBoldItalic.ttf"); }
+.character-grid-card:hover { border-color: rgb(242, 204, 130); }
+.grid-empty { padding: 20px; font-size: 20px; color: rgb(165, 201, 227); white-space: normal; }
+.fitted-character-grid { flex-grow: 1; flex-basis: 0; min-height: 0; justify-content: center; align-content: center; overflow: hidden; }
+.fitted-character-grid .character-grid-card { min-height: 0; margin: 3px; padding: 3px; }
+.fitted-character-grid .character-grid-name { height: 18px; flex-shrink: 0; margin-top: 0; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.character-unavailable .character-grid-name { color: rgb(127, 151, 169); }
+.character-unavailable-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, .62); }
+.screen-root .character-defeated:disabled { opacity: 1; }
+.character-defeated .character-unavailable-overlay { background-color: rgba(0, 0, 0, .82); align-items: center; justify-content: center; }
+.character-defeated-cross { color: rgb(242, 239, 232); font-size: 64px; -unity-text-align: middle-center; }
+.icon-only-preview .character-grid-name { display: none; }
+.fitted-character-grid .slot-label { min-width: 20px; padding: 2px 3px; font-size: 10px; margin: 0; }
+.screen-root TextField .unity-base-field__input { background-color: rgb(18, 36, 53); color: rgb(242, 237, 224); border-width: 1px; border-color: rgb(84, 129, 162); }
+.screen-root .unity-scroller { display: none; }
+.screen-root .unity-scroller__low-button, .screen-root .unity-scroller__high-button { display: none; }
+.screen-root .unity-scroller .unity-base-slider__tracker { background-color: rgb(24, 43, 60); border-width: 0; }
+.screen-root .unity-scroller .unity-base-slider__dragger { background-color: rgb(113, 158, 190); border-width: 0; border-radius: 4px; }
+.modal-scrim { position: absolute; left: 0; right: 0; top: 84px; bottom: 0; align-items: center; justify-content: center; padding: 28px; background-color: rgba(3, 8, 17, .9); }
+.modal-dialog { width: 85%; max-width: 1120px; max-height: 92%; flex-grow: 1; min-height: 0; padding: 28px; background-color: rgb(10, 23, 37); border-width: 1px; border-color: rgb(137, 180, 211); }
+.modal-toolbar { flex-direction: row; align-items: center; justify-content: space-between; flex-shrink: 0; margin-bottom: 14px; }
+.modal-title { font-size: 40px; color: rgb(254, 224, 166); -unity-font-definition: url("../../Art/UI/MainMenu/BarlowCondensed-ExtraBoldItalic.ttf"); }
+.modal-scroll { flex-grow: 1; flex-basis: 0; min-height: 0; margin: 16px 0; }
+.compact-layout .account-brand { width: 180px; height: 28px; }
+.compact-layout .account-brand-atlas { scale: 0.6 0.6; transform-origin: top left; left: -24px; top: -8.4px; }
+.compact-layout .account-section { margin-left: 18px; font-size: 22px; }
+.compact-layout .screen-body { padding: 20px; }
+.narrow-layout .account-brand { display: none; }
+.narrow-layout .account-section { margin-left: 8px; font-size: 18px; }
+.narrow-layout .account-profile { margin-left: 12px; }
+.narrow-layout .account-profile-copy { display: none; }
+.narrow-layout .account-header .account-currency { width: 132px; margin-left: 6px; padding: 6px 8px; }
+.narrow-layout .account-wallet { font-size: 22px; }
+.narrow-layout .account-avatar { width: 48px; height: 49px; }
+.narrow-layout .account-avatar-atlas { scale: 0.7 0.7; transform-origin: top left; left: -1013.6px; top: -2.8px; }
+.narrow-layout .adaptive-columns { flex-direction: column; }
+.narrow-layout .modal-dialog { width: 100%; padding: 16px; }
+.narrow-layout .modal-scrim { padding: 14px; }
+.narrow-layout .modal-title { font-size: 28px; }
+/* Starting motion value: 180ms. Check repeated clicks and modal dismissal during transition; controls remain live. */
+.action-button, .character-grid-card { transition-property: background-color, border-color, scale; transition-duration: 180ms; transition-timing-function: ease-out; }
+.animated-panel { transition-property: opacity, translate; transition-duration: 180ms; transition-timing-function: ease-out; }
+.panel-enter { opacity: 0; translate: 0 12px; }
+
+
+/* Four core stats share one row composition throughout fighter inspection. */
+.basic-stat-preview { flex-shrink: 0; }
+.basic-stat-row { flex-direction: row; align-items: center; min-height: 56px; padding: 8px 12px; border-bottom-width: 1px; border-bottom-color: rgba(167, 194, 221, .14); background-color: rgba(12, 29, 45, .55); }
+.basic-stat-row Label { font-size: 25px; margin: 0; color: rgb(230, 236, 241); }
+.basic-stat-row .basic-stat-name { width: 28%; flex-shrink: 0; color: rgb(192, 216, 233); }
+.basic-stat-current { flex-grow: 1; flex-basis: 0; min-width: 0; -unity-text-align: middle-right; }
+.basic-stat-row .basic-stat-arrow { width: 52px; flex-shrink: 0; -unity-text-align: middle-center; color: rgb(142, 168, 194); }
+.basic-stat-row .basic-stat-next { width: 35%; flex-shrink: 0; -unity-text-align: middle-right; color: rgb(178, 235, 155); }
+.compact-layout .basic-stat-row { min-height: 32px; padding: 4px 8px; }
+.compact-layout .basic-stat-row Label { font-size: 20px; }
+.compact-layout .basic-stat-row .basic-stat-arrow { width: 32px; }

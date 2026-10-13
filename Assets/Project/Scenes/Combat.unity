@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Route.LocalDungeonComposition
   flow: {fileID: 391928449}
-  contentSource: {fileID: 11400000, guid: 065ce61b8b4ad0c4daedd910ab167be6, type: 2}
 --- !u!114 &391928449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 29a77f415dacefa449c376d305a8726d, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 37e6d9e42c0d4b64839fb3f6d9e81605, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: ec8d6162b3d897c4099ed50b05ee29c0, type: 3}
   m_SortingOrder: 0
@@ -384,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 29a77f415dacefa449c376d305a8726d, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 37e6d9e42c0d4b64839fb3f6d9e81605, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: ea5a5e20eb6e179418154fcb3f2fe817, type: 3}
   m_SortingOrder: 0

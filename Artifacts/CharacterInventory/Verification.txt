@@ -1,0 +1,7 @@
+PASS MainMenu 1920x1080: viewport layout, shared live account header, character grid/scroll checks.
+PASS CharacterInventory 1920x1080: viewport layout, shared live account header, character grid/scroll checks.
+PASS MainMenu 1280x720: viewport layout, shared live account header, character grid/scroll checks.
+PASS CharacterInventory 1280x720: viewport layout, shared live account header, character grid/scroll checks.
+PASS MainMenu 768x1024: viewport layout, shared live account header, character grid/scroll checks.
+PASS CharacterInventory 768x1024: viewport layout, shared live account header, character grid/scroll checks.
+Isolated fixture. No account, formation, run or scene saved.

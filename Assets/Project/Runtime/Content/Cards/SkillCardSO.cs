@@ -29,7 +29,7 @@ public class SkillCardSO : ScriptableObject
             rank.skillType = SkillType.Stance;
             rank.runtimeEffect = new EffectDefinition { Kind = EffectKind.ApplyStatus, Target = EffectTargetScope.Self,
             StatusRecipe = new StatusRecipeDefinition {
-                Id = name + ".stance", NameKey = "Defensive Stance", Polarity = StatusPolarity.Buff,
+                Id = name + ".stance", NameKey = "Defensive Stance", Polarity = StatusPolarity.Neutral,
                 Behavior = StatusBehavior.Stance, DefaultDuration = 1, DurationClock = StatusDurationClock.TargetTurnStart,
                 StanceChildren = new List<StanceChildDefinition> {
                     new StanceChildDefinition { Id = name + ".immunity", NameKey = "Debuff Immunity", DebuffImmunity = true },
@@ -54,7 +54,7 @@ public class SkillCardSO : ScriptableObject
             rank.skillType = SkillType.Stance;
             rank.runtimeEffect = new EffectDefinition { Kind = EffectKind.ApplyStatus, Target = EffectTargetScope.Self,
             StatusRecipe = new StatusRecipeDefinition {
-                Id = name + ".stance", NameKey = "Counter Stance", Polarity = StatusPolarity.Buff,
+                Id = name + ".stance", NameKey = "Counter Stance", Polarity = StatusPolarity.Neutral,
                 Behavior = StatusBehavior.Stance, DefaultDuration = 2,
                 StanceChildren = new List<StanceChildDefinition> {
                     new StanceChildDefinition { Id = name + ".taunt", NameKey = "Taunt", Taunt = true },

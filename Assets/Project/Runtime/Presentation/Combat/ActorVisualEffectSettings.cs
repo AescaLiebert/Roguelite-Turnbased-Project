@@ -23,5 +23,13 @@ namespace FightingAllstar.Presentation.Combat
         public Color Poison = new Color(.4f, 1f, .2f);
         public Color Shock = new Color(.25f, .8f, 1f);
         public Color Ignite = new Color(1f, .37f, .06f);
+
+        [Header("Special statuses — starting values; test aura direction and stacked effects")]
+        [Range(.4f, 1.2f)] public float ExplosionDuration = .8f;
+        public Color CardDisable = new Color(.82f, .5f, 1f);
+        public Color ExtortBuff = new Color(.23f, 1f, .92f);
+        public Color ExtortDebuff = new Color(.73f, .28f, .92f);
+        public Color Explosion = new Color(1f, .62f, .1f);
+        public Color Rejuvenation = new Color(.38f, 1f, .68f);
     }
 }

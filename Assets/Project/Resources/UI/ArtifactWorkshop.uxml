@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Project/Resources/UI/Artifacts.uss?fileID=7433441132597879392&amp;guid=0dc35d09c6a14a66ad5a9c9d4628ee74&amp;type=3#Artifacts" />
+    <Style src="project://database/Assets/Project/Resources/UI/ScreenShell.uss?fileID=7433441132597879392&amp;guid=6d1566d098bce684493804ab080e2ee6&amp;type=3#ScreenShell" />
+    <ui:VisualElement class="artifact-workshop">
+        <ui:VisualElement class="artifact-workshop-heading">
+            <ui:Label name="enhance-title" text="ARTIFACT ENHANCEMENT" class="artifact-title heavy" />
+            <ui:Label name="enhance-balance" class="artifact-eyebrow" />
+        </ui:VisualElement>
+        <ui:VisualElement class="artifact-workshop-body">
+            <ui:VisualElement class="artifact-workshop-left">
+                <ui:VisualElement name="enhance-hero" class="artifact-workshop-hero">
+                    <ui:VisualElement class="artifact-display-halo" style="background-color: rgba(107, 80, 41, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
+                        <ui:Image name="enhance-art" picking-mode="Ignore" class="artifact-workshop-art" />
+                    </ui:VisualElement>
+                    <ui:Label name="enhance-art-meta" class="artifact-art-meta" />
+                </ui:VisualElement>
+                <ui:VisualElement name="enhance-picker-host" class="artifact-picker-host" />
+            </ui:VisualElement>
+            <ui:VisualElement class="artifact-workshop-right">
+                <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" class="artifact-workshop-scroll">
+                    <ui:VisualElement class="artifact-workshop-details">
+                        <ui:VisualElement class="artifact-xp-heading">
+                            <ui:Label name="enhance-level" text="+0 / 20" class="artifact-enhance-level heavy" />
+                            <ui:Label name="enhance-xp-text" class="artifact-eyebrow" />
+                        </ui:VisualElement>
+                        <ui:ProgressBar name="enhance-xp" class="artifact-xp" />
+                        <ui:VisualElement name="enhance-stats" class="artifact-enhance-stats" />
+                        <ui:Label name="enhance-result" tabindex="0" class="artifact-success" />
+                    </ui:VisualElement>
+                </ui:ScrollView>
+                <ui:VisualElement class="artifact-workshop-footer">
+                    <ui:VisualElement class="artifact-material-section">
+                        <ui:Label text="ENHANCEMENT MATERIALS" class="artifact-eyebrow" />
+                        <ui:VisualElement class="artifact-auto-row">
+                            <ui:DropdownField name="enhance-auto-rarity" class="artifact-auto-rarity" />
+                            <ui:Button name="enhance-auto" text="AUTO ADD" class="artifact-button" />
+                        </ui:VisualElement>
+                        <ui:ScrollView mode="Horizontal" vertical-scroller-visibility="Hidden" class="artifact-selected-scroll">
+                            <ui:VisualElement name="enhance-materials" class="artifact-selected-materials" />
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+                    <ui:Label name="enhance-note" class="artifact-small" />
+                    <ui:VisualElement class="artifact-commit-row">
+                        <ui:Label name="enhance-cost" class="artifact-cost" />
+                        <ui:VisualElement class="artifact-action-row">
+                            <ui:Button name="enhance-add" text="＋  MATERIALS" class="artifact-button" />
+                            <ui:Button name="enhance-clear" text="CLEAR" class="artifact-button" />
+                        </ui:VisualElement>
+                        <ui:Button name="enhance-commit" text="ENHANCE  ›" class="artifact-primary" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
