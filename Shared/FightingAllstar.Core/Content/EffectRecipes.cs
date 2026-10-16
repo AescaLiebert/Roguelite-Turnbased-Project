@@ -49,7 +49,7 @@ namespace FightingAllstar.Core.Content
     public enum StatusDurationClock { TargetTurnStart, TargetTurnEnd, SourceTurnEnd, ActionEnd, Permanent }
     public enum StatusTickTiming { None, TargetTurnStart, TargetTurnEnd, WhenTargetTakesDamage }
     public enum StatusSnapshotScaling { Fixed, TriggeringHealthDamage, SourceAttack, TargetMaxHealth }
-    public enum StatusHealScaling { Fixed, SourceAttack, TargetMaxHealth, TurnStartRecovery, TargetMissingHealth }
+    public enum StatusHealScaling { Fixed, SourceAttack, TargetMaxHealth, TurnStartRecovery, TargetMissingHealth, SourceMaxHealth }
     public enum StatusBreakRule { None, OnDamageTaken, OnCardUsed, OnSourceDefeated }
     public enum BarrierSourceStat { Attack, Defense, MaxHealth }
     public enum BarrierDurationPolicy { Refresh, Replace }
@@ -144,6 +144,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class PeriodicDamageDefinition
     {
+        public ElementId Element;
         public DamageFamily Family = DamageFamily.DamageOverTime;
         public StatusTickTiming Timing = StatusTickTiming.TargetTurnEnd;
         public StatusSnapshotScaling Scaling = StatusSnapshotScaling.TriggeringHealthDamage;
@@ -264,6 +265,14 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class StatusRecipeDefinition
     {
+        public int PowerGaugeGainBp;
+        public int EndTurnPowerGaugeLoss;
+        public int PhysicalDamageReceivedBp;
+        public int SourceOnlyDamageReductionBp;
+        public bool SkipApplyingTurnEnd;
+        public TriggeredElementalAttackDefinition NaturalExpiryAttack;
+        public TriggeredElementalAttackDefinition Retaliation;
+        public List<ElementalModifierDefinition> ElementalModifiers = new List<ElementalModifierDefinition>();
         public string Id;
         public string NameKey;
         public StatusPolarity Polarity;
@@ -277,6 +286,7 @@ namespace FightingAllstar.Core.Content
         public int DefaultPotencyBp;
         /// <summary>Shield granted when this Barrier status is applied, as a fraction of its selected source stat.</summary>
         public int BarrierCoefficientBp;
+        public int BarrierMaxHealthCapBp;
         public BarrierSourceStat BarrierSourceStat;
         public BarrierDurationPolicy BarrierDurationPolicy;
         public BarrierAmountPolicy BarrierAmountPolicy;
@@ -327,12 +337,16 @@ namespace FightingAllstar.Core.Content
         public StatusRecipeDefinition Clone()
         {
             var copy = (StatusRecipeDefinition)MemberwiseClone();
+            copy.NaturalExpiryAttack = NaturalExpiryAttack?.IsConfigured == true ? NaturalExpiryAttack.Clone() : null;
+            copy.Retaliation = Retaliation?.IsConfigured == true ? Retaliation.Clone() : null;
+            copy.ElementalModifiers = ElementalModifiers?.ConvertAll(m => m?.Clone()) ?? new List<ElementalModifierDefinition>();
             copy.NormalizePolarity();
             if (copy.Taunt) copy.Behavior |= StatusBehavior.Taunt;
             copy.Tags = Tags == null ? new List<string>() : new List<string>(Tags);
             copy.Modifiers = new List<StatModifierDefinition>();
             if (Modifiers != null) foreach (var modifier in Modifiers) copy.Modifiers.Add(modifier?.Clone());
             copy.PeriodicDamage = PeriodicDamage?.Clone();
+            StandardDotRules.Normalize(copy);
             copy.PeriodicHealing = PeriodicHealing?.Clone();
             copy.CounterConditions = CounterConditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
             copy.CounterEffect = CounterEffect?.Clone();
@@ -380,6 +394,7 @@ namespace FightingAllstar.Core.Content
         public int FixedAmount;
         public int CoefficientBp = 10000;
         public int MaximumAmount = int.MaxValue;
+        public bool IsConfigured => Source != EffectValueSource.Fixed || FixedAmount != 0;
         public EffectValueDefinition Clone() => (EffectValueDefinition)MemberwiseClone();
     }
 
@@ -541,6 +556,7 @@ namespace FightingAllstar.Core.Content
                 {
                     if (status == null || string.IsNullOrWhiteSpace(status.Id)) { errors.Add("Status recipe has no stable id."); continue; }
                     if (!statusIds.Add(status.Id)) errors.Add("Duplicate status recipe id: " + status.Id);
+                    ElementalContentValidator.ValidateModifiers(status.ElementalModifiers, errors);
                     if (status.DurationClock != StatusDurationClock.Permanent && status.DefaultDuration <= 0)
                         errors.Add(status.Id + " requires a positive default duration.");
                     if (status.MaxStacks <= 0) errors.Add(status.Id + " requires a positive max stack count.");

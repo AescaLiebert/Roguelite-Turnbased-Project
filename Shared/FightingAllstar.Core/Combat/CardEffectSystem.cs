@@ -17,6 +17,9 @@ namespace FightingAllstar.Core.Combat
         public bool IsUltimate;
         public bool WasCritical;
         public bool WasBlocked;
+        public int HitIndex;
+        public int HitCount;
+        public bool IsFinalHit;
         public int ActualHealthDamage;
         public int ActualShieldDamage;
         public DamageFamily DamageFamily;

@@ -54,7 +54,8 @@ namespace FightingAllstar.Presentation.Combat
                 var catalog = content.LoadCatalog();
                 var player = ResolveTeam(catalog, playerDefinitionIds, "player");
                 var opponent = ResolveTeam(catalog, opponentDefinitionIds, "opponent");
-                var initial = BattleEngine.Create(matchId, player, playerConstellationTiers, opponent, opponentConstellationTiers, seed);
+                var initial = BattleEngine.Create(matchId, player, playerConstellationTiers, opponent, opponentConstellationTiers, seed,
+                    elementalRules: catalog.ElementalRules);
                 _session = new LocalBattleSession(initial);
                 _snapshot = _session.GetSnapshot();
             }
@@ -138,7 +139,8 @@ namespace FightingAllstar.Presentation.Combat
                 if (fighter.IsReserve) card.AddToClassList("fighter-reserve");
                 card.Add(new Label(fighter.Definition.Id.Replace("fighter.", string.Empty)) { name = "fighter-name" });
                 card.Add(new Label(fighter.IsAlive ? "HP " + fighter.Health + " / " + StatusSystem.GetEffectiveStats(fighter).MaxHealth : "DEFEATED") { name = "fighter-hp" });
-                card.Add(new Label("PG " + fighter.PowerGauge + " / 5") { name = "fighter-pg" });
+                var displayedGauge = fighter.PowerGauge + fighter.PowerGaugeRemainderBp / 10000f;
+                card.Add(new Label("PG " + displayedGauge.ToString("0.##") + " / 5") { name = "fighter-pg" });
                 card.RegisterCallback<ClickEvent>(_ => SelectTarget(fighter, side));
                 container.Add(card);
             }

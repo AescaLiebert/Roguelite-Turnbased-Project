@@ -9,7 +9,7 @@ namespace FightingAllstar.Core.Combat
     public enum TeamSide { Player, Opponent }
     public enum CardKind { Skill, Ultimate }
     public enum BattleEventKind { BattleStarted, TurnStarted, CardDrawn, CardsMerged, CardMoved, CardPlayed, DamageApplied, HealApplied, StatusApplied, StatusRemoved, FighterDefeated, ReserveEntered, TurnEnded, BattleCompleted, ActionFizzled,
-        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted }
+        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted, ElementalReactionTriggered }
 
     [Serializable]
     public sealed class FighterState
@@ -24,10 +24,13 @@ namespace FightingAllstar.Core.Combat
         public int Health;
         public int Shield;
         public int PowerGauge;
+        public int PowerGaugeRemainderBp;
         public bool PowerGaugeDisabled;
         public bool CannotDie;
         public int ConstellationTier;
         public int OwnerTurnsCompleted;
+        // Internal Freeze lockout; never contributes a status, icon, stack, or dispellable buff.
+        public int FreezeRecoveryUntilOwnerTurn;
         public StatusContainer Statuses = new StatusContainer();
         public List<PassiveCounterState> PassiveCounters = new List<PassiveCounterState>();
         public List<PassiveStatContribution> PassiveContributions = new List<PassiveStatContribution>();
@@ -36,8 +39,10 @@ namespace FightingAllstar.Core.Combat
         {
             var copy = new FighterState { Id = Id, Side = Side, Definition = Definition?.Clone(), TeamIndex = TeamIndex,
             FormationSlot = FormationSlot, IsReserve = IsReserve, IsAlive = IsAlive, Health = Health, Shield = Shield,
-            PowerGauge = PowerGauge, PowerGaugeDisabled = PowerGaugeDisabled, CannotDie = CannotDie,
+            PowerGauge = PowerGauge, PowerGaugeRemainderBp = PowerGaugeRemainderBp,
+            PowerGaugeDisabled = PowerGaugeDisabled, CannotDie = CannotDie,
             ConstellationTier = ConstellationTier, OwnerTurnsCompleted = OwnerTurnsCompleted,
+            FreezeRecoveryUntilOwnerTurn = FreezeRecoveryUntilOwnerTurn,
             Statuses = Statuses?.Clone() ?? new StatusContainer() };
             foreach (var counter in PassiveCounters) copy.PassiveCounters.Add(counter.Clone());
             foreach (var contribution in PassiveContributions) copy.PassiveContributions.Add(contribution.Clone());
@@ -65,6 +70,7 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class BattleTeamState
     {
+        public bool ElementalReactionsEnabled;
         public TeamSide Side;
         public long NextCardSequence;
         public int HandCapacity;
@@ -74,7 +80,8 @@ namespace FightingAllstar.Core.Combat
 
         public BattleTeamState Clone()
         {
-            var copy = new BattleTeamState { Side = Side, NextCardSequence = NextCardSequence, HandCapacity = HandCapacity, TrainingDeck = TrainingDeck };
+            var copy = new BattleTeamState { Side = Side, NextCardSequence = NextCardSequence, HandCapacity = HandCapacity, TrainingDeck = TrainingDeck,
+                ElementalReactionsEnabled = ElementalReactionsEnabled };
             foreach (var f in Fighters) copy.Fighters.Add(f.Clone());
             foreach (var c in Hand) copy.Hand.Add(c.Clone());
             return copy;
@@ -93,6 +100,9 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class BattleState
     {
+        // Zero/null loads legacy snapshots with elemental behavior disabled, rather than inferring new rules.
+        public int ElementalSchemaVersion;
+        public ElementalRuleSet ElementalRules;
         public string MatchId;
         public long Revision;
         public int TurnNumber;
@@ -121,7 +131,8 @@ namespace FightingAllstar.Core.Combat
 
         public BattleState Clone()
         {
-            var copy = new BattleState { MatchId = MatchId, Revision = Revision, TurnNumber = TurnNumber, CompletedTurnCount = CompletedTurnCount,
+            var copy = new BattleState { ElementalSchemaVersion = ElementalSchemaVersion, ElementalRules = ElementalRules?.Clone(),
+                MatchId = MatchId, Revision = Revision, TurnNumber = TurnNumber, CompletedTurnCount = CompletedTurnCount,
                 ActingSide = ActingSide, Phase = Phase, ActionBudget = ActionBudget, Execution = Execution?.Clone(), Winner = Winner, IsDraw = IsDraw,
                 Mode = Mode, IsTraining = IsTraining, PassiveEventSequence = PassiveEventSequence,
                 Player = Player.Clone(), Opponent = Opponent.Clone(), RngState = RngState, RngDrawCount = RngDrawCount,
@@ -166,6 +177,13 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class BattleEvent
     {
+        public ElementId DamageElement;
+        public ElementId TriggerElement;
+        public bool ReactionOutputBlocked;
+        public ElementalReactionId ElementalReaction;
+        public ElementalDamageOrigin DamageOrigin;
+        public long ParentEventId;
+        public List<string> ConsumedStatusInstanceIds = new List<string>();
         public int HitIndex;
         public int HitCount;
         public AttackRange AttackRange;
@@ -196,6 +214,8 @@ namespace FightingAllstar.Core.Combat
         public string ConsumedCardId;
         public int DestinationIndex = -1;
         public int PowerGaugeAfter = -1;
+        public int PowerGaugeRemainderAfter = -1;
+        public int GaugeDeltaBp;
         public bool WasCritical;
         public bool WasBlocked;
         public bool WasEndured;
@@ -207,6 +227,7 @@ namespace FightingAllstar.Core.Combat
         public BattleEvent Clone()
         {
             var copy = (BattleEvent)MemberwiseClone();
+            copy.ConsumedStatusInstanceIds = ConsumedStatusInstanceIds == null ? new List<string>() : new List<string>(ConsumedStatusInstanceIds);
             copy.StatusesAfter = StatusesAfter?.ConvertAll(status => status.Clone());
             copy.Card = Card?.Clone();
             copy.Plan = Plan?.Clone();

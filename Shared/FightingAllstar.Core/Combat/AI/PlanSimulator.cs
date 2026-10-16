@@ -9,6 +9,9 @@ namespace FightingAllstar.Core.Combat.AI
     /// </summary>
     public static class PlanSimulator
     {
+        public static ElementalPlanValue EvaluateElemental(CandidatePlan candidate, BattleState observation) =>
+            ElementalPlanEvaluator.Evaluate(candidate, observation);
+
         public static SimulationResult Validate(CandidatePlan candidate, BattleState state)
         {
             var result = new SimulationResult { IsValid = true };

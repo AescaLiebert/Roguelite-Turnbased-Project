@@ -6,13 +6,15 @@ using FightingAllstar.Core.Run;
 
 namespace FightingAllstar.Core.Combat
 {
-    public static class BattleEngine
+    public static partial class BattleEngine
     {
         public const int MaximumCompletedTurns = 40;
         private static readonly List<AttackEffectRecipeDefinition> StandardAttackEffects = StandardEffectDatabase.CreateAttackEffects();
 
         private sealed class ActionResolutionContext
         {
+            public int EventStart;
+            public readonly ElementalActionContext Elemental = new ElementalActionContext();
             public bool RequiresSuccessfulHit;
             public bool HitsResolved;
             public readonly HashSet<string> AttackTargets = new HashSet<string>(StringComparer.Ordinal);
@@ -42,13 +44,15 @@ namespace FightingAllstar.Core.Combat
             IReadOnlyList<int> playerTiers, IReadOnlyList<CharacterDefinition> opponent, IReadOnlyList<int> opponentTiers,
             ulong seed, TeamSide firstSide = TeamSide.Player, IReadOnlyList<RunBoonDefinition> runBoons = null,
             IReadOnlyList<int> playerHealth = null, IReadOnlyList<int> opponentHealth = null,
-            BattleModeMask mode = BattleModeMask.PvE, ulong? cardDrawSeed = null, bool training = false)
+            BattleModeMask mode = BattleModeMask.PvE, ulong? cardDrawSeed = null, bool training = false,
+            ElementalRuleSet elementalRules = null)
         {
             if (string.IsNullOrWhiteSpace(matchId)) throw new ArgumentException("A stable match id is required.", nameof(matchId));
             if (mode != BattleModeMask.PvE && mode != BattleModeMask.PvP) throw new ArgumentOutOfRangeException(nameof(mode));
             var state = new BattleState { MatchId = matchId, Revision = 1, TurnNumber = 1, ActingSide = firstSide, Phase = BattlePhase.Setup, Mode = mode };
             AddTeam(state.Player, player, playerTiers, playerHealth);
             AddTeam(state.Opponent, opponent, opponentTiers, opponentHealth);
+            InitializeElementalRules(state, elementalRules ?? ElementalRuleSet.CreateDefault());
             if (training)
             {
                 if (player.Count != 1 || opponent.Count != 1) throw new ArgumentException("Training requires one fighter on each side.");
@@ -68,6 +72,7 @@ namespace FightingAllstar.Core.Combat
                 if (opponentHealth == null || fighter.TeamIndex >= opponentHealth.Count) fullHealth.Add(fighter.Id);
             CharacterPassiveRuntime.Refresh(state, fullHealth);
             CharacterPassiveRuntime.Notify(state, PassiveEventKind.BattleStarted);
+            ApplySupportOpening(state);
             var secondSide = firstSide == TeamSide.Player ? TeamSide.Opponent : TeamSide.Player;
             var secondTeam = state.Team(secondSide);
             foreach (var fighter in secondTeam.Fighters)
@@ -109,6 +114,15 @@ namespace FightingAllstar.Core.Combat
             next = null;
             error = null;
             if (current == null || plan == null) { error = "Battle or plan is missing."; return false; }
+            if (current.ElementalSchemaVersion != 0 && current.ElementalSchemaVersion != ElementalRuleSet.CurrentSchemaVersion ||
+                current.ElementalSchemaVersion == ElementalRuleSet.CurrentSchemaVersion && current.ElementalRules == null ||
+                current.ElementalSchemaVersion == 0 && current.ElementalRules != null)
+            { error = "Unsupported or incomplete elemental snapshot version."; return false; }
+            var elementalErrors = ElementalContentValidator.Validate(current.ElementalRules);
+            foreach (var elementalTeam in new[] { current.Player, current.Opponent })
+                foreach (var fighter in elementalTeam.Fighters)
+                    elementalErrors.AddRange(ElementalContentValidator.Validate(fighter.Definition, current.ElementalRules));
+            if (elementalErrors.Count > 0) { error = string.Join("; ", elementalErrors); return false; }
             if (current.Phase != BattlePhase.Planning || current.Winner.HasValue || current.IsDraw) { error = "The battle is not accepting a plan."; return false; }
             if (plan.ExpectedRevision != current.Revision) { error = "Battle revision is stale."; return false; }
             if (string.IsNullOrWhiteSpace(plan.RequestId)) { error = "Plan requires an idempotency request id."; return false; }
@@ -147,7 +161,7 @@ namespace FightingAllstar.Core.Combat
             }
             foreach (var queued in execution.Actions)
                 if (queued.State == PlannedActionState.Pending) queued.State = PlannedActionState.Cancelled;
-            if (!work.Winner.HasValue && !work.IsDraw) EndTurn(work, cardRng);
+            if (!work.Winner.HasValue && !work.IsDraw) EndTurn(work, cardRng, rng);
             work.Revision++;
             work.RngState = rng.State;
             work.RngDrawCount = rng.DrawCount;
@@ -201,10 +215,11 @@ namespace FightingAllstar.Core.Combat
                 AddEvent(state, BattleEventKind.CardRemoved, owner.Id, owner.Id, card.Id, 0,
                     "Disabled card discarded.");
                 state.Events[state.Events.Count - 1].Card = card.Clone();
-                if (!owner.PowerGaugeDisabled) owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
-                AddEvent(state, BattleEventKind.PowerGaugeChanged, owner.Id, owner.Id, null, 1,
+                var gained = PowerGaugeRules.GainForAction(owner);
+                AddEvent(state, BattleEventKind.PowerGaugeChanged, owner.Id, owner.Id, null, gained,
                     "Discarding a disabled card.");
                 state.Events[state.Events.Count - 1].PowerGaugeAfter = owner.PowerGauge;
+                state.Events[state.Events.Count - 1].PowerGaugeRemainderAfter = owner.PowerGaugeRemainderBp;
                 var mergedAfterDiscard = new List<BattleEvent>();
                 CardRules.MergeAdjacent(team, null, mergedAfterDiscard);
                 AppendTimeline(state, mergedAfterDiscard);
@@ -216,11 +231,13 @@ namespace FightingAllstar.Core.Combat
             if (targets.Count == 0) { Fizzle(state, action, owner.Id, "No living active target remained."); return true; }
             var target = targets[0];
             var resolution = new ActionResolutionContext {
+                EventStart = state.Events.Count,
                 RequiresSuccessfulHit = effect.Kind == EffectKind.Damage && IsAttack(category) };
             resolution.AttackTargets.UnionWith(targets.ConvertAll(item => item.Id));
+            PrepareSupportAction(state, owner, card, effect, targets, resolution, rng);
             team.Hand.RemoveAt(index);
-            if (card.Kind == CardKind.Ultimate) owner.PowerGauge = 0;
-            else if (!owner.PowerGaugeDisabled) owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
+            if (card.Kind == CardKind.Ultimate) PowerGaugeRules.SpendUltimate(owner);
+            else PowerGaugeRules.GainForAction(owner);
             EmitActionTiming(state, owner, card, CardEffectTiming.BeforeAction);
             ApplyCardEffectSteps(state, rng, owner, target, effect, card.Id, CardEffectTiming.BeforeAction,
                 card.Kind == CardKind.Ultimate, resolution: resolution);
@@ -229,6 +246,7 @@ namespace FightingAllstar.Core.Combat
             state.Events[state.Events.Count - 1].Card = card.Clone();
             foreach (var actionTarget in targets) state.Events[state.Events.Count - 1].TargetIds.Add(actionTarget.Id);
             state.Events[state.Events.Count - 1].PowerGaugeAfter = owner.PowerGauge;
+            state.Events[state.Events.Count - 1].PowerGaugeRemainderAfter = owner.PowerGaugeRemainderBp;
             SetAttackFacts(state.Events[state.Events.Count - 1], effect, IsAttack(category));
             EmitActionTiming(state, owner, card, CardEffectTiming.Damaging);
             foreach (var actionTarget in targets)
@@ -260,6 +278,7 @@ namespace FightingAllstar.Core.Combat
                 return true;
             }
             var pendingDefeats = ResolveDamageHits(state, owner, targets, card, effect, rng, resolution);
+            CharacterPassiveRuntime.ResolveFinalHitDamageReactions(state, card.Id);
             EmitActionTiming(state, owner, card, CardEffectTiming.AfterDamage);
             ResolveDeferredHitEffects(resolution);
             foreach (var actionTarget in targets)
@@ -278,10 +297,12 @@ namespace FightingAllstar.Core.Combat
                     actualHealthDamage: (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)),
                     resolution: resolution);
             }
+            FinishSupportAction(state, owner, card, effect, targets, rng, resolution);
             CharacterPassiveRuntime.ResolveActionDamageReactions(state, card.Id);
             ResolvePendingPassiveEffects(state, card.Id);
             AddEvent(state, BattleEventKind.ActionCompleted, owner.Id, null, card.Id, 0, "Action complete.");
             ApplyPendingDefeats(state, pendingDefeats, card.Id, owner, card);
+            ResolveAuthoredRetaliations(state, owner, targets, card, rng);
             ResolveActionReflect(state, resolution, card.Id);
             ResolveStanceCounters(state, owner, targets, card, rng);
             ResolveActionLifesteal(state, resolution, card.Id);
@@ -352,6 +373,7 @@ namespace FightingAllstar.Core.Combat
                         foreach (var target in targets)
                             ApplyCardUtilityEffectSingle(state, rng, defender, target, effect, counter.Id, false);
                     }
+                    CharacterPassiveRuntime.ResolveFinalHitDamageReactions(state, counter.Id);
                     EmitActionTiming(state, defender, counter, CardEffectTiming.AfterDamage);
                     ResolveDeferredHitEffects(resolution);
                     foreach (var target in targets)
@@ -444,6 +466,7 @@ namespace FightingAllstar.Core.Combat
                         target == targets[0], resolution, hitIndex, hitCount) && !pendingDefeats.Contains(target))
                         pendingDefeats.Add(target);
                 }
+                CommitElementalHitBatch(state, owner, card, resolution, rng, pendingDefeats);
             }
             return pendingDefeats;
         }
@@ -463,6 +486,7 @@ namespace FightingAllstar.Core.Combat
                 RemoveStances(state, owner, target, card.Id);
             // Recompute after dispels; removed stance defenses must not survive in cached stats.
             calculation = AttackEffectSystem.Prepare(attackEffect, state, owner, target, effect.Family, card);
+            ApplySupportHit(state, owner, target, effect, resolution, calculation);
             if (target.Statuses.Instances.Exists(s => s.Recipe?.EvadeAttacks == true))
             {
                 AddEvent(state, BattleEventKind.AttackEvaded, owner.Id, target.Id, card.Id, 0, "Evade");
@@ -489,6 +513,7 @@ namespace FightingAllstar.Core.Combat
                 _ => effect.Magnitude
             };
             if (effect.Scaling == StatScaling.Fixed) baseAmount = effect.Magnitude;
+            var freezeBroken = StatusSystem.BreakFreezeOnAttack(target);
             var keywordFactor = (int)Math.Min(int.MaxValue,
                 (long)Math.Max(0, effect.KeywordFactorBp) * Math.Max(0, calculation.KeywordFactorBp) / 10000);
             var packet = new DamagePacket { BaseAmount = baseAmount, CoefficientBp = effect.CoefficientBp,
@@ -502,6 +527,10 @@ namespace FightingAllstar.Core.Combat
                 if (calculation.Policy.CannotCrit || critRoll >= critChance) blockRoll = rng.NextBasisPoints();
             }
             var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
+            var elementalContact = PrepareElementalContact(state, owner, target, card, effect, resolution, packet,
+                attacker, defender, rng, critRoll, blockRoll, hitIndex, damage);
+            if (effect.DamageElement != ElementId.None || effect.ElementalApplication != null)
+                damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
             var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
@@ -515,12 +544,24 @@ namespace FightingAllstar.Core.Combat
             state.Events[state.Events.Count - 1].Affinity = AttributeRules.GetAffinity(owner.Definition?.AttributeId, target.Definition?.AttributeId);
             state.Events[state.Events.Count - 1].ShieldLost = damage.ShieldLost;
             state.Events[state.Events.Count - 1].HealthLost = target.CannotDie ? 0 : damage.HealthLost;
-            if (barrierBroken)
+            if (barrierBroken || freezeBroken)
                 state.Events[state.Events.Count - 1].StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             state.Events[state.Events.Count - 1].HitIndex = hitIndex;
             state.Events[state.Events.Count - 1].HitCount = hitCount;
             state.Events[state.Events.Count - 1].AttackRange = effect.Attack?.Range ?? AttackRange.Close;
             var hitEvent = state.Events[state.Events.Count - 1];
+            hitEvent.DamageOrigin = ElementalDamageOrigin.Card;
+            hitEvent.DamageElement = effect.DamageElement;
+            if (effect.DamageElement != ElementId.None) hitEvent.RootActionId = card.Id;
+            if (elementalContact != null)
+            {
+                hitEvent.RootActionId = card.Id;
+                hitEvent.ElementalReaction = elementalContact.Decision?.Reaction.Id ?? ElementalReactionId.None;
+                elementalContact.ParentEventId = hitEvent.Id;
+                elementalContact.HealthDamage = target.CannotDie ? 0 : damage.HealthLost;
+                elementalContact.ShieldDamage = damage.ShieldLost;
+                resolution.Elemental.Pending.Add(elementalContact);
+            }
             hitEvent.HasHitReaction = true;
             var inStance = HitReactionRules.IsInStance(target);
             hitEvent.Reaction = HitReactionRules.Resolve(effect.Attack, inStance, hitIndex, hitCount,
@@ -638,6 +679,9 @@ namespace FightingAllstar.Core.Combat
                 if (!includeGroupEffects && (step.Effect.Target == EffectTargetScope.AllAllies ||
                     step.Effect.Target == EffectTargetScope.Self || step.Effect.Target == EffectTargetScope.AllEnemies)) continue;
                 var resolvedEffect = step.Effect.ToEffectDefinition();
+                // Explicit contact riders are resolved/cached at their authored hit, never replayed after consumption.
+                if (rootEffect.ElementalApplication?.StatusEffectId == step.Effect.Id &&
+                    !string.IsNullOrWhiteSpace(step.Effect.Id)) continue;
                 var batch = string.IsNullOrWhiteSpace(step.BatchId) ? null :
                     rootEffect.Batches?.Find(item => item?.Id == step.BatchId);
                 if (!string.IsNullOrWhiteSpace(step.BatchId) && batch == null) continue;
@@ -651,7 +695,11 @@ namespace FightingAllstar.Core.Combat
                     // still need their own successful hit, including each target of an area attack.
                     var hitTarget = effectTarget.Side != owner.Side &&
                         resolution?.AttackTargets.Contains(effectTarget.Id) == true ? effectTarget : target;
+                    // An authored BeforeAction step must take effect before this attack is
+                    // calculated. Hit-gating it would defer a defense debuff until after
+                    // all hits, silently overriding its configured timing.
                     var requiresHit = resolution?.RequiresSuccessfulHit == true &&
+                        timing != CardEffectTiming.BeforeAction &&
                         (IsHarmfulEffect(resolvedEffect) && effectTarget.Side != owner.Side || hostileBatch);
                     void ApplyStep()
                     {
@@ -710,7 +758,8 @@ namespace FightingAllstar.Core.Combat
                 var item = state.Events[i];
                 if (item.CardId != cardId) continue;
                 if (item.Kind == BattleEventKind.CardPlayed || item.Kind == BattleEventKind.CounterStarted) break;
-                if (item.Kind == BattleEventKind.DamageApplied && item.TargetId == targetId)
+                if (item.Kind == BattleEventKind.DamageApplied && item.TargetId == targetId &&
+                    item.DamageOrigin != ElementalDamageOrigin.Reaction)
                     total += Math.Max(0, item.HealthLost);
             }
             return (int)Math.Min(int.MaxValue, total);
@@ -748,7 +797,7 @@ namespace FightingAllstar.Core.Combat
 
         private static void ApplyCardUtilityEffectSingle(BattleState state, DeterministicRandom rng, FighterState owner, FighterState effectTarget,
             EffectDefinition effect, string cardId, bool isUltimate, int triggeringDamage = 0, int actualHealthDamage = 0,
-            bool skipApplyChance = false)
+            bool skipApplyChance = false, int? contactSnapshotDamage = null)
         {
             if (effectTarget == null || !effectTarget.IsAlive || effectTarget.Health <= 0) return;
             if (!EffectConditionsPass(state, owner, effectTarget, effect, cardId, isUltimate)) return;
@@ -774,7 +823,8 @@ namespace FightingAllstar.Core.Combat
                             : StatusDurationClock.TargetTurnEnd;
                     }
                     var targetHealthDamage = CardHealthDamageTotal(state, cardId, effectTarget.Id);
-                    var resolvedTriggeringDamage = targetHealthDamage > 0 ? targetHealthDamage : Math.Max(0, triggeringDamage);
+                    var resolvedTriggeringDamage = contactSnapshotDamage ??
+                        (targetHealthDamage > 0 ? targetHealthDamage : Math.Max(0, triggeringDamage));
                     var snapshot = new StatusSnapshot
                     {
                         SourceAttack = ownerStats.Attack,
@@ -801,12 +851,13 @@ namespace FightingAllstar.Core.Combat
                         (applyChanceBp <= 0 || rng == null || rng.NextBasisPoints() >= applyChanceBp))
                         break;
 
+                    var shieldBeforeStatus = effectTarget.Shield;
                     var applyResult = appliedRecipe != null
                         ? StatusSystem.Apply(effectTarget, owner?.Id, owner?.Side ?? TeamSide.Player, appliedRecipe, statusInstanceId,
                             cardId, state.Events.Count + 1, snapshot: snapshot, potencyBp: effect.StatusPotencyBp,
                             stackCount: Math.Max(1, effect.StatusStackCount),
                             duration: effect.StatusDurationOverride,
-                            skipNextDurationClock: (effect.StatusRecipe.Behavior & StatusBehavior.Stance) != 0 &&
+                            skipNextDurationClock: (appliedRecipe.SkipApplyingTurnEnd || (effect.StatusRecipe.Behavior & StatusBehavior.Stance) != 0) &&
                                 effect.StatusRecipe.DurationClock == StatusDurationClock.TargetTurnEnd && effectTarget.Side == state.ActingSide)
                         : null;
                     if (applyResult != null && applyResult.Accepted)
@@ -820,7 +871,7 @@ namespace FightingAllstar.Core.Combat
                         statusEvt.StatusRecipeId = recipeId;
                         statusEvt.StatusOutcome = applyResult.Outcome;
                         statusEvt.StatusesAfter = effectTarget.Statuses.Instances.ConvertAll(s => s.Clone());
-                        if (barrier != 0)
+                        if (barrier != 0 || shieldBeforeStatus != effectTarget.Shield)
                         {
                             statusEvt.ShieldAfter = effectTarget.Shield;
                             statusEvt.ShieldChanged = true;
@@ -923,7 +974,10 @@ namespace FightingAllstar.Core.Combat
         {
             if (state == null || effectOwner == null || triggerContext == null || operation == null) return;
             rootActionId = rootActionId ?? triggerContext.RootActionId;
-            if (operation.Window == CardEffectWindow.AfterAction && !string.IsNullOrEmpty(rootActionId))
+            var isAdditionalDamageOnFinalHit = operation.Kind == CardEffectOperationKind.Damage &&
+                operation.Damage?.Family == DamageFamily.Additional && triggerContext.IsFinalHit;
+            if (operation.Window == CardEffectWindow.AfterAction && !isAdditionalDamageOnFinalHit &&
+                !string.IsNullOrEmpty(rootActionId))
             {
                 if (state.PendingPassiveEffects == null) state.PendingPassiveEffects = new List<PendingPassiveEffect>();
                 var pending = new PendingPassiveEffect {
@@ -1005,7 +1059,8 @@ namespace FightingAllstar.Core.Combat
                         ApplyPassiveStatTransfer(state, effectOwner, target, item.Operation.StatTransfer, rootActionId);
                         continue;
                     case CardEffectOperationKind.Damage:
-                        ApplyPassiveDamageOperation(state, effectOwner, target, item.Operation.Damage, rootActionId);
+                        ApplyPassiveDamageOperation(state, effectOwner, target, item.Operation.Damage, rootActionId,
+                            triggerContext.HitIndex, triggerContext.HitCount);
                         continue;
                     case CardEffectOperationKind.ApplyStatus:
                         effect.Kind = EffectKind.ApplyStatus;
@@ -1089,6 +1144,7 @@ namespace FightingAllstar.Core.Combat
             FighterState target, StatusRecipeDefinition recipe, int duration, string rootActionId)
         {
             var instanceId = state.MatchId + ":status:" + (state.Events.Count + 1);
+            var shieldBefore = target.Shield;
             var result = StatusSystem.Apply(target, source.Id, source.Side, recipe, instanceId,
                 rootActionId, state.Events.Count + 1, duration: duration);
             if (!result.Accepted)
@@ -1111,11 +1167,12 @@ namespace FightingAllstar.Core.Combat
             statusEvent.StatusRecipeId = recipe.Id;
             statusEvent.StatusOutcome = result.Outcome;
             statusEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(status => status.Clone());
+            if (target.Shield != shieldBefore) { statusEvent.ShieldAfter = target.Shield; statusEvent.ShieldChanged = true; }
             return result;
         }
 
         private static void ApplyPassiveDamageOperation(BattleState state, FighterState source,
-            FighterState target, DamageEffectRecipe recipe, string rootActionId)
+            FighterState target, DamageEffectRecipe recipe, string rootActionId, int hitIndex = 0, int hitCount = 0)
         {
             if (state == null || source == null || target == null || recipe == null ||
                 !source.IsAlive) return;
@@ -1125,17 +1182,23 @@ namespace FightingAllstar.Core.Combat
             var defender = calculation.Defender;
             var packet = CardEffectSystem.CreateDamagePacket(recipe, calculation);
             var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, -1, -1);
+            var freezeBroken = StatusSystem.BreakFreezeOnAttack(target);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
             var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
             AddEvent(state, BattleEventKind.DamageApplied, source.Id, target.Id, rootActionId,
                 damage.CalculatedDamage, "Passive additional damage.");
             var damageEvent = state.Events[state.Events.Count - 1];
+            if (hitIndex > 0 && hitCount > 0)
+            {
+                damageEvent.HitIndex = hitIndex;
+                damageEvent.HitCount = hitCount;
+            }
             damageEvent.HealthAfter = target.Health;
             damageEvent.ShieldAfter = target.Shield;
             damageEvent.ShieldLost = damage.ShieldLost;
             damageEvent.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
-            if (barrierBroken)
+            if (barrierBroken || freezeBroken)
                 damageEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             damageEvent.WasEndured = damage.WasEndured;
             damageEvent.Affinity = AttributeRules.GetAffinity(source.Definition?.AttributeId,
@@ -1224,10 +1287,10 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static void EmitStatusRemoval(BattleState state, FighterState owner, FighterState target,
-            StatusPolarity polarity, bool removeAll, string cardId)
+            StatusPolarity polarity, bool removeAll, string cardId, string recipeId = null)
         {
             var previous = new List<StatusInstance>(target.Statuses.Instances);
-            var removed = StatusSystem.Remove(target, polarity, removeAll);
+            var removed = StatusSystem.Remove(target, polarity, removeAll, recipeId);
             var removedBarrierShield = RemoveExpiredBarrierShield(target, previous);
             if (removed > 0) AddEvent(state, BattleEventKind.StatusRemoved, owner.Id, target.Id, cardId, removed,
                 polarity == StatusPolarity.Buff ? "Buffs removed." : "Debuffs cleansed.");
@@ -1255,6 +1318,9 @@ namespace FightingAllstar.Core.Combat
             var nextCapacity = recipe.BarrierAmountPolicy == BarrierAmountPolicy.Accumulate
                 ? (int)Math.Min(int.MaxValue, (long)currentCapacity + amount)
                 : amount;
+            if (recipe.BarrierMaxHealthCapBp > 0)
+                nextCapacity = (int)Math.Min(nextCapacity,
+                    (long)StatusSystem.GetEffectiveStats(target).MaxHealth * recipe.BarrierMaxHealthCapBp / 10000);
             target.Shield = (int)Math.Min(int.MaxValue,
                 Math.Max(0L, (long)previousShield - currentCapacity) + nextCapacity);
             instance.ShieldRemaining = nextCapacity;
@@ -1317,6 +1383,7 @@ namespace FightingAllstar.Core.Combat
                 AddEvent(state, BattleEventKind.DamageApplied, reflector.Id, source.Id, rootActionId, reflected,
                     "Reflected damage.");
                 var evt = state.Events[state.Events.Count - 1];
+                evt.DamageOrigin = ElementalDamageOrigin.Reflection;
                 evt.HealthAfter = source.Health;
                 evt.ShieldAfter = source.Shield;
                 evt.ShieldLost = shieldLost;
@@ -1500,7 +1567,8 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static void AdvanceStatuses(BattleState state, FighterState fighter, StatusDurationClock clock,
-            string source = null, Dictionary<string, int> previousMaxHealthOverrides = null)
+            string source = null, Dictionary<string, int> previousMaxHealthOverrides = null,
+            List<StatusInstance> naturalExpiryAttacks = null)
         {
             if (fighter?.Statuses == null) return;
             var advances = fighter.Statuses.Instances.Exists(s => s.Recipe?.DurationClock == clock &&
@@ -1508,6 +1576,8 @@ namespace FightingAllstar.Core.Combat
             if (advances && previousMaxHealthOverrides != null && !previousMaxHealthOverrides.ContainsKey(fighter.Id))
                 previousMaxHealthOverrides.Add(fighter.Id, StatusSystem.GetEffectiveStats(fighter).MaxHealth);
             var expired = fighter.Statuses.Advance(clock, source);
+            foreach (var status in expired)
+                if (status?.Recipe?.NaturalExpiryAttack != null) naturalExpiryAttacks?.Add(status);
             if (!advances) return;
             var expiredBarrierShield = 0L;
             foreach (var status in expired)
@@ -1566,6 +1636,7 @@ namespace FightingAllstar.Core.Combat
                 var basis = healing.Scaling switch
                 {
                     StatusHealScaling.SourceAttack => source == null ? 0 : StatusSystem.GetEffectiveStats(source).Attack,
+                    StatusHealScaling.SourceMaxHealth => status.Snapshot?.SourceMaxHealth ?? 0,
                     StatusHealScaling.TargetMaxHealth => targetStats.MaxHealth,
                     StatusHealScaling.TurnStartRecovery => turnStartRecovery,
                     StatusHealScaling.TargetMissingHealth => Math.Max(0, targetStats.MaxHealth - target.Health),
@@ -1580,7 +1651,7 @@ namespace FightingAllstar.Core.Combat
             }
         }
 
-        private static void EndTurn(BattleState state, DeterministicRandom cardRng)
+        private static void EndTurn(BattleState state, DeterministicRandom cardRng, DeterministicRandom rng)
         {
             state.Phase = BattlePhase.TurnEnd;
             var actingTeam = state.Team(state.ActingSide);
@@ -1596,20 +1667,28 @@ namespace FightingAllstar.Core.Combat
                 return;
             }
             CharacterPassiveRuntime.Notify(state, PassiveEventKind.TeamTurnEnded);
+            var naturalExpiryAttacks = new List<StatusInstance>();
             var previousMaxHealth = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (var fighter in actingTeam.Fighters)
                 if (fighter != null && fighter.IsAlive)
                 {
                     fighter.OwnerTurnsCompleted++;
-                    AdvanceStatuses(state, fighter, StatusDurationClock.TargetTurnEnd, null, previousMaxHealth);
+                    AdvanceStatuses(state, fighter, StatusDurationClock.TargetTurnEnd, null, previousMaxHealth, naturalExpiryAttacks);
                 }
             foreach (var source in actingTeam.Fighters)
             {
                 if (source == null) continue;
                 foreach (var target in state.Player.Fighters)
-                    AdvanceStatuses(state, target, StatusDurationClock.SourceTurnEnd, source.Id, previousMaxHealth);
+                    AdvanceStatuses(state, target, StatusDurationClock.SourceTurnEnd, source.Id, previousMaxHealth, naturalExpiryAttacks);
                 foreach (var target in state.Opponent.Fighters)
-                    AdvanceStatuses(state, target, StatusDurationClock.SourceTurnEnd, source.Id, previousMaxHealth);
+                    AdvanceStatuses(state, target, StatusDurationClock.SourceTurnEnd, source.Id, previousMaxHealth, naturalExpiryAttacks);
+            }
+            ResolveNaturalExpiryAttacks(state, naturalExpiryAttacks, rng);
+            CheckOutcome(state);
+            if (state.Winner.HasValue || state.IsDraw)
+            {
+                AddEvent(state, BattleEventKind.StatusResolutionEnded, state.ActingSide.ToString(), null, null, 0, "Statuses settled.");
+                return;
             }
             CharacterPassiveRuntime.Refresh(state, previousMaxHealthOverrides: previousMaxHealth);
             AddEvent(state, BattleEventKind.StatusResolutionEnded, state.ActingSide.ToString(), null, null, 0, "Turn-end statuses settled.");
@@ -1645,6 +1724,12 @@ namespace FightingAllstar.Core.Combat
         private static void ApplyStatusTicks(BattleState state, BattleTeamState team, StatusTickTiming timing)
         {
             if (team?.Fighters == null) return;
+            if (timing == StatusTickTiming.TargetTurnEnd)
+                foreach (var target in team.LivingActive())
+                    foreach (var status in target.Statuses.Instances)
+                        if (status?.Recipe?.EndTurnPowerGaugeLoss > 0)
+                            CharacterPassiveRuntime.ChangePowerGauge(state, FindFighter(state, status.SourceFighterId), target,
+                                -status.Recipe.EndTurnPowerGaugeLoss, status.RootActionId);
             var allTicks = new List<(FighterState target, StatusTick tick)>();
             foreach (var target in team.Fighters)
             {
@@ -1654,6 +1739,7 @@ namespace FightingAllstar.Core.Combat
             }
 
             var defeatedFromTicks = new List<(FighterState target, StatusTick tick)>();
+            var ownedTickDamage = new Dictionary<string, long>(StringComparer.Ordinal);
             foreach (var (target, tick) in allTicks)
             {
                 if (!target.IsAlive) continue;
@@ -1663,6 +1749,8 @@ namespace FightingAllstar.Core.Combat
                 var policy = StatusSystem.BuildDamagePolicy(source, target, tick.Family);
                 policy.CannotCrit = true;
                 policy.CannotBlock = true;
+                if (tick.Family == DamageFamily.ElementalReaction) policy.DamageCap = state.ElementalRules?.ReactionDamageCap ?? int.MaxValue;
+                ElementalReactionRules.ApplyElementPolicy(policy, tick.Element, source, target, state.ElementalRules);
                 var damage = DamageResolver.Resolve(new DamagePacket { BaseAmount = tick.Amount, Policy = policy },
                     attacker, defender, target.Health, target.Shield, -1, -1);
                 if (!target.CannotDie) target.Health = damage.RemainingHealth;
@@ -1674,12 +1762,15 @@ namespace FightingAllstar.Core.Combat
                 AddEvent(state, BattleEventKind.DamageApplied, tick.SourceFighterId, target.Id, null,
                     damage.CalculatedDamage, "Status tick: " + tick.RecipeId);
                 var battleEvent = state.Events[state.Events.Count - 1];
+                battleEvent.DamageOrigin = ElementalDamageOrigin.DamageOverTime;
+                battleEvent.DamageElement = tick.Element;
                 battleEvent.StatusInstanceId = tick.StatusInstanceId;
                 battleEvent.StatusRecipeId = tick.RecipeId;
                 battleEvent.HealthAfter = target.Health;
                 battleEvent.ShieldAfter = target.Shield;
                 battleEvent.ShieldLost = damage.ShieldLost;
                 battleEvent.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
+                if (source != null) ownedTickDamage[source.Id] = ownedTickDamage.GetValueOrDefault(source.Id) + battleEvent.HealthLost;
                 if (barrierBroken)
                     battleEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
                 battleEvent.WasEndured = damage.WasEndured;
@@ -1701,6 +1792,11 @@ namespace FightingAllstar.Core.Combat
             foreach (var (target, tick) in defeatedFromTicks)
             {
                 DefeatFromStatus(state, target, tick);
+            }
+            foreach (var pair in ownedTickDamage)
+            {
+                var source = FindFighter(state, pair.Key);
+                if (source != null) HealLowestAllyFromDamage(state, source, pair.Value, null);
             }
         }
 

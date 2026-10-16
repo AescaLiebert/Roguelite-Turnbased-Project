@@ -86,10 +86,14 @@ public sealed class MultiHitVisualRunner : MonoBehaviour
             var targets = preset.Area ? new[] { "target", "left", "right" } : new[] { "target" };
             yield return _stage.BeginExecution("attacker", "target", 1, false);
             yield return _stage.BeginDamageAttack("attacker", targets, preset.Hits, preset.Range, preset.Area);
+            var selectedHits = (int)typeof(BattleStagePresenter).GetField("_templateHits", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(_stage);
+            Require(selectedHits == preset.Hits, "Animation ignored its configured hit count: " + preset.Name);
             Require((preset.Range == AttackRange.Long) == (Vector3.Distance(home, _views["attacker"].transform.position) < .01f), "Wrong range travel: " + preset.Name);
             for (var hit = 1; hit <= preset.Hits; hit++)
             {
                 yield return _stage.DamageHit(hit, targets);
+                var presentedHit = (int)typeof(BattleStagePresenter).GetField("_templateHit", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(_stage);
+                Require(presentedHit == hit, "Animation skipped hit " + hit + ": " + preset.Name);
                 foreach (var id in targets)
                 {
                     var point = _camera.WorldToViewportPoint(_views[id].transform.position + Vector3.up);

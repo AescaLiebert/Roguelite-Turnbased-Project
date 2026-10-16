@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FightingAllstar.Core.Content
 {
-    public enum DamageFamily { Normal, True, Additional, DamageOverTime, Destructive }
+    public enum DamageFamily { Normal, True, Additional, DamageOverTime, Destructive, ElementalReaction }
     public enum StatScaling { Attack, Defense, MaxHealth, Fixed, SpecificStat }
     public enum SourceProvenance { Supplied, Derived, Proposal, GeneratedStartingValue }
     public enum StatId
@@ -67,7 +67,13 @@ namespace FightingAllstar.Core.Content
         public int AvoidanceBp = 10000; // Divides debuff application chance; 10000 is neutral.
         public int ReflectDamageBp;
 
-        public StatBlock Clone() => (StatBlock)MemberwiseClone();
+        public List<ElementalModifierDefinition> ElementalModifiers = new List<ElementalModifierDefinition>();
+        public StatBlock Clone()
+        {
+            var copy = (StatBlock)MemberwiseClone();
+            copy.ElementalModifiers = ElementalModifiers?.ConvertAll(m => m?.Clone()) ?? new List<ElementalModifierDefinition>();
+            return copy;
+        }
 
         public int Get(StatId stat)
         {
@@ -129,6 +135,13 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class DamagePolicy
     {
+        public int PhysicalReceivedIncreaseBp;
+        public int ExplosionFactorBp = 10000;
+        public ElementId Element;
+        public int ElementFactorBp = 10000;
+        public int ElementResistanceFactorBp = 10000;
+        public int DotBridgeFactorBp = 10000;
+        public int AmplificationBp = 10000;
         public DamageFamily Family;
         public int OutgoingIncreaseBp;
         public int NonCriticalOutgoingIncreaseBp;
@@ -190,6 +203,12 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public class EffectOperationDefinition
     {
+        public bool Explosion;
+        public string ConsumeTargetRecipeId;
+        public int DamagePerConsumedStackBp;
+        public int OnKillSelfHealMaxHealthBp;
+        public ElementId DamageElement;
+        public ElementalApplicationDefinition ElementalApplication;
         public DamageAttackDefinition Attack = new DamageAttackDefinition();
         public int DamageHitCount => Kind == EffectKind.Damage ? Attack?.ResolvedHitCount ?? 1 : 1;
         public string Id;
@@ -216,6 +235,12 @@ namespace FightingAllstar.Core.Content
 
         internal void CopyOperationTo(EffectOperationDefinition copy)
         {
+            copy.Explosion = Explosion;
+            copy.ConsumeTargetRecipeId = ConsumeTargetRecipeId;
+            copy.DamagePerConsumedStackBp = DamagePerConsumedStackBp;
+            copy.OnKillSelfHealMaxHealthBp = OnKillSelfHealMaxHealthBp;
+            copy.DamageElement = DamageElement;
+            copy.ElementalApplication = ElementalApplication?.IsConfigured == true ? ElementalApplication.Clone() : null;
             copy.Attack = Attack?.Clone() ?? new DamageAttackDefinition();
             copy.Id = Id;
             copy.Kind = Kind;
@@ -232,7 +257,7 @@ namespace FightingAllstar.Core.Content
             copy.StatusStackCount = StatusStackCount;
             copy.StatusPotencyBp = StatusPotencyBp;
             copy.StatusApplyChanceBp = StatusApplyChanceBp;
-            copy.HealValue = HealValue?.Clone();
+            copy.HealValue = HealValue?.IsConfigured == true ? HealValue.Clone() : null;
             copy.HealScalingStat = HealScalingStat;
             copy.HealCoefficientBp = HealCoefficientBp;
             copy.PowerGaugeAmount = PowerGaugeAmount;
@@ -397,13 +422,14 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class PassiveDefinition
     {
+        public CombatSupportDefinition Support;
         public string Id;
         public List<PassiveAuraDefinition> Auras = new List<PassiveAuraDefinition>();
         public List<PassiveReactionDefinition> Reactions = new List<PassiveReactionDefinition>();
         public List<PassiveTriggerDefinition> Triggers = new List<PassiveTriggerDefinition>();
         public PassiveDefinition Clone()
         {
-            var copy = new PassiveDefinition { Id = Id };
+            var copy = new PassiveDefinition { Id = Id, Support = Support?.IsConfigured == true ? Support.Clone() : null };
             if (Auras != null) foreach (var aura in Auras) copy.Auras.Add(aura?.Clone());
             if (Reactions != null) foreach (var reaction in Reactions) copy.Reactions.Add(reaction?.Clone());
             if (Triggers != null) foreach (var trigger in Triggers) copy.Triggers.Add(trigger == null ? null : trigger.Clone());
@@ -544,6 +570,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class ContentCatalog
     {
+        public ElementalRuleSet ElementalRules;
         public int SchemaVersion = 1;
         public string ContentVersion;
         public string ContentHash;
@@ -560,6 +587,7 @@ namespace FightingAllstar.Core.Content
             var errors = new List<string>();
             if (catalog == null) { errors.Add("Catalog is missing."); return errors; }
             if (catalog.SchemaVersion != 1) errors.Add("Unsupported catalog schema version.");
+            errors.AddRange(ElementalContentValidator.Validate(catalog.ElementalRules, catalog.StatusRecipes));
             errors.AddRange(EffectRecipeValidator.Validate(catalog.StatusRecipes, catalog.CardEffectRecipes,
                 catalog.AttackEffectRecipes));
             var ids = new HashSet<string>(StringComparer.Ordinal);
@@ -568,6 +596,7 @@ namespace FightingAllstar.Core.Content
             {
                 if (fighter == null) { errors.Add("Catalog contains a null character."); continue; }
                 errors.AddRange(PassiveRuleValidator.Validate(fighter.Passive));
+                errors.AddRange(ElementalContentValidator.Validate(fighter, catalog.ElementalRules));
                 if (string.IsNullOrWhiteSpace(fighter.Id)) errors.Add("Character has no stable definition id.");
                 else if (!ids.Add(fighter.Id)) errors.Add("Duplicate character id: " + fighter.Id);
                 if (string.IsNullOrWhiteSpace(fighter.SourceId)) errors.Add(fighter.Id + " has no source id.");

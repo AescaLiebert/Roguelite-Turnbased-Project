@@ -52,7 +52,8 @@ namespace FightingAllstar.Presentation.Combat
             foreach (var item in impacts)
             {
                 if (item == null || string.IsNullOrEmpty(item.TargetId)) continue;
-                if (!facts.TryGetValue(item.TargetId, out var existing) || item.WasStanceCancelled || !existing.WasStanceCancelled)
+                if (!facts.TryGetValue(item.TargetId, out var existing) || item.WasStanceCancelled ||
+                    !existing.WasStanceCancelled && (item.HasHitReaction || !existing.HasHitReaction))
                     facts[item.TargetId] = item;
             }
             var entries = new List<ReactionPose>();

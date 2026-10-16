@@ -111,7 +111,7 @@ namespace FightingAllstar.Presentation.Combat
             }
             else
             {
-                if (!_paralyzed) RestorePose();
+                if (!_paralyzed && !_frozen) RestorePose();
                 else if (_stunBoolCaptured)
                 { _animator.SetBool(StunnedParameter, _stunBoolBefore); _stunBoolCaptured = false; }
                 if (_stunRoot != null) _stunRoot.gameObject.SetActive(false);
@@ -125,6 +125,8 @@ namespace FightingAllstar.Presentation.Combat
             if (hidden) RestorePose(false);
             if (_stunRoot != null) _stunRoot.gameObject.SetActive(_stunned && !hidden);
             foreach (var effect in _debuffs.Values) effect.SetHidden(hidden);
+            foreach (var effect in _cryo.Values) effect.SetHidden(hidden);
+            UpdateFrozenAnimator();
         }
 
         public void Flinch()
@@ -133,7 +135,7 @@ namespace FightingAllstar.Presentation.Combat
             _flinchStarted = Time.unscaledTime;
             if (_animator != null && _animator.runtimeAnimatorController != null)
                 foreach (var parameter in _animator.parameters)
-                    if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name == (_stunned ? "StunFlinch" : "ParalyzeFlinch"))
+                    if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name == (_frozen ? "FreezeFlinch" : _stunned ? "StunFlinch" : "ParalyzeFlinch"))
                     { _animator.SetTrigger(parameter.nameHash); break; }
         }
 
@@ -216,6 +218,7 @@ namespace FightingAllstar.Presentation.Combat
         public void SamplePreview(float elapsed, Camera camera)
         {
             foreach (var effect in _debuffs.Values) effect.SamplePreview(elapsed);
+            foreach (var effect in _cryo.Values) effect.SamplePreview(elapsed);
             _detonation?.SamplePreview(elapsed);
             Evaluate(Time.unscaledTime + elapsed, camera);
         }
@@ -329,6 +332,7 @@ namespace FightingAllstar.Presentation.Combat
             foreach (var burst in _bursts.Values) { burst.Active = false; if (burst.Root != null) burst.Root.gameObject.SetActive(false); }
             _flinchStarted = -100f;
             foreach (var effect in _debuffs.Values) effect.ClearEnter();
+            foreach (var effect in _cryo.Values) effect.ClearEnter();
             if (!preserveImpact) _detonation?.SetActive(false);
         }
 
@@ -346,6 +350,7 @@ namespace FightingAllstar.Presentation.Combat
             if (_stunRoot != null) ActorVisualEffectGeometry.Release(_stunRoot.gameObject);
             _geometry?.Dispose();
             foreach (var effect in _debuffs.Values) effect.Dispose();
+            foreach (var effect in _cryo.Values) effect.Dispose();
             _detonation?.Dispose();
             if (_ownsSettings) ActorVisualEffectGeometry.Release(_settings);
         }

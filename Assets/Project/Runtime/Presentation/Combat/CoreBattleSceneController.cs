@@ -214,12 +214,12 @@ namespace FightingAllstar.Presentation.Combat
             _fighterViews.Clear();
             _fighterGroundOffsets.Clear();
             _fighterBillboards.Clear();
-            SpawnTeamViews(state.Player, "Hero", encounter?.PlayerTeam, false);
-            SpawnTeamViews(state.Opponent, "Enemy", encounter?.EnemyTeam, true);
+            SpawnTeamViews(state.Player, "Hero", encounter?.PlayerTeam, isPlayerTeam: true);
+            SpawnTeamViews(state.Opponent, "Enemy", encounter?.EnemyTeam, isPlayerTeam: false);
         }
 
         private void SpawnTeamViews(BattleTeamState team, string anchorPrefix,
-            IReadOnlyList<EncounterFighterSnapshot> encounterTeam, bool useEncounterLevel)
+            IReadOnlyList<EncounterFighterSnapshot> encounterTeam, bool isPlayerTeam)
         {
             foreach (var fighter in team.Fighters)
             {
@@ -242,7 +242,7 @@ namespace FightingAllstar.Presentation.Combat
                 WireOpponentTarget(view, fighter.Id);
                 if (fighter.IsReserve) view.SetActive(false);
                 _fighterViews[fighter.Id] = view;
-                CreateCoreBillboard(fighter, view.transform, encounterTeam, useEncounterLevel);
+                CreateCoreBillboard(fighter, view.transform, encounterTeam, isPlayerTeam);
             }
         }
 
@@ -276,14 +276,16 @@ namespace FightingAllstar.Presentation.Combat
         }
 
         private void CreateCoreBillboard(FighterState fighter, Transform target,
-            IReadOnlyList<EncounterFighterSnapshot> encounterTeam, bool useEncounterLevel)
+            IReadOnlyList<EncounterFighterSnapshot> encounterTeam, bool isPlayerTeam)
         {
             var factory = FindFirstObjectByType<FighterWorldHudFactory>(FindObjectsInactive.Include);
             if (factory == null) return;
             var attrId = fighter.Definition?.AttributeId;
-            var level = 1;
+            var level = 0;
+            if (isPlayerTeam)
+                level = PlayerInventoryService.Instance?.FindOwnedByDefinition(fighter.Definition?.Id)?.level ?? 0;
             var character = LoadCharacter(fighter.Definition?.Id);
-            if (useEncounterLevel && encounterTeam != null)
+            if (level <= 0 && encounterTeam != null)
                 foreach (var encounterFighter in encounterTeam)
                     if (encounterFighter != null && encounterFighter.FighterId == fighter.Id && encounterFighter.Level > 0)
                     {
@@ -292,13 +294,14 @@ namespace FightingAllstar.Presentation.Combat
                     }
             if (character != null)
             {
-                if (!useEncounterLevel && character.FighterLevel > 0) level = character.FighterLevel;
+                if (level <= 0 && character.FighterLevel > 0) level = character.FighterLevel;
                 if (string.IsNullOrEmpty(attrId))
                 {
                     attrId = "attribute." + character.FighterAttribute.ToString().ToLowerInvariant();
                     if (fighter.Definition != null) fighter.Definition.AttributeId = attrId;
                 }
             }
+            if (level <= 0) level = 1;
             var hud = factory.CreateFighterHud(target, ShortId(fighter.Definition.Id), fighter.Health,
                 StatusSystem.GetEffectiveStats(fighter).MaxHealth, fighter.Shield, fighter.PowerGauge, attrId, level);
             if (hud != null) _fighterBillboards[fighter.Id] = hud;
@@ -582,6 +585,7 @@ namespace FightingAllstar.Presentation.Combat
             if (fighter == null) return;
             _preferredTargetId = targetId;
             UpdateTargetVisual();
+            if (!string.IsNullOrEmpty(_tooltipCardId)) RenderTooltip();
             Debug.Log("Preferred opponent target changed to " + targetId + " (Pos " + (fighter.FormationSlot + 1) + ").", this);
         }
 
@@ -843,6 +847,9 @@ namespace FightingAllstar.Presentation.Combat
                     {
                         billboard.SetPowerGauge(fighter.PowerGauge);
                     }
+                    billboard.SetPowerGaugeRemainder(isPlayerDraft
+                        ? (_draft.Preview.FindFighter(fighter.Id)?.PowerGaugeRemainderBp ?? fighter.PowerGaugeRemainderBp)
+                        : fighter.PowerGaugeRemainderBp);
                     billboard.SetStatuses(fighter.Statuses?.Instances);
                 }
             }
@@ -1318,7 +1325,6 @@ namespace FightingAllstar.Presentation.Combat
         private static Dictionary<string, CharacterObject> _characterObjectByDefinitionId;
         private static readonly Dictionary<string, Sprite> _statusSpriteCache = new Dictionary<string, Sprite>(StringComparer.OrdinalIgnoreCase);
 
-        private static readonly Dictionary<string, string> KeywordExplanations = CombatDetailFormatter.KeywordExplanations;
         private void PopulateTooltipView(CardState card, FighterState owner)
         {
             if (card == null || owner == null) return;
@@ -1418,188 +1424,6 @@ namespace FightingAllstar.Presentation.Combat
             return (result.desc, result.keywords, statuses);
         }
 
-        private static void AddEffectBadges(EffectDefinition root, Action<string, bool, string> addBadge)
-        {
-            if (root == null || addBadge == null) return;
-            AddEffectBadge(root, addBadge);
-            if (root.Sequence == null) return;
-            foreach (var step in root.Sequence)
-                if (step?.Effect != null) AddEffectBadge(step.Effect, addBadge);
-        }
-
-        private static void AddEffectBadge(EffectOperationDefinition effect, Action<string, bool, string> addBadge)
-        {
-            if (effect == null || effect.Kind != EffectKind.ApplyStatus || effect.StatusRecipe == null) return;
-            AddStatusRecipeBadges(effect.StatusRecipe, addBadge);
-        }
-
-        private static void AddPassiveCardBadges(CardState card, FighterState owner, CardLookup lookup,
-            Action<string, bool, string> addBadge)
-        {
-            if (card == null || owner?.Definition?.Passive?.Reactions == null) return;
-            var isUltimate = card.Kind == CardKind.Ultimate;
-            var tier = isUltimate ? card.UltimateTier : owner.ConstellationTier;
-            var category = lookup.SkillRank?.Category ?? CardRules.GetEffectCategory(card);
-            foreach (var rule in owner.Definition.Passive.Reactions)
-            {
-                if (rule?.Gate == null || tier < rule.Gate.MinimumTier || tier > rule.Gate.MaximumTier ||
-                    rule.ActorRelation == PassiveRelation.Enemies || rule.ExcludeUltimate && isUltimate ||
-                    rule.FilterCategory && (rule.Category == CardCategory.Ultimate ? !isUltimate : rule.Category != category) ||
-                    rule.FilterCategory && card.Rank < rule.MinimumRank ||
-                    rule.FilterDamageFamily && rule.DamageFamily != lookup.Effect?.Family) continue;
-                // Conditional card reactions still advertise their possible statuses, just as
-                // conditional sequence effects do. Turn-only and gauge reactions are not card effects.
-                switch (rule.Trigger)
-                {
-                    case PassiveEventKind.BeforeAction:
-                    case PassiveEventKind.AfterAction:
-                    case PassiveEventKind.BeforeDamage:
-                    case PassiveEventKind.DamageResolved:
-                    case PassiveEventKind.FighterDefeated:
-                        break;
-                    default:
-                        continue;
-                }
-                if ((rule.Trigger == PassiveEventKind.BeforeDamage || rule.Trigger == PassiveEventKind.DamageResolved ||
-                     rule.Trigger == PassiveEventKind.FighterDefeated) && lookup.Effect?.Kind != EffectKind.Damage) continue;
-                AddCommandBadges(rule.Commands);
-                AddCommandBadges(rule.ElseCommands);
-            }
-
-            void AddCommandBadges(List<PassiveCommandDefinition> commands)
-            {
-                if (commands == null) return;
-                foreach (var command in commands)
-                {
-                    if (command?.Kind != PassiveCommandKind.ExecuteEffect) continue;
-                    var operation = command.Effect;
-                    if (operation?.Kind == CardEffectOperationKind.TransferStats)
-                    {
-                        AddStatusRecipeBadges(operation.StatTransfer?.SourceStatus, addBadge);
-                        AddStatusRecipeBadges(operation.StatTransfer?.TargetStatus, addBadge);
-                    }
-                    else if (operation?.Kind == CardEffectOperationKind.ApplyStatus)
-                    {
-                        var recipe = operation.Status?.InlineRecipe;
-                        if (string.IsNullOrWhiteSpace(recipe?.Id))
-                            recipe = StandardEffectDatabase.CreateStatusRecipes()
-                                .Find(status => status.Id == operation.Status?.StatusRecipeId);
-                        AddStatusRecipeBadges(recipe, addBadge);
-                    }
-                }
-            }
-        }
-
-        private static void AddStatusRecipeBadges(StatusRecipeDefinition recipe, Action<string, bool, string> addBadge)
-        {
-            if (string.IsNullOrWhiteSpace(recipe?.Id)) return;
-            AddStatusRecipeBadge(recipe, addBadge);
-            if (recipe.StanceChildren == null) return;
-            foreach (var child in recipe.StanceChildren)
-                if (child != null) AddStatusRecipeBadge(child.ToRecipe(), addBadge);
-        }
-
-        private static void AddStatusRecipeBadge(StatusRecipeDefinition recipe, Action<string, bool, string> addBadge)
-        {
-            if (recipe == null || addBadge == null) return;
-            var polarity = recipe.Polarity;
-            var isBuff = polarity == StatusPolarity.Buff;
-            var recipeId = recipe.Id ?? "";
-            var lowerId = recipeId.ToLowerInvariant();
-
-            // Prefer authored display names and icons when a recipe has a visual entry.
-            var visual = StatusVisualData.Get(recipeId, polarity);
-            if (visual != null)
-            {
-                addBadge(visual.DisplayName, isBuff, recipeId);
-                return;
-            }
-
-            string iconKey;
-            string displayName;
-
-            if (lowerId.Contains("ignite"))
-            {
-                iconKey = "Status_Ignite";
-                displayName = "Ignite";
-            }
-            else if (lowerId.Contains("poison"))
-            {
-                iconKey = "Status_Poison";
-                displayName = "Poison";
-            }
-            else if (lowerId.Contains("bleed"))
-            {
-                iconKey = "Status_Bleed";
-                displayName = "Bleed";
-            }
-            else if (lowerId.Contains("shock"))
-            {
-                iconKey = "Status_Shock";
-                displayName = "Shock";
-            }
-            else if (lowerId.Contains("freeze"))
-            {
-                iconKey = "Status_Freeze";
-                displayName = "Freeze";
-            }
-            else if (lowerId.Contains("disable-heal") || lowerId.Contains("disable.healing-card") || lowerId.Contains("disable.healingcard"))
-            {
-                iconKey = "icon_buff_cc_dis_heal_skill";
-                displayName = "Disable Healing Card";
-            }
-            else if (lowerId.Contains("disable-recovery") || lowerId.Contains("disable.recovery"))
-            {
-                iconKey = "icon_buff_explosion_debuff_add_per";
-                displayName = "Disable Recovery";
-            }
-            else if (lowerId.Contains("disable-stance") || lowerId.Contains("disable.stance") || (lowerId.Contains("disable") && lowerId.Contains("stance")))
-            {
-                iconKey = "icon_buff_cc_dis_pose_skill";
-                displayName = "Disable Stance";
-            }
-            else if (lowerId.Contains("stun") || lowerId.Contains("paralyze") || lowerId.Contains("seal") || (recipe.Behavior & StatusBehavior.Disable) != 0)
-            {
-                iconKey = "Status_Stun";
-                displayName = !string.IsNullOrWhiteSpace(recipe.NameKey) ? recipe.NameKey : StatusLibrary.GetDisplayName(recipeId, polarity);
-            }
-            else if (lowerId.Contains("rejuvenation"))
-            {
-                iconKey = "icon_buff_heal_dot_heal";
-                displayName = "Rejuvenation";
-            }
-            else if (lowerId.Contains("debuffimmunity") || (recipe.DebuffImmunity && !lowerId.Contains("recovery") && !lowerId.Contains("rejuvenation")))
-            {
-                iconKey = "icon_buff_number_immune_debuff";
-                displayName = "Debuff Immunity";
-            }
-            else if (lowerId.Contains("recovery"))
-            {
-                iconKey = isBuff ? "icon_buff_heal_dot_heal" : "icon_buff_explosion_debuff_add_per";
-                displayName = isBuff ? "Increase Recovery" : "Decrease Recovery";
-            }
-            else if ((recipe.Behavior & StatusBehavior.Stat) != 0)
-            {
-                iconKey = isBuff ? "Status_StatUp" : "Status_StatDown";
-                displayName = !string.IsNullOrWhiteSpace(recipe.NameKey) ? recipe.NameKey : StatusLibrary.GetDisplayName(recipeId, polarity);
-            }
-            else
-            {
-                iconKey = recipeId;
-                displayName = !string.IsNullOrWhiteSpace(recipe.NameKey) ? recipe.NameKey : StatusLibrary.GetDisplayName(recipeId, polarity);
-            }
-
-            addBadge(displayName, isBuff, iconKey);
-        }
-
-        private static string HighlightKeywords(string text) => CombatDetailFormatter.HighlightKeywords(text);
-
-        private static string BuildKeywordsExplanation(string desc, string damageKeyword, List<StatusBadgeData> statuses)
-        {
-            var badges = statuses != null ? statuses.Select(s => new CombatStatusBadgeData(s.Name, s.Icon, s.IsBuff)) : null;
-            return CombatDetailFormatter.BuildKeywordsExplanation(desc, damageKeyword, badges);
-        }
-
         private static Sprite ResolveCharacterIcon(FighterState owner, CharacterObject character)
         {
             if (character != null)
@@ -1664,7 +1488,8 @@ namespace FightingAllstar.Presentation.Combat
             if (string.IsNullOrEmpty(recipeOrStatusId))
                 return StatusVisualData.GetSprite(null, polarity);
 
-            if (_statusSpriteCache.TryGetValue(recipeOrStatusId, out var cached) && cached != null)
+            var cacheKey = polarity + "|" + recipeOrStatusId;
+            if (_statusSpriteCache.TryGetValue(cacheKey, out var cached) && cached != null)
                 return cached;
 
             var sprite = StatusVisualData.GetSprite(recipeOrStatusId, polarity);
@@ -1675,7 +1500,7 @@ namespace FightingAllstar.Presentation.Combat
             }
 
             if (sprite != null)
-                _statusSpriteCache[recipeOrStatusId] = sprite;
+                _statusSpriteCache[cacheKey] = sprite;
 
             return sprite;
         }

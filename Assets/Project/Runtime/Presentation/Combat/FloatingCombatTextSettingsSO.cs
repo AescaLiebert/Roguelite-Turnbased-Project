@@ -14,7 +14,7 @@ namespace FightingAllstar.Presentation.Combat
         [Header("Typography")]
         [Tooltip("Optional custom Font asset. Leave empty to use default USS font.")]
         [SerializeField] private Font fontAsset;
-        [SerializeField] private FontStyle fontStyle = FontStyle.BoldAndItalic;
+        [SerializeField] private FontStyle fontStyle = FontStyle.Normal;
 
         [Header("Font Sizes")]
         [SerializeField, Range(12f, 72f)] private float damageFontSize = 40f;
@@ -107,6 +107,7 @@ namespace FightingAllstar.Presentation.Combat
             "heal" => healFontSize,
             "passive" => passiveFontSize,
             "status" => statusFontSize,
+            "reaction" => 25f,
             _ => damageFontSize
         };
 

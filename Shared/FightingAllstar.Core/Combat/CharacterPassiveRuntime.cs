@@ -36,6 +36,7 @@ namespace FightingAllstar.Core.Combat
         public bool CardOrigin;
         public bool IsUltimate;
         public int GaugeDelta;
+        public int GaugeDeltaBp;
         public int DamageAmount;
         public DamageFamily DamageFamily;
         public CardCategory CardCategory;
@@ -331,6 +332,18 @@ namespace FightingAllstar.Core.Combat
             }
         }
 
+        /// <summary>Resolve final-hit reactions while the attack is still in its damage presentation window.</summary>
+        public static void ResolveFinalHitDamageReactions(BattleState state, string rootActionId)
+        {
+            if (state?.PendingPassiveDamageFacts == null || string.IsNullOrEmpty(rootActionId)) return;
+            var facts = state.PendingPassiveDamageFacts.FindAll(f => f.RootActionId == rootActionId);
+            foreach (var fact in facts)
+            {
+                fact.HitIndex = fact.HitCount;
+                Dispatch(state, fact, PassiveDamageTiming.FinalHit);
+            }
+        }
+
         /// <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
         public static int ChangePowerGauge(BattleState state, FighterState actor, FighterState target, int requestedDelta,
             string rootActionId = null, bool cardOrigin = false, bool isUltimate = false)
@@ -342,15 +355,22 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static PassiveFact CommitGauge(BattleState state, FighterState actor, FighterState target, int delta,
-            string rootActionId, bool cardOrigin, bool ultimate)
+            string rootActionId, bool cardOrigin, bool ultimate, int? exactDeltaBp = null)
         {
             if (state == null || target == null || !target.IsAlive || target.Health <= 0 || target.PowerGaugeDisabled) return null;
             var before = target.PowerGauge;
-            target.PowerGauge = (int)Math.Max(0, Math.Min(CardRules.UltimateGaugeCost, (long)before + delta));
+            var beforeBp = (long)before * 10000 + Math.Max(0, Math.Min(9999, target.PowerGaugeRemainderBp));
+            var afterBp = Math.Max(0, Math.Min(CardRules.UltimateGaugeCost * 10000L,
+                beforeBp + (exactDeltaBp.HasValue ? exactDeltaBp.Value : (long)delta * 10000)));
+            target.PowerGauge = (int)(afterBp / 10000);
+            target.PowerGaugeRemainderBp = (int)(afterBp % 10000);
             var actual = target.PowerGauge - before;
-            if (actual == 0) return null;
+            var actualBp = (int)(afterBp - beforeBp);
+            if (actualBp == 0) return null;
             var item = Emit(state, BattleEventKind.PowerGaugeChanged, actor?.Id, target.Id, rootActionId, actual, "Power gauge changed.");
             item.PowerGaugeAfter = target.PowerGauge;
+            item.PowerGaugeRemainderAfter = target.PowerGaugeRemainderBp;
+            item.GaugeDeltaBp = actualBp;
             if (target.PowerGauge < CardRules.UltimateGaugeCost)
             {
                 var hand = state.Team(target.Side).Hand;
@@ -376,10 +396,11 @@ namespace FightingAllstar.Core.Combat
                 }
             }
             return new PassiveFact { Kind = PassiveEventKind.GaugeChanged, ActorId = actor?.Id, TargetId = target.Id,
-                RootActionId = rootActionId, TurnSide = state.ActingSide, CardOrigin = cardOrigin, IsUltimate = ultimate, GaugeDelta = actual };
+                RootActionId = rootActionId, TurnSide = state.ActingSide, CardOrigin = cardOrigin, IsUltimate = ultimate,
+                GaugeDelta = actual, GaugeDeltaBp = actualBp };
         }
 
-        private static void Dispatch(BattleState state, PassiveFact first)
+        private static void Dispatch(BattleState state, PassiveFact first, PassiveDamageTiming? timingFilter = null)
         {
             var queue = new Queue<PassiveFact>();
             queue.Enqueue(first);
@@ -402,11 +423,13 @@ namespace FightingAllstar.Core.Combat
                         var rule = binding.Rule;
                         var factActor = Find(state, fact.ActorId);
                         var factTarget = Find(state, fact.TargetId);
-                        if (rule == null || rule.Trigger != fact.Kind || !ReactionAvailable(state, owner, binding) ||
+                        if (rule == null || rule.Trigger != fact.Kind ||
+                            timingFilter.HasValue && rule.DamageTiming != timingFilter.Value ||
+                            !ReactionAvailable(state, owner, binding) ||
                             fact.Kind == PassiveEventKind.DamageResolved &&
                                 rule.DamageTiming == PassiveDamageTiming.FinalHit && fact.HitIndex < fact.HitCount ||
                             rule.OwnTeamTurnOnly && fact.TurnSide != owner.Side || rule.CardOriginOnly && !fact.CardOrigin ||
-                            rule.ExcludeUltimate && fact.IsUltimate || rule.RequireGaugeLoss && fact.GaugeDelta >= 0 ||
+                            rule.ExcludeUltimate && fact.IsUltimate || rule.RequireGaugeLoss && GaugeDeltaInBp(fact) >= 0 ||
                             rule.RequireCritical && !fact.WasCritical || rule.RequireBlocked && !fact.WasBlocked ||
                             rule.FilterDamageFamily && rule.DamageFamily != fact.DamageFamily ||
                             rule.FilterCategory && (!MatchesCategory(rule.Category, fact.CardCategory, fact.IsUltimate) ||
@@ -417,7 +440,9 @@ namespace FightingAllstar.Core.Combat
                             Actor = factActor ?? owner, SelectedTarget = factTarget ?? owner,
                             RootActionId = fact.RootActionId,
                             CardCategory = fact.CardCategory, CardRank = fact.CardRank, IsUltimate = fact.IsUltimate,
-                            DamageFamily = fact.DamageFamily, WasCritical = fact.WasCritical, WasBlocked = fact.WasBlocked };
+                            DamageFamily = fact.DamageFamily, WasCritical = fact.WasCritical, WasBlocked = fact.WasBlocked,
+                            HitIndex = fact.HitIndex, HitCount = fact.HitCount,
+                            IsFinalHit = fact.Kind == PassiveEventKind.DamageResolved && timingFilter == PassiveDamageTiming.FinalHit };
                         var passed = CardEffectSystem.ConditionsPass(rule.Conditions, context, context.SelectedTarget);
                         var commands = passed ? rule.Commands : rule.ElseCommands;
                         if (commands == null) continue;
@@ -442,7 +467,9 @@ namespace FightingAllstar.Core.Combat
                                 if (state.PassiveDamageReactionReceipts.Contains(receipt)) continue;
                                 state.PassiveDamageReactionReceipts.Add(receipt);
                             }
-                            var basis = command.ValueSource == PassiveValueSource.ActualGaugeLost ? Math.Max(0, -fact.GaugeDelta) : 1;
+                            var exactRefund = command.Kind == PassiveCommandKind.ChangePowerGauge && command.ValueSource == PassiveValueSource.ActualGaugeLost;
+                            var basis = command.ValueSource == PassiveValueSource.ActualGaugeLost
+                                ? Math.Max(0, exactRefund ? -GaugeDeltaInBp(fact) : -fact.GaugeDelta) : 1;
                             var amount = (int)Math.Min(int.MaxValue, (long)basis * command.Amount);
                             if (command.Kind == PassiveCommandKind.IncrementCounter)
                             {
@@ -474,7 +501,8 @@ namespace FightingAllstar.Core.Combat
                             else
                             {
                                 if (amount <= 0) continue;
-                                var emitted = CommitGauge(state, owner, owner, amount, fact.RootActionId, false, false);
+                                var emitted = CommitGauge(state, owner, owner, exactRefund ? 0 : amount, fact.RootActionId,
+                                    false, false, exactRefund ? amount : (int?)null);
                                 if (emitted != null)
                                 {
                                     Emit(state, BattleEventKind.PassiveTriggered, owner.Id, owner.Id, fact.RootActionId,
@@ -491,6 +519,8 @@ namespace FightingAllstar.Core.Combat
 
         private static FighterState Find(BattleState state, string id) => string.IsNullOrEmpty(id) ? null :
             state.Player.FindFighter(id) ?? state.Opponent.FindFighter(id);
+
+        private static int GaugeDeltaInBp(PassiveFact fact) => fact.GaugeDeltaBp != 0 ? fact.GaugeDeltaBp : fact.GaugeDelta * 10000;
 
         private static bool MatchesCategory(CardCategory requested, CardCategory actual, bool isUltimate) =>
             requested == CardCategory.Ultimate ? isUltimate : requested == actual;

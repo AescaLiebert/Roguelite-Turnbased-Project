@@ -1,0 +1,172 @@
+#if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using FightingAllstar.Core.Combat;
+using FightingAllstar.Core.Content;
+using FightingAllstar.Presentation.Combat;
+using FightingAllstar.Presentation.Content;
+using UnityEditor;
+using UnityEngine;
+
+public static class CombatTextChecks
+{
+    private static int assertions;
+    private static readonly List<string> Failures = new List<string>();
+    private static void Check(bool passed, string message)
+    { assertions++; if (!passed) Failures.Add(message); }
+    private static string Plain(string text) => Regex.Replace(text ?? "", "<[^>]+>", "");
+
+    public static void Run()
+    {
+        var report = new StringBuilder("# Combat description audit\n\n");
+        try
+        {
+            Check(CombatDetailFormatter.BuildKeywordsExplanation("Increases allies' Recovery Rate by 40%.") == "", "Recovery Rate must not create a status glossary.");
+            Check(CombatDetailFormatter.BuildKeywordsExplanation("Increases Pierce Rate by 20%.") == "", "Pierce Rate must not create a Pierce glossary.");
+            Check(Regex.Matches(CombatDetailFormatter.BuildKeywordsExplanation("Weak Point and Weakpoint; Removes Buffs and Remove Buff."), "※").Count == 2,
+                "Keyword aliases must share one explanation.");
+            Check(CombatDetailFormatter.KeywordExplanations["Cleave"].Contains("cannot critically"), "Cleave explanation must match its runtime rule.");
+            Check(CombatDetailFormatter.KeywordExplanations["Quell"].Contains("Stance"), "Quell must describe Stance scaling, not PG loss.");
+            Check(!CombatTextCatalog.Highlight("Disable Attack; Pierce Rate; Recovery Rate").Contains("<b>Disable <"), "Compound terms must not contain nested token highlighting.");
+            Check(CombatTextCatalog.CanonicalKeyword("attack.co-destruction") == "Co-Destruction", "Attack IDs must resolve canonical names.");
+            Check(CombatTextCatalog.CanonicalKeyword("attack.power-strike") == "Power Strike", "Multi-word attack IDs must resolve canonical names.");
+            foreach (var attack in StandardEffectDatabase.CreateAttackEffects())
+                Check(CombatDetailFormatter.KeywordExplanations.ContainsKey(CombatTextCatalog.CanonicalKeyword(attack.Id)), attack.Id + ": source-backed attack keyword missing from glossary.");
+            var colored = CombatTextCatalog.Highlight("Disable Attack; Recovery Rate 40%; Pierce Rate 20% for 2 turns");
+            Check(CombatTextCatalog.Highlight(colored) == colored, "Repeated formatting must preserve rich text without nesting new colors.");
+            var beforeDamage = new EffectDefinition { Kind = EffectKind.Damage, CoefficientBp = 30000 };
+            beforeDamage.Sequence.Add(new CardEffectStep { Timing = CardEffectTiming.BeforeAction,
+                Effect = new EffectOperationDefinition { Kind = EffectKind.RemoveBuffs } });
+            beforeDamage.Sequence.Add(new CardEffectStep { Timing = CardEffectTiming.AfterAction,
+                Effect = new EffectOperationDefinition { Kind = EffectKind.ChangePowerGauge, PowerGaugeAmount = -1 } });
+            var ordered = CardDescriptionText.Format("Removes Buffs, then deals 300% ATK damage to one enemy, then decreases their Power Gauge.", beforeDamage);
+            Check(ordered.StartsWith("Remove Buffs from ") && ordered.Contains(", then inflict damage equal to 300% of the hero's Attack on one enemy"), "Pre-action effects must lead attacking cards.");
+            Check(ordered.Contains(", then decrease "), "After-action effects must follow damage.");
+            var mentioned = new FighterState { Definition = new CharacterDefinition { Skills = new List<SkillDefinition> {
+                new SkillDefinition { Id = "test", Ranks = new List<SkillRankDefinition> { new SkillRankDefinition { Rank = 1,
+                    Description = "Deals 100% ATK damage. Removes Ignite from the target.", Effect = new EffectDefinition { CoefficientBp = 10000 } } } } } } };
+            Check(CombatDetailFormatter.ExtractCardDetails(new CardState { SkillId = "test", Rank = 1 }, mentioned, null).statuses.Count == 0,
+                "Mentioning/removing a status in prose must not advertise that the card applies it.");
+            foreach (var scaling in new[] { StatScaling.Attack, StatScaling.Defense, StatScaling.MaxHealth, StatScaling.SpecificStat })
+            {
+                var effect = new EffectDefinition { Kind = EffectKind.Damage, Scaling = scaling, ScalingStat = StatId.Pierce,
+                    CoefficientBp = 12345, KeywordId = "attack.spike", Target = EffectTargetScope.SelectedEnemy };
+                Check(CardDescriptionText.DamageSentence(effect).StartsWith("Inflict Spike damage equal to 123.45% of the hero's "), "Damage wording/scaling must come from executable data.");
+            }
+            StatusVisualData.ResetRegistry();
+            StatusVisualData.InitializeRegistry();
+            var down = StatusVisualData.Get("Recovery Rate", StatusPolarity.Debuff);
+            Check(down != null && down.Polarity == StatusPolarity.Debuff, "Recovery debuff art must remain discoverable.");
+            Check(StatusVisualData.Get("Recovery Rate", StatusPolarity.Buff)?.Polarity != StatusPolarity.Debuff, "A Recovery buff must never use debuff art.");
+            Check(StatusVisualData.GetSprite("Increase Recovery Rate", StatusPolarity.Buff) != down?.Icon, "Recovery up/down sprite fallback must differ.");
+            var rejuvenation = StatusVisualData.Get("status.buff.rejuvenation", StatusPolarity.Neutral);
+            Check(rejuvenation != null && rejuvenation.Polarity == StatusPolarity.Neutral && rejuvenation.Icon != null, "Neutral Rejuvenation art must remain exact.");
+
+            void CheckStatusIcon(StatusRecipeDefinition recipe, string artAsset, int potency = 0)
+            {
+                var effect = new EffectDefinition { Kind = EffectKind.ApplyStatus, StatusRecipe = recipe, StatusPotencyBp = potency };
+                var fighter = new FighterState { Definition = new CharacterDefinition { Skills = new List<SkillDefinition> {
+                    new SkillDefinition { Id = "icon-check", Ranks = new List<SkillRankDefinition> {
+                        new SkillRankDefinition { Rank = 1, Effect = effect } } } } } };
+                var details = CombatDetailFormatter.ExtractCardDetails(new CardState { Kind = CardKind.Skill, SkillId = "icon-check", Rank = 1 }, fighter, null);
+                var expected = AssetDatabase.LoadAssetAtPath<StatusVisualData>("Assets/Project/Data/StatusData/" + artAsset + ".asset");
+                Check(expected?.Icon != null && details.statuses.Count == 1 && details.statuses[0].Icon == expected.Icon,
+                    artAsset + ": tooltip must use the authored sprite, not a generic fallback or opposite effect.");
+            }
+            void CheckModifierIcon(StatModifierDefinition modifier, StatusPolarity polarity, string artAsset, int potency = 0)
+            {
+                CheckStatusIcon(new StatusRecipeDefinition { Id = "test.inline.modifier", Behavior = StatusBehavior.Stat,
+                    Polarity = polarity, Modifiers = new List<StatModifierDefinition> { modifier } }, artAsset, potency);
+            }
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Attack, Amount = 2000 }, StatusPolarity.Buff, "IncreaseATK");
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Attack, Amount = -2000 }, StatusPolarity.Debuff, "DecreaseATK");
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Defense, Amount = 2000 }, StatusPolarity.Buff, "IncreaseDEF");
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.MaxHealth, Amount = 2000 }, StatusPolarity.Buff, "IncreaseHP");
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Pierce, Amount = 2000 }, StatusPolarity.Buff, "IncreasePierce");
+            CheckModifierIcon(new StatModifierDefinition { Target = ModifierTarget.StatBundle, Bundle = StatBundleKind.AttackRelated, Amount = 2000 }, StatusPolarity.Buff, "IncreaseATK-Related");
+            CheckModifierIcon(new StatModifierDefinition { Target = ModifierTarget.StatBundle, Bundle = StatBundleKind.HpRelated, Amount = 2000 }, StatusPolarity.Buff, "IncreaseHP-Related");
+            CheckModifierIcon(new StatModifierDefinition { Target = ModifierTarget.AnyDamageDealt, Amount = 5000 }, StatusPolarity.Buff, "IncreaseDamageDealt");
+            CheckModifierIcon(new StatModifierDefinition { Target = ModifierTarget.AnyDamageReceived, Amount = 4000 }, StatusPolarity.Debuff, "IncreaseDamageTaken");
+            CheckModifierIcon(new StatModifierDefinition { Target = ModifierTarget.FlatDamageReduction, Amount = 5000 }, StatusPolarity.Buff, "RuduceDamageTaken");
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Attack, Operation = ModifierOperation.Multiplier, Amount = 8000 }, StatusPolarity.Debuff, "DecreaseATK");
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Recovery, ScaleByStatusPotency = true, PotencyCoefficientBp = -10000 }, StatusPolarity.Debuff, "DecreaseRecovery", 4000);
+            CheckModifierIcon(new StatModifierDefinition { Stat = StatId.Recovery, Amount = 4000 }, StatusPolarity.Buff, "StatUp");
+            CheckStatusIcon(new StatusRecipeDefinition { Id = "status.debuff.poison", Polarity = StatusPolarity.Debuff }, "Poison");
+            CheckStatusIcon(new StatusRecipeDefinition { Id = "status.debuff.disable-debuff", Polarity = StatusPolarity.Debuff }, "DisableDebuff");
+            CheckStatusIcon(new StatusRecipeDefinition { Id = "status.buff.rejuvenation", Polarity = StatusPolarity.Neutral }, "Rejuvenation");
+
+            var characters = AssetDatabase.FindAssets("t:CharacterObject", new[] { "Assets/Project/Data/Character" })
+                .Select(AssetDatabase.GUIDToAssetPath).OrderBy(p => p).Select(AssetDatabase.LoadAssetAtPath<CharacterObject>)
+                .Where(c => c != null && c.RuntimeReady).ToArray();
+            int cards = 0;
+            foreach (var character in characters)
+            {
+                var definition = CharacterObjectCatalogBuilder.CreateDefinition(character);
+                var owner = new FighterState { Definition = definition };
+                var passive = CombatDetailFormatter.ExtractPassiveDetails(owner, character);
+                report.AppendLine("## " + character.FighterName + "\n\n" + passive.RawDescription + "\n");
+                Check(!passive.RawDescription.Contains("allies's"), definition.Id + ": malformed possessive in passive.");
+                if (definition.Id == "fighter.scii-cassandra")
+                    Check(definition.Skills[0].Ranks[0].Effect.Sequence.Any(s => s.Effect?.StatusRecipe?.Id == "status.increase.damage-taken" &&
+                        s.Effect.StatusRecipe.Polarity == StatusPolarity.Debuff), "Increasing damage taken must preserve its authored Debuff classification.");
+                if (definition.Id == "fighter.kensou94")
+                {
+                    Check(passive.Statuses.Count == 0, "Kensou's passive aura must not create a status chip.");
+                    Check(passive.Keywords == "", "Kensou's Recovery Rate must not generate a keyword effect.");
+                    Check(passive.RawDescription.Contains("40%"), "Kensou's source value must remain unchanged.");
+                }
+                foreach (var skill in definition.Skills)
+                    foreach (var rank in skill.Ranks)
+                    {
+                        Check(CardDescriptionText.Format(rank.Description, rank.Effect) == rank.Description,
+                            definition.Id + " R" + rank.Rank + ": repeated catalog/card formatting changed the sentence.");
+                        Audit(new CardState { Kind = CardKind.Skill, SkillId = skill.Id, Rank = rank.Rank }, rank.Effect,
+                            "Skill " + skill.Slot + " R" + rank.Rank);
+                    }
+                foreach (var tier in definition.UltimateTiers)
+                {
+                    Check(CardDescriptionText.Format(tier.Description, tier.Effect) == tier.Description,
+                        definition.Id + " C" + tier.Tier + ": repeated catalog/card formatting changed the sentence.");
+                    Audit(new CardState { Kind = CardKind.Ultimate, UltimateTier = tier.Tier }, tier.Effect, "Ultimate C" + tier.Tier);
+                }
+
+                void Audit(CardState card, EffectDefinition effect, string label)
+                {
+                    var before = SnapshotJson.Serialize(effect);
+                    var payload = CombatDetailFormatter.ExtractCardDetails(card, owner, character);
+                    Check(SnapshotJson.Serialize(effect) == before, definition.Id + " " + label + ": formatting changed executable data.");
+                    var text = Plain(payload.desc); cards++;
+                    Check(!Regex.IsMatch(text, @"\bin \d+ hits\b", RegexOptions.IgnoreCase), definition.Id + " " + label + ": animation hit count leaked into card information.");
+                    report.AppendLine("- **" + label + ":** " + text + "\n  Icons: " + string.Join(", ", payload.statuses.Select(s => s.Name + " (" + s.Polarity + ")")));
+                    var damage = effect?.Kind == EffectKind.Damage ? effect : effect?.Sequence?.Select(s => s?.Effect).FirstOrDefault(e => e?.Kind == EffectKind.Damage);
+                    if (damage != null)
+                        Check(text.IndexOf(CardDescriptionText.DamageSentence(damage), StringComparison.OrdinalIgnoreCase) >= 0,
+                            definition.Id + " " + label + ": damage sentence not normalized: " + text);
+                    Check(text.IndexOf("selected enemy", StringComparison.OrdinalIgnoreCase) < 0 && text.IndexOf("selected ally", StringComparison.OrdinalIgnoreCase) < 0,
+                        definition.Id + " " + label + ": old selected-target wording.");
+                    Check(!text.Contains("status.") && !text.Contains("attack."), definition.Id + " " + label + ": internal ID leaked into description.");
+                    Check(!Regex.IsMatch(text, @"Heal [^.]+? for 0 HP"), definition.Id + " " + label + ": no-op support coordinator leaked into wording.");
+                    foreach (var badge in payload.statuses)
+                    {
+                        Check(badge.Icon != null, definition.Id + " " + label + ": missing " + badge.Name + " icon.");
+                        Check(badge.Polarity != StatusPolarity.Buff || !badge.Name.StartsWith("Decrease", StringComparison.Ordinal),
+                            definition.Id + " " + label + ": buff/debuff name mismatch.");
+                    }
+                }
+                report.AppendLine();
+            }
+            report.Insert(0, (Failures.Count == 0 ? "PASS" : "FAIL") + ": " + assertions + " assertions; " + characters.Length + " characters; " + cards + " card ranks/tiers.\n\n");
+        }
+        catch (Exception error) { Failures.Add(error.ToString()); }
+        if (Failures.Count > 0) report.AppendLine("\n## Failures\n\n" + string.Join("\n", Failures.Select(f => "- " + f)));
+        Directory.CreateDirectory("Artifacts/CombatText");
+        File.WriteAllText("Artifacts/CombatText/Review.md", report.ToString());
+        Debug.Log(report.ToString().Split('\n')[0] + "\n" + string.Join("\n", Failures));
+        EditorApplication.Exit(Failures.Count == 0 ? 0 : 1);
+    }
+}
+#endif

@@ -10,6 +10,7 @@ namespace FightingAllstar.Core.Combat
         private readonly BattleState _baseSnapshot;
         private readonly TeamPlanDraft _view;
         private readonly List<PlannedAction> _actions = new List<PlannedAction>();
+        private readonly List<ElementalForecastAction> _forecastActions = new List<ElementalForecastAction>();
         public IReadOnlyList<PlannedAction> Actions => _actions;
         private readonly List<BattleEvent> _lastEvents = new List<BattleEvent>();
         public IReadOnlyList<BattleEvent> LastEvents => _lastEvents;
@@ -49,10 +50,12 @@ namespace FightingAllstar.Core.Combat
             if (target == null) { reason = card.TargetScope == EffectTargetScope.SelectedAlly
                 ? "Choose a living active ally." : "Choose a living active opponent."; return false; }
             _actions.Add(new PlannedAction { CardId = cardId, TargetFighterId = target.Id });
+            _forecastActions.Add(new ElementalForecastAction { CardId = cardId, OwnerId = owner.Id, TargetId = target.Id, Effect = effect?.Clone() });
             _view.Team.Hand.Remove(card);
-            PreviewCardGauge(owner, card, disabled);
+            PreviewCardGauge(owner, card, effect, target, disabled);
             _lastEvents.Add(new BattleEvent { Kind = BattleEventKind.CardPlayed, SourceId = owner.Id,
                 TargetId = target.Id, CardId = card.Id, Card = card.Clone(), PowerGaugeAfter = owner.PowerGauge,
+                PowerGaugeRemainderAfter = owner.PowerGaugeRemainderBp,
                 TargetIds = ResolveDraftTargets(card, owner, target).ConvertAll(item => item.Id) });
             CardRules.MergeAdjacent(_view.Team, null, _lastEvents);
             return true;
@@ -66,6 +69,7 @@ namespace FightingAllstar.Core.Combat
             var from = _view.Team.Hand.FindIndex(c => c.Id == cardId);
             if (!CardRules.TryMove(_view.Team, from, destination, true, out reason, null, _lastEvents)) return false;
             _actions.Add(new PlannedAction { IsMove = true, CardId = cardId, DestinationIndex = destination });
+            _forecastActions.Add(null);
             return true;
         }
 
@@ -119,11 +123,16 @@ namespace FightingAllstar.Core.Combat
 
         private void RebuildPreview()
         {
+            _forecastActions.Clear();
             _view.Team = _baseSnapshot.Team(_baseSnapshot.ActingSide).Clone();
             foreach (var action in _actions)
             {
                 var from = _view.Team.Hand.FindIndex(c => c.Id == action.CardId);
-                if (action.IsMove) CardRules.TryMove(_view.Team, from, action.DestinationIndex, true, out _);
+                if (action.IsMove)
+                {
+                    CardRules.TryMove(_view.Team, from, action.DestinationIndex, true, out _);
+                    _forecastActions.Add(null);
+                }
                 else if (from >= 0)
                 {
                     var card = _view.Team.Hand[from];
@@ -133,21 +142,77 @@ namespace FightingAllstar.Core.Combat
                     var hasEffect = card.Kind == CardKind.Skill
                         ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
                         : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+                    _forecastActions.Add(new ElementalForecastAction { CardId = card.Id, OwnerId = owner.Id,
+                        TargetId = action.TargetFighterId, Effect = effect?.Clone() });
+                    var target = ResolveDraftTarget(card, owner, action.TargetFighterId);
                     var disabled = hasEffect && StatusSystem.IsCardUseBlocked(owner,
                         CardRules.GetEffectCategory(card), card.Rank,
                         card.Kind == CardKind.Ultimate, effect.Sequence != null && effect.Sequence.Count > 0);
-                    PreviewCardGauge(owner, card, disabled);
+                    PreviewCardGauge(owner, card, effect, target, disabled);
                     CardRules.MergeAdjacent(_view.Team, null);
                 }
             }
         }
 
-        private static void PreviewCardGauge(FighterState owner, CardState card, bool disabled)
+        private void PreviewCardGauge(FighterState owner, CardState card, EffectDefinition effect,
+            FighterState target, bool disabled)
         {
             // Forecast the current checkpoint outcome; execution rechecks after earlier effects.
-            if (card.Kind == CardKind.Ultimate && !disabled) owner.PowerGauge = 0;
-            else owner.PowerGauge = Math.Min(CardRules.UltimateGaugeCost, owner.PowerGauge + 1);
+            if (!disabled && effect?.Kind == EffectKind.Damage &&
+                (CardRules.GetEffectCategory(card) == CardCategory.Attack ||
+                 CardRules.GetEffectCategory(card) == CardCategory.AttackDebuff))
+                PreviewAttackerGaugeSupport(owner, card, target);
+
+            if (card.Kind == CardKind.Ultimate && !disabled) PowerGaugeRules.SpendUltimate(owner);
+            else PowerGaugeRules.GainForAction(owner);
             if (owner.PowerGaugeDisabled) owner.PowerGauge = 0;
+        }
+
+        private void PreviewAttackerGaugeSupport(FighterState attacker, CardState card, FighterState target)
+        {
+            if (attacker == null || target == null) return;
+            var targets = ResolveDraftTargets(card, attacker, target);
+            foreach (var provider in _view.Team.Fighters)
+            {
+                var support = provider?.Definition?.Passive?.Support;
+                var providerAvailable = provider != null && provider.IsAlive && provider.Health > 0 &&
+                    (support?.Presence == PassivePresence.LivingRoster ||
+                     support?.Presence == PassivePresence.LivingActive && !provider.IsReserve ||
+                     support?.Presence == PassivePresence.LivingReserve && provider.IsReserve);
+                if (!providerAvailable || string.IsNullOrEmpty(support.AttackerGaugeAgainstRecipeId) ||
+                    support.AttackerGaugeGainBp <= 0 || !targets.Exists(t =>
+                        StatusSystem.Count(t, recipeId: support.AttackerGaugeAgainstRecipeId) > 0)) continue;
+
+                var recipe = new StatusRecipeDefinition {
+                    Id = "status.buff.gauge-acceleration", NameKey = "Gauge Acceleration",
+                    Polarity = StatusPolarity.Buff, DefaultDuration = 1,
+                    PowerGaugeGainBp = support.AttackerGaugeGainBp,
+                    Stacking = StatusStackingPolicy.RefreshDuration
+                };
+                if (recipe.DurationClock == StatusDurationClock.TargetTurnStart ||
+                    recipe.DurationClock == StatusDurationClock.TargetTurnEnd)
+                    recipe.DurationClock = attacker.Side == provider.Side
+                        ? StatusDurationClock.TargetTurnStart : StatusDurationClock.TargetTurnEnd;
+                StatusSystem.Apply(attacker, provider.Id, provider.Side, recipe,
+                    "preview:gauge-acceleration:" + attacker.Id, card.Id, _forecastActions.Count);
+            }
+        }
+
+        public ElementalForecastResult Forecast(string candidateCardId = null, string candidateTargetId = null)
+        {
+            var actions = new List<ElementalForecastAction>(_forecastActions);
+            var card = _view.Team.Hand.Find(c => c.Id == candidateCardId);
+            if (card != null)
+            {
+                var owner = _view.Team.FindFighter(card.OwnerFighterId);
+                EffectDefinition effect;
+                if (card.Kind == CardKind.Skill) CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect);
+                else CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+                actions.Add(new ElementalForecastAction { CardId = card.Id, OwnerId = owner.Id,
+                    TargetId = candidateTargetId, Effect = effect?.Clone() });
+            }
+            return ElementalForecast.Build(BattleProjectionBuilder.Build(_baseSnapshot, _baseSnapshot.ActingSide,
+                "local-forecast", long.MaxValue), _baseSnapshot.ElementalRules, actions);
         }
 
         private static List<PlannedAction> CloneActions(List<PlannedAction> source)

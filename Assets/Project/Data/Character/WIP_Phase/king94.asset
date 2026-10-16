@@ -20,8 +20,7 @@ MonoBehaviour:
   traitIds:
   - trait.women
   - trait.series-kof
-  passiveSourceDescription: Increase the alies's Pierce Rate by 8% at the end of
-    every turn. (Maximum 40%)
+  passiveSourceDescription: "At the end of the allies' turn, increase all allies' Pierce Rate by 8%, up to 40%."
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 1c99fc89c7f1d3140864e4207d87f539, type: 2}

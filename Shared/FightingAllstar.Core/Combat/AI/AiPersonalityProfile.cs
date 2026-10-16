@@ -31,6 +31,7 @@ namespace FightingAllstar.Core.Combat.AI
         public int MaxCandidates   = 30;
         public int BeamWidth       = 6;
         public int SimulationDepth = 5;     // Top N candidates to validate
+        public int OutcomeEvaluationDepth = 8; // Starting bound for independent elemental outcome sampling.
         public float NoisePercent  = 0.03f; // ±3% randomness to avoid robotic play
 
         /// <summary>

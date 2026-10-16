@@ -31,5 +31,13 @@ namespace FightingAllstar.Presentation.Combat
         public Color ExtortDebuff = new Color(.73f, .28f, .92f);
         public Color Explosion = new Color(1f, .62f, .1f);
         public Color Rejuvenation = new Color(.38f, 1f, .68f);
+
+        [Header("Cryo — starting values; validate shell coverage, orbit clearance and exit readability")]
+        [Range(.2f, 1f)] public float CryoEnterDuration = .5f;
+        [Range(.2f, 1f)] public float CryoExitDuration = .6f;
+        [Range(60f, 300f)] public float GlacialOrbitDegreesPerSecond = 155f;
+        public Color Freeze = new Color(.24f, .72f, 1f, .65f);
+        public Color FrostBite = new Color(.6f, .87f, 1f, .6f);
+        public Color GlacialWaltz = new Color(.48f, .88f, 1f, .95f);
     }
 }

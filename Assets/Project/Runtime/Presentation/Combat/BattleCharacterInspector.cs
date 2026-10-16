@@ -213,7 +213,7 @@ namespace FightingAllstar.Presentation.Combat
             {
                 var owner=Find(group.First().OwnerId);
                 var changes=string.Join("  ·  ",group.Select(c=>CombatDetailFormatter.DescribeModifier(c.Modifier,c.Modifier.Amount)));
-                var description=CombatDetailFormatter.HighlightKeywords(owner?.Definition.PassiveSource?.Description);
+                var description=CombatDetailFormatter.ExtractPassiveDetails(owner).FormattedDescription;
                 EffectRow(content,"Passive "+group.Key,Name(owner),"Passive"+(owner?.IsReserve==true?"  ·  SUB":""),
                     (string.IsNullOrWhiteSpace(description)?"":description+"\n")+"<color=#79DBEE>"+changes+"</color>",owner,null,false);
             }

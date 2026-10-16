@@ -22,6 +22,12 @@ MonoBehaviour:
       for 2 turns, and increases Seong Mi-Na's Crit Chance by 20% for 2 turns.
     skillType: 5
     runtimeEffect:
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId:
+        RequiresCritical: 0
       Attack:
         HitCount: 10
         Range: 0
@@ -38,6 +44,10 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -50,6 +60,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -59,6 +70,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -128,6 +140,12 @@ MonoBehaviour:
       - Timing: 2
         BatchId: 
         Effect:
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId:
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -144,6 +162,10 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            ElementalModifiers: []
             Id: status.debuff.bleed
             NameKey: 
             Polarity: 1
@@ -156,6 +178,7 @@ MonoBehaviour:
             MaxStacks: 10
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -167,10 +190,11 @@ MonoBehaviour:
             - status.dot
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
-              CoefficientBp: 3300
+              CoefficientBp: 7000
               FixedAmount: 0
               ConsumeOnTrigger: 0
             PeriodicHealing:
@@ -233,6 +257,12 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId:
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -249,6 +279,10 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            ElementalModifiers: []
             Id: status.increase.crit-chance
             NameKey: Increase Crit Chance
             Polarity: 0
@@ -261,6 +295,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -283,6 +318,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -350,6 +386,12 @@ MonoBehaviour:
       for 2 turns, and increases Seong Mi-Na's Crit Chance by 30% for 2 turns.
     skillType: 5
     runtimeEffect:
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId:
+        RequiresCritical: 0
       Attack:
         HitCount: 10
         Range: 0
@@ -366,6 +408,10 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -378,6 +424,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -387,6 +434,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -456,6 +504,12 @@ MonoBehaviour:
       - Timing: 2
         BatchId: 
         Effect:
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId:
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -472,6 +526,10 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            ElementalModifiers: []
             Id: status.debuff.bleed
             NameKey: 
             Polarity: 1
@@ -484,6 +542,7 @@ MonoBehaviour:
             MaxStacks: 10
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -495,10 +554,11 @@ MonoBehaviour:
             - status.dot
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
-              CoefficientBp: 3300
+              CoefficientBp: 7000
               FixedAmount: 0
               ConsumeOnTrigger: 0
             PeriodicHealing:
@@ -561,6 +621,12 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId:
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -577,6 +643,10 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            ElementalModifiers: []
             Id: status.increase.crit-chance
             NameKey: Increase Crit Chance
             Polarity: 0
@@ -589,6 +659,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -611,6 +682,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -678,6 +750,12 @@ MonoBehaviour:
       for 3 turns, and increases Seong Mi-Na's Crit Chance by 40% for 3 turns.
     skillType: 5
     runtimeEffect:
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId:
+        RequiresCritical: 0
       Attack:
         HitCount: 10
         Range: 0
@@ -694,6 +772,10 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -706,6 +788,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -715,6 +798,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -784,6 +868,12 @@ MonoBehaviour:
       - Timing: 2
         BatchId: 
         Effect:
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId:
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -800,6 +890,10 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            ElementalModifiers: []
             Id: status.debuff.bleed
             NameKey: 
             Polarity: 1
@@ -812,6 +906,7 @@ MonoBehaviour:
             MaxStacks: 10
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -823,10 +918,11 @@ MonoBehaviour:
             - status.dot
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
-              CoefficientBp: 9000
+              CoefficientBp: 7000
               FixedAmount: 0
               ConsumeOnTrigger: 0
             PeriodicHealing:
@@ -889,6 +985,12 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId:
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -905,6 +1007,10 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            ElementalModifiers: []
             Id: status.increase.crit-chance
             NameKey: Increase Crit Chance
             Polarity: 0
@@ -917,6 +1023,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -939,6 +1046,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1

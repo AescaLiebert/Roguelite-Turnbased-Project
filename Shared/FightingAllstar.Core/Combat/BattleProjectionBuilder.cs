@@ -16,6 +16,8 @@ namespace FightingAllstar.Core.Combat
             var opponent = state.OtherTeam(recipientSide);
             var view = new BattleView
             {
+                ElementalSchemaVersion = state.ElementalSchemaVersion,
+                ElementalRulesVersion = state.ElementalRules?.ContentVersion,
                 MatchId = state.MatchId,
                 RecipientSubjectId = recipientSubjectId,
                 Revision = state.Revision,
@@ -25,8 +27,8 @@ namespace FightingAllstar.Core.Combat
                 ActionBudget = state.ActingSide == recipientSide ? state.ActionBudget : 0,
                 Winner = state.Winner.HasValue ? state.Winner.Value.ToString() : null,
                 IsDraw = state.IsDraw,
-                OwnTeam = BuildTeam(own, true),
-                OpponentTeam = BuildTeam(opponent, false),
+                OwnTeam = BuildTeam(own, true, state.ElementalRules),
+                OpponentTeam = BuildTeam(opponent, false, state.ElementalRules),
                 OpponentHandSize = opponent.Hand == null ? 0 : opponent.Hand.Count
             };
 
@@ -40,15 +42,15 @@ namespace FightingAllstar.Core.Combat
             return view;
         }
 
-        private static BattleTeamView BuildTeam(BattleTeamState team, bool includeHand)
+        private static BattleTeamView BuildTeam(BattleTeamState team, bool includeHand, Content.ElementalRuleSet rules)
         {
-            var view = new BattleTeamView();
+            var view = new BattleTeamView { ElementalReactionsEnabled = team?.ElementalReactionsEnabled ?? false };
             if (team == null) return view;
             if (team.Fighters != null)
                 foreach (var fighter in team.Fighters)
                 {
                     if (fighter == null) continue;
-                    view.Fighters.Add(new FighterView
+                    var fighterView = new FighterView
                     {
                         FighterId = fighter.Id,
                         DefinitionId = fighter.Definition == null ? null : fighter.Definition.Id,
@@ -60,8 +62,21 @@ namespace FightingAllstar.Core.Combat
                         Health = fighter.Health,
                         MaxHealth = StatusSystem.GetEffectiveStats(fighter).MaxHealth,
                         Shield = fighter.Shield,
-                        PowerGauge = fighter.PowerGauge
-                    });
+                        PowerGauge = fighter.PowerGauge,
+                        PowerGaugeRemainderBp = fighter.PowerGaugeRemainderBp,
+                        EvadesAttacks = fighter.Statuses.Instances.Exists(s => s.Recipe?.EvadeAttacks == true),
+                        HasTaunt = fighter.Statuses.Instances.Exists(s => s.Recipe?.HasTaunt == true),
+                        DebuffImmune = fighter.Statuses.Instances.Exists(s => s.Recipe?.DebuffImmunity == true),
+                        FreezeImmune = StatusSystem.IsFreezeRecoveryActive(fighter) || StatusSystem.IsFrozen(fighter) || fighter.Statuses.Instances.Exists(s =>
+                            s.Recipe?.DebuffImmunity == true || s.Recipe?.ImmuneStatusTags?.Contains("status.freeze") == true)
+                    };
+                    foreach (var status in fighter.Statuses.Instances)
+                        fighterView.Statuses.Add(new PublicStatusView { InstanceId = status.InstanceId, RecipeId = status.RecipeId,
+                            Name = status.Recipe?.NameKey, Element = (rules?.ElementFor(status.RecipeId) ?? Content.ElementId.None).ToString(),
+                            EligibleFuel = status.Recipe?.Polarity == Content.StatusPolarity.Debuff &&
+                                status.Recipe.Color != Content.StatusColor.Grey && string.IsNullOrEmpty(status.ParentInstanceId),
+                            StackCount = status.StackCount, RemainingDuration = status.RemainingDuration });
+                    view.Fighters.Add(fighterView);
                 }
             if (includeHand && team.Hand != null)
                 foreach (var card in team.Hand)
@@ -89,6 +104,14 @@ namespace FightingAllstar.Core.Combat
             var privateCardDraw = battleEvent.Kind == BattleEventKind.CardDrawn && source != null && source.Side != recipientSide;
             return new BattleEventView
             {
+                DamageElement = battleEvent.DamageElement.ToString(),
+                TriggerElement = battleEvent.TriggerElement.ToString(),
+                ReactionOutputBlocked = battleEvent.ReactionOutputBlocked,
+                ElementalReaction = battleEvent.ElementalReaction.ToString(),
+                DamageOrigin = battleEvent.DamageOrigin.ToString(),
+                ParentEventId = battleEvent.ParentEventId,
+                ConsumedStatusInstanceIds = battleEvent.ConsumedStatusInstanceIds == null ? new System.Collections.Generic.List<string>() :
+                    new System.Collections.Generic.List<string>(battleEvent.ConsumedStatusInstanceIds),
                 EventId = battleEvent.Id,
                 HitIndex = battleEvent.HitIndex,
                 HitCount = battleEvent.HitCount,
@@ -109,6 +132,8 @@ namespace FightingAllstar.Core.Combat
                 ShieldLost = battleEvent.ShieldLost,
                 EffectiveMaxHealth = battleEvent.EffectiveMaxHealth,
                 PowerGaugeAfter = battleEvent.PowerGaugeAfter,
+                PowerGaugeRemainderAfter = battleEvent.PowerGaugeRemainderAfter,
+                GaugeDeltaBp = battleEvent.GaugeDeltaBp,
                 RootActionId = battleEvent.RootActionId,
                 WasCritical = battleEvent.WasCritical,
                 WasBlocked = battleEvent.WasBlocked,

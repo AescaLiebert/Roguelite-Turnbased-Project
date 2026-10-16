@@ -15,83 +15,37 @@ MonoBehaviour:
   profile:
     schemaVersion: 1
     subjectId: guest:local-development
-    diamonds: 160000
-    featuredGuaranteeProgress: 10
+    diamonds: 1600000
+    featuredGuaranteeProgress: 0
     selectorEntitlements: 0
     duplicateTokens: 0
     characterDupeTokens: []
     artifactAutoSelectRarity: 1
     characters:
-    - instanceId: e3a8a29f429a46b88dfa1c913391edc5
+    - instanceId: df8f6c12518d48549fe80f756ad06556
       definitionId: fighter.kyo94
       constellationTier: 0
       level: 1
       levelCap: 10
-    - instanceId: 44901f6910bb4933aa0f57dc5ce5297c
+    - instanceId: 63c8a21d2ddd4cffbd1b6e54b07530b6
       definitionId: fighter.benimaru94
       constellationTier: 0
       level: 1
       levelCap: 10
-    - instanceId: 93cc41e768874e228ab32578820c04ec
+    - instanceId: 9349af508e9740db9ead80be79177b5d
       definitionId: fighter.goro94
-      constellationTier: 1
-      level: 1
-      levelCap: 10
-    - instanceId: 951001305d7c4206ba09ad8659f1a08c
-      definitionId: fighter.choi94
-      constellationTier: 0
-      level: 1
-      levelCap: 10
-    - instanceId: 6133739e8c254438a769bd9ffcda36d2
-      definitionId: fighter.chin94
-      constellationTier: 0
-      level: 1
-      levelCap: 10
-    - instanceId: e75e60f2b06c41b5a9ca24fe02979d24
-      definitionId: fighter.yuri94
-      constellationTier: 0
-      level: 1
-      levelCap: 10
-    - instanceId: 006494e5163d4fae9bea87440744d5a8
-      definitionId: fighter.joe94
-      constellationTier: 0
-      level: 1
-      levelCap: 10
-    - instanceId: c4745f5f3de04eb1930a55ea437a9e07
-      definitionId: fighter.kensou94
-      constellationTier: 1
-      level: 1
-      levelCap: 10
-    - instanceId: 182119320463430caba52a9eda07f61c
-      definitionId: fighter.chang94
-      constellationTier: 1
-      level: 1
-      levelCap: 10
-    - instanceId: 196f2a90807442c986093e0836166000
-      definitionId: fighter.ralf94
       constellationTier: 0
       level: 1
       levelCap: 10
     formation:
-    - 
-    - 
-    - 
+    - df8f6c12518d48549fe80f756ad06556
+    - 63c8a21d2ddd4cffbd1b6e54b07530b6
+    - 9349af508e9740db9ead80be79177b5d
     - 
     dungeonFormations: []
     claimedRunRewards: []
     items:
-      Coins: 2400
-      Materials:
-      - ItemId: material.phase.1
-        Amount: 5
-      - ItemId: material.subphase.0
-        Amount: 7
-      - ItemId: material.artifact-dust
-        Amount: 5
-      - ItemId: material.series.series.kof
-        Amount: 5
+      Coins: 0
+      Materials: []
       Artifacts: []
-      ClaimedReceiptIds:
-      - 3dec7c3f258f4358a7c978b9eaf9785d:reward:r1n1
-      - 3dec7c3f258f4358a7c978b9eaf9785d:reward:r2n1
-      - 3dec7c3f258f4358a7c978b9eaf9785d:reward:r4n1
+      ClaimedReceiptIds: []

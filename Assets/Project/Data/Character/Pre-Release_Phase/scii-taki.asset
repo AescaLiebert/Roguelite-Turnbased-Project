@@ -20,9 +20,13 @@ MonoBehaviour:
   traitIds:
   - trait.female
   - trait.soul-calibur
-  passiveSourceDescription: "PvP only: reduces enemy ATK by 16%. \n\n[Soul Calibur:
-    own Max HP +10% and Crit Defense +10%; When attacking will Increase ATK by +12%]"
-  passiveSourceType: 1
+  passiveSourceDescription: 'In PvP, decreases all enemies'' Attack by 16%.
+
+
+    [Soul
+    Calibur: increases the hero''s Max HP and Crit Defense by 10%. When attacking,
+    increases the hero''s Attack by 12%.]'
+  passiveSourceType: 3
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: bc1ee21fd0be79f44b4a2c848faaf51e, type: 2}
   id: 2303

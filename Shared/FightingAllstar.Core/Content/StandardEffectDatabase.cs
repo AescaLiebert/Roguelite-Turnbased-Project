@@ -59,9 +59,9 @@ namespace FightingAllstar.Core.Content
                     DefaultDuration = 2, PeriodicHealing = new PeriodicHealingDefinition {
                         Timing = StatusTickTiming.TargetTurnStart, Scaling = StatusHealScaling.TurnStartRecovery,
                         CoefficientBp = 6000 } },
-                Dot("status.debuff.bleed", CombatTags.Bleed, 3300),
-                Dot("status.debuff.shock", CombatTags.Shock, 3600),
-                Dot("status.debuff.poison", CombatTags.Poison, 4500),
+                Dot("status.debuff.bleed", CombatTags.Bleed, StandardDotRules.BleedBp),
+                Dot("status.debuff.shock", CombatTags.Shock, StandardDotRules.ShockBp),
+                Dot("status.debuff.poison", CombatTags.Poison, StandardDotRules.PoisonBp),
                 Disable("status.debuff.seal", CombatTags.Seal, CardCategoryMask.AllCards),
                 Disable("status.debuff.paralyze", CombatTags.Paralyze, CardCategoryMask.AllCards),
                 Disable("status.debuff.stun", CombatTags.Stun, CardCategoryMask.AllCards),
@@ -73,7 +73,15 @@ namespace FightingAllstar.Core.Content
                 Disable("status.debuff.disable-stance", "disable.stance", CardCategoryMask.Stance | CardCategoryMask.ReceiveStances),
                 Disable("status.debuff.disable-ultimate", "disable.ultimate", CardCategoryMask.Ultimate),
                 Disable("status.debuff.disable-rank-2-3", "disable.rank", CardCategoryMask.RankTwoOrThree),
-                Disable("status.debuff.disable-card-effect", "disable.card-effect", CardCategoryMask.CardEffects)
+                Disable("status.debuff.disable-card-effect", "disable.card-effect", CardCategoryMask.CardEffects),
+                new StatusRecipeDefinition { Id = "status.buff.gauge-acceleration", NameKey = "Gauge Acceleration",
+                    Polarity = StatusPolarity.Buff, Behavior = StatusBehavior.Stat, DefaultDuration = 2,
+                    Stacking = StatusStackingPolicy.RefreshDuration, PowerGaugeGainBp = 5000,
+                    Tags = new List<string> { "status.power-gauge" } },
+                new StatusRecipeDefinition { Id = "status.debuff.gauge-deceleration", NameKey = "Gauge Deceleration",
+                    Polarity = StatusPolarity.Debuff, Behavior = StatusBehavior.Stat, DefaultDuration = 2,
+                    Stacking = StatusStackingPolicy.RefreshDuration, PowerGaugeGainBp = -5000,
+                    Tags = new List<string> { "status.power-gauge" } }
             };
             AddStatBundlePair(recipes, "basic", StatBundleKind.BasicStats);
             AddStatGroupPair(recipes, "defense", StatId.Defense);
@@ -83,6 +91,9 @@ namespace FightingAllstar.Core.Content
             AddStatGroupPair(recipes, "special", StatId.BlockChance, StatId.BlockPower, StatId.Evade,
                 StatId.Perception, StatId.Control, StatId.Avoidance);
             AddStatBundlePair(recipes, "all", StatBundleKind.AllStats);
+            recipes.AddRange(GenshinStatusRecipes.CreateFuel());
+            recipes.AddRange(GenshinStatusRecipes.CreateOutputs());
+            recipes.AddRange(GenshinStatusRecipes.CreateKitStatuses());
             return recipes;
         }
 

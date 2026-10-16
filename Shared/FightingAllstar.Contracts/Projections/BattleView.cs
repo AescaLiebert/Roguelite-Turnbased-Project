@@ -7,6 +7,8 @@ namespace FightingAllstar.Contracts.Projections
     [Serializable]
     public sealed class BattleView
     {
+        public int ElementalSchemaVersion;
+        public string ElementalRulesVersion;
         public string MatchId;
         public string RecipientSubjectId;
         public long Revision;
@@ -26,6 +28,7 @@ namespace FightingAllstar.Contracts.Projections
     [Serializable]
     public sealed class BattleTeamView
     {
+        public bool ElementalReactionsEnabled;
         public List<FighterView> Fighters = new List<FighterView>();
         public List<CardView> Hand = new List<CardView>();
     }
@@ -44,6 +47,24 @@ namespace FightingAllstar.Contracts.Projections
         public int MaxHealth;
         public int Shield;
         public int PowerGauge;
+        public int PowerGaugeRemainderBp;
+        public bool EvadesAttacks;
+        public bool HasTaunt;
+        public bool DebuffImmune;
+        public bool FreezeImmune;
+        public List<PublicStatusView> Statuses = new List<PublicStatusView>();
+    }
+
+    [Serializable]
+    public sealed class PublicStatusView
+    {
+        public string InstanceId;
+        public string RecipeId;
+        public string Name;
+        public string Element;
+        public bool EligibleFuel;
+        public int StackCount;
+        public int RemainingDuration;
     }
 
     [Serializable]
@@ -63,6 +84,13 @@ namespace FightingAllstar.Contracts.Projections
     [Serializable]
     public sealed class BattleEventView
     {
+        public string DamageElement;
+        public string TriggerElement;
+        public bool ReactionOutputBlocked;
+        public string ElementalReaction;
+        public string DamageOrigin;
+        public long ParentEventId;
+        public List<string> ConsumedStatusInstanceIds = new List<string>();
         public long EventId;
         public int HitIndex;
         public int HitCount;
@@ -82,6 +110,8 @@ namespace FightingAllstar.Contracts.Projections
         public int ShieldLost;
         public int EffectiveMaxHealth;
         public int PowerGaugeAfter = -1;
+        public int PowerGaugeRemainderAfter = -1;
+        public int GaugeDeltaBp;
         public string RootActionId;
         public bool WasCritical;
         public bool WasBlocked;

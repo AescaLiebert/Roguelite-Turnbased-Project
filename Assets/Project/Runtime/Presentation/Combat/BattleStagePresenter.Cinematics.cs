@@ -265,7 +265,7 @@ namespace FightingAllstar.Presentation.Combat
                 {
                     var t = i / (float)rate;
                     var envelope = Mathf.Sin(Mathf.PI * i / samples.Length) * Mathf.Exp(-t * 12);
-                    var frequency = kind == 0 ? 800 : kind >= 3 ? 440 : 140;
+                    var frequency = kind >= 10 ? 330 + (kind - 10) * 28 : kind == 0 ? 800 : kind >= 3 ? 440 : 140;
                     samples[i] = Mathf.Sin(2 * Mathf.PI * (frequency * t + (kind >= 3 ? 700 : -180) * t * t)) * envelope;
                 }
                 clip = AudioClip.Create("Presentation cue " + kind, samples.Length, 1, rate, false);

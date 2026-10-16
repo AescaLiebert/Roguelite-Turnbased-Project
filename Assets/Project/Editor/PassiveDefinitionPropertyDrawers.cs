@@ -7,11 +7,11 @@ using UnityEngine;
 public sealed class PassiveDefinitionPropertyDrawer : PropertyDrawer
 {
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
-        PassiveDrawerFields.Height(property, label, "Id", "Auras", "Reactions");
+        PassiveDrawerFields.Height(property, label, "Id", "Support", "Auras", "Reactions", "Triggers");
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        PassiveDrawerFields.Draw(position, property, label, "Id", "Auras", "Reactions");
+        PassiveDrawerFields.Draw(position, property, label, "Id", "Support", "Auras", "Reactions", "Triggers");
     }
 }
 
@@ -248,6 +248,7 @@ internal static class EffectDrawerFields
         {
             fields.Add("Attack");
             fields.Add("Family");
+            fields.Add("DamageElement");
             fields.Add("Scaling");
             if (PassiveDrawerFields.EnumValue<StatScaling>(property, "Scaling") == StatScaling.SpecificStat)
                 fields.Add("ScalingStat");
@@ -256,6 +257,12 @@ internal static class EffectDrawerFields
             fields.Add("CoefficientBp");
             fields.Add("KeywordFactorBp");
             fields.Add("KeywordId");
+            if (includeSequence)
+            {
+                fields.Add("ConsumeTargetRecipeId");
+                fields.Add("DamagePerConsumedStackBp");
+                fields.Add("ElementalApplication");
+            }
             if (includeSequence) fields.Add("AttributeAdvantageDamageBonusBp");
         }
         else if (kind == EffectKind.ApplyStatus)
@@ -414,7 +421,11 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
         }
         if ((behavior & StatusBehavior.Triggered) != 0)
         {
-            fields.AddRange(new[] { "Reactions", "SurviveLethalCharges", "IgnoreCritResistanceBp", "IgnoreCritDefenseBp", "ImmuneStatusTags" });
+            fields.AddRange(new[]
+            {
+                "NaturalExpiryAttack", "Retaliation", "ElementalModifiers",
+                "SurviveLethalCharges", "IgnoreCritResistanceBp", "IgnoreCritDefenseBp", "ImmuneStatusTags"
+            });
         }
         if ((behavior & (StatusBehavior.Stance | StatusBehavior.Triggered)) != 0)
         {
@@ -425,6 +436,22 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
 
         return fields.ToArray();
     }
+}
+
+[CustomPropertyDrawer(typeof(TriggeredElementalAttackDefinition))]
+public sealed class TriggeredElementalAttackDefinitionPropertyDrawer : PropertyDrawer
+{
+    private static readonly string[] Fields =
+    {
+        "Element", "AttackCoefficientBp", "ReceivedDamageCoefficientBp", "Explosion",
+        "StatusRecipeId", "StatusDuration", "StatusStackCount", "SelfHealDamageBp"
+    };
+
+    public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Height(property, label, Fields);
+
+    public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
+        PassiveDrawerFields.Draw(position, property, label, Fields);
 }
 
 [CustomPropertyDrawer(typeof(StatusApplicationRecipe))]
@@ -690,6 +717,20 @@ internal static class PassiveDrawerFields
                         child.intValue / 100f);
                     if (EditorGUI.EndChangeCheck()) child.intValue = Mathf.RoundToInt(Mathf.Max(0f, percent) * 100f);
                 }
+                else if (name == "ConsumeTargetRecipeId")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Per-Stack Bonus Status ID", "Status recipe whose stacks are consumed after damage; each stack adds the configured bonus."), true);
+                else if (name == "DamagePerConsumedStackBp")
+                {
+                    EditorGUI.BeginChangeCheck();
+                    var percent = EditorGUI.FloatField(childRect,
+                        new GUIContent("Bonus Damage per Stack (%)", "Basis points: 2,000 = +20% damage for each consumed stack."),
+                        child.intValue / 100f);
+                    if (EditorGUI.EndChangeCheck()) child.intValue = Mathf.RoundToInt(Mathf.Max(0f, percent) * 100f);
+                }
+                else if (name == "ElementalApplication")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Elemental Contact / Status Rider", "Configures the elemental contact and, optionally, which sequence status step it delivers. Requires Critical gates the status rider."), true);
                 else if (name == "BarrierCoefficientBp")
                 {
                     var sourceStat = PassiveDrawerFields.EnumValue<BarrierSourceStat>(property, "BarrierSourceStat");

@@ -218,6 +218,22 @@ namespace FightingAllstar.Presentation.Combat
 
         public void SetPowerGauge(int powerGauge) => SetPowerGauge(powerGauge, -1);
 
+        public void SetPowerGaugeRemainder(int remainderBp)
+        {
+            EnsureSegments();
+            foreach (var segment in _pgSegments)
+                if (segment?.FillImage != null) { segment.FillImage.type = Image.Type.Filled; segment.FillImage.fillMethod = Image.FillMethod.Horizontal; segment.FillImage.fillAmount = 1; }
+            if (remainderBp <= 0 || _currentPreviewPG >= 5) return;
+            var partial = _pgSegments[_currentPreviewPG];
+            if (partial == null) return;
+            if (partial.Routine != null) StopCoroutine(partial.Routine);
+            partial.Routine = null;
+            partial.Root.SetActive(true);
+            partial.Rect.localScale = Vector3.one;
+            partial.FillImage.fillAmount = Mathf.Clamp01(remainderBp / 10000f);
+            partial.FillImage.color = _pgBaseColor;
+        }
+
         public void SetPowerGauge(int truePowerGauge, int previewPowerGauge)
         {
             truePowerGauge = Mathf.Clamp(truePowerGauge, 0, 5);

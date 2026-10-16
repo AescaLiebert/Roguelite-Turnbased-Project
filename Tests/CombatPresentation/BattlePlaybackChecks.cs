@@ -17,6 +17,9 @@ internal static partial class BattlePlaybackChecks
 
     public static void Main(string[] args)
     {
+        if (args.Contains("--elemental-ai")) { ElementalAiChecks(); ElementalAcceptanceChecks(); EnemyAiPlannerTacticalChecks(); Console.WriteLine("PASS: " + _assertions + " total G–H and existing tactical AI assertions."); return; }
+        if (args.Contains("--elemental")) { ElementalSliceChecks(); ElementalExpansionChecks(); GenshinKitChecks(); return; }
+        if (args.Contains("--standard-dot")) { YuriUltShockTriggeringDamageChecks(); ElementalExpansionChecks(); Console.WriteLine("PASS: centralized DOT regression checks."); return; }
         if (args.Contains("--dungeon-enemies"))
         {
             DungeonEnemyRefactorChecks(); DungeonPolicyChecks(); AdditionalDamageChecks(); SophitiaPassiveChecks();
@@ -924,9 +927,9 @@ internal static partial class BattlePlaybackChecks
 
         var enemyId = tickBattle.Opponent.Fighters[0].Id;
         StatusSystem.Apply(tickBattle.Player.Fighters[0], enemyId, TeamSide.Opponent, tickRecipe, "bleed-1", "test", 1,
-            snapshot: new StatusSnapshot { FixedAmount = 100 });
+            snapshot: new StatusSnapshot { FixedAmount = 100, TriggeringHealthDamage = 100 });
         StatusSystem.Apply(tickBattle.Player.Fighters[1], enemyId, TeamSide.Opponent, tickRecipe, "bleed-2", "test", 1,
-            snapshot: new StatusSnapshot { FixedAmount = 100 });
+            snapshot: new StatusSnapshot { FixedAmount = 100, TriggeringHealthDamage = 100 });
 
         Check(BattleEngine.TryResolvePlan(tickBattle, new TurnPlan { RequestId = "pass1", ExpectedRevision = tickBattle.Revision },
             out var tickResolved, out var tickErr), tickErr);
@@ -1839,7 +1842,7 @@ internal static partial class BattlePlaybackChecks
     {
         // 1. Single target: Yuri Ult with Shock debuff at AfterAction timing
         // Base ATK: 350. Ultimate deals 400% ATK = 1400 damage.
-        // Shock is configured to deal 33% of triggering damage (3300 bp).
+        // A legacy inline Shock recipe is normalized to the shared 45% rule.
         var yuriDef = Fighter("yuri_shock_test", 5000, 350);
         var enemyDef = Fighter("dummy_enemy", 10000, 0);
 
@@ -1922,8 +1925,8 @@ internal static partial class BattlePlaybackChecks
         // Now collect ticks at TargetTurnEnd
         var ticks = enemy.Statuses.CollectTicks(StatusTickTiming.TargetTurnEnd);
         Check(ticks.Count == 1, $"Must have 1 Shock tick, got {ticks.Count}.");
-        // 1400 * 33% = 462 damage! (If it fell back to ATK 350, it would have been 350 * 0.33 = 115)
-        Check(ticks[0].Amount == 462, $"Shock tick must deal 462 damage (33% of 1400), got {ticks[0].Amount}.");
+        // 1400 * 45% = 630, using actual damage rather than the 350 ATK stat.
+        Check(ticks[0].Amount == 630, $"Shock tick must deal 630 damage (45% of 1400), got {ticks[0].Amount}.");
 
         // 2. AOE attack with Shock at AfterAction timing
         // Target 1 takes 1400 damage, Target 2 takes 1000 damage.
@@ -1989,8 +1992,8 @@ internal static partial class BattlePlaybackChecks
 
         var e1Ticks = aoeResolved.Opponent.Fighters[0].Statuses.CollectTicks(StatusTickTiming.TargetTurnEnd);
         var e2Ticks = aoeResolved.Opponent.Fighters[1].Statuses.CollectTicks(StatusTickTiming.TargetTurnEnd);
-        Check(e1Ticks[0].Amount == hit1.Amount * 3300 / 10000, $"Enemy 1 tick must scale with its damage ({hit1.Amount * 3300 / 10000}), got {e1Ticks[0].Amount}.");
-        Check(e2Ticks[0].Amount == hit2.Amount * 3300 / 10000, $"Enemy 2 tick must scale with its damage ({hit2.Amount * 3300 / 10000}), got {e2Ticks[0].Amount}.");
+        Check(e1Ticks[0].Amount == hit1.Amount * StandardDotRules.ShockBp / 10000, $"Enemy 1 tick must use the shared Shock coefficient, got {e1Ticks[0].Amount}.");
+        Check(e2Ticks[0].Amount == hit2.Amount * StandardDotRules.ShockBp / 10000, $"Enemy 2 tick must use the shared Shock coefficient, got {e2Ticks[0].Amount}.");
     }
 
     private static void EnemyAiPlannerTacticalChecks()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FightingAllstar.Core.Content;
 using UnityEngine;
 
@@ -97,54 +98,22 @@ namespace FightingAllstar.Presentation.Combat
             _initialized = true;
         }
 
+        private static string RegistryKey(string token, StatusPolarity polarity) => polarity + "|" + token;
+
         public static void Register(StatusVisualData data)
         {
             if (data == null) return;
             if (!AllVisuals.Contains(data)) AllVisuals.Add(data);
-
-            if (!string.IsNullOrEmpty(data.Id))
-            {
-                Registry[data.Id] = data;
-                var shortId = StripStatusPrefix(data.Id);
-                if (!string.IsNullOrEmpty(shortId)) Registry[shortId] = data;
-                var normId = NormalizeToken(data.Id);
-                if (!string.IsNullOrEmpty(normId)) Registry[normId] = data;
-            }
-
-            if (!string.IsNullOrEmpty(data.DisplayName))
-            {
-                Registry[data.DisplayName] = data;
-                var shortName = StripStatusPrefix(data.DisplayName);
-                if (!string.IsNullOrEmpty(shortName)) Registry[shortName] = data;
-                var normName = NormalizeToken(data.DisplayName);
-                if (!string.IsNullOrEmpty(normName)) Registry[normName] = data;
-            }
-
-            if (data.Keywords != null)
-            {
-                for (var i = 0; i < data.Keywords.Length; i++)
-                {
-                    var kw = data.Keywords[i];
-                    if (!string.IsNullOrWhiteSpace(kw))
-                    {
-                        var trimmed = kw.Trim();
-                        Registry[trimmed] = data;
-                        var normKw = NormalizeToken(trimmed);
-                        if (!string.IsNullOrEmpty(normKw)) Registry[normKw] = data;
-                    }
-                }
-            }
+            // Only exact IDs belong in this map. Human aliases can collide and are
+            // resolved deterministically by Get instead of last-registration wins.
+            if (!string.IsNullOrEmpty(data.Id)) Registry[RegistryKey(data.Id, data.Polarity)] = data;
         }
 
         public static void RegisterAlias(string recipeId, StatusVisualData data)
         {
             if (data == null || string.IsNullOrWhiteSpace(recipeId)) return;
             Register(data);
-            Registry[recipeId] = data;
-            var shortId = StripStatusPrefix(recipeId);
-            if (!string.IsNullOrEmpty(shortId)) Registry[shortId] = data;
-            var norm = NormalizeToken(recipeId);
-            if (!string.IsNullOrEmpty(norm)) Registry[norm] = data;
+            Registry[RegistryKey(recipeId, data.Polarity)] = data;
         }
 
         public static StatusVisualData Get(string recipeOrStatusId, StatusPolarity polarity = StatusPolarity.Debuff)
@@ -160,60 +129,26 @@ namespace FightingAllstar.Presentation.Combat
             }
 
             var clean = recipeOrStatusId.Trim();
-            if (Registry.TryGetValue(clean, out var exact) && exact != null)
+            if (Registry.TryGetValue(RegistryKey(clean, polarity), out var exact) && exact != null)
                 return exact;
 
-            var shortName = StripStatusPrefix(clean);
-            if (!string.IsNullOrEmpty(shortName) && Registry.TryGetValue(shortName, out var shortMatch) && shortMatch != null)
-                return shortMatch;
+            // Do not let a normalized alias overwrite an exact mechanic ID. Resolve
+            // explicit IDs/names/aliases first, then normalized legacy tokens, all
+            // within the requested polarity and with stable ordering.
+            var candidates = AllVisuals.Where(v => v != null && v.Polarity == polarity)
+                .OrderBy(v => v.Id, StringComparer.OrdinalIgnoreCase).ThenBy(v => v.name, StringComparer.Ordinal);
+            foreach (var visual in candidates)
+                if (string.Equals(visual.Id, clean, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(visual.DisplayName, clean, StringComparison.OrdinalIgnoreCase) ||
+                    visual.Keywords != null && visual.Keywords.Any(k => string.Equals(k, clean, StringComparison.OrdinalIgnoreCase)))
+                    return visual;
 
-            var normTarget = NormalizeToken(clean);
-            if (!string.IsNullOrEmpty(normTarget))
-            {
-                if (Registry.TryGetValue(normTarget, out var normMatch) && normMatch != null)
-                    return normMatch;
-
-                for (var i = 0; i < AllVisuals.Count; i++)
-                {
-                    var v = AllVisuals[i];
-                    if (v == null) continue;
-                    if (v.Polarity == polarity)
-                    {
-                        if (NormalizeToken(v.Id) == normTarget || NormalizeToken(v.DisplayName) == normTarget)
-                            return v;
-                        if (v.Keywords != null)
-                        {
-                            for (var k = 0; k < v.Keywords.Length; k++)
-                            {
-                                if (NormalizeToken(v.Keywords[k]) == normTarget)
-                                    return v;
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Substring search
-            var lower = clean.ToLowerInvariant();
-            for (var i = 0; i < AllVisuals.Count; i++)
-            {
-                var v = AllVisuals[i];
-                if (v == null) continue;
-                if (!string.IsNullOrEmpty(v.Id) && lower.Contains(v.Id.ToLowerInvariant()))
-                    return v;
-                if (!string.IsNullOrEmpty(v.DisplayName) && lower.Contains(v.DisplayName.ToLowerInvariant()))
-                    return v;
-                if (v.Keywords != null)
-                {
-                    for (var k = 0; k < v.Keywords.Length; k++)
-                    {
-                        var kw = v.Keywords[k];
-                        if (!string.IsNullOrEmpty(kw) && (lower.Contains(kw.ToLowerInvariant()) || kw.ToLowerInvariant().Contains(lower)))
-                            return v;
-                    }
-                }
-            }
-
+            var normalized = NormalizeToken(clean);
+            if (normalized.Length == 0) return null;
+            foreach (var visual in candidates)
+                if (NormalizeToken(visual.Id) == normalized || NormalizeToken(visual.DisplayName) == normalized ||
+                    visual.Keywords != null && visual.Keywords.Any(k => NormalizeToken(k) == normalized))
+                    return visual;
             return null;
         }
 
@@ -231,9 +166,9 @@ namespace FightingAllstar.Presentation.Combat
         {
             var visual = Get(recipeOrStatusId, polarity);
             if (visual != null && !string.IsNullOrEmpty(visual.DisplayName))
-                return visual.DisplayName;
+                return CombatTextCatalog.Normalize(visual.DisplayName);
 
-            return FightingAllstar.Core.Content.StatusLibrary.GetDisplayName(recipeOrStatusId, polarity);
+            return CombatTextCatalog.Normalize(FightingAllstar.Core.Content.StatusLibrary.GetDisplayName(recipeOrStatusId, polarity));
         }
 
         private static StatusVisualData GetDefaultByPolarity(StatusPolarity polarity)
@@ -246,31 +181,16 @@ namespace FightingAllstar.Presentation.Combat
 
             foreach (var key in keys)
             {
-                if (Registry.TryGetValue(key, out var match) && match != null) return match;
+                if (Registry.TryGetValue(RegistryKey(key, polarity), out var match) && match != null) return match;
             }
             return null;
-        }
-
-        private static string StripStatusPrefix(string id)
-        {
-            if (string.IsNullOrEmpty(id)) return "";
-            var s = id;
-            if (s.StartsWith("status.debuff.", StringComparison.OrdinalIgnoreCase)) s = s.Substring(14);
-            else if (s.StartsWith("status.buff.", StringComparison.OrdinalIgnoreCase)) s = s.Substring(12);
-            else if (s.StartsWith("status.", StringComparison.OrdinalIgnoreCase)) s = s.Substring(7);
-            else if (s.StartsWith("decrease.", StringComparison.OrdinalIgnoreCase)) s = s.Substring(9);
-            else if (s.StartsWith("increase.", StringComparison.OrdinalIgnoreCase)) s = s.Substring(9);
-            else if (s.StartsWith("decrease ", StringComparison.OrdinalIgnoreCase)) s = s.Substring(9);
-            else if (s.StartsWith("increase ", StringComparison.OrdinalIgnoreCase)) s = s.Substring(9);
-            if (s.StartsWith("stat.", StringComparison.OrdinalIgnoreCase)) s = s.Substring(5);
-            return s;
         }
 
         private static string NormalizeToken(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return string.Empty;
             return input.ToLowerInvariant()
-                .Replace("status.", "")
+                .Replace("status.", "").Replace("status_", "")
                 .Replace("debuff.", "")
                 .Replace("buff.", "")
                 .Replace("stat.", "")

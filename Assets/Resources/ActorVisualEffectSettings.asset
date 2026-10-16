@@ -33,3 +33,9 @@ MonoBehaviour:
   ExtortDebuff: {r: 0.73, g: 0.28, b: 0.92, a: 1}
   Explosion: {r: 1, g: 0.62, b: 0.1, a: 1}
   Rejuvenation: {r: 0.38, g: 1, b: 0.68, a: 1}
+  CryoEnterDuration: 0.5
+  CryoExitDuration: 0.6
+  GlacialOrbitDegreesPerSecond: 155
+  Freeze: {r: 0.24, g: 0.72, b: 1, a: 0.65}
+  FrostBite: {r: 0.6, g: 0.87, b: 1, a: 0.6}
+  GlacialWaltz: {r: 0.48, g: 0.88, b: 1, a: 0.95}

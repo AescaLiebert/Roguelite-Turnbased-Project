@@ -46,7 +46,7 @@ namespace FightingAllstar.Core.Run
                 var definition = FindCatalogDefinition(catalog, seedFighter.Definition.Id).Clone();
                 var stats = (seedFighter.ResolvedStats ?? definition.BaseStats).Clone();
                 state.Roster.Add(new RunFighterState { RunFighterId = seedFighter.OwnedFighterId,
-                    DefinitionId = definition.Id, Stats = stats,
+                    DefinitionId = definition.Id, Stats = stats, Level = CharacterProgression.NormalizeLevel(seedFighter.Level),
                     ArtifactLoadout = seedFighter.Definition.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(),
                     ConstellationTier = seedFighter.ConstellationTier, OriginalFormationIndex = seedFighter.FormationSlot,
                     CurrentHealth = stats.MaxHealth, IsDefeated = false });
@@ -135,10 +135,13 @@ namespace FightingAllstar.Core.Run
                     var stats = (seed.ResolvedStats ?? definition.BaseStats).Clone();
                     foreach (var boost in state.StatBoosts) boost.Apply(stats);
                     fighter = new RunFighterState { RunFighterId = seed.OwnedFighterId, DefinitionId = definition.Id,
-                        Stats = stats, ArtifactLoadout = seed.Definition.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(),
+                        Stats = stats, Level = CharacterProgression.NormalizeLevel(seed.Level),
+                        ArtifactLoadout = seed.Definition.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(),
                         CurrentHealth = stats.MaxHealth, ConstellationTier = seed.ConstellationTier };
                     state.Roster.Add(fighter);
                 }
+                else if (fighter.Level <= 0)
+                    fighter.Level = CharacterProgression.NormalizeLevel(seed.Level);
                 fighter.OriginalFormationIndex = seed.FormationSlot;
                 state.Formation[seed.FormationSlot] = fighter.RunFighterId;
             }
@@ -193,7 +196,8 @@ namespace FightingAllstar.Core.Run
                 encounterDefinition.ArtifactLoadout = fighter.ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>();
                 result.PlayerTeam.Add(new EncounterFighterSnapshot { FighterId = fighter.RunFighterId,
                     DefinitionId = fighter.DefinitionId, Definition = encounterDefinition, Stats = fighter.Stats.Clone(),
-                    CurrentHealth = fighter.CurrentHealth, ConstellationTier = fighter.ConstellationTier,
+                    CurrentHealth = fighter.CurrentHealth, Level = CharacterProgression.NormalizeLevel(fighter.Level),
+                    ConstellationTier = fighter.ConstellationTier,
                     FormationSlot = Math.Min(slot, 2), IsReserve = slot == 3 });
             }
             if (result.PlayerTeam.Count < 1 || !result.PlayerTeam.Exists(f => !f.IsReserve))
@@ -201,20 +205,30 @@ namespace FightingAllstar.Core.Run
                 error = "Encounter needs one to four living player fighters.";
                 return false;
             }
+            var isEasyEncounter = DungeonDifficulty.Level(run.DifficultyBonusPercent) == 1;
             foreach (var enemy in node.EnemyTeamSnapshot)
             {
                 var encounterEnemy = enemy.Clone();
-                // Older saved routes contain placeholder minion attacks. Keep their frozen stats,
-                // but refresh minion combat data from the current fighter catalog when entering battle.
-                if (encounterEnemy.EnemyKind != DungeonEnemyKind.Fighter)
+                var savedAsMinion = encounterEnemy.EnemyKind != DungeonEnemyKind.Fighter;
+                encounterEnemy.EnemyKind = DungeonEnemyKind.Fighter;
+                // Rebuild Easy snapshots as full level-one fighters. This also migrates older
+                // saved minion snapshots whose card data and half stats were already frozen.
+                if (isEasyEncounter || savedAsMinion)
                 {
                     var source = FindCatalogDefinition(catalog, encounterEnemy.DefinitionId);
                     if (source != null)
                     {
-                        encounterEnemy.Definition = source.Clone();
-                        encounterEnemy.Definition.DisplayName = encounterEnemy.EnemyKind == DungeonEnemyKind.EliteMinion
-                            ? "Elite Minion" : "Minion";
-                        encounterEnemy.Definition.ArtifactLoadout.Clear();
+                        var frozenArtifacts = encounterEnemy.Definition?.ArtifactLoadout?
+                            .ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>();
+                        var updatedDefinition = source.Clone();
+                        updatedDefinition.ArtifactLoadout = isEasyEncounter
+                            ? new List<ArtifactInstance>() : frozenArtifacts;
+                        encounterEnemy.Definition = updatedDefinition;
+                        var level = isEasyEncounter ? 1 : CharacterProgression.NormalizeLevel(encounterEnemy.Level);
+                        var stats = CharacterProgression.StatsAtLevel(source.BaseStats, source.StatGrowth, level);
+                        encounterEnemy.Stats = ArtifactRules.ApplyStats(stats, updatedDefinition.ArtifactLoadout);
+                        encounterEnemy.Level = level;
+                        encounterEnemy.CurrentHealth = encounterEnemy.Stats.MaxHealth;
                     }
                 }
                 result.EnemyTeam.Add(encounterEnemy);

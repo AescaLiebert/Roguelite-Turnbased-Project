@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
   ultimateName: "SCII Cassandra \xB7 Ultimate"
   icon: {fileID: 21300000, guid: 48367484526869a4da727be3fa9fd35c, type: 3}
-  statusVisuals:
-  - {fileID: 0}
+  statusVisuals: []
   levels:
   - level: 0
     description: Increases own damage dealt by 50% and reduces damage received by
@@ -23,6 +22,16 @@ MonoBehaviour:
       Debuff cards for 2 turns.
     skillType: 6
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 2
         Range: 0
@@ -39,6 +48,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -51,6 +82,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -60,6 +92,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -129,6 +162,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -145,6 +188,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.damage-dealt
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -152,11 +217,12 @@ MonoBehaviour:
             Behavior: 1
             Stacking: 1
             Identity: 0
-            DurationClock: 1
+            DurationClock: 0
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -179,6 +245,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -245,6 +312,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -261,6 +338,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.reduce.damage-taken
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -268,11 +367,12 @@ MonoBehaviour:
             Behavior: 1
             Stacking: 1
             Identity: 0
-            DurationClock: 1
+            DurationClock: 0
             DefaultDuration: 2
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -295,6 +395,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -361,6 +462,16 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -377,6 +488,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.disable-debuff
             NameKey: Disable Debuff
             Polarity: 1
@@ -389,6 +522,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -398,6 +532,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -467,6 +602,16 @@ MonoBehaviour:
       Debuff cards for 2 turns.
     skillType: 6
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 2
         Range: 0
@@ -483,6 +628,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -495,6 +662,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -504,6 +672,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -573,6 +742,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -589,6 +768,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.damage-dealt
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -601,6 +802,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -623,6 +825,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -689,6 +892,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -705,6 +918,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.reduce.damage-taken
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -717,6 +952,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -739,6 +975,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -805,6 +1042,16 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -821,6 +1068,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.disable-debuff
             NameKey: Disable Debuff
             Polarity: 1
@@ -833,6 +1102,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -842,6 +1112,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -911,6 +1182,16 @@ MonoBehaviour:
       Debuff cards for 2 turns.
     skillType: 6
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 2
         Range: 0
@@ -927,6 +1208,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -939,6 +1242,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -948,6 +1252,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -1017,6 +1322,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1033,6 +1348,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.damage-dealt
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -1045,6 +1382,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1067,6 +1405,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -1133,6 +1472,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1149,6 +1498,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.reduce.damage-taken
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -1161,6 +1532,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1183,6 +1555,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -1249,6 +1622,16 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1265,6 +1648,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.disable-debuff
             NameKey: Disable Debuff
             Polarity: 1
@@ -1277,6 +1682,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1286,6 +1692,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -1355,6 +1762,16 @@ MonoBehaviour:
       Debuff cards for 2 turns.
     skillType: 6
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 2
         Range: 0
@@ -1371,6 +1788,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -1383,6 +1822,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -1392,6 +1832,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -1461,6 +1902,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1477,6 +1928,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.damage-dealt
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -1489,6 +1962,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1511,6 +1985,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -1577,6 +2052,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1593,6 +2078,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.reduce.damage-taken
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -1605,6 +2112,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1627,6 +2135,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -1693,6 +2202,16 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1709,6 +2228,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.disable-debuff
             NameKey: Disable Debuff
             Polarity: 1
@@ -1721,6 +2262,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1730,6 +2272,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -1799,6 +2342,16 @@ MonoBehaviour:
       Debuff cards for 2 turns.
     skillType: 6
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 2
         Range: 0
@@ -1815,6 +2368,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -1827,6 +2402,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -1836,6 +2412,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -1905,6 +2482,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -1921,6 +2508,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.damage-dealt
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -1933,6 +2542,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -1955,6 +2565,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -2021,6 +2632,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -2037,6 +2658,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.reduce.damage-taken
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -2049,6 +2692,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -2071,6 +2715,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -2137,6 +2782,16 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -2153,6 +2808,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.disable-debuff
             NameKey: Disable Debuff
             Polarity: 1
@@ -2165,6 +2842,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -2174,6 +2852,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -2243,6 +2922,16 @@ MonoBehaviour:
       Debuff cards for 2 turns.
     skillType: 6
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 2
         Range: 0
@@ -2259,6 +2948,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -2271,6 +2982,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -2280,6 +2992,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -2349,6 +3062,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -2365,6 +3088,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.damage-dealt
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -2377,6 +3122,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -2399,6 +3145,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -2465,6 +3212,16 @@ MonoBehaviour:
       - Timing: 0
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -2481,6 +3238,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.reduce.damage-taken
             NameKey: Soul Calibur Power
             Polarity: 0
@@ -2493,6 +3272,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -2515,6 +3295,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -2581,6 +3362,16 @@ MonoBehaviour:
       - Timing: 3
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -2597,6 +3388,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.disable-debuff
             NameKey: Disable Debuff
             Polarity: 1
@@ -2609,6 +3422,7 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -2618,6 +3432,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1

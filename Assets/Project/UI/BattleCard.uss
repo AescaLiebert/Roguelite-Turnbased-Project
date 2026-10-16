@@ -67,10 +67,10 @@
 
 .card-disabled-overlay {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    left: -3px;
+    right: -3px;
+    top: -3px;
+    bottom: -2px;
     display: none;
     background-color: rgba(0, 0, 0, 0.58);
 }

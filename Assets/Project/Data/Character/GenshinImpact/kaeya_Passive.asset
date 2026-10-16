@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: kaeya_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals:
+  - {fileID: 11400000, guid: ce49b5d83a8c48dfa938bdf13933888b, type: 2}
+  - {fileID: 11400000, guid: c46e8ec7bf1149ba975113ccf47527f2, type: 2}
+  definition:
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 1
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: status.debuff.frost-bite
+      BonusCritChanceBp: 1500
+      BonusDamageBp: 1000
+      AttackerGaugeAgainstRecipeId: status.debuff.frost-bite
+      AttackerGaugeGainBp: 5000
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.kaeya.passive.source
+    Auras: []
+    Reactions: []
+    Triggers: []

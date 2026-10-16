@@ -24,6 +24,16 @@ MonoBehaviour:
       buffs stack.
     skillType: 3
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
@@ -40,6 +50,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: status.stance.taunt
         NameKey: Taunt
         Polarity: 2
@@ -52,6 +84,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -64,6 +97,7 @@ MonoBehaviour:
         - sophitia.stance.rank.1
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -133,6 +167,16 @@ MonoBehaviour:
       - Timing: 2
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 0
             Range: 0
@@ -149,9 +193,31 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.stance.apply
             NameKey: status.stance.apply
-            Polarity: 0
+            Polarity: 2
             Color: 0
             Behavior: 0
             Stacking: 0
@@ -161,6 +227,7 @@ MonoBehaviour:
             MaxStacks: 0
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -170,6 +237,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -238,6 +306,16 @@ MonoBehaviour:
       these buffs stack.
     skillType: 3
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
@@ -254,6 +332,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: status.stance.taunt
         NameKey: Taunt
         Polarity: 2
@@ -266,6 +366,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -278,6 +379,7 @@ MonoBehaviour:
         - sophitia.stance.rank.2
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -347,6 +449,16 @@ MonoBehaviour:
       - Timing: 2
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 0
             Range: 0
@@ -363,6 +475,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.stance.apply
             NameKey: status.stance.apply
             Polarity: 0
@@ -375,6 +509,7 @@ MonoBehaviour:
             MaxStacks: 0
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -384,6 +519,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -452,6 +588,16 @@ MonoBehaviour:
       these buffs stack.
     skillType: 3
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
@@ -468,6 +614,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: status.stance.taunt
         NameKey: Taunt
         Polarity: 2
@@ -480,6 +648,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -492,6 +661,7 @@ MonoBehaviour:
         - sophitia.stance.rank.3
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -561,6 +731,16 @@ MonoBehaviour:
       - Timing: 2
         BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 0
             Range: 0
@@ -577,6 +757,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.stance.apply
             NameKey: status.stance.apply
             Polarity: 0
@@ -589,6 +791,7 @@ MonoBehaviour:
             MaxStacks: 0
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
             BarrierSourceStat: 0
             BarrierDurationPolicy: 0
             BarrierAmountPolicy: 0
@@ -598,6 +801,7 @@ MonoBehaviour:
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0

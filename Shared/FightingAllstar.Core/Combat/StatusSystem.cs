@@ -74,6 +74,7 @@ namespace FightingAllstar.Core.Combat
 
     public sealed class StatusTick
     {
+        public ElementId Element;
         public string StatusInstanceId;
         public string RecipeId;
         public string SourceFighterId;
@@ -99,6 +100,7 @@ namespace FightingAllstar.Core.Combat
         public StatusApplyResult Apply(StatusApplyRequest request)
         {
             var recipe = request?.Recipe;
+            StandardDotRules.Normalize(recipe);
             if (recipe == null || string.IsNullOrWhiteSpace(recipe.Id))
                 return Rejected("A status recipe with a stable id is required.");
             recipe.NormalizePolarity();
@@ -176,7 +178,8 @@ namespace FightingAllstar.Core.Combat
             for (var i = Instances.Count - 1; i >= 0; i--)
             {
                 var instance = Instances[i];
-                if (instance?.Recipe == null || instance.Recipe.Color == StatusColor.Grey ||
+                if (instance?.Recipe == null ||
+                    (instance.Recipe.Color == StatusColor.Grey && string.IsNullOrEmpty(recipeId)) ||
                     instance.Recipe.Polarity != polarity) continue;
                 if (!string.IsNullOrEmpty(recipeId) && instance.RecipeId != recipeId) continue;
                 Instances.RemoveAt(i);
@@ -195,6 +198,20 @@ namespace FightingAllstar.Core.Combat
             Instances.RemoveAt(index);
             RemoveOrphans();
             return true;
+        }
+
+        internal int PurgeForFreeze(StatusInstance freeze)
+        {
+            long shieldBefore = 0;
+            foreach (var status in Instances) shieldBefore += Math.Max(0, status?.ShieldRemaining ?? 0);
+            Instances.RemoveAll(status => {
+                if (status == freeze || status?.Recipe == null || status.Recipe.Polarity == StatusPolarity.Neutral) return false;
+                return true;
+            });
+            RemoveOrphans();
+            long shieldAfter = 0;
+            foreach (var status in Instances) shieldAfter += Math.Max(0, status?.ShieldRemaining ?? 0);
+            return (int)Math.Min(int.MaxValue, shieldBefore - shieldAfter);
         }
 
         private void RemoveOrphans(List<StatusInstance> removed = null)
@@ -258,6 +275,7 @@ namespace FightingAllstar.Core.Combat
             foreach (var instance in Instances)
             {
                 if (instance?.Recipe == null) continue;
+                StandardDotRules.Normalize(instance.Recipe);
                 if ((instance.Recipe.Behavior & StatusBehavior.DamageOverTime) == 0) continue;
                 var periodic = instance.Recipe.PeriodicDamage;
                 if (periodic == null || periodic.Timing != timing) continue;
@@ -273,7 +291,8 @@ namespace FightingAllstar.Core.Combat
                 if (amount <= 0 && !periodic.ConsumeOnTrigger) continue;
                 ticks.Add(new StatusTick { StatusInstanceId = instance.InstanceId, RecipeId = instance.RecipeId,
                     SourceFighterId = instance.SourceFighterId, TargetFighterId = instance.TargetFighterId,
-                    Family = periodic.Family, Amount = amount * Math.Max(1, instance.StackCount),
+                    Family = periodic.Family, Element = periodic.Element,
+                    Amount = (int)Math.Min(int.MaxValue, (long)amount * Math.Max(1, instance.StackCount)),
                     ConsumeOnTrigger = periodic.ConsumeOnTrigger });
             }
             return ticks;
@@ -367,6 +386,7 @@ namespace FightingAllstar.Core.Combat
         private static long PeriodicDamageStrength(StatusInstance instance)
         {
             var recipe = instance?.Recipe;
+            StandardDotRules.Normalize(recipe);
             if (recipe?.PeriodicDamage == null || (recipe.Behavior & StatusBehavior.DamageOverTime) == 0) return 0;
             var periodic = recipe.PeriodicDamage;
             long basis = periodic.Scaling switch
@@ -422,6 +442,8 @@ namespace FightingAllstar.Core.Combat
             if (recipe == null) return 0;
             long value = Math.Abs((long)recipe.RecoverDamageTakenBp) + Math.Abs((long)recipe.IgnoreCritResistanceBp) +
                 Math.Abs((long)recipe.IgnoreCritDefenseBp) + Math.Max(0, recipe.SurviveLethalCharges);
+            value += Math.Abs((long)recipe.EndTurnPowerGaugeLoss) + Math.Abs((long)recipe.PowerGaugeGainBp) +
+                Math.Abs((long)recipe.PhysicalDamageReceivedBp) + Math.Abs((long)recipe.SourceOnlyDamageReductionBp);
             if (recipe.DebuffImmunity) value++;
             if (recipe.AdditionalDamageImmunity) value++;
             if (recipe.EvadeAttacks) value++;
@@ -465,6 +487,18 @@ namespace FightingAllstar.Core.Combat
 
     public static class StatusSystem
     {
+        public const string FreezeRecipeId = "status.debuff.freeze";
+
+        public static bool IsFrozen(FighterState fighter) =>
+            fighter?.Statuses?.Instances?.Exists(s => s?.RecipeId == FreezeRecipeId) == true;
+
+        public static bool IsFreezeRecoveryActive(FighterState fighter) =>
+            fighter != null && fighter.OwnerTurnsCompleted < fighter.FreezeRecoveryUntilOwnerTurn;
+
+        // Called only for an attack contact, never for periodic damage. The caller publishes its hit snapshot.
+        public static bool BreakFreezeOnAttack(FighterState fighter) =>
+            fighter?.Statuses?.Instances?.RemoveAll(s => s?.RecipeId == FreezeRecipeId) > 0;
+
         public static StatusApplyResult Apply(FighterState target, string sourceFighterId, TeamSide sourceSide,
             StatusRecipeDefinition recipe, string instanceId, string rootActionId, long appliedOrder,
             StatusSnapshot snapshot = null, int potencyBp = 0, int stackCount = 1, int duration = 0,
@@ -474,6 +508,10 @@ namespace FightingAllstar.Core.Combat
                 return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Target is not alive." };
             if (target.Statuses == null) target.Statuses = new StatusContainer();
             recipe?.NormalizePolarity();
+            if (recipe != null && recipe.Polarity != StatusPolarity.Neutral && IsFrozen(target))
+                return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Frozen: buffs and debuffs are blocked." };
+            if (recipe?.Id == FreezeRecipeId && IsFreezeRecoveryActive(target))
+                return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Freeze recovery." };
             if (recipe != null && recipe.Polarity == StatusPolarity.Debuff && !recipe.BypassDebuffImmunity &&
                 target.Statuses.Instances.Exists(s => s?.Recipe != null && (s.Recipe.DebuffImmunity ||
                     s.Recipe.ImmuneStatusTags.Exists(tag => recipe.Tags.Contains(tag)))))
@@ -482,6 +520,12 @@ namespace FightingAllstar.Core.Combat
                 SourceFighterId = sourceFighterId, SourceSide = sourceSide, TargetFighterId = target.Id,
                 RootActionId = rootActionId, Snapshot = snapshot, PotencyBp = potencyBp, StackCount = stackCount,
                 Duration = duration, SkipNextDurationClock = skipNextDurationClock, AppliedOrder = appliedOrder });
+            if (result.Accepted && recipe.Id == FreezeRecipeId)
+            {
+                target.Shield = Math.Max(0, target.Shield - target.Statuses.PurgeForFreeze(result.Instance));
+                // Preserve the existing two target-turn recovery clock, including a skipped applying turn.
+                target.FreezeRecoveryUntilOwnerTurn = target.OwnerTurnsCompleted + 2 + (skipNextDurationClock ? 1 : 0);
+            }
             if (result.Accepted && recipe.StanceChildren != null)
             {
                 // Child identity is scoped to its parent, preventing unrelated buffs from being adopted.
@@ -624,11 +668,17 @@ namespace FightingAllstar.Core.Combat
             }
             Accumulate(attacker, family, true, isUltimate, policy);
             Accumulate(defender, family, false, isUltimate, policy);
+            if (defender?.Statuses?.Instances != null) foreach (var status in defender.Statuses.Instances)
+            {
+                policy.PhysicalReceivedIncreaseBp += status?.Recipe?.PhysicalDamageReceivedBp ?? 0;
+                if (status?.SourceFighterId == defender.Id) policy.FinalReductionBp += status.Recipe?.SourceOnlyDamageReductionBp ?? 0;
+            }
             if (ArtifactRules.ActiveSets(attacker).Contains(ArtifactSet.Striker))
             {
                 // Artifact Damage Dealt applies to every family. Additional/DOT use the family
                 // multiplier branch; their formula deliberately does not read generic outgoing buffs.
-                if (family == DamageFamily.Additional || family == DamageFamily.DamageOverTime) policy.FamilyDealtIncreaseBp += 500;
+                if (family == DamageFamily.Additional || family == DamageFamily.DamageOverTime ||
+                    family == DamageFamily.ElementalReaction) policy.FamilyDealtIncreaseBp += 500;
                 else policy.OutgoingIncreaseBp += 500;
             }
             return policy;
@@ -703,6 +753,27 @@ namespace FightingAllstar.Core.Combat
                     }
                 }
             }
+        }
+
+        /// <summary>Explicit family bonuses only; global bonuses already present on Normal must not cross a second time.</summary>
+        public static int GetExplicitFamilyDamageDealtBp(FighterState fighter, DamageFamily family)
+        {
+            var total = BigInteger.Zero;
+            if (fighter?.PassiveContributions != null) foreach (var contribution in fighter.PassiveContributions)
+            {
+                var modifier = contribution?.Modifier;
+                if (modifier?.ResolvedTarget == ModifierTarget.FamilyDamageDealt && modifier.ResolvedFamily == family)
+                    total += modifier.Amount;
+            }
+            if (fighter?.Statuses?.Instances != null) foreach (var status in fighter.Statuses.Instances)
+            {
+                if (status?.Recipe?.Modifiers == null) continue;
+                var stacks = status.Recipe.Stacking == StatusStackingPolicy.AddStacks ? Math.Max(1, status.StackCount) : 1;
+                foreach (var modifier in status.Recipe.Modifiers)
+                    if (modifier?.ResolvedTarget == ModifierTarget.FamilyDamageDealt && modifier.ResolvedFamily == family)
+                        total += new BigInteger(ResolveModifierAmount(modifier, status)) * stacks;
+            }
+            return (int)BigInteger.Max(-int.MaxValue, BigInteger.Min(int.MaxValue, total));
         }
 
         private static int ResolveModifierAmount(StatModifierDefinition modifier, StatusInstance status)

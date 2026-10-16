@@ -15,21 +15,28 @@ namespace FightingAllstar.Presentation.Navigation
             var overlay = new VisualElement { name = "training-picker" };
             overlay.AddToClassList("training-overlay");
             var panel = new VisualElement(); panel.AddToClassList("training-panel"); overlay.Add(panel);
+            panel.style.color = UnityEngine.Color.white;
             var heading = new VisualElement(); heading.AddToClassList("training-toolbar"); panel.Add(heading);
             heading.Add(new Label("TRAINING / CHOOSE A FIGHTER") { name = "training-title" });
             var close = new Button(() => { overlay.RemoveFromHierarchy(); root.Q<Button>("training")?.Focus(); }) { text = "CLOSE" };
             heading.Add(close);
             panel.Add(new Label("Practice with any ready fighter. One action each turn. All skill ranks and ultimate are replenished; ultimate is free. No rewards."));
             var filters = new VisualElement(); filters.AddToClassList("training-toolbar"); panel.Add(filters);
-            var search = new TextField("Search"); filters.Add(search);
+            var search = new TextField("Search") { name = "training-search" }; filters.Add(search);
             var attribute = new DropdownField("Attribute", new[] { "All" }.Concat(Enum.GetNames(typeof(FighterAttribute))).ToList(), 0); filters.Add(attribute);
             var rarity = new DropdownField("Rarity", new[] { "All" }.Concat(Enum.GetNames(typeof(FighterRarity))).ToList(), 0); filters.Add(rarity);
-            var series = new DropdownField("Series", new[] { "All" }.Concat(characters.Select(c => c.SeriesId).Where(s => !string.IsNullOrEmpty(s)).Distinct().OrderBy(s => s)).ToList(), 0); filters.Add(series);
+            var seriesIds = new[] { "" }.Concat(characters.Select(c => c.SeriesId).Where(s => !string.IsNullOrEmpty(s)).Distinct().OrderBy(s => s)).ToList();
+            var series = new DropdownField("Series", seriesIds.Select(SeriesName).ToList(), 0) { name = "training-series" }; filters.Add(series);
             var sort = new DropdownField("Sort", new List<string> { "Name", "Rarity", "Character ID" }, 0); filters.Add(sort);
-            var tier = new DropdownField("Constellation", Enumerable.Range(0, 7).Select(i => "C" + i).ToList(), 0); filters.Add(tier);
+            var maximumTier = characters.Where(c => c.Ultimate?.levels != null).SelectMany(c => c.Ultimate.levels)
+                .Where(l => l != null).Select(l => l.level).DefaultIfEmpty(0).Max();
+            var tier = new DropdownField("Constellation", Enumerable.Range(0, maximumTier + 1).Select(i => "C" + i).ToList(), 0) { name = "training-tier" }; filters.Add(tier);
+            var shortcuts = new VisualElement(); shortcuts.AddToClassList("training-toolbar"); panel.Add(shortcuts);
+            void ClearFilters() { search.SetValueWithoutNotify(""); attribute.SetValueWithoutNotify("All"); rarity.SetValueWithoutNotify("All"); }
+            var all = new Button { text = "ALL FIGHTERS", name = "training-all" }; shortcuts.Add(all);
             var status = new Label(); status.AddToClassList("training-status"); panel.Add(status);
             var scroll = new ScrollView(ScrollViewMode.Vertical)
-            { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
+            { name = "training-scroll", horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Auto };
             scroll.AddToClassList("training-scroll"); panel.Add(scroll);
             var grid = new VisualElement(); grid.AddToClassList("training-grid"); scroll.Add(grid);
             Action refresh = () =>
@@ -40,7 +47,7 @@ namespace FightingAllstar.Presentation.Navigation
                     (c.DefinitionId ?? "").IndexOf(search.value.Trim(), StringComparison.OrdinalIgnoreCase) >= 0) &&
                     (attribute.index == 0 || c.FighterAttribute.ToString() == attribute.value) &&
                     (rarity.index == 0 || c.FighterRarity.ToString() == rarity.value) &&
-                    (series.index == 0 || c.SeriesId == series.value));
+                    (series.index <= 0 || c.SeriesId == seriesIds[series.index]));
                 var ordered = sort.index == 1 ? filtered.OrderByDescending(c => c.FighterRarity).ThenBy(c => c.FighterName) :
                     sort.index == 2 ? filtered.OrderBy(c => c.ID).ThenBy(c => c.FighterName) : filtered.OrderBy(c => c.FighterName);
                 var visible = ordered.ToList();
@@ -55,7 +62,7 @@ namespace FightingAllstar.Presentation.Navigation
                             SceneManager.LoadScene("Training");
                         }
                         catch (Exception exception) { status.text = exception.Message; }
-                    });
+                    }) { name = "training-fighter:" + character.DefinitionId };
                     button.AddToClassList("training-character");
                     button.Add(CharacterIconView.Create(character, 110));
                     button.Add(new Label(character.FighterName));
@@ -70,9 +77,13 @@ namespace FightingAllstar.Presentation.Navigation
             rarity.RegisterValueChangedCallback(_ => refresh());
             series.RegisterValueChangedCallback(_ => refresh());
             sort.RegisterValueChangedCallback(_ => refresh());
+            all.clicked += () => { ClearFilters(); series.index = 0; refresh(); scroll.scrollOffset = UnityEngine.Vector2.zero; };
             overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == UnityEngine.KeyCode.Escape) { overlay.RemoveFromHierarchy(); evt.StopPropagation(); } });
             root.Add(overlay);
             refresh(); search.Focus();
         }
+
+        private static string SeriesName(string id) => string.IsNullOrEmpty(id) ? "All" : id == "series.genshin-impact"
+            ? "Genshin Impact" : System.Globalization.CultureInfo.InvariantCulture.TextInfo.ToTitleCase(id.Replace("series.", "").Replace('-', ' '));
     }
 }

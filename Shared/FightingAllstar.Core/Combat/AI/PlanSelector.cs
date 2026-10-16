@@ -16,12 +16,7 @@ namespace FightingAllstar.Core.Combat.AI
 
             // Filter to only simulation-valid plans
             var validPlans = scoredPlans.Where(p => p.SimulationValid).ToList();
-            if (validPlans.Count == 0)
-            {
-                // Fallback: take the highest scoring plan even if simulation threw a warning,
-                // or return null to fall back to LegalAi
-                validPlans = scoredPlans;
-            }
+            if (validPlans.Count == 0) return null;
 
             // Apply slight noise for natural feel
             float noiseFactor = profile?.NoisePercent ?? 0.02f;

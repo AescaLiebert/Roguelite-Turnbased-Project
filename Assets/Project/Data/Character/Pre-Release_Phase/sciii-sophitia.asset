@@ -20,11 +20,14 @@ MonoBehaviour:
   traitIds:
   - trait.female
   - trait.soul-calibur
-  passiveSourceDescription: "Increases the Basic Stats of Blue allies by 12%. When
-    one of Sophitia's attacks does not crit, she deals additional damage based on
-    her Crit Chance. \n\n[Soul Calibur: own Max HP +10% and Crit Defense +10%; When
-    attacking will Increase ATK by +12%]"
-  passiveSourceType: 1
+  passiveSourceDescription: 'Increases all Blue allies'' Basic Stats by 12%. When
+    the hero''s attack does not critically hit, increases damage dealt based on the
+    hero''s Crit Chance.
+
+
+    [Soul Calibur: increases the hero''s Max HP and Crit
+    Defense by 10%. When attacking, increases the hero''s Attack by 12%.]'
+  passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: c7e3e0ef983e8794dad5e1614a803380, type: 2}
   id: 2306

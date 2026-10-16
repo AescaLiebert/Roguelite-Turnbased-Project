@@ -22,7 +22,7 @@ MonoBehaviour:
   - trait.chinese
   - trait.series-kof
   - trait.male
-  passiveSourceDescription: Reduces the Avoidance rate of enemy Women Trait by 20%
+  passiveSourceDescription: "Decreases all Women enemies' Avoidance by 20%."
   passiveSourceType: 1
   passiveRestriction: 5
   passiveDefinition: {fileID: 11400000, guid: 19f6b1f390e14b44a1dbfb064005419b, type: 2}

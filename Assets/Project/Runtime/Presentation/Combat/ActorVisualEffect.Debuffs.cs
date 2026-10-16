@@ -13,13 +13,13 @@ namespace FightingAllstar.Presentation.Combat
         private ActorDebuffVisual _detonation;
 
         public bool IsParalyzed => _paralyzed;
-        public bool IsUnableToAct => _stunned || _paralyzed;
+        public bool IsUnableToAct => _stunned || _paralyzed || _frozen;
         public bool IsExploding => _detonation != null && _detonation.Active;
-        public int ActiveStatusCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active) n++; return n; } }
-        public int ActiveStatusEnterCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering) n++; return n; } }
+        public int ActiveStatusCount { get { var n = ActiveCryoCount; foreach (var effect in _debuffs.Values) if (effect.Active) n++; return n; } }
+        public int ActiveStatusEnterCount { get { var n = ActiveCryoEnterCount; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering) n++; return n; } }
         public float DebuffEnterDuration { get { Ensure(); return _settings.DebuffEnterDuration; } }
-        public int ActiveDebuffCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && ActorVisualEffectRules.IsPersistentDebuff(effect.Kind)) n++; return n; } }
-        public int ActiveDebuffEnterCount { get { var n = 0; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering && ActorVisualEffectRules.IsPersistentDebuff(effect.Kind)) n++; return n; } }
+        public int ActiveDebuffCount { get { var n = ActiveCryoDebuffCount; foreach (var effect in _debuffs.Values) if (effect.Active && ActorVisualEffectRules.IsPersistentDebuff(effect.Kind)) n++; return n; } }
+        public int ActiveDebuffEnterCount { get { var n = ActiveCryoDebuffEnterCount; foreach (var effect in _debuffs.Values) if (effect.Active && effect.Entering && ActorVisualEffectRules.IsPersistentDebuff(effect.Kind)) n++; return n; } }
 
         /// <summary>Reconcile idle effects with state. Stack count and snapshot refreshes never replay entrances.</summary>
         public void SynchronizeDebuffs(IReadOnlyList<ActorVisualEffectKind> kinds)
@@ -31,12 +31,13 @@ namespace FightingAllstar.Presentation.Combat
             var desired = new HashSet<ActorVisualEffectKind>();
             if (kinds != null) foreach (var kind in kinds)
                 if (ActorVisualEffectRules.IsPersistentStatus(kind)) desired.Add(kind);
-            foreach (var kind in desired) Debuff(kind).SetActive(true);
+            SynchronizeCryo(desired);
+            foreach (var kind in desired) if (!ActorVisualEffectRules.IsCryoStatus(kind)) Debuff(kind).SetActive(true);
             foreach (var pair in _debuffs) if (!desired.Contains(pair.Key)) pair.Value.SetActive(false);
             var wasParalyzed = _paralyzed;
             _paralyzed = desired.Contains(ActorVisualEffectKind.Paralyze);
             if (_paralyzed && !wasParalyzed) { _paralyzeStarted = Time.unscaledTime; CapturePose(); }
-            if (!_paralyzed && wasParalyzed && !_stunned) { RestorePose(); _flinchStarted = -100f; }
+            if (!_paralyzed && wasParalyzed && !_stunned && !_frozen) { RestorePose(); _flinchStarted = -100f; }
             UpdateDebuffDensity();
         }
 
@@ -48,6 +49,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             if (!ActorVisualEffectRules.IsPersistentStatus(kind) || !isActiveAndEnabled) return;
             Ensure();
+            if (ActorVisualEffectRules.IsCryoStatus(kind)) { Cryo(kind).Enter(); SetFrozen(kind == ActorVisualEffectKind.Freeze || _frozen); return; }
             Debuff(kind).Enter();
             if (kind == ActorVisualEffectKind.Paralyze && !_paralyzed)
             { _paralyzed = true; _paralyzeStarted = Time.unscaledTime; CapturePose(); }
@@ -82,8 +84,9 @@ namespace FightingAllstar.Presentation.Combat
         private void EvaluateDebuffs(float now, Camera camera)
         {
             foreach (var effect in _debuffs.Values) effect.Evaluate(now, camera);
+            EvaluateCryo(now, camera);
             _detonation?.Evaluate(now, camera);
-            if (!_paralyzed || _stunned || _hidden || _model == null) return;
+            if (!_paralyzed || _stunned || _frozen || _hidden || _model == null) return;
             if (!_poseCaptured) CapturePose();
             var age = now - _paralyzeStarted;
             var flinch = Mathf.Clamp01((now - _flinchStarted) / _settings.StunFlinchDuration);
@@ -97,6 +100,7 @@ namespace FightingAllstar.Presentation.Combat
         private void ClearDebuffs(bool preserveImpact = false)
         {
             foreach (var effect in _debuffs.Values) effect.SetActive(false);
+            ClearCryo();
             if (!preserveImpact) _detonation?.SetActive(false);
             _paralyzed = false;
         }

@@ -22,8 +22,7 @@ MonoBehaviour:
   - trait.american
   - trait.series-kof
   - trait.male
-  passiveSourceDescription: If self not damaged in that turn, gains 1 point ult gauge
-    to self
+  passiveSourceDescription: "At the start of the allies' turn, if the hero has taken no damage since the start of their previous turn, increase the hero's Power Gauge by 1 orb."
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 88198d0c51f84b5fbd37a79de8b2f0f5, type: 2}

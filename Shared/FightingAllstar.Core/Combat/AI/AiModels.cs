@@ -148,6 +148,8 @@ namespace FightingAllstar.Core.Combat.AI
         public float[] DimensionScores;     // Per-dimension breakdown for debugging
         public bool SimulationValid;        // Passed PlanDraft validation?
         public TurnPlan FinalPlan;          // The TurnPlan to submit
+        public ElementalPlanValue ElementalValue;
+        public string Explanation;
     }
 
     // ──────────────────────────────────────────────────────────

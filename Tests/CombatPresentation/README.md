@@ -1,5 +1,7 @@
 # Battle presentation checks
 
+Elemental A–F: run `./Tests/CombatPresentation/Run.ps1 -ElementalOnly` for 440 feature assertions. G–H: use `-ElementalAiOnly` for ordering, retained DOT/control, hidden-hand/RNG invariance, 24-turn save/replay/privacy and existing tactical AI checks. `RunGenshinPracticeChecks.ps1` verifies the saved characters through the actual picker/context and all ranks/ultimates; `RunGenshinFeedbackVisual.ps1` renders feedback and checks audio/cleanup. See [G–H evidence](../../Artifacts/GenshinElementSystem/ImplementationGH.md) and [D–F evidence](../../Artifacts/GenshinElementSystem/ImplementationDF.md). Android runtime remains pending by owner choice. The broad runner's `First-hit status ran late` failure was reproduced in the pre-elemental baseline and remains separately tracked.
+
 Actor-driven camera and animation phases, the card/rank contract and the isolated Unity fixture are described in [ActorDrivenExecution.md](ActorDrivenExecution.md). Run `RunActorExecutionVisual.ps1` for the current camera/state checks.
 
 Damage-only multi-hit authoring, the sixteen animation templates, and their verification are described in [MultiHit.md](MultiHit.md).

@@ -133,6 +133,14 @@ namespace FightingAllstar.Core.Content
             var errors = new List<string>();
             if (passive == null) return errors;
             if (string.IsNullOrWhiteSpace(passive.Id)) errors.Add("Passive requires a stable id.");
+            var support = passive.Support;
+            if (support?.IsConfigured == true && (!Enum.IsDefined(typeof(PassivePresence), support.Presence) ||
+                !Enum.IsDefined(typeof(PassivePresence), support.SwirlPresence) || support.ExplosionMultiplierBp < 0 ||
+                support.SwirlStrengthBp < 0 || support.OpeningTeamGauge < 0 || support.OpeningTeamGauge > 5 ||
+                support.DamageHealLowestAllyBp < 0 || support.DamageHealLowestAllyBp > 10000 ||
+                support.BonusCritChanceBp < 0 || support.BonusDamageBp < 0 || support.AttackerGaugeGainBp < 0 ||
+                support.AttackCadence < 0 || support.AttackCadence > 100 || support.CadenceDamageBp < 0 || support.CadenceDotBp < 0))
+                errors.Add(passive.Id + ": invalid combat support capability.");
             if (passive.Triggers != null && passive.Triggers.Count > 0)
                 errors.Add(passive.Id + ": legacy collected triggers are not executable; migrate to supported rules before publishing.");
             var ids = new HashSet<string>(StringComparer.Ordinal);

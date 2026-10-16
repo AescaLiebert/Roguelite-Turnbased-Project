@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using FightingAllstar.Core.Content;
+using FightingAllstar.Presentation.Combat;
 using UnityEngine;
 
 namespace FightingAllstar.Presentation.Content
@@ -14,6 +15,7 @@ namespace FightingAllstar.Presentation.Content
         {
             var catalog = sharedContent == null ? new ContentCatalog {
                 ContentVersion = "scriptable-object-cards-v1",
+                ElementalRules = ElementalRuleSet.CreateDefault(),
                 StatusRecipes = StandardEffectDatabase.CreateStatusRecipes(),
                 AttackEffectRecipes = StandardEffectDatabase.CreateAttackEffects()
             } : SnapshotJson.Deserialize<ContentCatalog>(sharedContent.text);
@@ -85,7 +87,7 @@ namespace FightingAllstar.Presentation.Content
                 PassiveId = passive.Id,
                 PassiveSource = new PassiveSourceDefinition
                 {
-                    Description = character.PassiveSourceDescription,
+                    Description = PassiveDescriptionText.Format(character.PassiveSourceDescription, passive),
                     SourceType = CharacterPassiveMetadata.SourceTypeLabel(character.PassiveSourceType),
                     Restriction = CharacterPassiveMetadata.RestrictionLabel(character.PassiveRestriction),
                     Provenance = "CharacterObject"
@@ -138,7 +140,7 @@ namespace FightingAllstar.Presentation.Content
                     Rank = i + 1,
                     HasCardKind = true, Category = Category(rank.skillType), TargetScope = Target(effect),
                     Effect = effect,
-                    Description = rank.description,
+                    Description = CardDescriptionText.Format(rank.description, effect),
                     SourceDescription = rank.description,
                     Provenance = SourceProvenance.Supplied
                 });
@@ -166,7 +168,7 @@ namespace FightingAllstar.Presentation.Content
                 {
                     Tier = level.level, Category = Category(level.skillType),
                     SourceLabel = card.ultimateName,
-                    Description = level.description,
+                    Description = CardDescriptionText.Format(level.description, effect),
                     SourceDescription = level.description,
                     Effect = effect,
                     Provenance = SourceProvenance.Supplied
@@ -225,16 +227,8 @@ namespace FightingAllstar.Presentation.Content
         {
             if (recipe == null || string.IsNullOrWhiteSpace(recipe.Id)) return;
             recipe.NormalizePolarity();
-            if (recipe.Polarity == StatusPolarity.Neutral) return;
-            var id = recipe.Id.ToLowerInvariant();
-            if (id.StartsWith("status.debuff.") || id.StartsWith("status.disable.") || id.StartsWith("status.decrease."))
-            {
-                recipe.Polarity = StatusPolarity.Debuff;
-            }
-            else if (id.StartsWith("status.buff.") || id.StartsWith("status.increase."))
-            {
-                recipe.Polarity = StatusPolarity.Buff;
-            }
+            // Authored polarity is authoritative. Increasing damage taken is a
+            // Debuff; an "increase" prefix must never turn it into a Buff.
         }
 
         private static CardCategory Category(SkillType value) => value switch

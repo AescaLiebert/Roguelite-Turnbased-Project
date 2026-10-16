@@ -1,0 +1,2652 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9ad1cdb4878bd4787c7185e9af84d4, type: 3}
+  m_Name: lisa_Ultimate
+  m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
+  ultimateName: "[Genshin Impact] Lisa \xB7 Ultimate"
+  icon: {fileID: 0}
+  statusVisuals: []
+  levels:
+  - level: 0
+    description: Decrease all enemies' Defense-related stats by 60% for 3 turns,
+      then inflict Electro damage equal to 400% of the hero's Attack on all enemies,
+      then apply Shock on all enemies for 4 turns.
+    skillType: 6
+    runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 3
+      ElementalApplication:
+        Element: 3
+        HitIndex: 1
+        StatusEffectId: status.debuff.shock.delivery
+        RequiresCritical: 0
+      Attack:
+        HitCount: 3
+        Range: 1
+        Reaction: 2
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 40000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 0
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stat.defense-related.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.stat.defense-related
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.stat
+            Modifiers:
+            - Target: 7
+              Stat: 0
+              Bundle: 2
+              Family: 0
+              Operation: 0
+              Amount: 0
+              ScaleByStatusPotency: 1
+              PotencyCoefficientBp: -10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 6000
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 2
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.shock.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.shock
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 2
+            Stacking: 2
+            Identity: 1
+            DurationClock: 1
+            DefaultDuration: 4
+            MaxStacks: 3
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.shock
+            - status.dot
+            Modifiers: []
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 4500
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 4
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+  - level: 1
+    description: Decrease all enemies' Defense-related stats by 60% for 3 turns,
+      then inflict Electro damage equal to 440% of the hero's Attack on all enemies,
+      then apply Shock on all enemies for 4 turns.
+    skillType: 5
+    runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 3
+      ElementalApplication:
+        Element: 3
+        HitIndex: 1
+        StatusEffectId: status.debuff.shock.delivery
+        RequiresCritical: 0
+      Attack:
+        HitCount: 3
+        Range: 1
+        Reaction: 2
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 44000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 0
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stat.defense-related.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.stat.defense-related
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.stat
+            Modifiers:
+            - Target: 7
+              Stat: 0
+              Bundle: 2
+              Family: 0
+              Operation: 0
+              Amount: 0
+              ScaleByStatusPotency: 1
+              PotencyCoefficientBp: -10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 6000
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 2
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.shock.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.shock
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 2
+            Stacking: 2
+            Identity: 1
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.shock
+            - status.dot
+            Modifiers: []
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 4500
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 4
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+  - level: 2
+    description: Decrease all enemies' Defense-related stats by 6000 for 3 turns,
+      then inflict Electro damage equal to 440% of the hero's Attack on all enemies,
+      then apply Shock on all enemies for 4 turns.
+    skillType: 5
+    runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 3
+      ElementalApplication:
+        Element: 3
+        HitIndex: 1
+        StatusEffectId: status.debuff.shock.delivery
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 1
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 44000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 0
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stat.defense-related.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.stat.defense-related
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.stat
+            Modifiers:
+            - Target: 7
+              Stat: 0
+              Bundle: 2
+              Family: 0
+              Operation: 0
+              Amount: 0
+              ScaleByStatusPotency: 1
+              PotencyCoefficientBp: -10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 6000
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 2
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.shock.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.shock
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 2
+            Stacking: 2
+            Identity: 1
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.shock
+            - status.dot
+            Modifiers: []
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 4500
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 4
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+  - level: 3
+    description: Decrease all enemies' Defense-related stats by 6000 for 3 turns,
+      then inflict Electro damage equal to 460% of the hero's Attack on all enemies,
+      then apply Shock on all enemies for 4 turns.
+    skillType: 5
+    runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 3
+      ElementalApplication:
+        Element: 3
+        HitIndex: 1
+        StatusEffectId: status.debuff.shock.delivery
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 1
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 46000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 0
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stat.defense-related.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.stat.defense-related
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.stat
+            Modifiers:
+            - Target: 7
+              Stat: 0
+              Bundle: 2
+              Family: 0
+              Operation: 0
+              Amount: 0
+              ScaleByStatusPotency: 1
+              PotencyCoefficientBp: -10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 6000
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 2
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.shock.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.shock
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 2
+            Stacking: 2
+            Identity: 1
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.shock
+            - status.dot
+            Modifiers: []
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 4500
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 4
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+  - level: 4
+    description: Decrease all enemies' Defense-related stats by 6000 for 3 turns,
+      then inflict Electro damage equal to 480% of the hero's Attack on all enemies,
+      then apply Shock on all enemies for 4 turns.
+    skillType: 5
+    runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 3
+      ElementalApplication:
+        Element: 3
+        HitIndex: 1
+        StatusEffectId: status.debuff.shock.delivery
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 1
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 48000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 0
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stat.defense-related.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.stat.defense-related
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.stat
+            Modifiers:
+            - Target: 7
+              Stat: 0
+              Bundle: 2
+              Family: 0
+              Operation: 0
+              Amount: 0
+              ScaleByStatusPotency: 1
+              PotencyCoefficientBp: -10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 6000
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 2
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.shock.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.shock
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 2
+            Stacking: 2
+            Identity: 1
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.shock
+            - status.dot
+            Modifiers: []
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 4500
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 4
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+  - level: 5
+    description: Decrease all enemies' Defense-related stats by 60% for 3 turns,
+      then inflict Electro damage equal to 600% of the hero's Attack on all enemies,
+      then apply Shock on all enemies for 4 turns.
+    skillType: 5
+    runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 3
+      ElementalApplication:
+        Element: 3
+        HitIndex: 1
+        StatusEffectId: status.debuff.shock.delivery
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 1
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 60000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 3
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence:
+      - Timing: 0
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.stat.defense-related.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.stat.defense-related
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 1
+            Stacking: 0
+            Identity: 0
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 1
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.stat
+            Modifiers:
+            - Target: 7
+              Stat: 0
+              Bundle: 2
+              Family: 0
+              Operation: 0
+              Amount: 0
+              ScaleByStatusPotency: 1
+              PotencyCoefficientBp: -10000
+              SerializedTarget: -1
+              SerializedStat: -1
+              SerializedBundle: -1
+              SerializedFamily: -1
+              SerializedOperation: -1
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 10000
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 3
+          StatusStackCount: 1
+          StatusPotencyBp: 6000
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3
+      - Timing: 2
+        BatchId: 
+        Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Id: status.debuff.shock.delivery
+          Kind: 1
+          Family: 0
+          Scaling: 0
+          ScalingStat: 0
+          Magnitude: 0
+          CoefficientBp: 10000
+          KeywordFactorBp: 10000
+          KeywordId: 
+          Conditions: []
+          StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
+            Id: status.debuff.shock
+            NameKey: 
+            Polarity: 1
+            Color: 0
+            Behavior: 2
+            Stacking: 2
+            Identity: 1
+            DurationClock: 1
+            DefaultDuration: 2
+            MaxStacks: 10
+            DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
+            BypassDebuffImmunity: 0
+            BreakRule: 0
+            DisableMask: 0
+            Tags:
+            - status.shock
+            - status.dot
+            Modifiers: []
+            PeriodicDamage:
+              Element: 0
+              Family: 3
+              Timing: 2
+              Scaling: 1
+              CoefficientBp: 4500
+              FixedAmount: 0
+              ConsumeOnTrigger: 0
+            PeriodicHealing:
+              Timing: 1
+              Scaling: 0
+              CoefficientBp: 10000
+              FixedAmount: 0
+            DebuffImmunity: 0
+            AdditionalDamageImmunity: 0
+            Taunt: 0
+            EvadeAttacks: 0
+            StanceChildren: []
+            RecoverDamageTakenBp: 0
+            CounterEnabled: 0
+            CounterCategory: 0
+            CounterTarget: 1
+            CounterConditions: []
+            CounterEffect:
+              Attack:
+                HitCount: 1
+                Range: 0
+                Reaction: 0
+                ReactionTiming: 0
+              Kind: 0
+              Target: 1
+              Family: 0
+              Scaling: 0
+              CoefficientBp: 10000
+              Magnitude: 0
+              KeywordId: 
+              Timing: 3
+              HealSource: 3
+              HealAmount: 0
+              HealCoefficientBp: 10000
+              StatusRecipeId: 
+              StatusPolarity: 1
+              StatusApplyChanceBp: 10000
+              StatusDurationOverride: 0
+              StatusStackCount: 1
+              StatusPotencyBp: 0
+              PowerGaugeAmount: 0
+              Sequence: []
+            SurviveLethalCharges: 0
+            IgnoreCritResistanceBp: 0
+            IgnoreCritDefenseBp: 0
+            ImmuneStatusTags: []
+          StatusDurationOverride: 4
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          StatusApplyChanceBp: 10000
+          HealValue:
+            Source: 0
+            FixedAmount: 0
+            CoefficientBp: 10000
+            MaximumAmount: 2147483647
+          HealScalingStat: 0
+          HealCoefficientBp: 0
+          PowerGaugeAmount: 0
+          Target: 3

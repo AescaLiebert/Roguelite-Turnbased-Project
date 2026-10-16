@@ -21,8 +21,7 @@ MonoBehaviour:
   - trait.japan
   - trait.series-kof
   - trait.male
-  passiveSourceDescription: Upon Decreasing enemy's reduced ult gauge will increase
-    fighter's ult gauge (excluding Ultimate Card Skill)
+  passiveSourceDescription: "When the hero decreases an enemy's Power Gauge with a skill card, increase the hero's Power Gauge by the number of orbs removed. Excludes Ultimate cards."
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: aece91538dcf65d48b81341e06210d9b, type: 2}

@@ -2,7 +2,7 @@
 slug: fighting-allstar-gdd
 status: needs-human
 source: manual
-gdd_tags: [identity, visual-audio, actor-camera, platform-input, core-loop, items, enemies, mechanics, roster, dungeons, ai, tuning, inspirations, tech-stack, prototype-truth, scene-roles, system-ownership, architecture, guardrails, roadmap]
+gdd_tags: [identity, visual-audio, actor-camera, platform-input, core-loop, items, enemies, mechanics, elemental-reactions, roster, genshin-roster, dungeons, ai, tuning, inspirations, tech-stack, prototype-truth, scene-roles, system-ownership, architecture, guardrails, roadmap]
 owner: game-design-agent
 human_checkpoint: required
 next_agent: human
@@ -15,6 +15,8 @@ Design draft • 2026-10-01 • First prototype and full-game direction
 
 Actor/camera state contract updated • 2026-10-09 • Owner-confirmed presentation rules
 
+Elemental reaction direction updated • 2026-10-15 • Owner-approved adaptation; runtime implementation remains planned
+
 ## Purpose and decision status
 
 **Screen/economy revision:** see [banners and route design](../3_Outputs/Specs/fighting-allstar-economy-route-design.md), [battle screen states](../3_Outputs/Specs/fighting-allstar-battle-screen-states.md) and [Unity implementation phase plan](../3_Outputs/Specs/fighting-allstar-unity-implementation-plan.md). Owner-confirmed rates/costs, forward route choices, persistent HP, Rest and entry difficulty supersede earlier defaults.300-pull selector semantics remain proposed pending clarification.
@@ -22,6 +24,16 @@ Actor/camera state contract updated • 2026-10-09 • Owner-confirmed presentat
 **Actual-source revision (2026-10-01):** incorporates the supplied guide, 29 WIP characters and effect catalogs. Character tables are external. Conflict decisions and generated values remain reviewable proposals; no runtime kits are implemented by this document.
 
 **Actor/camera revision (2026-10-09):** [Actor and camera state architecture](#actor-and-camera-state-architecture), `@tag:actor-camera`, records the owner's confirmed execution sequence and latest framing/support/ultimate corrections. It is the canonical contract for future presentation work, superseding older generic camera descriptions and historical reference notes. It does not change combat formulas or approve unrelated proposed GDD sections.
+
+**Elemental reaction revision (2026-10-15):** [Genshin-inspired elemental reactions](#genshin-inspired-elemental-reactions), `@tag:elemental-reactions`, records the owner's confirmed full-team restriction, all-stack consumption, Swirl/Crystallize preservation exceptions, and terminal Overload damage. It owns this new feature's behavior; the linked [implementation plan](../3_Outputs/Specs/genshin-element-system-arch-plan.md) separates observed foundations from proposed extensions. Remaining detailed rules and tuning are explicitly labeled Proposed/Starting value. This revision does not change existing combat formulas, character assets, or runtime code.
+
+**Genshin roster revision (2026-10-15):** the owner approved the documented elemental plan, then supplied five kits and authorized generating their missing stats. [Genshin starter roster](#genshin-starter-roster), `@tag:genshin-roster`, adds those design entries and the confirmed delayed/retaliation contact exceptions. Generated stats/ranks and unresolved kit interpretations remain labeled; no runtime fighter or summon-pool migration is implied.
+
+**Elemental A–C implementation (2026-10-15):** the owner authorized slices A–C. Shared-core content validation, frozen roster eligibility, explicit elemental contacts, directional amplification and terminal Overload are implemented and headlessly verified. See [implementation evidence](../../../Artifacts/GenshinElementSystem/ImplementationAC.md). Swirl, forecasting/presentation, remaining reactions and complete character kits retain their later-slice status.
+
+**Elemental D–F follow-up (2026-10-15):** the owner subsequently authorized D–F, Genshin-style floating combat text using the local `zh-cn` font, colored contact→reaction feedback, and a global DOT correction. This revision supersedes the historical A–C-only scope above. Swirl, remaining outputs, public conditional forecasts and five authored starter kits are implemented. See [D–F evidence](../../../Artifacts/GenshinElementSystem/ImplementationDF.md) and [task card](../3_Outputs/Specs/genshin-element-system-df-task-card.md).
+
+**Elemental G–H follow-up:** the owner authorized G–H. Combo-aware enemy planning, automated Windows/editor integration and the Practice launch repair are implemented. [G–H evidence](../../../Artifacts/GenshinElementSystem/ImplementationGH.md) records expected-value planning, privacy, replay/export, Practice and audio/cleanup checks. The owner explicitly requested Android runtime testing remain pending; human balance/readability/feel acceptance is also open.
 
 Fighting Allstar is a 3D card battle RPG about assembling a team whose fighters create opportunities for one another, then adapting that team to a dungeon and its opponents. Its signature is several overlapping counterplay relationships: a strong team has weaknesses, and the player can answer those weaknesses through roster selection, card sequencing, and run boon choices.
 
@@ -310,6 +322,8 @@ Proposed encounter plans include Kyo/Chin Ignite setup, Kensou/Athena recovery, 
 
 The detailed [actual-source combat contract](../3_Outputs/Specs/fighting-allstar-combat-source-contract.md) is part of this design revision. It owns formulas, keyword timing, status clocks, packet bypass flags and source conflicts. Earlier invented combat rules are replaced by the following.
 
+The planned [elemental reaction feature](#genshin-inspired-elemental-reactions), `@tag:elemental-reactions`, adds explicit element/application metadata and reaction policy to these rules. It does not reclassify ordinary DOTs or replace attribute advantages.
+
 ### Team build and initiative
 
 Three active fighters and one reserve; no duplicate definition IDs within a team. Different variants are allowed for the prototype; family restrictions are future rules. Validate ownership, dungeon eligibility and C0–C5; freeze the versioned loadout. Proposed initiative sums authored Class_Combat across the selected roster, including reserve, before transient passives; a server-recorded coin flip breaks ties. CC is an estimate, not the AI evaluation. Existing source CC is retained; there is no invented HP+ATK formula overriding it.
@@ -352,16 +366,206 @@ Batch damage is simultaneous for its target set. Lifesteal uses actual HP remove
 
 This authoritative resolution timeline is distinct from the [actor/camera presentation state machine](#actor-and-camera-state-architecture), `@tag:actor-camera`. Presentation waits at recorded hit/clip/reaction barriers but cannot use those callbacks to decide combat outcomes.
 
+<!-- @tag:elemental-reactions -->
+## Genshin-inspired elemental reactions
+
+**Latest owner revision:** remove player-facing reaction prediction and the dedicated Genshin Practice shortcut. Practice selects Genshin through its existing Series dropdown. Actual resolved reaction feedback remains. Genshin FCT is exclusive to the source fighter's Genshin trait, including mixed teams; other sources retain their original font, colors, motion and critical cue. Genshin captions fade in while shrinking, slide upward with decreasing speed, then fade away; criticals use a stronger starting scale with no CRITICAL/CRITCAL text, while BLOCK remains explicit. Dungeon validation uses the complete standard elemental catalog. [Revision and verification](../../../Artifacts/GenshinElementSystem/PresentationRevision.md) supersedes older prediction/universal-font/shortcut instructions below.
+
+**Owner screenshot refinement:** use the bundled HYWenHei-85W family (correct the importer family name to prevent fallback glyphs), ungrouped damage numbers, subtle darker elemental outlines, compact hit clusters, and smaller reaction captions above the impact. Only Genshin sources receive this style; BLOCK remains explicit and other series keep their existing styling. Display Overload as “Overloaded.”
+
+Starting FCT values after screenshot review: normal 36 px, critical 64 px, healing 28 px, reaction 24 px; 50 ms fade-in, 180 ms shrink; starting scales normal 1.18, critical 1.7, reaction 1.08; 48 px upward travel with exponential deceleration and at most 6 px lateral drift. Numeric lifetime 1.15 s, reaction 1.2 s, fade over the final 30%; existing multi-hit duration reductions still apply. These are prototype feel values inferred from the requested motion, not measured timings from still screenshots. Test entrance/settle/fade with mixed sources and dense simultaneous hits: pass when sizes distinguish criticals, each packet remains legible, reaction captions stay smaller than damage, BLOCK remains visible, and other series retain their style. If crowded, reduce fan overlap or critical scale before changing lifetime; if the entrance is hard to see, lengthen fade/shrink slightly. Human and Android acceptance remain open.
+
+### Decision status, player goal, and scope
+
+**Confirmed by the owner, 2026-10-15:** adapt Genshin's reaction-driven feel to turn-based card combat; require every selected fighter, including SUB, to have the Genshin Impact trait; consuming reactions remove **all matching debuff stacks**. The owner subsequently accepted preserving source debuffs for **Swirl and Crystallize**, and making **Overload explosion damage terminal**, so it cannot trigger Melt or another reaction.
+
+The player prepares elemental debuffs, chooses a trigger through card order and targeting, and trades remaining debuff value for immediate damage or control. The original debuffs themselves are the setup resource; a separate consumable aura that leaves those debuffs untouched is not the selected model. More stacks do not automatically increase reaction payout.
+
+The rest of this section specifies the implementation baseline with approval/implementation updates below; it does not certify final tuning or unimplemented later slices. The [design spec](../3_Outputs/Specs/genshin-element-system-design-spec.md), [implementation plan](../3_Outputs/Specs/genshin-element-system-arch-plan.md), and [acceptance tests](../3_Outputs/TestPlans/genshin-element-system-test-plan.md) derive from this section. If they conflict, update the GDD first. The original [audit](../../../Artifacts/GenshinElementSystem/DesignAudit.md) remains historical rationale.
+
+**Approval update, 2026-10-15:** the owner subsequently accepted the documented plan with “LGTM.” This approves its architecture direction and proposed baseline for planning/implementation handoff, while decisions explicitly left unanswered below and final balance/feel remain unresolved. Later supplied kits introduce the confirmed exceptions documented under [Genshin starter roster](#genshin-starter-roster).
+
+Initial scope is Pyro, Hydro, Electro, Cryo, Dendro, Anemo, and Geo with the directional reactions below. Dendro initially supports Burning only. Bloom, Quicken, their follow-ups, real-time gauge decay, elemental resonance, environment reactions, and player movement/switching are outside this feature. Prototype test fighters are fixtures, not permission to publish incomplete kits into acquisition pools.
+
+### Team activation and elemental setup
+
+Proposed: evaluate the Genshin trait requirement from the starting roster, including SUB, once per side at encounter initialization. Death and reserve entry cannot unlock or disable it. Use a canonical trait ID; do not compare display names or confuse a fighter's attribute/color with their element. Repeated Gnosis descriptions enable the rule once rather than producing duplicate reactions. Whether an additional unlocked Gnosis passive is required remains decision **E-01** below; no such extra requirement is implied by the confirmed full-team restriction.
+
+Only an eligible source may trigger a reaction. A mapped target debuff may be used regardless of its original applier; the incoming source owns the reaction and its children. Opponents obey the same rules.
+
+**Confirmed/implemented for A–C:** no additional Gnosis provider is required. Eligibility uses the frozen starting roster, including SUB; older snapshots without an elemental schema/rule set stay neutral. The production default fuel registry includes existing Ignite and Shock only. Unknown aliases, Wet, Nature and Frost Bite require validated authored recipes/mappings before production use; isolated Cryo/Hydro fixtures verify amplification without inventing those missing kits.
+
+| Eligible recipe family | Element | Meaning |
+| --- | --- | --- |
+| Ignite / Internal Flame | Pyro | Explicit eligible recipes only; Ignite remains vulnerability rather than a periodic tick. |
+| Wet | Hydro | Proposed Avoidance reduction affects debuff application, not attack evasion. |
+| Shock / Lightning | Electro | Periodic damage and duration remain authored on each recipe. |
+| Frost Bite | Cryo | Requires a validated authored recipe; does not imply every control status is Cryo. |
+| Nature | Dendro | Proposed Control reduction weakens the afflicted unit's outgoing debuff applications. |
+| Anemo / Geo | Trigger only | No ordinary persistent setup debuff. |
+
+This mapping is an allowlist, not a check for the generic DOT tag. Poison, Bleed, Conductive, and unrelated debuffs are not reaction fuel. Confirm alternate names against source content before export. A reaction consumes every eligible instance mapped to its participating elements on the reacting target, including different source owners/recipe aliases, and leaves unrelated statuses intact. Grey/immune-to-removal candidates require an explicit eligibility policy before they can enter this registry; elemental consumption must not accidentally use a generic cleanse operation.
+
+### Contact, order, and consumption contract
+
+Elemental **damage**, elemental **application**, and damage **family** are separate fields. An elemental damage-only hit may trigger against existing setup without leaving a debuff. A normal damaging attack may deliver an eligible elemental debuff as its trigger. A direct elemental hit plus its matching debuff rider is one application opportunity, not two.
+
+Proposed contact rules:
+
+- Trigger only within a damaging action's eligible contact. Merely owning two debuffs, pure non-damaging application, and end-turn DOT ticks do not trigger reactions. Pure application can prepare setup for a later contact.
+- **Confirmed roster extension:** Baron Bunny's natural-expiry Pyro attack and Glacial Waltz's Cryo retaliation are explicit authored triggered attacks and have their own eligible damage contacts, including outside ordinary card playback. This does not make ordinary turn-end DOT or generic reflected damage reaction-capable. The shared queue/origin rules must bound these exceptions and prevent retaliation loops.
+- Evasion prevents contact and consumption. Shield absorption counts as contact. A damage-only elemental trigger does not depend on its optional debuff rider succeeding; a normal hit relying on Shock application cannot use a rejected Shock.
+- Choose the reaction from existing setup plus the incoming element; do not scan all coexisting debuffs for unrelated automatic reactions. Check the authored application point and action budget before any consumption.
+- Determine amplification during that contact's calculation, before final damage cap/shield allocation; commit hit facts, consumed instance IDs, and reaction outcomes at the contact boundary. This is inside action resolution, not a before-action or after-action trigger.
+- Current-contact stats use the pre-consumption view consistently; consumed vulnerability stops affecting later contacts. An incoming status used as fuel is marked consumed and is not reapplied by the same contact's ordinary deferred status rider. A separately authored later application is a new opportunity only if the action's budget permits it.
+- Original DOT snapshots keep their established damage basis if they survive. Never copy their full stack count, remaining duration, or snapshotted damage through Swirl.
+
+Freeze/status rejection, debuff immunity, and damage immunity have separate outcomes. CC immunity/recovery can reject Frozen without erasing the damage hit. Implementation policy: a valid direct contact still consumes participating setup and emits the reaction; rejected Frozen produces an explicit immune outcome, does not grant recovery, and does not reroll the original hit.
+
+### Directional reaction table
+
+Read every row as **existing target setup + incoming trigger**. Reverse-order pairs are listed explicitly where the result differs. Both directions of a symmetric reaction use the same consumption rules.
+
+| Existing setup | Incoming trigger | Result | Consumption / output |
+| --- | --- | --- | --- |
+| Cryo | Pyro | Melt | Consume all Cryo/Pyro fuel; amplify the eligible incoming hit. |
+| Pyro | Cryo | Reverse Melt | Same consumption; lower reference amplification. |
+| Pyro | Hydro | Vaporize | Consume all Pyro/Hydro fuel; amplify the eligible incoming hit. |
+| Hydro | Pyro | Reverse Vaporize | Same consumption; lower reference amplification. |
+| Pyro / Electro | Electro / Pyro respectively | Overload | Consume both fuel elements; Pyro explosion hits the reacting enemy and adjacent active enemies. Explosion does not apply elements or trigger reactions. |
+| Cryo / Electro | Electro / Cryo respectively | Superconduct | Consume both; terminal Cryo reaction damage to active enemies, then +40% physical Normal damage received for one target turn. |
+| Hydro / Electro | Electro / Hydro respectively | Electro-Charged | Consume both; owned Charged ticks at target-turn end for two turns, using 100% snapshotted trigger ATK per tick. Refresh stronger, one instance. |
+| Hydro / Cryo | Cryo / Hydro respectively | Freeze | Consume both; apply Frozen under the defined control/immunity/expiry policy. |
+| Pyro / Dendro | Dendro / Pyro respectively | Burning | Consume both; apply a Pyro reaction DOT. Its ticks do not supply Pyro setup or trigger further reactions. |
+| Pyro, Hydro, Electro, or Cryo | Anemo | Swirl | Preserve source setup; deal reaction damage and deliver that element to adjacent active targets, where it may react. |
+| Pyro, Hydro, Electro, or Cryo | Geo | Crystallize | Preserve source setup; grant an owned barrier to the Geo actor. |
+| Same element, Anemo/Geo combinations, or any unlisted pair | Any | No reaction | Apply the ordinary authored damage/status result without consuming setup. |
+
+When a target has several eligible elements, choose **one** reaction for the incoming application using an authored deterministic priority, not list insertion order. Default order is Melt, Vaporize, Reverse Melt, Reverse Vaporize, Overload, Superconduct, Charged, Freeze, Burning, Swirl, Crystallize. Within a multi-aura Anemo/Geo contact, the authored aura order is Pyro, Hydro, Electro, Cryo. This baseline excludes simultaneous dual reactions.
+
+**Confirmed/implemented A–C priority:** Melt, Vaporize, Reverse Melt, Reverse Vaporize, then Overload. Both Overload directions share its priority. The versioned rule set stores explicit priorities and rejects duplicate pairs/unsupported reaction definitions. A status-dependent incoming application must be accepted, including proc/critical conditions and strength/immunity policy; a direct elemental hit may react even when its optional status rider fails.
+
+### Damage identity and tuning
+
+Proposed: ordinary elemental hits use the existing Normal formula, preserving its crit, block, attribute, cap, and shield policies. Elemental resistance is distinct from generic Resistance/Pierce. Add a documented element-resistance factor; do not rewrite the base formula during this feature.
+
+Amplification modifies the same hit rather than adding a duplicate hit. Separate reaction damage uses a dedicated explicit policy: no ordinary crit/block, normal card keywords, lifesteal, reflect, or on-normal-attack retriggers unless a future authored rule explicitly opts in. It still has explicit shield, cap, modifier, and elemental resistance behavior. Periodic reaction results use status clocks and attribution but cannot recursively react. Swirl-delivered damage can be amplified by a destination reaction without becoming a fresh Normal skill calculation.
+
+For the supplied Normal-plus-DOT-bonus concept, proposed bridge: an ordinary elemental hit receives the source's DOT-family damage-dealt modifier once in a named modifier stage. It remains Normal and does not inherit DOT bypass flags or receive a second damage calculation. DOT-family damage-received modifiers do not also apply by default. Reaction bonuses, ordinary damage bonuses, and the bridge need a category matrix so Lumine's bonuses cannot enter twice. This modifier choice remains E-03.
+
+| Parameter | Status and validation requirement |
+| --- | --- |
+| Melt / Vaporize direction | Reference multipliers: incoming Pyro on Cryo and incoming Hydro on Pyro use 2x; reverse directions use 1.5x. Source: [KQM Amplifying Reactions](https://library.keqingmains.com/combat-mechanics/elemental-effects/amplifying-reactions). Treat these as **Starting values** here; compare reversed-order equal-investment combos. If one ordering dominates every role, adjust consumption/application access before changing the multiplier. |
+| Application/reaction limits | **Starting value:** one authored root application per target per card action; one Swirl emission per source target per action; one occurrence of each reaction type per target per root action. Compare equivalent single-hit/multi-hit/AOE cards; if visual hit count alone grants extra reactions, tighten application points. If intended combos cannot operate, author specific additional opportunities rather than removing all bounds. |
+| Overlapping Overload | **Starting value:** at most one Overload damage receipt per victim per root action. Each valid local reaction still consumes its fuel; overlapping damage suppression does not cancel consumption. Test adjacent triggers against isolated triggers; adjust spatial coverage or the receipt policy if position alone causes unexplained losses. |
+| DOT database correction | **Owner-confirmed:** Shock and Poison deal 45% of triggering actual HP damage per tick; Bleed deals 70%. `StandardDotRules` owns the coefficients across existing characters, inline recipes and saved statuses. Frost Bite retains its supplied 64% basis. |
+| Remaining reaction tuning | **Starting values:** Swirl spread and Superconduct each use 100% trigger ATK; Burning uses 100% snapshotted ATK for two target-end ticks, up to three independent stacks. Compare equivalent action/rank investment; reduce coefficients/cap if splash or DOT removes the value of deliberate ordering. |
+| Freeze and barrier budgets | **Owner accepted:** Freeze through the next target turn, then one full recovery turn; no break on damage. Crystallize lasts two actor turns and accumulates 30% of actual Geo HP-plus-shield damage, excluding overkill. **Owner correction:** capacity cap is 100% of the Geo actor's effective Max HP. Test repeated denial/accumulation; tighten duration or frequency before increasing damage if counterplay disappears. |
+
+### Formation, propagation, and hit batches
+
+**Confirmed:** Swirl may cause a destination reaction; Overload cannot chain onward. Proposed extension: other ordinary reaction damage and periodic ticks are terminal too. Generated reaction events keep the same root action and explicit parent/source IDs; they spend no additional card action.
+
+**Confirmed kit exception:** an authored Bunny expiry attack or Waltz retaliation may enter reaction evaluation. They are distinct attack origins, not ordinary reaction damage/reflect. Their resulting Overload remains terminal. Amber's team modifier doubles Bunny, Overload, and explicitly Explosion-tagged packets once each; it does not double every elemental reaction. Natural expiry triggers Bunny; cleanse safely cancels it. These origin/category/removal-reason contracts are required before those kits are enabled.
+
+Adjacency means occupied neighboring **formation slots**, not temporary Transform positions or a compacted list after death. Reserves are excluded. Proposed taunt rule: redirect the selected root hit according to existing taunt; center splash on the actual target; do not let taunt redirect each splash recipient or cancel spreading.
+
+Preserve the existing simultaneous root-hit target set and hit-major multi-hit sequence. At each root hit's start, capture potential Swirl source instance IDs/elements. Resolve root target-local damage/reactions as a batch, then emit surviving Swirl sources and drain child events in stable source-slot/recipient-slot order before the next root hit. Recheck the captured instance before emission: a consumed source cannot spread later; newly spread statuses cannot join that same root source snapshot. Formula inputs for simultaneous root recipients use the same pre-batch view; do not let earlier splash alter a root hit already in that batch.
+
+Example: Pos1 has Ignite, Pos2 has Shock, Pos3 has Frost Bite. Single-target Anemo on Pos1 preserves Ignite and spreads Pyro to Pos2. Overload consumes every matching Pyro/Electro fuel stack on Pos2 and damages Pos1/Pos2/Pos3 according to adjacency. It does not Melt Pos3; Frost Bite remains. An AOE Anemo card first resolves its root batch, then checks sources in order; Pos2 cannot later spread the Shock already consumed by Pos1's chain.
+
+Do not generate new reactions/setup on targets already at zero HP, even when their visual hit sequence continues. Secondary reaction victims join the existing pending-defeat collection; preserve existing defeat, reserve-entry, lifesteal, counter, and terminal-result boundaries. Physical hit reactions such as knockback/crush remain separate from the elemental reaction identifier.
+
+### State, counterplay, and character contracts
+
+| Property | Required behavior / design dependency |
+| --- | --- |
+| Entry | Eligible side/source, connecting authored application, compatible live fuel, and available action-local budget. |
+| Exit | Contact plus allowed children settles; surviving output statuses expire on their named clocks. |
+| Interruptibility | Evade/rejected application can prevent entry; cleanse, dispel, expiry, defeat, and immunity follow explicit recipe rules. |
+| Resource cost | All matching participating setup stacks, except preserved Swirl/Crystallize source fuel; no extra action or PG for generated events. |
+| Freeze recovery | Define exact expiry, cleanse/break behavior, queued-card legality, immunity, and a recovery opportunity before repeat denial. No implicit whole-team turn skip. |
+| Crystallize lifecycle | Define damage basis, overkill/shield treatment, maximum accumulated capacity, and expiry/encounter cleanup; permanent unbounded accumulation is excluded from the proposed baseline. |
+| Source death/reset | Authored snapshots retain stable owner IDs; clear action budgets at the action boundary and encounter-only flags at encounter reset. |
+
+Lumine's spreading/support identity and Lisa's Shock/Conductive setup are planned examples. Before enabling those kits, define Lumine's attack-counter granularity/reset and bonus categories, elemental resistance reduction, and ultimate dispel order. Keep Conductive separate from reaction fuel; define Lisa's stack-scaled damage snapshot/removal, defense modifier scope, and crit-applied Shock contact. Neither character's incomplete source data may be inferred into a production kit.
+
+### Planning, feedback, and experience checks
+
+Mobile: tapping a card uses the existing queue behavior; holding shows reaction details. Existing target selection highlights the actual target and adjacent recipients. Show the reaction, source element, all stacks/durations being consumed, and preserved setup before the final action slot automatically commits. Reset restores the draft and consumes no live RNG. PC provides equivalent information without requiring hover. Forecast conditional crit/application outcomes as conditional; do not reveal future rolls, opponent cards, or hidden stats.
+
+Use distinct elemental symbols plus names/colors, a reaction label, and a matching sound at the recorded contact. Group secondary damage by impact without hiding full resolved damage amounts. Chain playback stays within the existing actor/camera state flow and reaction readiness barriers. No added camera state, mandatory screen shake, or animation-driven rule resolution is introduced.
+
+| Experience component | Acceptance goal |
+| --- | --- |
+| Response | Reordering/resetting a draft immediately updates its visible setup/consumption path without committing state. |
+| Clarity | The player can explain which event triggered the reaction and which stacks were spent. |
+| Satisfaction | Reaction label/VFX and audio distinguish a successful conversion from an ordinary elemental hit. |
+| Fit | Formation matters for Swirl; converting debuffs competes with retaining their value; control and shielding remain distinct roles. |
+| Motivation | Controlled encounters expose useful choices to trigger now, retain DOT, or target a different slot. |
+
+Validation covers new-player prediction, multi-hit/AOE stress, deliberate ordering versus arbitrary ordering, Geo/Freeze/stack abuse, and observer readability. Tune agency and clarity before damage. Detailed fixtures and pass/fail criteria are in the linked test plan; none has been run for this new feature yet.
+
+### Enemy planning and integrated acceptance
+
+Enemy planning compares ordered preparation/conversion with retaining existing DOT/control and ordinary attacks. Its detached observation includes its own cards and visible fighters, excluding opponent cards, event history and live combat/card RNG streams. Independent synthetic samples estimate outcomes; they never predict future encounter rolls. Pure status preparation adds conditional forecast setup without automatically reacting.
+
+Starting search/valuation policy: inspect at most 512 ordered pair/target combinations; reserve at most half the candidate slots for elemental orders; evaluate eight shortlisted plans with three independent samples, retaining ordinary alternatives. The outcome shortlist is configurable within 2–16. Use a four-tick residual DOT horizon capped by visible HP/shield, 60% discount for residual DOT/control, 50% shield value, visible ATK as full-card-disable value and half the equivalent fraction for gauge-generation denial. These are prototype AI heuristics. Validate useful ordered combos, valuable-DOT retention, immunity and hidden-hand/RNG invariance; if conversion dominates, raise retained-value valuation, and if useful orders are missed, improve candidate coverage before damage tuning. Record desktop planning latency and evaluate lower search depth if response becomes slow; device performance remains unverified.
+
+H evidence includes save/resume, event replay/skip, public privacy, content export, Practice card execution and interrupted visual/audio cleanup. Practice validates against the standard elemental catalog, lists all five through its Genshin shortcut and uses authored C0–C5 limits. Reaction impact uses local prototype cues with the existing presentation cleanup. Android runtime testing remains pending by owner choice; human readability, audio and balance acceptance remain open. See [G–H evidence](../../../Artifacts/GenshinElementSystem/ImplementationGH.md).
+
+### Remaining decisions before dependent implementation
+
+These items do not block writing the plan or building isolated non-production fixtures. They do block shipping the affected rule without a recorded answer. Update this GDD when resolved.
+
+| ID | Question and recommended direction | Alternative / impact |
+| --- | --- | --- |
+| E-01 | Is the confirmed roster restriction sufficient? Recommend shared team rule with no extra Gnosis-provider gate. | Requiring an unlocked provider adds passive lifecycle and team-selection requirements. |
+| E-02 | Multi-element priority: use an explicit authored priority and preview one selected reaction. Exact ordering needs owner review. | Player-chosen reaction adds a new interaction; simultaneous reactions add consumption complexity. |
+| E-03 | Adopt the documented DOT-dealt bridge, explicit reaction bonus categories, and an elemental resistance stage. | Restrict DOT bonuses to periodic damage; requires revised Lumine/source wording. |
+| E-04 | Freeze duration/break/recovery and immune-output consumption. Recommend visible recovery opportunity and existing card-disable semantics. | Break-on-damage or reduced boss effect changes combo planning; specify the exact contract. |
+| E-05 | Superconduct vulnerability scope. Recommend non-elemental/physical specialization. | Original universal vulnerability gives general support but overlaps Ignite. |
+| E-06 | Charged timing/duration/refresh; Burning stack cap/snapshot. Recommend named target-turn clocks and bounded recipe policies. | Immediate plus periodic payout changes total power and must be authored separately. |
+| E-07 | Reconcile Shock baseline and all missing/alternate status/kit recipes. | Adopting source proposals globally would alter non-Genshin fighters and needs separate approval. |
+| E-08 | Crystallize shield basis/cap/duration. Recommend actual HP-plus-shield damage, excluding overkill, with bounded accumulation. | Calculated-damage basis permits overkill shielding; finite replacement changes the original stacking identity. |
+
+**A–C decision update, owner-confirmed 2026-10-15:** E-01 is resolved with no extra Gnosis-provider gate. E-02 is resolved with the amplification-first order above. E-03's core policy is approved: Normal elemental hits receive the source DOT-dealt bonus once; separate Overload starts at 150% trigger ATK, cannot crit/block, bypasses DEF and respects shields/caps. Implemented stages are existing Normal formula → DOT-dealt bridge → source element bonus → target element resistance → amplification → existing final floor/cap/hit partition/shield allocation. DOT-received modifiers do not cross into Normal hits. Separate reaction packets use their own family modifiers, no Normal keywords/lifesteal/reflect, and no DOT bridge. Element resistance is clamped to −100%…100% as an explicit starting implementation bound; boundary/rounding checks cover the policy, and final balance remains unproven.
+
+**D–F decision update:** the owner's subsequent answers resolve E-04's duration/recovery, E-05's physical-only specialization, E-06's two-turn periodic timing, E-07's global DOT coefficients and E-08's 100%-MaxHP barrier cap. The earlier A–C compatibility choice to retain 36% Shock is superseded. Production fuel now includes Ignite, Shock, Frost Bite, Wet and Nature; aliases require real registered recipes rather than guessed identifiers.
+
+**Public preview and feedback:** card hover/hold previews queued order and the candidate before the final slot auto-commits. Show reaction colors, target positions, consumed stack counts, preserved setup and adjacent spread destinations. Branch critical/status-dependent deliveries as possible outcomes; label known Freeze immunity. Forecasting reads recipient projections and known authored cards, never private RNG or the opponent hand. Bound symbolic states at 64 and visibly report truncation. Outcomes remain conditional on targets surviving and contacts landing. Every FCT uses local HYWenHei (`zh-cn`) with normal font weight; crit changes size/impact, preserving element color. Starting animation: 55 ms pop, 130 ms settle, 140 ms colored contact convergence before the reaction caption, upward drift and late fade. Skip/disable clears captions and contact effects. Compare dense AOE/multi-hit readability before tightening spacing or shortening lifetimes.
+
+The implemented DOT bridge reads explicit DOT-family dealt modifiers, not global bonuses copied into a DOT policy. General artifact damage bonuses apply once through the packet's ordinary policy, including separate reaction packets. They are not counted a second time as a DOT-specific bonus.
+
 <!-- @tag:roster -->
 ## Character content and team synergy
 
 The actual WIP catalog contains **29 characters**. Full character tables are intentionally external: [roster and generated ranks/constellations](../3_Outputs/Specs/CharacterData/character-roster.md), [structured authoring drafts](../3_Outputs/Specs/CharacterData/wip-character-drafts.json), and [unmodified source rows](../3_Outputs/Specs/CharacterData/source-catalog.json).
 
-First four proposed runtime kits: **Kyo94, Chin94, Kensou94, King94**. First complete eight-kit slice adds **Mai94, Shingo97, Benimaru94, Athena94**. Remaining21 are planned catalog content, not required to prove the first loop. Missing stats are generated only for the five incomplete source characters; all 29 receive draft R1/R2 and C0–C5 entries. Holy Relics are preserved but disabled initially.
+First four proposed runtime kits: **Kyo94, Chin94, Kensou94, King94**. First complete eight-kit slice adds **Mai94, Shingo97, Benimaru94, Athena94**. Remaining21 are planned catalog content, not required to prove the first loop. Within that original 29-character source set, missing stats are generated only for its five incomplete source characters; all 29 receive draft R1/R2 and C0–C5 entries. Holy Relics are preserved but disabled initially. The five newly supplied Genshin design entries below are a separate extension, not a claim that the original source catalog or runtime roster already contains 34 implemented fighters.
 
 Kyo94 benefits from Chin's Ignite setup, Kensou supplies recovery/cleanse, and reserve King builds Pierce support before entering with Poison and drain. Moving King active trades immediate access to those cards against another active role. Mai supplies anti-recovery/Rupture; Shingo supplies gauge denial; Athena supplies Women support and healing; Benimaru supports Red stats and stance disruption. Team inspection explains active reserve effects and trait/mode mismatches.
 
 This source roster replaces the earlier invented archetypes. No source character is relabelled with another fighter's kit. Character family, source CSV ID, stable definition ID and legacy Unity asset ID remain separate identifiers.
+
+<!-- @tag:genshin-roster -->
+### Genshin starter roster
+
+**Owner-supplied, 2026-10-15:** R Red Amber, SR Blue Kaeya, SR Purple Lisa, SR Blue Barbara, and SSR Green Anemo Lumine. Full source contracts, generated level-one/secondary stats, lower-rank proposals, constellation draft, and per-kit questions are in [the five-character roster](../3_Outputs/Specs/CharacterData/genshin-character-roster.md). That linked roster is the detailed authoring extension of this section, following the existing external-character-table convention.
+
+**Confirmed interpretations:** supplied regular skill values are R3; supplied ultimates are C0/5. 🗡️ means selected enemy, 🏹 means all active enemies, independently of attack motion/range. Kaeya's Waltz becomes team-wide at C5/5. The owner authorized generating missing stats, not silently inventing unspecified gameplay coefficients.
+
+| Fighter | Source identity and intended contribution | Required new contract |
+| --- | --- | --- |
+| Amber | Pyro; team explosion damage doubled; delayed Baron Bunny and Weakpoint | Bunny is a non-fuel marker; natural expiry creates a reaction-capable Pyro attack. Cleanse cancels safely. Explosion eligibility is explicit and includes Overload. |
+| Kaeya | Cryo; gauge gain/drain; Frost Bite; Glacial Waltz retaliation/healing | Fractional gauge-gain-rate policy; owned Cryo retaliation distinct from generic reflect; no recursive retaliations; team-wide Waltz only at C5. |
+| Lisa | Electro; Purple Attack-related/damage support; Shock and Conductive burst | Conductive is separate from elemental fuel; target-local snapshot/consumption; conditional Shock and direct Electro share application opportunities. |
+| Barbara | Hydro; Mondstadt HP support; lowest-HP-ratio ally heal; Melody Loop; cleanse | Dissolve drains R1: 1 PG for 1 target turn; R2: 2 PG for 1 turn; R3: 2 PG for 2 turns, always at enemy turn end. Damage healing pays once per owned action/batch to another living active teammate. Hydro damage alone grants no Wet. |
+| Anemo Lumine | Anemo; SUB Swirl support; attack-count bonus; spread/dispel utility | Count attacking cards, boost the third and reset. Skill-2 kill recovery pays once. Owner mapped บดขยี้ to the existing Shatter keyword. |
+
+Generated base stats are **Starting values**, outside passive bonuses and ordinary progression; their validation and adjustment directions live in the linked roster. Proposed Mondstadt grouping includes Amber/Kaeya/Lisa/Barbara and leaves Lumine unassigned. “Monstadt” is an input alias, not a different buff group. Regional membership beyond the supplied wording remains proposed.
+
+The roster's K-01–K-05 implementation updates record resolved owner answers and explicit prototype policies. Five complete runtime kits and Unity assets are now authored and registry-indexed. No summon-banner availability, new character art, final balance tuning or human playtest result is claimed. Bunny applies ordinary Ignite; fractional gauge generation follows Frost Bite's own duration; Kaeya's C1–C4 preserve C0 values and C5 changes Waltz scope.
 
 <!-- @tag:dungeons -->
 ## Generated dungeon stages

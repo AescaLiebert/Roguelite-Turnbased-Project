@@ -20,6 +20,16 @@ MonoBehaviour:
       by 40% 1 turns
     skillType: 0
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 10
         Range: 0
@@ -36,6 +46,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -48,12 +80,17 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -117,9 +154,22 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -136,6 +186,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.recoveryrate
             NameKey: 
             Polarity: 1
@@ -148,6 +220,10 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -159,7 +235,7 @@ MonoBehaviour:
               Bundle: 0
               Family: 0
               Operation: 2
-              Amount: -40
+              Amount: -4000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
               SerializedTarget: -1
@@ -168,6 +244,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -235,6 +312,16 @@ MonoBehaviour:
       by 60% 2 turns
     skillType: 0
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 10
         Range: 0
@@ -251,6 +338,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -263,12 +372,17 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -332,9 +446,22 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -351,6 +478,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.recoveryrate
             NameKey: 
             Polarity: 1
@@ -363,6 +512,10 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -374,7 +527,7 @@ MonoBehaviour:
               Bundle: 0
               Family: 0
               Operation: 2
-              Amount: -60
+              Amount: -6000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 10000
               SerializedTarget: -1
@@ -383,6 +536,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1
@@ -450,6 +604,16 @@ MonoBehaviour:
       by 80% 2 turns
     skillType: 0
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 10
         Range: 0
@@ -466,6 +630,28 @@ MonoBehaviour:
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -478,12 +664,17 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -547,9 +738,22 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 3
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
@@ -566,6 +770,28 @@ MonoBehaviour:
           KeywordId: 
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.debuff.recoveryrate
             NameKey: 
             Polarity: 1
@@ -578,6 +804,10 @@ MonoBehaviour:
             MaxStacks: 1
             DefaultPotencyBp: 0
             BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -598,6 +828,7 @@ MonoBehaviour:
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 3
               Timing: 2
               Scaling: 1

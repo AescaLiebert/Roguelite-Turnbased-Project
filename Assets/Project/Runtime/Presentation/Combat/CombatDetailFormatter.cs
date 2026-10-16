@@ -19,6 +19,7 @@ namespace FightingAllstar.Presentation.Combat
         public const string BuffGreen = "#79E5A2";     // Positive deltas / buff indicators
         public const string DebuffRed = "#FF8894";     // Negative deltas / debuff indicators
         public const string MutedSlate = "#94BACB";    // Secondary metadata labels
+        public const string ConditionalGray = "#A0A0A0"; // Conditional clauses
     }
 
     /// <summary>
@@ -29,12 +30,18 @@ namespace FightingAllstar.Presentation.Combat
         public string Name;
         public Sprite Icon;
         public bool IsBuff;
+        public StatusPolarity Polarity;
 
         public CombatStatusBadgeData(string name, Sprite icon, bool isBuff)
         {
             Name = name;
             Icon = icon;
             IsBuff = isBuff;
+            Polarity = isBuff ? StatusPolarity.Buff : StatusPolarity.Debuff;
+        }
+        public CombatStatusBadgeData(string name, Sprite icon, StatusPolarity polarity)
+        {
+            Name = name; Icon = icon; Polarity = polarity; IsBuff = polarity != StatusPolarity.Debuff;
         }
     }
 
@@ -66,7 +73,7 @@ namespace FightingAllstar.Presentation.Combat
             string label;
             switch (target)
             {
-                case ModifierTarget.Stat: label = DisplayLabel(modifier.ResolvedStat.ToString()); break;
+                case ModifierTarget.Stat: label = CombatTextCatalog.StatName(modifier.ResolvedStat); break;
                 case ModifierTarget.StatBundle: label = "Stats"; break;
                 case ModifierTarget.AnyDamageDealt: label = "Damage dealt"; break;
                 case ModifierTarget.AnyDamageReceived: label = "Damage taken"; break;
@@ -97,108 +104,31 @@ namespace FightingAllstar.Presentation.Combat
         /// <summary>
         /// Canonical combat keyword glossary explaining card and passive mechanics.
         /// </summary>
-        public static readonly Dictionary<string, string> KeywordExplanations = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-        {
-            ["Pierce"] = "3x Pierce Rate Increase.",
-            ["Ignite"] = "Increases damage taken by 10% for each stack.",
-            ["Poison"] = "Deals additional damage equal to 45% of damage dealt at the end of each turn.",
-            ["Bleed"] = "Deals additional damage equal to 33% of damage dealt at the end of each turn.",
-            ["Shock"] = "Deals additional damage equal to 36% of damage dealt at the end of each turn.",
-            ["Shatter"] = "Ignores enemy Resistance.",
-            ["Charge"] = "Ignores enemy Defense.",
-            ["Rupture"] = "Deals 2x damage against enemies with Buffs.",
-            ["Detonate"] = "Deals 20% additional damage per Power Gauge orb on target.",
-            ["Blaze"] = "Deals 25% additional damage per Ignite on target.",
-            ["Sever"] = "3x Critical Chance Increase.",
-            ["Spike"] = "2x Critical Damage Increase.",
-            ["Weakpoint"] = "Deals 3x damage against enemies with Debuffs.",
-            ["Weak Point"] = "Deals 3x damage against enemies with Debuffs.",
-            ["Amplify"] = "Increases damage dealt by 30% per Buff on self.",
-            ["Flood"] = "Increases damage dealt based on remaining HP (up to 80%).",
-            ["Despair"] = "Recovers 30% of diminished HP on Critical Hit.",
-            ["Cleave"] = "Ignores enemy Critical Defense.",
-            ["Quell"] = "Decreases target's Power Gauge.",
-            ["Stun"] = "Prevents all actions for the duration.",
-            ["Freeze"] = "Prevents actions and takes additional damage when attacked.",
-            ["Card Seal"] = "Disables skill card usage for the duration.",
-            ["Disable Attack"] = "Prevents using Attack skills.",
-            ["Disable Debuff"] = "Prevents using Debuff skills.",
-            ["Disable Buff"] = "Prevents using Buff skills.",
-            ["Disable Recovery"] = "Prevents all HP recovery.",
-            ["Disable Healing Card"] = "Prevents using Recovery cards. Other healing effects still work.",
-            ["Disable Stance"] = "Prevents using Stance skills.",
-            ["Mark of Concentration"] = "-100% Crit Chance.",
-            ["Remove Buff"] = "Removes all Buffs from the target.",
-            ["Removes Buff"] = "Removes all Buffs from the target.",
-            ["Remove Buffs"] = "Removes all Buffs from the target.",
-            ["Cleanse"] = "Removes all Debuffs from allies.",
-            ["Rejuvenation"] = "At turn start, heals an additional 60% of HP recovered per stack.",
-            ["LifeSteal"] = "Restores HP equal to this percentage of damage dealt.",
-            ["Recovery"] = "Decreases or increases HP recovery amount.",
-            ["Debuff Immunity"] = "Immune to all debuffs for the duration.",
-            ["Barrier"] = "Absorbs incoming damage with a protective shield.",
-            ["Taunt"] = "Forces enemies to target this unit.",
-            ["Evade"] = "Evades enemy attacks for the duration.",
-            ["Extort"] = "Steals a portion of the target's stats and grants them to self."
-        };
+        public static readonly Dictionary<string, string> KeywordExplanations = CombatTextCatalog.Terms
+            .ToDictionary(term => term.Name, term => term.Explanation, StringComparer.OrdinalIgnoreCase);
 
-        /// <summary>
-        /// Highlights numbers, stats, and keywords with standardized rich text tags.
-        /// </summary>
-        public static string HighlightKeywords(string text)
-        {
-            if (string.IsNullOrEmpty(text)) return string.Empty;
+        public static string HighlightKeywords(string text) => CombatTextCatalog.Highlight(text);
 
-            // 1. Multi-word keywords and phrases first
-            text = Regex.Replace(text, @"\b(Disable Healing Card|Disable Recovery|Disable Attack|Disable Debuff|Disable Buff|Disable Stance|Removes Buff|Remove Buffs|Remove Buff|Mark of Concentration|Debuff Immunity|Weak Point)\b", "<color=" + CombatColors.KeywordCyan + "><b>$1</b></color>", RegexOptions.IgnoreCase);
-
-            // 2. Multi-word stats
-            text = Regex.Replace(text, @"\b(Pierce Rate|Crit Chance|Crit Damage|Critical Chance|Critical Damage|Critical Defense|Combat Class)\b", "<color=" + CombatColors.StatBlue + "><b>$1</b></color>", RegexOptions.IgnoreCase);
-
-            // 3. Numbers, percentages and turn counts (Amber #fbbf24)
-            text = Regex.Replace(text, @"(\b\d+(?:\.\d+)?%)", "<color=" + CombatColors.ValueAmber + "><b>$1</b></color>");
-            text = Regex.Replace(text, @"(\b\d+\s*(?:turns?|turn\(s\))\b)", "<color=" + CombatColors.ValueAmber + "><b>$1</b></color>", RegexOptions.IgnoreCase);
-
-            // 4. Single-word Core Stats (Blue #60a5fa)
-            text = Regex.Replace(text, @"\b(?<!Disable\s+)(ATK|Attack|DEF|Defense|HP|Resistance)\b", "<color=" + CombatColors.StatBlue + "><b>$1</b></color>", RegexOptions.IgnoreCase);
-
-            // 5. Single-word Keywords & Status Effects (Cyan #38bdf8)
-            text = Regex.Replace(text, @"\b(Cleanse|Pierce(?!\s*Rate)|Ignite|Poison|Bleed|Shock|Stun|Freeze|Shatter|Charge|Rupture|Detonate|Blaze|Sever|Spike|Weakpoint|Amplify|Flood|Despair|Cleave|Quell|Card Seal|Rejuvenation|Recovery|Barrier|Taunt|Evade|Extort)\b", "<color=" + CombatColors.KeywordCyan + "><b>$1</b></color>", RegexOptions.IgnoreCase);
-
-            return text;
-        }
-
-        /// <summary>
-        /// Builds the explanation block (※Keyword: Explanation) for any detected keywords or status effects.
-        /// </summary>
         public static string BuildKeywordsExplanation(string desc, string damageKeyword = null, IEnumerable<CombatStatusBadgeData> statuses = null)
         {
-            var matched = new List<string>();
-            var seenKeywords = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var combinedText = (desc ?? string.Empty) + " " + (damageKeyword ?? string.Empty);
+            var text = (desc ?? string.Empty) + " " + CombatTextCatalog.CanonicalKeyword(damageKeyword);
+            if (statuses != null) text += " " + string.Join(" ", statuses.Select(s => s.Name));
+            var terms = CombatTextCatalog.FindTerms(text).ToArray();
+            return terms.Length == 0 ? string.Empty : "<color=" + CombatColors.KeywordCyan + ">" +
+                ColorElementNames(string.Join("\n", terms.Select(term => "\u203b" + term.Name + ": " + term.Explanation))) + "</color>";
+        }
 
-            if (statuses != null)
+        private static string ColorElementNames(string text)
+        {
+            foreach (ElementId element in Enum.GetValues(typeof(ElementId)))
             {
-                foreach (var status in statuses)
-                {
-                    combinedText += " " + status.Name;
-                }
+                if (element == ElementId.None) continue;
+                var color = ColorUtility.ToHtmlStringRGB(GenshinCombatTextStyle.ElementColor(element));
+                text = Regex.Replace(text, @"\b" + Regex.Escape(element.ToString()) + @"\b",
+                    match => "<color=#" + color + ">" + match.Value + "</color>",
+                    RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
             }
-
-            foreach (var pair in KeywordExplanations)
-            {
-                if (Regex.IsMatch(combinedText, $@"\b{Regex.Escape(pair.Key)}\b", RegexOptions.IgnoreCase))
-                {
-                    var unifiedKey = pair.Key.Replace("s", "").Replace(" ", "").ToLowerInvariant();
-                    if (seenKeywords.Add(unifiedKey))
-                    {
-                        matched.Add($"※{pair.Key}: {pair.Value}");
-                    }
-                }
-            }
-
-            if (matched.Count == 0) return string.Empty;
-            return "<color=" + CombatColors.KeywordCyan + ">" + string.Join("\n", matched) + "</color>";
+            return text;
         }
 
         /// <summary>
@@ -211,51 +141,32 @@ namespace FightingAllstar.Presentation.Combat
             Func<string, StatusPolarity, Sprite> statusSpriteResolver = null)
         {
             var rawDesc = ResolveCardDescription(card, owner, character, out var runtimeEffect);
+            rawDesc = CardDescriptionText.Format(rawDesc, runtimeEffect);
             var damageKeyword = runtimeEffect?.KeywordId;
 
             var statuses = new List<CombatStatusBadgeData>();
             var seenStatuses = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            void AddBadge(string name, bool isBuff, string iconKey = null)
+            void AddBadge(string name, StatusPolarity polarity, string iconKey = null)
             {
                 if (string.IsNullOrWhiteSpace(name)) return;
-                var polarity = isBuff ? StatusPolarity.Buff : StatusPolarity.Debuff;
-                var visual = StatusVisualData.Get(iconKey, polarity) ?? StatusVisualData.Get(name, polarity);
+                var isBuff = polarity != StatusPolarity.Debuff;
+                var visual = (string.IsNullOrWhiteSpace(iconKey) ? null : StatusVisualData.Get(iconKey, polarity)) ?? StatusVisualData.Get(name, polarity);
                 // Art can be reused by several mechanics; retain the supplied effect name.
                 var cleanName = name.StartsWith("status.", StringComparison.OrdinalIgnoreCase) ? StatusVisualData.GetDisplayName(name, polarity) : name;
-                if (cleanName.StartsWith("Increase ", StringComparison.OrdinalIgnoreCase)) cleanName = cleanName.Substring(9);
-                if (cleanName.StartsWith("Decrease ", StringComparison.OrdinalIgnoreCase)) cleanName = cleanName.Substring(9);
+                cleanName = CombatTextCatalog.Normalize(cleanName);
 
                 var badgeKey = $"{cleanName}:{(isBuff ? "b" : "d")}";
                 if (seenStatuses.Add(badgeKey))
                 {
                     var sprite = visual?.Icon ?? (statusSpriteResolver != null ? statusSpriteResolver(iconKey ?? name, polarity) : StatusVisualData.GetSprite(iconKey ?? name, polarity));
-                    statuses.Add(new CombatStatusBadgeData(cleanName, sprite, isBuff));
+                    statuses.Add(new CombatStatusBadgeData(cleanName, sprite, polarity));
                 }
             }
 
             AddEffectBadges(runtimeEffect, AddBadge);
+            AddCardStatusVisualBadges(card, owner, character, AddBadge);
 
-            if (!string.IsNullOrEmpty(damageKeyword))
-            {
-                if (damageKeyword.IndexOf("ignite", StringComparison.OrdinalIgnoreCase) >= 0)
-                    AddBadge("Ignite", false, "Status_Ignite");
-                else if (damageKeyword.IndexOf("poison", StringComparison.OrdinalIgnoreCase) >= 0)
-                    AddBadge("Poison", false, "Status_Poison");
-                else if (damageKeyword.IndexOf("bleed", StringComparison.OrdinalIgnoreCase) >= 0)
-                    AddBadge("Bleed", false, "Status_Bleed");
-                else if (damageKeyword.IndexOf("shock", StringComparison.OrdinalIgnoreCase) >= 0)
-                    AddBadge("Shock", false, "Status_Shock");
-            }
-
-            if (rawDesc.IndexOf("ignite", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Ignite:d"))
-                AddBadge("Ignite", false, "Status_Ignite");
-            if (rawDesc.IndexOf("poison", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Poison:d"))
-                AddBadge("Poison", false, "Status_Poison");
-            if (rawDesc.IndexOf("bleed", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Bleed:d"))
-                AddBadge("Bleed", false, "Status_Bleed");
-            if (rawDesc.IndexOf("shock", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Shock:d"))
-                AddBadge("Shock", false, "Status_Shock");
 
             var highlightedDesc = HighlightKeywords(rawDesc);
             var keywordsExplanation = BuildKeywordsExplanation(rawDesc, damageKeyword, statuses);
@@ -296,21 +207,20 @@ namespace FightingAllstar.Presentation.Combat
             var statuses = new List<CombatStatusBadgeData>();
             var seenStatuses = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            void AddBadge(string name, bool isBuff, string iconKey = null)
+            void AddBadge(string name, StatusPolarity polarity, string iconKey = null)
             {
                 if (string.IsNullOrWhiteSpace(name)) return;
-                var polarity = isBuff ? StatusPolarity.Buff : StatusPolarity.Debuff;
-                var visual = StatusVisualData.Get(iconKey, polarity) ?? StatusVisualData.Get(name, polarity);
+                var isBuff = polarity != StatusPolarity.Debuff;
+                var visual = (string.IsNullOrWhiteSpace(iconKey) ? null : StatusVisualData.Get(iconKey, polarity)) ?? StatusVisualData.Get(name, polarity);
                 // Art can be reused by several mechanics; retain the supplied effect name.
                 var cleanName = name.StartsWith("status.", StringComparison.OrdinalIgnoreCase) ? StatusVisualData.GetDisplayName(name, polarity) : name;
-                if (cleanName.StartsWith("Increase ", StringComparison.OrdinalIgnoreCase)) cleanName = cleanName.Substring(9);
-                if (cleanName.StartsWith("Decrease ", StringComparison.OrdinalIgnoreCase)) cleanName = cleanName.Substring(9);
+                cleanName = CombatTextCatalog.Normalize(cleanName);
 
                 var badgeKey = $"{cleanName}:{(isBuff ? "b" : "d")}";
                 if (seenStatuses.Add(badgeKey))
                 {
                     var sprite = visual?.Icon ?? (statusSpriteResolver != null ? statusSpriteResolver(iconKey ?? name, polarity) : StatusVisualData.GetSprite(iconKey ?? name, polarity));
-                    statuses.Add(new CombatStatusBadgeData(cleanName, sprite, isBuff));
+                    statuses.Add(new CombatStatusBadgeData(cleanName, sprite, polarity));
                 }
             }
 
@@ -320,41 +230,14 @@ namespace FightingAllstar.Presentation.Combat
                 foreach (var reaction in owner.Definition.Passive.Reactions)
                 {
                     if (reaction == null) continue;
-                    AddPassiveCommandsBadges(reaction.Commands, AddBadge);
-                    AddPassiveCommandsBadges(reaction.ElseCommands, AddBadge);
+                    AddPassiveCommandsBadges(reaction.Commands, AddBadge, hideStatChanges: true);
+                    AddPassiveCommandsBadges(reaction.ElseCommands, AddBadge, hideStatChanges: true);
                 }
             }
 
-            // Extract badges from passive auras (stat modifiers)
-            if (owner?.Definition?.Passive?.Auras != null)
-            {
-                foreach (var aura in owner.Definition.Passive.Auras)
-                {
-                    if (aura?.Modifiers == null) continue;
-                    foreach (var mod in aura.Modifiers)
-                    {
-                        if (mod == null) continue;
-                        bool isBuff = IsModifierBeneficial(mod, mod.Amount);
-                        var target = mod.ResolvedTarget;
-                        string statName = target == ModifierTarget.Stat ? mod.ResolvedStat.ToString() : target switch
-                        {
-                            ModifierTarget.AnyDamageDealt => "Damage dealt",
-                            ModifierTarget.AnyDamageReceived => "Damage taken",
-                            ModifierTarget.FamilyDamageDealt => DisplayLabel(mod.ResolvedFamily.ToString()) + " damage dealt",
-                            ModifierTarget.FamilyDamageReceived => DisplayLabel(mod.ResolvedFamily.ToString()) + " damage taken",
-                            ModifierTarget.UltimateDamageDealt => "Ultimate damage dealt",
-                            ModifierTarget.FinalDamageReduction => "Damage reduction",
-                            ModifierTarget.FlatDamageReduction => "Flat damage reduction",
-                            ModifierTarget.StatBundle => "Stats",
-                            _ => DisplayLabel(target.ToString())
-                        };
-                        AddBadge(statName, isBuff, isBuff ? "Status_StatUp" : "Status_StatDown");
-                    }
-                }
-            }
-
-            // Extract badges from keywords in description
-            ScanDescriptionForBadges(rawDesc, seenStatuses, AddBadge);
+            // Aura contributions are passive rules, not applied status effects.
+            // Their description, passive portrait and restriction icons carry this information.
+            rawDesc = PassiveDescriptionText.Format(rawDesc, owner?.Definition?.Passive);
 
             var highlightedDesc = HighlightKeywords(rawDesc);
             var keywordsExplanation = BuildKeywordsExplanation(rawDesc, null, statuses);
@@ -377,14 +260,14 @@ namespace FightingAllstar.Presentation.Combat
         private static string ResolveCardDescription(CardState card, FighterState owner, CharacterObject character, out EffectDefinition runtimeEffect)
         {
             runtimeEffect = null;
-            if (card == null || owner?.Definition == null) return "Deals damage.";
+            if (card == null || owner?.Definition == null) return "No effect description available.";
 
             if (card.Kind == CardKind.Ultimate)
             {
                 var ultTier = owner.Definition.UltimateTiers?.FirstOrDefault(t => t.Tier == card.UltimateTier)
                            ?? owner.Definition.UltimateTiers?.FirstOrDefault();
                 runtimeEffect = ultTier?.Effect;
-                return ultTier?.Description ?? "Deals massive damage.";
+                return ultTier?.Description ?? string.Empty;
             }
 
             var skill = owner.Definition.Skills?.FirstOrDefault(s => s.Id == card.SkillId || (s.Slot == 1 ? card.SkillId == null : false))
@@ -392,10 +275,10 @@ namespace FightingAllstar.Presentation.Combat
             var skillRank = skill?.Ranks?.FirstOrDefault(r => r.Rank == card.Rank)
                          ?? skill?.Ranks?.FirstOrDefault();
             runtimeEffect = skillRank?.Effect;
-            return skillRank?.Description ?? "Deals damage.";
+            return skillRank?.Description ?? string.Empty;
         }
 
-        private static void AddEffectBadges(EffectDefinition root, Action<string, bool, string> addBadge)
+        private static void AddEffectBadges(EffectDefinition root, Action<string, StatusPolarity, string> addBadge)
         {
             if (root == null || addBadge == null) return;
             AddEffectBadge(root, addBadge);
@@ -404,20 +287,47 @@ namespace FightingAllstar.Presentation.Combat
                 if (step?.Effect != null) AddEffectBadge(step.Effect, addBadge);
         }
 
-        private static void AddEffectBadge(EffectOperationDefinition effect, Action<string, bool, string> addBadge)
+        private static void AddCardStatusVisualBadges(CardState card, FighterState owner, CharacterObject character,
+            Action<string, StatusPolarity, string> addBadge)
         {
-            if (effect == null || effect.Kind != EffectKind.ApplyStatus || effect.StatusRecipe == null) return;
-            AddStatusRecipeBadges(effect.StatusRecipe, addBadge);
+            if (card == null || character == null || addBadge == null) return;
+
+            // Some effects are executed by a passive reaction tied to a card (for
+            // example Ivy's Ultimate stat transfer), so they are not represented in
+            // the card's root/sequence EffectDefinition. The card's own visual list is
+            // the authored source of truth for those status badges.
+            List<StatusVisualData> visuals = null;
+            if (card.Kind == CardKind.Ultimate)
+            {
+                visuals = character.Ultimate?.statusVisuals;
+            }
+            else
+            {
+                var slot = owner?.Definition?.Skills?.FirstOrDefault(skill => skill != null && skill.Id == card.SkillId)?.Slot;
+                var skillCard = slot == 2 ? character.Skill2 : character.Skill1;
+                visuals = skillCard?.statusVisuals;
+            }
+
+            if (visuals == null) return;
+            foreach (var visual in visuals)
+                if (visual != null)
+                    addBadge(visual.DisplayName, visual.Polarity, visual.Id);
         }
 
-        private static void AddPassiveCommandsBadges(List<PassiveCommandDefinition> commands, Action<string, bool, string> addBadge)
+        private static void AddEffectBadge(EffectOperationDefinition effect, Action<string, StatusPolarity, string> addBadge)
+        {
+            if (effect == null || effect.Kind != EffectKind.ApplyStatus || effect.StatusRecipe == null) return;
+            AddStatusRecipeBadges(effect.StatusRecipe, addBadge, effect.StatusPotencyBp != 0 ? (int?)effect.StatusPotencyBp : null);
+        }
+
+        private static void AddPassiveCommandsBadges(List<PassiveCommandDefinition> commands, Action<string, StatusPolarity, string> addBadge, bool hideStatChanges = false)
         {
             if (commands == null) return;
             foreach (var command in commands)
             {
                 if (command?.Kind != PassiveCommandKind.ExecuteEffect) continue;
                 var operation = command.Effect;
-                if (operation?.Kind == CardEffectOperationKind.TransferStats)
+                if (!hideStatChanges && operation?.Kind == CardEffectOperationKind.TransferStats)
                 {
                     AddStatusRecipeBadges(operation.StatTransfer?.SourceStatus, addBadge);
                     AddStatusRecipeBadges(operation.StatTransfer?.TargetStatus, addBadge);
@@ -428,21 +338,21 @@ namespace FightingAllstar.Presentation.Combat
                     if (string.IsNullOrWhiteSpace(recipe?.Id))
                         recipe = StandardEffectDatabase.CreateStatusRecipes()
                             .Find(status => status.Id == operation.Status?.StatusRecipeId);
-                    AddStatusRecipeBadges(recipe, addBadge);
+                    if (!hideStatChanges || !IsPlainStatRecipe(recipe)) AddStatusRecipeBadges(recipe, addBadge);
                 }
             }
         }
 
-        public static void AddStatusRecipeBadges(StatusRecipeDefinition recipe, Action<string, bool, string> addBadge)
+        public static void AddStatusRecipeBadges(StatusRecipeDefinition recipe, Action<string, StatusPolarity, string> addBadge, int? potencyBp = null)
         {
             if (string.IsNullOrWhiteSpace(recipe?.Id)) return;
-            AddStatusRecipeBadge(recipe, addBadge);
+            AddStatusRecipeBadge(recipe, addBadge, potencyBp);
             if (recipe.StanceChildren == null) return;
             foreach (var child in recipe.StanceChildren)
                 if (child != null) AddStatusRecipeBadge(child.ToRecipe(), addBadge);
         }
 
-        private static void AddStatusRecipeBadge(StatusRecipeDefinition recipe, Action<string, bool, string> addBadge)
+        private static void AddStatusRecipeBadge(StatusRecipeDefinition recipe, Action<string, StatusPolarity, string> addBadge, int? potencyBp = null)
         {
             if (recipe == null || addBadge == null) return;
             var polarity = recipe.Polarity;
@@ -450,20 +360,33 @@ namespace FightingAllstar.Presentation.Combat
             var recipeId = recipe.Id ?? "";
             var lowerId = recipeId.ToLowerInvariant();
 
-            // Some authored stat recipes reuse a status preset name/art. Display the
-            // actual modifier instead of describing an unrelated preset mechanic.
-            if (recipe.Behavior == StatusBehavior.Stat && recipe.Modifiers != null &&
-                recipe.Modifiers.Any(m => m != null && m.ResolvedTarget == ModifierTarget.Stat))
+            // Display actual stat changes, even when authors reuse another preset's ID.
+            // Select art from the stat and direction, never from an unrelated recipe name.
+            if (IsPlainStatRecipe(recipe))
             {
-                foreach (var modifier in recipe.Modifiers.Where(m => m != null && m.ResolvedTarget == ModifierTarget.Stat))
-                    addBadge((modifier.Amount >= 0 ? "Increase " : "Decrease ") + modifier.ResolvedStat, isBuff, recipeId);
+                foreach (var modifier in recipe.Modifiers.Where(m => m != null))
+                {
+                    var amount = modifier.ScaleByStatusPotency ? (long)modifier.PotencyCoefficientBp *
+                        (potencyBp ?? recipe.DefaultPotencyBp) / 10000 : modifier.Amount;
+                    if (modifier.ResolvedOperation == ModifierOperation.Multiplier) amount -= 10000;
+                    var label = modifier.ResolvedTarget == ModifierTarget.Stat ? CombatTextCatalog.StatName(modifier.ResolvedStat) :
+                        modifier.ResolvedTarget == ModifierTarget.StatBundle ? BundleName(modifier.ResolvedBundle) :
+                        DescribeModifier(modifier, 0).Replace(" 0%", "").Replace(" 0", "");
+                    var direction = amount >= 0 ? "Increase " : "Decrease ";
+                    var name = direction + label;
+                    if (modifier.ResolvedTarget == ModifierTarget.FlatDamageReduction || modifier.ResolvedTarget == ModifierTarget.FinalDamageReduction)
+                        name = amount >= 0 ? "Reduce Damage Taken" : "Increase Damage Taken";
+                    var iconId = ModifierIconId(modifier, amount) ??
+                        (polarity == StatusPolarity.Buff ? "stat_up" : polarity == StatusPolarity.Debuff ? "stat_down" : "neutral_default");
+                    addBadge(name, polarity, iconId);
+                }
                 return;
             }
 
             var visual = StatusVisualData.Get(recipeId, polarity);
             if (visual != null)
             {
-                addBadge(visual.DisplayName, isBuff, recipeId);
+                addBadge(visual.DisplayName, polarity, recipeId);
                 return;
             }
 
@@ -532,28 +455,58 @@ namespace FightingAllstar.Presentation.Combat
                 displayName = !string.IsNullOrWhiteSpace(recipe.NameKey) ? recipe.NameKey : StatusLibrary.GetDisplayName(recipeId, polarity);
             }
 
-            addBadge(displayName, isBuff, iconKey);
+            addBadge(displayName, polarity, iconKey);
         }
 
-        private static void ScanDescriptionForBadges(string text, HashSet<string> seenStatuses, Action<string, bool, string> addBadge)
+        private static bool IsPlainStatRecipe(StatusRecipeDefinition recipe) => recipe != null &&
+            recipe.Behavior == StatusBehavior.Stat && recipe.Modifiers != null && recipe.Modifiers.Count > 0 &&
+            recipe.Tags?.Contains(CombatTags.Ignite) != true &&
+            !(recipe.Id ?? "").Equals("status.debuff.ignite", StringComparison.OrdinalIgnoreCase);
+
+        // Artwork IDs are stable asset identities. Player-facing stat names can be
+        // normalized or reworded without changing which authored sprite is selected.
+        private static string ModifierIconId(StatModifierDefinition modifier, long amount)
         {
-            if (string.IsNullOrWhiteSpace(text)) return;
-            if (text.IndexOf("ignite", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Ignite:d"))
-                addBadge("Ignite", false, "Status_Ignite");
-            if (text.IndexOf("poison", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Poison:d"))
-                addBadge("Poison", false, "Status_Poison");
-            if (text.IndexOf("bleed", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Bleed:d"))
-                addBadge("Bleed", false, "Status_Bleed");
-            if (text.IndexOf("shock", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Shock:d"))
-                addBadge("Shock", false, "Status_Shock");
-            if (text.IndexOf("barrier", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Barrier:b"))
-                addBadge("Barrier", true, "icon_buff_shield");
-            if (text.IndexOf("taunt", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Taunt:b"))
-                addBadge("Taunt", true, "icon_buff_provocation");
-            if (text.IndexOf("evade", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Evade:b"))
-                addBadge("Evade", true, "icon_buff_evade");
-            if (text.IndexOf("extort", StringComparison.OrdinalIgnoreCase) >= 0 && !seenStatuses.Contains("Extort:b"))
-                addBadge("Extort", true, "icon_buff_extort_buff");
+            var increase = amount >= 0;
+            var prefix = increase ? "status.increase." : "status.decrease.";
+            switch (modifier.ResolvedTarget)
+            {
+                case ModifierTarget.Stat:
+                    switch (modifier.ResolvedStat)
+                    {
+                        case StatId.Attack: return prefix + (increase ? "attack" : "atk");
+                        case StatId.Defense: return prefix + (increase ? "DEF" : "defense");
+                        case StatId.MaxHealth: return prefix + "hp";
+                        case StatId.CritChance: return prefix + "crit-chance";
+                        case StatId.CritDamage: return increase ? prefix + "crit-damage" : null;
+                        case StatId.BlockChance: return increase ? prefix + "block-chance" : null;
+                        case StatId.Pierce: return increase ? prefix + "pierce" : null;
+                        case StatId.Resistance: return increase ? null : prefix + "resistence";
+                        case StatId.Recovery: return increase ? null : prefix + "recovery";
+                        default: return null;
+                    }
+                case ModifierTarget.StatBundle:
+                    switch (modifier.ResolvedBundle)
+                    {
+                        case StatBundleKind.AttackRelated: return prefix + (increase ? "attack-related" : "atk-related");
+                        case StatBundleKind.DefenseRelated: return increase ? null : prefix + "defense-related";
+                        case StatBundleKind.HpRelated: return prefix + (increase ? "hp.related" : "hp-related");
+                        default: return null;
+                    }
+                case ModifierTarget.AnyDamageDealt: return increase ? "status.increase.damage-dealt" : null;
+                case ModifierTarget.AnyDamageReceived: return increase ? "status.increase.damage-taken" : "status.reduce.damage-taken";
+                case ModifierTarget.FlatDamageReduction:
+                case ModifierTarget.FinalDamageReduction: return increase ? "status.reduce.damage-taken" : "status.increase.damage-taken";
+                default: return null;
+            }
         }
+
+        private static string BundleName(StatBundleKind bundle) => bundle switch
+        {
+            StatBundleKind.BasicStats => "Basic Stats", StatBundleKind.AttackRelated => "Attack-related stats",
+            StatBundleKind.DefenseRelated => "Defense-related stats", StatBundleKind.HpRelated => "HP-related stats",
+            StatBundleKind.AllStats => "All Stats", _ => "Stats"
+        };
+
     }
 }

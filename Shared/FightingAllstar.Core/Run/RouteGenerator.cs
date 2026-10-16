@@ -121,7 +121,12 @@ namespace FightingAllstar.Core.Run
                 profile.BossDifficultyBonusPercent < 0 || profile.BossDifficultyBonusPercent > 100)
                 throw new InvalidOperationException("Dungeon difficulty increases must be 0-100 percent.");
             if (catalog == null) throw new ArgumentNullException(nameof(catalog));
-            var catalogErrors = ContentValidator.Validate(new ContentCatalog { Characters = new List<CharacterDefinition>(catalog) });
+            var catalogErrors = ContentValidator.Validate(new ContentCatalog {
+                ElementalRules = ElementalRuleSet.CreateDefault(),
+                StatusRecipes = StandardEffectDatabase.CreateStatusRecipes(),
+                AttackEffectRecipes = StandardEffectDatabase.CreateAttackEffects(),
+                Characters = new List<CharacterDefinition>(catalog)
+            });
             if (catalogErrors.Count > 0)
                 throw new InvalidOperationException("Dungeon catalog is not runtime-ready: " + string.Join("; ", catalogErrors));
             var candidates = EligibleCandidates(profile, catalog);

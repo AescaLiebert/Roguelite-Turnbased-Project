@@ -430,7 +430,8 @@ namespace FightingAllstar.Presentation.Combat
             kind == BattleEventKind.PassiveTriggered || kind == BattleEventKind.PassiveStatsChanged ||
             kind == BattleEventKind.PowerGaugeChanged || kind == BattleEventKind.AttackEvaded ||
             kind == BattleEventKind.StatusImmuned || kind == BattleEventKind.StatusesChanged ||
-            kind == BattleEventKind.RecoveryBlocked || kind == BattleEventKind.StatusWeaker;
+            kind == BattleEventKind.RecoveryBlocked || kind == BattleEventKind.StatusWeaker ||
+            kind == BattleEventKind.ElementalReactionTriggered;
 
         private IEnumerator PresentFeedbackBatch(IReadOnlyList<BattleEvent> batch)
         {
@@ -443,24 +444,28 @@ namespace FightingAllstar.Presentation.Combat
                 BattlePlaybackState.Apply(_displayState, item);
                 UpdateDisplayedHud(item.TargetId);
                 if (item.Kind == BattleEventKind.StatusApplied || item.Kind == BattleEventKind.StatusRemoved ||
-                    item.Kind == BattleEventKind.StatusesChanged)
+                    item.Kind == BattleEventKind.StatusesChanged || item.Kind == BattleEventKind.DamageApplied && item.StatusesAfter != null)
                     RefreshCardAvailability(item.TargetId);
                 switch (item.Kind)
                 {
+                    case BattleEventKind.ElementalReactionTriggered:
+                        visible = true;
+                        StartCoroutine(PresentReactionFeedback(item));
+                        break;
                     case BattleEventKind.DamageApplied:
                         hitCount = Mathf.Max(hitCount, item.HitCount);
                         visible = true;
                         FloatText(item.TargetId, item.WasEndured ? "Patience" :
-                            (item.WasCritical ? "CRITICAL\n" : item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0"),
+                            (item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0"),
                             item.WasEndured ? "status" : item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage",
-                            hitCount, 1f, ResolveEventAffinity(item));
+                            hitCount, 1f, ResolveEventAffinity(item), FeedbackElement(item), item.ElementalReaction, styleSourceId: item.SourceId);
                         PresentShieldDamage(item, hitCount);
                         UpdateDamageTotal(item.SourceId, (long)item.Amount);
                         impacts.Add(item);
                         break;
                     case BattleEventKind.HealApplied:
                         visible = true;
-                        FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal");
+                        FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal", styleSourceId: item.SourceId);
                         _stage.Pulse(item.TargetId, new Color(.3f, 1f, .65f));
                         break;
                     case BattleEventKind.RecoveryBlocked:
@@ -480,7 +485,7 @@ namespace FightingAllstar.Presentation.Combat
                         PlayStatusAnimation(item);
                         if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
                             PlayStatusRefreshFeedback(item, true);
-                        FloatText(item.TargetId, FeedbackName(item), "status");
+                        FloatText(item.TargetId, FeedbackName(item), "status", styleSourceId: item.SourceId);
                         _stage.Pulse(item.TargetId, new Color(.85f, .4f, 1f));
                         break;
                     case BattleEventKind.StatusesChanged:
@@ -521,6 +526,9 @@ namespace FightingAllstar.Presentation.Combat
         {
             switch (item.Kind)
             {
+                case BattleEventKind.ElementalReactionTriggered:
+                    StartCoroutine(PresentReactionFeedback(item));
+                    yield break;
                 case BattleEventKind.BattleStarted: yield break;
                 case BattleEventKind.HitStarted:
                     _hitWindow = true;
@@ -577,7 +585,7 @@ namespace FightingAllstar.Presentation.Combat
                     else _stage.Pulse(item.TargetId, new Color(.85f, .4f, 1f));
                     if (item.StatusOutcome == StatusApplyOutcome.Refreshed)
                         PlayStatusRefreshFeedback(item, true);
-                    FloatText(item.TargetId, statusName, "status");
+                    FloatText(item.TargetId, statusName, "status", styleSourceId: item.SourceId);
                     yield break;
                 case BattleEventKind.StatusRemoved:
                     BattlePlaybackState.Apply(_displayState, item);
@@ -771,6 +779,7 @@ namespace FightingAllstar.Presentation.Combat
                     _stage.ActorStatusDamageFeedback(item);
                     BattlePlaybackState.Apply(_displayState, item);
                     UpdateDisplayedHud(item.TargetId);
+                    if (item.StatusesAfter != null) RefreshCardAvailability(item.TargetId);
                     var textLifetimeScale = item.HitCount > 3
                         ? Mathf.Clamp((1.2f / Mathf.Sqrt(item.HitCount)) / 1.45f, .65f, 1f) : 1f;
                     if (item.WasEndured)
@@ -779,8 +788,8 @@ namespace FightingAllstar.Presentation.Combat
                     }
                     else
                     {
-                        var caption = (item.WasCritical ? "CRITICAL\n" : item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0");
-                        FloatText(item.TargetId, caption, item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage", item.HitCount, textLifetimeScale, ResolveEventAffinity(item));
+                        var caption = (item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0");
+                        FloatText(item.TargetId, caption, item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage", item.HitCount, textLifetimeScale, ResolveEventAffinity(item), FeedbackElement(item), item.ElementalReaction, styleSourceId: item.SourceId);
                         UpdateDamageTotal(item.SourceId, (long)item.Amount);
                     }
                     PresentShieldDamage(item, item.HitCount, textLifetimeScale);
@@ -795,7 +804,7 @@ namespace FightingAllstar.Presentation.Combat
                 case BattleEventKind.HealApplied:
                     BattlePlaybackState.Apply(_displayState, item);
                     UpdateDisplayedHud(item.TargetId);
-                    FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal");
+                    FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal", styleSourceId: item.SourceId);
                     if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
                     yield break;
                 case BattleEventKind.RecoveryBlocked:
@@ -916,8 +925,8 @@ namespace FightingAllstar.Presentation.Combat
                 }
                 else
                 {
-                    var caption = (item.WasCritical ? "CRITICAL\n" : item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0");
-                    FloatText(item.TargetId, caption, item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage", 1, 1f, ResolveEventAffinity(item));
+                    var caption = (item.WasBlocked ? "BLOCK\n" : "") + item.Amount.ToString("N0");
+                    FloatText(item.TargetId, caption, item.WasCritical ? "critical" : item.WasBlocked ? "blocked" : "damage", 1, 1f, ResolveEventAffinity(item), FeedbackElement(item), item.ElementalReaction, styleSourceId: item.SourceId);
                     UpdateDamageTotal(item.SourceId, (long)item.Amount);
                 }
                 PresentShieldDamage(item);
@@ -939,7 +948,7 @@ namespace FightingAllstar.Presentation.Combat
             {
                 BattlePlaybackState.Apply(_displayState, item);
                 UpdateDisplayedHud(item.TargetId);
-                FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal");
+                FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal", styleSourceId: item.SourceId);
             }
             if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
         }
@@ -960,6 +969,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             var fighter = _displayState.Player.FindFighter(item.SourceId) ?? _displayState.Opponent.FindFighter(item.SourceId);
             if (fighter != null && item.PowerGaugeAfter >= 0) fighter.PowerGauge = item.PowerGaugeAfter;
+            if (fighter != null && item.PowerGaugeRemainderAfter >= 0) fighter.PowerGaugeRemainderBp = item.PowerGaugeRemainderAfter;
             UpdateDisplayedHud(item.SourceId);
         }
 
@@ -996,6 +1006,7 @@ namespace FightingAllstar.Presentation.Combat
             {
                 hud.SetPowerGauge(fighter.PowerGauge);
             }
+            hud.SetPowerGaugeRemainder(fighter.PowerGaugeRemainderBp);
         }
 
         private void PresentShieldDamage(BattleEvent item, int hitCount = 1, float durationScale = 1f)
@@ -1276,34 +1287,47 @@ namespace FightingAllstar.Presentation.Combat
             return AttributeAffinity.Neutral;
         }
 
-        private void FloatText(string fighterId, string text, string kind, int hitCount = 1, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral)
+        private void FloatText(string fighterId, string text, string kind, int hitCount = 1, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral,
+            ElementId element = ElementId.None, ElementalReactionId reaction = ElementalReactionId.None, string styleSourceId = null)
         {
             if (string.IsNullOrEmpty(fighterId) || string.IsNullOrEmpty(text)) return;
-            EmitFloatText(fighterId, text, kind, hitCount, durationScale, affinity);
+            EmitFloatText(fighterId, text, kind, hitCount, durationScale, affinity, element, reaction, styleSourceId);
         }
 
-        private void EmitFloatText(string fighterId, string text, string kind, int hitCount = 1, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral)
+        private void EmitFloatText(string fighterId, string text, string kind, int hitCount = 1, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral,
+            ElementId element = ElementId.None, ElementalReactionId reaction = ElementalReactionId.None, string styleSourceId = null)
         {
             if (string.IsNullOrEmpty(fighterId) || _effectsLayer == null || !_fighterViews.TryGetValue(fighterId, out var view) || view == null || !view.activeInHierarchy) return;
             _textLanes.TryGetValue(fighterId, out var lane);
-            _textLanes[fighterId] = (lane + 1) % 4;
+            var genshin = UsesGenshinCombatText(styleSourceId ?? fighterId);
+            if (!(genshin && kind == "reaction")) _textLanes[fighterId] = (lane + 1) % 4;
             if (hitCount > 3 && durationScale >= 1f)
                 durationScale = Mathf.Clamp((1.2f / Mathf.Sqrt(hitCount)) / FctSettings.BaseDurationNumeric, FctSettings.MinMultiHitDurationScale, 1f);
 
-            var isStatus = kind == "status" || kind == "passive";
-            var world = view.transform.position + Vector3.up * (isStatus ? 2.6f : 2.25f);
-            StartCoroutine(AnimateCombatText(world, text, kind, lane, durationScale, affinity));
+            var isStatus = kind == "status" || kind == "passive" || kind == "reaction";
+            var world = view.transform.position + Vector3.up * (isStatus && !(genshin && kind == "reaction") ? 2.6f : 2.25f);
+            StartCoroutine(AnimateCombatText(world, text, kind, lane, durationScale, affinity, element, reaction,
+                genshin));
         }
 
-        private IEnumerator AnimateCombatText(Vector3 world, string text, string kind, int lane, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral)
+        private bool UsesGenshinCombatText(string sourceId)
+        {
+            var state = _displayState ?? _snapshot;
+            var fighter = state?.Player.FindFighter(sourceId) ?? state?.Opponent.FindFighter(sourceId);
+            return fighter?.Definition?.TraitIds?.Contains(ElementalRuleSet.GenshinTrait) == true;
+        }
+
+        private IEnumerator AnimateCombatText(Vector3 world, string text, string kind, int lane, float durationScale = 1f, AttributeAffinity affinity = AttributeAffinity.Neutral,
+            ElementId element = ElementId.None, ElementalReactionId reaction = ElementalReactionId.None, bool genshin = false)
         {
             if (_fctPool.TotalCount == 0 && _effectsLayer != null)
                 _fctPool.Initialize(_effectsLayer, 24, FctSettings);
-            var item = _fctPool.Acquire(text, kind, affinity);
+            var item = _fctPool.Acquire(text, kind, affinity, element, reaction, genshin);
             var group = item.Group;
             var numeric = kind == "damage" || kind == "critical" || kind == "blocked" || kind == "heal";
             var settings = FctSettings;
             var duration = (numeric ? settings.BaseDurationNumeric : settings.BaseDurationStatus) * Mathf.Clamp(durationScale, settings.MinMultiHitDurationScale, 1f);
+            if (genshin) duration = (kind == "reaction" ? 1.2f : 1.15f) * Mathf.Clamp(durationScale, settings.MinMultiHitDurationScale, 1f);
             _feedbackSettlesAt = Mathf.Max(_feedbackSettlesAt, Time.unscaledTime + Mathf.Min(duration, 0.75f));
 
             // Project once at impact: camera shake must not drag glyphs around the screen.
@@ -1326,15 +1350,29 @@ namespace FightingAllstar.Presentation.Combat
             var point = new Vector2(viewport.x * width, (1 - viewport.y) * height);
             var x = Mathf.Clamp(point.x - 140 + (lane - 1.5f) * 24f, 4, Mathf.Max(4, width - 284));
             var y = Mathf.Clamp(point.y - lane * 28f, 35, Mathf.Max(35, height - 210));
+            if (genshin)
+            {
+                var placement = GenshinCombatTextStyle.Placement(lane, kind == "reaction");
+                x = Mathf.Clamp(point.x - GenshinCombatTextStyle.Width / 2 + placement.x, 4, Mathf.Max(4, width - GenshinCombatTextStyle.Width - 4));
+                y = Mathf.Clamp(point.y + placement.y, 62, Mathf.Max(62, height - 130));
+            }
             yield return BattleStagePresenter.Tween(duration, t =>
             {
                 var seconds = t * duration;
+                if (genshin)
+                {
+                    var offset = GenshinCombatTextStyle.Offset(seconds, duration, lane, kind == "reaction");
+                    group.style.left = x + offset.x;
+                    group.style.top = y + offset.y;
+                    group.style.scale = new Scale(Vector3.one * GenshinCombatTextStyle.Scale(seconds, kind == "critical", kind == "reaction"));
+                    group.style.opacity = GenshinCombatTextStyle.Opacity(seconds, duration);
+                    return;
+                }
                 var rise = numeric
-                    ? (seconds < .12f ? settings.InitialRisePixels * (seconds / .12f) : settings.InitialRisePixels + settings.DriftRisePixels * Mathf.Pow(t, 0.7f))
+                    ? (seconds < .12f ? settings.InitialRisePixels * (seconds / .12f) : settings.InitialRisePixels + settings.DriftRisePixels * Mathf.Pow(t, .7f))
                     : (settings.InitialRisePixels + settings.DriftRisePixels) * t;
-                group.style.left = x;
-                group.style.top = y - rise;
-                float pop = 1f;
+                group.style.left = x; group.style.top = y - rise;
+                var pop = 1f;
                 if (numeric || kind == "evade" || kind == "immunity")
                 {
                     var targetPop = kind == "critical" ? settings.PopScaleCritical : settings.PopScaleNormal;

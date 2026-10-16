@@ -9,11 +9,13 @@ namespace FightingAllstar.Core.Run
     public static class RunBattleBridge
     {
         /// <summary>Production entry: fresh combat and card streams, with no dungeon seed input.</summary>
-        public static BattleState CreateLocalBattle(EncounterProjection encounter, TeamSide firstSide = TeamSide.Player)
-            => CreateLocalBattle(encounter, BattleEntropy.CreateSeed(), firstSide, cardDrawSeed: BattleEntropy.CreateSeed());
+        public static BattleState CreateLocalBattle(EncounterProjection encounter, TeamSide firstSide = TeamSide.Player,
+            ElementalRuleSet elementalRules = null)
+            => CreateLocalBattle(encounter, BattleEntropy.CreateSeed(), firstSide, cardDrawSeed: BattleEntropy.CreateSeed(), elementalRules: elementalRules);
 
         // Explicit entropy is retained for repeatable tests and training fixtures only.
-        public static BattleState CreateLocalBattle(EncounterProjection encounter, ulong seed, TeamSide firstSide = TeamSide.Player, bool training = false, ulong? cardDrawSeed = null)
+        public static BattleState CreateLocalBattle(EncounterProjection encounter, ulong seed, TeamSide firstSide = TeamSide.Player,
+            bool training = false, ulong? cardDrawSeed = null, ElementalRuleSet elementalRules = null)
         {
             if (encounter == null || string.IsNullOrWhiteSpace(encounter.BattleId)) throw new ArgumentException("Encounter projection is missing.");
             if (encounter.PlayerTeam == null || encounter.PlayerTeam.Count < 1 || encounter.PlayerTeam.Count > 4)
@@ -38,7 +40,8 @@ namespace FightingAllstar.Core.Run
 
             var battle = BattleEngine.Create(encounter.BattleId, playerDefinitions, playerTiers,
                 enemyDefinitions, enemyTiers, seed, firstSide, encounter.ChosenBoons,
-                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam), cardDrawSeed: cardDrawSeed, training: training);
+                CurrentHealth(encounter.PlayerTeam), CurrentHealth(encounter.EnemyTeam), cardDrawSeed: cardDrawSeed, training: training,
+                elementalRules: elementalRules);
             MapFighterIds(battle, battle.Player, encounter.PlayerTeam);
             MapFighterIds(battle, battle.Opponent, encounter.EnemyTeam);
             CharacterPassiveRuntime.Refresh(battle);

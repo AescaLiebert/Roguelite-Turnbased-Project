@@ -25,6 +25,8 @@ namespace FightingAllstar.Core.Combat.AI
 
             try
             {
+                state = AiPlanningObservation.Create(state);
+                aiTeam = state.Team(state.ActingSide);
                 // Determine Personality Profile based on character kits
                 var profile = profileOverride ?? AiPersonalityProfile.DeriveFromTeam(aiTeam);
 
@@ -43,12 +45,24 @@ namespace FightingAllstar.Core.Combat.AI
                 var scoredPlans = new List<ScoredPlan>();
                 foreach (var candidate in candidates)
                 {
-                    var scored = UtilityScorer.Score(candidate, situation, state, profile);
+                    var scored = UtilityScorer.Score(candidate, situation, state, profile, evaluateElemental: false);
                     scoredPlans.Add(scored);
                 }
 
                 // Sort descending by total score
                 scoredPlans.Sort((a, b) => b.TotalScore.CompareTo(a.TotalScore));
+
+                if (aiTeam.ElementalReactionsEnabled)
+                {
+                    // Keep conversion and ordinary choices in the bounded outcome shortlist.
+                    int limit = Math.Max(2, Math.Min(16, profile.OutcomeEvaluationDepth));
+                    var shortlist = scoredPlans.Where(p => p.Candidate.StrategyName == "ElementalOrder").Take(limit / 2)
+                        .Concat(scoredPlans.Where(p => p.Candidate.StrategyName != "ElementalOrder").Take(limit / 2)).ToList();
+                    foreach (var entry in scoredPlans)
+                        if (shortlist.Count < limit && !shortlist.Contains(entry)) shortlist.Add(entry);
+                    scoredPlans = shortlist.Select(p => UtilityScorer.Score(p.Candidate, situation, state, profile)).ToList();
+                    scoredPlans.Sort((a, b) => b.TotalScore.CompareTo(a.TotalScore));
+                }
 
                 // Phase 4: Simulation Validation on Top Candidates
                 int depth = Math.Min(profile.SimulationDepth, scoredPlans.Count);
@@ -66,12 +80,17 @@ namespace FightingAllstar.Core.Combat.AI
                 }
 
                 // Phase 5: Plan Selection
-                var rng = DeterministicRandom.Restore(state.RngState, state.RngDrawCount);
+                // Planning variation is independent of both authority random streams.
+                var rng = new DeterministicRandom(unchecked((ulong)state.Revision * 0x9E3779B97F4A7C15UL + (ulong)state.TurnNumber + 1));
                 var selectedTurnPlan = PlanSelector.Select(scoredPlans, state, profile, rng);
 
                 if (selectedTurnPlan != null && selectedTurnPlan.Actions.Count > 0)
                 {
                     LogCallback?.Invoke($"[EnemyAiPlanner] Selected tactical plan with {selectedTurnPlan.Actions.Count} actions (budget: {state.ActionBudget}, personality: {profile.Personality}).");
+                    var reason = scoredPlans.FirstOrDefault(p => p.Candidate.Actions.Count == selectedTurnPlan.Actions.Count &&
+                        p.Candidate.Actions.Zip(selectedTurnPlan.Actions, (a, b) => a.CardId == b.CardId && a.TargetFighterId == b.TargetFighterId &&
+                            a.IsMove == b.IsMove && a.DestinationIndex == b.DestinationIndex).All(same => same));
+                    if (!string.IsNullOrEmpty(reason?.Explanation)) LogCallback?.Invoke("[EnemyAiPlanner] " + reason.Explanation);
                     return selectedTurnPlan;
                 }
 

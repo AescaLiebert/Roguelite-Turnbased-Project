@@ -20,10 +20,13 @@ MonoBehaviour:
   traitIds:
   - trait.female
   - trait.soul-calibur
-  passiveSourceDescription: "When Seong Mi-Na attacks a debuffed enemy, her damage
-    dealt increases by 30%. Against a bleeding enemy, her attacks ignore 30% of its
-    Crit Defense. \n\n[Soul Calibur: own Max HP +10% and Crit Defense +10%; When
-    attacking will Increase ATK by +12%]"
+  passiveSourceDescription: 'When the hero attacks an enemy affected by a Debuff,
+    Increase Damage Dealt by 30%. if against an enemy affected by Bleed, Ignore 30%
+    of the target''s Crit Defense.
+
+
+    [Soul Calibur: increases the hero''s Max
+    HP and Crit Defense by 10%. When attacking, increases the hero''s Attack by 12%.]'
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 6abc0d7a798091d4ea58b3462e3067f0, type: 2}

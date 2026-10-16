@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FightingAllstar.Core.Combat;
+using FightingAllstar.Core.Content;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -54,17 +55,20 @@ namespace FightingAllstar.Presentation.Combat
 
                 Group.style.opacity = 0f;
                 Group.style.scale = new Scale(Vector3.one);
+                Group.style.width = StyleKeyword.Null;
                 Kicker.text = string.Empty;
                 Kicker.style.display = DisplayStyle.None;
                 Label.text = string.Empty;
                 Kicker.style.color = StyleKeyword.Null;
                 Kicker.style.unityTextOutlineColor = StyleKeyword.Null;
+                Kicker.style.unityTextOutlineWidth = StyleKeyword.Null;
                 Kicker.style.unityFont = StyleKeyword.Null;
                 Kicker.style.unityFontDefinition = StyleKeyword.Null;
                 Kicker.style.unityFontStyleAndWeight = StyleKeyword.Null;
                 Kicker.style.fontSize = StyleKeyword.Null;
                 Label.style.color = StyleKeyword.Null;
                 Label.style.unityTextOutlineColor = StyleKeyword.Null;
+                Label.style.unityTextOutlineWidth = StyleKeyword.Null;
                 Label.style.unityFont = StyleKeyword.Null;
                 Label.style.unityFontDefinition = StyleKeyword.Null;
                 Label.style.unityFontStyleAndWeight = StyleKeyword.Null;
@@ -85,7 +89,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private static readonly string[] KnownKinds =
         {
-            "damage", "critical", "blocked", "heal", "status", "passive", "evade", "immunity"
+            "damage", "critical", "blocked", "heal", "status", "passive", "evade", "immunity", "reaction"
         };
 
         public int ActiveCount => _active.Count;
@@ -230,7 +234,8 @@ namespace FightingAllstar.Presentation.Combat
             return new Item(group, kicker, contentRow, arrow, label);
         }
 
-        public Item Acquire(string text, string kind, AttributeAffinity affinity = AttributeAffinity.Neutral)
+        public Item Acquire(string text, string kind, AttributeAffinity affinity = AttributeAffinity.Neutral,
+            ElementId element = ElementId.None, ElementalReactionId reaction = ElementalReactionId.None, bool genshin = false)
         {
             Item item;
             if (_inactive.Count > 0)
@@ -263,9 +268,12 @@ namespace FightingAllstar.Presentation.Combat
                 item.Label.AddToClassList(kind);
             }
 
-            // Split into kicker and main body if multiline (e.g. "CRITICAL\n36,042")
+            if (!genshin && kind == "critical" && !(text ?? "").Contains("\n")) text = "CRITICAL\n" + text;
+            // BLOCK remains an explicit cue; Genshin criticals communicate intensity through scale.
             var parts = (text ?? string.Empty).Split('\n');
-            if (parts.Length > 1)
+            var criticalKicker = parts[0].Equals("CRITICAL", System.StringComparison.OrdinalIgnoreCase) ||
+                parts[0].Equals("CRITCAL", System.StringComparison.OrdinalIgnoreCase);
+            if (parts.Length > 1 && !(genshin && criticalKicker))
             {
                 item.Kicker.text = parts[0];
                 item.Kicker.style.display = DisplayStyle.Flex;
@@ -275,12 +283,16 @@ namespace FightingAllstar.Presentation.Combat
             {
                 item.Kicker.text = string.Empty;
                 item.Kicker.style.display = DisplayStyle.None;
-                item.Label.text = text ?? string.Empty;
+                item.Label.text = parts[parts.Length - 1];
             }
 
-            if (Settings != null && Settings.FontAsset != null)
+            if (genshin && GenshinCombatTextStyle.IsNumeric(kind))
+                item.Label.text = GenshinCombatTextStyle.FormatNumber(item.Label.text);
+            var genshinFont = genshin ? GenshinCombatTextStyle.Font : null;
+            var combatFont = genshin && genshinFont != null ? genshinFont : Settings?.FontAsset;
+            if (combatFont != null)
             {
-                var fontDefinition = FontDefinition.FromFont(Settings.FontAsset);
+                var fontDefinition = FontDefinition.FromFont(combatFont);
                 item.Label.style.unityFontDefinition = fontDefinition;
                 item.Kicker.style.unityFontDefinition = fontDefinition;
             }
@@ -325,6 +337,23 @@ namespace FightingAllstar.Presentation.Combat
                 }
             }
 
+            if (genshin)
+            {
+                item.Group.style.width = GenshinCombatTextStyle.Width;
+                item.Label.style.unityFontStyleAndWeight = FontStyle.Normal;
+                item.Kicker.style.unityFontStyleAndWeight = FontStyle.Normal;
+                if (kind == "reaction")
+                {
+                    item.Label.style.color = GenshinCombatTextStyle.ReactionColor(reaction);
+                }
+                else if (kind == "damage" || kind == "critical" || kind == "blocked")
+                    item.Label.style.color = reaction == ElementalReactionId.Overload
+                        ? GenshinCombatTextStyle.ReactionColor(reaction) : GenshinCombatTextStyle.ElementColor(element);
+                else if (kind == "heal") item.Label.style.color = (Color)new Color32(145, 242, 124, 255);
+                item.Label.style.unityTextOutlineColor = GenshinCombatTextStyle.Outline(item.Label.style.color.value);
+                item.Label.style.unityTextOutlineWidth = .8f;
+            }
+
             // Setup attribute affinity arrow for damage hits
             item.CurrentAffinity = affinity;
             var isDamage = kind == "damage" || kind == "critical" || kind == "blocked";
@@ -364,7 +393,7 @@ namespace FightingAllstar.Presentation.Combat
             item.Arrow.style.height = arrowSize.y;
             item.Arrow.style.marginRight = Settings != null ? Settings.ArrowRightMargin : 6f;
 
-            item.Label.style.fontSize = CalculateFontSize(item.Label.text, kind, Settings);
+            item.Label.style.fontSize = genshin ? GenshinCombatTextStyle.FontSize(kind) : CalculateFontSize(item.Label.text, kind, Settings);
             if (parts.Length > 1 && Settings != null)
                 item.Kicker.style.fontSize = Settings.KickerFontSize;
 
@@ -399,7 +428,7 @@ namespace FightingAllstar.Presentation.Combat
                            kind == "critical" ? 46f :
                            (kind == "blocked" || kind == "evade" || kind == "immunity") ? 34f :
                            kind == "heal" ? 38f :
-                           kind == "passive" ? 23f :
+                           kind == "reaction" ? 25f : kind == "passive" ? 23f :
                            kind == "status" ? 21f : 40f;
             var longestLine = 1;
             foreach (var line in (text ?? string.Empty).Split('\n'))

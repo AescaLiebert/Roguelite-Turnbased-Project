@@ -86,7 +86,8 @@ namespace FightingAllstar.Core.Combat
                     Multiply(ref numerator, ref denominator, Math.Max(0, 10000L + policy.IncomingIncreaseBp), 10000);
                 else if (!policy.BypassGenericReduction)
                     Multiply(ref numerator, ref denominator,
-                        Math.Max(0, 10000L + policy.IncomingIncreaseBp - policy.IncomingDecreaseBp), 10000);
+                        Math.Max(0, 10000L + policy.IncomingIncreaseBp - policy.IncomingDecreaseBp +
+                            (family == DamageFamily.Normal && policy.Element == ElementId.None ? policy.PhysicalReceivedIncreaseBp : 0)), 10000);
 
                 Multiply(ref numerator, ref denominator, Math.Max(0, packet.VarianceBp), 10000);
                 if (!isTrue)
@@ -100,7 +101,7 @@ namespace FightingAllstar.Core.Combat
             {
                 // Additional starts with its own authored percentage of the selected stat.
                 // DOT amounts are already snapshotted by their status recipe.
-                if (family == DamageFamily.Additional)
+                if (family == DamageFamily.Additional || family == DamageFamily.ElementalReaction)
                     Multiply(ref numerator, ref denominator, Math.Max(0, packet.CoefficientBp), 10000);
                 Multiply(ref numerator, ref denominator,
                     Math.Max(0, 10000L + policy.FamilyDealtIncreaseBp - policy.FamilyDealtDecreaseBp), 10000);
@@ -110,6 +111,12 @@ namespace FightingAllstar.Core.Combat
                     Math.Max(0, 10000 - policy.FamilySpecificReductionBp), 10000);
             }
 
+            // Element stages remain exact until the shared final floor/cap; legacy packets use neutral factors.
+            Multiply(ref numerator, ref denominator, Math.Max(0, policy.DotBridgeFactorBp), 10000);
+            Multiply(ref numerator, ref denominator, Math.Max(0, policy.ElementFactorBp), 10000);
+            Multiply(ref numerator, ref denominator, Math.Max(0, policy.ElementResistanceFactorBp), 10000);
+            Multiply(ref numerator, ref denominator, Math.Max(0, policy.AmplificationBp), 10000);
+            Multiply(ref numerator, ref denominator, Math.Max(0, policy.ExplosionFactorBp), 10000);
             var unbounded = numerator <= 0 ? BigInteger.Zero : BigInteger.Divide(numerator, denominator);
             var familyIgnoresCap = family == DamageFamily.Additional || family == DamageFamily.DamageOverTime;
             var capped = !policy.BypassDamageCap && !familyIgnoresCap && unbounded >= Math.Max(0, policy.DamageCap);

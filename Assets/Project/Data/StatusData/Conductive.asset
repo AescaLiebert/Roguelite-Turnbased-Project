@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9666d9fe4691a054dae7deae827391e9, type: 3}
+  m_Name: Conductive
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.StatusVisualData
+  id: status.debuff.conductive
+  displayName: Conductive
+  icon: {fileID: 21300000, guid: 2e186974fc3a4d0aa7c3c9f0e84c4ae9, type: 3}
+  actorVisualEffect: 0
+  polarity: 1
+  keywords:
+  - Conductive
+  - Lisa Conductive
+  - status.debuff.conductive
+  description: Reduces Defense by 20% per stack, up to 3 stacks, for 2 turns.

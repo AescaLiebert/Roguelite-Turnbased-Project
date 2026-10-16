@@ -1,6 +1,8 @@
 # Training mode
 
-Enter Main Menu → Training Mode. The popup lists the registry's characters regardless of ownership, using the shared character icon. Search by name or definition ID; filter by attribute, rarity or series; sort by name, rarity or ID. Draft fighters remain visible but cannot launch a battle. Choose C0–C6 before selecting a fighter.
+Enter Main Menu → Training Mode. The popup lists the registry's characters regardless of ownership, using the shared character icon. Search by name or definition ID; filter by attribute, rarity or series; sort by name, rarity or ID. Draft fighters remain visible but cannot launch a battle. Constellation choices follow authored C0–C5 tiers. Select **Series → Genshin Impact** to show the five starter characters; All Fighters clears conflicting filters and restores the full list. The owner requested removal of the separate Genshin shortcut.
+
+Genshin integration repair: Practice's validation catalog now includes the standard elemental rules/statuses. Its previous omission rejected elemental skills before launch even though the five assets were registered and ready. The Unity Practice fixture passes 391 picker/context/card/isolation checks, including 105 card plays and stale C6-clamp checks. [Evidence and screenshots](../../Artifacts/GenshinElementSystem/ImplementationGH.md).
 
 Training.unity copies Battle.unity's environment and presentation references. TrainingContext builds fresh definitions from the selected CharacterObject and runtime-ready fighter.kyo98. No training path consumes LocalEncounterContext or writes inventory, dungeon progress, rewards or results. Restart discards the current round and recreates fresh fighters; Exit returns to Main Menu.
 
@@ -22,7 +24,7 @@ Run `powershell -ExecutionPolicy Bypass -File Tests/CombatPresentation/Run.ps1 -
 
 Manual Play Mode checklist (not yet performed):
 
-1. New player/readability: open the popup, filter to a known fighter, clear filters, sort, choose C0 then C6, and confirm the selected character/ultimate and Kyo98 dummy appear. All cards should be visible and tooltips describe their ranks.
+1. New player/readability: open the popup, filter to a known fighter, clear filters, sort, choose C0 then C5, and confirm the selected character/ultimate and Kyo98 dummy appear. All cards should be visible and tooltips describe their ranks.
 2. Skill/passive: play both skills at ranks 1–3 and an ultimate. Observe the same buffs, debuffs, counters and timing as battle; each committed action exposes only one dummy slot. Test stun/disable effects and self-target skills.
 3. Stress: rapidly tap cards, reset a draft, restart/exit during intro, animation and inspector. Confirm controls remain usable, lethal-looking hits leave both fighters alive, and no lingering camera or effects survive scene exit.
 4. Abuse/isolation: start with a saved dungeon and note inventory/currency; train with an unowned fighter, restart and exit. Saved dungeon, collection and currency must remain unchanged.

@@ -27,6 +27,11 @@ internal static partial class BattlePlaybackChecks
         Check(DungeonAvailability.Phases("series.missing", catalog).Count == 0, "Missing series must not borrow another series roster.");
         Check(DungeonAvailability.Phases(null, catalog.Take(3).ToList()).Count == 0, "An unavailable four-fighter roster must not appear enterable.");
         var profile = DungeonProfile.Filtered("series.soulcalibur", 2, 3);
+        var catalogWithElements = catalog.Concat(GenshinStarterRoster.Create()).ToList();
+        Check(RouteGenerator.Generate(profile, catalogWithElements, 0, 42).Any(n => n.Type == RouteNodeType.Boss),
+            "A valid elemental fighter elsewhere in the catalog prevented dungeon generation.");
+        Check(DungeonEnemyFactory.RecommendedCombatClass(profile, catalogWithElements, 0) > 0,
+            "Dungeon entry's combat-class preview rejected the elemental catalog.");
         var authoredAlias = catalog[0].Clone(); authoredAlias.SeriesId = "series.sc";
         Check(profile.Accepts(authoredAlias) && DungeonProfile.SeriesDisplayName(authoredAlias.SeriesId) == "Soul Calibur", "Authored Soul Calibur series.sc assets must match the entry policy.");
         for (var tier = 1; tier <= 5; tier++)
@@ -39,12 +44,17 @@ internal static partial class BattlePlaybackChecks
             {
                 var source = catalog.Single(c => c.Id == enemy.DefinitionId);
                 Check(enemy.ConstellationTier >= 0 && enemy.ConstellationTier <= 5, "Constellations must remain valid.");
-                if (tier == 1 && node.Type != RouteNodeType.Boss)
+                if (tier == 1)
                 {
-                    Check(enemy.EnemyKind == (node.Type == RouteNodeType.Elite ? DungeonEnemyKind.EliteMinion : DungeonEnemyKind.Minion), "Easy enemy type is wrong.");
-                    Check(enemy.Stats.Attack == source.BaseStats.Attack / 2 && enemy.Stats.Defense == source.BaseStats.Defense / 2 &&
-                        enemy.Stats.MaxHealth == source.BaseStats.MaxHealth / 2, "Minions need half fighter stats.");
-                    Check(enemy.Definition.Passive == null && enemy.Definition.Skills.All(s => s.Category == CardCategory.Attack), "Minions must use their simple attack kit.");
+                    Check(enemy.EnemyKind == DungeonEnemyKind.Fighter && enemy.Level == 1,
+                        "Easy encounters must use level-one fighters, including elites and bosses.");
+                    Check(enemy.Definition.ArtifactLoadout.Count == 0 &&
+                        SnapshotJson.Serialize(enemy.Stats) == SnapshotJson.Serialize(CharacterProgression.StatsAtLevel(source.BaseStats, source.StatGrowth, 1)),
+                        "Easy fighters must use full level-one stats without artifacts.");
+                    Check(enemy.Definition.Passive?.Id == source.Passive?.Id &&
+                        SnapshotJson.Serialize(enemy.Definition.Skills) == SnapshotJson.Serialize(source.Skills) &&
+                        SnapshotJson.Serialize(enemy.Definition.UltimateTiers) == SnapshotJson.Serialize(source.UltimateTiers),
+                        "Easy fighters must inherit their complete fighter kit.");
                 }
                 else
                 {

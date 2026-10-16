@@ -27,7 +27,7 @@ The sixteen reusable procedural templates are selected by hit-count family, rang
 
 Entry: a validated card/counter begins during locked execution. Card cost and gauge payment happen once. Intermediate hits cannot queue an extra player action. Exit: last actual hit, follow-up windows, then recovery to the remembered formation pose. Skip/disable stops presentation and restores poses/camera; authority already contains the complete deterministic result. Ranged attackers stay at their formation position; melee stops in front of the nearest target plane. Camera follows the existing bounded attack framing and returns through the existing planning flow.
 
-Clarity: the card description exposes hit count/range; every strike has its own number and crit/block feedback. Motivation: the same card investment now produces visible independent outcomes. Response: planning lock and skip remain intact. Satisfaction: alternating trails/projectiles, recoil, impact audio and a heavier final strike. Fit: existing models, rank/ultimate introductions, camera and status presentation are reused.
+Clarity: card descriptions explain the damage formula and effect timing without animation metadata. Authored hit count/range still selects the animation template; every strike has its own number and crit/block feedback. Response: planning lock and skip remain intact. Existing models, rank/ultimate introductions, camera and status presentation are reused.
 
 ## Starting values and playtest
 
@@ -41,7 +41,7 @@ Automated visual smoke: after rebuilding Core, run `./Tests/CombatPresentation/R
 
 Manual checks with real character models:
 
-1. New player/readability: inspect a card, predict hit count/range, then count the displayed impacts. Pass: visible impacts and HP changes match, AOE numbers appear together per strike. If dense, lengthen barrage separation or shorten trail lifetime.
+1. New player/readability: inspect a card, then play it. Pass: descriptions omit animation metadata; the configured template's impacts and HP changes match, and AOE numbers appear together per strike. If dense, lengthen barrage separation or shorten trail lifetime.
 2. Stress: play ten-hit AOE, reduce one target to zero HP on the first hit, use a shielded target, evade stance and crit/block mixtures. Pass: all ten damage/FCT/recoil beats reach the original recipients, including zero-HP targets; HP stays zero, defeat occurs once after the card finishes, and reserves enter afterward. Repeat for both teams and a single last enemy.
 3. Timing: put distinct status effects in Damaging and AfterDamage. Pass: first status occurs once at strike one, last status once after the final strike. Confirm damage-based statuses use the whole sequence.
 4. Response/abuse: spam input and skip during approach, projectile flight, middle hit and finisher. Pass: one card/gauge cost, no extra actions, authority/display agree, poses and camera restore.

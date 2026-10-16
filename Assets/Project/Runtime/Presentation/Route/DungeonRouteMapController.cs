@@ -267,15 +267,16 @@ namespace FightingAllstar.Presentation.Route
             if (d != null)
             {
                 var passive = new Foldout { text = "PASSIVE", value = false }; scroll.Add(passive);
-                passive.Add(new Label(d.PassiveSource?.Description ?? "No passive description."));
+                passive.Add(new Label(Combat.PassiveDescriptionText.Format(d.PassiveSource?.Description, d.Passive)));
                 foreach (var skill in d.Skills)
                 {
                     var skillInfo = new Foldout { text = "SKILL " + skill.Slot, value = false }; scroll.Add(skillInfo);
-                    foreach (var rank in skill.Ranks) skillInfo.Add(new Label("R" + rank.Rank + " · " + rank.Category + "\n" + (rank.Description ?? rank.SourceDescription ?? "No description.")));
+                    foreach (var rank in skill.Ranks) skillInfo.Add(new Label("R" + rank.Rank + " · " + rank.Category + "\n" +
+                        Combat.CardDescriptionText.Format(rank.Description ?? rank.SourceDescription, rank.Effect)));
                 }
                 var ultimate = d.UltimateTiers.Find(t => t.Tier == fighter.ConstellationTier);
                 var ultimateInfo = new Foldout { text = "ULTIMATE · C" + fighter.ConstellationTier, value = false }; scroll.Add(ultimateInfo);
-                ultimateInfo.Add(new Label(ultimate?.Description ?? ultimate?.SourceDescription ?? "No description."));
+                ultimateInfo.Add(new Label(Combat.CardDescriptionText.Format(ultimate?.Description ?? ultimate?.SourceDescription, ultimate?.Effect)));
             }
             root.Add(overlay);
             overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) close(); });

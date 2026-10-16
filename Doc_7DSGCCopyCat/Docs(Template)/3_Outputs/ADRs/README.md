@@ -1,33 +1,31 @@
 # Architecture Decision Records Index
 
-> Last updated: {YYYY-MM-DD}
+> Last updated: 2026-10-15
 
 ## Dependency Order
 
 ```mermaid
 graph TD
-    ADR001["ADR-001: {First Decision}"]
-    ADR002["ADR-002: {Second Decision}"]
-    ADR003["ADR-003: {Third Decision}"]
+    ADR001["ADR-001: Authoritative shared combat core"]
+    ADR002["ADR-002: Elemental contact resolution proposal"]
     ADR001 --> ADR002
-    ADR002 --> ADR003
 ```
 
-_Update this diagram as ADRs are added. Show which decisions depend on others._
+The dependency expresses architecture compatibility; it does not change either record's approval status.
 
 ## ADR Registry
 
 | # | Title | Status | Phase | Current Note |
 |---|-------|--------|-------|-------------|
-| [001](001-{kebab-title}.md) | {Title} | **Proposed** / Accepted / Deprecated | {Phase} | {status note} |
+| [001](001-authoritative-combat-core.md) | Shared deterministic C# combat core with authoritative online services | **Proposed** | Shared-core foundation | Historical record remains `needs-human`; current implementation evidence lives in the relevant specs/code. |
+| [002](002-elemental-reaction-resolution.md) | Shared-core elemental contact resolution with bounded child events | **Accepted direction** | Elemental feature | Owner approved the documented baseline on 2026-10-15; dependent E/K decisions and new detailed kit proposals remain explicit; runtime not implemented. |
 
 ## Phase Mapping
 
 | GDD Phase | ADRs | Current Status |
 |-----------|------|----------------|
-| **Phase 1** — Stabilize Prototype | ADR-{NNN} | {status} |
-| **Phase 2** — Split Core Runtime | ADR-{NNN} | {status} |
-| **Phase 3** — Data-Drive Content | ADR-{NNN} | {status} |
+| Shared combat authority | ADR-001 | Historical proposed direction; follow current source/spec evidence. |
+| Elemental extension | ADR-002 | Approved baseline direction; see feature plan, supplied kits and E/K decisions before dependent coding. |
 
 ## How to Use
 

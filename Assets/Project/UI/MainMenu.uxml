@@ -6,7 +6,9 @@
     <ui:VisualElement name="menu-viewport" class="screen-root menu-viewport">
         <ui:VisualElement name="menu-stage" class="screen-stage menu-stage">
             <ui:VisualElement picking-mode="Ignore" class="screen-background arena-background" style="background-image: url(&quot;project://database/Assets/Project/Art/UI/MainMenu-Background.png?fileID=2800000&amp;guid=182edc30b511c6044b83664b0c59729a&amp;type=3#MainMenu-Background&quot;); background-size: contain; top: 0; right: 0; bottom: 0; left: 0;"/>
-            <ui:VisualElement picking-mode="Ignore" class="screen-background arena-background" style="background-image: url(&quot;project://database/Assets/Project/Art/Character/SplashArt/cassandra-soulcalibur-ii-scenic-splash-v2.png?fileID=2800000&amp;guid=d24795cb9d4be0d47912aea153c1c11b&amp;type=3#cassandra-soulcalibur-ii-scenic-splash-v2&quot;); background-size: contain; top: -30px; right: -86px; bottom: -37px; left: 339px;"/>
+            <ui:VisualElement name="hero-stage" picking-mode="Ignore" class="screen-background hero-stage">
+                <ui:Image name="hero-art" picking-mode="Ignore" class="hero-art"/>
+            </ui:VisualElement>
             <ui:Instance template="AccountHeader" class="account-header-instance">
                 <AttributeOverrides element-name="section-title" text="HOME"/>
             </ui:Instance>

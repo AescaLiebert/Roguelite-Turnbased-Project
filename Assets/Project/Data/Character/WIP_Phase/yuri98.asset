@@ -21,8 +21,7 @@ MonoBehaviour:
   - trait.art-of-fighting
   - trait.women
   - trait.series-kof
-  passiveSourceDescription: When an enemy is defeated, Decrease the PG gauge of all
-    enemies by 2 gauges
+  passiveSourceDescription: "When an enemy is defeated, decrease all enemies' Power Gauge by 2 orbs."
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: b19ba5f1f9801014a847513d1093fa88, type: 2}

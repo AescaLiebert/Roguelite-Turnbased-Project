@@ -9,15 +9,66 @@ namespace FightingAllstar.Presentation.Navigation
 {
     public static class MainMenuView
     {
+        private const string LastHeroPreferenceKey = "MainMenu.LastHeroDefinitionId";
+
         public static void Initialize(VisualElement root)
         {
             var stage = root.Q("menu-stage");
             if (stage == null) return;
             if (stage.userData is Binding existing) { existing.Refresh(); return; }
+            InitializeHero(root);
             stage.userData = new Binding(root, stage);
             var atlas = Resources.Load<Texture2D>("UI/MainMenu/ReferenceAtlas");
             Art(root, "summon-icon", atlas, new Rect(1036, 782, 88, 70));
             Art(root, "training-icon", atlas, new Rect(1365, 787, 84, 58));
+        }
+
+        private static void InitializeHero(VisualElement root)
+        {
+            var image = root.Q<Image>("hero-art");
+            if (image == null) return;
+
+            var inventory = PlayerInventoryService.Instance;
+            var candidates = inventory?.GetOwnedDefinitions()
+                .Where(character => character != null &&
+                    (character.FighterFull != null || character.FighterPic != null || character.FighterIcon != null))
+                .GroupBy(character => character.DefinitionId)
+                .Select(group => group.First())
+                .ToList();
+
+            if (candidates == null || candidates.Count == 0)
+            {
+                image.style.display = DisplayStyle.None;
+                return;
+            }
+
+            var previousId = PlayerPrefs.GetString(LastHeroPreferenceKey, string.Empty);
+            if (candidates.Count > 1) candidates.RemoveAll(character => character.DefinitionId == previousId);
+
+            var character = candidates[new System.Random().Next(candidates.Count)];
+            image.sprite = character.FighterFull != null ? character.FighterFull :
+                character.FighterPic != null ? character.FighterPic : character.FighterIcon;
+            image.scaleMode = ScaleMode.ScaleToFit;
+            image.tooltip = character.FighterName;
+            image.style.display = DisplayStyle.Flex;
+            PlayerPrefs.SetString(LastHeroPreferenceKey, character.DefinitionId);
+            PlayerPrefs.Save();
+
+            StartHeroMotion(image);
+        }
+
+        private static void StartHeroMotion(Image image)
+        {
+            var startedAt = Time.unscaledTime;
+            image.schedule.Execute(() =>
+            {
+                if (image.panel == null) return;
+                var phase = (Time.unscaledTime - startedAt) * (Mathf.PI * 2f / 14f);
+                var breath = Mathf.Sin(phase);
+                image.style.scale = new Scale(Vector3.one * (1.014f + breath * .006f));
+                image.style.translate = new Translate(Mathf.Sin(phase) * 3f, Mathf.Sin(phase + .8f) * 4f);
+                image.style.rotate = new Rotate(new Angle(breath * .2f, AngleUnit.Degree));
+            }).Every(33);
         }
 
         public static void RefreshDungeon(VisualElement root, RunState run)

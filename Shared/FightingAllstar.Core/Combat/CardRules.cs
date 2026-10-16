@@ -80,11 +80,12 @@ namespace FightingAllstar.Core.Combat
             if (grantGauge)
             {
                 var owner = team.FindFighter(card.OwnerFighterId);
-                if (owner != null && owner.IsAlive && !owner.IsReserve && !owner.PowerGaugeDisabled) owner.PowerGauge = Math.Min(UltimateGaugeCost, owner.PowerGauge + 1);
+                if (owner != null && owner.IsAlive && !owner.IsReserve) PowerGaugeRules.GainForAction(owner);
             }
             timeline?.Add(new BattleEvent { Kind = BattleEventKind.CardMoved, SourceId = card.OwnerFighterId,
                 CardId = card.Id, Card = card.Clone(), DestinationIndex = to,
                 PowerGaugeAfter = team.FindFighter(card.OwnerFighterId)?.PowerGauge ?? -1, Message = "Card moved." });
+            if (timeline != null) timeline[timeline.Count - 1].PowerGaugeRemainderAfter = team.FindFighter(card.OwnerFighterId)?.PowerGaugeRemainderBp ?? -1;
             MergeAdjacent(team, mergedCardIds, timeline, grantGauge);
             return true;
         }
@@ -107,12 +108,13 @@ namespace FightingAllstar.Core.Combat
                     var owner = team.FindFighter(left.OwnerFighterId);
                     if (grantGauge && owner != null && owner.IsAlive && !owner.IsReserve && !owner.PowerGaugeDisabled)
                     {
-                        owner.PowerGauge = Math.Min(UltimateGaugeCost, owner.PowerGauge + 1);
+                        PowerGaugeRules.GainForAction(owner);
                     }
                     timeline?.Add(new BattleEvent { Kind = BattleEventKind.CardsMerged, SourceId = left.OwnerFighterId,
                         CardId = left.Id, Card = left.Clone(), ConsumedCardId = right.Id, Amount = left.Rank,
                         PowerGaugeAfter = grantGauge && owner != null ? owner.PowerGauge : -1,
                         Message = "RANK UP" });
+                    if (timeline != null) timeline[timeline.Count - 1].PowerGaugeRemainderAfter = owner?.PowerGaugeRemainderBp ?? -1;
                     any = true;
                     if (i > 0) i--;
                 }

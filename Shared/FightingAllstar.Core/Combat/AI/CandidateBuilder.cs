@@ -52,6 +52,9 @@ namespace FightingAllstar.Core.Combat.AI
             // 8. General Beam Search (fills any gaps and explores unexpected synergies)
             GenerateBeamSearchPlans(situation, state, candidates, budget, profile.BeamWidth);
 
+            // Reserve at most half the slots for ordered elemental pairs; retain ordinary/hold plans too.
+            candidates.InsertRange(0, ElementalCandidateBuilder.Generate(situation, state, Math.Max(1, profile.MaxCandidates / 2)));
+
             // Filter out empty plans or plans exceeding budget
             var validCandidates = new List<CandidatePlan>();
             var seenFingerprints = new HashSet<string>(StringComparer.Ordinal);

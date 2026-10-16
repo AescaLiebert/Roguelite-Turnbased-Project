@@ -226,7 +226,12 @@ namespace FightingAllstar.Presentation.Navigation
                 for (var i = 0; i <= 5; i++) _panel.Q("hub-constellation-" + i)?.EnableInClassList("selected", i == _previewTier);
                 Text("hub-preview-constellation", "PREVIEW · C" + _previewTier + "/5"); Text("hub-preview-ultimate", UltimateDescription(_previewTier));
             }
-            private string UltimateDescription(int tier) => _character.Ultimate?.levels?.ElementAtOrDefault(tier)?.description ?? "Details have not been authored for this fighter yet.";
+            private string UltimateDescription(int tier)
+            {
+                var level = _character.Ultimate?.levels?.ElementAtOrDefault(tier);
+                return level == null ? "Details have not been authored for this fighter yet." :
+                    Combat.CardDescriptionText.Format(level.description, level.runtimeEffect);
+            }
             private void Click(string name, Action action) { var button = _panel.Q<Button>(name); if (button != null) button.clicked += action; }
             private void Text(string name, string value) { var label = _panel.Q<Label>(name); if (label != null) label.text = value ?? string.Empty; }
             private void Subscribe() { if (_subscribed) return; PlayerInventoryService.InventoryChanged += Changed; _subscribed = true; }

@@ -342,6 +342,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
         var levelStats = CharacterProgression.StatsAtLevel(definition.BaseStats, definition.StatGrowth, owned.level);
         return new RunFighterSeed { OwnedFighterId = owned.instanceId, Definition = runDefinition,
             ResolvedStats = ArtifactRules.ApplyStats(levelStats, runDefinition.ArtifactLoadout),
+            Level = owned.level,
             ConstellationTier = owned.constellationTier, FormationSlot = slot, IsReserve = slot == 3 };
     }
 

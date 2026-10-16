@@ -1,5 +1,7 @@
 @import url("project://database/Assets/Project/Resources/UI/ScreenShell.uss?fileID=7433441132597879392&guid=6d1566d098bce684493804ab080e2ee6&type=3#ScreenShell");
 .arena-background { background-image: url("../Art/UI/MainMenu/ArenaBackground.png"); }
+.hero-stage { left: 18%; right: -4%; top: 0; bottom: -3%; justify-content: center; align-items: center; overflow: hidden; }
+.hero-art { position: absolute; left: 0; right: 0; top: 0; bottom: 0; width: 100%; height: 100%; opacity: .96; }
 .home-body { justify-content: flex-end; align-items: flex-start; padding: 34px 48px; }
 .home-menu { width: 44%; max-width: 760px; min-width: 440px; }
 .route-card { flex-direction: row; min-height: 176px; margin-bottom: 14px; padding: 12px; align-items: center; background-color: rgba(8, 18, 30, .78); }
@@ -23,6 +25,7 @@
 .inventory-screen { position: absolute; left: 0; right: 0; top: 84px; bottom: 0; }
 .summon-icon, .training-icon { width: 54px; height: 54px; margin-right: 14px; }
 .compact-layout .home-body { padding: 22px 32px; }
+.compact-layout .hero-stage { left: 14%; right: -7%; }
 .compact-layout .home-menu { width: 50%; min-width: 430px; }
 .compact-layout .utility-button { min-height: 64px; margin-top: 10px; }
 .compact-layout .utility-button Label, .compact-layout .inventory-button { font-size: 30px; }
@@ -34,6 +37,7 @@
 .compact-layout .home-small-actions .utility-button Label, .compact-layout .backpack-button { font-size: 26px; }
 .compact-layout .summon-icon, .compact-layout .training-icon { width: 42px; height: 42px; margin-right: 10px; }
 .narrow-layout .home-body { padding: 24px; }
+.narrow-layout .hero-stage { left: 0; right: 0; top: 82px; bottom: 28%; }
 .narrow-layout .home-menu { width: 100%; min-width: 0; max-width: none; }
 .narrow-layout .utility-button { min-height: 80px; }
 .narrow-layout .battle-button { min-height: 88px; }

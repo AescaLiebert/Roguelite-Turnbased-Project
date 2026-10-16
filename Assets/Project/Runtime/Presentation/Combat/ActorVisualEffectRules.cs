@@ -9,17 +9,22 @@ namespace FightingAllstar.Presentation.Combat
     {
         Automatic, None, AttackIncrease, AttackDecrease, DefenseIncrease, DefenseDecrease,
         HealthIncrease, HealthDecrease, Stun, Paralyze, Bleed, Poison, Shock, Ignite,
-        CardDisable, ExtortBuff, ExtortDebuff, Explosion, Rejuvenation, ExplosionDetonation
+        CardDisable, ExtortBuff, ExtortDebuff, Explosion, Rejuvenation, ExplosionDetonation,
+        Freeze, FrostBite, GlacialWaltz
     }
 
     /// <summary>Presentation-only mapping. Uses recipe semantics, including bundles and potency.</summary>
     public static class ActorVisualEffectRules
     {
         public static bool IsPersistentDebuff(ActorVisualEffectKind kind) =>
-            IsPersistentStatus(kind) && kind != ActorVisualEffectKind.ExtortBuff && kind != ActorVisualEffectKind.Rejuvenation;
+            IsPersistentStatus(kind) && kind != ActorVisualEffectKind.ExtortBuff && kind != ActorVisualEffectKind.Rejuvenation &&
+            kind != ActorVisualEffectKind.GlacialWaltz;
 
         public static bool IsPersistentStatus(ActorVisualEffectKind kind) =>
-            kind >= ActorVisualEffectKind.Paralyze && kind <= ActorVisualEffectKind.Rejuvenation;
+            (kind >= ActorVisualEffectKind.Paralyze && kind <= ActorVisualEffectKind.Rejuvenation) || IsCryoStatus(kind);
+
+        public static bool IsCryoStatus(ActorVisualEffectKind kind) =>
+            kind == ActorVisualEffectKind.Freeze || kind == ActorVisualEffectKind.FrostBite || kind == ActorVisualEffectKind.GlacialWaltz;
 
         public static ActorVisualEffectKind PersistentDebuff(StatusRecipeDefinition recipe)
         {
@@ -35,6 +40,9 @@ namespace FightingAllstar.Presentation.Combat
                 (authored.Polarity == recipe.Polarity || string.Equals(authored.Id, recipe.Id, StringComparison.OrdinalIgnoreCase)))
                 return IsPersistentStatus(authored.ActorVisualEffect) ? authored.ActorVisualEffect : ActorVisualEffectKind.None;
             if (Matches(recipe, CombatTags.Paralyze, "paralyze")) return ActorVisualEffectKind.Paralyze;
+            if (Matches(recipe, "status.freeze", "freeze")) return ActorVisualEffectKind.Freeze;
+            if (Matches(recipe, "status.frost-bite", "frost-bite")) return ActorVisualEffectKind.FrostBite;
+            if (Matches(recipe, "status.glacial-waltz", "glacial-waltz")) return ActorVisualEffectKind.GlacialWaltz;
             if (Matches(recipe, CombatTags.Bleed, "bleed")) return ActorVisualEffectKind.Bleed;
             // Preserve the historical 'posion' alias used by the authored Poison visual.
             if (Matches(recipe, CombatTags.Poison, "poison") || Matches(recipe, "status.posion", "posion")) return ActorVisualEffectKind.Poison;
@@ -78,7 +86,7 @@ namespace FightingAllstar.Presentation.Combat
             return PersistentStatus(recipe) == ActorVisualEffectKind.Explosion;
         }
 
-        public static bool IsUnableToAct(FighterState fighter) => IsStunned(fighter) ||
+        public static bool IsUnableToAct(FighterState fighter) => IsStunned(fighter) || StatusSystem.IsFrozen(fighter) ||
             PersistentDebuffs(fighter).Contains(ActorVisualEffectKind.Paralyze);
 
         public static bool IsStun(StatusRecipeDefinition recipe)

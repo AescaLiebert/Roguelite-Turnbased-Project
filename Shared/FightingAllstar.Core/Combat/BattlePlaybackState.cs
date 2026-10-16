@@ -11,8 +11,10 @@ namespace FightingAllstar.Core.Combat
             var display = initial.Clone();
             display.Player.Hand.Clear();
             display.Opponent.Hand.Clear();
-            foreach (var fighter in display.Player.Fighters) fighter.PowerGauge = 0;
-            foreach (var fighter in display.Opponent.Fighters) fighter.PowerGauge = 0;
+            foreach (var fighter in display.Player.Fighters)
+            { fighter.PowerGauge = 0; fighter.PowerGaugeRemainderBp = 0; }
+            foreach (var fighter in display.Opponent.Fighters)
+            { fighter.PowerGauge = 0; fighter.PowerGaugeRemainderBp = 0; }
             display.Events.Clear();
             return display;
         }
@@ -26,6 +28,8 @@ namespace FightingAllstar.Core.Combat
             if (target != null && item.ShieldChanged) target.Shield = item.ShieldAfter;
             if (source != null && item.PowerGaugeAfter >= 0 && item.Kind != BattleEventKind.PowerGaugeChanged)
                 source.PowerGauge = item.PowerGaugeAfter;
+            if (source != null && item.PowerGaugeRemainderAfter >= 0 && item.Kind != BattleEventKind.PowerGaugeChanged)
+                source.PowerGaugeRemainderBp = item.PowerGaugeRemainderAfter;
             switch (item.Kind)
             {
                 case BattleEventKind.TurnPlanCommitted:
@@ -33,6 +37,7 @@ namespace FightingAllstar.Core.Combat
                     break;
                 case BattleEventKind.PowerGaugeChanged:
                     if (target != null) target.PowerGauge = item.PowerGaugeAfter;
+                    if (target != null && item.PowerGaugeRemainderAfter >= 0) target.PowerGaugeRemainderBp = item.PowerGaugeRemainderAfter;
                     break;
                 case BattleEventKind.CardRemoved:
                     (target == null ? team : display.Team(target.Side))?.Hand.RemoveAll(c => c.Id == item.CardId);

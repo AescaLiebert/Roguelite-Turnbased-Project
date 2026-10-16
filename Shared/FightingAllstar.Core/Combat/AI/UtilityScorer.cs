@@ -13,7 +13,7 @@ namespace FightingAllstar.Core.Combat.AI
     {
         public const int DimensionCount = 11;
 
-        public static ScoredPlan Score(CandidatePlan candidate, BattleSituation situation, BattleState state, AiPersonalityProfile profile)
+        public static ScoredPlan Score(CandidatePlan candidate, BattleSituation situation, BattleState state, AiPersonalityProfile profile, bool evaluateElemental = true)
         {
             var scored = new ScoredPlan
             {
@@ -35,6 +35,20 @@ namespace FightingAllstar.Core.Combat.AI
             float threatScore     = EstimateThreatFocus(candidate, situation);
             float survivePenalty  = EstimateSurviveRisk(candidate, situation);
             float wastedSlots     = (situation.ActionBudget - candidate.Actions.Count) * -2.0f;
+
+            if (evaluateElemental && state?.Team(state.ActingSide).ElementalReactionsEnabled == true)
+            {
+                var outcomes = PlanSimulator.EvaluateElemental(candidate, state);
+                scored.ElementalValue = outcomes;
+                scored.SimulationValid = outcomes.IsValid;
+                if (!outcomes.IsValid) { scored.TotalScore = float.MinValue; return scored; }
+                damageScore = outcomes.Damage / 1000f;
+                killScore = outcomes.Kills * 5f;
+                healScore = outcomes.Healing / 1000f;
+                debuffScore = (outcomes.FutureDamage + outcomes.Control) / 1000f;
+                buffScore = outcomes.Protection / 1000f;
+                scored.Explanation = FormattableString.Invariant($"Expected contact {outcomes.Damage:0} HP/shield; retained DOT {outcomes.FutureDamage:+0;-0;0}; control {outcomes.Control:+0;-0;0}; protection {outcomes.Protection:+0;-0;0}. Independent samples, not future rolls.");
+            }
 
             // Apply personality weights
             scored.DimensionScores[0]  = damageScore * profile.DamageDealt;

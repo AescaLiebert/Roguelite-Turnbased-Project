@@ -18,9 +18,7 @@ namespace FightingAllstar.Core.Run
             DungeonProfile profile, int difficulty, int slot, int constellation, DeterministicRandom rng)
         {
             var tier = DungeonDifficulty.Level(difficulty);
-            var kind = tier == 1 && node.Type != RouteNodeType.Boss
-                ? node.Type == RouteNodeType.Elite ? DungeonEnemyKind.EliteMinion : DungeonEnemyKind.Minion
-                : DungeonEnemyKind.Fighter;
+            var kind = DungeonEnemyKind.Fighter;
             var progress = Math.Min(100, node.Row * profile.DifficultyIncreasePerRowPercent +
                 (node.Type == RouteNodeType.Elite ? profile.EliteDifficultyBonusPercent :
                  node.Type == RouteNodeType.Boss ? profile.BossDifficultyBonusPercent : 0));
@@ -28,14 +26,13 @@ namespace FightingAllstar.Core.Run
             var definition = source.Clone();
             definition.ArtifactLoadout.Clear();
             var id = node.Id + ":enemy:" + slot + ":" + source.Id;
-            if (kind != DungeonEnemyKind.Fighter)
-            {
-                definition.DisplayName = kind == DungeonEnemyKind.EliteMinion ? "Elite Minion" : "Minion";
-            }
-            else
+            var equipmentCount = EquipmentCounts[tier - 1];
+            // Easy non-boss enemies used to skip this roll as minions. Preserve route RNG
+            // sequence for those nodes while using normal level-one fighter data.
+            if (equipmentCount > 0 || node.Type == RouteNodeType.Boss)
             {
                 var set = (ArtifactSet)rng.Next(3);
-                for (var i = 0; i < EquipmentCounts[tier - 1]; i++)
+                for (var i = 0; i < equipmentCount; i++)
                 {
                     var artifact = ArtifactRules.Generate(id + ":artifact:" + i, (ArtifactRarity)tier, rng.Next(int.MaxValue));
                     artifact.Set = set; artifact.Slot = (ArtifactSlot)i;
@@ -47,20 +44,6 @@ namespace FightingAllstar.Core.Run
                 }
             }
             var stats = CharacterProgression.StatsAtLevel(definition.BaseStats, definition.StatGrowth, level);
-            if (kind != DungeonEnemyKind.Fighter)
-            {
-                foreach (StatId stat in Enum.GetValues(typeof(StatId)))
-                {
-                    if (stat == StatId.CombatClass) continue;
-                    var value = stats.Get(stat);
-                    stats.Set(stat, stat == StatId.CritDamage ? 10000 + Math.Max(0, value - 10000) / 2 : value / 2);
-                }
-                stats.MaxHealth = Math.Max(1, stats.MaxHealth);
-                stats.CombatClassReferenceValue /= 2;
-                stats.CombatClassReferenceScore = CombatClassRules.Score(stats);
-                stats.CombatClassGrowthScore /= 2;
-                CombatClassRules.Recalculate(stats);
-            }
             stats = ArtifactRules.ApplyStats(stats, definition.ArtifactLoadout);
             return new EncounterFighterSnapshot { FighterId = id, DefinitionId = source.Id, Definition = definition,
                 Stats = stats, CurrentHealth = stats.MaxHealth, Level = level, EnemyKind = kind,

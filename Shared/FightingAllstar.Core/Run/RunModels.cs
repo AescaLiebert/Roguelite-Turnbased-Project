@@ -211,6 +211,7 @@ namespace FightingAllstar.Core.Run
         public string OwnedFighterId;
         public CharacterDefinition Definition;
         public StatBlock ResolvedStats;
+        public int Level;
         public int ConstellationTier;
         public int FormationSlot;
         public bool IsReserve;
@@ -222,6 +223,7 @@ namespace FightingAllstar.Core.Run
         public string RunFighterId;
         public string DefinitionId;
         public StatBlock Stats;
+        public int Level;
         public List<ArtifactInstance> ArtifactLoadout = new List<ArtifactInstance>();
         public int ConstellationTier;
         public int OriginalFormationIndex;
@@ -229,6 +231,7 @@ namespace FightingAllstar.Core.Run
         public bool IsDefeated;
 
         public RunFighterState Clone() => new RunFighterState { RunFighterId = RunFighterId, DefinitionId = DefinitionId,
+            Level = Level,
             Stats = Stats?.Clone(), ArtifactLoadout = ArtifactLoadout?.ConvertAll(a => a?.Clone()) ?? new List<ArtifactInstance>(), ConstellationTier = ConstellationTier,
             OriginalFormationIndex = OriginalFormationIndex, CurrentHealth = CurrentHealth, IsDefeated = IsDefeated };
     }

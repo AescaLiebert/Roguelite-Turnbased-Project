@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: amber_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 20000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.amber.passive.source
+    Auras: []
+    Reactions: []
+    Triggers: []
