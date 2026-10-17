@@ -25,7 +25,9 @@ MonoBehaviour:
 
 
     [Gnosis Reaction: When the entire team (including sub-members)
-    consists of "Genshin Impact" characters, DoT debuffs can trigger reactions.]'
+    consists of "Genshin Impact" characters, elemental damage applies neutral auras
+    and can trigger reactions. Auras last 3 target turn ends and cannot stack or
+    refresh.]'
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: 70494fcb63a64054ab81661c904ce212, type: 2}
@@ -41,7 +43,7 @@ MonoBehaviour:
   fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
   fighter3DMesh: {fileID: 0}
   fighter3DMaterial: {fileID: 2100000, guid: bf09363c0c05bd749889a93a3d3da7b3, type: 2}
-  fighterModelYawOffset: 180
+  fighterModelYawOffset: 0
   Skill1: {fileID: 11400000, guid: b7f3bd3a9c2f73f49b47321204500512, type: 2}
   Skill2: {fileID: 11400000, guid: 159d3ab011c011f43919167fd3f83044, type: 2}
   Ultimate: {fileID: 11400000, guid: 3f519e68f3df1b24c81203af94d82aed, type: 2}

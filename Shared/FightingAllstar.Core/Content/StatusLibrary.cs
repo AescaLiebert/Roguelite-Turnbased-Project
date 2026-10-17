@@ -23,7 +23,7 @@ namespace FightingAllstar.Core.Content
             ["status.buff.melody-loop"] = "Melody Loop",
             ["status.buff.gauge-acceleration"] = "Gauge Acceleration",
             ["status.reaction.superconduct"] = "Superconduct",
-            ["status.reaction.charged"] = "Charged",
+            ["status.reaction.charged"] = "Electro-Charged",
             ["status.reaction.burning"] = "Burning",
             ["status.reaction.crystallize"] = "Crystallize",
 

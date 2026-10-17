@@ -91,6 +91,7 @@ namespace FightingAllstar.Core.Run
                 var fighter = team.Fighters[i];
                 replacements.Add(fighter.Id, snapshots[i].FighterId);
                 fighter.Id = snapshots[i].FighterId;
+                fighter.Level = CharacterProgression.NormalizeLevel(snapshots[i].Level);
                 fighter.FormationSlot = snapshots[i].FormationSlot;
                 fighter.IsReserve = snapshots[i].IsReserve;
             }

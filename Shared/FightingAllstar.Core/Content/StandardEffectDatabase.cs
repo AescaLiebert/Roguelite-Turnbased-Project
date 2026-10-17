@@ -91,7 +91,7 @@ namespace FightingAllstar.Core.Content
             AddStatGroupPair(recipes, "special", StatId.BlockChance, StatId.BlockPower, StatId.Evade,
                 StatId.Perception, StatId.Control, StatId.Avoidance);
             AddStatBundlePair(recipes, "all", StatBundleKind.AllStats);
-            recipes.AddRange(GenshinStatusRecipes.CreateFuel());
+            recipes.AddRange(GenshinStatusRecipes.CreateOrdinaryDebuffs());
             recipes.AddRange(GenshinStatusRecipes.CreateOutputs());
             recipes.AddRange(GenshinStatusRecipes.CreateKitStatuses());
             return recipes;

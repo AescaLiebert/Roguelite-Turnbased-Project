@@ -52,7 +52,7 @@ namespace FightingAllstar.Core.Combat
                     if (fighter == null) continue;
                     var fighterView = new FighterView
                     {
-                        FighterId = fighter.Id,
+                        FighterId = fighter.Id, Level = fighter.Level,
                         DefinitionId = fighter.Definition == null ? null : fighter.Definition.Id,
                         Side = fighter.Side.ToString(),
                         TeamIndex = fighter.TeamIndex,
@@ -72,10 +72,11 @@ namespace FightingAllstar.Core.Combat
                     };
                     foreach (var status in fighter.Statuses.Instances)
                         fighterView.Statuses.Add(new PublicStatusView { InstanceId = status.InstanceId, RecipeId = status.RecipeId,
-                            Name = status.Recipe?.NameKey, Element = (rules?.ElementFor(status.RecipeId) ?? Content.ElementId.None).ToString(),
-                            EligibleFuel = status.Recipe?.Polarity == Content.StatusPolarity.Debuff &&
-                                status.Recipe.Color != Content.StatusColor.Grey && string.IsNullOrEmpty(status.ParentInstanceId),
+                            Name = status.Recipe?.NameKey, Element = Content.ElementId.None.ToString(), EligibleFuel = false,
                             StackCount = status.StackCount, RemainingDuration = status.RemainingDuration });
+                    foreach (var aura in fighter.ElementStatuses.Instances)
+                        fighterView.ElementStatuses.Add(new PublicElementStatusView { InstanceId = aura.InstanceId,
+                            Element = aura.Element.ToString(), RemainingDuration = aura.RemainingDuration });
                     view.Fighters.Add(fighterView);
                 }
             if (includeHand && team.Hand != null)
@@ -112,6 +113,8 @@ namespace FightingAllstar.Core.Combat
                 ParentEventId = battleEvent.ParentEventId,
                 ConsumedStatusInstanceIds = battleEvent.ConsumedStatusInstanceIds == null ? new System.Collections.Generic.List<string>() :
                     new System.Collections.Generic.List<string>(battleEvent.ConsumedStatusInstanceIds),
+                ElementStatusesAfter = battleEvent.ElementStatusesAfter?.ConvertAll(aura => new PublicElementStatusView {
+                    InstanceId = aura.InstanceId, Element = aura.Element.ToString(), RemainingDuration = aura.RemainingDuration }),
                 EventId = battleEvent.Id,
                 HitIndex = battleEvent.HitIndex,
                 HitCount = battleEvent.HitCount,

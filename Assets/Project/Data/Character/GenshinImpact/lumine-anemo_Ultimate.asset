@@ -17,10 +17,9 @@ MonoBehaviour:
   statusVisuals: []
   levels:
   - level: 0
-    description: Remove Buffs from all enemies, then cancel Stances on all enemies,
-      then inflict Anemo Shatter damage equal to 300% of the hero's Attack on all
-      enemies.
-    skillType: 0
+    description: Remove Buffs amd Cancel Stances on all enemies, then inflict Anemo
+      Shatter damage equal to 300% of the hero's Attack on all enemies.
+    skillType: 6
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: 
@@ -33,9 +32,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: 
       Kind: 0
@@ -60,6 +59,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -68,6 +68,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -200,6 +201,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -208,6 +210,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -296,7 +299,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-      - Timing: 0
+      - Timing: 1
         BatchId: 
         Effect:
           Explosion: 0
@@ -337,6 +340,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -345,6 +349,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -434,10 +439,9 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 1
-    description: Remove Buffs from all enemies, then cancel Stances on all enemies,
-      then inflict Anemo Shatter damage equal to 315% of the hero's Attack on all
-      enemies.
-    skillType: 0
+    description: Remove Buffs amd Cancel Stances on all enemies, then inflict Anemo
+      Shatter damage equal to 340% of the hero's Attack on all enemies.
+    skillType: 6
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: 
@@ -450,9 +454,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: 
       Kind: 0
@@ -460,7 +464,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 31500
+      CoefficientBp: 34000
       KeywordFactorBp: 10000
       KeywordId: attack.shatter
       Conditions: []
@@ -477,6 +481,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -485,6 +490,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -617,6 +623,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -625,6 +632,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -713,7 +721,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-      - Timing: 0
+      - Timing: 1
         BatchId: 
         Effect:
           Explosion: 0
@@ -754,6 +762,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -762,6 +771,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -851,10 +861,9 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 2
-    description: Remove Buffs from all enemies, then cancel Stances on all enemies,
-      then inflict Anemo Shatter damage equal to 330% of the hero's Attack on all
-      enemies.
-    skillType: 0
+    description: Remove Buffs amd Cancel Stances on all enemies, then inflict Anemo
+      Shatter damage equal to 380% of the hero's Attack on all enemies.
+    skillType: 6
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: 
@@ -867,9 +876,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: 
       Kind: 0
@@ -877,7 +886,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 33000
+      CoefficientBp: 38000
       KeywordFactorBp: 10000
       KeywordId: attack.shatter
       Conditions: []
@@ -894,6 +903,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -902,6 +912,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -1034,6 +1045,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -1042,6 +1054,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -1130,7 +1143,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-      - Timing: 0
+      - Timing: 1
         BatchId: 
         Effect:
           Explosion: 0
@@ -1171,6 +1184,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -1179,6 +1193,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -1268,10 +1283,9 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 3
-    description: Remove Buffs from all enemies, then cancel Stances on all enemies,
-      then inflict Anemo Shatter damage equal to 345% of the hero's Attack on all
-      enemies.
-    skillType: 0
+    description: Remove Buffs amd Cancel Stances on all enemies, then inflict Anemo
+      Shatter damage equal to 420% of the hero's Attack on all enemies.
+    skillType: 6
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: 
@@ -1284,9 +1298,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: 
       Kind: 0
@@ -1294,7 +1308,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 34500
+      CoefficientBp: 42000
       KeywordFactorBp: 10000
       KeywordId: attack.shatter
       Conditions: []
@@ -1311,6 +1325,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -1319,6 +1334,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -1451,6 +1467,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -1459,6 +1476,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -1547,7 +1565,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-      - Timing: 0
+      - Timing: 1
         BatchId: 
         Effect:
           Explosion: 0
@@ -1588,6 +1606,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -1596,6 +1615,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -1685,10 +1705,9 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 4
-    description: Remove Buffs from all enemies, then cancel Stances on all enemies,
-      then inflict Anemo Shatter damage equal to 360% of the hero's Attack on all
-      enemies.
-    skillType: 0
+    description: Remove Buffs amd Cancel Stances on all enemies, then inflict Anemo
+      Shatter damage equal to 460% of the hero's Attack on all enemies.
+    skillType: 6
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: 
@@ -1701,9 +1720,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: 
       Kind: 0
@@ -1711,7 +1730,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 36000
+      CoefficientBp: 46000
       KeywordFactorBp: 10000
       KeywordId: attack.shatter
       Conditions: []
@@ -1728,6 +1747,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -1736,6 +1756,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -1868,6 +1889,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -1876,6 +1898,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -1964,7 +1987,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-      - Timing: 0
+      - Timing: 1
         BatchId: 
         Effect:
           Explosion: 0
@@ -2005,6 +2028,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -2013,6 +2037,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -2102,10 +2127,9 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - level: 5
-    description: Remove Buffs from all enemies, then cancel Stances on all enemies,
-      then inflict Anemo Shatter damage equal to 375% of the hero's Attack on all
-      enemies.
-    skillType: 0
+    description: Remove Buffs amd Cancel Stances on all enemies, then inflict Anemo
+      Shatter damage equal to 500% of the hero's Attack on all enemies.
+    skillType: 6
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: 
@@ -2118,9 +2142,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 8
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: 
       Kind: 0
@@ -2128,7 +2152,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 37500
+      CoefficientBp: 50000
       KeywordFactorBp: 10000
       KeywordId: attack.shatter
       Conditions: []
@@ -2145,6 +2169,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -2153,6 +2178,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -2285,6 +2311,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -2293,6 +2320,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 
@@ -2381,7 +2409,7 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 3
-      - Timing: 0
+      - Timing: 1
         BatchId: 
         Effect:
           Explosion: 0
@@ -2422,6 +2450,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -2430,6 +2459,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers: []
             Id: 

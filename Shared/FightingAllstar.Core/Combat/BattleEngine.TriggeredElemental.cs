@@ -58,7 +58,7 @@ namespace FightingAllstar.Core.Combat
                 AddEvent(state, BattleEventKind.AttackEvaded, source.Id, target.Id, card.Id, 0, "Evade");
                 return;
             }
-            StatusSystem.BreakFreezeOnAttack(target);
+            var freezeBroken = StatusSystem.BreakFreezeOnAttack(target);
             var decision = state.Team(source.Side).ElementalReactionsEnabled
                 ? ElementalReactionRules.Evaluate(state.ElementalRules, target, attack.Element) : null;
             var family = attack.ReceivedDamageCoefficientBp > 0 ? DamageFamily.ElementalReaction : DamageFamily.Normal;
@@ -88,9 +88,11 @@ namespace FightingAllstar.Core.Combat
             evt.ShieldLost = damage.ShieldLost;
             evt.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             contact.ParentEventId = evt.Id;
+            var context = new ElementalActionContext();
+            if (freezeBroken) QueueShatter(state, target, evt, context);
+            ResolvePendingShatters(state, source, card, context, pendingDefeats);
             if (decision != null)
             {
-                var context = new ElementalActionContext();
                 if (decision.Reaction.Id == ElementalReactionId.Swirl)
                     ResolveSwirl(state, source, card, contact, context, rng, pendingDefeats);
                 else
@@ -99,7 +101,9 @@ namespace FightingAllstar.Core.Combat
                     ResolveReactionOutput(state, source, card, contact, context, pendingDefeats);
                 }
             }
-            else if (target.Health > 0 && !string.IsNullOrEmpty(attack.StatusRecipeId))
+            if ((decision == null || decision.Reaction.PreserveFuel) && target.Health > 0)
+                ApplyElementStatus(state, source, target, attack.Element, card.Id, evt.Id);
+            if (target.Health > 0 && !string.IsNullOrEmpty(attack.StatusRecipeId))
                 ApplyCardUtilityEffectSingle(state, rng, source, target, new EffectDefinition {
                     Kind = EffectKind.ApplyStatus, StatusRecipe = StandardEffectDatabase.CreateStatusRecipes().Find(r => r.Id == attack.StatusRecipeId),
                     StatusDurationOverride = attack.StatusDuration, StatusStackCount = Math.Max(1, attack.StatusStackCount) }, card.Id, false,
@@ -112,6 +116,8 @@ namespace FightingAllstar.Core.Combat
                 if (item.Kind == BattleEventKind.DamageApplied && item.CardId == card.Id && item.SourceId == source.Id)
                     ownedHealthDamage += item.HealthLost;
             HealLowestAllyFromDamage(state, source, ownedHealthDamage, card.Id);
+            ResolvePendingShatters(state, source, card, context, pendingDefeats);
+            ResolveDeferredFreezes(state, source, card, context);
             if (target.Health <= 0 && !target.CannotDie && !pendingDefeats.Contains(target)) pendingDefeats.Add(target);
             // Generated attacks stop here: no card PG, generic reflect, stance counter or retaliation callback.
         }

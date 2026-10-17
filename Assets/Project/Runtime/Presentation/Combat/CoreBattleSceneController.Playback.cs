@@ -431,7 +431,8 @@ namespace FightingAllstar.Presentation.Combat
             kind == BattleEventKind.PowerGaugeChanged || kind == BattleEventKind.AttackEvaded ||
             kind == BattleEventKind.StatusImmuned || kind == BattleEventKind.StatusesChanged ||
             kind == BattleEventKind.RecoveryBlocked || kind == BattleEventKind.StatusWeaker ||
-            kind == BattleEventKind.ElementalReactionTriggered;
+            kind == BattleEventKind.ElementalReactionTriggered || kind == BattleEventKind.ElementStatusApplied ||
+            kind == BattleEventKind.ElementStatusesChanged;
 
         private IEnumerator PresentFeedbackBatch(IReadOnlyList<BattleEvent> batch)
         {
@@ -448,6 +449,14 @@ namespace FightingAllstar.Presentation.Combat
                     RefreshCardAvailability(item.TargetId);
                 switch (item.Kind)
                 {
+                    case BattleEventKind.ElementStatusApplied:
+                        visible = true;
+                        FloatText(item.TargetId, item.DamageElement.ToString(), "status", element: item.DamageElement, styleSourceId: item.SourceId);
+                        _stage.Pulse(item.TargetId, GenshinCombatTextStyle.ElementColor(item.DamageElement));
+                        _stage.PlayCue(3);
+                        break;
+                    case BattleEventKind.ElementStatusesChanged:
+                        break;
                     case BattleEventKind.ElementalReactionTriggered:
                         visible = true;
                         StartCoroutine(PresentReactionFeedback(item));
@@ -575,6 +584,17 @@ namespace FightingAllstar.Presentation.Combat
                     BattlePlaybackState.Apply(_displayState, item);
                     UpdateDisplayedHud(item.TargetId);
                     RefreshCardAvailability(item.TargetId);
+                    yield break;
+                case BattleEventKind.ElementStatusesChanged:
+                    BattlePlaybackState.Apply(_displayState, item);
+                    UpdateDisplayedHud(item.TargetId);
+                    yield break;
+                case BattleEventKind.ElementStatusApplied:
+                    BattlePlaybackState.Apply(_displayState, item);
+                    UpdateDisplayedHud(item.TargetId);
+                    FloatText(item.TargetId, item.DamageElement.ToString(), "status", element: item.DamageElement, styleSourceId: item.SourceId);
+                    _stage.Pulse(item.TargetId, GenshinCombatTextStyle.ElementColor(item.DamageElement));
+                    _stage.PlayCue(3);
                     yield break;
                 case BattleEventKind.StatusApplied:
                     BattlePlaybackState.Apply(_displayState, item);
@@ -984,7 +1004,7 @@ namespace FightingAllstar.Presentation.Combat
             hud.SetCoreHealth(fighter.Health, maximumHealth);
             hud.SetArtifactState(fighter);
             hud.SetShield(fighter.Shield, maximumHealth);
-            var shownStatuses = fighter.Statuses.Instances.ConvertAll(status => status.Clone());
+            var shownStatuses = CoreFighterHud.DisplayStatuses(fighter);
             foreach (var status in shownStatuses)
             {
                 var parent = shownStatuses.Find(s => s.InstanceId == status.ParentInstanceId);

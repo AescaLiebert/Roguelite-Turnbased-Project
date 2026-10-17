@@ -114,6 +114,8 @@ namespace FightingAllstar.Core.Combat
                 return AddIndependent(request, matches);
             if (matches.Count == 0) return Added(CreateInstance(request));
 
+            if (recipe.Stacking == StatusStackingPolicy.IgnoreExisting)
+                return Result(StatusApplyOutcome.IgnoredWeaker, matches[0], "Status already active.");
             var current = matches[matches.Count - 1];
             var incoming = CreateInstance(request);
             if ((current.Recipe?.Behavior & StatusBehavior.Barrier) != 0 &&
@@ -202,17 +204,43 @@ namespace FightingAllstar.Core.Combat
 
         internal int PurgeForFreeze(StatusInstance freeze)
         {
+            if (Instances == null) return 0;
             long shieldBefore = 0;
             foreach (var status in Instances) shieldBefore += Math.Max(0, status?.ShieldRemaining ?? 0);
-            Instances.RemoveAll(status => {
-                if (status == freeze || status?.Recipe == null || status.Recipe.Polarity == StatusPolarity.Neutral) return false;
-                return true;
-            });
+            // Grey parents retain their dependent payload; children of removed parents still expire below.
+            var retained = new HashSet<StatusInstance>(Instances.FindAll(status =>
+                status == freeze || status?.Recipe?.Color == StatusColor.Grey));
+            bool changed;
+            do
+            {
+                changed = false;
+                foreach (var status in Instances)
+                    if (status != null && !retained.Contains(status) && !string.IsNullOrEmpty(status.ParentInstanceId) &&
+                        Instances.Exists(parent => parent?.InstanceId == status.ParentInstanceId && retained.Contains(parent)))
+                        changed |= retained.Add(status);
+            } while (changed);
+            Instances.RemoveAll(status => status?.Recipe != null && !retained.Contains(status));
             RemoveOrphans();
             long shieldAfter = 0;
             foreach (var status in Instances) shieldAfter += Math.Max(0, status?.ShieldRemaining ?? 0);
             return (int)Math.Min(int.MaxValue, shieldBefore - shieldAfter);
         }
+
+        internal int PurgeStances()
+        {
+            if (Instances == null) return 0;
+            long shieldBefore = 0;
+            foreach (var status in Instances) shieldBefore += Math.Max(0, status?.ShieldRemaining ?? 0);
+            Instances.RemoveAll(IsStance);
+            RemoveOrphans();
+            long shieldAfter = 0;
+            foreach (var status in Instances) shieldAfter += Math.Max(0, status?.ShieldRemaining ?? 0);
+            return (int)Math.Min(int.MaxValue, shieldBefore - shieldAfter);
+        }
+
+        private static bool IsStance(StatusInstance status) => status?.Recipe != null &&
+            ((status.Recipe.Behavior & StatusBehavior.Stance) != 0 ||
+             status.Recipe.Tags?.Contains(CombatTags.Stance) == true);
 
         private void RemoveOrphans(List<StatusInstance> removed = null)
         {
@@ -495,6 +523,17 @@ namespace FightingAllstar.Core.Combat
         public static bool IsFreezeRecoveryActive(FighterState fighter) =>
             fighter != null && fighter.OwnerTurnsCompleted < fighter.FreezeRecoveryUntilOwnerTurn;
 
+        private static bool IsStunOrParalyze(StatusRecipeDefinition recipe)
+        {
+            if (recipe == null) return false;
+            if (recipe.Tags?.Contains(CombatTags.Stun) == true ||
+                recipe.Tags?.Contains(CombatTags.Paralyze) == true) return true;
+            return string.Equals(recipe.Id, "stun", StringComparison.OrdinalIgnoreCase) ||
+                recipe.Id?.EndsWith(".stun", StringComparison.OrdinalIgnoreCase) == true ||
+                string.Equals(recipe.Id, "paralyze", StringComparison.OrdinalIgnoreCase) ||
+                recipe.Id?.EndsWith(".paralyze", StringComparison.OrdinalIgnoreCase) == true;
+        }
+
         // Called only for an attack contact, never for periodic damage. The caller publishes its hit snapshot.
         public static bool BreakFreezeOnAttack(FighterState fighter) =>
             fighter?.Statuses?.Instances?.RemoveAll(s => s?.RecipeId == FreezeRecipeId) > 0;
@@ -508,8 +547,8 @@ namespace FightingAllstar.Core.Combat
                 return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Target is not alive." };
             if (target.Statuses == null) target.Statuses = new StatusContainer();
             recipe?.NormalizePolarity();
-            if (recipe != null && recipe.Polarity != StatusPolarity.Neutral && IsFrozen(target))
-                return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Frozen: buffs and debuffs are blocked." };
+            if (recipe != null && recipe.Color != StatusColor.Grey && IsFrozen(target))
+                return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Frozen: non-grey statuses are blocked." };
             if (recipe?.Id == FreezeRecipeId && IsFreezeRecoveryActive(target))
                 return new StatusApplyResult { Outcome = StatusApplyOutcome.Rejected, Reason = "Freeze recovery." };
             if (recipe != null && recipe.Polarity == StatusPolarity.Debuff && !recipe.BypassDebuffImmunity &&
@@ -525,6 +564,10 @@ namespace FightingAllstar.Core.Combat
                 target.Shield = Math.Max(0, target.Shield - target.Statuses.PurgeForFreeze(result.Instance));
                 // Preserve the existing two target-turn recovery clock, including a skipped applying turn.
                 target.FreezeRecoveryUntilOwnerTurn = target.OwnerTurnsCompleted + 2 + (skipNextDurationClock ? 1 : 0);
+            }
+            else if (result.Accepted && IsStunOrParalyze(recipe))
+            {
+                target.Shield = Math.Max(0, target.Shield - target.Statuses.PurgeStances());
             }
             if (result.Accepted && recipe.StanceChildren != null)
             {
@@ -595,6 +638,7 @@ namespace FightingAllstar.Core.Combat
 
     public static bool IsRecoveryBlocked(FighterState fighter)
     {
+        if (IsFrozen(fighter)) return true;
         var statuses = fighter?.Statuses?.Instances;
         if (statuses == null) return false;
         foreach (var status in statuses)
@@ -668,6 +712,8 @@ namespace FightingAllstar.Core.Combat
             }
             Accumulate(attacker, family, true, isUltimate, policy);
             Accumulate(defender, family, false, isUltimate, policy);
+            if (family == DamageFamily.ElementalReaction)
+                AccumulateReceivedFamily(defender, DamageFamily.DamageOverTime, policy);
             if (defender?.Statuses?.Instances != null) foreach (var status in defender.Statuses.Instances)
             {
                 policy.PhysicalReceivedIncreaseBp += status?.Recipe?.PhysicalDamageReceivedBp ?? 0;
@@ -682,6 +728,34 @@ namespace FightingAllstar.Core.Combat
                 else policy.OutgoingIncreaseBp += 500;
             }
             return policy;
+        }
+
+        // Reaction damage keeps its own reaction bonuses while still respecting defensive
+        // modifiers authored specifically to reduce damage-over-time effects.
+        private static void AccumulateReceivedFamily(FighterState fighter, DamageFamily family, DamagePolicy policy)
+        {
+            if (fighter?.PassiveContributions != null)
+                foreach (var contribution in fighter.PassiveContributions)
+                {
+                    var modifier = contribution?.Modifier;
+                    if (modifier?.ResolvedTarget != ModifierTarget.FamilyDamageReceived || modifier.ResolvedFamily != family) continue;
+                    if (modifier.Amount >= 0) policy.FamilyReceivedIncreaseBp += modifier.Amount;
+                    else policy.FamilyReceivedDecreaseBp += -modifier.Amount;
+                }
+            if (fighter?.Statuses?.Instances == null) return;
+            foreach (var status in fighter.Statuses.Instances)
+            {
+                var modifiers = status?.Recipe?.Modifiers;
+                if (modifiers == null) continue;
+                var stacks = status.Recipe.Stacking == StatusStackingPolicy.AddStacks ? Math.Max(1, status.StackCount) : 1;
+                foreach (var modifier in modifiers)
+                {
+                    if (modifier?.ResolvedTarget != ModifierTarget.FamilyDamageReceived || modifier.ResolvedFamily != family) continue;
+                    var amount = ResolveModifierAmount(modifier, status) * stacks;
+                    if (amount >= 0) policy.FamilyReceivedIncreaseBp += amount;
+                    else policy.FamilyReceivedDecreaseBp += -amount;
+                }
+            }
         }
 
         private static void Accumulate(FighterState fighter, DamageFamily family, bool dealt,

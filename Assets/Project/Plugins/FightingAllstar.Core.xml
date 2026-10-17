@@ -158,6 +158,9 @@
         <member name="T:FightingAllstar.Core.Combat.ElementalReactionRules">
             <summary>Pure selection shared with future public forecasts; never mutates statuses or consumes RNG.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Combat.ElementStatusContainer">
+            <summary>Neutral reaction auras. Unique per element; repeated contacts never refresh the clock.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.HitReactionRules">
             <summary>Authoritative visual facts, independent of the presentation's current stance aura.</summary>
         </member>
@@ -246,7 +249,7 @@
             <summary>Preserves authored Neutral statuses and migrates legacy stance/healing buffs.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.ElementalApplicationDefinition">
-            <summary>Optional contact delivery; a referenced sequence status is managed at this hit, once per target/action.</summary>
+            <summary>Legacy serialized contact metadata. Only Element is used as a fallback; new content uses DamageElement.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.GenshinStarterRoster">
             <summary>Source kits plus explicitly generated level-one stats and lower-rank starting values.</summary>

@@ -9,7 +9,7 @@ namespace FightingAllstar.Core.Combat
     public enum TeamSide { Player, Opponent }
     public enum CardKind { Skill, Ultimate }
     public enum BattleEventKind { BattleStarted, TurnStarted, CardDrawn, CardsMerged, CardMoved, CardPlayed, DamageApplied, HealApplied, StatusApplied, StatusRemoved, FighterDefeated, ReserveEntered, TurnEnded, BattleCompleted, ActionFizzled,
-        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted, ElementalReactionTriggered }
+        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted, ElementalReactionTriggered, ElementStatusApplied, ElementStatusesChanged }
 
     [Serializable]
     public sealed class FighterState
@@ -28,6 +28,8 @@ namespace FightingAllstar.Core.Combat
         public bool PowerGaugeDisabled;
         public bool CannotDie;
         public int ConstellationTier;
+        public int Level = 1;
+        public ElementStatusContainer ElementStatuses = new ElementStatusContainer();
         public int OwnerTurnsCompleted;
         // Internal Freeze lockout; never contributes a status, icon, stack, or dispellable buff.
         public int FreezeRecoveryUntilOwnerTurn;
@@ -41,7 +43,7 @@ namespace FightingAllstar.Core.Combat
             FormationSlot = FormationSlot, IsReserve = IsReserve, IsAlive = IsAlive, Health = Health, Shield = Shield,
             PowerGauge = PowerGauge, PowerGaugeRemainderBp = PowerGaugeRemainderBp,
             PowerGaugeDisabled = PowerGaugeDisabled, CannotDie = CannotDie,
-            ConstellationTier = ConstellationTier, OwnerTurnsCompleted = OwnerTurnsCompleted,
+            ConstellationTier = ConstellationTier, Level = Level, ElementStatuses = ElementStatuses?.Clone() ?? new ElementStatusContainer(), OwnerTurnsCompleted = OwnerTurnsCompleted,
             FreezeRecoveryUntilOwnerTurn = FreezeRecoveryUntilOwnerTurn,
             Statuses = Statuses?.Clone() ?? new StatusContainer() };
             foreach (var counter in PassiveCounters) copy.PassiveCounters.Add(counter.Clone());
@@ -199,6 +201,7 @@ namespace FightingAllstar.Core.Combat
         public string CardId;
         public string RootActionId;
         public List<StatusInstance> StatusesAfter;
+        public List<ElementStatusInstance> ElementStatusesAfter;
         public string StatusInstanceId;
         public string StatusRecipeId;
         public StatusApplyOutcome StatusOutcome;
@@ -229,6 +232,7 @@ namespace FightingAllstar.Core.Combat
             var copy = (BattleEvent)MemberwiseClone();
             copy.ConsumedStatusInstanceIds = ConsumedStatusInstanceIds == null ? new List<string>() : new List<string>(ConsumedStatusInstanceIds);
             copy.StatusesAfter = StatusesAfter?.ConvertAll(status => status.Clone());
+            copy.ElementStatusesAfter = ElementStatusesAfter?.ConvertAll(status => status.Clone());
             copy.Card = Card?.Clone();
             copy.Plan = Plan?.Clone();
             copy.TargetIds = TargetIds == null ? new List<string>() : new List<string>(TargetIds);

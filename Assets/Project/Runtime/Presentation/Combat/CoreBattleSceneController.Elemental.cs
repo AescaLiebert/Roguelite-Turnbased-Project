@@ -9,15 +9,12 @@ namespace FightingAllstar.Presentation.Combat
     {
         private static FightingAllstar.Core.Content.ElementId FeedbackElement(BattleEvent evt)
         {
-            if (evt.DamageElement != FightingAllstar.Core.Content.ElementId.None) return evt.DamageElement;
-            return evt.StatusRecipeId switch {
-                "status.debuff.shock" => FightingAllstar.Core.Content.ElementId.Electro,
-                "status.debuff.poison" => FightingAllstar.Core.Content.ElementId.Dendro,
-                "status.debuff.frost-bite" => FightingAllstar.Core.Content.ElementId.Cryo,
-                _ => FightingAllstar.Core.Content.ElementId.None };
+            return evt.DamageElement;
         }
         private IEnumerator PresentReactionFeedback(BattleEvent evt)
         {
+            if (evt.ElementalReaction == FightingAllstar.Core.Content.ElementalReactionId.ElectroCharged && evt.TargetIds.Count > 0 && _stage != null)
+                yield return _stage.ElectrifySpread(evt.TargetIds[0], evt.TargetId);
             if (_effectsLayer?.panel == null || Camera.main == null ||
                 !_fighterViews.TryGetValue(evt.TargetId, out var view) || view == null) yield break;
             var viewport = Camera.main.WorldToViewportPoint(view.transform.position + Vector3.up * 2.75f);

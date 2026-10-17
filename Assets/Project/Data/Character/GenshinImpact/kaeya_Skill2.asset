@@ -24,11 +24,11 @@ MonoBehaviour:
       ConsumeTargetRecipeId: 
       DamagePerConsumedStackBp: 0
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 4
       ElementalApplication:
-        Element: 4
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.frost-bite.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -170,7 +170,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -321,11 +321,11 @@ MonoBehaviour:
       ConsumeTargetRecipeId: 
       DamagePerConsumedStackBp: 0
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 4
       ElementalApplication:
-        Element: 4
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.frost-bite.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -467,7 +467,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -618,11 +618,11 @@ MonoBehaviour:
       ConsumeTargetRecipeId: 
       DamagePerConsumedStackBp: 0
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 4
       ElementalApplication:
-        Element: 4
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.frost-bite.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -764,7 +764,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1

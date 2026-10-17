@@ -26,21 +26,22 @@ namespace FightingAllstar.Core.Combat
 
         public static ElementalReactionDecision Evaluate(ElementalRuleSet rules, FighterState target, ElementId incoming)
         {
-            if (rules == null || target?.Statuses?.Instances == null || incoming == ElementId.None) return null;
+            if (rules == null || target?.ElementStatuses?.Instances == null || incoming == ElementId.None) return null;
             ElementalReactionDefinition selected = null;
             foreach (var reaction in rules.Reactions)
             {
-                if (reaction.IncomingElement != incoming || !target.Statuses.Instances.Exists(s =>
-                    Eligible(s) && rules.ElementFor(s.RecipeId) == reaction.ExistingElement)) continue;
+                if (reaction.Id == ElementalReactionId.Superconduct && target.Statuses.Instances.Exists(s => s.RecipeId == "status.reaction.superconduct") ||
+                    reaction.Id == ElementalReactionId.ElectroCharged && target.Statuses.Instances.Exists(s => s.RecipeId == "status.reaction.charged")) continue;
+                if (reaction.IncomingElement != incoming || !target.ElementStatuses.Has(reaction.ExistingElement)) continue;
                 if (selected == null || reaction.Priority < selected.Priority ||
                     reaction.Priority == selected.Priority && reaction.Id < selected.Id) selected = reaction;
             }
             if (selected == null) return null;
             var result = new ElementalReactionDecision { Reaction = selected.Clone(), IncomingElement = incoming };
-            foreach (var status in target.Statuses.Instances)
+            foreach (var status in target.ElementStatuses.Instances)
             {
-                if (!Eligible(status)) continue;
-                var element = rules.ElementFor(status.RecipeId);
+                if (status.RemainingDuration <= 0) continue;
+                var element = status.Element;
                 if (element == selected.ExistingElement) result.SourceInstanceIds.Add(status.InstanceId);
                 if (!selected.PreserveFuel && (element == selected.ExistingElement || element == incoming))
                     result.ConsumedInstanceIds.Add(status.InstanceId);
@@ -48,25 +49,41 @@ namespace FightingAllstar.Core.Combat
             return result;
         }
 
-        private static bool Eligible(StatusInstance status) => status?.Recipe != null &&
-            status.Recipe.Polarity == StatusPolarity.Debuff && status.Recipe.Color != StatusColor.Grey &&
-            string.IsNullOrEmpty(status.ParentInstanceId);
-
         public static void ApplyElementPolicy(DamagePolicy policy, ElementId element, FighterState source,
             FighterState target, ElementalRuleSet rules)
         {
             policy.Element = element;
+            if (policy.BypassResistance) policy.ElementResistanceFactorBp = 10000;
             if (element == ElementId.None) return;
             var outgoing = Modifier(source, element, false);
             var resistance = Math.Max(-10000L, Math.Min(10000L, Modifier(target, element, true)));
             policy.ElementFactorBp = (int)Math.Max(0L, Math.Min(int.MaxValue, 10000L + outgoing));
-            policy.ElementResistanceFactorBp = (int)(10000L - resistance);
-            if (policy.Family == DamageFamily.Normal && rules?.BridgeDotDealt == true)
+            policy.ElementResistanceFactorBp = policy.BypassResistance ? 10000 : (int)(10000L - resistance);
+        }
+
+        public static void ConfigureReactionDamagePolicy(DamagePolicy policy, ElementalReactionId reaction)
+        {
+            if (policy == null) return;
+            switch (reaction)
             {
-                var dot = StatusSystem.GetExplicitFamilyDamageDealtBp(source, DamageFamily.DamageOverTime);
-                policy.DotBridgeFactorBp = (int)Math.Max(0L, Math.Min(int.MaxValue,
-                    10000L + dot));
+                case ElementalReactionId.Overload:
+                case ElementalReactionId.ElectroCharged:
+                case ElementalReactionId.Superconduct:
+                case ElementalReactionId.Shatter:
+                    policy.BypassDefense = true;
+                    policy.BypassResistance = true;
+                    break;
             }
+        }
+
+        public static int LevelDamage(FighterState source, ElementalRuleSet rules) =>
+            (int)Math.Min(int.MaxValue, (long)CharacterProgression.NormalizeLevel(source?.Level ?? 1) *
+                Math.Max(1, rules?.ReactionDamagePerLevel ?? 500));
+
+        public static void ApplyOwnReactionBonus(DamagePolicy policy, FighterState source, int extraDotBp = 0)
+        {
+            var dot = StatusSystem.GetExplicitFamilyDamageDealtBp(source, DamageFamily.DamageOverTime);
+            policy.DotBridgeFactorBp = (int)Math.Max(0L, Math.Min(int.MaxValue, 10000L + dot + extraDotBp));
         }
 
         private static long Modifier(FighterState fighter, ElementId element, bool resistance)

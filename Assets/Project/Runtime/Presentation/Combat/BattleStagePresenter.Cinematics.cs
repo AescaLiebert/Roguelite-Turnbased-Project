@@ -235,6 +235,7 @@ namespace FightingAllstar.Presentation.Combat
 
         public void ClearAuras()
         {
+            ClearElectrifySpreads();
             ClearActorVisualEffects();
             foreach (var aura in _readyAuras.Values) if (aura != null) ActorVisualEffectGeometry.Release(aura);
             _readyAuras.Clear();
@@ -280,6 +281,8 @@ namespace FightingAllstar.Presentation.Combat
         {
             ClearAuras();
             if (_energyMaterial != null) ActorVisualEffectGeometry.Release(_energyMaterial);
+            if (_electrifyWetMaterial != null) ActorVisualEffectGeometry.Release(_electrifyWetMaterial);
+            if (_electrifyWetMesh != null) ActorVisualEffectGeometry.Release(_electrifyWetMesh);
             if (_shieldSurfaceMaterial != null) ActorVisualEffectGeometry.Release(_shieldSurfaceMaterial);
             if (_shieldNodeMaterial != null) ActorVisualEffectGeometry.Release(_shieldNodeMaterial);
             foreach (var clip in _cues.Values) if (clip != null) ActorVisualEffectGeometry.Release(clip);

@@ -144,7 +144,7 @@ public static class CombatTextChecks
                     report.AppendLine("- **" + label + ":** " + text + "\n  Icons: " + string.Join(", ", payload.statuses.Select(s => s.Name + " (" + s.Polarity + ")")));
                     var damage = effect?.Kind == EffectKind.Damage ? effect : effect?.Sequence?.Select(s => s?.Effect).FirstOrDefault(e => e?.Kind == EffectKind.Damage);
                     if (damage != null)
-                        Check(text.IndexOf(CardDescriptionText.DamageSentence(damage), StringComparison.OrdinalIgnoreCase) >= 0,
+                        Check(text.IndexOf(Plain(CardDescriptionText.DamageSentence(damage)), StringComparison.OrdinalIgnoreCase) >= 0,
                             definition.Id + " " + label + ": damage sentence not normalized: " + text);
                     Check(text.IndexOf("selected enemy", StringComparison.OrdinalIgnoreCase) < 0 && text.IndexOf("selected ally", StringComparison.OrdinalIgnoreCase) < 0,
                         definition.Id + " " + label + ": old selected-target wording.");

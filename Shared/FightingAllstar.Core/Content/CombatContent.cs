@@ -136,6 +136,7 @@ namespace FightingAllstar.Core.Content
     public sealed class DamagePolicy
     {
         public int PhysicalReceivedIncreaseBp;
+        public int ShieldEfficiencyBp = 10000;
         public int ExplosionFactorBp = 10000;
         public ElementId Element;
         public int ElementFactorBp = 10000;
@@ -296,6 +297,7 @@ namespace FightingAllstar.Core.Content
             copy.AttributeAdvantageDamageBonusBp = AttributeAdvantageDamageBonusBp;
             if (Batches != null) foreach (var batch in Batches) copy.Batches.Add(batch?.Clone());
             if (Sequence != null) foreach (var step in Sequence) copy.Sequence.Add(step == null ? null : step.Clone());
+            ElementalApplicationDefinition.Upgrade(copy);
             return copy;
         }
     }

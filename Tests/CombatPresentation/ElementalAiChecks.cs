@@ -32,8 +32,7 @@ internal static partial class BattlePlaybackChecks
         var start = _assertions;
         var state = ElementFixture(ElementalRuleSet.CreateDefault(), side: TeamSide.Opponent);
         state.Opponent.Hand.Clear(); state.ActionBudget = 2;
-        var setup = AiCard(state, 1, new EffectDefinition { Kind = EffectKind.ApplyStatus,
-            Target = EffectTargetScope.SelectedEnemy, StatusRecipe = StandardEffectDatabase.CreateStatusRecipes().Find(r => r.Id == "status.debuff.frost-bite") }, CardCategory.Debuff);
+        var setup = AiCard(state, 1, ElementAttack(ElementId.Cryo));
         var pyro = AiCard(state, 2, ElementAttack(ElementId.Pyro));
         var target = state.Player.Fighters[0].Id;
         var profile = new AiPersonalityProfile { NoisePercent = 0 };
@@ -44,7 +43,7 @@ internal static partial class BattlePlaybackChecks
         var reversed = ElementalPlanEvaluator.Evaluate(AiCandidate((pyro, target), (setup, target)), state);
         Check(ordered.IsValid && reversed.IsValid && ordered.Damage > reversed.Damage,
             "Outcome evaluation did not value setup before amplification.");
-        Check(reversed.Control > ordered.Control, "Retaining Frost Bite's gauge slowdown had no control value.");
+        Check(reversed.Control == 0 && ordered.Control == 0, "Neutral aura gained negative-effect control value.");
         var candidates = CandidateBuilder.Generate(BoardAnalyzer.Analyze(observation), observation, profile);
         Check(candidates.Count <= profile.MaxCandidates && candidates.Any(c => c.StrategyName == "ElementalOrder" && c.Actions[0].CardId == setup.Id && c.Actions[1].CardId == pyro.Id),
             "Bounded candidate generation omitted prepare/trigger order.");
@@ -63,8 +62,8 @@ internal static partial class BattlePlaybackChecks
         foreach (var action in best.Actions) Check(draft.QueuePlay(action.CardId, action.TargetFighterId, out _), "Selected combo was not legal.");
         var preview = draft.Forecast();
         Check(!preview.Lines.Any(l => l.ActionIndex == 0), "Pure preparation incorrectly forecast an automatic reaction.");
-        Check(preview.Lines.Any(l => l.ActionIndex == 1 && l.Reaction == ElementalReactionId.Melt && l.Conditional),
-            "Forecast omitted a subsequent contact after conditional pure preparation.");
+        Check(preview.Lines.Any(l => l.ActionIndex == 1 && l.Reaction == ElementalReactionId.Melt && !l.Conditional),
+            "Forecast omitted a deterministic aura setup/trigger.");
 
         var hold = ElementFixture(ElementalRuleSet.CreateDefault(), side: TeamSide.Opponent);
         hold.Opponent.Hand.Clear(); hold.ActionBudget = 1;
@@ -75,14 +74,15 @@ internal static partial class BattlePlaybackChecks
                 StandardEffectDatabase.CreateStatusRecipes().Find(r => r.Id == "status.debuff.shock"), "valuable:" + victim.Id, "fixture", 1,
                 snapshot: new StatusSnapshot { TriggeringHealthDamage = 10000 }, duration: 4);
         var spent = ElementalPlanEvaluator.Evaluate(AiCandidate((convert, hold.Player.Fighters[0].Id)), hold);
-        Check(spent.FutureDamage < -1000, "Consuming valuable existing DOT had no opportunity cost.");
+        var kept = ElementalPlanEvaluator.Evaluate(AiCandidate((physical, hold.Player.Fighters[0].Id)), hold);
+        Check(spent.FutureDamage == kept.FutureDamage, "Elemental contact incorrectly consumed or synchronized ordinary DOT.");
         var retained = EnemyAiPlanner.CreatePlan(hold, profile);
-        Check(retained.Actions[0].CardId == physical.Id, "Enemy systematically converted valuable DOT instead of retaining it.");
+        Check(retained != null && retained.Actions.Count == 1, "Planner failed to retain a legal action after DOT separation.");
 
         var freeze = ElementFixture(ElementalRuleSet.CreateDefault(), side: TeamSide.Opponent);
         freeze.Opponent.Hand.Clear(); freeze.ActionBudget = 1;
         var cryo = AiCard(freeze, 1, ElementAttack(ElementId.Cryo));
-        ElementFuel(freeze.Player.Fighters[0], "status.debuff.wet", "freeze-ai");
+        ElementAura(freeze.Player.Fighters[0], ElementId.Hydro, "freeze-ai");
         var control = ElementalPlanEvaluator.Evaluate(AiCandidate((cryo, freeze.Player.Fighters[0].Id)), freeze);
         Check(control.Control > 0, "Accepted Frozen had no control value.");
         StatusSystem.Apply(freeze.Player.Fighters[0], freeze.Player.Fighters[0].Id, TeamSide.Player,
@@ -133,7 +133,8 @@ internal static partial class BattlePlaybackChecks
                     Check(fighter.Health == displayed.Health && fighter.Shield == displayed.Shield && fighter.PowerGauge == displayed.PowerGauge &&
                         fighter.PowerGaugeRemainderBp == displayed.PowerGaugeRemainderBp && fighter.IsAlive == displayed.IsAlive,
                         "Replay/skip lost HP, shield, gauge, fraction or defeat.");
-                    Check(SnapshotJson.Serialize(fighter.Statuses) == SnapshotJson.Serialize(displayed.Statuses), "Replay/skip lost elemental status clocks or snapshots.");
+                    Check(SnapshotJson.Serialize(fighter.Statuses) == SnapshotJson.Serialize(displayed.Statuses), "Replay/skip lost status clocks or snapshots.");
+                    Check(SnapshotJson.Serialize(fighter.ElementStatuses) == SnapshotJson.Serialize(displayed.ElementStatuses), "Replay/skip lost neutral aura state.");
                 }
                 var view = BattleProjectionBuilder.Build(next, next.ActingSide, "acceptance", long.MaxValue);
                 Check(view.OpponentTeam.Hand.Count == 0, "Reconnect projection exposed private cards.");

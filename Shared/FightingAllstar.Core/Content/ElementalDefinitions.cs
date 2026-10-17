@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace FightingAllstar.Core.Content
 {
     public enum ElementId { None, Pyro, Hydro, Electro, Cryo, Dendro, Anemo, Geo }
-    public enum ElementalReactionId { None, Melt, Vaporize, ReverseMelt, ReverseVaporize, Overload, Swirl, Crystallize, Superconduct, ElectroCharged, Freeze, Burning }
+    public enum ElementalReactionId { None, Melt, Vaporize, ReverseMelt, ReverseVaporize, Overload, Swirl, Crystallize, Superconduct, ElectroCharged, Freeze, Burning, Shatter }
     public enum ElementalDamageOrigin { Unspecified, Card, Reaction, DamageOverTime, Reflection, TriggeredAttack }
 
     [Serializable]
@@ -16,7 +16,7 @@ namespace FightingAllstar.Core.Content
         public ElementalModifierDefinition Clone() => (ElementalModifierDefinition)MemberwiseClone();
     }
 
-    /// <summary>Optional contact delivery; a referenced sequence status is managed at this hit, once per target/action.</summary>
+    /// <summary>Legacy serialized contact metadata. Only Element is used as a fallback; new content uses DamageElement.</summary>
     [Serializable]
     public sealed class ElementalApplicationDefinition
     {
@@ -27,14 +27,16 @@ namespace FightingAllstar.Core.Content
         public bool RequiresCritical;
         public bool IsConfigured => Element != ElementId.None || !string.IsNullOrWhiteSpace(StatusEffectId) || RequiresCritical;
         public ElementalApplicationDefinition Clone() => (ElementalApplicationDefinition)MemberwiseClone();
-    }
-
-    [Serializable]
-    public sealed class ElementalFuelDefinition
-    {
-        public string RecipeId;
-        public ElementId Element;
-        public ElementalFuelDefinition Clone() => (ElementalFuelDefinition)MemberwiseClone();
+        public static void Upgrade(EffectDefinition effect)
+        {
+            var legacy = effect?.ElementalApplication;
+            if (legacy == null) return;
+            if (effect.DamageElement == ElementId.None) effect.DamageElement = legacy.Element;
+            var rider = effect.Sequence?.Find(step => step?.Effect?.Id == legacy.StatusEffectId)?.Effect;
+            if (legacy.RequiresCritical && rider != null && !rider.Conditions.Exists(c => c?.Kind == EffectConditionKind.WasCritical))
+                rider.Conditions.Add(new EffectConditionDefinition { Kind = EffectConditionKind.WasCritical });
+            effect.ElementalApplication = null;
+        }
     }
 
     [Serializable]
@@ -55,43 +57,61 @@ namespace FightingAllstar.Core.Content
     public sealed class ElementalRuleSet
     {
         public const string GenshinTrait = "trait.genshin-impact";
-        public const int CurrentSchemaVersion = 1;
+        public const int ShatterCoefficientBp = 30000;
+        public const int CurrentSchemaVersion = 2;
         public int SchemaVersion = CurrentSchemaVersion;
-        public string ContentVersion = "elemental-ac-v1";
-        public bool BridgeDotDealt = true;
+        public string ContentVersion = "elemental-auras-v6";
+        // Reaction base damage is character level * 500 before reaction multipliers.
+        public int ReactionDamagePerLevel = 500;
         public int ReactionDamageCap = int.MaxValue;
-        public List<ElementalFuelDefinition> Fuel = new List<ElementalFuelDefinition>();
         public List<ElementalReactionDefinition> Reactions = new List<ElementalReactionDefinition>();
-
-        public ElementId ElementFor(string recipeId)
-        {
-            if (Fuel != null) foreach (var mapping in Fuel)
-                if (mapping != null && mapping.RecipeId == recipeId) return mapping.Element;
-            return ElementId.None;
-        }
 
         public ElementalRuleSet Clone()
         {
             var copy = (ElementalRuleSet)MemberwiseClone();
-            copy.Fuel = Fuel?.ConvertAll(f => f?.Clone());
             copy.Reactions = Reactions?.ConvertAll(r => r?.Clone());
             return copy;
         }
 
+        public bool NeedsDefaultUpgrade() => ContentVersion == "elemental-auras-v5" ||
+            ContentVersion == "elemental-auras-v4" ||
+            ContentVersion == "elemental-auras-v3" ||
+            ContentVersion == "elemental-auras-v2";
+
+        // Migrate shipped reaction balances, preserving the authored reaction damage cap.
+        public void UpgradeLegacyDefaults()
+        {
+            if (!NeedsDefaultUpgrade()) return;
+            ReactionDamagePerLevel = 500;
+            if (Reactions != null)
+            {
+                foreach (var reaction in Reactions)
+                {
+                    if (reaction == null) continue;
+                    if (reaction.Id == ElementalReactionId.Overload && reaction.AttackCoefficientBp == 15000)
+                        reaction.AttackCoefficientBp = 20000;
+                    else if (reaction.Id == ElementalReactionId.Superconduct && reaction.AttackCoefficientBp == 10000)
+                        reaction.AttackCoefficientBp = 15000;
+                }
+                var shatter = Reactions.Find(r => r?.Id == ElementalReactionId.Shatter);
+                if (shatter == null)
+                    Reactions.Add(CreateDefault().Reactions.Find(r => r.Id == ElementalReactionId.Shatter));
+                else
+                    shatter.AttackCoefficientBp = ShatterCoefficientBp;
+            }
+            ContentVersion = "elemental-auras-v6";
+        }
+
         public static ElementalRuleSet CreateSliceAC() => new ElementalRuleSet {
-            // Missing aliases/Frost Bite/Wet recipes are not manufactured into production content.
-            Fuel = new List<ElementalFuelDefinition> {
-                new ElementalFuelDefinition { RecipeId = "status.debuff.ignite", Element = ElementId.Pyro },
-                new ElementalFuelDefinition { RecipeId = "status.debuff.shock", Element = ElementId.Electro } },
             Reactions = new List<ElementalReactionDefinition> {
                 Amplify(ElementalReactionId.Melt, ElementId.Cryo, ElementId.Pyro, 10, 20000),
                 Amplify(ElementalReactionId.Vaporize, ElementId.Pyro, ElementId.Hydro, 20, 20000),
                 Amplify(ElementalReactionId.ReverseMelt, ElementId.Pyro, ElementId.Cryo, 30, 15000),
                 Amplify(ElementalReactionId.ReverseVaporize, ElementId.Hydro, ElementId.Pyro, 40, 15000),
                 new ElementalReactionDefinition { Id = ElementalReactionId.Overload, ExistingElement = ElementId.Pyro,
-                    IncomingElement = ElementId.Electro, Priority = 50, AttackCoefficientBp = 15000, OutputElement = ElementId.Pyro },
+                    IncomingElement = ElementId.Electro, Priority = 50, AttackCoefficientBp = 20000, OutputElement = ElementId.Pyro },
                 new ElementalReactionDefinition { Id = ElementalReactionId.Overload, ExistingElement = ElementId.Electro,
-                    IncomingElement = ElementId.Pyro, Priority = 50, AttackCoefficientBp = 15000, OutputElement = ElementId.Pyro } } };
+                    IncomingElement = ElementId.Pyro, Priority = 50, AttackCoefficientBp = 20000, OutputElement = ElementId.Pyro } } };
 
         private static ElementalReactionDefinition Amplify(ElementalReactionId id, ElementId existing,
             ElementId incoming, int priority, int factor) => new ElementalReactionDefinition {
@@ -101,10 +121,7 @@ namespace FightingAllstar.Core.Content
         public static ElementalRuleSet CreateDefault()
         {
             var rules = CreateSliceAC();
-            rules.ContentVersion = "elemental-df-v1";
-            rules.Fuel.Add(new ElementalFuelDefinition { RecipeId = "status.debuff.frost-bite", Element = ElementId.Cryo });
-            rules.Fuel.Add(new ElementalFuelDefinition { RecipeId = "status.debuff.wet", Element = ElementId.Hydro });
-            rules.Fuel.Add(new ElementalFuelDefinition { RecipeId = "status.debuff.nature", Element = ElementId.Dendro });
+            rules.ContentVersion = "elemental-auras-v6";
             foreach (var aura in new[] { ElementId.Pyro, ElementId.Hydro, ElementId.Electro, ElementId.Cryo })
             {
                 // Starting spread coefficient; compare single-target and AOE total output in balance fixtures.
@@ -114,10 +131,12 @@ namespace FightingAllstar.Core.Content
                 rules.Reactions.Add(new ElementalReactionDefinition { Id = ElementalReactionId.Crystallize,
                     ExistingElement = aura, IncomingElement = ElementId.Geo, Priority = 110, PreserveFuel = true });
             }
-            Pair(rules, ElementalReactionId.Superconduct, ElementId.Cryo, ElementId.Electro, 60, ElementId.Cryo, 10000);
+            Pair(rules, ElementalReactionId.Superconduct, ElementId.Cryo, ElementId.Electro, 60, ElementId.Cryo, 15000);
             Pair(rules, ElementalReactionId.ElectroCharged, ElementId.Hydro, ElementId.Electro, 70, ElementId.Electro);
             Pair(rules, ElementalReactionId.Freeze, ElementId.Hydro, ElementId.Cryo, 80, ElementId.None);
             Pair(rules, ElementalReactionId.Burning, ElementId.Pyro, ElementId.Dendro, 90, ElementId.Pyro);
+            rules.Reactions.Add(new ElementalReactionDefinition { Id = ElementalReactionId.Shatter,
+                AttackCoefficientBp = ShatterCoefficientBp, OutputElement = ElementId.None });
             return rules;
         }
 
@@ -125,9 +144,9 @@ namespace FightingAllstar.Core.Content
             int priority, ElementId output, int coefficient = 0)
         {
             rules.Reactions.Add(new ElementalReactionDefinition { Id = id, ExistingElement = a, IncomingElement = b,
-                Priority = priority, OutputElement = output, AttackCoefficientBp = coefficient });
+                Priority = priority, OutputElement = output, AttackCoefficientBp = coefficient, PreserveFuel = id == ElementalReactionId.ElectroCharged });
             rules.Reactions.Add(new ElementalReactionDefinition { Id = id, ExistingElement = b, IncomingElement = a,
-                Priority = priority, OutputElement = output, AttackCoefficientBp = coefficient });
+                Priority = priority, OutputElement = output, AttackCoefficientBp = coefficient, PreserveFuel = id == ElementalReactionId.ElectroCharged });
         }
     }
 
@@ -140,19 +159,8 @@ namespace FightingAllstar.Core.Content
             if (rules.SchemaVersion != ElementalRuleSet.CurrentSchemaVersion) errors.Add("Unsupported elemental rules schema.");
             if (string.IsNullOrWhiteSpace(rules.ContentVersion)) errors.Add("Elemental rules require a content version.");
             if (rules.ReactionDamageCap < 0) errors.Add("Elemental damage cap cannot be negative.");
-            if (rules.Fuel == null || rules.Reactions == null) { errors.Add("Elemental rules require fuel and reactions."); return errors; }
-            var fuelIds = new HashSet<string>(StringComparer.Ordinal);
-            foreach (var fuel in rules.Fuel)
-            {
-                if (fuel == null || string.IsNullOrWhiteSpace(fuel.RecipeId) || !fuelIds.Add(fuel.RecipeId) ||
-                    fuel.Element < ElementId.Pyro || fuel.Element > ElementId.Dendro)
-                { errors.Add("Elemental fuel has a missing/duplicate recipe or invalid aura element."); continue; }
-                if (statuses == null) continue;
-                StatusRecipeDefinition recipe = null;
-                foreach (var item in statuses) if (item?.Id == fuel.RecipeId) recipe = item;
-                if (recipe == null || recipe.Polarity != StatusPolarity.Debuff || recipe.Color == StatusColor.Grey ||
-                    recipe.ParentUnsafeForFuel()) errors.Add("Elemental fuel must reference an ordinary removable debuff: " + fuel.RecipeId);
-            }
+            if (rules.Reactions == null) { errors.Add("Elemental rules require reactions."); return errors; }
+            if (rules.ReactionDamagePerLevel <= 0) errors.Add("Level reaction damage must be positive.");
             var pairs = new HashSet<string>(StringComparer.Ordinal);
             foreach (var reaction in rules.Reactions)
             {
@@ -164,17 +172,11 @@ namespace FightingAllstar.Core.Content
                     reaction.OutputElement != expected.OutputElement ||
                     reaction.PreserveFuel != expected.PreserveFuel ||
                     reaction.Id >= ElementalReactionId.Overload && reaction.AmplificationBp != 10000 ||
-                    (reaction.Id == ElementalReactionId.Overload || reaction.Id == ElementalReactionId.Swirl || reaction.Id == ElementalReactionId.Superconduct ? reaction.AmplificationBp != 10000 || reaction.AttackCoefficientBp <= 0
+                    (reaction.Id == ElementalReactionId.Overload || reaction.Id == ElementalReactionId.Swirl || reaction.Id == ElementalReactionId.Superconduct || reaction.Id == ElementalReactionId.Shatter ? reaction.AmplificationBp != 10000 || reaction.AttackCoefficientBp <= 0
                         : reaction.AttackCoefficientBp != 0)) errors.Add("Unsupported, duplicate or malformed elemental reaction: " + reaction.Id);
             }
             return errors;
         }
-
-        // Complex attached state needs a consumption contract before it can become fuel.
-        private static bool ParentUnsafeForFuel(this StatusRecipeDefinition recipe) =>
-            recipe.StanceChildren?.Count > 0 || (recipe.Behavior & (StatusBehavior.Barrier | StatusBehavior.Stance)) != 0 ||
-            recipe.NaturalExpiryAttack?.IsConfigured == true || recipe.Retaliation?.IsConfigured == true ||
-            recipe.PeriodicDamage?.Family == DamageFamily.ElementalReaction;
 
         public static List<string> Validate(CharacterDefinition character, ElementalRuleSet rules)
         {
@@ -207,37 +209,11 @@ namespace FightingAllstar.Core.Content
                 (rules == null || effect.Kind != EffectKind.Damage || effect.Family != DamageFamily.Normal ||
                     (effect.Target != EffectTargetScope.SelectedEnemy && effect.Target != EffectTargetScope.AllEnemies)))
                 errors.Add("Elemental card contacts require enemy-targeted Normal damage and versioned rules.");
-            if (app == null)
-            {
-                if (effect.DamageElement != ElementId.None && effect.Sequence?.Exists(s =>
-                    s?.Effect?.Kind == EffectKind.ApplyStatus && rules?.ElementFor(s.Effect.StatusRecipe?.Id) == effect.DamageElement) == true)
-                    errors.Add("A matching elemental rider must be linked to its contact to prevent reapplication.");
-                return;
-            }
-            if (app.Element < ElementId.Pyro || app.Element > ElementId.Geo || app.HitIndex < 1 || app.HitIndex > effect.DamageHitCount ||
-                effect.DamageElement != ElementId.None && effect.DamageElement != app.Element)
-                errors.Add("Unsupported or conflicting elemental application point.");
-            if (string.IsNullOrWhiteSpace(app.StatusEffectId))
-            {
-                if (effect.DamageElement == ElementId.None || app.RequiresCritical)
-                    errors.Add("A status-dependent/critical application requires a delivery step.");
-                return;
-            }
-            var matches = effect.Sequence?.FindAll(s => s?.Effect?.Id == app.StatusEffectId);
-            var step = matches?.Count == 1 ? matches[0] : null;
-            var rider = step?.Effect;
-            if (rider == null || rider.Kind != EffectKind.ApplyStatus ||
-                rider.StatusRecipe == null || rider.StatusRecipe.Polarity != StatusPolarity.Debuff ||
-                rider.StatusRecipe.Color == StatusColor.Grey || rules?.ElementFor(rider.StatusRecipe.Id) != app.Element ||
-                step.Timing != CardEffectTiming.AfterDamage || !string.IsNullOrEmpty(step.BatchId) ||
-                rider.Conditions?.Count > 0 || (rider.Target != EffectTargetScope.SelectedEnemy && rider.Target != EffectTargetScope.AllEnemies) ||
-                rider.Target == EffectTargetScope.AllEnemies && effect.Target != EffectTargetScope.AllEnemies ||
-                rider.StatusRecipe.ParentUnsafeForFuel())
-                errors.Add("Contact delivery must reference one unbatched AfterDamage enemy fuel-status step; conditions use RequiresCritical.");
-            if (effect.Sequence != null) foreach (var item in effect.Sequence)
-                if (item?.Effect?.Kind == EffectKind.ApplyStatus && item.Effect.Id != app.StatusEffectId &&
-                    rules?.ElementFor(item.Effect.StatusRecipe?.Id) == app.Element)
-                    errors.Add("A second same-element rider needs a separately authored future application contract.");
+            // Legacy application metadata may identify the element; debuff delivery stays an ordinary sequence step.
+            // Auras are automatic on contact, without hit-index, critical, recipe or status-roll gates.
+            if (app != null && (app.Element < ElementId.Pyro || app.Element > ElementId.Geo ||
+                effect.DamageElement != ElementId.None && effect.DamageElement != app.Element))
+                errors.Add("Unsupported or conflicting elemental application.");
         }
 
         public static void ValidateModifiers(List<ElementalModifierDefinition> modifiers, List<string> errors)

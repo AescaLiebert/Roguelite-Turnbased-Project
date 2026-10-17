@@ -19,24 +19,27 @@ MonoBehaviour:
   role: 
   traitIds:
   - trait.genshin-impact
-  passiveSourceDescription: Genshin starter kit; generated starting stats. See the
-    GDD roster specification.
+  passiveSourceDescription: "Increase Swirl Reaction Damage by 40%\n\nWhen hero attacked
+    3rd times, next attack will Increase DOT Damage Dealt / Increase Damage Dealt
+    by 20% \n\n[Gnosis Reaction: When the entire team (including sub-members) consists
+    of \"Genshin Impact\" characters, elemental damage applies neutral auras and
+    can trigger reactions. Auras last 3 target turn ends and cannot stack or refresh.]"
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: e6c68ecf43cbb384fbea2074dd9eb29f, type: 2}
   id: 1415
   fighterName: '[Genshin Impact] Anemo Lumine'
-  fighterPic: {fileID: 0}
-  fighterIcon: {fileID: 0}
-  fighterFull: {fileID: 0}
+  fighterPic: {fileID: 21300000, guid: 8846bb00982d4138b76f5b5f568243b4, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 8053ec8ecc50b694bb1cfa4635dce5ae, type: 3}
+  fighterFull: {fileID: 21300000, guid: 8846bb00982d4138b76f5b5f568243b4, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}
   fighterUltimate: {fileID: 0}
   fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
   fighter3DMesh: {fileID: 0}
-  fighter3DMaterial: {fileID: 0}
-  fighterModelYawOffset: 180
+  fighter3DMaterial: {fileID: 2100000, guid: 33a3289c1d647b94f9b6dabaf3e2ee4f, type: 2}
+  fighterModelYawOffset: 0
   Skill1: {fileID: 11400000, guid: 5aeccd5e550ee9745b6e65fc0d4797fb, type: 2}
   Skill2: {fileID: 11400000, guid: 3f1fd87cda492a94eaf432fe2a9b2624, type: 2}
   Ultimate: {fileID: 11400000, guid: 1f76beb64cee51746aa4260c2864fcb9, type: 2}
@@ -49,7 +52,7 @@ MonoBehaviour:
     AttackBp: 2135
     DefenseBp: 2135
     HealthBp: 2135
-  Classpower: 3500
+  Classpower: 3670
   attack: 420
   defense: 300
   health: 5600

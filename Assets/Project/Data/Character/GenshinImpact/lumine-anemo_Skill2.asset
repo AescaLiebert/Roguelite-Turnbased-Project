@@ -16,9 +16,9 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   statusVisuals: []
   ranks:
-  - description: Apply Anemo Resistance Down on all enemies for 1 turn, then inflict
-      Anemo damage equal to 83.33% of the hero's Attack on all enemies; if this attack
-      defeats an enemy, heal the hero for 2.67% of Max HP once.
+  - description: Apply Anemo Resistance Down on all enemies for 2 turn, then inflict
+      Anemo damage equal to 120% of the hero's Attack on all enemies; if this attack
+      defeats an enemy, heal the hero for 8% of Max HP once.
     skillType: 5
     runtimeEffect:
       Explosion: 0
@@ -32,9 +32,9 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 6
         Range: 1
-        Reaction: 0
+        Reaction: 4
         ReactionTiming: 0
       Id: fighter.lumine-anemo.skill.2.rank.1
       Kind: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 8333
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -59,6 +59,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -67,6 +68,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -199,6 +201,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -207,6 +210,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers:
             - Element: 6
@@ -285,7 +289,7 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-          StatusDurationOverride: 1
+          StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
           StatusApplyChanceBp: 10000
@@ -299,8 +303,8 @@ MonoBehaviour:
           PowerGaugeAmount: 0
           Target: 3
   - description: Apply Anemo Resistance Down on all enemies for 2 turns, then inflict
-      Anemo damage equal to 166.67% of the hero's Attack on all enemies; if this
-      attack defeats an enemy, heal the hero for 5.33% of Max HP once.
+      Anemo damage equal to 180% of the hero's Attack on all enemies; if this attack
+      defeats an enemy, heal the hero for 8% of Max HP once.
     skillType: 5
     runtimeEffect:
       Explosion: 0
@@ -314,7 +318,7 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 6
         Range: 1
         Reaction: 0
         ReactionTiming: 0
@@ -324,7 +328,7 @@ MonoBehaviour:
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 16667
+      CoefficientBp: 18000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
@@ -341,6 +345,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -349,6 +354,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -481,6 +487,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -489,6 +496,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers:
             - Element: 6
@@ -596,7 +604,7 @@ MonoBehaviour:
         StatusEffectId: 
         RequiresCritical: 0
       Attack:
-        HitCount: 1
+        HitCount: 6
         Range: 1
         Reaction: 0
         ReactionTiming: 0
@@ -623,6 +631,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 0
@@ -631,6 +640,7 @@ MonoBehaviour:
           Explosion: 0
           StatusRecipeId: 
           StatusDuration: 0
+          StatusStackCount: 1
           SelfHealDamageBp: 0
         ElementalModifiers: []
         Id: 
@@ -763,6 +773,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             Retaliation:
               Element: 0
@@ -771,6 +782,7 @@ MonoBehaviour:
               Explosion: 0
               StatusRecipeId: 
               StatusDuration: 0
+              StatusStackCount: 1
               SelfHealDamageBp: 0
             ElementalModifiers:
             - Element: 6

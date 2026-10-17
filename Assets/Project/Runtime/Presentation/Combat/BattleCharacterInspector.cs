@@ -206,6 +206,15 @@ namespace FightingAllstar.Presentation.Combat
                 if(string.IsNullOrWhiteSpace(desc))desc="Active combat effect.";
                 EffectRow(content,"Status "+status.RecipeId,StatusVisualData.GetDisplayName(status.RecipeId,polarity),metadata,desc,Find(status.SourceFighterId),status,polarity==StatusPolarity.Debuff);
             }
+            Heading(content,"ELEMENTAL AURAS  ·  "+selected.ElementStatuses.Instances.Count);
+            if(selected.ElementStatuses.Instances.Count==0)Empty(content,"No elemental auras");
+            foreach(var aura in selected.ElementStatuses.Instances)
+            {
+                var status=aura.ToDisplayStatus();
+                EffectRow(content,"Element "+aura.Element,aura.Element.ToString(),aura.RemainingDuration+" target turn ends  ·  Neutral",
+                    "No negative effect. Unique per element; cannot refresh. Expires after 3 target turn ends or is consumed by a reaction.",
+                    Find(aura.SourceFighterId),status,false);
+            }
             Heading(content,"PASSIVE EFFECTS");
             var groups=selected.PassiveContributions.GroupBy(c=>c.OwnerId+"|"+c.RuleId).ToList();
             if(groups.Count==0)Empty(content,"No passive stat changes");

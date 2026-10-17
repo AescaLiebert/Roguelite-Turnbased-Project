@@ -16,7 +16,8 @@ namespace FightingAllstar.Presentation.Combat
             if (root == null || root.Batches?.Count > 0 || root.AttributeAdvantageDamageBonusBp != 0) return false;
             // These clauses may be implemented by character reactions rather than
             // the card sequence. Keep their authored conditions and extra rules.
-            if (Regex.IsMatch(authored ?? "", @"\b(if|when|each time|steal\w*|extort|additional damage|shared chance|on kill)\b", RegexOptions.IgnoreCase)) return false;
+            var criticalRider = root.Sequence?.Any(step => step?.Effect?.Conditions?.Any(c => c?.Kind == EffectConditionKind.WasCritical) == true) == true;
+            if (!criticalRider && Regex.IsMatch(authored ?? "", @"\b(if|when|each time|steal\w*|extort|additional damage|shared chance|on kill)\b", RegexOptions.IgnoreCase)) return false;
             var operations = new List<(EffectOperationDefinition effect, CardEffectTiming timing)> { (root, CardEffectTiming.Damaging) };
             if (root.Sequence != null)
                 operations.AddRange(root.Sequence.Where(s => s?.Effect != null).Select(s => (s.Effect, s.Timing)));
@@ -27,10 +28,10 @@ namespace FightingAllstar.Presentation.Combat
                 // Legacy support roots can be zero-heal coordinators whose real
                 // heal is in Sequence. They do not add a player-facing effect.
                 if (step.effect.Kind == EffectKind.Heal && IsEmptyHeal(step.effect)) continue;
-                if (step.effect.Conditions?.Any(c => c != null && c.Kind != EffectConditionKind.Always) == true) return false;
+                if (step.effect.Conditions?.Any(c => c != null && c.Kind != EffectConditionKind.Always && c.Kind != EffectConditionKind.WasCritical) == true) return false;
                 var clause = Describe(step.effect);
                 if (clause == null) return false;
-                if (root.ElementalApplication?.RequiresCritical == true && step.effect.Id == root.ElementalApplication.StatusEffectId)
+                if (step.effect.Conditions?.Any(c => c?.Kind == EffectConditionKind.WasCritical) == true)
                     clause = "On a critical hit, " + Lower(clause);
                 if (ReferenceEquals(step.effect, root))
                 {

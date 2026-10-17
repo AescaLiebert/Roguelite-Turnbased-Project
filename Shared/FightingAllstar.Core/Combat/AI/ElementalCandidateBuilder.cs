@@ -47,8 +47,7 @@ namespace FightingAllstar.Core.Combat.AI
             : CardRules.TryGetSkill(card.Owner.Definition, card.Card.SkillId, card.Rank, out effect);
 
         private static bool CanPrepare(EffectDefinition effect, ElementalRuleSet rules) =>
-            effect.ElementalApplication?.IsConfigured == true || effect.DamageElement != ElementId.None ||
-            effect.Kind == EffectKind.ApplyStatus && rules.Fuel.Any(f => f.RecipeId == effect.StatusRecipe?.Id);
+            effect.Kind == EffectKind.Damage && (effect.ElementalApplication?.IsConfigured == true || effect.DamageElement != ElementId.None);
 
         private static IEnumerable<string> Targets(CardOption card, BattleSituation situation)
         {

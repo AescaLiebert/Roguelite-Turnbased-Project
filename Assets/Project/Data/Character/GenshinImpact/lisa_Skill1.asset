@@ -24,11 +24,11 @@ MonoBehaviour:
       ConsumeTargetRecipeId: 
       DamagePerConsumedStackBp: 0
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId: 
         RequiresCritical: 0
       Attack:
         HitCount: 2
@@ -308,11 +308,11 @@ MonoBehaviour:
       ConsumeTargetRecipeId: 
       DamagePerConsumedStackBp: 0
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId: 
         RequiresCritical: 0
       Attack:
         HitCount: 2
@@ -592,11 +592,11 @@ MonoBehaviour:
       ConsumeTargetRecipeId: 
       DamagePerConsumedStackBp: 0
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId: 
         RequiresCritical: 0
       Attack:
         HitCount: 2

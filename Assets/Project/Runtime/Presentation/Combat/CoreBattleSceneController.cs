@@ -850,7 +850,7 @@ namespace FightingAllstar.Presentation.Combat
                     billboard.SetPowerGaugeRemainder(isPlayerDraft
                         ? (_draft.Preview.FindFighter(fighter.Id)?.PowerGaugeRemainderBp ?? fighter.PowerGaugeRemainderBp)
                         : fighter.PowerGaugeRemainderBp);
-                    billboard.SetStatuses(fighter.Statuses?.Instances);
+                    billboard.SetStatuses(CoreFighterHud.DisplayStatuses(fighter));
                 }
             }
         }

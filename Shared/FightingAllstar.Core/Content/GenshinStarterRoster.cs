@@ -32,7 +32,7 @@ namespace FightingAllstar.Core.Content
             });
             AddSkill(kaeya, 2, CardCategory.AttackDebuff, r => {
                 var effect = Damage(Scale(36000, r));
-                Fuel(effect, ElementId.Cryo, "status.debuff.frost-bite", Turns(3, r));
+                ElementalDamageWithDebuff(effect, ElementId.Cryo, "status.debuff.frost-bite", Turns(3, r));
                 return effect;
             });
             AddUlt(kaeya, CardCategory.Buff, c => new EffectDefinition { Kind = EffectKind.ApplyStatus,
@@ -46,20 +46,20 @@ namespace FightingAllstar.Core.Content
                 new StatModifierDefinition { Target = ModifierTarget.AnyDamageDealt, Operation = ModifierOperation.PercentagePoints, Amount = 1000 });
             AddSkill(lisa, 1, CardCategory.AttackDebuff, r => {
                 var effect = Damage(Scale(21000, r), EffectTargetScope.AllEnemies);
-                Fuel(effect, ElementId.Electro, "status.debuff.shock", Turns(4, r));
+                ElementalDamageWithDebuff(effect, ElementId.Electro, "status.debuff.shock", Turns(4, r));
                 return effect;
             });
             AddSkill(lisa, 2, CardCategory.Attack, r => {
                 var effect = Damage(Scale(25000, r), EffectTargetScope.AllEnemies, keyword: "attack.pierce");
                 effect.ConsumeTargetRecipeId = "status.debuff.conductive";
                 effect.DamagePerConsumedStackBp = 2000;
-                Fuel(effect, ElementId.Electro, "status.debuff.shock", Turns(4, r), critical: true);
+                ElementalDamageWithDebuff(effect, ElementId.Electro, "status.debuff.shock", Turns(4, r), critical: true);
                 return effect;
             });
             AddUlt(lisa, CardCategory.AttackDebuff, c => {
                 var effect = Damage(Ult(40000, c), EffectTargetScope.AllEnemies, ElementId.Electro);
                 Status(effect, Recipe("status.debuff.stat.defense-related"), 3, CardEffectTiming.BeforeAction, potency: 6000);
-                Fuel(effect, ElementId.Electro, "status.debuff.shock", 4);
+                ElementalDamageWithDebuff(effect, ElementId.Electro, "status.debuff.shock", 4);
                 return effect;
             });
 
@@ -143,10 +143,12 @@ namespace FightingAllstar.Core.Content
             effect.Sequence.Add(Step(new EffectDefinition { Id = recipe.Id + ".delivery", Kind = EffectKind.ApplyStatus,
                 Target = effect.Target, StatusRecipe = recipe, StatusDurationOverride = turns, StatusPotencyBp = potency }, timing));
         }
-        private static void Fuel(EffectDefinition effect, ElementId element, string id, int turns, bool critical = false)
+        private static void ElementalDamageWithDebuff(EffectDefinition effect, ElementId element, string id, int turns, bool critical = false)
         {
             Status(effect, Recipe(id), turns);
-            effect.ElementalApplication = new ElementalApplicationDefinition { Element = element, StatusEffectId = id + ".delivery", RequiresCritical = critical };
+            effect.DamageElement = element;
+            if (critical) effect.Sequence[effect.Sequence.Count - 1].Effect.Conditions.Add(
+                new EffectConditionDefinition { Kind = EffectConditionKind.WasCritical });
         }
         private static void AddSkill(CharacterDefinition fighter, int slot, CardCategory category, Func<int, EffectDefinition> factory)
         {

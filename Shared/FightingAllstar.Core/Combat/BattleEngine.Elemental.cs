@@ -8,6 +8,7 @@ namespace FightingAllstar.Core.Combat
     {
         private sealed class ElementalActionContext
         {
+            public readonly Dictionary<string, int> AmplificationByTarget = new Dictionary<string, int>(StringComparer.Ordinal);
             public readonly Dictionary<string, int> ConsumedStackCounts = new Dictionary<string, int>(StringComparer.Ordinal);
             public readonly HashSet<string> BonusTargets = new HashSet<string>(StringComparer.Ordinal);
             public int CadenceDamageBp;
@@ -16,17 +17,16 @@ namespace FightingAllstar.Core.Combat
             public readonly HashSet<string> OverloadRecipients = new HashSet<string>(StringComparer.Ordinal);
             public readonly HashSet<string> ReactionReceipts = new HashSet<string>(StringComparer.Ordinal);
             public readonly HashSet<string> ReactionDamageRecipients = new HashSet<string>(StringComparer.Ordinal);
+            public readonly List<ElementalContactCommit> DeferredFreezes = new List<ElementalContactCommit>();
+            public readonly List<ElementalContactCommit> PendingShatters = new List<ElementalContactCommit>();
             public readonly List<ElementalContactCommit> Pending = new List<ElementalContactCommit>();
         }
 
         private sealed class ElementalContactCommit
         {
             public FighterState Target;
+            public ElementId IncomingElement;
             public ElementalReactionDecision Decision;
-            public EffectDefinition Rider;
-            public bool RiderAccepted;
-            public StatusApplyOutcome RiderOutcome;
-            public string RejectionReason;
             public int SourceAttack;
             public int HealthDamage;
             public int ShieldDamage;
@@ -37,6 +37,8 @@ namespace FightingAllstar.Core.Combat
 
         private static void InitializeElementalRules(BattleState state, ElementalRuleSet rules)
         {
+            rules = rules.Clone();
+            rules.UpgradeLegacyDefaults();
             var errors = ElementalContentValidator.Validate(rules);
             foreach (var team in new[] { state.Player, state.Opponent })
                 foreach (var fighter in team.Fighters)
@@ -49,58 +51,30 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static ElementalContactCommit PrepareElementalContact(BattleState state, FighterState source,
-            FighterState target, CardState card, EffectDefinition effect, ActionResolutionContext resolution,
-            DamagePacket packet, StatBlock attacker, StatBlock defender, DeterministicRandom rng,
-            int critRoll, int blockRoll, int hitIndex, DamageResult preliminary)
+            FighterState target, EffectDefinition effect, ActionResolutionContext resolution,
+            DamagePacket packet, StatBlock attacker, int hitIndex)
         {
             if (state.ElementalSchemaVersion != ElementalRuleSet.CurrentSchemaVersion || state.ElementalRules == null ||
                 resolution == null || effect.Family != DamageFamily.Normal) return null;
-            ElementalReactionRules.ApplyElementPolicy(packet.Policy, effect.DamageElement, source, target, state.ElementalRules);
-            if (effect.DamageElement != ElementId.None && resolution.Elemental.CadenceDotBp > 0)
-                packet.Policy.DotBridgeFactorBp += resolution.Elemental.CadenceDotBp;
-            var application = effect.ElementalApplication;
-            var element = application?.Element ?? effect.DamageElement;
-            if (element == ElementId.None || hitIndex != (application?.HitIndex ?? 1) || target.Health <= 0 ||
+            if (resolution.Elemental.AmplificationByTarget.TryGetValue(target.Id, out var multiplier))
+                packet.Policy.AmplificationBp = multiplier;
+            var element = effect.DamageElement != ElementId.None ? effect.DamageElement : effect.ElementalApplication?.Element ?? ElementId.None;
+            ElementalReactionRules.ApplyElementPolicy(packet.Policy, element, source, target, state.ElementalRules);
+            if (element == ElementId.None || target.Health <= 0 ||
                 !resolution.Elemental.Applications.Add(target.Id)) return null;
-
-            var contact = new ElementalContactCommit { Target = target, SourceAttack = attacker.Attack,
-                HitIndex = hitIndex, HitCount = packet.HitCount };
-            var eligible = target.Side != source.Side && state.Team(source.Side).ElementalReactionsEnabled &&
-                (effect.DamageElement != ElementId.None || application?.RequiresCritical != true || preliminary.WasCritical);
-            if (!string.IsNullOrWhiteSpace(application?.StatusEffectId))
-                contact.Rider = effect.Sequence.Find(s => s?.Effect?.Id == application.StatusEffectId).Effect.ToEffectDefinition();
-
-            if (eligible) contact.Decision = ElementalReactionRules.Evaluate(state.ElementalRules, target, element);
+            var contact = new ElementalContactCommit { Target = target, IncomingElement = element,
+                SourceAttack = attacker.Attack, HitIndex = hitIndex, HitCount = packet.HitCount };
+            if (target.Side != source.Side && state.Team(source.Side).ElementalReactionsEnabled)
+                contact.Decision = ElementalReactionRules.Evaluate(state.ElementalRules, target, element);
             packet.Policy.AmplificationBp = contact.Decision?.Reaction.AmplificationBp ?? 10000;
-            var predicted = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
-            if (contact.Rider != null && (application.RequiresCritical == false || preliminary.WasCritical))
-            {
-                // Probe a clone with the exact predicted HP basis. Acceptance/roll is owned by this delivery once.
-                var trial = StatusSystem.Apply(target.Clone(), source.Id, source.Side, contact.Rider.StatusRecipe.Clone(),
-                    "elemental-probe", card.Id, 0,
-                    snapshot: new StatusSnapshot { SourceAttack = attacker.Attack, SourceDefense = attacker.Defense,
-                        SourceMaxHealth = attacker.MaxHealth, TargetMaxHealth = defender.MaxHealth,
-                        TriggeringHealthDamage = target.CannotDie ? 0 : predicted.HealthLost, FixedAmount = contact.Rider.Magnitude },
-                    potencyBp: contact.Rider.StatusPotencyBp, stackCount: contact.Rider.StatusStackCount,
-                    duration: contact.Rider.StatusDurationOverride);
-                contact.RiderOutcome = trial.Outcome;
-                contact.RejectionReason = trial.Reason;
-                var chance = ResolveStatusApplyChanceBp(contact.Rider.StatusApplyChanceBp,
-                    attacker.ControlBp, defender.AvoidanceBp, true);
-                contact.RiderAccepted = trial.Accepted && (chance >= 10000 || chance > 0 && rng.NextBasisPoints() < chance);
-            }
-            if (effect.DamageElement == ElementId.None && !contact.RiderAccepted)
-            {
-                contact.Decision = null;
-                packet.Policy.AmplificationBp = 10000;
-            }
+            resolution.Elemental.AmplificationByTarget[target.Id] = packet.Policy.AmplificationBp;
             return contact;
         }
 
         private static void CommitElementalHitBatch(BattleState state, FighterState source, CardState card,
             ActionResolutionContext resolution, DeterministicRandom rng, List<FighterState> pendingDefeats)
         {
-            if (resolution.Elemental.Pending.Count == 0) return;
+            if (resolution.Elemental.Pending.Count == 0 && resolution.Elemental.PendingShatters.Count == 0) return;
             // All root recipients have resolved against pre-consumption views before any child damage.
             foreach (var contact in resolution.Elemental.Pending)
             {
@@ -110,16 +84,12 @@ namespace FightingAllstar.Core.Combat
                 {
                     CommitReactionFacts(state, source, card, contact, resolution.Elemental);
                 }
-                else if (contact.RiderAccepted && target.Health > 0)
-                    ApplyCardUtilityEffectSingle(state, rng, source, target, contact.Rider, card.Id,
-                        card.Kind == CardKind.Ultimate, contact.HealthDamage, contact.HealthDamage,
-                        skipApplyChance: true, contactSnapshotDamage: contact.HealthDamage);
-                else if (contact.Rider != null && contact.RejectionReason == "Debuff immunity.")
-                    AddEvent(state, BattleEventKind.StatusImmuned, source.Id, target.Id, card.Id, 0, "Immune");
-                else if (contact.Rider != null && contact.RiderOutcome == StatusApplyOutcome.IgnoredWeaker)
-                    AddEvent(state, BattleEventKind.StatusWeaker, source.Id, target.Id, card.Id, 0, contact.Rider.StatusRecipe.Id);
+                if ((contact.Decision == null || contact.Decision.Reaction.PreserveFuel) && target.Health > 0)
+                    ApplyElementStatus(state, source, target, contact.IncomingElement, card.Id, contact.ParentEventId);
+
             }
             CharacterPassiveRuntime.Refresh(state);
+            ResolvePendingShatters(state, source, card, resolution.Elemental, pendingDefeats);
             foreach (var contact in resolution.Elemental.Pending)
             {
                 ResolveReactionOutput(state, source, card, contact, resolution.Elemental, pendingDefeats);
@@ -130,7 +100,33 @@ namespace FightingAllstar.Core.Combat
             swirls.Sort((a, b) => a.Target.FormationSlot.CompareTo(b.Target.FormationSlot));
             foreach (var contact in swirls)
                 ResolveSwirl(state, source, card, contact, resolution.Elemental, rng, pendingDefeats);
+            ResolvePendingShatters(state, source, card, resolution.Elemental, pendingDefeats);
             resolution.Elemental.Pending.Clear();
+        }
+
+        // A successful attack breaks the shell once; the extra packet resolves after the root hit batch.
+        private static void QueueShatter(BattleState state, FighterState target, BattleEvent hit, ElementalActionContext context)
+        {
+            if (state.ElementalRules == null || context == null) return;
+            var reaction = (state.ElementalRules.Reactions.Find(r => r.Id == ElementalReactionId.Shatter) ??
+                ElementalRuleSet.CreateDefault().Reactions.Find(r => r.Id == ElementalReactionId.Shatter)).Clone();
+            reaction.AttackCoefficientBp = ElementalRuleSet.ShatterCoefficientBp;
+            context.PendingShatters.Add(new ElementalContactCommit { Target = target,
+                ParentEventId = hit.Id, HitIndex = hit.HitIndex, HitCount = hit.HitCount,
+                Decision = new ElementalReactionDecision { Reaction = reaction } });
+        }
+
+        private static void ResolvePendingShatters(BattleState state, FighterState source, CardState card,
+            ElementalActionContext context, List<FighterState> pendingDefeats)
+        {
+            if (context.PendingShatters.Count == 0) return;
+            var pending = new List<ElementalContactCommit>(context.PendingShatters);
+            context.PendingShatters.Clear();
+            foreach (var contact in pending)
+            {
+                CommitReactionFacts(state, source, card, contact, context);
+                ResolveReactionOutput(state, source, card, contact, context, pendingDefeats);
+            }
         }
 
         private static void CommitReactionFacts(BattleState state, FighterState source, CardState card,
@@ -138,20 +134,20 @@ namespace FightingAllstar.Core.Combat
         {
             var decision = contact.Decision;
             context.ReactionReceipts.Add(contact.Target.Id + ":" + decision.Reaction.Id);
-            foreach (var id in decision.ConsumedInstanceIds) contact.Target.Statuses.RemoveInstance(id);
+            foreach (var id in decision.ConsumedInstanceIds) contact.Target.ElementStatuses.RemoveInstance(id);
             if (decision.ConsumedInstanceIds.Count > 0)
             {
-                AddEvent(state, BattleEventKind.StatusesChanged, source.Id, contact.Target.Id, card.Id, 0, "Elemental fuel consumed.");
+                AddEvent(state, BattleEventKind.ElementStatusesChanged, source.Id, contact.Target.Id, card.Id, 0, "Elemental aura consumed.");
                 var removal = state.Events[state.Events.Count - 1];
                 SetElementalFacts(removal, contact, card.Id);
-                removal.StatusesAfter = contact.Target.Statuses.Instances.ConvertAll(s => s.Clone());
+                removal.ElementStatusesAfter = contact.Target.ElementStatuses.Instances.ConvertAll(s => s.Clone());
                 removal.ConsumedStatusInstanceIds.AddRange(decision.ConsumedInstanceIds);
             }
             AddEvent(state, BattleEventKind.ElementalReactionTriggered, source.Id, contact.Target.Id, card.Id,
                 decision.Reaction.AmplificationBp, decision.Reaction.Id.ToString());
             var reaction = state.Events[state.Events.Count - 1];
             SetElementalFacts(reaction, contact, card.Id);
-            reaction.DamageElement = decision.Reaction.ExistingElement;
+            reaction.DamageElement = decision.Reaction.Id == ElementalReactionId.Shatter ? ElementId.Cryo : decision.Reaction.ExistingElement;
             reaction.TriggerElement = decision.IncomingElement;
             reaction.ConsumedStatusInstanceIds.AddRange(decision.ConsumedInstanceIds);
         }
@@ -164,17 +160,20 @@ namespace FightingAllstar.Core.Combat
                     if (recipient.Health <= 0 || Math.Abs(recipient.FormationSlot - contact.Target.FormationSlot) > 1 ||
                         !context.OverloadRecipients.Add(recipient.Id)) continue;
                     var policy = StatusSystem.BuildDamagePolicy(source, recipient, DamageFamily.ElementalReaction);
+                    ElementalReactionRules.ConfigureReactionDamagePolicy(policy, ElementalReactionId.Overload);
                     policy.ExplosionFactorBp = TeamExplosionFactor(state, source);
                     policy.CannotCrit = policy.CannotBlock = true;
                     policy.DamageCap = state.ElementalRules.ReactionDamageCap;
                     ElementalReactionRules.ApplyElementPolicy(policy, ElementId.Pyro, source, recipient, state.ElementalRules);
-                    var damage = DamageResolver.Resolve(new DamagePacket { BaseAmount = contact.SourceAttack,
+                    ElementalReactionRules.ApplyOwnReactionBonus(policy, source, context.CadenceDotBp);
+                    policy.ShieldEfficiencyBp = 8000;
+                    var damage = DamageResolver.Resolve(new DamagePacket { BaseAmount = ElementalReactionRules.LevelDamage(source, state.ElementalRules),
                         CoefficientBp = contact.Decision.Reaction.AttackCoefficientBp, Policy = policy },
                         StatusSystem.GetEffectiveStats(source), StatusSystem.GetEffectiveStats(recipient), recipient.Health, recipient.Shield, -1, -1);
                     if (!recipient.CannotDie) recipient.Health = damage.RemainingHealth;
                     recipient.Shield = damage.RemainingShield;
                     ConsumeBarrierShield(recipient, damage.ShieldLost);
-                    StatusSystem.BreakFreezeOnAttack(recipient);
+                    var freezeBroken = StatusSystem.BreakFreezeOnAttack(recipient);
                     AddEvent(state, BattleEventKind.DamageApplied, source.Id, recipient.Id, card.Id, damage.CalculatedDamage, "Overload");
                     var evt = state.Events[state.Events.Count - 1];
                     SetElementalFacts(evt, contact, card.Id);
@@ -185,6 +184,7 @@ namespace FightingAllstar.Core.Combat
                     evt.HealthLost = recipient.CannotDie ? 0 : damage.HealthLost;
                     evt.ShieldLost = damage.ShieldLost;
                     evt.StatusesAfter = recipient.Statuses.Instances.ConvertAll(s => s.Clone());
+                    if (freezeBroken) QueueShatter(state, recipient, evt, context);
                     if (recipient.Health <= 0 && !recipient.CannotDie && !pendingDefeats.Contains(recipient)) pendingDefeats.Add(recipient);
                     // Terminal origin: deliberately no normal keywords, lifesteal, reflect or passive damage callbacks.
                 }
@@ -195,7 +195,7 @@ namespace FightingAllstar.Core.Combat
             List<FighterState> pendingDefeats)
         {
             var decision = contact.Decision;
-            if (!contact.Target.Statuses.Instances.Exists(s => decision.SourceInstanceIds.Contains(s.InstanceId)) ||
+            if (!contact.Target.ElementStatuses.Instances.Exists(s => decision.SourceInstanceIds.Contains(s.InstanceId)) ||
                 context.ReactionReceipts.Contains(contact.Target.Id + ":" + ElementalReactionId.Swirl)) return;
             CommitReactionFacts(state, source, card, contact, context);
             var parentId = state.Events[state.Events.Count - 1].Id;
@@ -219,7 +219,7 @@ namespace FightingAllstar.Core.Combat
                 if (!recipient.CannotDie) recipient.Health = damage.RemainingHealth;
                 recipient.Shield = damage.RemainingShield;
                 ConsumeBarrierShield(recipient, damage.ShieldLost);
-                StatusSystem.BreakFreezeOnAttack(recipient);
+                var freezeBroken = StatusSystem.BreakFreezeOnAttack(recipient);
                 var child = new ElementalContactCommit { Target = recipient, Decision = childDecision,
                     SourceAttack = contact.SourceAttack, HealthDamage = recipient.CannotDie ? 0 : damage.HealthLost,
                     HitIndex = contact.HitIndex, HitCount = contact.HitCount, ParentEventId = parentId };
@@ -234,7 +234,10 @@ namespace FightingAllstar.Core.Combat
                 evt.HealthLost = child.HealthDamage;
                 evt.ShieldLost = damage.ShieldLost;
                 evt.StatusesAfter = recipient.Statuses.Instances.ConvertAll(s => s.Clone());
+                if (freezeBroken) QueueShatter(state, recipient, evt, context);
                 child.ParentEventId = evt.Id;
+                if (childDecision?.Reaction.PreserveFuel == true)
+                    ApplyElementStatus(state, source, recipient, decision.Reaction.OutputElement, card.Id, evt.Id);
                 if (childDecision != null)
                 {
                     CommitReactionFacts(state, source, card, child, context);
@@ -242,19 +245,32 @@ namespace FightingAllstar.Core.Combat
                 }
                 else if (!alreadyReacted && recipient.Health > 0)
                 {
-                    // A new delivery owns a new damage snapshot and one default-duration stack.
-                    // It never copies the source status's duration, strength or stack count.
-                    var mapping = state.ElementalRules.Fuel.Find(f => f.Element == decision.Reaction.OutputElement);
-                    var recipe = StandardEffectDatabase.CreateStatusRecipes().Find(s => s.Id == mapping?.RecipeId);
-                    if (recipe != null)
-                        ApplyCardUtilityEffectSingle(state, rng, source, recipient, new EffectDefinition {
-                            Kind = EffectKind.ApplyStatus, StatusRecipe = recipe.Clone(),
-                            Target = EffectTargetScope.SelectedEnemy }, card.Id, card.Kind == CardKind.Ultimate,
-                            child.HealthDamage, child.HealthDamage, contactSnapshotDamage: child.HealthDamage);
+                    ApplyElementStatus(state, source, recipient, decision.Reaction.OutputElement, card.Id, evt.Id);
+
                 }
                 CharacterPassiveRuntime.Refresh(state);
                 if (recipient.Health <= 0 && !recipient.CannotDie && !pendingDefeats.Contains(recipient)) pendingDefeats.Add(recipient);
             }
+        }
+
+        private static bool ApplyElementStatus(BattleState state, FighterState source, FighterState target,
+            ElementId element, string actionId, long parentId = 0)
+        {
+            if (!state.Team(source.Side).ElementalReactionsEnabled || target.Health <= 0 || !target.ElementStatuses.Apply(element, source.Id, "element:" + (state.Events.Count + 1))) return false;
+            AddEvent(state, BattleEventKind.ElementStatusApplied, source.Id, target.Id, actionId, 1, element.ToString());
+            var evt = state.Events[state.Events.Count - 1];
+            evt.DamageElement = element;
+            evt.RootActionId = actionId;
+            evt.ParentEventId = parentId;
+            evt.ElementStatusesAfter = target.ElementStatuses.Instances.ConvertAll(s => s.Clone());
+            return true;
+        }
+
+        private static void AdvanceElementStatuses(BattleState state, FighterState target)
+        {
+            if (!target.ElementStatuses.AdvanceTargetTurnEnd()) return;
+            AddEvent(state, BattleEventKind.ElementStatusesChanged, target.Id, target.Id, null, 0, "Elemental aura duration.");
+            state.Events[state.Events.Count - 1].ElementStatusesAfter = target.ElementStatuses.Instances.ConvertAll(s => s.Clone());
         }
 
         private static void SetElementalFacts(BattleEvent evt, ElementalContactCommit contact, string rootActionId)

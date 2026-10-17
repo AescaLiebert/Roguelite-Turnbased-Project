@@ -83,11 +83,11 @@ namespace FightingAllstar.Core.Combat
                 numerator = BigInteger.Max(BigInteger.Zero, finalOffenseNumerator - defenseNumerator);
                 denominator = scale20;
                 if (isTrue)
-                    Multiply(ref numerator, ref denominator, Math.Max(0, 10000L + policy.IncomingIncreaseBp), 10000);
+                    Multiply(ref numerator, ref denominator, Math.Max(0, 10000L + policy.IncomingIncreaseBp + (policy.Element == ElementId.None ? policy.PhysicalReceivedIncreaseBp : 0)), 10000);
                 else if (!policy.BypassGenericReduction)
                     Multiply(ref numerator, ref denominator,
                         Math.Max(0, 10000L + policy.IncomingIncreaseBp - policy.IncomingDecreaseBp +
-                            (family == DamageFamily.Normal && policy.Element == ElementId.None ? policy.PhysicalReceivedIncreaseBp : 0)), 10000);
+                            (policy.Element == ElementId.None ? policy.PhysicalReceivedIncreaseBp : 0)), 10000);
 
                 Multiply(ref numerator, ref denominator, Math.Max(0, packet.VarianceBp), 10000);
                 if (!isTrue)
@@ -111,6 +111,9 @@ namespace FightingAllstar.Core.Combat
                     Math.Max(0, 10000 - policy.FamilySpecificReductionBp), 10000);
             }
 
+            if (!normalFormula && policy.Element == ElementId.None)
+                Multiply(ref numerator, ref denominator, Math.Max(0, 10000L + policy.PhysicalReceivedIncreaseBp), 10000);
+
             // Element stages remain exact until the shared final floor/cap; legacy packets use neutral factors.
             Multiply(ref numerator, ref denominator, Math.Max(0, policy.DotBridgeFactorBp), 10000);
             Multiply(ref numerator, ref denominator, Math.Max(0, policy.ElementFactorBp), 10000);
@@ -131,9 +134,12 @@ namespace FightingAllstar.Core.Combat
 
             var shield = Math.Max(0, currentShield);
             var health = Math.Max(0, currentHealth);
-            var shieldLost = policy.BypassShield ? 0 : Math.Min(shield, damage);
+            var efficiency = Math.Max(1, Math.Min(10000, policy.ShieldEfficiencyBp));
+            var absorbed = policy.BypassShield ? 0 : (int)Math.Min(damage, (long)shield * efficiency / 10000);
+            var shieldLost = policy.BypassShield || damage == 0 ? 0 : absorbed >= (long)shield * efficiency / 10000
+                ? shield : (int)Math.Min(shield, ((long)absorbed * 10000 + efficiency - 1) / efficiency);
             shield -= shieldLost;
-            var hpDirected = Math.Max(0, damage - shieldLost);
+            var hpDirected = Math.Max(0, damage - absorbed);
             var executes = family == DamageFamily.Destructive && hpDirected >= health && health > 0;
             var healthLost = executes ? health : Math.Min(health, hpDirected);
             if (surviveAtOne && !policy.BypassSurviveAtOne && health > 0 && healthLost >= health)

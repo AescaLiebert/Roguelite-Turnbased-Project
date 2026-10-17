@@ -42,7 +42,8 @@ namespace FightingAllstar.Core.Content
         RefreshDuration,
         IndependentStacks,
         AddStacks,
-        ReplaceAlways
+        ReplaceAlways,
+        IgnoreExisting
     }
 
     public enum StatusIdentityScope { Recipe, RecipeAndSource }

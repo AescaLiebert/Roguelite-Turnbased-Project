@@ -65,6 +65,10 @@ namespace FightingAllstar.Presentation.Combat
             // SourceDescription retains the original. Reuse it only when no pre-action
             // timing needs to be moved ahead of the damage clause.
             if (text.StartsWith(sentence, StringComparison.Ordinal) && !hasPreEffects && !hasTimingNote) return Finish(text);
+            // A colored elemental sentence already came from this formatter. Its markup
+            // must not be parsed as words or move an already ordered pre-action clause again.
+            if (damage.DamageElement != ElementId.None && !hasTimingNote && text.IndexOf(sentence, StringComparison.OrdinalIgnoreCase) >= 0)
+                return Finish(text);
             var match = DamageClause.Match(text);
             if (!match.Success) return Finish(text.Length == 0 ? sentence : text);
 

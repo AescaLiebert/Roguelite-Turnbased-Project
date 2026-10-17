@@ -556,6 +556,13 @@ namespace FightingAllstar.Presentation.Combat
             _shieldFill.fillAmount = Mathf.Clamp01(shield / (float)safeMaximum);
         }
 
+        public static List<StatusInstance> DisplayStatuses(FighterState fighter)
+        {
+            var display = fighter.Statuses.Instances.ConvertAll(s => s.Clone());
+            display.AddRange(fighter.ElementStatuses.Instances.ConvertAll(s => s.ToDisplayStatus()));
+            return display;
+        }
+
         public void SetStatuses(IReadOnlyList<StatusInstance> statuses)
         {
             if (_statusPanel == null && _statusTemplate == null)

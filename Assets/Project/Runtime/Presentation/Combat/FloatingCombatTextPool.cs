@@ -349,6 +349,7 @@ namespace FightingAllstar.Presentation.Combat
                 else if (kind == "damage" || kind == "critical" || kind == "blocked")
                     item.Label.style.color = reaction == ElementalReactionId.Overload
                         ? GenshinCombatTextStyle.ReactionColor(reaction) : GenshinCombatTextStyle.ElementColor(element);
+                else if (kind == "status" && element != ElementId.None) item.Label.style.color = GenshinCombatTextStyle.ElementColor(element);
                 else if (kind == "heal") item.Label.style.color = (Color)new Color32(145, 242, 124, 255);
                 item.Label.style.unityTextOutlineColor = GenshinCombatTextStyle.Outline(item.Label.style.color.value);
                 item.Label.style.unityTextOutlineWidth = .8f;

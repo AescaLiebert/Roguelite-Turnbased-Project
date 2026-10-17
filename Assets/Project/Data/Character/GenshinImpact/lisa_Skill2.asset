@@ -18,20 +18,19 @@ MonoBehaviour:
   ranks:
   - description: Inflict Pierce damage equal to 120% of the hero's Attack on all
       enemies, Increase +20% Damage Dealt per target Conductive stack, then consume
-      all of that target's Conductive, if it critical hit, apply Shock on target
-      for 4 turns.
+      all of that target's Conductive, if it critical hit, apply Electro to target.
     skillType: 0
     runtimeEffect:
       Explosion: 0
       ConsumeTargetRecipeId: status.debuff.conductive
       DamagePerConsumedStackBp: 2000
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
-        RequiresCritical: 1
+        StatusEffectId:
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 1
@@ -172,7 +171,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -188,7 +187,23 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Conditions: []
+          Conditions:
+          - Kind: 11
+            RecipeId:
+            Tag:
+            StringValue:
+            Threshold: 0
+            Negate: 0
+            Logic: 0
+            Subject: 0
+            RosterFilter:
+              Relation: 2
+              IncludeOwner: 1
+              IncludeReserve: 1
+              AttributeId:
+              TraitId:
+              SeriesId:
+            InitialRoster: 0
           StatusRecipe:
             PowerGaugeGainBp: 0
             EndTurnPowerGaugeLoss: 0
@@ -312,12 +327,12 @@ MonoBehaviour:
       ConsumeTargetRecipeId: status.debuff.conductive
       DamagePerConsumedStackBp: 2000
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
-        RequiresCritical: 1
+        StatusEffectId:
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 1
@@ -458,7 +473,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -474,7 +489,23 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Conditions: []
+          Conditions:
+          - Kind: 11
+            RecipeId:
+            Tag:
+            StringValue:
+            Threshold: 0
+            Negate: 0
+            Logic: 0
+            Subject: 0
+            RosterFilter:
+              Relation: 2
+              IncludeOwner: 1
+              IncludeReserve: 1
+              AttributeId:
+              TraitId:
+              SeriesId:
+            InitialRoster: 0
           StatusRecipe:
             PowerGaugeGainBp: 0
             EndTurnPowerGaugeLoss: 0
@@ -598,12 +629,12 @@ MonoBehaviour:
       ConsumeTargetRecipeId: status.debuff.conductive
       DamagePerConsumedStackBp: 2000
       OnKillSelfHealMaxHealthBp: 0
-      DamageElement: 0
+      DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
-        RequiresCritical: 1
+        StatusEffectId:
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 1
@@ -744,7 +775,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -760,7 +791,23 @@ MonoBehaviour:
           CoefficientBp: 10000
           KeywordFactorBp: 10000
           KeywordId: 
-          Conditions: []
+          Conditions:
+          - Kind: 11
+            RecipeId:
+            Tag:
+            StringValue:
+            Threshold: 0
+            Negate: 0
+            Logic: 0
+            Subject: 0
+            RosterFilter:
+              Relation: 2
+              IncludeOwner: 1
+              IncludeReserve: 1
+              AttributeId:
+              TraitId:
+              SeriesId:
+            InitialRoster: 0
           StatusRecipe:
             PowerGaugeGainBp: 0
             EndTurnPowerGaugeLoss: 0

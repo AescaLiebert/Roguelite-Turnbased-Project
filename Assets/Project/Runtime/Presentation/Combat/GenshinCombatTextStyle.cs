@@ -40,6 +40,7 @@ namespace FightingAllstar.Presentation.Combat
             ElementalReactionId.Vaporize or ElementalReactionId.ReverseVaporize => new Color32(248, 205, 138, 255),
             ElementalReactionId.Overload => new Color32(255, 117, 93, 255),
             ElementalReactionId.Freeze => ElementColor(ElementId.Cryo),
+            ElementalReactionId.Shatter => ElementColor(ElementId.None),
             ElementalReactionId.Superconduct => new Color32(173, 191, 255, 255),
             ElementalReactionId.ElectroCharged => ElementColor(ElementId.Electro),
             ElementalReactionId.Burning => ElementColor(ElementId.Pyro),

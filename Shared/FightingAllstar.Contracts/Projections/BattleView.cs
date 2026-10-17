@@ -52,7 +52,18 @@ namespace FightingAllstar.Contracts.Projections
         public bool HasTaunt;
         public bool DebuffImmune;
         public bool FreezeImmune;
+        public int Level = 1;
+        public List<PublicElementStatusView> ElementStatuses = new List<PublicElementStatusView>();
         public List<PublicStatusView> Statuses = new List<PublicStatusView>();
+    }
+
+    [Serializable]
+    public sealed class PublicElementStatusView
+    {
+        public string InstanceId;
+        public string Element;
+        public int RemainingDuration;
+        public string Polarity = "Neutral";
     }
 
     [Serializable]
@@ -91,6 +102,7 @@ namespace FightingAllstar.Contracts.Projections
         public string DamageOrigin;
         public long ParentEventId;
         public List<string> ConsumedStatusInstanceIds = new List<string>();
+        public List<PublicElementStatusView> ElementStatusesAfter;
         public long EventId;
         public int HitIndex;
         public int HitCount;

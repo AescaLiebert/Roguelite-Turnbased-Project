@@ -56,7 +56,7 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 0
           Explosion: 0
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 0
@@ -65,8 +65,8 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 1500
           Explosion: 0
-          StatusRecipeId: status.debuff.frost-bite
-          StatusDuration: 2
+          StatusRecipeId:
+          StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 3000
         ElementalModifiers: []
@@ -131,7 +131,7 @@ MonoBehaviour:
           HealSource: 3
           HealAmount: 0
           HealCoefficientBp: 10000
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusPolarity: 1
           StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
@@ -199,7 +199,7 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 0
           Explosion: 0
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 0
@@ -208,10 +208,10 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 1500
           Explosion: 0
-          StatusRecipeId: status.debuff.frost-bite
-          StatusDuration: 3
+          StatusRecipeId:
+          StatusDuration: 0
           StatusStackCount: 1
-          SelfHealDamageBp: 3000
+          SelfHealDamageBp: 3500
         ElementalModifiers: []
         Id: status.buff.glacial-waltz
         NameKey: Glacial Waltz
@@ -274,7 +274,7 @@ MonoBehaviour:
           HealSource: 3
           HealAmount: 0
           HealCoefficientBp: 10000
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusPolarity: 1
           StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
@@ -342,19 +342,19 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 0
           Explosion: 0
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 4
           AttackCoefficientBp: 0
-          ReceivedDamageCoefficientBp: 1500
+          ReceivedDamageCoefficientBp: 2000
           Explosion: 0
-          StatusRecipeId: status.debuff.frost-bite
-          StatusDuration: 3
+          StatusRecipeId:
+          StatusDuration: 0
           StatusStackCount: 1
-          SelfHealDamageBp: 3000
+          SelfHealDamageBp: 4000
         ElementalModifiers: []
         Id: status.buff.glacial-waltz
         NameKey: Glacial Waltz
@@ -417,7 +417,7 @@ MonoBehaviour:
           HealSource: 3
           HealAmount: 0
           HealCoefficientBp: 10000
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusPolarity: 1
           StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
@@ -485,19 +485,19 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 0
           Explosion: 0
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 4
           AttackCoefficientBp: 0
-          ReceivedDamageCoefficientBp: 1500
+          ReceivedDamageCoefficientBp: 2500
           Explosion: 0
-          StatusRecipeId: status.debuff.frost-bite
+          StatusRecipeId:
           StatusDuration: 3
           StatusStackCount: 1
-          SelfHealDamageBp: 3000
+          SelfHealDamageBp: 4500
         ElementalModifiers: []
         Id: status.buff.glacial-waltz
         NameKey: Glacial Waltz
@@ -560,7 +560,7 @@ MonoBehaviour:
           HealSource: 3
           HealAmount: 0
           HealCoefficientBp: 10000
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusPolarity: 1
           StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
@@ -628,19 +628,19 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 0
           Explosion: 0
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 4
           AttackCoefficientBp: 0
-          ReceivedDamageCoefficientBp: 1500
+          ReceivedDamageCoefficientBp: 3000
           Explosion: 0
-          StatusRecipeId: status.debuff.frost-bite
+          StatusRecipeId:
           StatusDuration: 3
           StatusStackCount: 1
-          SelfHealDamageBp: 3000
+          SelfHealDamageBp: 5000
         ElementalModifiers: []
         Id: status.buff.glacial-waltz
         NameKey: Glacial Waltz
@@ -703,7 +703,7 @@ MonoBehaviour:
           HealSource: 3
           HealAmount: 0
           HealCoefficientBp: 10000
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusPolarity: 1
           StatusApplyChanceBp: 10000
           StatusDurationOverride: 0
@@ -771,19 +771,19 @@ MonoBehaviour:
           AttackCoefficientBp: 0
           ReceivedDamageCoefficientBp: 0
           Explosion: 0
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusDuration: 0
           StatusStackCount: 1
           SelfHealDamageBp: 0
         Retaliation:
           Element: 4
           AttackCoefficientBp: 0
-          ReceivedDamageCoefficientBp: 1500
+          ReceivedDamageCoefficientBp: 4000
           Explosion: 0
-          StatusRecipeId: status.debuff.frost-bite
-          StatusDuration: 3
+          StatusRecipeId:
+          StatusDuration: 0
           StatusStackCount: 1
-          SelfHealDamageBp: 3000
+          SelfHealDamageBp: 6000
         ElementalModifiers: []
         Id: status.buff.glacial-waltz
         NameKey: Glacial Waltz
@@ -846,7 +846,7 @@ MonoBehaviour:
           HealSource: 3
           HealAmount: 0
           HealCoefficientBp: 10000
-          StatusRecipeId: 
+          StatusRecipeId:
           StatusPolarity: 1
           StatusApplyChanceBp: 10000
           StatusDurationOverride: 0

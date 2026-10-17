@@ -53,6 +53,12 @@ internal static partial class BattlePlaybackChecks
             "Bunny must use the Normal elemental formula (150% ATK plus Pierce) with explosion doubling exactly once: " + string.Join(",", explosions.Select(e => e.Amount)));
         Check(exploded.Opponent.LivingActive().All(f => f.Statuses.Instances.Any(s => s.RecipeId == "status.debuff.ignite" && s.RemainingDuration == 4)),
             "Bunny must apply ordinary four-turn Ignite.");
+        Check(exploded.Opponent.LivingActive().All(f => f.ElementStatuses.Has(ElementId.Pyro)), "Delayed Bunny failed to apply independent Pyro aura.");
+        var mixedBunny = marked.Clone(); mixedBunny.Player.ElementalReactionsEnabled = false;
+        Check(BattleEngine.TryResolvePlan(mixedBunny, new PlanDraft(mixedBunny).BuildPlan("mixed-bunny"), out var mixedExplosion, out error), error);
+        Check(mixedExplosion.Opponent.LivingActive().All(f => f.ElementStatuses.Instances.Count == 0) &&
+            mixedExplosion.Events.Skip(mixedBunny.Events.Count).Any(e => e.DamageOrigin == ElementalDamageOrigin.TriggeredAttack),
+            "Mixed team delayed attack applied an aura or lost its damage.");
         var cleansed = marked.Clone();
         foreach (var target in cleansed.Opponent.LivingActive()) StatusSystem.Remove(target, StatusPolarity.Debuff, true);
         Check(BattleEngine.TryResolvePlan(cleansed, new PlanDraft(cleansed).BuildPlan("bunny-cleanse"), out var safe, out error), error);
@@ -141,7 +147,7 @@ internal static partial class BattlePlaybackChecks
         Check(GenshinStarterRoster.Create().Last().UltimateTiers.All(u => u.Effect.KeywordId == "attack.shatter"), "Lumine ultimate is not Shatter.");
         var reserve = ElementFixture(ElementalRuleSet.CreateDefault());
         reserve.Player.Fighters[3].Definition.Passive = GenshinStarterRoster.Create().Last().Passive.Clone();
-        ElementFuel(reserve.Opponent.Fighters[0], "status.debuff.ignite", "reserve-swirl");
+        ElementAura(reserve.Opponent.Fighters[0], ElementId.Pyro, "reserve-swirl");
         var supported = PlayKind(reserve, CardCategory.Attack, EffectTargetScope.SelectedEnemy, ElementAttack(ElementId.Anemo));
         Check(supported.Events.Skip(reserve.Events.Count).Single(e => e.DamageOrigin == ElementalDamageOrigin.Reaction).Amount == 140,
             "Lumine's SUB Swirl bonus failed or entered twice.");

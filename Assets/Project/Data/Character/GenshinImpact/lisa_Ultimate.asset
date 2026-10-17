@@ -28,9 +28,9 @@ MonoBehaviour:
       OnKillSelfHealMaxHealthBp: 0
       DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 3
@@ -172,7 +172,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -325,7 +325,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -467,9 +467,9 @@ MonoBehaviour:
       OnKillSelfHealMaxHealthBp: 0
       DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 3
@@ -611,7 +611,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -764,7 +764,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -906,9 +906,9 @@ MonoBehaviour:
       OnKillSelfHealMaxHealthBp: 0
       DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -1050,7 +1050,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -1203,7 +1203,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -1345,9 +1345,9 @@ MonoBehaviour:
       OnKillSelfHealMaxHealthBp: 0
       DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -1489,7 +1489,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -1642,7 +1642,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -1784,9 +1784,9 @@ MonoBehaviour:
       OnKillSelfHealMaxHealthBp: 0
       DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -1928,7 +1928,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -2081,7 +2081,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -2223,9 +2223,9 @@ MonoBehaviour:
       OnKillSelfHealMaxHealthBp: 0
       DamageElement: 3
       ElementalApplication:
-        Element: 3
+        Element: 0
         HitIndex: 1
-        StatusEffectId: status.debuff.shock.delivery
+        StatusEffectId:
         RequiresCritical: 0
       Attack:
         HitCount: 1
@@ -2367,7 +2367,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1
@@ -2520,7 +2520,7 @@ MonoBehaviour:
           ElementalApplication:
             Element: 0
             HitIndex: 1
-            StatusEffectId: 
+            StatusEffectId:
             RequiresCritical: 0
           Attack:
             HitCount: 1

@@ -28,6 +28,9 @@ namespace FightingAllstar.Presentation.Content
             if (sharedContent == null) throw new ArgumentNullException(nameof(sharedContent));
             if (characterAssets == null) throw new ArgumentNullException(nameof(characterAssets));
 
+            if (sharedContent.ElementalRules == null || sharedContent.ElementalRules.SchemaVersion < ElementalRuleSet.CurrentSchemaVersion)
+                sharedContent.ElementalRules = ElementalRuleSet.CreateDefault();
+            sharedContent.ElementalRules.UpgradeLegacyDefaults();
             sharedContent.Characters = new List<CharacterDefinition>();
             var ids = new HashSet<string>(StringComparer.Ordinal);
             foreach (var character in characterAssets)

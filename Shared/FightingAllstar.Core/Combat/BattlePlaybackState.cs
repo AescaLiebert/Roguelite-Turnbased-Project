@@ -25,6 +25,8 @@ namespace FightingAllstar.Core.Combat
             var target = display.Player.FindFighter(item.TargetId) ?? display.Opponent.FindFighter(item.TargetId);
             var team = source == null ? null : display.Team(source.Side);
             ApplyQueueProgress(display.Execution, item);
+            if (target != null && item.ElementStatusesAfter != null)
+                target.ElementStatuses.Instances = item.ElementStatusesAfter.ConvertAll(status => status.Clone());
             if (target != null && item.ShieldChanged) target.Shield = item.ShieldAfter;
             if (source != null && item.PowerGaugeAfter >= 0 && item.Kind != BattleEventKind.PowerGaugeChanged)
                 source.PowerGauge = item.PowerGaugeAfter;
