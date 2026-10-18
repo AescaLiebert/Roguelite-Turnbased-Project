@@ -1,0 +1,8 @@
+{
+    "passed": true,
+    "texture": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ArenaReflection.exr",
+    "mode": "Custom (Unity-baked static HDR cubemap)",
+    "method": "Unity BakeReflectionProbe output assigned through the serialized customBakedTexture reference. Static reflection for URP/Lit actor materials; no runtime planar reflection camera.",
+    "limitations": "Stylized environment and water shaders do not sample this reflection probe; water retains its artist sky tint. Static capture does not reflect moving actors or effects.",
+    "resolution": 128
+}

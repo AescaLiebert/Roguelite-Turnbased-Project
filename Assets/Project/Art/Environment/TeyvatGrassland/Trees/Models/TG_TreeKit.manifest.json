@@ -1,0 +1,2700 @@
+{
+  "schema": "TG_WP05_Trees_v1",
+  "seed": 510731,
+  "blender_version": "5.1.1",
+  "generator_sha256": "af68c658ed64112c8fe9f76a1d118ccb24436373f508ad37e4fe907b02d89518",
+  "shape_source_sha256": "a535e555ba063dba2e00e0a925cbb3067e78249a965f79d53e14fce68b79b213",
+  "fbx_sha256": "86bbcbda5e644cb04c5ae783a7a39015b155b330233d2c49dc828babf583097f",
+  "objects": [
+    {
+      "name": "SM_TG_HeroOak_LOD0",
+      "mesh_name": "SM_TG_HeroOak_LOD0",
+      "vertices_before_fbx_seam_splitting": 11588,
+      "polygons_before_triangulation": 6512,
+      "polygons_in_authored_triangulated_mesh": 8896,
+      "expected_triangles_after_export": 8896,
+      "loops": 26688,
+      "bounds_blender_local_metres": {
+        "min": [
+          -7.11881781,
+          -4.68591356,
+          0.0
+        ],
+        "max": [
+          6.4388752,
+          5.19351339,
+          12.0
+        ],
+        "size": [
+          13.557693,
+          9.87942696,
+          12.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -7.11881781,
+          0.0,
+          -5.19351339
+        ],
+        "max": [
+          6.4388752,
+          12.0,
+          4.68591356
+        ],
+        "size": [
+          13.557693,
+          12.0,
+          9.87942696
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -7.529342174530029,
+          -4.749881267547607
+        ],
+        "max": [
+          6.919796943664551,
+          12.896284103393555
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9998375177383423,
+        -0.9999852180480957,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9998378753662109,
+        0.9999844431877136,
+        0.9980629682540894
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "HeroOak",
+      "lod": 0,
+      "height": 12.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -7.11881769,
+          0,
+          -4.68591337
+        ],
+        "max": [
+          6.43887516,
+          12.0,
+          5.19351323
+        ],
+        "size": [
+          13.55769285,
+          12.0,
+          9.8794266
+        ]
+      },
+      "unity_normal_min": [
+        -0.9998375177383423,
+        -1.0,
+        -0.9999852180480957
+      ],
+      "unity_normal_max": [
+        0.9998378753662109,
+        0.9980629682540894,
+        0.9999844431877136
+      ]
+    },
+    {
+      "name": "SM_TG_HeroOak_LOD1",
+      "mesh_name": "SM_TG_HeroOak_LOD1",
+      "vertices_before_fbx_seam_splitting": 4916,
+      "polygons_before_triangulation": 1732,
+      "polygons_in_authored_triangulated_mesh": 3248,
+      "expected_triangles_after_export": 3248,
+      "loops": 9744,
+      "bounds_blender_local_metres": {
+        "min": [
+          -7.11881781,
+          -4.68591356,
+          0.0
+        ],
+        "max": [
+          6.41736746,
+          5.19351339,
+          11.92568874
+        ],
+        "size": [
+          13.53618526,
+          9.87942696,
+          11.92568874
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -7.11881781,
+          0.0,
+          -5.19351339
+        ],
+        "max": [
+          6.41736746,
+          11.92568874,
+          4.68591356
+        ],
+        "size": [
+          13.53618526,
+          11.92568874,
+          9.87942696
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        19.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -7.237425327301025,
+          -4.724050521850586
+        ],
+        "max": [
+          6.52957820892334,
+          12.525060653686523
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9998379349708557,
+        -0.9258847236633301,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9998379349708557,
+        0.8660179376602173,
+        0.9976349472999573
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "HeroOak",
+      "lod": 1,
+      "height": 12.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -7.11881769,
+          0,
+          -4.68591337
+        ],
+        "max": [
+          6.41736738,
+          11.9256887,
+          5.19351323
+        ],
+        "size": [
+          13.53618506,
+          11.9256887,
+          9.8794266
+        ]
+      },
+      "unity_normal_min": [
+        -0.9998379349708557,
+        -1.0,
+        -0.9258847236633301
+      ],
+      "unity_normal_max": [
+        0.9998379349708557,
+        0.9976349472999573,
+        0.8660179376602173
+      ]
+    },
+    {
+      "name": "SM_TG_HeroOak_LOD2",
+      "mesh_name": "SM_TG_HeroOak_LOD2",
+      "vertices_before_fbx_seam_splitting": 2180,
+      "polygons_before_triangulation": 1542,
+      "polygons_in_authored_triangulated_mesh": 2584,
+      "expected_triangles_after_export": 2584,
+      "loops": 7752,
+      "bounds_blender_local_metres": {
+        "min": [
+          -7.11881781,
+          -4.6181531,
+          0.0
+        ],
+        "max": [
+          6.41736746,
+          5.15885448,
+          11.92568874
+        ],
+        "size": [
+          13.53618526,
+          9.77700758,
+          11.92568874
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -7.11881781,
+          0.0,
+          -5.15885448
+        ],
+        "max": [
+          6.41736746,
+          11.92568874,
+          4.6181531
+        ],
+        "size": [
+          13.53618526,
+          11.92568874,
+          9.77700758
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        38.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -6.206486701965332,
+          -3.7389252185821533
+        ],
+        "max": [
+          5.255298614501953,
+          12.279206275939941
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          0.89999998,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9998378157615662,
+        -0.9510380029678345,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9889968037605286,
+        0.9510413408279419,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "HeroOak",
+      "lod": 2,
+      "height": 12.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -7.11881769,
+          0,
+          -4.61815325
+        ],
+        "max": [
+          6.41736738,
+          11.9256887,
+          5.15885471
+        ],
+        "size": [
+          13.53618506,
+          11.9256887,
+          9.77700796
+        ]
+      },
+      "unity_normal_min": [
+        -0.9998378157615662,
+        -1.0,
+        -0.9510380029678345
+      ],
+      "unity_normal_max": [
+        0.9889968037605286,
+        1.0000001192092896,
+        0.9510413408279419
+      ]
+    },
+    {
+      "name": "SM_TG_MeadowOak_LOD0",
+      "mesh_name": "SM_TG_MeadowOak_LOD0",
+      "vertices_before_fbx_seam_splitting": 7368,
+      "polygons_before_triangulation": 4168,
+      "polygons_in_authored_triangulated_mesh": 5712,
+      "expected_triangles_after_export": 5712,
+      "loops": 17136,
+      "bounds_blender_local_metres": {
+        "min": [
+          -3.0112083,
+          -1.96967566,
+          0.0
+        ],
+        "max": [
+          3.45478606,
+          2.45368242,
+          8.0
+        ],
+        "size": [
+          6.46599436,
+          4.42335808,
+          8.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -3.0112083,
+          0.0,
+          -2.45368242
+        ],
+        "max": [
+          3.45478606,
+          8.0,
+          1.96967566
+        ],
+        "size": [
+          6.46599436,
+          8.0,
+          4.42335808
+        ]
+      },
+      "source_preview_location": [
+        17.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -3.0250210762023926,
+          -1.9915647506713867
+        ],
+        "max": [
+          3.4931793212890625,
+          8.047355651855469
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999918341636658,
+        -0.9999998211860657,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.999991774559021,
+        0.9999998211860657,
+        0.9994266629219055
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "MeadowOak",
+      "lod": 0,
+      "height": 8.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -3.01120831,
+          0,
+          -1.96967565
+        ],
+        "max": [
+          3.45478612,
+          8.0,
+          2.45368247
+        ],
+        "size": [
+          6.46599443,
+          8.0,
+          4.42335812
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999918341636658,
+        -1.0,
+        -0.9999998211860657
+      ],
+      "unity_normal_max": [
+        0.999991774559021,
+        0.9994266629219055,
+        0.9999998211860657
+      ]
+    },
+    {
+      "name": "SM_TG_MeadowOak_LOD1",
+      "mesh_name": "SM_TG_MeadowOak_LOD1",
+      "vertices_before_fbx_seam_splitting": 3168,
+      "polygons_before_triangulation": 1156,
+      "polygons_in_authored_triangulated_mesh": 2144,
+      "expected_triangles_after_export": 2144,
+      "loops": 6432,
+      "bounds_blender_local_metres": {
+        "min": [
+          -3.0112083,
+          -1.96967566,
+          0.0
+        ],
+        "max": [
+          3.36154723,
+          2.44572377,
+          7.95323467
+        ],
+        "size": [
+          6.37275553,
+          4.41539943,
+          7.95323467
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -3.0112083,
+          0.0,
+          -2.44572377
+        ],
+        "max": [
+          3.36154723,
+          7.95323467,
+          1.96967566
+        ],
+        "size": [
+          6.37275553,
+          7.95323467,
+          4.41539943
+        ]
+      },
+      "source_preview_location": [
+        17.0,
+        19.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.834742546081543,
+          -1.9915647506713867
+        ],
+        "max": [
+          3.3758676052093506,
+          7.933541297912598
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999916553497314,
+        -0.99518221616745,
+        -0.9999999403953552
+      ],
+      "normal_component_max": [
+        0.9999918937683105,
+        0.8740001320838928,
+        0.9994266629219055
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "MeadowOak",
+      "lod": 1,
+      "height": 8.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -3.01120831,
+          0,
+          -1.96967565
+        ],
+        "max": [
+          3.36154729,
+          7.95323463,
+          2.44572381
+        ],
+        "size": [
+          6.3727556,
+          7.95323463,
+          4.41539946
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999916553497314,
+        -0.9999999403953552,
+        -0.99518221616745
+      ],
+      "unity_normal_max": [
+        0.9999918937683105,
+        0.9994266629219055,
+        0.8740001320838928
+      ]
+    },
+    {
+      "name": "SM_TG_MeadowOak_LOD2",
+      "mesh_name": "SM_TG_MeadowOak_LOD2",
+      "vertices_before_fbx_seam_splitting": 1443,
+      "polygons_before_triangulation": 1025,
+      "polygons_in_authored_triangulated_mesh": 1710,
+      "expected_triangles_after_export": 1710,
+      "loops": 5130,
+      "bounds_blender_local_metres": {
+        "min": [
+          -3.0112083,
+          -1.8348515,
+          0.0
+        ],
+        "max": [
+          3.36154723,
+          2.44572377,
+          7.94445372
+        ],
+        "size": [
+          6.37275553,
+          4.28057528,
+          7.94445372
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -3.0112083,
+          0.0,
+          -2.44572377
+        ],
+        "max": [
+          3.36154723,
+          7.94445372,
+          1.8348515
+        ],
+        "size": [
+          6.37275553,
+          7.94445372,
+          4.28057528
+        ]
+      },
+      "source_preview_location": [
+        17.0,
+        38.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.2045631408691406,
+          -1.2810134887695312
+        ],
+        "max": [
+          2.54319167137146,
+          7.625016212463379
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          0.89999998,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.999991774559021,
+        -0.9628152847290039,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9999520778656006,
+        0.9628286957740784,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "MeadowOak",
+      "lod": 2,
+      "height": 8.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -3.01120831,
+          0,
+          -1.83485146
+        ],
+        "max": [
+          3.36154729,
+          7.9444535,
+          2.44572381
+        ],
+        "size": [
+          6.3727556,
+          7.9444535,
+          4.28057527
+        ]
+      },
+      "unity_normal_min": [
+        -0.999991774559021,
+        -1.0,
+        -0.9628152847290039
+      ],
+      "unity_normal_max": [
+        0.9999520778656006,
+        1.0000001192092896,
+        0.9628286957740784
+      ]
+    },
+    {
+      "name": "SM_TG_IslandTree_LOD0",
+      "mesh_name": "SM_TG_IslandTree_LOD0",
+      "vertices_before_fbx_seam_splitting": 7368,
+      "polygons_before_triangulation": 4168,
+      "polygons_in_authored_triangulated_mesh": 5712,
+      "expected_triangles_after_export": 5712,
+      "loops": 17136,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.11167324,
+          -1.02794719,
+          0.0
+        ],
+        "max": [
+          3.40420485,
+          1.93651223,
+          6.0
+        ],
+        "size": [
+          4.51587808,
+          2.96445942,
+          6.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.11167324,
+          0.0,
+          -1.93651223
+        ],
+        "max": [
+          3.40420485,
+          6.0,
+          1.02794719
+        ],
+        "size": [
+          4.51587808,
+          6.0,
+          2.96445942
+        ]
+      },
+      "source_preview_location": [
+        34.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.1176915168762207,
+          -1.0335122346878052
+        ],
+        "max": [
+          3.4226341247558594,
+          6.032482147216797
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9991233944892883,
+        -0.9997279047966003,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.999010443687439,
+        0.9997262954711914,
+        0.9915975332260132
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "IslandTree",
+      "lod": 0,
+      "height": 6.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.11167326,
+          0,
+          -1.02794725
+        ],
+        "max": [
+          3.40420481,
+          6.0,
+          1.93651218
+        ],
+        "size": [
+          4.51587807,
+          6.0,
+          2.96445942
+        ]
+      },
+      "unity_normal_min": [
+        -0.9991233944892883,
+        -1.0,
+        -0.9997279047966003
+      ],
+      "unity_normal_max": [
+        0.999010443687439,
+        0.9915975332260132,
+        0.9997262954711914
+      ]
+    },
+    {
+      "name": "SM_TG_IslandTree_LOD1",
+      "mesh_name": "SM_TG_IslandTree_LOD1",
+      "vertices_before_fbx_seam_splitting": 3168,
+      "polygons_before_triangulation": 1156,
+      "polygons_in_authored_triangulated_mesh": 2144,
+      "expected_triangles_after_export": 2144,
+      "loops": 6432,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.06824267,
+          -1.02794719,
+          0.0
+        ],
+        "max": [
+          3.32433295,
+          1.88365388,
+          5.96540499
+        ],
+        "size": [
+          4.39257562,
+          2.91160107,
+          5.96540499
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.06824267,
+          0.0,
+          -1.88365388
+        ],
+        "max": [
+          3.32433295,
+          5.96540499,
+          1.02794719
+        ],
+        "size": [
+          4.39257562,
+          5.96540499,
+          2.91160107
+        ]
+      },
+      "source_preview_location": [
+        34.0,
+        19.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.9832892417907715,
+          -1.0335122346878052
+        ],
+        "max": [
+          3.342329978942871,
+          5.89527702331543
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.54966265,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9990078806877136,
+        -0.9881582260131836,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9990107417106628,
+        0.9712769985198975,
+        0.9892131686210632
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "IslandTree",
+      "lod": 1,
+      "height": 6.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.06824261,
+          0,
+          -1.02794725
+        ],
+        "max": [
+          3.32433307,
+          5.96540488,
+          1.88365388
+        ],
+        "size": [
+          4.39257568,
+          5.96540488,
+          2.91160112
+        ]
+      },
+      "unity_normal_min": [
+        -0.9990078806877136,
+        -1.0,
+        -0.9881582260131836
+      ],
+      "unity_normal_max": [
+        0.9990107417106628,
+        0.9892131686210632,
+        0.9712769985198975
+      ]
+    },
+    {
+      "name": "SM_TG_IslandTree_LOD2",
+      "mesh_name": "SM_TG_IslandTree_LOD2",
+      "vertices_before_fbx_seam_splitting": 1443,
+      "polygons_before_triangulation": 1025,
+      "polygons_in_authored_triangulated_mesh": 1710,
+      "expected_triangles_after_export": 1710,
+      "loops": 5130,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.06824267,
+          -0.89332545,
+          0.0
+        ],
+        "max": [
+          3.31394172,
+          1.88365388,
+          5.92034101
+        ],
+        "size": [
+          4.38218439,
+          2.77697933,
+          5.92034101
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.06824267,
+          0.0,
+          -1.88365388
+        ],
+        "max": [
+          3.31394172,
+          5.92034101,
+          0.89332545
+        ],
+        "size": [
+          4.38218439,
+          5.92034101,
+          2.77697933
+        ]
+      },
+      "source_preview_location": [
+        34.0,
+        38.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.5702023506164551,
+          -0.5641094446182251
+        ],
+        "max": [
+          2.7293777465820312,
+          5.698859214782715
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          0.89999998,
+          0.54303414,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999872446060181,
+        -0.9647247195243835,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9999871253967285,
+        0.9647074937820435,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "IslandTree",
+      "lod": 2,
+      "height": 6.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.06824261,
+          0,
+          -0.89332546
+        ],
+        "max": [
+          3.31394182,
+          5.9203412,
+          1.88365388
+        ],
+        "size": [
+          4.38218443,
+          5.9203412,
+          2.77697934
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999872446060181,
+        -1.0,
+        -0.9647247195243835
+      ],
+      "unity_normal_max": [
+        0.9999871253967285,
+        1.0000001192092896,
+        0.9647074937820435
+      ]
+    },
+    {
+      "name": "SM_TG_WindPine_LOD0",
+      "mesh_name": "SM_TG_WindPine_LOD0",
+      "vertices_before_fbx_seam_splitting": 33452,
+      "polygons_before_triangulation": 27870,
+      "polygons_in_authored_triangulated_mesh": 30928,
+      "expected_triangles_after_export": 30928,
+      "loops": 92784,
+      "bounds_blender_local_metres": {
+        "min": [
+          -2.48262978,
+          -2.17559886,
+          0.0
+        ],
+        "max": [
+          2.59300876,
+          2.12236238,
+          8.0
+        ],
+        "size": [
+          5.07563853,
+          4.29796124,
+          8.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -2.48262978,
+          0.0,
+          -2.12236238
+        ],
+        "max": [
+          2.59300876,
+          8.0,
+          2.17559886
+        ],
+        "size": [
+          5.07563853,
+          8.0,
+          4.29796124
+        ]
+      },
+      "source_preview_location": [
+        51.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.5778446197509766,
+          -2.259038209915161
+        ],
+        "max": [
+          2.6924567222595215,
+          8.306818962097168
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999998211860657,
+        -0.9999087452888489,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9999998807907104,
+        0.9999088644981384,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "WindPine",
+      "lod": 0,
+      "height": 8.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -2.48262988,
+          0,
+          -2.17559884
+        ],
+        "max": [
+          2.59300869,
+          8.0,
+          2.12236228
+        ],
+        "size": [
+          5.07563857,
+          8.0,
+          4.29796112
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999998211860657,
+        -1.0,
+        -0.9999087452888489
+      ],
+      "unity_normal_max": [
+        0.9999998807907104,
+        1.0000001192092896,
+        0.9999088644981384
+      ]
+    },
+    {
+      "name": "SM_TG_WindPine_LOD1",
+      "mesh_name": "SM_TG_WindPine_LOD1",
+      "vertices_before_fbx_seam_splitting": 10006,
+      "polygons_before_triangulation": 4308,
+      "polygons_in_authored_triangulated_mesh": 7440,
+      "expected_triangles_after_export": 7440,
+      "loops": 22320,
+      "bounds_blender_local_metres": {
+        "min": [
+          -2.48262978,
+          -2.1733427,
+          0.0
+        ],
+        "max": [
+          2.59300876,
+          2.12236238,
+          7.92402411
+        ],
+        "size": [
+          5.07563853,
+          4.29570508,
+          7.92402411
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -2.48262978,
+          0.0,
+          -2.12236238
+        ],
+        "max": [
+          2.59300876,
+          7.92402411,
+          2.1733427
+        ],
+        "size": [
+          5.07563853,
+          7.92402411,
+          4.29570508
+        ]
+      },
+      "source_preview_location": [
+        51.0,
+        19.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.5778446197509766,
+          -2.256695508956909
+        ],
+        "max": [
+          2.6924567222595215,
+          8.22792911529541
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999556541442871,
+        -0.9999738335609436,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9999555349349976,
+        0.999974250793457,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "WindPine",
+      "lod": 1,
+      "height": 8.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -2.48262988,
+          0,
+          -2.17334267
+        ],
+        "max": [
+          2.59300869,
+          7.92402401,
+          2.12236228
+        ],
+        "size": [
+          5.07563857,
+          7.92402401,
+          4.29570495
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999556541442871,
+        -1.0,
+        -0.9999738335609436
+      ],
+      "unity_normal_max": [
+        0.9999555349349976,
+        1.0000001192092896,
+        0.999974250793457
+      ]
+    },
+    {
+      "name": "SM_TG_WindPine_LOD2",
+      "mesh_name": "SM_TG_WindPine_LOD2",
+      "vertices_before_fbx_seam_splitting": 1793,
+      "polygons_before_triangulation": 1965,
+      "polygons_in_authored_triangulated_mesh": 2950,
+      "expected_triangles_after_export": 2950,
+      "loops": 8850,
+      "bounds_blender_local_metres": {
+        "min": [
+          -2.05234981,
+          -1.79275644,
+          0.0
+        ],
+        "max": [
+          2.23604083,
+          1.69338238,
+          7.644804
+        ],
+        "size": [
+          4.28839064,
+          3.48613882,
+          7.644804
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -2.05234981,
+          0.0,
+          -1.69338238
+        ],
+        "max": [
+          2.23604083,
+          7.644804,
+          1.79275644
+        ],
+        "size": [
+          4.28839064,
+          7.644804,
+          3.48613882
+        ]
+      },
+      "source_preview_location": [
+        51.0,
+        38.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.09730863571167,
+          -1.7910480499267578
+        ],
+        "max": [
+          2.2398288249969482,
+          7.890487194061279
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.5431959,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9994313716888428,
+        -0.9598957300186157,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9973682761192322,
+        0.9742040038108826,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "WindPine",
+      "lod": 2,
+      "height": 8.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -2.05234979,
+          0,
+          -1.79275644
+        ],
+        "max": [
+          2.23604086,
+          7.64480385,
+          1.69338238
+        ],
+        "size": [
+          4.28839065,
+          7.64480385,
+          3.48613882
+        ]
+      },
+      "unity_normal_min": [
+        -0.9994313716888428,
+        -1.0,
+        -0.9598957300186157
+      ],
+      "unity_normal_max": [
+        0.9973682761192322,
+        1.0000001192092896,
+        0.9742040038108826
+      ]
+    },
+    {
+      "name": "SM_TG_YoungPine_LOD0",
+      "mesh_name": "SM_TG_YoungPine_LOD0",
+      "vertices_before_fbx_seam_splitting": 33452,
+      "polygons_before_triangulation": 27870,
+      "polygons_in_authored_triangulated_mesh": 30928,
+      "expected_triangles_after_export": 30928,
+      "loops": 92784,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.40214658,
+          -1.48216724,
+          0.0
+        ],
+        "max": [
+          1.58968687,
+          1.75846183,
+          6.0
+        ],
+        "size": [
+          2.99183345,
+          3.24062908,
+          6.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.40214658,
+          0.0,
+          -1.75846183
+        ],
+        "max": [
+          1.58968687,
+          6.0,
+          1.48216724
+        ],
+        "size": [
+          2.99183345,
+          6.0,
+          3.24062908
+        ]
+      },
+      "source_preview_location": [
+        68.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.4678949117660522,
+          -1.5516678094863892
+        ],
+        "max": [
+          1.664229154586792,
+          6.281347274780273
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999808669090271,
+        -0.9999417662620544,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9999806880950928,
+        0.9999090433120728,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "YoungPine",
+      "lod": 0,
+      "height": 6.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.40214656,
+          0,
+          -1.48216719
+        ],
+        "max": [
+          1.58968681,
+          6.0,
+          1.75846189
+        ],
+        "size": [
+          2.99183337,
+          6.0,
+          3.24062909
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999808669090271,
+        -1.0,
+        -0.9999417662620544
+      ],
+      "unity_normal_max": [
+        0.9999806880950928,
+        1.0000001192092896,
+        0.9999090433120728
+      ]
+    },
+    {
+      "name": "SM_TG_YoungPine_LOD1",
+      "mesh_name": "SM_TG_YoungPine_LOD1",
+      "vertices_before_fbx_seam_splitting": 10006,
+      "polygons_before_triangulation": 4308,
+      "polygons_in_authored_triangulated_mesh": 7440,
+      "expected_triangles_after_export": 7440,
+      "loops": 22320,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.3723712,
+          -1.48216724,
+          0.0
+        ],
+        "max": [
+          1.57978261,
+          1.75846183,
+          5.93484211
+        ],
+        "size": [
+          2.9521538,
+          3.24062908,
+          5.93484211
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.3723712,
+          0.0,
+          -1.75846183
+        ],
+        "max": [
+          1.57978261,
+          5.93484211,
+          1.48216724
+        ],
+        "size": [
+          2.9521538,
+          5.93484211,
+          3.24062908
+        ]
+      },
+      "source_preview_location": [
+        68.0,
+        19.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.4367233514785767,
+          -1.5516678094863892
+        ],
+        "max": [
+          1.6538605690002441,
+          6.213134288787842
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999883770942688,
+        -0.9999802112579346,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9999881386756897,
+        0.9999801516532898,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "YoungPine",
+      "lod": 1,
+      "height": 6.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.3723712,
+          0,
+          -1.48216719
+        ],
+        "max": [
+          1.57978265,
+          5.93484234,
+          1.75846189
+        ],
+        "size": [
+          2.95215385,
+          5.93484234,
+          3.24062909
+        ]
+      },
+      "unity_normal_min": [
+        -0.9999883770942688,
+        -1.0,
+        -0.9999802112579346
+      ],
+      "unity_normal_max": [
+        0.9999881386756897,
+        1.0000001192092896,
+        0.9999801516532898
+      ]
+    },
+    {
+      "name": "SM_TG_YoungPine_LOD2",
+      "mesh_name": "SM_TG_YoungPine_LOD2",
+      "vertices_before_fbx_seam_splitting": 1793,
+      "polygons_before_triangulation": 1965,
+      "polygons_in_authored_triangulated_mesh": 2950,
+      "expected_triangles_after_export": 2950,
+      "loops": 8850,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.02949524,
+          -1.1356591,
+          0.0
+        ],
+        "max": [
+          1.26195538,
+          1.40595198,
+          5.6868372
+        ],
+        "size": [
+          2.29145062,
+          2.54161108,
+          5.6868372
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.02949524,
+          0.0,
+          -1.40595198
+        ],
+        "max": [
+          1.26195538,
+          5.6868372,
+          1.1356591
+        ],
+        "size": [
+          2.29145062,
+          5.6868372,
+          2.54161108
+        ]
+      },
+      "source_preview_location": [
+        68.0,
+        38.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.1336911916732788,
+          -1.1455522775650024
+        ],
+        "max": [
+          1.4066561460494995,
+          5.915188312530518
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.54319584,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9996545910835266,
+        -0.9899318218231201,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9989866018295288,
+        0.9812304973602295,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "YoungPine",
+      "lod": 2,
+      "height": 6.0,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.02949524,
+          0,
+          -1.13565912
+        ],
+        "max": [
+          1.26195542,
+          5.68683711,
+          1.40595197
+        ],
+        "size": [
+          2.29145066,
+          5.68683711,
+          2.5416111
+        ]
+      },
+      "unity_normal_min": [
+        -0.9996545910835266,
+        -1.0,
+        -0.9899318218231201
+      ],
+      "unity_normal_max": [
+        0.9989866018295288,
+        1.0000001192092896,
+        0.9812304973602295
+      ]
+    },
+    {
+      "name": "SM_TG_Shrub_LOD0",
+      "mesh_name": "SM_TG_Shrub_LOD0",
+      "vertices_before_fbx_seam_splitting": 4170,
+      "polygons_before_triangulation": 2304,
+      "polygons_in_authored_triangulated_mesh": 3120,
+      "expected_triangles_after_export": 3120,
+      "loops": 9360,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.24613798,
+          -0.96019244,
+          0.0
+        ],
+        "max": [
+          1.32151747,
+          1.03614569,
+          1.79999995
+        ],
+        "size": [
+          2.56765544,
+          1.99633813,
+          1.79999995
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.24613798,
+          0.0,
+          -1.03614569
+        ],
+        "max": [
+          1.32151747,
+          1.79999995,
+          0.96019244
+        ],
+        "size": [
+          2.56765544,
+          1.79999995,
+          1.99633813
+        ]
+      },
+      "source_preview_location": [
+        85.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.357059121131897,
+          -1.0456609725952148
+        ],
+        "max": [
+          1.439148187637329,
+          1.9602214097976685
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.991898775100708,
+        -0.9965981841087341,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9989566206932068,
+        0.9965938329696655,
+        0.9941554069519043
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "Shrub",
+      "lod": 0,
+      "height": 1.8,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.24613802,
+          0,
+          -0.96019243
+        ],
+        "max": [
+          1.32151742,
+          1.8,
+          1.03614565
+        ],
+        "size": [
+          2.56765543,
+          1.8,
+          1.99633807
+        ]
+      },
+      "unity_normal_min": [
+        -0.991898775100708,
+        -1.0,
+        -0.9965981841087341
+      ],
+      "unity_normal_max": [
+        0.9989566206932068,
+        0.9941554069519043,
+        0.9965938329696655
+      ]
+    },
+    {
+      "name": "SM_TG_Shrub_LOD1",
+      "mesh_name": "SM_TG_Shrub_LOD1",
+      "vertices_before_fbx_seam_splitting": 1710,
+      "polygons_before_triangulation": 546,
+      "polygons_in_authored_triangulated_mesh": 1056,
+      "expected_triangles_after_export": 1056,
+      "loops": 3168,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.18383992,
+          -0.96019244,
+          0.0
+        ],
+        "max": [
+          1.31292224,
+          1.01282942,
+          1.74434531
+        ],
+        "size": [
+          2.49676216,
+          1.97302186,
+          1.74434531
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.18383992,
+          0.0,
+          -1.01282942
+        ],
+        "max": [
+          1.31292224,
+          1.74434531,
+          0.96019244
+        ],
+        "size": [
+          2.49676216,
+          1.74434531,
+          1.97302186
+        ]
+      },
+      "source_preview_location": [
+        85.0,
+        19.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.2801973819732666,
+          -1.0456609725952148
+        ],
+        "max": [
+          1.4297879934310913,
+          1.8580591678619385
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9759408831596375,
+        -0.9817683696746826,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9989563226699829,
+        0.9428629279136658,
+        0.9849640727043152
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "Shrub",
+      "lod": 1,
+      "height": 1.8,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.18383997,
+          0,
+          -0.96019243
+        ],
+        "max": [
+          1.31292229,
+          1.7443453,
+          1.01282938
+        ],
+        "size": [
+          2.49676226,
+          1.7443453,
+          1.9730218
+        ]
+      },
+      "unity_normal_min": [
+        -0.9759408831596375,
+        -1.0,
+        -0.9817683696746826
+      ],
+      "unity_normal_max": [
+        0.9989563226699829,
+        0.9849640727043152,
+        0.9428629279136658
+      ]
+    },
+    {
+      "name": "SM_TG_Shrub_LOD2",
+      "mesh_name": "SM_TG_Shrub_LOD2",
+      "vertices_before_fbx_seam_splitting": 705,
+      "polygons_before_triangulation": 492,
+      "polygons_in_authored_triangulated_mesh": 834,
+      "expected_triangles_after_export": 834,
+      "loops": 2502,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.18383992,
+          -0.91102493,
+          0.0
+        ],
+        "max": [
+          1.22437942,
+          1.01220143,
+          1.74434531
+        ],
+        "size": [
+          2.40821934,
+          1.92322636,
+          1.74434531
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.18383992,
+          0.0,
+          -1.01220143
+        ],
+        "max": [
+          1.22437942,
+          1.74434531,
+          0.91102493
+        ],
+        "size": [
+          2.40821934,
+          1.74434531,
+          1.92322636
+        ]
+      },
+      "source_preview_location": [
+        85.0,
+        38.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.9247547388076782,
+          -0.6871058940887451
+        ],
+        "max": [
+          1.043590784072876,
+          1.4032435417175293
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.41,
+          1.0
+        ],
+        "rgba_max": [
+          0.89999998,
+          0.55000001,
+          0.41,
+          1.0
+        ],
+        "meaning": "R=0 wood/core/leaf attachment, 0..1 leaf flutter; G=.55*(height/speciesHeight)^1.6 continuous on wood and foliage; B=.41 stable phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.993945300579071,
+        -0.9532288312911987,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9939470291137695,
+        0.9532382488250732,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "Shrub",
+      "lod": 2,
+      "height": 1.8,
+      "bounds_unity_local_metres": {
+        "min": [
+          -1.18383997,
+          0,
+          -0.91102493
+        ],
+        "max": [
+          1.22437944,
+          1.7443453,
+          1.01220148
+        ],
+        "size": [
+          2.4082194,
+          1.7443453,
+          1.92322641
+        ]
+      },
+      "unity_normal_min": [
+        -0.993945300579071,
+        -1.0,
+        -0.9532288312911987
+      ],
+      "unity_normal_max": [
+        0.9939470291137695,
+        1.0000001192092896,
+        0.9532382488250732
+      ]
+    },
+    {
+      "name": "SM_TG_TreeAxisMarker",
+      "mesh_name": "SM_TG_TreeAxisMarker",
+      "vertices_before_fbx_seam_splitting": 56,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 84,
+      "expected_triangles_after_export": 84,
+      "loops": 252,
+      "bounds_blender_local_metres": {
+        "min": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.0,
+          0.102
+        ],
+        "size": [
+          2.0,
+          1.0,
+          0.102
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          1.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        -5.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.10199999809265137
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "Rigid orientation proof"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_slots": [
+        "Bark",
+        "Leaf",
+        "LeafLight",
+        "LeafSpray",
+        "LeafSprayLight"
+      ],
+      "species": "diagnostic",
+      "lod": 0,
+      "bounds_unity_local_metres": {
+        "min": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          0.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      }
+    }
+  ],
+  "geometry_policy": "Inset closed scalloped canopy support volumes, pointed folded geometric leaves and curved alpha-clipped broadleaf sprays. Pines use geometry only. No baked sun direction.",
+  "normal_policy": "Analytical ellipsoid envelope normals, softened upward. Explicit triangle normals before FBX. Import normals; do not recalculate.",
+  "lod_policy": "Same clump/branch records and scale per species; reduce surface subdivisions, retain every fourth geometric source leaf in LOD1; broadleaf sprays keep every second record in LOD1/every fourth in LOD2. Pines LOD2 use the closed branch envelopes."
+}

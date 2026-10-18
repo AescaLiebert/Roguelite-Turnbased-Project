@@ -165,7 +165,8 @@ namespace FightingAllstar.Presentation.Combat
             if (!TryView(id, out var view)) return;
             var burst = CreateEnergy(FighterGroundPosition(view), color, false, FighterRadius(view) + .25f);
             _bursts.Add(burst);
-            Destroy(burst, .85f);
+            if (Application.isPlaying) Destroy(burst, .85f);
+            else DestroyImmediate(burst);
             _bursts.RemoveAll(item => item == null);
         }
 

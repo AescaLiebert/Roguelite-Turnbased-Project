@@ -1,0 +1,177 @@
+{
+    "passed": true,
+    "hashMatch": true,
+    "meshes": [
+        {
+            "name": "SM_ShortGrass_LOD0",
+            "passed": true,
+            "triangles": 112,
+            "vertices": 144,
+            "submeshes": 1,
+            "boundsError": 1.4901161193847657e-8,
+            "normalError": 2.9802322387695315e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_ShortGrass_LOD1",
+            "passed": true,
+            "triangles": 25,
+            "vertices": 35,
+            "submeshes": 1,
+            "boundsError": 1.4901161193847657e-8,
+            "normalError": 2.9802322387695315e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowGrass_LOD0",
+            "passed": true,
+            "triangles": 154,
+            "vertices": 198,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowGrass_LOD1",
+            "passed": true,
+            "triangles": 35,
+            "vertices": 49,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 5.960464477539063e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_TallGrass_LOD0",
+            "passed": true,
+            "triangles": 126,
+            "vertices": 162,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 5.960464477539063e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_TallGrass_LOD1",
+            "passed": true,
+            "triangles": 30,
+            "vertices": 42,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 5.960464477539063e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_AccentGrass_LOD0",
+            "passed": true,
+            "triangles": 70,
+            "vertices": 90,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_AccentGrass_LOD1",
+            "passed": true,
+            "triangles": 20,
+            "vertices": 28,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 5.960464477539063e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_Clover_LOD0",
+            "passed": true,
+            "triangles": 294,
+            "vertices": 336,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_Clover_LOD1",
+            "passed": true,
+            "triangles": 90,
+            "vertices": 114,
+            "submeshes": 1,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_DaisyWhite_LOD0",
+            "passed": true,
+            "triangles": 174,
+            "vertices": 237,
+            "submeshes": 3,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_DaisyWhite_LOD1",
+            "passed": true,
+            "triangles": 70,
+            "vertices": 100,
+            "submeshes": 3,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 5.960464477539063e-8,
+            "errors": []
+        },
+        {
+            "name": "SM_FlowerGold_LOD0",
+            "passed": true,
+            "triangles": 156,
+            "vertices": 207,
+            "submeshes": 2,
+            "boundsError": 0.0,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_FlowerGold_LOD1",
+            "passed": true,
+            "triangles": 64,
+            "vertices": 90,
+            "submeshes": 2,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_FlowerPurple_LOD0",
+            "passed": true,
+            "triangles": 376,
+            "vertices": 568,
+            "submeshes": 3,
+            "boundsError": 2.9802322387695315e-8,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_FlowerPurple_LOD1",
+            "passed": true,
+            "triangles": 94,
+            "vertices": 144,
+            "submeshes": 3,
+            "boundsError": 7.450580596923828e-9,
+            "normalError": 1.1920928955078126e-7,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowAxisMarker",
+            "passed": true,
+            "triangles": 84,
+            "vertices": 162,
+            "submeshes": 3,
+            "boundsError": 0.0,
+            "normalError": 0.0,
+            "errors": []
+        }
+    ],
+    "method": "Actual imported raw FBX meshes compared with authored axis/bounds, triangle, UV0, numerical mask and normal-range manifest. Does not prove per-loop correspondence; Unity captures supply visual review."
+}

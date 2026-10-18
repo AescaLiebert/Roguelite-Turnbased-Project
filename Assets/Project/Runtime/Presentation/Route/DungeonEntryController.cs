@@ -68,7 +68,7 @@ namespace FightingAllstar.Presentation.Route
             AccountHeaderView.Bind(_root, () =>
             {
                 if (_busy) return;
-                _busy = true; _root.SetEnabled(false); SceneManager.LoadScene("MainMenu");
+                _busy = true; _root.SetEnabled(false); FightingAllstar.Presentation.ScreenMotion.LoadScene("MainMenu");
             });
             _root.Q<Button>("close-configuration").clicked += CloseConfiguration;
             var cancel = _root.Q<Button>("cancel-configuration");
@@ -98,7 +98,7 @@ namespace FightingAllstar.Presentation.Route
         private void OpenPreview()
         {
             if (_busy) return;
-            Refresh(); ScreenMotion.Show(_modal); _browser.SetEnabled(false); _root.Q<Button>("close-configuration").Focus();
+            Refresh(); ScreenMotion.ShowModal(_modal); _browser.SetEnabled(false); _root.Q<Button>("close-configuration").Focus();
         }
         private void CloseConfiguration()
         {

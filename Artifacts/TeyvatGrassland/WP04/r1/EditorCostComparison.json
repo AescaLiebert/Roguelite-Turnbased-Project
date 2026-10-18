@@ -1,0 +1,38 @@
+{
+    "gpu": "AMD Radeon(TM) Graphics",
+    "cpu": "AMD Ryzen 5 4600G with Radeon Graphics",
+    "unity": "6000.3.4f1",
+    "context": "Windows isolated URP/Linear Editor, identical static planning camera, accepted4xMSAA settings, same fixed windtime.4warmups+12 synchronized render requests per case. GPU readback forces completion; CPU stopwatch includes render, driver/editor overhead and1pixel readback. Runtime Prepare and API submission CPU counters shown separately.",
+    "limitations": "Not player frame time or FPS, no GPU timestamp query, animation/gameplay/transparent VFX absent. API submissions are not hardware drawcalls. Minimum PC hardware, display target and standalone build remain WP09 acceptance dependencies.",
+    "width": 1600,
+    "height": 900,
+    "samplesPerCase": 12,
+    "cases": [
+        {
+            "meadowEnabled": false,
+            "medianRenderAndReadbackMs": 12.930200000000001,
+            "minRenderAndReadbackMs": 10.3002,
+            "maxRenderAndReadbackMs": 19.7528,
+            "medianPrepareMs": 0.0,
+            "medianSubmissionMs": 0.0,
+            "instances": 0,
+            "lod0": 0,
+            "lod1": 0,
+            "apiSubmissions": 0,
+            "submittedTriangles": 0
+        },
+        {
+            "meadowEnabled": true,
+            "medianRenderAndReadbackMs": 32.2395,
+            "minRenderAndReadbackMs": 29.013900000000004,
+            "maxRenderAndReadbackMs": 34.8442,
+            "medianPrepareMs": 6.0697,
+            "medianSubmissionMs": 0.7165,
+            "instances": 13311,
+            "lod0": 7989,
+            "lod1": 5322,
+            "apiSubmissions": 48,
+            "submittedTriangles": 1241379
+        }
+    ]
+}

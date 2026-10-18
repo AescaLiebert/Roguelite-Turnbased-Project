@@ -1,0 +1,114 @@
+{
+    "context": "Editor offscreen static proxy review. This summary checks existing scene colliders; use CameraEnvelopeReview for all visual modules and native terrain height samples. Triangle count covers MeshFilters only, excluding dynamically tessellated TerrainData. Not gameplay or player-build performance acceptance.",
+    "renderers": 839,
+    "triangles": 86540,
+    "nativeTerrains": 1,
+    "terrainHeightmapResolutions": [
+        513
+    ],
+    "gpu": "AMD Radeon(TM) Graphics",
+    "cameras": [
+        {
+            "name": "TG_PlayerPlanning",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyPlanning",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReferencePlanningCandidate",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReversePlanningCandidate",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnvironmentOverview",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_PlayerAttack",
+            "visibleActors": 5,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyAttack",
+            "visibleActors": 4,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_PlayerContact",
+            "visibleActors": 3,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyContact",
+            "visibleActors": 3,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_PlayerPortrait",
+            "visibleActors": 2,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyPortrait",
+            "visibleActors": 2,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_WideMultiTarget",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReverseOverview",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReferenceFrontLeft",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReferenceFrontRight",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReferenceSide",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReferenceRear",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        }
+    ]
+}

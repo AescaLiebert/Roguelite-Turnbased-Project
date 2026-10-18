@@ -1,0 +1,461 @@
+{
+  "schema": "TG_WP04_Handoff_v1",
+  "revision": "WP04-r1",
+  "generatedUtc": "2026-10-18T12:24:03.248896+00:00",
+  "status": "Meadow module and isolated review; not final integrated map or reference parity",
+  "userDirection": "Dense clustered short grass permitted throughout battlefield and at character positions; taller accents and flower patches at borders",
+  "dependencies": [
+    "WP01-r2 spatial frame",
+    "WP02-r1 shared material/color/wind",
+    "WP03-r1 terrain and geometry",
+    "Unity6000.3.4f1/URP17.3 Forward Linear",
+    "Blender5.1.1 for source regeneration"
+  ],
+  "report": {
+    "passed": true,
+    "imports": true,
+    "placement": true,
+    "camera": true,
+    "terrain": true,
+    "wind": true,
+    "gpuCoverage": true,
+    "shaders": true,
+    "missingScripts": 0,
+    "placements": 25521,
+    "cells": 240,
+    "species": 8,
+    "cameras": 21,
+    "unity": "6000.3.4f1",
+    "gpu": "AMD Radeon(TM) Graphics",
+    "context": "Isolated URP Forward Linear Windows Editor; static copied actor proxies.",
+    "limitations": "WP04 module, not final map. Trees, water, lighting remain WP01/WP02 context for WP05/WP06/WP08. Actual animated combat and minimum-PC player performance remain WP07/WP09. Distance thresholds are starting values reviewed in captures."
+  },
+  "coldReloadPassed": true,
+  "preservationPassed": true,
+  "unitypackage": {
+    "path": "Artifacts/TeyvatGrassland/WP04/r1/TG_WP04_Meadow.unitypackage",
+    "bytes": 10959643,
+    "sha256": "22c7eeecd3a104a3236069e817aa8bd89d1f549abce4f8107b7a76211e628c42",
+    "assets": 578,
+    "noMainProjectSettingsOrBattle": true
+  },
+  "editableSource": {
+    "path": "Artifacts/TeyvatGrassland/WP04/r1/TG_WP04_EditableSource.zip",
+    "bytes": 439194,
+    "sha256": "8e0b48df450867c7573da18b30700766112f399b068cbb380152d9ae42a6d039",
+    "files": 18,
+    "note": "Requires accepted WP01/WP02/WP03 Unity inputs from repository or delivered module dependencies; not a standalone project"
+  },
+  "files": [
+    {
+      "path": "ArtDirection/TeyvatGrasslandConcepts/WP04_Meadow.md",
+      "bytes": 11638,
+      "sha256": "71045e9f7c09a8789c083dba87166cf47e2c8e8d917544d0c5604a2d8eead871"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Meadow/create_meadow_kit.py",
+      "bytes": 22734,
+      "sha256": "7f4b408d8803db950cbf88555ef01ba03c19c6b488e6b83b5ca258bafdba999e"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Meadow/README.md",
+      "bytes": 2751,
+      "sha256": "b67c5922eaf2eea3ff63ad083df09f1654e53b7b034886d7db7f80c7ae02f36c"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Meadow/TG_MeadowKit.blend",
+      "bytes": 166237,
+      "sha256": "c7830a1f1ae3810968713859cacf6a54eb1b6c51f6954f1bd3c5da65076a5036"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Meadow/TG_MeadowKit.fbx",
+      "bytes": 252220,
+      "sha256": "841b6baab68e9e7b598f563f70b1ab19722628c4288ec03eed1e08256551a970"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Meadow/TG_MeadowKit.manifest.json",
+      "bytes": 61364,
+      "sha256": "b0c71a2e953412f696f8b5ef3b6276489ce6e7a3c13d54c60e81428be41b4996"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Data/TG_MeadowDensityPolicy.json",
+      "bytes": 419,
+      "sha256": "d39653c4d05b2125e962b54baa28ec0e23df0ff6f96c2b7ea6ae1ff2c5e4370d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Data/TG_MeadowDensityPolicy.json.meta",
+      "bytes": 158,
+      "sha256": "2f943a3c2c38f2d0cbd0ad1e671c0a8ab2ae213da45db9cd5e6440ef7e105d31"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Data/TG_MeadowPlacement.asset",
+      "bytes": 10021217,
+      "sha256": "f98c8332a411a0659e27b9dcaa0a1807af89b4988cd9b356c000058b2fc30328"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Data/TG_MeadowPlacement.asset.meta",
+      "bytes": 189,
+      "sha256": "2381ffb6b9c9f457a447bbfcb008f08a68e8d5f4ca157b802da1548bcaf5b196"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Data.meta",
+      "bytes": 172,
+      "sha256": "2b603c2970ae201790b71bae816f9d77a7355384a2c7999d64a39609338697d1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_Gold.mat",
+      "bytes": 1223,
+      "sha256": "83f8276d4f72264e7f877c295f045238a31cddc33864c77fda4fa05080d88038"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_Gold.mat.meta",
+      "bytes": 188,
+      "sha256": "7f193690e92ca6e4ce96cc9ef7bed6708bd1af4d4f39f169384865a63e6d7b69"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_Grass.mat",
+      "bytes": 1225,
+      "sha256": "b6f6bdbbc90865145ef41acc65849ec32d0f26c5632ba693870d406d4a10450d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_Grass.mat.meta",
+      "bytes": 188,
+      "sha256": "fc595171ddacc9b47beba39b57d5bae784b1c3bdc9a0561836f5d9526d33b617"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_Purple.mat",
+      "bytes": 1226,
+      "sha256": "8502c6fd778b53f822ec6d9d351205c8e2b65f5392647b23be9dbd440f50dd8e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_Purple.mat.meta",
+      "bytes": 188,
+      "sha256": "fd6b5e6d663dca3e1afb10dc105ed20d8855481e3309f8ca97a1831e0d78e70e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_White.mat",
+      "bytes": 1225,
+      "sha256": "2b6e5f1cfcf4027a542cc081bf2d4e498c56764e4b4c743d13c8b7b17e94da2f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials/TG_Meadow_White.mat.meta",
+      "bytes": 188,
+      "sha256": "b5120eb03b78eb869d823b666c202b9f02917258cae5ed07a82a058e55e1a1cd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Materials.meta",
+      "bytes": 172,
+      "sha256": "15a2ff9950aae1a12c3bd03781af321d778db5ffe811bfb9862770ada7bd88ee"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_AccentGrass_LOD0_Animated.asset",
+      "bytes": 13725,
+      "sha256": "31ad01bdad568ba5873df4b845ada06f91c0ca01484ed71402c19fb51020dec6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_AccentGrass_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "2424380da568a3880dd39c1d80c8cad00c09a81ce344dd73e96e56cdd1334635"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_AccentGrass_LOD1_Animated.asset",
+      "bytes": 6677,
+      "sha256": "51f65b3a953e8cb04f808defe02d399c1bb98372bc138b054f99bcfdcab6c61f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_AccentGrass_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "7c6b110d76a4533577dbe86500e85cbdb715ed683b9307706cd0c87a839b9b5a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_Clover_LOD0_Animated.asset",
+      "bytes": 42002,
+      "sha256": "fa9a5a91fb57cdef0a6771cb3b58e12af8859e020810ae821462086965671cd9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_Clover_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "6e85bfc1314c94acb3bbbdd7e98de8905e41b13e6a67f1cc3da25bc2d948b5eb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_Clover_LOD1_Animated.asset",
+      "bytes": 16473,
+      "sha256": "7c76ad907c56f4a580acffa2c65238b06ac89fbd110349427fe8a98500b0583a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_Clover_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "af9dac4ebea7db3c6c33dce452afdcb612da2e8854aec17f9b5ed948b44a30af"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_DaisyWhite_LOD0_Animated.asset",
+      "bytes": 31081,
+      "sha256": "a885f1924f7d1ef88350f9f7f9f98e9f836d4a93386cceb919bd99bda6d447d1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_DaisyWhite_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "a702b6c7b6346e8b44810086d48ed29837b68994af768e3522d440a1ed57edee"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_DaisyWhite_LOD1_Animated.asset",
+      "bytes": 15591,
+      "sha256": "6e1f8b438edeb93bc715a8776ea3397e863d2c91a7461fcf63c1fb583c80141f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_DaisyWhite_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "d3a23800a798d833fcc9ad329f8f155677ab053d9695d7959594dc8b5b71c7b2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerGold_LOD0_Animated.asset",
+      "bytes": 27340,
+      "sha256": "4ff2d2c0652248d33042e4fe86a34f6aa9cffadfe6bbb0ab496fe9262f6cd505"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerGold_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "8b835eb55bbc8f90594a22ec01cf0e384d77e1e49fc578bf346ff030b1354ab8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerGold_LOD1_Animated.asset",
+      "bytes": 14064,
+      "sha256": "f697a300ae88e075a9322187916f30349c8fd341421b3eee831cbfef0614d181"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerGold_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "a20b1202a05451ff1e1aa667d8aa50ca4d2f32c45199307fb51123566f2b67a4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerPurple_LOD0_Animated.asset",
+      "bytes": 67938,
+      "sha256": "8ffa5da1df1055bd7eb8ccd5803aff4b807044212f30ccd8fde25ed7792240ee"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerPurple_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "6a4caf9abd8754b72e7ffa79b692cf3ca7fdee9c6c30d8f6778e0cb17c5eb941"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerPurple_LOD1_Animated.asset",
+      "bytes": 20432,
+      "sha256": "f5f64f4dab015fac3c9dd7fc1f5542cefa2f00e18c6319d127865b986ca8506b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_FlowerPurple_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "7fa9255af4450ba4e71cadfb4e41891689a79bf3021179501f63807d7a53ebf9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_MeadowGrass_LOD0_Animated.asset",
+      "bytes": 25965,
+      "sha256": "1e4705ab122d89c147a871e750343de30d36ea391a5908bbd412b8b4f654eb72"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_MeadowGrass_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "b611fc8849e4cb22d4e02642e373e278c46c9d48686337edf5a7d6e791a9bdd4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_MeadowGrass_LOD1_Animated.asset",
+      "bytes": 9037,
+      "sha256": "0029d132dc8b69074520de3d134561a7f832f4b0ad98001b7a949f9da896cb0a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_MeadowGrass_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "26f2e08ea0203207dcb12855b0a702bc98dd56a8e89971db3bcc4c0dedd9da88"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_ShortGrass_LOD0_Animated.asset",
+      "bytes": 19836,
+      "sha256": "305aa2708d26a93b6979cb3fb187bf4bf244985bd426074dc81a109fd1218fdb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_ShortGrass_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "f077ac2778720a2212ea7f846111b06e21bab3d60bb0896748775fdf274fe7c6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_ShortGrass_LOD1_Animated.asset",
+      "bytes": 7458,
+      "sha256": "256d38cfb953858ab46125dab98ee7b37930389077e8170a280478b3164f55b0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_ShortGrass_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "a0625cd985e354de48a5a98589783927631af9c6e74485b944c44796eb8f2163"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_TallGrass_LOD0_Animated.asset",
+      "bytes": 21879,
+      "sha256": "47a82995331f58edf37e156dc44a7cdf41aa774d69fc35d52ad2d74983ac5758"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_TallGrass_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "3311e21fb4b4ecc80125328f15babfd3a65b4b98147cbd18216fb7bd5ab89d96"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_TallGrass_LOD1_Animated.asset",
+      "bytes": 8246,
+      "sha256": "2d5a3afe56988fa936bd5855864f4b6569a2bf03540a09baf0ae9c5b1ed3cd0e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes/SM_TallGrass_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "46c2d3ac1e21a68c617e0b5f5bcb557bf65b2d582a6b0cc49ea47ce23d2cfa94"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Meshes.meta",
+      "bytes": 172,
+      "sha256": "57cbec6f9027dc8b07b47ab9c5a6372fe09f02c390756e1c7dbe1356950d874d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Models/TG_MeadowKit.fbx",
+      "bytes": 252220,
+      "sha256": "841b6baab68e9e7b598f563f70b1ab19722628c4288ec03eed1e08256551a970"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Models/TG_MeadowKit.fbx.meta",
+      "bytes": 2880,
+      "sha256": "04cfa1ea239b62e20a5a53a3ab30d9fb2f7cd92dedb2258276f2d051758099eb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Models/TG_MeadowKit.manifest.json",
+      "bytes": 61364,
+      "sha256": "b0c71a2e953412f696f8b5ef3b6276489ce6e7a3c13d54c60e81428be41b4996"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Models/TG_MeadowKit.manifest.json.meta",
+      "bytes": 158,
+      "sha256": "ae2cfdfb6f5978a2463526ae2c5a6abf708780ba5b8da56f91707ca4b5a27b3e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Models.meta",
+      "bytes": 172,
+      "sha256": "71b3f27126c10b818369df3d3d3a739cb97c87c1d316a13abb04a9cce0a15691"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Prefabs/TG_Meadow.prefab",
+      "bytes": 1563,
+      "sha256": "66f530d17135fd6d691623c52491e5a13908927075aea27f4f310deefdebed76"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Prefabs/TG_Meadow.prefab.meta",
+      "bytes": 154,
+      "sha256": "bfeae437ffc0dc4558b9777073831dd318d2d2b7dc99aaf8b00378329a9bf088"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Prefabs.meta",
+      "bytes": 172,
+      "sha256": "566afaa49a146d8bf16b5189e0a6fff1a20b9eee6baa2cd4f6c93f0aa5119b5e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/README.md",
+      "bytes": 3773,
+      "sha256": "d121cb75c3ccb098d96aa05daaedd95f6437e838ffd5d49bbec91f873922c3ae"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/README.md.meta",
+      "bytes": 158,
+      "sha256": "eb4429534a61b0a8e5d4251bff3b105650b8ae2a3d773fa63acb60262dbb36bd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowData.cs",
+      "bytes": 1669,
+      "sha256": "7bbb8dab6ed815495ca8339cdcbf5f004d51c71fffd32e0a0e224336825038fd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowData.cs.meta",
+      "bytes": 59,
+      "sha256": "160b207eef9aa824fd466e059d764a4a61cc74af42c1ff44b8ba296eea95c863"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowRenderer.cs",
+      "bytes": 17790,
+      "sha256": "d257755166e6c4e4fca84d1f11830c4bcf06e207b9295c05d9bca7c0b1e8cccd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowRenderer.cs.meta",
+      "bytes": 59,
+      "sha256": "018a0f9f207b1720faa9d84145bb52ecb0d933ac57f4d7db0174dff72c9a23e3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime.meta",
+      "bytes": 172,
+      "sha256": "b88a521f9809aba92af349f1407fc05a374680ea137dda02e51654ae65f83e2e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Scenes/TG_MeadowReview.unity",
+      "bytes": 1920339,
+      "sha256": "149aa83f16737dee5287e63b7c8d1087b636811bba93f05437b6d34f6c86be03"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Scenes/TG_MeadowReview.unity.meta",
+      "bytes": 155,
+      "sha256": "41b08111f073b219c51be48402afc57953d6d9717b2136591d65151fd352973b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Scenes.meta",
+      "bytes": 172,
+      "sha256": "bacba8a88c40bcfc8e85473dd15bd800ea61928efe69cdbcf89e4da95064fe11"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Shaders/TG_MeadowFoliage.shader",
+      "bytes": 9969,
+      "sha256": "c1f8bfb277e643ce0f5068b5819a6987c23cbad2bc3d60f13fba919c4b850497"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Shaders/TG_MeadowFoliage.shader.meta",
+      "bytes": 204,
+      "sha256": "64928fbd8a94dce1390767ce7352bd408618edcaacaceef62fe50a0b81a738de"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Shaders.meta",
+      "bytes": 172,
+      "sha256": "72430760d565efff6b3c91fe2225eb7e4f64e6a13594e139a5620fd8bb433448"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Terrain/TG_MeadowGround.asset",
+      "bytes": 1165660,
+      "sha256": "ae4f67479cf185495770d68bf5d7218dc0f38495c9a6e66c28070897c40a13df"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Terrain/TG_MeadowGround.asset.meta",
+      "bytes": 189,
+      "sha256": "13626a6cb620cc2dcfedff1b5072009d7443ddaa477c4f3bc99b524869d74d0f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Terrain.meta",
+      "bytes": 172,
+      "sha256": "49919f1c05801ebb4a18ee75395e718d2241d494497f450fe875bca0a51f27dd"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatMeadowLab.cs",
+      "bytes": 28711,
+      "sha256": "6a5d2c2a424c2771bc6b61a1b17bf114053a2639d01231def4f3dd855bbf0e83"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatMeadowLabCapture.cs",
+      "bytes": 5944,
+      "sha256": "7f77e4ba820137979e9244f59285a0265c7bcee0ac5d987e8fa304039aa8079c"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatMeadowLabEnvelope.cs",
+      "bytes": 7851,
+      "sha256": "44621f0b96b0c04649b67e0dc7e4d94ff4fdf790f425a3312e3ab5add419ecab"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatMeadowLabValidation.cs",
+      "bytes": 19413,
+      "sha256": "f7368d9b2b6e6e12492b5ceb9ca93f0fc82930d0c6a53dd80fb0f989bd4faa3c"
+    },
+    {
+      "path": "Tests/Environment/RunTeyvatMeadowLab.ps1",
+      "bytes": 4817,
+      "sha256": "46d3db9dc29bb011b4e5f62ce9e979c9722c2dc84ff1ebd8de85ea8c0cb84e47"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+PASS: Summon VFX integration compilation, 0 errors.
+
+Actual source files compiled together:
+- SummonSequenceView.cs
+- SummonSequenceAudio.cs
+- SummonSequenceGraphic.cs (including SummonSequenceBand)
+- SummonRewardItemView.cs (including SummonAttributeTheme)
+
+Dependencies: existing Library/ScriptAssemblies/Assembly-CSharp.dll for authored CharacterObject, CharacterIconView, SummonDrawPresentation, ScreenMotion and other runtime APIs; existing Core and Contracts Plugins; Unity 6000.3.4f1 managed modules and live UI/TMP/InputSystem assemblies.
+
+No stubs are included in Integration.csproj. The earlier standalone Stubs.cs is explicitly excluded by EnableDefaultCompileItems=false. Expected source-versus-existing-assembly duplicate-type warnings are suppressed (CS0436); source implementations win for the four explicitly compiled files. One existing MeshWriteData.uvRegion deprecation warning in SummonRewardItemView.cs remains.
+
+All build outputs are confined to Temp/SummonVfxCompile. Live project outputs and Plugins DLLs are read-only references.

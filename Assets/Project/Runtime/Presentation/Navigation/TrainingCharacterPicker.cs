@@ -18,7 +18,8 @@ namespace FightingAllstar.Presentation.Navigation
             panel.style.color = UnityEngine.Color.white;
             var heading = new VisualElement(); heading.AddToClassList("training-toolbar"); panel.Add(heading);
             heading.Add(new Label("TRAINING / CHOOSE A FIGHTER") { name = "training-title" });
-            var close = new Button(() => { overlay.RemoveFromHierarchy(); root.Q<Button>("training")?.Focus(); }) { text = "CLOSE" };
+            Action dismiss = () => ScreenMotion.Remove(overlay, () => root.Q<Button>("training")?.Focus());
+            var close = new Button(dismiss) { text = "CLOSE" };
             heading.Add(close);
             panel.Add(new Label("Practice with any ready fighter. One action each turn. All skill ranks and ultimate are replenished; ultimate is free. No rewards."));
             var filters = new VisualElement(); filters.AddToClassList("training-toolbar"); panel.Add(filters);
@@ -59,7 +60,7 @@ namespace FightingAllstar.Presentation.Navigation
                         try
                         {
                             TrainingContext.Prepare(character, tier.index);
-                            SceneManager.LoadScene("Training");
+                            ScreenMotion.LoadScene("Training");
                         }
                         catch (Exception exception) { status.text = exception.Message; }
                     }) { name = "training-fighter:" + character.DefinitionId };
@@ -78,8 +79,8 @@ namespace FightingAllstar.Presentation.Navigation
             series.RegisterValueChangedCallback(_ => refresh());
             sort.RegisterValueChangedCallback(_ => refresh());
             all.clicked += () => { ClearFilters(); series.index = 0; refresh(); scroll.scrollOffset = UnityEngine.Vector2.zero; };
-            overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == UnityEngine.KeyCode.Escape) { overlay.RemoveFromHierarchy(); evt.StopPropagation(); } });
-            root.Add(overlay);
+            overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == UnityEngine.KeyCode.Escape) { dismiss(); evt.StopPropagation(); } });
+            root.Add(overlay); ScreenMotion.ShowModal(overlay, panel);
             refresh(); search.Focus();
         }
 

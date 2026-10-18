@@ -38,9 +38,13 @@ Application shows a colored element caption, pulse, audio cue and the supplied n
 
 The five design checks are: clarity through predictable aura clocks and labels; motivation through choosing setup/trigger order; response through deterministic contact without a debuff roll; satisfaction through icon, pulse, text, spread and sound; fit through the existing turn, formation and reaction presentation conventions.
 
+`CharacterStatUI` has a dedicated `ElementStatusPanel` beside `Buff/DebuffPanel` under `StatusLayoutSlot`. The buff/debuff row stays nearest the health bar; elemental icons occupy a separate row above it, with clearance that follows the ordinary grid's height. The row uses the supplied elemental icons and the shared icon skin, with its own icon instances, countdowns and cleanup. Empty aura rows hide and release their spacing. Initial display, playback updates and skip reconciliation deliver the two containers separately. Older HUD prefabs receive the separate row at runtime.
+
 ## Verification and playtest
 
 Run `Tests/CombatPresentation/Run.ps1 -ElementalOnly`, `-ElementalAiOnly` and `-NeutralStatusOnly`. Run `Tests/CombatPresentation/RunElementalAuraVisualChecks.ps1` for the Unity HUD, art, content, caption, spread and interruption checks. The 3D screenshot capture slows the travel/fade to one-quarter speed to avoid skipping a phase during image encoding. It uses the existing disposable CombatTextProject fixture and leaves the open project scene untouched.
+
+`RunNeutralStatusHudChecks.ps1` verifies the two visual containers, independent clearing, icon reuse, row separation, three-turn countdowns, restored snapshots and expiry. Its Unity layout capture is `Temp/NeutralStatusHudProject/Evidence/element-status-row.png`; Python with Pillow decodes the source icons into PNG fixture copies. Readability check: show both rows together, cleanse the ordinary debuffs, then consume or expire an aura; the observer should see only the appropriate row change, without icons jumping into the other group. Stress the layout with several ordinary status rows, all five auras and repeated playback refreshes.
 
 The focused tests cover all aura elements, both reaction directions, both acting sides, 1/3/7/10-hit amplification, level/ATK independence, DOT bonus scaling, shield efficiency, no-refresh behavior, late Hydro spread, all non-elemental damage families, mixed-team delayed attacks, schema migration, encounter levels, Freeze recovery, projections and replay.
 

@@ -712,6 +712,17 @@ namespace FightingAllstar.Core.Combat
             }
             Accumulate(attacker, family, true, isUltimate, policy);
             Accumulate(defender, family, false, isUltimate, policy);
+            var attackStats = GetEffectiveStats(attacker);
+            var globalDamage = Math.Max(0, attackStats.DamageDealtBp);
+            if (family == DamageFamily.Normal || family == DamageFamily.True || family == DamageFamily.Destructive)
+                policy.OutgoingIncreaseBp = (int)Math.Min(int.MaxValue, (long)policy.OutgoingIncreaseBp + globalDamage);
+            else
+            {
+                var familyDamage = family == DamageFamily.DamageOverTime ? attackStats.DamageOverTimeDealtBp :
+                    family == DamageFamily.Additional ? attackStats.AdditionalDamageDealtBp : 0;
+                policy.FamilyDealtIncreaseBp = (int)Math.Min(int.MaxValue,
+                    (long)policy.FamilyDealtIncreaseBp + globalDamage + Math.Max(0, familyDamage));
+            }
             if (family == DamageFamily.ElementalReaction)
                 AccumulateReceivedFamily(defender, DamageFamily.DamageOverTime, policy);
             if (defender?.Statuses?.Instances != null) foreach (var status in defender.Statuses.Instances)
@@ -832,7 +843,11 @@ namespace FightingAllstar.Core.Combat
         /// <summary>Explicit family bonuses only; global bonuses already present on Normal must not cross a second time.</summary>
         public static int GetExplicitFamilyDamageDealtBp(FighterState fighter, DamageFamily family)
         {
-            var total = BigInteger.Zero;
+            var stats = GetEffectiveStats(fighter);
+            // Family stats participate in the existing DOT-to-reaction bridge. Global Damage Dealt
+            // is handled by the damage policy and must not be counted again here.
+            var total = new BigInteger(family == DamageFamily.DamageOverTime ? stats.DamageOverTimeDealtBp :
+                family == DamageFamily.Additional ? stats.AdditionalDamageDealtBp : 0);
             if (fighter?.PassiveContributions != null) foreach (var contribution in fighter.PassiveContributions)
             {
                 var modifier = contribution?.Modifier;

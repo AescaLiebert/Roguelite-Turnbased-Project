@@ -1,0 +1,31 @@
+{
+  "TargetPlatform": "Windows PC",
+  "LocalDocumentLinksChecked": 20,
+  "SourceBattleSceneMatchesBuildHash": true,
+  "CameraSourceMatchesBuildHash": true,
+  "Configurations": [
+    {
+      "Configuration": "BuiltInGamma",
+      "CameraImages": 13,
+      "BothPlanningViewsPass": true,
+      "SweepPaths": 8,
+      "BlockedSamples": 0.0
+    },
+    {
+      "Configuration": "URP_Gamma",
+      "CameraImages": 13,
+      "BothPlanningViewsPass": true,
+      "SweepPaths": 8,
+      "BlockedSamples": 0.0
+    },
+    {
+      "Configuration": "URP_Linear",
+      "CameraImages": 13,
+      "BothPlanningViewsPass": true,
+      "SweepPaths": 8,
+      "BlockedSamples": 0.0
+    }
+  ],
+  "Failures": [],
+  "Scope": "Foundation/static proxy review. Player-build performance and actual animated combat playback remain pending."
+}

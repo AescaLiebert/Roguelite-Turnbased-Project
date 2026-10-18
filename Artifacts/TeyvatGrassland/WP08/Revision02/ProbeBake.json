@@ -1,0 +1,16 @@
+{
+    "passed": true,
+    "bakeSucceeded": true,
+    "finite": true,
+    "positionsMatch": true,
+    "requested": 45,
+    "actual": 45,
+    "maximumCoefficient": 0.22170735895633698,
+    "minimumCoefficient": -0.02763877622783184,
+    "seconds": 15.45628547668457,
+    "lightingDataAsset": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r2/LightingData.asset",
+    "lightingSettings": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_ActorProbeBake.asset",
+    "method": "Legacy light-probe bake in saved review scene. Progressive CPU; approximate static URP/Lit ground and near boulder occluders only, realtime key. Wind foliage, animated grass, water, transparent effects and original stylized backdrop are excluded from GI contribution. The geometry proxies remain disabled after bake, and are excluded from the environment prefab.",
+    "limitations": "Approximate indirect lighting for current URP/Lit actor placeholders. This is not a full stage lightmap bake, APV integration, physically accurate foliage bounce or support for detailed future character materials.",
+    "error": ""
+}

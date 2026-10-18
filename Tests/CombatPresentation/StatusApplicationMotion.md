@@ -1,0 +1,15 @@
+# Status application motion
+
+The Buff, Debuff, Neutral and elemental HUD icons now use a brief white flash, a small upward fade, and a diagonal settling light. The icon, cooldown and authored frame layers move together inside a stable grid cell. Their scale remains one throughout entry, successful reapplication, rejection and removal. No status classification, application result, duration, combat value or economy value changes.
+
+Starting values: entry lasts 0.26 s with a 5 px rise and a 0.13 s fade; accepted reapplication lasts 0.22 s with a 2 px rise from 65% opacity. Both finish with a 0.09 s white glint after reaching their position. Rejection uses a 0.20 s warm tint and at most 12% opacity reduction. Removal uses a 0.14 s fade. These are tuning starting values, not measurements from the reference.
+
+Test: apply one Buff and one Debuff, reapply each, then attempt a rejected refresh. Pass when the icon reaches its final position without overshoot, the white light follows the movement, the cooldown stays readable, and success is distinguishable from rejection in ten repeated applications. If the movement feels excessive, reduce rise by 1 px; if it is hard to notice, raise the light's opacity before increasing movement. If the light looks busy when many statuses arrive, reduce its opacity or shorten its 0.09 s duration.
+
+Entry occurs only when a new view is created. A successful refresh interrupts the current animation and starts the shorter rise from a clean baseline. A rejected refresh interrupts it with a restrained tint. Removal immediately releases the grid cell before fading; disabling the HUD resets live visuals and destroys departing views. Elemental and ordinary rows continue updating separately. Inspector icons are created at rest.
+
+Clarity: application, acceptance and rejection retain different feedback; existing labels and audio remain available. Response: refreshes interrupt immediately and no transition blocks input. Satisfaction: the rise and settling light give two visual cues without icon distortion, alongside existing combat audio. Fit: short white light keeps combat feedback quieter than summon reveals. Motivation: existing status outcomes remain unchanged.
+
+Run **Fighting Allstar → Validate Status Application Motion** for deterministic production-frame checks covering the authored prefab and fallback, Buff, Debuff, Neutral, and elemental icons. The report is written to `Artifacts/SummonSequence/StatusMotion/Verification.txt`. Checks cover fixed scale, monotonic movement/fade, post-settle glint, grid stability, repeated samples, rejected refresh, cooldown preservation, one non-interactive light per icon, and reset cleanup. Also run the existing Neutral HUD checks for ordering, expiry and independent row regression coverage.
+
+Manual stress check: add, refresh and remove multiple statuses in the same turn, then hide/show the HUD halfway through a transition. Pass when no white overlay, shifted child layer, orphaned departing icon or empty grid cell remains. Existing gameplay results must match a run with feedback hidden.

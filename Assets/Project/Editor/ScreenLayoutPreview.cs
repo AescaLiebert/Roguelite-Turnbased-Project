@@ -439,16 +439,18 @@ namespace FightingAllstar.EditorTools
             _inventory.Snapshot.items.ClaimedReceiptIds.Add(receipt.Id);
             preview.Status = RunStatus.Completed;
             Check(DungeonFlowController.CanResumeRun(preview), "Completed run hides unseen victory rewards on resume.");
-            Call(controller, "ShowPendingRewards"); SettleHub(root); Render(size, "VictoryRewards");
-            var dialog = root.Q("victory-reward-dialog").worldBound;
+            Call(controller, "ShowPendingRewards");
+            var obtain = (FightingAllstar.Presentation.Navigation.SummonSequenceView)controller.GetType().GetField("_rewardSequence", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(controller);
+            obtain.SampleItemsForPreview(receipt, 100f); SettleHub(root); Render(size, "VictoryRewards");
+            var dialog = root.Q("summon-reward-board").worldBound;
             Check(dialog.xMin >= 0 && dialog.xMax <= size.x && dialog.yMin >= 0 && dialog.yMax <= size.y, "Victory dialog is clipped.");
-            Check(root.Q("victory-reward-items").Query(className: "item-reward-amount").ToList().Count > 0, "Victory popup lacks actual quantities.");
-            var back = root.Q("continue-after-reward").worldBound;
+            Check(root.Q("summon-reward-grid").Query(className: "item-reward-amount").ToList().Count > 0, "Victory popup lacks actual quantities.");
+            var back = root.Q("summon-result-close").worldBound;
             Check(back.height >= 44 && back.yMax <= size.y, "Victory continue action is clipped.");
             // Remove presentation only; no account/run writes in this fixture.
-            root.Q("victory-reward-overlay").RemoveFromHierarchy(); Set(controller, "_rewardOverlay", null);
+            obtain.Dispose(); Set(controller, "_rewardSequence", null);
             preview.PresentedRewardIds.Add(receipt.Id); Call(controller, "ShowPendingRewards");
-            Check(root.Q("victory-reward-overlay") == null, "Acknowledged rewards reopen on resume.");
+            Check(root.Q("summon-sequence") == null, "Acknowledged rewards reopen on resume.");
             Check(!DungeonFlowController.CanResumeRun(preview), "Completed, acknowledged run stays resumable.");
             Set(controller, "_run", original);
             controller.InspectNode(original.Nodes.First(n => n.Progress == RouteNodeProgress.Reachable).Id);

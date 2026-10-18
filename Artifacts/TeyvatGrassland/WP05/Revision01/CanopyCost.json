@@ -1,0 +1,26 @@
+{
+    "gpu": "AMD Radeon(TM) Graphics",
+    "cpu": "AMD Ryzen 5 4600G with Radeon Graphics",
+    "context": "Isolated Unity6000.3.4f1 Editor D3D11 Linear URP1600x900,4xMSAA resolved before readback. Six alternating measurements after warmup; each includes two offscreen render submissions and synchronous CPU image readback. Editor diagnostics, not GPU timings, player FPS or PC minimum-spec certification.",
+    "canopyOnMs": [
+        79.9479,
+        105.327,
+        129.04340000000003,
+        96.0912,
+        124.54530000000001,
+        118.68400000000001
+    ],
+    "canopyOffMs": [
+        95.78840000000001,
+        76.1113,
+        110.8861,
+        97.4658,
+        121.75200000000001,
+        92.24210000000001
+    ],
+    "trees": 120,
+    "shrubs": 70,
+    "lod0TrianglesPerKit": 85296,
+    "lod1TrianglesPerKit": 23472,
+    "lod2TrianglesPerKit": 12738
+}

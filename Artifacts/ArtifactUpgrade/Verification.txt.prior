@@ -1,0 +1,5 @@
+FAIL in material lookup entry: System.Exception: Picker entry did not produce an intermediate rendered fade frame.
+  at ArtifactUpgradePresentationChecks.Check (System.Boolean condition, System.String message) [0x00016] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:618 
+  at ArtifactUpgradePresentationChecks.CapturePickerEntry (System.String name) [0x0001d] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:280 
+  at ArtifactUpgradePresentationChecks+<>c.<Build>b__46_13 () [0x00000] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:156 
+  at ArtifactUpgradePresentationChecks.Tick () [0x0009b] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:228 

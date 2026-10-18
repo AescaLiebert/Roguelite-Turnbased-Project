@@ -1,0 +1,25 @@
+{
+    "passed": true,
+    "importPass": true,
+    "cameraPass": true,
+    "groundPass": true,
+    "savedPrefabPass": true,
+    "shadersPass": true,
+    "context": "Cold saved-scene reload in independent isolated Unity process, no rebuild or pipeline reconfiguration.",
+    "unity": "6000.3.4f1",
+    "gpu": "AMD Radeon(TM) Graphics",
+    "pipeline": "TG_MaterialURP",
+    "colorSpace": "Linear",
+    "authoredMeshes": 159,
+    "lodGroups": 47,
+    "collisionMeshes": 42,
+    "reviewCameras": 19,
+    "sourceTrianglesIncludingLODAndCollision": 13860,
+    "captures": [
+        "Afternoon/TG_EnemyAttack.png",
+        "Afternoon/TG_ReferencePlanningCandidate.png",
+        "Afternoon/TG_ReferenceSide.png"
+    ],
+    "errors": [],
+    "limitations": "Static actor proxies, sampled camera paths, two authored LOD levels with starting transitions, simplified collision. Water uses WP02 context; trees use WP01 context. Final foliage/water/lighting and animated combat/player performance remain later packages. No reference-parity claim."
+}

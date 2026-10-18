@@ -39,9 +39,6 @@
 .single-pull:hover { background-color: rgb(255, 243, 210); }
 .pull-diamond { width: 32px; height: 32px; margin-right: 12px; background-image: url("../Art/UI/Currency/Diamond.png"); -unity-background-scale-mode: scale-to-fit; }
 .gacha-notice { flex-shrink: 0; margin-top: 10px; padding: 8px 12px; background-color: rgba(8, 14, 26, 0.9); color: rgb(247, 213, 166); font-size: 17px; }
-.gacha-result-screen { position: absolute; left: 32px; right: 32px; top: 108px; bottom: 24px; padding: 24px; border-width: 1px; border-color: rgb(191, 163, 108); background-color: rgba(8, 15, 27, 0.97); }
-.gacha-result-title { font-size: 48px; color: rgb(255, 224, 157); margin-bottom: 10px; }
-.result-cards { justify-content: center; }
 .gacha-details-panel > .unity-scroll-view__content-container > Label { font-size: 22px; white-space: normal; color: rgb(187, 214, 233); margin-bottom: 18px; }
 .gacha-details-panel .character-grid { margin-bottom: 16px; }
 .compact-layout .gacha-layout { padding: 18px 20px; }

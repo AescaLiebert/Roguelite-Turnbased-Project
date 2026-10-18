@@ -1,0 +1,5 @@
+FAIL in material lookup entry: System.Exception: Lookup item grid did not fade in over time.
+  at ArtifactUpgradePresentationChecks.Check (System.Boolean condition, System.String message) [0x00016] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:524 
+  at ArtifactUpgradePresentationChecks.CapturePickerEntry (System.String name) [0x0003b] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:233 
+  at ArtifactUpgradePresentationChecks+<>c.<Build>b__42_10 () [0x00000] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:136 
+  at ArtifactUpgradePresentationChecks.Tick () [0x0009b] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:179 

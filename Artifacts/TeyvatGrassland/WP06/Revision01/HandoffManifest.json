@@ -1,0 +1,309 @@
+{
+  "package": "WP06 r1",
+  "contract": "WP02 r1 property compatibility, Water-owned shader extension; spatial R3 and trees WP05",
+  "editableSourceFiles": 20,
+  "editableSourceBytes": 4801574,
+  "editableSourceSHA256": "c438316ac1e14c82b32023e5b274bec3370377ffcf9b45165e13457c5fff214d",
+  "owned": [
+    {
+      "path": "ArtDirection/TeyvatGrasslandConcepts/WP06_Water.md",
+      "bytes": 11676,
+      "sha256": "9d520485bba13c82be54790ba6939ef0e2cb39a5d328ed411e142941dbec5c18"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Water/create_water_kit.py",
+      "bytes": 10438,
+      "sha256": "2d003be87b1faff1e752cb5c01838625c1971779e7313254af35de4c1c06b8fd"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Water/README.md",
+      "bytes": 3493,
+      "sha256": "2c3f9f0fa70a7e1af4220c921bd549bde765a952763540b2ff3cd5ae4cda6e09"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Water/TG_WaterKit.blend",
+      "bytes": 790143,
+      "sha256": "b3dc2c8c59ac5f791c2b5e2f901cc6ddb70421cf574479d8e375127a984057ec"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Water/TG_WaterKit.fbx",
+      "bytes": 2373244,
+      "sha256": "a5f8b2175b232421355dfc751183a22ce711f2f35b8c11536a563360344183e7"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Water/TG_WaterKit.manifest.json",
+      "bytes": 120648,
+      "sha256": "302e91de06919948dc84df0af5176fa62711046b07f9e5b13cb41a5bd5e9c2a2"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Water/TG_WaterPlan.json",
+      "bytes": 4863,
+      "sha256": "e0c8b1f64e1a07470d7c46b78bfa7ad4654653a74750ae8bd89b8465e9ac952b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Data/TG_WaterPlan.json",
+      "bytes": 4863,
+      "sha256": "e0c8b1f64e1a07470d7c46b78bfa7ad4654653a74750ae8bd89b8465e9ac952b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Data/TG_WaterPlan.json.meta",
+      "bytes": 158,
+      "sha256": "835a97c9b55df09524d463f07a0c0235d4efcdb2c9847de00178858a601d1550"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Data.meta",
+      "bytes": 172,
+      "sha256": "05f7f6fbcfca92cd9bc7d762e91e54508096c44a46462c89f81e34311ffbcae9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Foam.mat",
+      "bytes": 981,
+      "sha256": "77c71f7a3663b064ea99d7e2dd9043805ae85c0616059e5db2d1efb57c3013df"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Foam.mat.meta",
+      "bytes": 188,
+      "sha256": "d5607f85f929022013698f0cbbafa78696d91fcb887d3b538732a280bae330ff"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Mist.mat",
+      "bytes": 978,
+      "sha256": "e69868f1a05d52122b864556e04dc54b7cf3f7c69aa98fd6032b2ad44b20adec"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Mist.mat.meta",
+      "bytes": 188,
+      "sha256": "2973f3895ff62b190914721046ccb5a2fb1bd5e98da7337912164006dadaa0f7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Pool.mat",
+      "bytes": 1351,
+      "sha256": "c5e1ad3caf101af4a094822c53401a01189bb77f743ee3cd740a70b67a2c608c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Pool.mat.meta",
+      "bytes": 188,
+      "sha256": "cfe9745162f29687b80f2ddaa0199c604f67f1cc41a0e425e04d9b705c08bca2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_PoolFallback.mat",
+      "bytes": 1358,
+      "sha256": "e7984c6fe1fbf038283ec3e4a2353775d674d6c56e2207856abd7b3cb03588e1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_PoolFallback.mat.meta",
+      "bytes": 188,
+      "sha256": "f08488de91a26ad7d98cb5a300651679009e68cda125efecc9773c3d721b4318"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_River.mat",
+      "bytes": 1352,
+      "sha256": "292e5d31b571867f127a773c5486aeaa157b39326e87356fd2aecdd21d919d13"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_River.mat.meta",
+      "bytes": 188,
+      "sha256": "e76c7226d28b65ed1a70ccebb450bde50d7f89b2f11c341c50bbdc2905bf1909"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_RiverFallback.mat",
+      "bytes": 1359,
+      "sha256": "5b70eb92b70e2356a4f5c3d01e52ce1bdf2d5709f97cd5a736b53c56149a9998"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_RiverFallback.mat.meta",
+      "bytes": 188,
+      "sha256": "1167916044a0eca98bc34689bcc615fd6093a15106cb4a76f3c113f3f15dbe86"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Shore.mat",
+      "bytes": 983,
+      "sha256": "8f98f752dd041b753e5e7892ffbdf98cc90dfb9da870241d374a8622f1f8d8e0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Shore.mat.meta",
+      "bytes": 188,
+      "sha256": "288ae6a83d9b4b8730fe30fc3cc11841314613614ebb2e061bca6503e0bcf0c3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Waterfall.mat",
+      "bytes": 1344,
+      "sha256": "506ef6995a364bb3e384ba061e494e319552e1303a7255ec2601f9a7d5abedb8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_Waterfall.mat.meta",
+      "bytes": 188,
+      "sha256": "5d60d519aac8d6fa3efca8fcd3371ea4ea6f1e663b774d8854533edbe037ab5b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_WaterfallFallback.mat",
+      "bytes": 1355,
+      "sha256": "77116ea068f2c9fdaac0f43797737cee9926d83aaaebe8700e080d9ed6bd7d63"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials/TG_Water_WaterfallFallback.mat.meta",
+      "bytes": 188,
+      "sha256": "f1e065ec44133625725abbdfe26ca077692572109cf498a5024276ac4653796e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Materials.meta",
+      "bytes": 172,
+      "sha256": "87ebdcb7d03b65e589c504ba898516a697338acce85b8f1958658407012a4e7f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models/TG_WaterKit.fbx",
+      "bytes": 2373244,
+      "sha256": "a5f8b2175b232421355dfc751183a22ce711f2f35b8c11536a563360344183e7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models/TG_WaterKit.fbx.meta",
+      "bytes": 2861,
+      "sha256": "7bf1eae69984b0635d6b95a4962e5c4eb7ce9f8bbe1671bbc8debbf269b022f2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models/TG_WaterKit.manifest.json",
+      "bytes": 120648,
+      "sha256": "302e91de06919948dc84df0af5176fa62711046b07f9e5b13cb41a5bd5e9c2a2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models/TG_WaterKit.manifest.json.meta",
+      "bytes": 158,
+      "sha256": "4e23dd022138c2cce11d71075f888275c8ecf7e87e6ac0325c2d644431ed90f2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models.meta",
+      "bytes": 172,
+      "sha256": "3930a9a50069914f85b0293bf20c27d491e9387ef766e0f7afcad374b50ed719"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Prefabs/TG_WaterComposition.prefab",
+      "bytes": 107734,
+      "sha256": "0d848f09e1ace118540d7b3fbad14c2f8a59c8f8f9bb5613773453fb98754632"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Prefabs/TG_WaterComposition.prefab.meta",
+      "bytes": 154,
+      "sha256": "ae3232ce76238fe2ae1f987dd9e07fb38265fe576b5a5115580b270067b78d73"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Prefabs/TG_WaterFallback.prefab",
+      "bytes": 27601,
+      "sha256": "2570eb21b52cc91cde0c4cf8085bbecdb26e17a2ff0a169dcff248414c208f96"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Prefabs/TG_WaterFallback.prefab.meta",
+      "bytes": 154,
+      "sha256": "964cf6d87e8f0543ea9caa82b7507c082b4a6deef0276800e4162024971e2257"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Prefabs.meta",
+      "bytes": 172,
+      "sha256": "cab1462f2eb9c95c7fb67624bfe4093d4a9b4c5cd12ef235bb1782bbff43139b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/README.md",
+      "bytes": 1417,
+      "sha256": "b27aa6076d8618dd43f3fb29518b9aacff66e0eda4afed6e11ca64ca81ace512"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/README.md.meta",
+      "bytes": 158,
+      "sha256": "7a7ffd67a8fdf0067d225a31dbbf1ab4141bd0e085f3c4c9cec04dbe5dca6693"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Scenes/TG_WaterReview_r1.unity",
+      "bytes": 1465001,
+      "sha256": "1e5ef869cf818a15c5770aaa7f491082f8085aa11cdeec5685285f2c50934320"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Scenes/TG_WaterReview_r1.unity.meta",
+      "bytes": 155,
+      "sha256": "2df12d022a756c722acccf919ed5ef5766a8ad8b3938e60a9d376b530816d841"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Scenes/TG_WaterSample_r1.unity",
+      "bytes": 1398365,
+      "sha256": "4604d014600e4c42bb7766938bba42193cea77520abbd422401b0fae7e0364d3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Scenes/TG_WaterSample_r1.unity.meta",
+      "bytes": 155,
+      "sha256": "995be95ed9cebeae4168c7b233e96fc774dd47572fac6081bfb474fd2769b83a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Scenes.meta",
+      "bytes": 172,
+      "sha256": "9cc53fee099773ad2ded97a93189cf10865767785c48ed9a9f4ca9b31516e601"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_StylizedWater.shader",
+      "bytes": 9113,
+      "sha256": "dc4faf02e9d1e5f12b6eba96ab1ea1d8b74ea8b09f842b1e93cf06844fd0e544"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_StylizedWater.shader.meta",
+      "bytes": 204,
+      "sha256": "5759056c963ef613ca95daebe06a2c86a9161cbf15ba0c1aea4ce4c2a9d4e23e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterEffects.shader",
+      "bytes": 5142,
+      "sha256": "3fa880a6d3d783d3f64685f65a5afc5d406fba14406318a17d80b90ab96ed15f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterEffects.shader.meta",
+      "bytes": 204,
+      "sha256": "8b98391af2ca56bc507ca52093f740baec2c71f46979273473acdfc59547ff06"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterProcedural.hlsl",
+      "bytes": 1452,
+      "sha256": "1f03714a68675ba93f2c5c17268b6f8537d5b36c32d67505db82265112d3df64"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterProcedural.hlsl.meta",
+      "bytes": 161,
+      "sha256": "31e5d09bc3bf22c9f042a9223c0bfdbdaabdd2b1ed8ebd5fca3efae06235d195"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders.meta",
+      "bytes": 172,
+      "sha256": "141ba78e9fe20dcda5f19b2bc1d385bd9c3c0e695971d8d96148a2d23380ff7e"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatWaterDepthValidation.cs",
+      "bytes": 17017,
+      "sha256": "07b4fe53d49a8d274fc6fa051fa9e6022514623c75f9950161bad39d61411f4b"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatWaterDepthValidation.cs.meta",
+      "bytes": 59,
+      "sha256": "c11d3e618d2585a6091919d79bac3196fe52c7cb62da40cbec2f61558892552d"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatWaterLab.cs",
+      "bytes": 19857,
+      "sha256": "e548ab3b921d267d3b658d149460352fc6d047063505a753d0b7e0e8678b93fe"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatWaterLab.cs.meta",
+      "bytes": 59,
+      "sha256": "a116e2c19eb3ea016d81017ff6d7e26576fab3dd3b78d8cbf3ca145d94da9a0a"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatWaterValidation.cs",
+      "bytes": 11428,
+      "sha256": "3b164080c787b70c1e0dee7a69ff49db77cd5bedd24546d7c8d76d01656a3725"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatWaterValidation.cs.meta",
+      "bytes": 59,
+      "sha256": "e8ca9282deb6f57dc5b61947ea10d4d83fa135e84128209163cad9fe81df6077"
+    },
+    {
+      "path": "Tests/Environment/RunTeyvatWaterLab.ps1",
+      "bytes": 11680,
+      "sha256": "eaab018788576f421984fe8e8c1c444d510b4cf43792d44cd529e4851a2c59cf"
+    }
+  ]
+}

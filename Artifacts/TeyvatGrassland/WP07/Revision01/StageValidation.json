@@ -1,0 +1,51 @@
+{
+    "passed": true,
+    "originalCameras": true,
+    "actorFloor": true,
+    "oneClock": true,
+    "shaders": true,
+    "stagePrefabReferences": true,
+    "translationBinding": true,
+    "canonicalMeadowUnchanged": true,
+    "cameras": 17,
+    "trees": 120,
+    "shrubs": 70,
+    "flowerAccents": 81,
+    "missingScripts": 0,
+    "sprayEmitters": 920,
+    "sprayRenderers": 6,
+    "contactMeshes": 15,
+    "maxGroundError": 0.00054931640625,
+    "falls": [
+        {
+            "name": "Left",
+            "samples": 2392,
+            "insideRock": 0,
+            "belowNativeTerrain": 0,
+            "minimumNativeClearance": 0.4888439178466797,
+            "occluders": [],
+            "passed": true
+        },
+        {
+            "name": "Hero",
+            "samples": 2392,
+            "insideRock": 0,
+            "belowNativeTerrain": 0,
+            "minimumNativeClearance": 0.4908123016357422,
+            "occluders": [],
+            "passed": true
+        },
+        {
+            "name": "Right",
+            "samples": 2369,
+            "insideRock": 0,
+            "belowNativeTerrain": 0,
+            "minimumNativeClearance": 0.49046897888183596,
+            "occluders": [],
+            "passed": true
+        }
+    ],
+    "errors": [],
+    "method": "Serialized stage dependency and17 original-camera comparison; six actual TerrainData anchor samples; actual imported water vertices checked against corrected native ground and closed opaque LOD0 rocks using odd/even backface ray parity in three directions. Excludes the first/last2% of curtain length and outer4% width for intentional joins. Translation rebase tested twice then restored, canonical meadow object and first-placement matrix unchanged. All tests use review proxies, not gameplay character animation.",
+    "limitations": "No fluid simulation or arbitrary transparent sorting. Samples test curtain core points, not an exhaustive triangle/triangle Boolean proof. Final lighting, real combat transitions and Windows player performance remain WP08/WP09."
+}

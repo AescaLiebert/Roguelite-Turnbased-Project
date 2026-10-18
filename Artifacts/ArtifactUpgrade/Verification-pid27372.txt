@@ -1,0 +1,4 @@
+FAIL in material lookup ready: System.Exception: Target, favourite or equipped artifacts are eligible upgrade materials.
+  at ArtifactUpgradePresentationChecks.Check (System.Boolean condition, System.String message) [0x00016] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:535 
+  at ArtifactUpgradePresentationChecks.CheckMaterialPicker () [0x0001b] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:332 
+  at ArtifactUpgradePresentationChecks.Tick () [0x0009b] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ArtifactUpgradeUiProject\Assets\Editor\ArtifactUpgradePresentationChecks.cs:181 

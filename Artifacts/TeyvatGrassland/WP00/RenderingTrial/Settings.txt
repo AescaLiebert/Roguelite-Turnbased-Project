@@ -1,0 +1,3 @@
+Unity 6000.3.4f1; URP 17.3.0; Forward renderer; final color space Linear; HDR enabled; MSAA 4; shadow distance 80; cascades 2; depth texture enabled; opaque texture disabled; no post-processing.
+These are starting values for foundation comparison, not final budgets. Validate edge quality, missing shadows, GPU cost and depth features on the named target device before accepting them. Reduce MSAA/shadow distance or enable opaque texture only if measured need justifies it.
+This isolated minimal dependency project tests geometry and representative material copies, not complete gameplay, UI or player-build timing.

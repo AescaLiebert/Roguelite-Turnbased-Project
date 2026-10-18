@@ -25,15 +25,15 @@ MonoBehaviour:
   - trait.male
   - trait.kyo
   passiveSourceDescription: For each Ignites effect on enemy, Decrease allies's Damage
-    Received by 3%
+    Received by 5% (Maximum 50%)
   passiveSourceType: 1
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: b7e45759a7b6431b94912a6f9f79dbcd, type: 2}
   id: 1106
   fighterName: Kusanagi Kyo 98
-  fighterPic: {fileID: 21300000, guid: 712b53a41280ab9409918bbe6185ba65, type: 3}
+  fighterPic: {fileID: 21300000, guid: f6b70631dc56410478b4c786935568c9, type: 3}
   fighterIcon: {fileID: 21300000, guid: 0da1d70afe745514ab00864767829a0c, type: 3}
-  fighterFull: {fileID: 21300000, guid: 712b53a41280ab9409918bbe6185ba65, type: 3}
+  fighterFull: {fileID: 21300000, guid: f6b70631dc56410478b4c786935568c9, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}

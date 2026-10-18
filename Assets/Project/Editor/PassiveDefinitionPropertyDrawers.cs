@@ -404,7 +404,8 @@ public sealed class StatusRecipeDefinitionPropertyDrawer : PropertyDrawer
         if ((behavior & (StatusBehavior.Stat | StatusBehavior.DamageOverTime)) != 0 && !transferTemplate)
             fields.Add("DefaultPotencyBp");
         // Transfer modifiers are snapshots computed from the selected Stats and coefficient.
-        if ((behavior & StatusBehavior.Stat) != 0 && !transferTemplate) fields.Add("Modifiers");
+        if ((behavior & StatusBehavior.Stat) != 0 && !transferTemplate)
+            fields.AddRange(new[] { "Modifiers", "ElementalModifiers" });
         if ((behavior & StatusBehavior.DamageOverTime) != 0) fields.Add("PeriodicDamage");
         if ((behavior & StatusBehavior.Barrier) != 0)
             fields.AddRange(new[] { "BarrierSourceStat", "BarrierCoefficientBp", "BarrierDurationPolicy", "BarrierAmountPolicy" });
@@ -799,9 +800,12 @@ internal static class PassiveDrawerFields
                 else if (name == "Modifiers")
                     EditorGUI.PropertyField(childRect, child,
                         new GUIContent("Modifiers", "Requires Behavior to include Stat. Add a modifier with Target = Stat to change any stat, including Defense."), true);
+                else if (name == "ElementalModifiers" && property.type == "StatusRecipeDefinition")
+                    EditorGUI.PropertyField(childRect, child,
+                        new GUIContent("Elemental Modifiers", "Element-specific damage dealt and resistance modifiers. Negative Resistance Bp increases damage taken from that element; -2,000 = +20%."), true);
                 else if (name == "Behavior" && property.type == "StatusRecipeDefinition")
                     EditorGUI.PropertyField(childRect, child,
-                        new GUIContent("Behavior", "Enable Stat to expose Modifiers. Enable Barrier to configure its source stat, capacity, and reapplication behavior."), true);
+                        new GUIContent("Behavior", "Enable Stat to expose stat and elemental modifiers. Enable Barrier to configure its source stat, capacity, and reapplication behavior."), true);
                 else if (name == "Amount" && property.type == "StatModifierDefinition")
                 {
                     var operation = PassiveDrawerFields.EnumValue<ModifierOperation>(property, "Operation");

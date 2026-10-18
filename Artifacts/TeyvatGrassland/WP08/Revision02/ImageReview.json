@@ -1,0 +1,897 @@
+{
+  "images": [
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_EnemyAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.8823620080947876
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_EnemyContact",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.37414535880088806
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_EnemyPlanning",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.13571158051490784
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_EnemyPortrait",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.7612208127975464
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_EnvironmentOverview",
+      "brightWhiteFraction": 6.25e-06,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.04509074240922928
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_PlayerAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 1.2970964908599854
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_PlayerContact",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.6685673594474792
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_PlayerPlanning",
+      "brightWhiteFraction": 0.00014375,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.17994606494903564
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_PlayerPortrait",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.5796722173690796
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_R3_CascadeStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_R3_IslandStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_R3_TerraceStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReferenceFrontLeft",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0019171296153217554
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReferenceFrontRight",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.002753703622147441
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReferencePlanningCandidate",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.09381481260061264
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReferenceRear",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0004921296495012939
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReferenceSide",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0029143518768250942
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReverseOverview",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.03353981301188469
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_ReversePlanningCandidate",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.13030092418193817
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageFall_Hero",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 8.796296242508106e-06
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageFall_Left",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageFall_Right",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageFallSide",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageImpact_Hero",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageImpact_Left",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_StageImpact_Right",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_TreeHeroStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_TreeIslandStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_TreeReverseStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.03558240830898285
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_WaterGrazing",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_WaterIslandChannels",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_WaterReverse",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.013504398055374622
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_WaterRightCascade",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_WaterSample",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ReferenceDay",
+      "camera": "TG_WideMultiTarget",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.2632300853729248
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_EnemyAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.9803495407104492
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_EnemyContact",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.4416562616825104
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_EnemyPlanning",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.15342245995998383
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_EnemyPortrait",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.8035777807235718
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_EnvironmentOverview",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.04720300808548927
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_PlayerAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 1.353833556175232
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_PlayerContact",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.6974576115608215
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_PlayerPlanning",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.18735554814338684
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_PlayerPortrait",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.6376118063926697
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_R3_CascadeStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_R3_IslandStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_R3_TerraceStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReferenceFrontLeft",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0032724537886679173
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReferenceFrontRight",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.004159953910857439
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReferencePlanningCandidate",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0972486138343811
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReferenceRear",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0012062500463798642
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReferenceSide",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.004080555401742458
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReverseOverview",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.0389159731566906
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_ReversePlanningCandidate",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.14706504344940186
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageFall_Hero",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 9.027778105519246e-06
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageFall_Left",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageFall_Right",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageFallSide",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageImpact_Hero",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageImpact_Left",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_StageImpact_Right",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_TreeHeroStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_TreeIslandStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_TreeReverseStudy",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.03984282538294792
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_WaterGrazing",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_WaterIslandChannels",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_WaterReverse",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.014765509404242039
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_WaterRightCascade",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_WaterSample",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Neutral",
+      "camera": "TG_WideMultiTarget",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.2759789228439331
+    },
+    {
+      "folder": "Beauty",
+      "camera": "TG_EnemyAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Beauty",
+      "camera": "TG_EnvironmentOverview",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Beauty",
+      "camera": "TG_PlayerAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "Beauty",
+      "camera": "TG_WaterSample",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "ActualAura",
+      "camera": "TG_EnemyAttack",
+      "brightWhiteFraction": 4.0972222222222225e-05,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.8319046497344971
+    },
+    {
+      "folder": "ActualAura",
+      "camera": "TG_EnemyPlanning",
+      "brightWhiteFraction": 4.166666666666667e-06,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.13312754034996033
+    },
+    {
+      "folder": "ActualAura",
+      "camera": "TG_PlayerAttack",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 1.2934340238571167
+    },
+    {
+      "folder": "ActualAura",
+      "camera": "TG_PlayerPlanning",
+      "brightWhiteFraction": 0.00014375,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.1793525516986847
+    },
+    {
+      "folder": "RockTexture",
+      "camera": "TG_EnvironmentOverview_FlatTintLit",
+      "brightWhiteFraction": 6.25e-06,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.04509074240922928
+    },
+    {
+      "folder": "RockTexture",
+      "camera": "TG_EnvironmentOverview_PaintedAlbedo",
+      "brightWhiteFraction": 6.25e-06,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.04444097355008125
+    },
+    {
+      "folder": "RockTexture",
+      "camera": "TG_EnvironmentOverview_PaintedLit",
+      "brightWhiteFraction": 6.25e-06,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": false,
+      "meanAbsoluteRGBDifference": 0.04509074240922928
+    },
+    {
+      "folder": "RockTexture",
+      "camera": "TG_WaterSample_FlatTintLit",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "RockTexture",
+      "camera": "TG_WaterSample_PaintedAlbedo",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    },
+    {
+      "folder": "RockTexture",
+      "camera": "TG_WaterSample_PaintedLit",
+      "brightWhiteFraction": 0.0,
+      "nearBlackFraction": 0.0,
+      "pinkCandidateFraction": 0.0,
+      "coldCompared": true,
+      "identicalPixels": true,
+      "meanAbsoluteRGBDifference": 0.0
+    }
+  ],
+  "ablations": [
+    {
+      "ablation": "NoDistanceHaze",
+      "baseline": "ReferenceDay/TG_EnvironmentOverview",
+      "meanAbsoluteRGBDifference": 4.560523986816406,
+      "changedPixelFraction": 0.1830625
+    },
+    {
+      "ablation": "NoBloom",
+      "baseline": "ReferenceDay/TG_PlayerAttack",
+      "meanAbsoluteRGBDifference": 0.00031550927087664604,
+      "changedPixelFraction": 0.0
+    },
+    {
+      "ablation": "NoSunShadows",
+      "baseline": "ReferenceDay/TG_PlayerPlanning",
+      "meanAbsoluteRGBDifference": 10.589408874511719,
+      "changedPixelFraction": 0.6556097222222222
+    },
+    {
+      "ablation": "AuraNoBloom",
+      "baseline": "ActualAura/TG_PlayerAttack",
+      "meanAbsoluteRGBDifference": 0.014365509152412415,
+      "changedPixelFraction": 0.0024854166666666666
+    },
+    {
+      "ablation": "AuraNoPostProcess",
+      "baseline": "ActualAura/TG_PlayerAttack",
+      "meanAbsoluteRGBDifference": 5.494396209716797,
+      "changedPixelFraction": 0.8730173611111111
+    },
+    {
+      "ablation": "ActorsNoProbes",
+      "baseline": "ReferenceDay/TG_PlayerAttack",
+      "meanAbsoluteRGBDifference": 4.233953952789307,
+      "changedPixelFraction": 0.19573958333333333
+    }
+  ],
+  "rockTexture": [
+    {
+      "camera": "TG_WaterSample",
+      "meanAbsoluteRGBDifference": 2.9382176399230957,
+      "changedPixelFraction": 0.5367840277777778,
+      "renderedTextureDifference": true
+    },
+    {
+      "camera": "TG_EnvironmentOverview",
+      "meanAbsoluteRGBDifference": 1.2297985553741455,
+      "changedPixelFraction": 0.23160763888888888,
+      "renderedTextureDifference": true
+    }
+  ],
+  "method": "Pixel QA accompanies visual review. RGB white/black/pink fractions are diagnostics, not proof of aesthetic parity or shader correctness. Rock on/off comparison uses .05 meanRGB as a starting presence tolerance, not a quality score. Ablation differences demonstrate output changes, not a causal GPU timing measurement."
+}

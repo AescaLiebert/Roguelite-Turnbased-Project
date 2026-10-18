@@ -1,0 +1,52 @@
+{
+    "schema": "TG_WP02_GroundGrassAlbedoValidation_v1",
+    "method": "Actual native TerrainGrassland layer-zero surface and actual Foliage grass-root surface, in a temporary isolated scene/layer30 rig. The common debug-albedo mode removes lighting/fog; after two URP render requests, linear floating-point RGB is averaged over 3x3 center pixels for each surface. Both centers share world Z and clamp to world-field U1.",
+    "limitations": "Numerical flat-root albedo parity only. This does not establish lit terrain/grass seams, imported blade masks, wind behavior, canopy appearance, texture tiling, combat playback or performance.",
+    "passed": true,
+    "linearColorSpace": true,
+    "floatingPointLinearTarget": true,
+    "startingMaximumChannelTolerance": 0.003000000026077032,
+    "colorBounds": {
+        "x": -28.166301727294923,
+        "y": -28.10189437866211,
+        "z": 0.01785714365541935,
+        "w": 0.01515151560306549
+    },
+    "expectedFieldUV": {
+        "x": 1.0,
+        "y": 0.7288166284561157
+    },
+    "expectedFieldLinear": {
+        "r": 0.14933966100215913,
+        "g": 0.30404770374298098,
+        "b": 0.03533454239368439,
+        "a": 1.0
+    },
+    "terrainLinear": {
+        "r": 0.14980162680149079,
+        "g": 0.30389583110809328,
+        "b": 0.03539822995662689,
+        "a": 1.0
+    },
+    "grassRootLinear": {
+        "r": 0.149810791015625,
+        "g": 0.3039143979549408,
+        "b": 0.035400390625,
+        "a": 1.0
+    },
+    "terrainGrassMaximumChannelDifference": 0.00001856684684753418,
+    "terrainExpectedMaximumChannelDifference": 0.00046196579933166504,
+    "grassExpectedMaximumChannelDifference": 0.00047113001346588135,
+    "terrainSampleWorld": {
+        "x": 120.0,
+        "y": 0.0,
+        "z": 20.0
+    },
+    "grassSampleWorld": {
+        "x": 124.0,
+        "y": 0.0,
+        "z": 20.0
+    },
+    "capture": "Diagnostics/GroundGrassAlbedoProof.png",
+    "errors": []
+}

@@ -1,0 +1,4144 @@
+{
+    "passed": true,
+    "hashMatches": true,
+    "axisMarkerPass": true,
+    "method": "Read-only FBX raw mesh bounds, topology, UV0, rigid numerical RGBA and custom-normal range checks against Blender's manifest in actual Unity-local coordinates. Asymmetric axis marker verifies the baked conversion; no prefab-node rotations are needed.",
+    "limitations": "Ranges and triangle counts do not establish per-loop correspondence, silhouette quality, collision quality or performance. Authored welded boundary counts are reported separately; overlapping closed masonry pieces are not a Boolean union.",
+    "meshes": [
+        {
+            "name": "SM_Escarpment_Tier1_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 156,
+            "colorCount": 156,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -172.59449768066407,
+                    "y": 6.740445137023926,
+                    "z": 56.126708984375
+                },
+                "m_Extent": {
+                    "x": 12.233749389648438,
+                    "y": 11.240445137023926,
+                    "z": 6.141141891479492
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.364418029785156e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 92,
+            "colorCount": 92,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -172.59449768066407,
+                    "y": 6.740445137023926,
+                    "z": 56.126708984375
+                },
+                "m_Extent": {
+                    "x": 12.233749389648438,
+                    "y": 11.240445137023926,
+                    "z": 6.141141891479492
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 7.152557373046875e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_00",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -172.59449768066407,
+                    "y": 6.740445137023926,
+                    "z": 56.27299499511719
+                },
+                "m_Extent": {
+                    "x": 12.233749389648438,
+                    "y": 11.240445137023926,
+                    "z": 5.994852066040039
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 148,
+            "colorCount": 148,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -149.3814697265625,
+                    "y": 5.97587776184082,
+                    "z": 56.315032958984378
+                },
+                "m_Extent": {
+                    "x": 11.785202026367188,
+                    "y": 10.47587776184082,
+                    "z": 6.4002227783203129
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 91,
+            "colorCount": 91,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -149.3814697265625,
+                    "y": 5.97587776184082,
+                    "z": 56.496700286865237
+                },
+                "m_Extent": {
+                    "x": 11.785202026367188,
+                    "y": 10.47587776184082,
+                    "z": 6.218555450439453
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 0.000006854534149169922,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_01",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 74,
+            "colorCount": 74,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -149.3814697265625,
+                    "y": 5.97587776184082,
+                    "z": 56.496700286865237
+                },
+                "m_Extent": {
+                    "x": 11.785202026367188,
+                    "y": 10.47587776184082,
+                    "z": 6.218555450439453
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 161,
+            "colorCount": 161,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -126.93815612792969,
+                    "y": 7.387714385986328,
+                    "z": 60.1074333190918
+                },
+                "m_Extent": {
+                    "x": 11.438156127929688,
+                    "y": 11.887714385986329,
+                    "z": 7.010746002197266
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 89,
+            "colorCount": 89,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -126.93815612792969,
+                    "y": 7.387714385986328,
+                    "z": 60.1074333190918
+                },
+                "m_Extent": {
+                    "x": 11.438156127929688,
+                    "y": 11.887714385986329,
+                    "z": 7.010746002197266
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_02",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 79,
+            "colorCount": 79,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -126.93815612792969,
+                    "y": 7.387714385986328,
+                    "z": 60.1074333190918
+                },
+                "m_Extent": {
+                    "x": 11.438156127929688,
+                    "y": 11.887714385986329,
+                    "z": 7.010746002197266
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 160,
+            "colorCount": 160,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -104.16609191894531,
+                    "y": 9.085335731506348,
+                    "z": 61.58018493652344
+                },
+                "m_Extent": {
+                    "x": 12.108409881591797,
+                    "y": 13.585335731506348,
+                    "z": 6.043889999389648
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.00003516674041748047,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -104.16609191894531,
+                    "y": 9.085335731506348,
+                    "z": 61.556915283203128
+                },
+                "m_Extent": {
+                    "x": 12.108409881591797,
+                    "y": 13.585335731506348,
+                    "z": 6.02061653137207
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.000004947185516357422,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_03",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 76,
+            "colorCount": 76,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -104.16609191894531,
+                    "y": 9.085335731506348,
+                    "z": 61.57997131347656
+                },
+                "m_Extent": {
+                    "x": 12.108409881591797,
+                    "y": 13.585335731506348,
+                    "z": 6.043676376342773
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 140,
+            "colorCount": 140,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -80.9522476196289,
+                    "y": 10.153069496154786,
+                    "z": 56.449058532714847
+                },
+                "m_Extent": {
+                    "x": 11.966667175292969,
+                    "y": 14.653069496154786,
+                    "z": 9.07628059387207
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 0.0000012516975402832032,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 88,
+            "colorCount": 88,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -80.9522476196289,
+                    "y": 10.153069496154786,
+                    "z": 56.449058532714847
+                },
+                "m_Extent": {
+                    "x": 11.966667175292969,
+                    "y": 14.653069496154786,
+                    "z": 9.07628059387207
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_04",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 71,
+            "colorCount": 71,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -80.9522476196289,
+                    "y": 10.153069496154786,
+                    "z": 56.449058532714847
+                },
+                "m_Extent": {
+                    "x": 11.966667175292969,
+                    "y": 14.653069496154786,
+                    "z": 9.07628059387207
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 0.0000026226043701171877,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 166,
+            "colorCount": 166,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -58.41666793823242,
+                    "y": 10.236763000488282,
+                    "z": 50.106170654296878
+                },
+                "m_Extent": {
+                    "x": 11.416667938232422,
+                    "y": 14.736763000488282,
+                    "z": 6.472467422485352
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_05_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -58.41666793823242,
+                    "y": 10.236763000488282,
+                    "z": 50.106170654296878
+                },
+                "m_Extent": {
+                    "x": 11.416667938232422,
+                    "y": 14.736763000488282,
+                    "z": 6.472467422485352
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_05",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 78,
+            "colorCount": 78,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -58.41666793823242,
+                    "y": 10.232114791870118,
+                    "z": 50.311622619628909
+                },
+                "m_Extent": {
+                    "x": 11.416667938232422,
+                    "y": 14.732114791870118,
+                    "z": 6.26701545715332
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 92,
+            "expectedTriangles": 92,
+            "subMeshes": 3,
+            "uvCount": 137,
+            "colorCount": 137,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -29.011394500732423,
+                    "y": 9.013734817504883,
+                    "z": 57.403099060058597
+                },
+                "m_Extent": {
+                    "x": 10.011394500732422,
+                    "y": 13.513734817504883,
+                    "z": 9.694198608398438
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 0.0000017881393432617188,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_06_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 94,
+            "colorCount": 94,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -29.011394500732423,
+                    "y": 8.893993377685547,
+                    "z": 57.403099060058597
+                },
+                "m_Extent": {
+                    "x": 10.011394500732422,
+                    "y": 13.393993377685547,
+                    "z": 9.694198608398438
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_06",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 77,
+            "colorCount": 77,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -29.011394500732423,
+                    "y": 8.835236549377442,
+                    "z": 57.403099060058597
+                },
+                "m_Extent": {
+                    "x": 10.011394500732422,
+                    "y": 13.335236549377442,
+                    "z": 9.694198608398438
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 175,
+            "colorCount": 175,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 4.403109550476074,
+                    "y": 7.6200714111328129,
+                    "z": 68.43186950683594
+                },
+                "m_Extent": {
+                    "x": 11.596890449523926,
+                    "y": 12.120071411132813,
+                    "z": 6.037208557128906
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_07_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 101,
+            "colorCount": 101,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 4.403109550476074,
+                    "y": 7.614936828613281,
+                    "z": 68.41852569580078
+                },
+                "m_Extent": {
+                    "x": 11.596890449523926,
+                    "y": 12.114936828613282,
+                    "z": 6.02386474609375
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_07",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 81,
+            "colorCount": 81,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 4.403109550476074,
+                    "y": 7.614936828613281,
+                    "z": 68.40711212158203
+                },
+                "m_Extent": {
+                    "x": 11.596890449523926,
+                    "y": 12.114936828613282,
+                    "z": 6.012451171875
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 154,
+            "colorCount": 154,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 27.46957778930664,
+                    "y": 7.395118713378906,
+                    "z": 63.20848846435547
+                },
+                "m_Extent": {
+                    "x": 12.203987121582032,
+                    "y": 11.895118713378907,
+                    "z": 9.048666000366211
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_08_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 88,
+            "colorCount": 88,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 27.46957778930664,
+                    "y": 7.395118713378906,
+                    "z": 63.20848846435547
+                },
+                "m_Extent": {
+                    "x": 12.203987121582032,
+                    "y": 11.895118713378907,
+                    "z": 9.048666000366211
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_08",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 27.46957778930664,
+                    "y": 7.395118713378906,
+                    "z": 63.20848846435547
+                },
+                "m_Extent": {
+                    "x": 12.203987121582032,
+                    "y": 11.895118713378907,
+                    "z": 9.048666000366211
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 176,
+            "colorCount": 176,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 58.40919494628906,
+                    "y": 6.70712947845459,
+                    "z": 53.746124267578128
+                },
+                "m_Extent": {
+                    "x": 12.25152587890625,
+                    "y": 11.20712947845459,
+                    "z": 6.83525276184082
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_09_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 58.40919494628906,
+                    "y": 6.548578262329102,
+                    "z": 53.8674430847168
+                },
+                "m_Extent": {
+                    "x": 12.25152587890625,
+                    "y": 11.048578262329102,
+                    "z": 6.713932037353516
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_09",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 58.40919494628906,
+                    "y": 6.511746406555176,
+                    "z": 54.053077697753909
+                },
+                "m_Extent": {
+                    "x": 12.25152587890625,
+                    "y": 11.011746406555176,
+                    "z": 6.528297424316406
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 168,
+            "colorCount": 168,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 81.59745025634766,
+                    "y": 5.503795146942139,
+                    "z": 55.7247314453125
+                },
+                "m_Extent": {
+                    "x": 11.764114379882813,
+                    "y": 10.003795623779297,
+                    "z": 8.160192489624024
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_10_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 94,
+            "colorCount": 94,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 81.59745025634766,
+                    "y": 5.503795146942139,
+                    "z": 55.7247314453125
+                },
+                "m_Extent": {
+                    "x": 11.764114379882813,
+                    "y": 10.003795623779297,
+                    "z": 8.160192489624024
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_10",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 83,
+            "colorCount": 83,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 81.59745025634766,
+                    "y": 5.488160133361816,
+                    "z": 55.7247314453125
+                },
+                "m_Extent": {
+                    "x": 11.764114379882813,
+                    "y": 9.988160133361817,
+                    "z": 8.160192489624024
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 149,
+            "colorCount": 149,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 104.02281188964844,
+                    "y": 4.5261664390563969,
+                    "z": 57.74501037597656
+                },
+                "m_Extent": {
+                    "x": 11.477188110351563,
+                    "y": 9.026166915893555,
+                    "z": 6.335378646850586
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_11_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 93,
+            "colorCount": 93,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 104.02281188964844,
+                    "y": 4.5261664390563969,
+                    "z": 57.74501037597656
+                },
+                "m_Extent": {
+                    "x": 11.477188110351563,
+                    "y": 9.026166915893555,
+                    "z": 6.335378646850586
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_11",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 81,
+            "colorCount": 81,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 104.02281188964844,
+                    "y": 4.5261664390563969,
+                    "z": 57.70893859863281
+                },
+                "m_Extent": {
+                    "x": 11.477188110351563,
+                    "y": 9.026166915893555,
+                    "z": 6.29930305480957
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 126.87773132324219,
+                    "y": 5.096363544464111,
+                    "z": 55.97462463378906
+                },
+                "m_Extent": {
+                    "x": 12.116657257080079,
+                    "y": 9.596363067626954,
+                    "z": 6.052099227905273
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_12_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 94,
+            "colorCount": 94,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 126.87773132324219,
+                    "y": 5.096363544464111,
+                    "z": 55.97462463378906
+                },
+                "m_Extent": {
+                    "x": 12.116657257080079,
+                    "y": 9.596363067626954,
+                    "z": 6.052099227905273
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_12",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 80,
+            "colorCount": 80,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 126.87773132324219,
+                    "y": 5.096363544464111,
+                    "z": 56.01725769042969
+                },
+                "m_Extent": {
+                    "x": 12.116657257080079,
+                    "y": 9.596363067626954,
+                    "z": 6.009464263916016
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_13_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 148,
+            "colorCount": 148,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 150.08103942871095,
+                    "y": 5.24250602722168,
+                    "z": 58.23142623901367
+                },
+                "m_Extent": {
+                    "x": 11.924072265625,
+                    "y": 9.74250602722168,
+                    "z": 6.697788238525391
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_13_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 91,
+            "colorCount": 91,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 150.08103942871095,
+                    "y": 5.24094295501709,
+                    "z": 58.23142623901367
+                },
+                "m_Extent": {
+                    "x": 11.924072265625,
+                    "y": 9.74094295501709,
+                    "z": 6.697788238525391
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_13",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 73,
+            "colorCount": 73,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 150.08103942871095,
+                    "y": 5.23733377456665,
+                    "z": 58.23142623901367
+                },
+                "m_Extent": {
+                    "x": 11.924072265625,
+                    "y": 9.737333297729493,
+                    "z": 6.697788238525391
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_14_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 3,
+            "uvCount": 164,
+            "colorCount": 164,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 172.58334350585938,
+                    "y": 5.045934677124023,
+                    "z": 60.83910369873047
+                },
+                "m_Extent": {
+                    "x": 11.416664123535157,
+                    "y": 9.545934677124024,
+                    "z": 5.545969009399414
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier1_14_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 3,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 172.58334350585938,
+                    "y": 5.045934677124023,
+                    "z": 60.935359954833987
+                },
+                "m_Extent": {
+                    "x": 11.416664123535157,
+                    "y": 9.545934677124024,
+                    "z": 5.443782806396484
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier1_14",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 3,
+            "uvCount": 80,
+            "colorCount": 80,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 172.58334350585938,
+                    "y": 5.045934677124023,
+                    "z": 60.942840576171878
+                },
+                "m_Extent": {
+                    "x": 11.416664123535157,
+                    "y": 9.545934677124024,
+                    "z": 5.451263427734375
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 169,
+            "colorCount": 169,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -167.69720458984376,
+                    "y": 21.41004180908203,
+                    "z": 114.56537628173828
+                },
+                "m_Extent": {
+                    "x": 12.150306701660157,
+                    "y": 7.843108177185059,
+                    "z": 8.22882080078125
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 99,
+            "colorCount": 99,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -167.69720458984376,
+                    "y": 21.392066955566408,
+                    "z": 114.56537628173828
+                },
+                "m_Extent": {
+                    "x": 12.150306701660157,
+                    "y": 7.825133323669434,
+                    "z": 8.22882080078125
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_00",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 81,
+            "colorCount": 81,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -167.69720458984376,
+                    "y": 21.392066955566408,
+                    "z": 114.56537628173828
+                },
+                "m_Extent": {
+                    "x": 12.150306701660157,
+                    "y": 7.825133323669434,
+                    "z": 8.22882080078125
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 167,
+            "colorCount": 167,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -144.04806518554688,
+                    "y": 20.900833129882814,
+                    "z": 108.44575500488281
+                },
+                "m_Extent": {
+                    "x": 12.337661743164063,
+                    "y": 8.009504318237305,
+                    "z": 7.851924896240234
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 97,
+            "colorCount": 97,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -144.04806518554688,
+                    "y": 20.908161163330079,
+                    "z": 108.44575500488281
+                },
+                "m_Extent": {
+                    "x": 12.337661743164063,
+                    "y": 8.002176284790039,
+                    "z": 7.851924896240234
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_01",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 80,
+            "colorCount": 80,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -144.04806518554688,
+                    "y": 20.889245986938478,
+                    "z": 108.44575500488281
+                },
+                "m_Extent": {
+                    "x": 12.337661743164063,
+                    "y": 8.02109146118164,
+                    "z": 7.851924896240234
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 160,
+            "colorCount": 160,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -120.6905517578125,
+                    "y": 23.987878799438478,
+                    "z": 102.92813110351563
+                },
+                "m_Extent": {
+                    "x": 11.763992309570313,
+                    "y": 9.113664627075196,
+                    "z": 6.691638946533203
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 106,
+            "colorCount": 106,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -120.6905517578125,
+                    "y": 23.987878799438478,
+                    "z": 102.92813110351563
+                },
+                "m_Extent": {
+                    "x": 11.763992309570313,
+                    "y": 9.113664627075196,
+                    "z": 6.691638946533203
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_02",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 82,
+            "colorCount": 82,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -120.6905517578125,
+                    "y": 23.987878799438478,
+                    "z": 102.92813110351563
+                },
+                "m_Extent": {
+                    "x": 11.763992309570313,
+                    "y": 9.113664627075196,
+                    "z": 6.691638946533203
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 168,
+            "colorCount": 168,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -97.84884643554688,
+                    "y": 28.0871524810791,
+                    "z": 101.98680114746094
+                },
+                "m_Extent": {
+                    "x": 11.939754486083985,
+                    "y": 10.416646957397461,
+                    "z": 5.750312805175781
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 101,
+            "colorCount": 101,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -97.84884643554688,
+                    "y": 28.0871524810791,
+                    "z": 101.98680114746094
+                },
+                "m_Extent": {
+                    "x": 11.939754486083985,
+                    "y": 10.416646957397461,
+                    "z": 5.750312805175781
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_03",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 79,
+            "colorCount": 79,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -97.84884643554688,
+                    "y": 28.0871524810791,
+                    "z": 101.98680114746094
+                },
+                "m_Extent": {
+                    "x": 11.939754486083985,
+                    "y": 10.416646957397461,
+                    "z": 5.750312805175781
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 160,
+            "colorCount": 160,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -74.28070831298828,
+                    "y": 30.035198211669923,
+                    "z": 101.89924621582031
+                },
+                "m_Extent": {
+                    "x": 12.478292465209961,
+                    "y": 8.757414817810059,
+                    "z": 6.010826110839844
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 94,
+            "colorCount": 94,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -74.28070831298828,
+                    "y": 30.063953399658204,
+                    "z": 101.89924621582031
+                },
+                "m_Extent": {
+                    "x": 12.478292465209961,
+                    "y": 8.728659629821778,
+                    "z": 6.010826110839844
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_04",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 78,
+            "colorCount": 78,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -74.28070831298828,
+                    "y": 30.03469467163086,
+                    "z": 101.90298461914063
+                },
+                "m_Extent": {
+                    "x": 12.478292465209961,
+                    "y": 8.757920265197754,
+                    "z": 6.014564514160156
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 165,
+            "colorCount": 165,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -50.64143753051758,
+                    "y": 30.690351486206056,
+                    "z": 97.63119506835938
+                },
+                "m_Extent": {
+                    "x": 11.994926452636719,
+                    "y": 8.70646858215332,
+                    "z": 8.800479888916016
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_05_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 105,
+            "colorCount": 105,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -50.64143753051758,
+                    "y": 30.663930892944337,
+                    "z": 97.63119506835938
+                },
+                "m_Extent": {
+                    "x": 11.994926452636719,
+                    "y": 8.680047988891602,
+                    "z": 8.800479888916016
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_05",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 85,
+            "colorCount": 85,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -50.64143753051758,
+                    "y": 30.691503524780275,
+                    "z": 97.63119506835938
+                },
+                "m_Extent": {
+                    "x": 11.994926452636719,
+                    "y": 8.707620620727539,
+                    "z": 8.800479888916016
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 169,
+            "colorCount": 169,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.76797103881836,
+                    "y": 27.931873321533204,
+                    "z": 88.83244323730469
+                },
+                "m_Extent": {
+                    "x": 11.6770601272583,
+                    "y": 10.5805025100708,
+                    "z": 9.315677642822266
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_06_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 99,
+            "colorCount": 99,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.76797103881836,
+                    "y": 27.931873321533204,
+                    "z": 88.83244323730469
+                },
+                "m_Extent": {
+                    "x": 11.6770601272583,
+                    "y": 10.5805025100708,
+                    "z": 9.315677642822266
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_06",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 73,
+            "colorCount": 73,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.76797103881836,
+                    "y": 27.931873321533204,
+                    "z": 88.83244323730469
+                },
+                "m_Extent": {
+                    "x": 11.6770601272583,
+                    "y": 10.5805025100708,
+                    "z": 9.315677642822266
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 178,
+            "colorCount": 178,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.581938743591309,
+                    "y": 25.69403839111328,
+                    "z": 81.71210479736328
+                },
+                "m_Extent": {
+                    "x": 12.296277046203614,
+                    "y": 9.297679901123047,
+                    "z": 7.330902099609375
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_07_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 104,
+            "colorCount": 104,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.581938743591309,
+                    "y": 25.69403839111328,
+                    "z": 81.7733383178711
+                },
+                "m_Extent": {
+                    "x": 12.296277046203614,
+                    "y": 9.297679901123047,
+                    "z": 7.2696685791015629
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_07",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 84,
+            "colorCount": 84,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.581938743591309,
+                    "y": 25.63787841796875,
+                    "z": 81.7733383178711
+                },
+                "m_Extent": {
+                    "x": 12.296277046203614,
+                    "y": 9.353839874267579,
+                    "z": 7.2696685791015629
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 159,
+            "colorCount": 159,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 19.065019607543947,
+                    "y": 23.754634857177736,
+                    "z": 78.40141296386719
+                },
+                "m_Extent": {
+                    "x": 12.232088088989258,
+                    "y": 7.075852394104004,
+                    "z": 6.415584564208984
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000012516975402832032,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_08_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 93,
+            "colorCount": 93,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 19.065019607543947,
+                    "y": 23.754634857177736,
+                    "z": 78.40141296386719
+                },
+                "m_Extent": {
+                    "x": 12.232088088989258,
+                    "y": 7.075852394104004,
+                    "z": 6.415584564208984
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_08",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 77,
+            "colorCount": 77,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 19.065019607543947,
+                    "y": 23.754634857177736,
+                    "z": 78.40141296386719
+                },
+                "m_Extent": {
+                    "x": 12.232088088989258,
+                    "y": 7.075852394104004,
+                    "z": 6.415584564208984
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 181,
+            "colorCount": 181,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 42.09090805053711,
+                    "y": 21.334823608398439,
+                    "z": 72.18702697753906
+                },
+                "m_Extent": {
+                    "x": 11.63636302947998,
+                    "y": 6.94454288482666,
+                    "z": 8.668876647949219
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_09_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 42.09090805053711,
+                    "y": 21.453872680664064,
+                    "z": 72.18702697753906
+                },
+                "m_Extent": {
+                    "x": 11.63636302947998,
+                    "y": 6.825491905212402,
+                    "z": 8.668876647949219
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 7.748603820800781e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_09",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 80,
+            "colorCount": 80,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 42.09090805053711,
+                    "y": 21.325824737548829,
+                    "z": 72.18702697753906
+                },
+                "m_Extent": {
+                    "x": 11.63636302947998,
+                    "y": 6.9535417556762699,
+                    "z": 8.668876647949219
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 104,
+            "expectedTriangles": 104,
+            "subMeshes": 2,
+            "uvCount": 181,
+            "colorCount": 181,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 64.95923614501953,
+                    "y": 17.84430503845215,
+                    "z": 66.20828247070313
+                },
+                "m_Extent": {
+                    "x": 12.040765762329102,
+                    "y": 5.639963626861572,
+                    "z": 7.776430130004883
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 0.0000020265579223632814,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_Escarpment_Tier2_10_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 56,
+            "expectedTriangles": 56,
+            "subMeshes": 2,
+            "uvCount": 105,
+            "colorCount": 105,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 64.95923614501953,
+                    "y": 17.84430503845215,
+                    "z": 66.20828247070313
+                },
+                "m_Extent": {
+                    "x": 12.040765762329102,
+                    "y": 5.639963626861572,
+                    "z": 7.776430130004883
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 0.0000020265579223632814,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_Escarpment_Tier2_10",
+            "role": "collision",
+            "passed": true,
+            "triangles": 44,
+            "expectedTriangles": 44,
+            "subMeshes": 2,
+            "uvCount": 85,
+            "colorCount": 85,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 64.95923614501953,
+                    "y": 17.84430503845215,
+                    "z": 66.20828247070313
+                },
+                "m_Extent": {
+                    "x": 12.040765762329102,
+                    "y": 5.639963626861572,
+                    "z": 7.776430130004883
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 0.0000020265579223632814,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.91658020019531,
+                    "y": 1.249558687210083,
+                    "z": 3.866281747817993
+                },
+                "m_Extent": {
+                    "x": 4.725015640258789,
+                    "y": 1.7840712070465088,
+                    "z": 3.7957465648651125
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 1,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.71653747558594,
+                    "y": 1.249558687210083,
+                    "z": 4.157484531402588
+                },
+                "m_Extent": {
+                    "x": 4.524972915649414,
+                    "y": 1.7840712070465088,
+                    "z": 3.2009477615356447
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_00",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 1,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.71653747558594,
+                    "y": 1.249558687210083,
+                    "z": 4.157484531402588
+                },
+                "m_Extent": {
+                    "x": 4.524972915649414,
+                    "y": 1.7840712070465088,
+                    "z": 3.2009477615356447
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.94037437438965,
+                    "y": 1.1330761909484864,
+                    "z": -3.107778310775757
+                },
+                "m_Extent": {
+                    "x": 3.3449764251708986,
+                    "y": 1.392235517501831,
+                    "z": 3.114699125289917
+                }
+            },
+            "boundsError": 2.1560117602348328e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.0390682220459,
+                    "y": 1.1277806758880616,
+                    "z": -2.8744890689849855
+                },
+                "m_Extent": {
+                    "x": 3.4436702728271486,
+                    "y": 1.3869400024414063,
+                    "z": 2.592880964279175
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_01",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.0390682220459,
+                    "y": 1.1277806758880616,
+                    "z": -2.8744890689849855
+                },
+                "m_Extent": {
+                    "x": 3.4436702728271486,
+                    "y": 1.3869400024414063,
+                    "z": 2.592880964279175
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.964107513427736,
+                    "y": 0.4185048043727875,
+                    "z": 5.931769371032715
+                },
+                "m_Extent": {
+                    "x": 2.0871219635009767,
+                    "y": 0.9399616718292236,
+                    "z": 2.0127811431884767
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -28.064620971679689,
+                    "y": 0.4185048043727875,
+                    "z": 6.091975212097168
+                },
+                "m_Extent": {
+                    "x": 2.187636375427246,
+                    "y": 0.9399616718292236,
+                    "z": 1.902742624282837
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000014901161193847657,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_02",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -28.064620971679689,
+                    "y": 0.4185048043727875,
+                    "z": 6.091975212097168
+                },
+                "m_Extent": {
+                    "x": 2.187636375427246,
+                    "y": 0.9399616718292236,
+                    "z": 1.902742624282837
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000014901161193847657,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.981964111328128,
+                    "y": 0.1624360978603363,
+                    "z": 10.979419708251954
+                },
+                "m_Extent": {
+                    "x": 2.545045852661133,
+                    "y": 1.0957363843917847,
+                    "z": 2.2021617889404299
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 3,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.921844482421878,
+                    "y": 0.15659162402153016,
+                    "z": 11.115888595581055
+                },
+                "m_Extent": {
+                    "x": 2.48492431640625,
+                    "y": 1.0898919105529786,
+                    "z": 2.368744373321533
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_03",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 3,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.921844482421878,
+                    "y": 0.15659162402153016,
+                    "z": 11.115888595581055
+                },
+                "m_Extent": {
+                    "x": 2.48492431640625,
+                    "y": 1.0898919105529786,
+                    "z": 2.368744373321533
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 102,
+            "colorCount": 102,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -40.96546936035156,
+                    "y": 0.7370870113372803,
+                    "z": -0.9750056862831116
+                },
+                "m_Extent": {
+                    "x": 2.1299095153808595,
+                    "y": 0.8471758365631104,
+                    "z": 1.6147770881652833
+                }
+            },
+            "boundsError": 5.960464477539063e-8,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -40.77750015258789,
+                    "y": 0.7370870113372803,
+                    "z": -0.911670446395874
+                },
+                "m_Extent": {
+                    "x": 1.9419403076171876,
+                    "y": 0.8471758365631104,
+                    "z": 1.7792284488677979
+                }
+            },
+            "boundsError": 5.960464477539063e-8,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_04",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -40.77750015258789,
+                    "y": 0.7370870113372803,
+                    "z": -0.911670446395874
+                },
+                "m_Extent": {
+                    "x": 1.9419403076171876,
+                    "y": 0.8471758365631104,
+                    "z": 1.7792284488677979
+                }
+            },
+            "boundsError": 5.960464477539063e-8,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 102,
+            "colorCount": 102,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.968482971191408,
+                    "y": 0.5349620580673218,
+                    "z": -8.045543670654297
+                },
+                "m_Extent": {
+                    "x": 1.8808794021606446,
+                    "y": 0.7055809497833252,
+                    "z": 1.2978198528289796
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_05_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.769020080566408,
+                    "y": 0.5349620580673218,
+                    "z": -7.932889938354492
+                },
+                "m_Extent": {
+                    "x": 1.6814165115356446,
+                    "y": 0.7055809497833252,
+                    "z": 1.3436384201049805
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000029802322387695314,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_05",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.769020080566408,
+                    "y": 0.5349620580673218,
+                    "z": -7.932889938354492
+                },
+                "m_Extent": {
+                    "x": 1.6814165115356446,
+                    "y": 0.7055809497833252,
+                    "z": 1.3436384201049805
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000029802322387695314,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 31.06737518310547,
+                    "y": 1.0258862972259522,
+                    "z": 7.895549774169922
+                },
+                "m_Extent": {
+                    "x": 3.8523178100585939,
+                    "y": 1.4298436641693116,
+                    "z": 2.957723379135132
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_06_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 1,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 31.307456970214845,
+                    "y": 1.0258862972259522,
+                    "z": 8.127583503723145
+                },
+                "m_Extent": {
+                    "x": 3.6122350692749025,
+                    "y": 1.4298436641693116,
+                    "z": 2.579951286315918
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_06",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 1,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 31.307456970214845,
+                    "y": 1.0258862972259522,
+                    "z": 8.127583503723145
+                },
+                "m_Extent": {
+                    "x": 3.6122350692749025,
+                    "y": 1.4298436641693116,
+                    "z": 2.579951286315918
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 34.0509033203125,
+                    "y": 0.0751754641532898,
+                    "z": 14.91080093383789
+                },
+                "m_Extent": {
+                    "x": 2.850588798522949,
+                    "y": 1.1577832698822022,
+                    "z": 2.562284469604492
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_07_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 3,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 34.018531799316409,
+                    "y": 0.0751754641532898,
+                    "z": 15.102205276489258
+                },
+                "m_Extent": {
+                    "x": 2.882960319519043,
+                    "y": 1.1577832698822022,
+                    "z": 2.103916645050049
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_07",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 3,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 34.018531799316409,
+                    "y": 0.0751754641532898,
+                    "z": 15.102205276489258
+                },
+                "m_Extent": {
+                    "x": 2.882960319519043,
+                    "y": 1.1577832698822022,
+                    "z": 2.103916645050049
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.03152847290039,
+                    "y": 0.4918757975101471,
+                    "z": 15.940190315246582
+                },
+                "m_Extent": {
+                    "x": 1.807692527770996,
+                    "y": 0.8091917037963867,
+                    "z": 1.7552976608276368
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_08_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 25.93771743774414,
+                    "y": 0.4918757975101471,
+                    "z": 16.076614379882814
+                },
+                "m_Extent": {
+                    "x": 1.9015016555786133,
+                    "y": 0.8091917037963867,
+                    "z": 1.5871176719665528
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_08",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 25.93771743774414,
+                    "y": 0.4918757975101471,
+                    "z": 16.076614379882814
+                },
+                "m_Extent": {
+                    "x": 1.9015016555786133,
+                    "y": 0.8091917037963867,
+                    "z": 1.5871176719665528
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 38.00372314453125,
+                    "y": 0.11503177881240845,
+                    "z": 4.963003158569336
+                },
+                "m_Extent": {
+                    "x": 1.4690380096435547,
+                    "y": 0.6514431834220886,
+                    "z": 1.3014953136444092
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 7.152557373046875e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_09_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 38.01171112060547,
+                    "y": 0.10918152332305908,
+                    "z": 5.0669050216674809
+                },
+                "m_Extent": {
+                    "x": 1.461050033569336,
+                    "y": 0.6455929279327393,
+                    "z": 1.3732492923736573
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 8.344650268554688e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_09",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 38.01171112060547,
+                    "y": 0.10918152332305908,
+                    "z": 5.0669050216674809
+                },
+                "m_Extent": {
+                    "x": 1.461050033569336,
+                    "y": 0.6455929279327393,
+                    "z": 1.3732492923736573
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 8.344650268554688e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.925575256347658,
+                    "y": 2.0261154174804689,
+                    "z": -25.939334869384767
+                },
+                "m_Extent": {
+                    "x": 4.603024482727051,
+                    "y": 1.849932074546814,
+                    "z": 3.638087272644043
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_10_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.596771240234376,
+                    "y": 2.0261154174804689,
+                    "z": -25.801467895507814
+                },
+                "m_Extent": {
+                    "x": 4.2742204666137699,
+                    "y": 1.849932074546814,
+                    "z": 4.014030456542969
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_10",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -27.596771240234376,
+                    "y": 2.0261154174804689,
+                    "z": -25.801467895507814
+                },
+                "m_Extent": {
+                    "x": 4.2742204666137699,
+                    "y": 1.849932074546814,
+                    "z": 4.014030456542969
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -22.962718963623048,
+                    "y": 1.1061638593673707,
+                    "z": -29.028175354003908
+                },
+                "m_Extent": {
+                    "x": 2.251469612121582,
+                    "y": 0.848798930644989,
+                    "z": 1.5719785690307618
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_11_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 3,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -22.719833374023439,
+                    "y": 1.1061638593673707,
+                    "z": -28.916378021240236
+                },
+                "m_Extent": {
+                    "x": 2.0085840225219728,
+                    "y": 0.848798930644989,
+                    "z": 1.674637794494629
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_11",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 3,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -22.719833374023439,
+                    "y": 1.1061638593673707,
+                    "z": -28.916378021240236
+                },
+                "m_Extent": {
+                    "x": 2.0085840225219728,
+                    "y": 0.848798930644989,
+                    "z": 1.674637794494629
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 104,
+            "colorCount": 104,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.96938133239746,
+                    "y": 1.0607526302337647,
+                    "z": -24.046104431152345
+                },
+                "m_Extent": {
+                    "x": 1.7704143524169922,
+                    "y": 0.6649986505508423,
+                    "z": 1.3046026229858399
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_12_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 1,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.828306198120118,
+                    "y": 1.0607526302337647,
+                    "z": -23.940954208374025
+                },
+                "m_Extent": {
+                    "x": 1.6293392181396485,
+                    "y": 0.6649986505508423,
+                    "z": 1.1887741088867188
+                }
+            },
+            "boundsError": 2.9802322387695315e-8,
+            "normalRangeError": 4.172325134277344e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_12",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 1,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.828306198120118,
+                    "y": 1.0607526302337647,
+                    "z": -23.940954208374025
+                },
+                "m_Extent": {
+                    "x": 1.6293392181396485,
+                    "y": 0.6649986505508423,
+                    "z": 1.1887741088867188
+                }
+            },
+            "boundsError": 2.9802322387695315e-8,
+            "normalRangeError": 4.172325134277344e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_13_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.070261001586915,
+                    "y": 1.3827221393585206,
+                    "z": -28.118942260742189
+                },
+                "m_Extent": {
+                    "x": 3.942546844482422,
+                    "y": 1.550492763519287,
+                    "z": 3.3980674743652345
+                }
+            },
+            "boundsError": 1.4901161193847657e-8,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_13_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.10739517211914,
+                    "y": 1.3827221393585206,
+                    "z": -27.86385726928711
+                },
+                "m_Extent": {
+                    "x": 3.9054126739501955,
+                    "y": 1.550492763519287,
+                    "z": 2.789616584777832
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_13",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 70,
+            "colorCount": 70,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.10739517211914,
+                    "y": 1.3827221393585206,
+                    "z": -27.86385726928711
+                },
+                "m_Extent": {
+                    "x": 3.9054126739501955,
+                    "y": 1.550492763519287,
+                    "z": 2.789616584777832
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_14_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 31.02975845336914,
+                    "y": 0.9719810485839844,
+                    "z": -24.055753707885743
+                },
+                "m_Extent": {
+                    "x": 1.6870489120483399,
+                    "y": 0.7450000047683716,
+                    "z": 1.626657485961914
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_MeadowRock_14_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.94866180419922,
+                    "y": 0.9680773019790649,
+                    "z": -23.93173599243164
+                },
+                "m_Extent": {
+                    "x": 1.7681474685668946,
+                    "y": 0.7410961389541626,
+                    "z": 1.4141721725463868
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_MeadowRock_14",
+            "role": "collision",
+            "passed": true,
+            "triangles": 36,
+            "expectedTriangles": 36,
+            "subMeshes": 2,
+            "uvCount": 72,
+            "colorCount": 72,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.94866180419922,
+                    "y": 0.9680773019790649,
+                    "z": -23.93173599243164
+                },
+                "m_Extent": {
+                    "x": 1.7681474685668946,
+                    "y": 0.7410961389541626,
+                    "z": 1.4141721725463868
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -112.96607971191406,
+                    "y": -4.129167556762695,
+                    "z": 21.984590530395509
+                },
+                "m_Extent": {
+                    "x": 1.9001617431640626,
+                    "y": 0.7251921892166138,
+                    "z": 2.0074729919433595
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 4.172325134277344e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -102.36186218261719,
+                    "y": -3.9444031715393068,
+                    "z": 54.28240966796875
+                },
+                "m_Extent": {
+                    "x": 2.201519012451172,
+                    "y": 0.9548763036727905,
+                    "z": 1.9695091247558594
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -91.78919982910156,
+                    "y": -3.6789424419403078,
+                    "z": 22.833499908447267
+                },
+                "m_Extent": {
+                    "x": 2.719512939453125,
+                    "y": 1.1788809299468995,
+                    "z": 1.8317270278930665
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 102,
+            "colorCount": 102,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -81.16825866699219,
+                    "y": -3.2736682891845705,
+                    "z": 52.039825439453128
+                },
+                "m_Extent": {
+                    "x": 1.9616012573242188,
+                    "y": 1.404345989227295,
+                    "z": 1.7511005401611329
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -70.55593872070313,
+                    "y": -4.0691423416137699,
+                    "z": 21.56757354736328
+                },
+                "m_Extent": {
+                    "x": 2.6458778381347658,
+                    "y": 0.729989767074585,
+                    "z": 1.6881132125854493
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -59.944854736328128,
+                    "y": -3.8001320362091066,
+                    "z": 44.82286834716797
+                },
+                "m_Extent": {
+                    "x": 3.170166015625,
+                    "y": 0.9511940479278565,
+                    "z": 1.832571029663086
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -49.3651123046875,
+                    "y": -3.6424617767333986,
+                    "z": 19.319786071777345
+                },
+                "m_Extent": {
+                    "x": 1.9548263549804688,
+                    "y": 1.1784199476242066,
+                    "z": 1.986220359802246
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -38.76081085205078,
+                    "y": -3.4945850372314455,
+                    "z": 42.20978546142578
+                },
+                "m_Extent": {
+                    "x": 2.233348846435547,
+                    "y": 1.4046944379806519,
+                    "z": 1.9976787567138672
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -28.192365646362306,
+                    "y": -4.102356910705566,
+                    "z": 19.239501953125
+                },
+                "m_Extent": {
+                    "x": 2.681865692138672,
+                    "y": 0.7254626750946045,
+                    "z": 1.856410026550293
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -17.569164276123048,
+                    "y": -3.944361686706543,
+                    "z": 47.46827697753906
+                },
+                "m_Extent": {
+                    "x": 1.9067997932434083,
+                    "y": 0.9549177885055542,
+                    "z": 1.7757091522216797
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -6.9570841789245609,
+                    "y": -0.5531911849975586,
+                    "z": 20.84174346923828
+                },
+                "m_Extent": {
+                    "x": 2.6057868003845217,
+                    "y": 1.1790133714675904,
+                    "z": 1.6997575759887696
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 3.6550161838531496,
+                    "y": -3.4950428009033205,
+                    "z": 52.839881896972659
+                },
+                "m_Extent": {
+                    "x": 3.2003843784332277,
+                    "y": 1.404236912727356,
+                    "z": 1.7813568115234376
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 14.23571491241455,
+                    "y": -2.0213534832000734,
+                    "z": 21.570409774780275
+                },
+                "m_Extent": {
+                    "x": 2.0086660385131838,
+                    "y": 0.7299724221229553,
+                    "z": 1.9526481628417969
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_13_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 24.840412139892579,
+                    "y": -3.9445748329162599,
+                    "z": 52.085350036621097
+                },
+                "m_Extent": {
+                    "x": 2.2808923721313478,
+                    "y": 0.9547048807144165,
+                    "z": 2.012613296508789
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_14_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 35.423309326171878,
+                    "y": -3.6649208068847658,
+                    "z": 22.1981201171875
+                },
+                "m_Extent": {
+                    "x": 2.647430419921875,
+                    "y": 1.1782541275024415,
+                    "z": 1.9061222076416016
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_15_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 46.03010559082031,
+                    "y": -3.4946610927581789,
+                    "z": 48.433353424072269
+                },
+                "m_Extent": {
+                    "x": 1.8549995422363282,
+                    "y": 1.404618501663208,
+                    "z": 1.7998847961425782
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_16_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 56.641639709472659,
+                    "y": -4.103995323181152,
+                    "z": 23.97443389892578
+                },
+                "m_Extent": {
+                    "x": 2.5517406463623049,
+                    "y": 0.7257258892059326,
+                    "z": 1.7170209884643555
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_17_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 67.25445556640625,
+                    "y": -3.944328784942627,
+                    "z": 47.4072380065918
+                },
+                "m_Extent": {
+                    "x": 3.2080039978027345,
+                    "y": 0.9549509286880493,
+                    "z": 1.7341423034667969
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_18_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 102,
+            "colorCount": 102,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 77.83633422851563,
+                    "y": -3.6355719566345217,
+                    "z": 23.849647521972658
+                },
+                "m_Extent": {
+                    "x": 2.057392120361328,
+                    "y": 1.1791377067565919,
+                    "z": 1.9094305038452149
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_19_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 88.44171142578125,
+                    "y": -3.4969305992126467,
+                    "z": 48.43824768066406
+                },
+                "m_Extent": {
+                    "x": 2.3403587341308595,
+                    "y": 1.4023491144180298,
+                    "z": 2.0131282806396486
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_20_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 3,
+            "uvCount": 100,
+            "colorCount": 100,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 99.04521179199219,
+                    "y": -4.090350151062012,
+                    "z": 19.485851287841798
+                },
+                "m_Extent": {
+                    "x": 2.63031005859375,
+                    "y": 0.7299467325210571,
+                    "z": 1.949894905090332
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_BankRock_21_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 52,
+            "expectedTriangles": 52,
+            "subMeshes": 2,
+            "uvCount": 98,
+            "colorCount": 98,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 109.61341094970703,
+                    "y": -3.9445083141326906,
+                    "z": 47.9375
+                },
+                "m_Extent": {
+                    "x": 1.8265304565429688,
+                    "y": 0.9547712802886963,
+                    "z": 1.8217029571533204
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WP03_RuinArch_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 276,
+            "expectedTriangles": 276,
+            "subMeshes": 3,
+            "uvCount": 552,
+            "colorCount": 552,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.762500762939454,
+                    "y": 3.9476637840270998,
+                    "z": 7.224999904632568
+                },
+                "m_Extent": {
+                    "x": 4.737500190734863,
+                    "y": 4.2495856285095219,
+                    "z": 1.9749999046325684
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WP03_Cathedral_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 970,
+            "expectedTriangles": 970,
+            "subMeshes": 4,
+            "uvCount": 1962,
+            "colorCount": 1962,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -50.0,
+                    "y": 56.531314849853519,
+                    "z": 107.5
+                },
+                "m_Extent": {
+                    "x": 8.5,
+                    "y": 18.14999771118164,
+                    "z": 13.0
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WP03_Aqueduct_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 1080,
+            "expectedTriangles": 1080,
+            "subMeshes": 2,
+            "uvCount": 2160,
+            "colorCount": 2160,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 67.5,
+                    "y": 29.837894439697267,
+                    "z": 125.0
+                },
+                "m_Extent": {
+                    "x": 45.0,
+                    "y": 17.02804183959961,
+                    "z": 2.4749984741210939
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WP03_RuinArch_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 204,
+            "expectedTriangles": 204,
+            "subMeshes": 3,
+            "uvCount": 408,
+            "colorCount": 408,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.762500762939454,
+                    "y": 3.915116310119629,
+                    "z": 7.224999904632568
+                },
+                "m_Extent": {
+                    "x": 4.737500190734863,
+                    "y": 4.217038154602051,
+                    "z": 1.9749999046325684
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WP03_Cathedral_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 682,
+            "expectedTriangles": 682,
+            "subMeshes": 4,
+            "uvCount": 1386,
+            "colorCount": 1386,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -50.0,
+                    "y": 56.531314849853519,
+                    "z": 107.5
+                },
+                "m_Extent": {
+                    "x": 8.5,
+                    "y": 18.14999771118164,
+                    "z": 13.0
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WP03_Aqueduct_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 600,
+            "expectedTriangles": 600,
+            "subMeshes": 2,
+            "uvCount": 1200,
+            "colorCount": 1200,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 67.5,
+                    "y": 29.837894439697267,
+                    "z": 125.0
+                },
+                "m_Extent": {
+                    "x": 45.0,
+                    "y": 17.02804183959961,
+                    "z": 2.4749984741210939
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "COL_WP03_RuinArch",
+            "role": "collision",
+            "passed": true,
+            "triangles": 204,
+            "expectedTriangles": 204,
+            "subMeshes": 3,
+            "uvCount": 408,
+            "colorCount": 408,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.762500762939454,
+                    "y": 3.915116310119629,
+                    "z": 7.224999904632568
+                },
+                "m_Extent": {
+                    "x": 4.737500190734863,
+                    "y": 4.217038154602051,
+                    "z": 1.9749999046325684
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_DistantRidge_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 324,
+            "expectedTriangles": 324,
+            "subMeshes": 1,
+            "uvCount": 476,
+            "colorCount": 476,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 0.0,
+                    "y": 37.0301513671875,
+                    "z": 220.503662109375
+                },
+                "m_Extent": {
+                    "x": 600.0,
+                    "y": 49.0301513671875,
+                    "z": 44.49633026123047
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_DistantRidge_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 164,
+            "expectedTriangles": 164,
+            "subMeshes": 1,
+            "uvCount": 260,
+            "colorCount": 260,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 0.0,
+                    "y": 37.0301513671875,
+                    "z": 220.55978393554688
+                },
+                "m_Extent": {
+                    "x": 600.0,
+                    "y": 49.0301513671875,
+                    "z": 44.440208435058597
+                }
+            },
+            "boundsError": 0.0000152587890625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_DistantRidge_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 324,
+            "expectedTriangles": 324,
+            "subMeshes": 1,
+            "uvCount": 490,
+            "colorCount": 490,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 0.0,
+                    "y": 41.20540237426758,
+                    "z": 305.503662109375
+                },
+                "m_Extent": {
+                    "x": 600.0,
+                    "y": 53.20540237426758,
+                    "z": 44.49632263183594
+                }
+            },
+            "boundsError": 0.000030517578125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_DistantRidge_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 164,
+            "expectedTriangles": 164,
+            "subMeshes": 1,
+            "uvCount": 264,
+            "colorCount": 264,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 0.0,
+                    "y": 41.20540237426758,
+                    "z": 305.5597839355469
+                },
+                "m_Extent": {
+                    "x": 600.0,
+                    "y": 53.20540237426758,
+                    "z": 44.440216064453128
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_DistantRidge_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 324,
+            "expectedTriangles": 324,
+            "subMeshes": 1,
+            "uvCount": 486,
+            "colorCount": 486,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 0.0,
+                    "y": 46.84941101074219,
+                    "z": 390.503662109375
+                },
+                "m_Extent": {
+                    "x": 600.0,
+                    "y": 58.84941101074219,
+                    "z": 44.49632263183594
+                }
+            },
+            "boundsError": 0.000030517578125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_DistantRidge_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 164,
+            "expectedTriangles": 164,
+            "subMeshes": 1,
+            "uvCount": 260,
+            "colorCount": 260,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 0.0,
+                    "y": 41.74980545043945,
+                    "z": 390.5597839355469
+                },
+                "m_Extent": {
+                    "x": 600.0,
+                    "y": 53.74980545043945,
+                    "z": 44.440216064453128
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 4.172325134277344e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_WorldAxisMarker",
+            "role": "diagnostic",
+            "passed": true,
+            "triangles": 84,
+            "expectedTriangles": 84,
+            "subMeshes": 3,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 1.0,
+                    "y": 0.050999999046325687,
+                    "z": -0.5
+                },
+                "m_Extent": {
+                    "x": 1.0,
+                    "y": 0.050999999046325687,
+                    "z": 0.5
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        }
+    ],
+    "errors": []
+}

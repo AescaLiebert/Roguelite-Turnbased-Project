@@ -10,6 +10,7 @@ namespace FightingAllstar.Presentation.Combat
     public sealed partial class BattleStagePresenter : MonoBehaviour
     {
         private Camera _camera;
+        private SFXPlayer _sfxPlayer;
         private float _homeFov;
         private Vector3 _planningPosition;
         private Quaternion _planningRotation;
@@ -22,6 +23,9 @@ namespace FightingAllstar.Presentation.Combat
 
         public void Initialize(Dictionary<string, GameObject> views, BattleState state = null)
         {
+            _sfxPlayer = GetComponent<SFXPlayer>();
+            if (_sfxPlayer == null) _sfxPlayer = gameObject.AddComponent<SFXPlayer>();
+            _sfxPlayer.Initialize();
             _views = views;
             _teams.Clear();
             _formationMembers.Clear();

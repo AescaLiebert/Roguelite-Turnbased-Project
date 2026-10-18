@@ -1,0 +1,272 @@
+{
+    "method": "Collider ray checks against enabled mesh visual modules (temporary mesh colliders where needed) and native TerrainCollider/TerrainData surfaces, actor bounds projected at 16:9, and spherical camera-path samples derived from the current ApplyOrbit position formula. Collider references are deduplicated.",
+    "limitations": "Static review proxies and common-origin spherical paths only. Actual attack pivots, animated actor bounds, pose changes, chosen orbit direction, FOV fitting, shake and ultimate playback require runtime integration. Sampling is a starting value; increase until detected obstructions stabilize when modifying layout.",
+    "bothPlanningViewsPass": true,
+    "shots": [
+        {
+            "name": "TG_PlayerPlanning",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_EnemyPlanning",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReferencePlanningCandidate",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReversePlanningCandidate",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_EnvironmentOverview",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_PlayerAttack",
+            "fullyVisibleActors": 3,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_EnemyAttack",
+            "fullyVisibleActors": 3,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_PlayerContact",
+            "fullyVisibleActors": 3,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_EnemyContact",
+            "fullyVisibleActors": 3,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_PlayerPortrait",
+            "fullyVisibleActors": 2,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_EnemyPortrait",
+            "fullyVisibleActors": 2,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_WideMultiTarget",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReverseOverview",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReferenceFrontLeft",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReferenceFrontRight",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReferenceSide",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "TG_ReferenceRear",
+            "fullyVisibleActors": 6,
+            "environmentOccludedActors": 0,
+            "geometryHits": []
+        }
+    ],
+    "sweeps": [
+        {
+            "name": "PlayerPlanning -> EnemyPlanning",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "EnemyPlanning -> PlayerPlanning",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "PlayerPlanning -> PlayerAttack",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "PlayerAttack -> PlayerContact",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "PlayerContact -> PlayerPlanning",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "EnemyPlanning -> EnemyAttack",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "EnemyAttack -> EnemyContact",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        },
+        {
+            "name": "EnemyContact -> EnemyPlanning",
+            "samples": 33,
+            "samplesWithBlockedCenter": 0,
+            "geometryHits": []
+        }
+    ],
+    "terrainGroundMethod": "Read-only TerrainData.GetInterpolatedHeight samples at each copied anchor inside each enabled foundation terrain's X/Z bounds, transformed to world Y. Signed error is terrain Y minus anchor Y. Every overlapping terrain sample must satisfy the 0.02 m starting tolerance; missing coverage fails this diagnostic. If a check fails, adjust terrain height or coverage and recapture. This does not test runtime grounding, animation or gameplay acceptance.",
+    "terrainGroundStartingTolerance": 0.019999999552965165,
+    "allAnchorsWithinTerrainGroundStartingTolerance": true,
+    "anchorGroundChecks": [
+        {
+            "anchor": "CharHeroPosition1",
+            "worldPosition": {
+                "x": -5.7563018798828129,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "terrainCovered": true,
+            "withinStartingTolerance": true,
+            "samples": [
+                {
+                    "terrain": "TG Editable TerrainData - connected meadow basin and terraces",
+                    "groundWorldY": 1.887908935546875,
+                    "signedHeightError": 0.00030517578125,
+                    "withinStartingTolerance": true
+                }
+            ]
+        },
+        {
+            "anchor": "CharHeroPosition2",
+            "worldPosition": {
+                "x": -0.16630172729492188,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "terrainCovered": true,
+            "withinStartingTolerance": true,
+            "samples": [
+                {
+                    "terrain": "TG Editable TerrainData - connected meadow basin and terraces",
+                    "groundWorldY": 1.887908935546875,
+                    "signedHeightError": 0.00030517578125,
+                    "withinStartingTolerance": true
+                }
+            ]
+        },
+        {
+            "anchor": "CharHeroPosition3",
+            "worldPosition": {
+                "x": 5.083698272705078,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "terrainCovered": true,
+            "withinStartingTolerance": true,
+            "samples": [
+                {
+                    "terrain": "TG Editable TerrainData - connected meadow basin and terraces",
+                    "groundWorldY": 1.887908935546875,
+                    "signedHeightError": 0.00030517578125,
+                    "withinStartingTolerance": true
+                }
+            ]
+        },
+        {
+            "anchor": "EnemyHeroPosition1",
+            "worldPosition": {
+                "x": -5.7563018798828129,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "terrainCovered": true,
+            "withinStartingTolerance": true,
+            "samples": [
+                {
+                    "terrain": "TG Editable TerrainData - connected meadow basin and terraces",
+                    "groundWorldY": 1.887908935546875,
+                    "signedHeightError": 0.00030517578125,
+                    "withinStartingTolerance": true
+                }
+            ]
+        },
+        {
+            "anchor": "EnemyHeroPosition2",
+            "worldPosition": {
+                "x": -0.16630172729492188,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "terrainCovered": true,
+            "withinStartingTolerance": true,
+            "samples": [
+                {
+                    "terrain": "TG Editable TerrainData - connected meadow basin and terraces",
+                    "groundWorldY": 1.887908935546875,
+                    "signedHeightError": 0.00030517578125,
+                    "withinStartingTolerance": true
+                }
+            ]
+        },
+        {
+            "anchor": "EnemyHeroPosition3",
+            "worldPosition": {
+                "x": 5.083698272705078,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "terrainCovered": true,
+            "withinStartingTolerance": true,
+            "samples": [
+                {
+                    "terrain": "TG Editable TerrainData - connected meadow basin and terraces",
+                    "groundWorldY": 1.887908935546875,
+                    "signedHeightError": 0.00030517578125,
+                    "withinStartingTolerance": true
+                }
+            ]
+        }
+    ]
+}

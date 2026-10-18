@@ -22,6 +22,7 @@ namespace FightingAllstar.Presentation.Combat
         private readonly List<CardState> _draftCards = new List<CardState>();
         private readonly List<BattleEvent> _executionEvents = new List<BattleEvent>();
         private HitReaction _actionFramingReaction;
+        private BattleEvent _pendingActionMotion;
 
         private static HitReaction SnapshotActionReaction(IReadOnlyList<BattleEvent> events, int start)
         {
@@ -475,7 +476,7 @@ namespace FightingAllstar.Presentation.Combat
                     case BattleEventKind.HealApplied:
                         visible = true;
                         FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal", styleSourceId: item.SourceId);
-                        _stage.Pulse(item.TargetId, new Color(.3f, 1f, .65f));
+                        _stage.PlayHealFeedback(item.TargetId);
                         break;
                     case BattleEventKind.RecoveryBlocked:
                         visible = true;
@@ -531,6 +532,27 @@ namespace FightingAllstar.Presentation.Combat
         private static float HitImpactScale(int hitCount) => hitCount > 3
             ? Mathf.Clamp(.72f / hitCount / .28f, .1f, 1f) : 1f;
 
+        private IEnumerator PlayPendingActionMotion()
+        {
+            var action = _pendingActionMotion;
+            _pendingActionMotion = null;
+            if (action == null) yield break;
+            var targetIds = action.TargetIds != null && action.TargetIds.Count > 0
+                ? action.TargetIds : new List<string> { action.TargetId };
+            var category = CardRules.GetEffectCategory(action.Card);
+            var area = action.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1;
+            if (action.HitCount > 0)
+                yield return _stage.BeginDamageAttack(action.SourceId, targetIds, action.HitCount, action.AttackRange,
+                    area, _actionFramingReaction);
+            else if (action.Card != null && (category == CardCategory.Recovery || category == CardCategory.Debuff ||
+                category == CardCategory.Buff || category == CardCategory.Stance))
+                yield return _stage.SupportAction(action.SourceId, targetIds, category);
+            else if (area)
+                yield return _stage.AttackArea(action.SourceId, targetIds, category == CardCategory.AttackDebuff);
+            else
+                yield return _stage.Attack(action.SourceId, action.TargetId, category == CardCategory.AttackDebuff);
+        }
+
         private IEnumerator PresentEvent(BattleEvent item)
         {
             switch (item.Kind)
@@ -545,8 +567,11 @@ namespace FightingAllstar.Presentation.Combat
                     yield break;
                 case BattleEventKind.ActionTiming:
                     _hitWindow = item.Timing == CardEffectTiming.Damaging;
-                    if (item.Timing == CardEffectTiming.BeforeAction)
-                        yield return FinishActionVisual();
+                    if (item.Timing == CardEffectTiming.Damaging && _pendingActionMotion != null)
+                    {
+                        yield return _stage.WaitForWindUp();
+                        yield return PlayPendingActionMotion();
+                    }
                     else if (item.Timing == CardEffectTiming.AfterDamage)
                     {
                         yield return _stage.WaitForLastHit();
@@ -727,17 +752,8 @@ namespace FightingAllstar.Presentation.Combat
                     var counterCategory = CardRules.GetEffectCategory(item.Card);
                     yield return _stage.BeginExecution(item.SourceId, item.TargetId, 1, false, counterCategory,
                         item.TargetIds, item.Card?.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1,
-                        item.Card?.TargetScope == EffectTargetScope.Self);
-                    if (item.HitCount > 0)
-                        yield return _stage.BeginDamageAttack(item.SourceId, item.TargetIds, item.HitCount, item.AttackRange,
-                            item.Card?.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1, _actionFramingReaction);
-                    else if (counterCategory == CardCategory.Attack || counterCategory == CardCategory.AttackDebuff)
-                    {
-                        if (item.Card.TargetScope == EffectTargetScope.AllEnemies || item.TargetIds.Count > 1)
-                            yield return _stage.AttackArea(item.SourceId, item.TargetIds, counterCategory == CardCategory.AttackDebuff);
-                        else yield return _stage.Attack(item.SourceId, item.TargetId, counterCategory == CardCategory.AttackDebuff);
-                    }
-                    else yield return _stage.SupportAction(item.SourceId, item.TargetIds, counterCategory);
+                        item.Card?.TargetScope == EffectTargetScope.Self, overlapBeforeAction: true);
+                    _pendingActionMotion = item;
                     yield break;
                 case BattleEventKind.CounterEnded:
                     _damageTotalActionOpen = false;
@@ -776,24 +792,11 @@ namespace FightingAllstar.Presentation.Combat
                     yield return _stage.BeginExecution(item.SourceId, item.TargetId, item.Card?.Rank ?? 1,
                         item.Card?.Kind == CardKind.Ultimate, effectCategory, targetIds,
                         item.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1,
-                        item.Card?.TargetScope == EffectTargetScope.Self);
+                        item.Card?.TargetScope == EffectTargetScope.Self, overlapBeforeAction: true);
+                    _pendingActionMotion = item;
                     if (targetIds.Count == 1 && _fighterViews.TryGetValue(item.TargetId, out var target) && _targetReticle != null)
                     { _targetReticle.AttachTo(target.transform); _targetReticle.HighlightAttack(); }
                     else if (_targetReticle != null) _targetReticle.SetVisible(false);
-                    if (item.HitCount > 0)
-                        yield return _stage.BeginDamageAttack(item.SourceId, targetIds, item.HitCount, item.AttackRange,
-                            item.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1, _actionFramingReaction);
-                    else if (item.Card != null && (effectCategory == CardCategory.Recovery ||
-                        effectCategory == CardCategory.Debuff || effectCategory == CardCategory.Buff ||
-                        effectCategory == CardCategory.Stance))
-                    {
-                        yield return _stage.SupportAction(item.SourceId, targetIds, effectCategory);
-
-                    }
-                    else if (item.Card?.TargetScope == EffectTargetScope.AllEnemies || targetIds.Count > 1) yield return _stage.AttackArea(item.SourceId, targetIds,
-                        item.Card != null && effectCategory == CardCategory.AttackDebuff);
-                    else yield return _stage.Attack(item.SourceId, item.TargetId,
-                        item.Card != null && effectCategory == CardCategory.AttackDebuff);
                     yield break;
                 case BattleEventKind.DamageApplied:
                     _stage.ActorStatusDamageFeedback(item);
@@ -825,6 +828,7 @@ namespace FightingAllstar.Presentation.Combat
                     BattlePlaybackState.Apply(_displayState, item);
                     UpdateDisplayedHud(item.TargetId);
                     FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal", styleSourceId: item.SourceId);
+                    _stage.PlayHealFeedback(item.TargetId);
                     if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
                     yield break;
                 case BattleEventKind.RecoveryBlocked:
@@ -969,6 +973,7 @@ namespace FightingAllstar.Presentation.Combat
                 BattlePlaybackState.Apply(_displayState, item);
                 UpdateDisplayedHud(item.TargetId);
                 FloatText(item.TargetId, "+" + item.Amount.ToString("N0"), "heal", styleSourceId: item.SourceId);
+                _stage.PlayHealFeedback(item.TargetId);
             }
             if (eventDelay > 0) yield return new WaitForSecondsRealtime(eventDelay);
         }
@@ -1014,6 +1019,7 @@ namespace FightingAllstar.Presentation.Combat
                 status.Recipe.DefaultDuration = parent.Recipe.DefaultDuration;
             }
             hud.SetStatuses(shownStatuses);
+            hud.SetElementStatuses(fighter.ElementStatuses.Instances);
 
             var isPlayerDraft = fighter.Side == TeamSide.Player && _draft != null && !_isPlayingEvents;
             if (isPlayerDraft)
@@ -1437,7 +1443,7 @@ namespace FightingAllstar.Presentation.Combat
                 FinishBattle();
                 return;
             }
-            if (_resultPanel != null) _resultPanel.style.display = DisplayStyle.Flex;
+            if (_resultPanel != null) ScreenMotion.ShowModal(_resultPanel);
             if (_resultTitle != null) _resultTitle.text = _snapshot.IsDraw ? "DRAW" :
                 _snapshot.Winner == TeamSide.Player ? "VICTORY" : "DEFEAT";
             if (_resultPanel == null) FinishBattle();

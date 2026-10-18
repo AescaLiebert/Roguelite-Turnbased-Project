@@ -23,25 +23,52 @@ namespace FightingAllstar.Core.Content
     }
 
     [Serializable]
+    public sealed class ArtifactAffixImprovement
+    {
+        public int Level, SubstatIndex, BeforeValue, AfterValue;
+    }
+
+    [Serializable]
     public sealed class ArtifactEnhancementPreview
     {
         public ArtifactInstance TargetBefore, TargetAfter;
         public long ExperienceGained, CoinCost, DustAmount, ExcessExperience;
         public List<string> FodderIds = new List<string>();
         public List<int> Milestones = new List<int>();
+        public List<ArtifactAffixImprovement> AffixImprovements = new List<ArtifactAffixImprovement>();
     }
 
     /// <summary>
     /// Artifact identity, deterministic rolls, equipment and guaranteed enhancement.
-    /// Economy and roll ranges are starting values; the authored thresholds and set effects are fixed.
+    /// Main and substat tables follow the authored artifact balance table; economy values remain starting values.
     /// </summary>
     public static class ArtifactRules
     {
-        public const int MaxLevel = 20, CurrentSchema = 1, DustXp = 100;
+        public const int MaxLevel = 20, CurrentSchema = 2, DustXp = 100;
+        public const int MinimumQualityBp = 7000, MaximumQualityBp = 10000;
         private static readonly string[] SetIds = { "striker", "bulwark", "lifebloom" };
         private static readonly string[] SlotIds = { "flower", "feather", "sandclock", "goblet", "crown" };
         private static readonly string[] SlotNames = { "Flower", "Feather", "Sand Clock", "Goblet", "Crown" };
         private static readonly int[] FodderBase = { 0, 200, 400, 800, 1400, 2200 };
+        private static readonly (StatId Stat, int Minimum, int Maximum)[] MainPool =
+        {
+            (StatId.MaxHealth, 700, 4660), (StatId.Defense, 870, 5830), (StatId.Attack, 700, 4660),
+            (StatId.Pierce, 870, 5830), (StatId.Resistance, 470, 3110), (StatId.Regeneration, 470, 3110),
+            (StatId.CritChance, 470, 3110), (StatId.CritDamage, 930, 6220), (StatId.CritResistance, 470, 3110),
+            (StatId.CritDefense, 930, 6220), (StatId.Recovery, 470, 3110), (StatId.LifeSteal, 470, 3110),
+            (StatId.BlockChance, 470, 3110), (StatId.BlockPower, 930, 6220),
+            (StatId.DamageOverTimeDealt, 700, 4660), (StatId.DamageDealt, 700, 4660)
+        };
+        private static readonly (StatId Stat, bool Percent, int Maximum)[] SubstatPool =
+        {
+            (StatId.MaxHealth, false, 298), (StatId.Attack, false, 20), (StatId.Defense, false, 23),
+            (StatId.MaxHealth, true, 583), (StatId.Attack, true, 583), (StatId.Defense, true, 729),
+            (StatId.Pierce, true, 512), (StatId.Regeneration, true, 389), (StatId.CritChance, true, 389),
+            (StatId.CritDamage, true, 777), (StatId.CritResistance, true, 389), (StatId.CritDefense, true, 777),
+            (StatId.Recovery, true, 389), (StatId.LifeSteal, true, 389), (StatId.BlockChance, true, 389),
+            (StatId.BlockPower, true, 777), (StatId.DamageOverTimeDealt, true, 512),
+            (StatId.DamageDealt, true, 512), (StatId.AdditionalDamageDealt, true, 512)
+        };
 
         public static bool IsBasic(StatId stat) => stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth;
         public static string ItemId(ArtifactSet set, ArtifactSlot slot) => "artifact." + SetIds[(int)set] + "." + SlotIds[(int)slot];
@@ -64,6 +91,9 @@ namespace FightingAllstar.Core.Content
                 StatId.CombatClass => "Combat Class", StatId.CritChance => "Crit Chance", StatId.CritDamage => "Crit Damage",
                 StatId.CritResistance => "Crit Resistance", StatId.CritDefense => "Crit Defense", StatId.BlockChance => "Block Chance",
                 StatId.BlockPower => "Block Power", StatId.LifeSteal => "Life Steal", StatId.ReflectDamage => "Reflect Damage",
+                StatId.Pierce => "Pierce", StatId.Resistance => "Resistance", StatId.Regeneration => "Regeneration",
+                StatId.Recovery => "Recovery Rate", StatId.DamageOverTimeDealt => "DOT Dealt", StatId.DamageDealt => "Damage Dealt",
+                StatId.AdditionalDamageDealt => "Additional Damage",
                 _ => line.Stat.ToString()
             };
             return name + (IsBasic(line.Stat) && line.Percent ? "%" : "");
@@ -78,7 +108,7 @@ namespace FightingAllstar.Core.Content
             set = default; slot = default; return false;
         }
 
-        /// <summary>All six basic main forms are initially allowed on each slot.</summary>
+        /// <summary>Flower/Feather draw basic percentages; Sand Clock/Goblet/Crown also draw the authored secondary rates.</summary>
         public static ArtifactInstance Generate(string instanceId, ArtifactRarity rarity, int seed = 0)
         {
             var artifact = new ArtifactInstance { InstanceId = instanceId, Rarity = ClampRarity(rarity), Seed = seed == 0 ? Hash(instanceId ?? "artifact") : seed };
@@ -107,7 +137,7 @@ namespace FightingAllstar.Core.Content
             artifact.Set = (ArtifactSet)Math.Max(0, Math.Min(2, (int)artifact.Set));
             artifact.Slot = (ArtifactSlot)Math.Max(0, Math.Min(4, (int)artifact.Slot));
             artifact.ItemId = ItemId(artifact.Set, artifact.Slot);
-            RepairLines(artifact);
+            RepairLines(artifact, artifact.SchemaVersion < CurrentSchema);
             artifact.MainStat.Value = MainValue(artifact);
             artifact.SchemaVersion = CurrentSchema;
             if (artifact.Level == MaxLevel) artifact.Experience = 0;
@@ -116,16 +146,34 @@ namespace FightingAllstar.Core.Content
 
         public static int MainValue(ArtifactInstance artifact)
         {
-            if (artifact?.MainStat == null) return 0;
-            int minimum, maximum;
-            if (artifact.MainStat.Percent) { minimum = 600; maximum = 3600; }
-            else if (artifact.MainStat.Stat == StatId.Attack) { minimum = 60; maximum = 500; }
-            else if (artifact.MainStat.Stat == StatId.Defense) { minimum = 50; maximum = 400; }
-            else { minimum = 500; maximum = 3500; }
-            var rarity = (int)ClampRarity(artifact.Rarity);
-            var numerator = minimum * (long)rarity * MaxLevel + (maximum - minimum) * (long)rarity * Math.Max(0, Math.Min(MaxLevel, artifact.Level));
-            return (int)(numerator / (5 * MaxLevel));
+            if (artifact?.MainStat == null || !artifact.MainStat.Percent ||
+                !TryMainStatRange(artifact.Slot, artifact.MainStat.Stat, out var minimum, out var maximum)) return 0;
+            return minimum + (maximum - minimum) * Math.Max(0, Math.Min(MaxLevel, artifact.Level)) / MaxLevel;
         }
+
+        /// <summary>Authored percentage endpoints in basis points; main stats have no quality or rarity multiplier.</summary>
+        public static bool TryMainStatRange(ArtifactSlot slot, StatId stat, out int minimum, out int maximum)
+        {
+            minimum = maximum = 0;
+            if (!Enum.IsDefined(typeof(ArtifactSlot), slot)) return false;
+            foreach (var rule in MainPool.Take(slot == ArtifactSlot.Flower || slot == ArtifactSlot.Feather ? 3 : MainPool.Length))
+                if (rule.Stat == stat) { minimum = rule.Minimum; maximum = rule.Maximum; return true; }
+            return false;
+        }
+
+        /// <summary>Authored SSR base for one substat roll; zero means the exact identity is outside the pool.</summary>
+        public static int SubstatBaseValue(ArtifactStatLine line)
+        {
+            if (line == null) return 0;
+            foreach (var rule in SubstatPool)
+                if (rule.Stat == line.Stat && rule.Percent == line.Percent) return rule.Maximum;
+            return 0;
+        }
+
+        /// <summary>Applies the supplied quality (70% to 100%) and rarity (one to five stars) to one authored roll.</summary>
+        public static int SubstatRollValue(ArtifactStatLine line, ArtifactRarity rarity, int qualityBp) =>
+            (int)((long)SubstatBaseValue(line) * Math.Max(MinimumQualityBp, Math.Min(MaximumQualityBp, qualityBp)) *
+                (int)ClampRarity(rarity) / (MaximumQualityBp * 5));
 
         public static long RequiredXp(ArtifactInstance artifact, int level) => RequiredXp(artifact?.Rarity ?? ArtifactRarity.Common, level);
         public static long RequiredXp(ArtifactRarity rarity, int level) => Math.Max(1, (int)ClampRarity(rarity)) * (100L + 30L * Math.Max(0, Math.Min(MaxLevel - 1, level)));
@@ -187,7 +235,10 @@ namespace FightingAllstar.Core.Content
                 {
                     pending -= RequiredXp(after, after.Level); after.Level++;
                     if (after.Level % 6 == 0 && after.Substats.Count > 0)
-                    { ApplyMilestone(after, after.Level); preview.Milestones.Add(after.Level); }
+                    {
+                        preview.AffixImprovements.Add(ApplyMilestone(after, after.Level));
+                        preview.Milestones.Add(after.Level);
+                    }
                 }
                 after.Experience = after.Level == MaxLevel ? 0 : pending;
                 preview.ExcessExperience = after.Level == MaxLevel ? pending : 0;
@@ -203,16 +254,63 @@ namespace FightingAllstar.Core.Content
         {
             next = null;
             if (!PreviewEnhance(inventory, targetId, dustAmount, fodderIds, out preview, out error)) return false;
+            if (SpendEnhancement(inventory, preview, out next, out error)) return true;
+            preview = null;
+            return false;
+        }
+
+        /// <summary>Revalidates the reviewed roll and costs before consuming anything; previews cannot reroll an artifact.</summary>
+        public static bool TryEnhance(ItemInventory inventory, ArtifactEnhancementPreview reviewed,
+            out ItemInventory next, out ArtifactEnhancementPreview preview, out string error)
+        {
+            next = null; preview = null;
+            if (reviewed?.TargetBefore == null)
+            { error = "Review an artifact enhancement before confirming."; return false; }
+            if (!PreviewEnhance(inventory, reviewed.TargetBefore.InstanceId, reviewed.DustAmount,
+                reviewed.FodderIds, out var current, out error)) return false;
+            if (!SamePreview(reviewed, current))
+            { error = "The artifact or selected materials changed. Review enhancement again."; return false; }
+            if (!SpendEnhancement(inventory, current, out next, out error)) return false;
+            preview = current;
+            return true;
+        }
+
+        private static bool SpendEnhancement(ItemInventory inventory, ArtifactEnhancementPreview preview,
+            out ItemInventory next, out string error)
+        {
+            next = null;
             var costs = new List<ItemAmount> { new ItemAmount { ItemId = ItemCatalog.Coin, Amount = preview.CoinCost } };
-            if (dustAmount > 0) costs.Add(new ItemAmount { ItemId = ItemCatalog.ArtifactDust, Amount = dustAmount });
-            if (!inventory.TrySpend(costs, UpgradeResourceUse.ArtifactUpgrade, out var copy, out error)) { preview = null; return false; }
+            if (preview.DustAmount > 0) costs.Add(new ItemAmount { ItemId = ItemCatalog.ArtifactDust, Amount = preview.DustAmount });
+            if (!inventory.TrySpend(costs, UpgradeResourceUse.ArtifactUpgrade, out var copy, out error)) return false;
             var consumedIds = preview.FodderIds;
             copy.Artifacts.RemoveAll(a => consumedIds.Contains(a.InstanceId));
-            var targetIndex = copy.Artifacts.FindIndex(a => a.InstanceId == targetId);
+            var targetIndex = copy.Artifacts.FindIndex(a => a.InstanceId == preview.TargetBefore.InstanceId);
             copy.Artifacts[targetIndex] = preview.TargetAfter.Clone();
             next = copy;
             return true;
         }
+
+        private static bool SamePreview(ArtifactEnhancementPreview first, ArtifactEnhancementPreview second) =>
+            SameArtifact(first.TargetBefore, second.TargetBefore) && SameArtifact(first.TargetAfter, second.TargetAfter) &&
+            first.ExperienceGained == second.ExperienceGained && first.CoinCost == second.CoinCost &&
+            first.DustAmount == second.DustAmount && first.ExcessExperience == second.ExcessExperience &&
+            first.FodderIds != null && first.FodderIds.SequenceEqual(second.FodderIds) &&
+            first.Milestones != null && first.Milestones.SequenceEqual(second.Milestones) &&
+            first.AffixImprovements != null && first.AffixImprovements.Count == second.AffixImprovements.Count &&
+            first.AffixImprovements.Zip(second.AffixImprovements, (a, b) => a != null && a.Level == b.Level &&
+                a.SubstatIndex == b.SubstatIndex && a.BeforeValue == b.BeforeValue && a.AfterValue == b.AfterValue).All(equal => equal);
+
+        private static bool SameArtifact(ArtifactInstance first, ArtifactInstance second) =>
+            first != null && second != null && first.InstanceId == second.InstanceId && first.ItemId == second.ItemId &&
+            first.SourceRunId == second.SourceRunId && first.SourceNodeId == second.SourceNodeId &&
+            first.Rarity == second.Rarity && first.SchemaVersion == second.SchemaVersion && first.Seed == second.Seed &&
+            first.Level == second.Level && first.Experience == second.Experience && first.Set == second.Set && first.Slot == second.Slot &&
+            first.Favourite == second.Favourite && first.EquippedCharacterId == second.EquippedCharacterId &&
+            SameLine(first.MainStat, second.MainStat) && first.Substats != null && second.Substats != null &&
+            first.Substats.Count == second.Substats.Count && first.Substats.Zip(second.Substats, SameLine).All(equal => equal);
+
+        private static bool SameLine(ArtifactStatLine first, ArtifactStatLine second) => first != null && second != null &&
+            first.Stat == second.Stat && first.Percent == second.Percent && first.Value == second.Value;
 
         /// <summary>Percentage basic lines and both set thresholds add against the unequipped base stat.</summary>
         public static StatBlock ApplyStats(StatBlock baseStats, IEnumerable<ArtifactInstance> equipped)
@@ -285,67 +383,44 @@ namespace FightingAllstar.Core.Content
         private static string Identity(ArtifactStatLine line) => line.Stat + ":" + line.Percent;
         private static void GenerateLines(ArtifactInstance artifact)
         {
-            var mainForm = Roll(artifact.Seed, "main", 6);
-            artifact.MainStat = new ArtifactStatLine { Stat = (StatId)(mainForm / 2), Percent = mainForm % 2 == 1 };
+            artifact.MainStat = GenerateMainLine(artifact);
             artifact.MainStat.Value = MainValue(artifact);
-            var pool = new List<ArtifactStatLine>();
-            foreach (StatId stat in Enum.GetValues(typeof(StatId)))
-            {
-                pool.Add(new ArtifactStatLine { Stat = stat, Percent = !IsBasic(stat) && stat != StatId.CombatClass });
-                if (IsBasic(stat)) pool.Add(new ArtifactStatLine { Stat = stat, Percent = true });
-            }
             artifact.Substats = new List<ArtifactStatLine>();
-            for (var i = 0; i < (int)artifact.Rarity - 1; i++)
-            {
-                var index = Roll(artifact.Seed, "sub-identity:" + i, pool.Count);
-                var line = pool[index]; pool.RemoveAt(index);
-                line.Value = QualityValue(artifact, line, "initial:" + i);
-                artifact.Substats.Add(line);
-            }
+            RepairLines(artifact, true);
         }
-        private static void QualityRange(ArtifactStatLine line, out int low, out int high)
+        private static ArtifactStatLine GenerateMainLine(ArtifactInstance artifact)
         {
-            if (line.Percent) { low = 100; high = 400; }
-            else if (line.Stat == StatId.Attack) { low = 8; high = 25; }
-            else if (line.Stat == StatId.Defense) { low = 6; high = 20; }
-            else if (line.Stat == StatId.MaxHealth) { low = 75; high = 200; }
-            else { low = 20; high = 80; }
+            var count = artifact.Slot == ArtifactSlot.Flower || artifact.Slot == ArtifactSlot.Feather ? 3 : MainPool.Length;
+            return new ArtifactStatLine { Stat = MainPool[Roll(artifact.Seed, "main", count)].Stat, Percent = true };
         }
         private static int QualityValue(ArtifactInstance artifact, ArtifactStatLine line, string purpose)
         {
-            QualityRange(line, out var low, out var high);
-            var value = low + Roll(artifact.Seed, "quality:" + purpose, high - low + 1);
-            return Math.Max(1, value * (int)artifact.Rarity / 5);
+            // A quality roll is uniform from 70.00% through 100.00%, inclusive.
+            // Apply quality and rarity together before the single integer floor, including flat stats.
+            var quality = MinimumQualityBp + Roll(artifact.Seed, "quality:" + purpose, MaximumQualityBp - MinimumQualityBp + 1);
+            return SubstatRollValue(line, artifact.Rarity, quality);
         }
 
-        /// <summary>Repairs damaged imported data without rerolling the valid lines or their upgrades.</summary>
-        private static void RepairLines(ArtifactInstance artifact)
+        /// <summary>Migrates authored balance once, then repairs imported data without rerolling valid current-schema lines.</summary>
+        private static void RepairLines(ArtifactInstance artifact, bool migrate)
         {
-            if (artifact.MainStat == null || !IsBasic(artifact.MainStat.Stat))
-            {
-                var form = Roll(artifact.Seed, "main", 6);
-                artifact.MainStat = new ArtifactStatLine { Stat = (StatId)(form / 2), Percent = form % 2 == 1 };
-            }
+            // Old flat basic mains keep their stat identity and adopt the percentage form in the new table.
+            if (artifact.MainStat != null && IsBasic(artifact.MainStat.Stat)) artifact.MainStat.Percent = true;
+            if (artifact.MainStat == null || !artifact.MainStat.Percent ||
+                !TryMainStatRange(artifact.Slot, artifact.MainStat.Stat, out _, out _)) artifact.MainStat = GenerateMainLine(artifact);
             var count = (int)artifact.Rarity - 1;
             var existing = artifact.Substats ?? new List<ArtifactStatLine>();
             var repaired = new HashSet<int>();
-            var seen = new HashSet<string>(StringComparer.Ordinal);
+            var seen = new HashSet<string>(StringComparer.Ordinal) { Identity(artifact.MainStat) };
             var compact = new List<ArtifactStatLine>();
             for (var index = 0; index < count; index++)
             {
                 var line = index < existing.Count ? existing[index] : null;
-                if (line == null || !Enum.IsDefined(typeof(StatId), line.Stat) ||
-                    !IsBasic(line.Stat) && line.Percent != (line.Stat != StatId.CombatClass) ||
-                    !seen.Add(Identity(line)))
+                if (SubstatBaseValue(line) == 0 || !seen.Add(Identity(line)))
                 { compact.Add(null); repaired.Add(index); }
                 else compact.Add(line);
             }
-            var pool = new List<ArtifactStatLine>();
-            foreach (StatId stat in Enum.GetValues(typeof(StatId)))
-            {
-                pool.Add(new ArtifactStatLine { Stat = stat, Percent = !IsBasic(stat) && stat != StatId.CombatClass });
-                if (IsBasic(stat)) pool.Add(new ArtifactStatLine { Stat = stat, Percent = true });
-            }
+            var pool = SubstatPool.Select(rule => new ArtifactStatLine { Stat = rule.Stat, Percent = rule.Percent }).ToList();
             pool.RemoveAll(line => seen.Contains(Identity(line)));
             foreach (var index in repaired.OrderBy(i => i))
             {
@@ -359,7 +434,7 @@ namespace FightingAllstar.Core.Content
             {
                 var line = compact[index];
                 var rolls = 1;
-                if (!repaired.Contains(index) && line.Value <= 0)
+                if (migrate || !repaired.Contains(index) && line.Value <= 0)
                 { line.Value = QualityValue(artifact, line, "initial:" + index); repaired.Add(index); }
                 for (var milestone = 6; milestone <= artifact.Level; milestone += 6)
                     if (Roll(artifact.Seed, "milestone-line:" + milestone, count) == index)
@@ -367,18 +442,20 @@ namespace FightingAllstar.Core.Content
                         rolls++;
                         if (repaired.Contains(index)) line.Value += QualityValue(artifact, line, "milestone:" + milestone);
                     }
-                QualityRange(line, out var minimum, out var maximum);
-                minimum = Math.Max(1, minimum * (int)artifact.Rarity / 5) * rolls;
-                maximum = Math.Max(1, maximum * (int)artifact.Rarity / 5) * rolls;
+                var minimum = SubstatRollValue(line, artifact.Rarity, MinimumQualityBp) * rolls;
+                var maximum = SubstatRollValue(line, artifact.Rarity, MaximumQualityBp) * rolls;
                 line.Value = Math.Max(minimum, Math.Min(maximum, line.Value));
             }
         }
-        private static void ApplyMilestone(ArtifactInstance artifact, int level)
+        private static ArtifactAffixImprovement ApplyMilestone(ArtifactInstance artifact, int level)
         {
-            if (artifact.Substats.Count == 0) return;
+            // Both the selected line and its gain depend only on this artifact and milestone.
+            // Changing draft materials, reopening the workshop or splitting upgrades cannot fish for a better roll.
             var index = Roll(artifact.Seed, "milestone-line:" + level, artifact.Substats.Count);
             var line = artifact.Substats[index];
+            var before = line.Value;
             line.Value = (int)Math.Min(int.MaxValue, (long)line.Value + QualityValue(artifact, line, "milestone:" + level));
+            return new ArtifactAffixImprovement { Level = level, SubstatIndex = index, BeforeValue = before, AfterValue = line.Value };
         }
         private static int Hash(string value)
         {

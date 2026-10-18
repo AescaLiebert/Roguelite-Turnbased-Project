@@ -124,7 +124,7 @@ namespace FightingAllstar.Presentation
         public static void CloseTooltip(VisualElement root)
         {
             var overlay = root?.Q("item-tooltip-overlay");
-            if (overlay?.userData is Action close) close(); else overlay?.RemoveFromHierarchy();
+            if (overlay?.userData is Action close) close(); else ScreenMotion.Remove(overlay);
         }
 
         public static void Show(VisualElement root, ItemDefinition item, long? received = null, VisualElement anchor = null, string rule = null, bool previewOnly = false, IEnumerable<ArtifactSet> previewArtifactSets = null)
@@ -155,9 +155,10 @@ namespace FightingAllstar.Presentation
             }
             var description = new Label(item.Description) { name = "item-tooltip-description" };
             description.AddToClassList("item-tooltip-description"); body.Add(description);
-            Action close = () => { overlay.RemoveFromHierarchy(); if (previousFocus?.panel != null) previousFocus.Focus(); };
+            Action close = () => ScreenMotion.Remove(overlay, () => { if (root.Q("item-tooltip-overlay") == null && previousFocus?.panel != null) previousFocus.Focus(); });
+            overlay.userData = close;
             var dismiss = new Button(close) { text = "×", name = "close-item-tooltip" }; dismiss.AddToClassList("item-tooltip-close"); dialog.Add(dismiss);
-            overlay.Add(dialog); root.Add(overlay);
+            overlay.Add(dialog); root.Add(overlay); ScreenMotion.ShowModal(overlay, dialog);
             overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) close(); });
             overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) { close(); evt.StopPropagation(); } });
             Action position = () =>

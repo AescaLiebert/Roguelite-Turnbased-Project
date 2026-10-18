@@ -18,7 +18,7 @@ namespace FightingAllstar.Presentation.Combat
         private static readonly Color Raised = new Color(.085f,.135f,.195f);
         private static readonly Color Accent = new Color(.34f,.78f,.88f);
         private static readonly Color Muted = new Color(.57f,.66f,.75f);
-        private RectTransform panel, body, popup;
+        private RectTransform panel, body, popup, backdrop;
         [NonSerialized] private BattleState state;
         private FighterState selected;
         private Func<string, Sprite> portrait;
@@ -29,6 +29,7 @@ namespace FightingAllstar.Presentation.Combat
         private Func<FighterState,int,int,CoreBattleSceneController.InspectorCardTooltipData> cardTooltip;
         private Action closed;
         private int page;
+        private bool closing;
         private readonly List<TextMeshProUGUI> fittedRows = new List<TextMeshProUGUI>();
 
         public void Open(BattleState snapshot, string id, Func<string, Sprite> portraits,
@@ -47,10 +48,10 @@ namespace FightingAllstar.Presentation.Combat
                 var events=new GameObject("Inspector input",typeof(UnityEngine.EventSystems.EventSystem),typeof(UnityEngine.EventSystems.StandaloneInputModule));
                 events.transform.SetParent(transform,false);
             }
-            var shade=Box(transform,"Backdrop",new Color(.005f,.015f,.025f,.8f)); Stretch(shade);
+            var shade=Box(transform,"Backdrop",new Color(.005f,.015f,.025f,.8f)); Stretch(shade); backdrop=shade;
             panel=Box(shade,"Character inspector",Surface);
             panel.anchorMin=new Vector2(.07f,.055f);panel.anchorMax=new Vector2(.93f,.945f);panel.offsetMin=panel.offsetMax=Vector2.zero;
-            Show(id);
+            Show(id); ScreenMotion.Enter(shade);
         }
         private void Update()
         {
@@ -69,7 +70,11 @@ namespace FightingAllstar.Presentation.Combat
                 if(Mathf.Abs(element.preferredHeight-height)>1) element.preferredHeight=height;
             }
         }
-        private void Close() { closed?.Invoke(); Destroy(gameObject); }
+        private void Close()
+        {
+            if (closing) return; closing = true;
+            ScreenMotion.Exit(backdrop, () => { closed?.Invoke(); Destroy(gameObject); });
+        }
         private FighterState Find(string id)=>state.Player.FindFighter(id)??state.Opponent.FindFighter(id);
         private static string Name(FighterState f)=>f==null?"Unknown source":string.IsNullOrWhiteSpace(f.Definition.DisplayName)?f.Definition.Id:f.Definition.DisplayName;
         private void Show(string id)
@@ -134,7 +139,7 @@ namespace FightingAllstar.Presentation.Combat
                 for(int j=i;j<Math.Min(i+2,stats.Length);j++)
                 {
                     var cell=Box(row,stats[j].ToString(),Raised);cell.gameObject.AddComponent<LayoutElement>().flexibleWidth=1;
-                    var label=Text(cell,Label(stats[j].ToString()),17,Muted);Stretch(label.rectTransform,12,8,8,4);label.rectTransform.anchorMax=new Vector2(.5f,1);
+                    var label=Text(cell,CombatTextCatalog.StatName(stats[j]),17,Muted);Stretch(label.rectTransform,12,8,8,4);label.rectTransform.anchorMax=new Vector2(.5f,1);
                     var value=Text(cell,StatValue(selected,stats[j],effective),18);Stretch(value.rectTransform,4,8,12,4);value.rectTransform.anchorMin=new Vector2(.5f,0);value.alignment=TextAlignmentOptions.TopRight;
                 }
             }
@@ -258,10 +263,14 @@ namespace FightingAllstar.Presentation.Combat
             var name=Text(row,CardName(slot),25);Place(name.rectTransform,112,43,-150,34);
             var caption=Text(row,levels+"  ·  Tap to inspect",17,Muted);Place(caption.rectTransform,112,83,-150,25);
         }
-        private void DismissCard(){if(popup==null)return;popup.gameObject.SetActive(false);Destroy(popup.gameObject);popup=null;}
+        private void DismissCard()
+        {
+            if(popup==null)return; var outgoing=popup; popup=null;
+            ScreenMotion.Exit(outgoing,()=>{if(outgoing!=null)Destroy(outgoing.gameObject);});
+        }
         private void ShowCard(int slot,int rank)
         {
-            DismissCard();popup=Box(transform,"Card detail overlay",new Color(0,.01f,.025f,.85f));Stretch(popup);
+            DismissCard();popup=Box(transform,"Card detail overlay",new Color(0,.01f,.025f,.85f));Stretch(popup);ScreenMotion.Enter(popup);
             var card=Box(popup,"Card details",new Color(.97f,.90f,.74f));card.anchorMin=new Vector2(.23f,.08f);card.anchorMax=new Vector2(.77f,.92f);card.offsetMin=card.offsetMax=Vector2.zero;
             var title=Text(card,slot==0?"ULTIMATE DETAILS":"SKILL DETAILS",26,new Color(.33f,.24f,.15f));Place(title.rectTransform,24,18,-98,40);title.alignment=TextAlignmentOptions.Center;
             var close=Button(card,"Close card","×",DismissCard);Place(close,-66,20,42,40,true);
@@ -337,6 +346,16 @@ namespace FightingAllstar.Presentation.Combat
                 var amount = m.ScaleByStatusPotency ? (long)status.PotencyBp * m.PotencyCoefficientBp / 10000 : m.Amount;
                 if (r.Stacking == StatusStackingPolicy.AddStacks && m.Operation != ModifierOperation.Multiplier) amount *= Math.Max(1, status.StackCount);
                 parts.Add(CombatDetailFormatter.DescribeModifier(m,amount));
+            }
+            if (r.ElementalModifiers != null) foreach (var modifier in r.ElementalModifiers)
+            {
+                if (modifier == null) continue;
+                if (modifier.DamageDealtBp != 0)
+                    parts.Add((modifier.DamageDealtBp > 0 ? "Increases " : "Decreases ") + modifier.Element + " damage dealt by " +
+                        (Math.Abs((long)modifier.DamageDealtBp) / 100d).ToString("0.##") + "%." );
+                if (modifier.ResistanceBp != 0)
+                    parts.Add((modifier.ResistanceBp < 0 ? "Increases " : "Decreases ") + modifier.Element + " damage taken by " +
+                        (Math.Abs((long)modifier.ResistanceBp) / 100d).ToString("0.##") + "%." );
             }
             if (r.PeriodicDamage != null && (r.Behavior & StatusBehavior.DamageOverTime) != 0)
                 parts.Add("Deals " + (r.PeriodicDamage.Scaling == StatusSnapshotScaling.Fixed ? r.PeriodicDamage.FixedAmount.ToString() :

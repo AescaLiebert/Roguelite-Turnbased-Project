@@ -1,0 +1,32 @@
+{
+    "context": "Unity6000.3.4f1 Editor D3D11 Linear URP1600x900 4xMSAA, six alternating observations after warmup. Two render submissions and synchronous CPU readback per observation. Not GPU timings, player FPS or minimum PC certification.",
+    "gpu": "AMD Radeon(TM) Graphics",
+    "cpu": "AMD Ryzen 5 4600G with Radeon Graphics",
+    "fullMs": [
+        70.7609,
+        74.2672,
+        92.4123,
+        109.2514,
+        85.55890000000001,
+        78.8891
+    ],
+    "fallbackMs": [
+        74.5059,
+        75.22840000000001,
+        93.4405,
+        102.2921,
+        92.2384,
+        86.447
+    ],
+    "offMs": [
+        77.7881,
+        85.49390000000001,
+        93.1956,
+        96.8452,
+        72.9975,
+        77.7418
+    ],
+    "fullRenderers": 40,
+    "fallbackRenderers": 10,
+    "triangles": 45034
+}

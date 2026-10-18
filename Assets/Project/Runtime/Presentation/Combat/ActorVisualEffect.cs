@@ -126,6 +126,7 @@ namespace FightingAllstar.Presentation.Combat
             if (_stunRoot != null) _stunRoot.gameObject.SetActive(_stunned && !hidden);
             foreach (var effect in _debuffs.Values) effect.SetHidden(hidden);
             foreach (var effect in _cryo.Values) effect.SetHidden(hidden);
+            GetComponentInChildren<ActorHealVisual>()?.SetHidden(hidden);
             UpdateFrozenAnimator();
         }
 
@@ -152,6 +153,13 @@ namespace FightingAllstar.Presentation.Combat
             burst.Started = Time.unscaledTime; burst.Active = true;
             burst.Root.gameObject.SetActive(true);
             UpdateBurst(burst, 0f, 0f);
+        }
+
+        public void PlayHeal()
+        {
+            if (!isActiveAndEnabled) return;
+            Ensure();
+            ActorHealVisual.PlayOn(transform, _height, _bodyRadius, _groundOffset);
         }
 
         private Burst BuildBurst(ActorVisualEffectKind kind)
@@ -340,6 +348,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             ClearTransient(preserveImpact); RestorePose(); _stunned = false; ClearDebuffs(preserveImpact);
             if (_stunRoot != null) _stunRoot.gameObject.SetActive(false);
+            GetComponentInChildren<ActorHealVisual>()?.Stop();
         }
 
         private void OnDisable() { ClearAll(); }

@@ -1,0 +1,418 @@
+{
+  "scope": "WP03 r1 world geometry source + Unity asset handoff. Shared runtime fixes same-scene globals without grass; main rendering settings are not migrated.",
+  "sourceInventory": [
+    {
+      "path": "ArtSource/TeyvatGrassland/World/create_world_geometry.py",
+      "bytes": 18531,
+      "sha256": "7299728370bb94f90aa0d8c81197d5ee572d32df23eaad389a223b39631bdb89"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/World/README.md",
+      "bytes": 2818,
+      "sha256": "2cf730b33d10e768470f7028ba0734f0eb145020374bce0131e3534d88dbbc13"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/World/TG_WorldGeometry.blend",
+      "bytes": 1783679,
+      "sha256": "e581ff99559af41f616a224cf7d136d1d7f192eb55daeca6f3c80c169cb82e27"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/World/TG_WorldGeometry.fbx",
+      "bytes": 1895500,
+      "sha256": "0775b911990a30cae3708b9d8dc44b3fe754663d72bc2cd6d34e6b2456458d29"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/World/TG_WorldGeometry.manifest.json",
+      "bytes": 510431,
+      "sha256": "022c0bf9c5698f528cc434a1a5310f58efcf7cac7aa32e01f7e1b3e08965b21c"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/World/TG_WP01TerrainSource.json",
+      "bytes": 2984250,
+      "sha256": "7728988756626f86634c09bac6f1562e38cefb1566247fabe00993c18ed62045"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Context_TG_Blockout_LeafLight.mat",
+      "bytes": 1193,
+      "sha256": "23c4d1d1f1eae942ca888b0c376ca683c21dc489fa7512f926577b2c25611d66"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Context_TG_Blockout_LeafLight.mat.meta",
+      "bytes": 188,
+      "sha256": "91425e9270a3c28ac34ec39357f91b5b52ad704fec98b23dd8325bb7644426a7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Context_TG_Blockout_Leaves.mat",
+      "bytes": 1190,
+      "sha256": "f9f72e388694bcfbad97d066d2d8e8af6fa88ee4fea41943e596d606e8c758ce"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Context_TG_Blockout_Leaves.mat.meta",
+      "bytes": 188,
+      "sha256": "555eab23576e6fb6aad8de6918bd761dde0aa6856bdaff714207822c0575cdfb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Context_TG_Blockout_Trunk.mat",
+      "bytes": 1195,
+      "sha256": "0b8d9ed31115820b885e76a5755e682e70ad417b47beb40bfedd2f5603a4f80c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Context_TG_Blockout_Trunk.mat.meta",
+      "bytes": 188,
+      "sha256": "dfd8a5dfbda00fa20775848fe141b86201bf360a6222bc650d2109d63484e304"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_DistantBlue.mat",
+      "bytes": 1163,
+      "sha256": "6ee1c1c55484bac69c5da59d7258476a8059027ab429c3b2ad9fc1c17eda04c3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_DistantBlue.mat.meta",
+      "bytes": 188,
+      "sha256": "26d352538e91eb318535de7ada85f6142b4ee682f0a53d6d86675580ab343ea2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Enemy.mat",
+      "bytes": 1156,
+      "sha256": "d586b1398da586ae6a4b91b2a9df7e1a025b71454eddbcb35a307d016fc1100d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Enemy.mat.meta",
+      "bytes": 188,
+      "sha256": "f78cd42ac7ab140fe0ff7ede61973dc2d7726df92f128da47f6faa0cb50bf6fd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Ground.mat",
+      "bytes": 1149,
+      "sha256": "f6e50442a183487043df3d9c3903942e4563e4b514e72a4f5f35e349d0326a3c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Ground.mat.meta",
+      "bytes": 188,
+      "sha256": "4e037142bf5eea979f61d754ca7f11dd7258bb283953a53ca2e57ab320c3c8a8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Moss.mat",
+      "bytes": 1147,
+      "sha256": "8ba4ec2c90bc41e34787bed4746b8398ace66606ec59da493d9d2e8065d129d6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Moss.mat.meta",
+      "bytes": 188,
+      "sha256": "9f4b837701e8705b03fa818e5d2a2ec8e8b565430a54e1b853f80b8270cacd37"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Player.mat",
+      "bytes": 1158,
+      "sha256": "feec085dc6f390abcbf5602a5b468728f70f49067c78c720bc95ca4b86af51d9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Player.mat.meta",
+      "bytes": 188,
+      "sha256": "0cca66753a5f9dd198db79abd07577d44b5dcca3de3e1ee40db3b3b9e5dea291"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Rock.mat",
+      "bytes": 1211,
+      "sha256": "ac90c0dbc06cf870439308a0c2b5f89c37aedb10376b8da3e328aa2b814395d6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Rock.mat.meta",
+      "bytes": 188,
+      "sha256": "a0649a7e1107c9fbec464ee660b090977de717d830e63a42fa2341aaf4b8d846"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_RockShade.mat",
+      "bytes": 1219,
+      "sha256": "88e38917813bcfbcedd4ab45f4f3ea2f3f168229da02446bb489bcd1290edc36"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_RockShade.mat.meta",
+      "bytes": 188,
+      "sha256": "2998466228755fb2de1e8f292c3372bec130407d6376f39c2a3bd8fd715a477a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Roof.mat",
+      "bytes": 1156,
+      "sha256": "542d6fcabf476a7b24cad2aacfdcb92de8e8666b2d99cf3bb7f5ffa9bab7b018"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Roof.mat.meta",
+      "bytes": 188,
+      "sha256": "8f475dfcdf772edf24aefc52b3940d41d107be51423898e8a34be2053268525f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Soil.mat",
+      "bytes": 1156,
+      "sha256": "cfb32244db2c41ed56c418e1bf5deaea25c9b3b804120d89c6ab39909eb40f70"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Soil.mat.meta",
+      "bytes": 188,
+      "sha256": "b51017ed3a4b646092156666ee3a0bdd5de34fc1106636ca9ed2facfbca22a60"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Terrain.mat",
+      "bytes": 2711,
+      "sha256": "0d6ce1675050a20ef5f674fcb85eb30a6308d2cb95e1bc6198c32a46d69b53d1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Terrain.mat.meta",
+      "bytes": 188,
+      "sha256": "896d56b64007b428704288b424ed426453dd580f429bf89a677162e98109323a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Window.mat",
+      "bytes": 1157,
+      "sha256": "e17cf9b01022ed1ac8ae26a9b2ad49318320d8c6d8a53973b240f4ee2c4a1e7e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials/TG_World_Window.mat.meta",
+      "bytes": 188,
+      "sha256": "53cced6eed4a9ad7cf6ea8887c112e7a546b66d8f9eef589198776ceeccb78f3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Materials.meta",
+      "bytes": 172,
+      "sha256": "bb31be12bbf43f615d7af453a055ebd5319e17666396aa37c248f2df5e374565"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextFall_-13.asset",
+      "bytes": 22520,
+      "sha256": "7495129d33b6b53eb0a68541aa40f6fe4bfcdaaf545f98241d3a2aa9885183e9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextFall_-13.asset.meta",
+      "bytes": 188,
+      "sha256": "fea69fe7b94fe346a585a0628dfc4c2285643228a634bf51616efb859a29c1dd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextFall_-43.asset",
+      "bytes": 22520,
+      "sha256": "3f60dfb28072dfc9bea26ffefb602f9d39c0e908a32bb474875a5f157e793ec2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextFall_-43.asset.meta",
+      "bytes": 188,
+      "sha256": "dd0f8dd09b4ccfb737ff1d67f55fbe60b9c2d1e1f0aa4305e54ba230e6eaf8fe"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextFall_43.asset",
+      "bytes": 22513,
+      "sha256": "57ac07d36c17c08b53b977a48fae97395fb53c62c7c8528768e0bb8b77572e24"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextFall_43.asset.meta",
+      "bytes": 188,
+      "sha256": "fcf49ad7d714e4a12942daf3d6ee4bf6f5a1e128cb8544211fd805a43df10e38"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextRiver.asset",
+      "bytes": 219333,
+      "sha256": "0a450fecaa846c100a015f3f41099c5b20bf6d516921d5a893fc7ca723c5bf77"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes/TG_WorldContextRiver.asset.meta",
+      "bytes": 188,
+      "sha256": "e200c2ac8981aa49553bcac4527d6fdcf0e67a527ca66309473e9d818b94f51d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Meshes.meta",
+      "bytes": 172,
+      "sha256": "51b3407a9b75f80d84623d31776a5732046db0c2c93943244ebe9510cc14f569"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Models/TG_WorldGeometry.fbx",
+      "bytes": 1895500,
+      "sha256": "0775b911990a30cae3708b9d8dc44b3fe754663d72bc2cd6d34e6b2456458d29"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Models/TG_WorldGeometry.fbx.meta",
+      "bytes": 2880,
+      "sha256": "4fb15671f0ec883bba22bdeeea004f31f78d8496edc70babd618c26ab37abe84"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Models/TG_WorldGeometry.manifest.json",
+      "bytes": 510431,
+      "sha256": "022c0bf9c5698f528cc434a1a5310f58efcf7cac7aa32e01f7e1b3e08965b21c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Models/TG_WorldGeometry.manifest.json.meta",
+      "bytes": 158,
+      "sha256": "368b24313c8c18c344b8d0d570585bb925d2d128ee5521eb8cff67102e8d573d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Models.meta",
+      "bytes": 172,
+      "sha256": "d8dc67be14d7f41dfb72828cf2925b9523c8894550077b75d358f3b7e5fe02c0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Prefabs/TG_WorldGeometry.prefab",
+      "bytes": 489300,
+      "sha256": "5e00b233d0fd65dc65c4fbf0508eabb7b1f477ad5b58fefbb6780d4a33518887"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Prefabs/TG_WorldGeometry.prefab.meta",
+      "bytes": 154,
+      "sha256": "6e28ec2ce0f726ce15977f5c4304143e3e3295526fca20affd1670ec6a40169b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Prefabs.meta",
+      "bytes": 172,
+      "sha256": "f477f3440c4b6f462afb678dff36f07f9cd988434bf235a4202556766e291280"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Scenes/TG_WorldReview.unity",
+      "bytes": 1911972,
+      "sha256": "2c5ec392dfdbf8339d6842e66932d8fe17a84ee1deefbefeb20cbe3e23a9bde6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Scenes/TG_WorldReview.unity.meta",
+      "bytes": 155,
+      "sha256": "fcf331cbdedc534d6596415e7ca8a8450fd7ff2c8cd95e7d5bca7c015de915ed"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Scenes.meta",
+      "bytes": 172,
+      "sha256": "10a30427ecae33b8cf260e1c10a354dd5625d03af547bc8163ab967cef0a0ee7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Settings.meta",
+      "bytes": 172,
+      "sha256": "01fde813b2ef33de2d276460517cf6e86d565cf77cc51a172328aec788d5495b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldColorField.asset",
+      "bytes": 700087,
+      "sha256": "3ef9c26fb6ca2cf101f0261896eeeae07b9389297d3820c86326e8e39444118f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldColorField.asset.meta",
+      "bytes": 188,
+      "sha256": "ceb03dbd2db5134c792e2e24b69ec6cdac1b6468703e584729e782fdf052ff7d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldGround.asset",
+      "bytes": 902188,
+      "sha256": "2f30074f5aae1e31244abb3c705a3a7b55045f68268fb6117a31bc9f133f4954"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldGround.asset.meta",
+      "bytes": 189,
+      "sha256": "7b62ec732e724c969fe06921624f37d75a8c62dd81a5e902cf4eb581884af6cc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer0.terrainlayer",
+      "bytes": 755,
+      "sha256": "04f678ebf3ef9a1415fecee7702a201c9d3b1bfb082ca8a3921d2e17124ff2b9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer0.terrainlayer.meta",
+      "bytes": 200,
+      "sha256": "bd610dc9e0d3efd063853d4baa431cece771cb00b09ee216995a8bc9be4ec94f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer1.terrainlayer",
+      "bytes": 755,
+      "sha256": "5e07dd13e9bb80a7c1915d0c267ab1fa746dfe527d9382d9ce7255e32bf413b7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer1.terrainlayer.meta",
+      "bytes": 200,
+      "sha256": "5f59952469603923fbafe7b595e581500af77169aa0cb74ebbe3431a5c3a7146"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer2.terrainlayer",
+      "bytes": 755,
+      "sha256": "593aaf3f4ad3627a9dc51b775fe2636c81f30cf89bf108e6095599b2de6d6a10"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer2.terrainlayer.meta",
+      "bytes": 200,
+      "sha256": "29357ce744420108725408465d5dcc0f622901529aed575f857c8bca21462ad5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain.meta",
+      "bytes": 172,
+      "sha256": "e143434f370760ad660050c682ae48822af622d19e95fe2fd9cbfb96a78b9fb8"
+    }
+  ],
+  "sharedRuntime": {
+    "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Runtime/TeyvatMaterialGlobals.cs",
+    "sha256": "9cdbb7b54a7d875a0ee58678f5e16a323998467c9b8a410b1c8e18ea9dfd7af4"
+  },
+  "package": {
+    "path": "Artifacts/TeyvatGrassland/WP03/r1/TG_WP03_WorldGeometry.unitypackage",
+    "bytes": 9759173,
+    "sha256": "52bf66378e62f0e6e280ccfa41af44ea39e4e2105971a7463ab9c0adbffad538",
+    "assets": 559,
+    "explicitAssetsOnly": true,
+    "hasCommonInclude": true,
+    "hasTerrainPassInclude": true,
+    "hasPipeline": true,
+    "hasTerrainLicense": true
+  },
+  "preservation": [
+    {
+      "path": "Assets/Project/Scenes/Battle.unity",
+      "before": "8A366B81BA4567C5D1ABCBCE337F76B14726B976835FA44DEAD43DD9E6A878BF",
+      "after": "8A366B81BA4567C5D1ABCBCE337F76B14726B976835FA44DEAD43DD9E6A878BF",
+      "unchanged": true
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LayoutReview_r2.unity",
+      "before": "0D41C35E6BFB97E5D19C48F8853398E15BA0CE9CDDF126F36F73BAB49B5A7356",
+      "after": "0D41C35E6BFB97E5D19C48F8853398E15BA0CE9CDDF126F36F73BAB49B5A7356",
+      "unchanged": true
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/FoundationR2/Terrain/TG_ReferenceLand.asset",
+      "before": "E9C53F68B9DC83323C4C911D6E8F2AD682BD5F7D0381E6FFB073859BFD13415B",
+      "after": "E9C53F68B9DC83323C4C911D6E8F2AD682BD5F7D0381E6FFB073859BFD13415B",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/GraphicsSettings.asset",
+      "before": "45A5EFB13F776B05200D4DBE225DD150B5765E3DF55D5570D0540D8F125D02D9",
+      "after": "45A5EFB13F776B05200D4DBE225DD150B5765E3DF55D5570D0540D8F125D02D9",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/QualitySettings.asset",
+      "before": "F1F893B1BE47AD2442F58338DD7C860DC1986BB317E2F5BB31084454FFABBF4C",
+      "after": "F1F893B1BE47AD2442F58338DD7C860DC1986BB317E2F5BB31084454FFABBF4C",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "before": "A45D9D41A89435C6D081E4986BE2C85DBB47241632B38250927C695A85DAF8E6",
+      "after": "A45D9D41A89435C6D081E4986BE2C85DBB47241632B38250927C695A85DAF8E6",
+      "unchanged": true
+    }
+  ],
+  "editableSourceArchive": {
+    "path": "Artifacts/TeyvatGrassland/WP03/r1/TG_WP03_EditableSource.zip",
+    "bytes": 9669814,
+    "files": 13,
+    "sha256": "279673fe410c5faf845371eb1180f4d8f39a89ce75c8a98140a52b7d9f72679d",
+    "dependency": "Full review regeneration requires this repo with accepted WP01/WP02 assets and installed Unity/Blender; the Unity package is the scene/asset import snapshot."
+  },
+  "sharedRuntimeRegression": {
+    "passed": true,
+    "windBoundsPass": true,
+    "instancingCoveragePass": true,
+    "context": "Separate cold Unity editor process; saved scene opened without Build or pipeline reconfiguration. Editor rendering, not a player performance measurement.",
+    "pipeline": "TG_MaterialURP",
+    "colorSpace": "Linear",
+    "grassInstances": 4200,
+    "submittedInstances": 4200,
+    "submittedBatches": 9,
+    "cameras": 11,
+    "missingScripts": 0,
+    "errors": [],
+    "captures": [
+      "TG_ReferencePlanningCandidate.png",
+      "TG_GrassTransition.png"
+    ]
+  }
+}

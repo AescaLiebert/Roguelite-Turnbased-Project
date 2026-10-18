@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82e32dcd743ca045bac81e5cb353ba2, type: 3}
+  m_Name: TG_Neutral
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.EnvironmentArt.TeyvatLightingProfile
+  sunEuler: {x: 55, y: 145, z: 0}
+  sunColor: {r: 1, g: 1, b: 1, a: 1}
+  sunIntensity: 1.15
+  ambientSky: {r: 0.41, g: 0.64, b: 0.84, a: 1}
+  ambientEquator: {r: 0.27, g: 0.44, b: 0.51, a: 1}
+  ambientGround: {r: 0.19, g: 0.29, b: 0.25, a: 1}
+  fogColor: {r: 0.48, g: 0.72, b: 0.86, a: 1}
+  fogStart: 140
+  fogEnd: 650
+  fog: 0
+  skybox: {fileID: 2100000, guid: b60601aac14f5a24aa598757a86b741f, type: 2}
+  volume: {fileID: 11400000, guid: a48b40e9fc55d7449910fdee28e7934c, type: 2}
+  lightStyle: {x: 0.85, y: 1.1, z: 0.16, w: 1.15}
+  shadowTint: {r: 0.64, g: 0.83, b: 1, a: 0.6}
+  ambientFloor: {r: 0.08, g: 0.105, b: 0.13, a: 1}
+  rockTint: {r: 0.64, g: 0.72, b: 0.78, a: 1}
+  cloudShadow: {x: 0.021, y: 0.018, z: 0, w: 0}
+  reflectionIntensity: 0.65

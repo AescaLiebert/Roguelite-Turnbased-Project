@@ -191,14 +191,26 @@
         <member name="T:FightingAllstar.Core.Content.ArtifactRules">
             <summary>
             Artifact identity, deterministic rolls, equipment and guaranteed enhancement.
-            Economy and roll ranges are starting values; the authored thresholds and set effects are fixed.
+            Main and substat tables follow the authored artifact balance table; economy values remain starting values.
             </summary>
         </member>
         <member name="M:FightingAllstar.Core.Content.ArtifactRules.Generate(System.String,FightingAllstar.Core.Content.ArtifactRarity,System.Int32)">
-            <summary>All six basic main forms are initially allowed on each slot.</summary>
+            <summary>Flower/Feather draw basic percentages; Sand Clock/Goblet/Crown also draw the authored secondary rates.</summary>
         </member>
         <member name="M:FightingAllstar.Core.Content.ArtifactRules.Normalize(FightingAllstar.Core.Run.ArtifactInstance)">
             <summary>Migrates old rarity-only instances without changing their unique receipt identity.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.TryMainStatRange(FightingAllstar.Core.Content.ArtifactSlot,FightingAllstar.Core.Content.StatId,System.Int32@,System.Int32@)">
+            <summary>Authored percentage endpoints in basis points; main stats have no quality or rarity multiplier.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.SubstatBaseValue(FightingAllstar.Core.Content.ArtifactStatLine)">
+            <summary>Authored SSR base for one substat roll; zero means the exact identity is outside the pool.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.SubstatRollValue(FightingAllstar.Core.Content.ArtifactStatLine,FightingAllstar.Core.Content.ArtifactRarity,System.Int32)">
+            <summary>Applies the supplied quality (70% to 100%) and rarity (one to five stars) to one authored roll.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.TryEnhance(FightingAllstar.Core.Run.ItemInventory,FightingAllstar.Core.Content.ArtifactEnhancementPreview,FightingAllstar.Core.Run.ItemInventory@,FightingAllstar.Core.Content.ArtifactEnhancementPreview@,System.String@)">
+            <summary>Revalidates the reviewed roll and costs before consuming anything; previews cannot reroll an artifact.</summary>
         </member>
         <member name="M:FightingAllstar.Core.Content.ArtifactRules.ApplyStats(FightingAllstar.Core.Content.StatBlock,System.Collections.Generic.IEnumerable{FightingAllstar.Core.Run.ArtifactInstance})">
             <summary>Percentage basic lines and both set thresholds add against the unequipped base stat.</summary>
@@ -206,8 +218,8 @@
         <member name="M:FightingAllstar.Core.Content.ArtifactRules.ApplyConditionalStats(FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Content.StatBlock)">
             <summary>Evaluated after ordinary status modifiers so the threshold follows live max HP.</summary>
         </member>
-        <member name="M:FightingAllstar.Core.Content.ArtifactRules.RepairLines(FightingAllstar.Core.Run.ArtifactInstance)">
-            <summary>Repairs damaged imported data without rerolling the valid lines or their upgrades.</summary>
+        <member name="M:FightingAllstar.Core.Content.ArtifactRules.RepairLines(FightingAllstar.Core.Run.ArtifactInstance,System.Boolean)">
+            <summary>Migrates authored balance once, then repairs imported data without rerolling valid current-schema lines.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.CharacterStatGrowth">
             <summary>Linear growth as a fraction of level-one stats, in basis points per level.</summary>

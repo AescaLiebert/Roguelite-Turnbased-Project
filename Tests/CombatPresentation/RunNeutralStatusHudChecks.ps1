@@ -34,6 +34,21 @@ foreach ($neutralDependency in @('UnityEngine.UI.dll', 'Unity.TextMeshPro.dll', 
 $neutralNewtonsoft = Get-ChildItem "$neutralRepo/Library/PackageCache" -Recurse -Filter Newtonsoft.Json.dll | Where-Object { $_.FullName -match 'Runtime' } | Select-Object -First 1
 Copy-Item -LiteralPath $neutralNewtonsoft.FullName -Destination "$neutralProject/Assets/Plugins/Newtonsoft.Json.dll"
 Copy-Item -LiteralPath "$PSScriptRoot/NeutralStatusHudChecks.cs" -Destination "$neutralProject/Assets/Editor"
+New-Item -ItemType Directory -Force "$neutralProject/FixtureIcons" | Out-Null
+# Some supplied .png files contain WebP data; the fixture's runtime PNG loader needs PNG bytes.
+@'
+from pathlib import Path
+from PIL import Image
+import sys
+repo, output = Path(sys.argv[1]), Path(sys.argv[2])
+icons = list((repo / 'Assets/Project/Art/UI/Elemental_Icon').glob('*.png'))
+icons += [repo / 'Assets/Project/Art/UI/Stats_Icon' / (name + '.png') for name in
+          ('icon_buff_atk_add', 'icon_buff_heal_barrier', 'icon_buff_cc_atk_fire')]
+for source in icons:
+    with Image.open(source) as icon:
+        icon.save(output / source.name, format='PNG')
+'@ | python - $neutralRepo "$neutralProject/FixtureIcons"
+if ($LASTEXITCODE -ne 0) { throw 'HUD capture icon conversion failed (requires Python and Pillow).' }
 $neutralResult = Join-Path $neutralProject 'Evidence/neutral-status-hud.txt'
 if (Test-Path -LiteralPath $neutralResult) { Remove-Item -LiteralPath $neutralResult }
 $neutralProcess = Start-Process -FilePath $UnityEditorPath -WindowStyle Hidden -PassThru -ArgumentList @('-batchmode', '-disable-assembly-updater', '-projectPath', ('"' + $neutralProject + '"'), '-executeMethod', 'NeutralStatusHudChecks.Run', '-logFile', ('"' + "$neutralProject/visual.log" + '"'))

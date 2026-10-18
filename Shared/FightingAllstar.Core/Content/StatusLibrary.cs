@@ -18,7 +18,7 @@ namespace FightingAllstar.Core.Content
             ["status.debuff.conductive"] = "Conductive",
             ["status.debuff.dissolve"] = "Dissolve",
             ["status.debuff.baron-bunny"] = "Baron Bunny",
-            ["status.debuff.anemo-resistance"] = "Anemo Resistance Down",
+            ["status.debuff.anemo-resistance"] = "Anemo RES",
             ["status.buff.glacial-waltz"] = "Glacial Waltz",
             ["status.buff.melody-loop"] = "Melody Loop",
             ["status.buff.gauge-acceleration"] = "Gauge Acceleration",

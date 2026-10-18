@@ -1,0 +1,9 @@
+{
+    "positions": 264,
+    "cameraGroundViolations": 0,
+    "opaqueHeadHits": 0,
+    "passed": true,
+    "method": "Eight declared orbit transition legs,33 positions each; native ground camera clearance and6 proxy-head opaque bounds ray probes. Rendered4 samples perleg.",
+    "limitations": "AABB probes are conservative foliage/rock silhouettes; they do not model leaf alpha or actual character animation. Recorded orbit paths are a review harness; the game's runtime controller is unchanged.",
+    "hits": []
+}

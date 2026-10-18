@@ -1,0 +1,1610 @@
+{
+    "schema": "TG_WP05_TreeValidation_v1",
+    "method": "Read-only raw FBX comparison against authored mesh counts/metre bounds/UV0/numerical masks/custom-normal ranges and SHA256. All registry group XZ anchors checked. Actual persisted animated tree mesh bounds tested using sampled shared wind displacement at strength 1, response .65, 21 times 0..10 seconds and four wind directions. Original registry cameras plus eight 33-point spherical camera paths test conservative LOD0 world bounds, then actual LOD0 triangles for head rays.",
+    "limitations": "No scene objects, colliders, materials or source assets are modified. CPU double-sided ray/triangle tests replace temporary MeshCollider queries and test undeformed LOD0 geometry; broad bounds include stored animation padding. Wind samples roots and up to 512 evenly spaced vertices per unique mesh at its smallest placed scale, not every animated surface point. Proxy-head rays use 2.5m, not full animated characters or projected silhouettes. Runtime LOD, GPU shadow/depth agreement, leaf temporal quality and player-build performance require the separate visual/runtime reviews.",
+    "passed": true,
+    "hashMatches": true,
+    "importedMeshesPass": true,
+    "registryPass": true,
+    "windPass": true,
+    "camerasPass": true,
+    "sweepsPass": true,
+    "manifestMeshCount": 19,
+    "importedMeshCount": 19,
+    "registryCount": 120,
+    "treeGroupCount": 120,
+    "shrubGroupCount": 70,
+    "cameraCount": 17,
+    "sweepSamples": 264,
+    "positionStartingTolerance": 0.0020000000949949028,
+    "normalStartingTolerance": 0.029999999329447748,
+    "maskStartingTolerance": 0.004100000020116568,
+    "meshes": [
+        {
+            "name": "SM_TG_HeroOak_LOD0",
+            "species": "HeroOak",
+            "lod": 0,
+            "vertices": 10631,
+            "triangles": 8896,
+            "submeshes": 5,
+            "rootVertices": 169,
+            "passed": true,
+            "boundsErrorMetres": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_HeroOak_LOD1",
+            "species": "HeroOak",
+            "lod": 1,
+            "vertices": 3964,
+            "triangles": 3248,
+            "submeshes": 5,
+            "rootVertices": 134,
+            "passed": true,
+            "boundsErrorMetres": 0.0,
+            "normalRangeError": 5.960464477539063e-8,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_HeroOak_LOD2",
+            "species": "HeroOak",
+            "lod": 2,
+            "vertices": 2780,
+            "triangles": 2584,
+            "submeshes": 5,
+            "rootVertices": 120,
+            "passed": true,
+            "boundsErrorMetres": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.9019607901573181,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_MeadowOak_LOD0",
+            "species": "MeadowOak",
+            "lod": 0,
+            "vertices": 6839,
+            "triangles": 5712,
+            "submeshes": 5,
+            "rootVertices": 138,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_MeadowOak_LOD1",
+            "species": "MeadowOak",
+            "lod": 1,
+            "vertices": 2585,
+            "triangles": 2144,
+            "submeshes": 5,
+            "rootVertices": 110,
+            "passed": true,
+            "boundsErrorMetres": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_MeadowOak_LOD2",
+            "species": "MeadowOak",
+            "lod": 2,
+            "vertices": 1832,
+            "triangles": 1710,
+            "submeshes": 5,
+            "rootVertices": 96,
+            "passed": true,
+            "boundsErrorMetres": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.9019607901573181,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_IslandTree_LOD0",
+            "species": "IslandTree",
+            "lod": 0,
+            "vertices": 6829,
+            "triangles": 5712,
+            "submeshes": 5,
+            "rootVertices": 136,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_IslandTree_LOD1",
+            "species": "IslandTree",
+            "lod": 1,
+            "vertices": 2588,
+            "triangles": 2144,
+            "submeshes": 5,
+            "rootVertices": 112,
+            "passed": true,
+            "boundsErrorMetres": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_IslandTree_LOD2",
+            "species": "IslandTree",
+            "lod": 2,
+            "vertices": 1823,
+            "triangles": 1710,
+            "submeshes": 5,
+            "rootVertices": 90,
+            "passed": true,
+            "boundsErrorMetres": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.9019607901573181,
+                "g": 0.5411764979362488,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_WindPine_LOD0",
+            "species": "WindPine",
+            "lod": 0,
+            "vertices": 37687,
+            "triangles": 30928,
+            "submeshes": 3,
+            "rootVertices": 18,
+            "passed": true,
+            "boundsErrorMetres": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_WindPine_LOD1",
+            "species": "WindPine",
+            "lod": 1,
+            "vertices": 10233,
+            "triangles": 7440,
+            "submeshes": 3,
+            "rootVertices": 14,
+            "passed": true,
+            "boundsErrorMetres": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_WindPine_LOD2",
+            "species": "WindPine",
+            "lod": 2,
+            "vertices": 3070,
+            "triangles": 2950,
+            "submeshes": 3,
+            "rootVertices": 12,
+            "passed": true,
+            "boundsErrorMetres": 2.384185791015625e-7,
+            "normalRangeError": 0.0000030994415283203127,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.0,
+                "g": 0.545098066329956,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_YoungPine_LOD0",
+            "species": "YoungPine",
+            "lod": 0,
+            "vertices": 38435,
+            "triangles": 30928,
+            "submeshes": 3,
+            "rootVertices": 18,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_YoungPine_LOD1",
+            "species": "YoungPine",
+            "lod": 1,
+            "vertices": 10268,
+            "triangles": 7440,
+            "submeshes": 3,
+            "rootVertices": 14,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_YoungPine_LOD2",
+            "species": "YoungPine",
+            "lod": 2,
+            "vertices": 3088,
+            "triangles": 2950,
+            "submeshes": 3,
+            "rootVertices": 12,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.0,
+                "g": 0.545098066329956,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_Shrub_LOD0",
+            "species": "Shrub",
+            "lod": 0,
+            "vertices": 3847,
+            "triangles": 3120,
+            "submeshes": 5,
+            "rootVertices": 69,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_Shrub_LOD1",
+            "species": "Shrub",
+            "lod": 1,
+            "vertices": 1348,
+            "triangles": 1056,
+            "submeshes": 5,
+            "rootVertices": 61,
+            "passed": true,
+            "boundsErrorMetres": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 1.0,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_Shrub_LOD2",
+            "species": "Shrub",
+            "lod": 2,
+            "vertices": 925,
+            "triangles": 834,
+            "submeshes": 5,
+            "rootVertices": 55,
+            "passed": true,
+            "boundsErrorMetres": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.9019607901573181,
+                "g": 0.5490196347236633,
+                "b": 0.4117647111415863,
+                "a": 1.0
+            },
+            "errors": []
+        },
+        {
+            "name": "SM_TG_TreeAxisMarker",
+            "species": "diagnostic",
+            "lod": 0,
+            "vertices": 162,
+            "triangles": 84,
+            "submeshes": 3,
+            "rootVertices": 162,
+            "passed": true,
+            "boundsErrorMetres": 0.0,
+            "normalRangeError": 0.0,
+            "maximumNormalLengthError": 1.1920928955078126e-7,
+            "maskMinimum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "maskMaximum": {
+                "r": 0.0,
+                "g": 0.0,
+                "b": 0.0,
+                "a": 1.0
+            },
+            "errors": []
+        }
+    ],
+    "registry": [
+        {
+            "name": "TreeGroup_0",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_1",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_2",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_3",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_4",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_5",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_6",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_7",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_8",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_9",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_10",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_11",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_12",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_13",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_14",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_15",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_16",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_17",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_18",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_19",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_20",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_21",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_22",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_23",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_24",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_25",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_26",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_27",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_28",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_29",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_30",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_31",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_32",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_33",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_34",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_35",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_36",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_37",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_38",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_39",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_40",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_41",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_42",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_43",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_44",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_45",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_46",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_47",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_48",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_49",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_50",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_51",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_52",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_53",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_54",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_55",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_56",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_57",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_58",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_59",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_60",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_61",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_62",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_63",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_64",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_65",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_66",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_67",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_68",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_69",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_70",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_71",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_72",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_73",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_74",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_75",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_76",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_77",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_78",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_79",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_80",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_81",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_82",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_83",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_84",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_85",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_86",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_87",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_88",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_89",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_90",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_91",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_92",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_93",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_94",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_95",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_96",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_97",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_98",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_99",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_100",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_101",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_102",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_103",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_104",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_105",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_106",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_107",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_108",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_109",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_110",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_111",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_112",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_113",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_114",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_115",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_116",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_117",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_118",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        },
+        {
+            "name": "TreeGroup_119",
+            "present": true,
+            "passed": true,
+            "xzErrorMetres": 0.0
+        }
+    ],
+    "wind": [
+        {
+            "mesh": "SM_TG_HeroOak_LOD0_Animated",
+            "passed": true,
+            "sampledVertices": 688,
+            "sampledRoots": 169,
+            "timeDirectionVertexTests": 57792,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.6354390978813171,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_HeroOak_LOD1_Animated",
+            "passed": true,
+            "sampledVertices": 682,
+            "sampledRoots": 134,
+            "timeDirectionVertexTests": 57288,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.6412575244903565,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_HeroOak_LOD2_Animated",
+            "passed": true,
+            "sampledVertices": 652,
+            "sampledRoots": 120,
+            "timeDirectionVertexTests": 54768,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5441470146179199,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_Shrub_LOD0_Animated",
+            "passed": true,
+            "sampledVertices": 608,
+            "sampledRoots": 69,
+            "timeDirectionVertexTests": 51072,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.6232182383537293,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_Shrub_LOD1_Animated",
+            "passed": true,
+            "sampledVertices": 704,
+            "sampledRoots": 61,
+            "timeDirectionVertexTests": 59136,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5282503366470337,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_Shrub_LOD2_Animated",
+            "passed": true,
+            "sampledVertices": 925,
+            "sampledRoots": 55,
+            "timeDirectionVertexTests": 77700,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5304611921310425,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_MeadowOak_LOD0_Animated",
+            "passed": true,
+            "sampledVertices": 655,
+            "sampledRoots": 138,
+            "timeDirectionVertexTests": 55020,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5376439690589905,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_MeadowOak_LOD1_Animated",
+            "passed": true,
+            "sampledVertices": 606,
+            "sampledRoots": 110,
+            "timeDirectionVertexTests": 50904,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5368711948394775,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_MeadowOak_LOD2_Animated",
+            "passed": true,
+            "sampledVertices": 674,
+            "sampledRoots": 96,
+            "timeDirectionVertexTests": 56616,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.44658392667770388,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_IslandTree_LOD0_Animated",
+            "passed": true,
+            "sampledVertices": 654,
+            "sampledRoots": 136,
+            "timeDirectionVertexTests": 54936,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.4932110011577606,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_IslandTree_LOD1_Animated",
+            "passed": true,
+            "sampledVertices": 607,
+            "sampledRoots": 112,
+            "timeDirectionVertexTests": 50988,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.49431875348091128,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_IslandTree_LOD2_Animated",
+            "passed": true,
+            "sampledVertices": 673,
+            "sampledRoots": 90,
+            "timeDirectionVertexTests": 56532,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.4224264621734619,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_WindPine_LOD0_Animated",
+            "passed": true,
+            "sampledVertices": 534,
+            "sampledRoots": 18,
+            "timeDirectionVertexTests": 44856,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.6212790608406067,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_WindPine_LOD1_Animated",
+            "passed": true,
+            "sampledVertices": 551,
+            "sampledRoots": 14,
+            "timeDirectionVertexTests": 46284,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.6288543343544006,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_WindPine_LOD2_Animated",
+            "passed": true,
+            "sampledVertices": 623,
+            "sampledRoots": 12,
+            "timeDirectionVertexTests": 52332,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.12368665635585785,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_YoungPine_LOD0_Animated",
+            "passed": true,
+            "sampledVertices": 529,
+            "sampledRoots": 18,
+            "timeDirectionVertexTests": 44436,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5260000824928284,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_YoungPine_LOD1_Animated",
+            "passed": true,
+            "sampledVertices": 526,
+            "sampledRoots": 14,
+            "timeDirectionVertexTests": 44184,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.5357150435447693,
+            "maximumRootDisplacementMetres": 0.0
+        },
+        {
+            "mesh": "SM_TG_YoungPine_LOD2_Animated",
+            "passed": true,
+            "sampledVertices": 524,
+            "sampledRoots": 12,
+            "timeDirectionVertexTests": 44016,
+            "escapedSamples": 0,
+            "maximumDisplacementMetres": 0.12195735424757004,
+            "maximumRootDisplacementMetres": 0.0
+        }
+    ],
+    "cameras": [
+        {
+            "name": "PlayerPlanning",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyPlanning",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReferencePlanningCandidate",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReversePlanningCandidate",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnvironmentOverview",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerAttack",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyAttack",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerContact",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyContact",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerPortrait",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyPortrait",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "WideMultiTarget",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReverseOverview",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReferenceFrontLeft",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReferenceFrontRight",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReferenceSide",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "ReferenceRear",
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        }
+    ],
+    "sweeps": [
+        {
+            "name": "PlayerPlanning -> EnemyPlanning",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyPlanning -> PlayerPlanning",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerPlanning -> PlayerAttack",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerAttack -> PlayerContact",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerContact -> PlayerPlanning",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyPlanning -> EnemyAttack",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyAttack -> EnemyContact",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyContact -> EnemyPlanning",
+            "samples": 33,
+            "cameraInsideConservativeBounds": 0,
+            "broadPhaseHeadHits": 0,
+            "actualTriangleHeadHits": 0,
+            "hits": []
+        }
+    ],
+    "errors": []
+}

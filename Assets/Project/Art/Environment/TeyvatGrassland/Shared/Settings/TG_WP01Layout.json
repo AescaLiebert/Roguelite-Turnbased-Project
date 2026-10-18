@@ -1,0 +1,378 @@
+{
+    "revision": "WP01-r2",
+    "status": "Review blockout; dimensions are starting values, not final art.",
+    "origin": {
+        "x": -0.16630172729492188,
+        "y": 1.887603759765625,
+        "z": -10.101893424987793
+    },
+    "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+    },
+    "groundY": 1.887603759765625,
+    "clearingHalfWidth": 17.0,
+    "clearingHalfLength": 15.0,
+    "actorProxyHeight": 3.0,
+    "captureAspect": 1.7777777910232545,
+    "anchors": [
+        {
+            "name": "CharHeroPosition1",
+            "worldPosition": {
+                "x": -5.7563018798828129,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "localPosition": {
+                "x": -5.590000152587891,
+                "y": 0.0,
+                "z": -5.0
+            }
+        },
+        {
+            "name": "CharHeroPosition2",
+            "worldPosition": {
+                "x": -0.16630172729492188,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -5.0
+            }
+        },
+        {
+            "name": "CharHeroPosition3",
+            "worldPosition": {
+                "x": 5.083698272705078,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "localPosition": {
+                "x": 5.25,
+                "y": 0.0,
+                "z": -5.0
+            }
+        },
+        {
+            "name": "EnemyHeroPosition1",
+            "worldPosition": {
+                "x": -5.7563018798828129,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "localPosition": {
+                "x": -5.590000152587891,
+                "y": 0.0,
+                "z": 5.0
+            }
+        },
+        {
+            "name": "EnemyHeroPosition2",
+            "worldPosition": {
+                "x": -0.16630172729492188,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 5.0
+            }
+        },
+        {
+            "name": "EnemyHeroPosition3",
+            "worldPosition": {
+                "x": 5.083698272705078,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "localPosition": {
+                "x": 5.25,
+                "y": 0.0,
+                "z": 5.0
+            }
+        }
+    ],
+    "shots": [
+        {
+            "name": "PlayerPlanning",
+            "position": {
+                "x": -0.16630172729492188,
+                "y": 15.387603759765625,
+                "z": -27.10189437866211
+            },
+            "rotation": {
+                "x": 0.30623534321784975,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 0.9519558548927307
+            },
+            "fov": 60.0,
+            "basis": "Exact current BattleStagePresenter.Initialize planning formula; source anchors copied."
+        },
+        {
+            "name": "EnemyPlanning",
+            "position": {
+                "x": -0.16630172729492188,
+                "y": 15.387603759765625,
+                "z": 6.898106575012207
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.9519558548927307,
+                "z": -0.30623534321784975,
+                "w": 0.0
+            },
+            "fov": 60.0,
+            "basis": "Exact planning formula rotated 180 degrees as in PlanningShot."
+        },
+        {
+            "name": "ReferencePlanningCandidate",
+            "position": {
+                "x": -0.16630172729492188,
+                "y": 10.887603759765625,
+                "z": -41.10189437866211
+            },
+            "rotation": {
+                "x": -0.020534945651888849,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 0.9997891783714294
+            },
+            "fov": 58.0,
+            "basis": "Starting value: optional landscape-oriented comparison, not applied to gameplay. Pass if six complete actors and cliff skyline remain visible; increase height/FOV if actors clip."
+        },
+        {
+            "name": "ReversePlanningCandidate",
+            "position": {
+                "x": -0.16630172729492188,
+                "y": 11.887603759765625,
+                "z": 13.898106575012207
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.9948510527610779,
+                "z": -0.10134830325841904,
+                "w": 0.0
+            },
+            "fov": 52.0,
+            "basis": "Starting value: reverse comparison of optional lower planning view; gameplay is unchanged."
+        },
+        {
+            "name": "EnvironmentOverview",
+            "position": {
+                "x": 25.833698272705079,
+                "y": 23.887603759765626,
+                "z": -52.10189437866211
+            },
+            "rotation": {
+                "x": 0.03367510437965393,
+                "y": -0.14943602681159974,
+                "z": 0.005092441104352474,
+                "w": 0.9881846904754639
+            },
+            "fov": 56.0,
+            "basis": "Starting value: art review only; require all landmark masses in frame."
+        },
+        {
+            "name": "PlayerAttack",
+            "position": {
+                "x": 1.183698296546936,
+                "y": 5.787603855133057,
+                "z": -20.50189208984375
+            },
+            "rotation": {
+                "x": 0.05786953493952751,
+                "y": -0.04363209754228592,
+                "z": 0.002531635109335184,
+                "w": 0.9973670244216919
+            },
+            "fov": 52.0,
+            "basis": "Proxy-height sample of rear/shoulder AttackShot: source in near row, target in far row. Not runtime playback."
+        },
+        {
+            "name": "EnemyAttack",
+            "position": {
+                "x": -1.5163017511367798,
+                "y": 5.787603855133057,
+                "z": 0.29810619354248049
+            },
+            "rotation": {
+                "x": 0.002531634643673897,
+                "y": 0.9973670244216919,
+                "z": -0.057869527488946918,
+                "w": 0.04363209754228592
+            },
+            "fov": 52.0,
+            "basis": "Reverse rear/shoulder sample; target visibility and reverse background check."
+        },
+        {
+            "name": "PlayerContact",
+            "position": {
+                "x": 4.9336981773376469,
+                "y": 5.787603855133057,
+                "z": -13.501893997192383
+            },
+            "rotation": {
+                "x": 0.087110735476017,
+                "y": -0.2683507800102234,
+                "z": 0.024373987689614297,
+                "w": 0.9590649008750916
+            },
+            "fov": 52.0,
+            "basis": "Starting value: near-contact open shoulder-angle clearance; not calibrated animation framing."
+        },
+        {
+            "name": "EnemyContact",
+            "position": {
+                "x": -5.26630163192749,
+                "y": 5.787603855133057,
+                "z": -6.701893329620361
+            },
+            "rotation": {
+                "x": 0.024373993277549745,
+                "y": 0.9590649008750916,
+                "z": -0.08711075037717819,
+                "w": 0.2683508098125458
+            },
+            "fov": 52.0,
+            "basis": "Starting value: reverse near-contact clearance."
+        },
+        {
+            "name": "PlayerPortrait",
+            "position": {
+                "x": 2.533698320388794,
+                "y": 4.887603759765625,
+                "z": -9.101893424987793
+            },
+            "rotation": {
+                "x": -0.015811510384082795,
+                "y": 0.974953293800354,
+                "z": -0.07366707921028137,
+                "w": -0.2092587947845459
+            },
+            "fov": 48.0,
+            "basis": "Starting value: close portrait clearance proxy. Actual actor-bound fitting remains runtime validation."
+        },
+        {
+            "name": "EnemyPortrait",
+            "position": {
+                "x": -2.8663017749786379,
+                "y": 4.887603759765625,
+                "z": -11.101893424987793
+            },
+            "rotation": {
+                "x": 0.07366707175970078,
+                "y": 0.2092587798833847,
+                "z": -0.015811508521437646,
+                "w": 0.9749533534049988
+            },
+            "fov": 48.0,
+            "basis": "Starting value: reverse portrait clearance proxy."
+        },
+        {
+            "name": "WideMultiTarget",
+            "position": {
+                "x": 13.833698272705079,
+                "y": 9.887603759765625,
+                "z": -25.10189437866211
+            },
+            "rotation": {
+                "x": 0.12169302254915238,
+                "y": -0.30963319540023806,
+                "z": 0.03999221324920654,
+                "w": 0.9421882629394531
+            },
+            "fov": 56.0,
+            "basis": "Starting value: broad multi-target/ultimate clearance envelope, not a claim of actual ultimate playback."
+        },
+        {
+            "name": "ReverseOverview",
+            "position": {
+                "x": -27.166301727294923,
+                "y": 20.887603759765626,
+                "z": 24.89810562133789
+            },
+            "rotation": {
+                "x": 0.021958328783512117,
+                "y": 0.9723653197288513,
+                "z": -0.1023055836558342,
+                "w": 0.20870332419872285
+            },
+            "fov": 56.0,
+            "basis": "Starting value: review full 3D reverse scenery."
+        },
+        {
+            "name": "ReferenceFrontLeft",
+            "position": {
+                "x": -108.16630554199219,
+                "y": 86.88760375976563,
+                "z": -127.10189056396485
+            },
+            "rotation": {
+                "x": 0.15190435945987702,
+                "y": 0.26712995767593386,
+                "z": -0.04268447309732437,
+                "w": 0.9506548643112183
+            },
+            "fov": 55.0,
+            "basis": "Starting value: multi-side landform review; inspect terrace connections, basin and left plateau."
+        },
+        {
+            "name": "ReferenceFrontRight",
+            "position": {
+                "x": 114.83369445800781,
+                "y": 79.88760375976563,
+                "z": -109.10189056396485
+            },
+            "rotation": {
+                "x": 0.1428275853395462,
+                "y": -0.3045063018798828,
+                "z": 0.04623820260167122,
+                "w": 0.9406052231788635
+            },
+            "fov": 55.0,
+            "basis": "Starting value: inspect opposite cliff returns and grounded landmarks."
+        },
+        {
+            "name": "ReferenceSide",
+            "position": {
+                "x": 143.8336944580078,
+                "y": 86.88760375976563,
+                "z": 30.89810562133789
+            },
+            "rotation": {
+                "x": 0.16077376902103425,
+                "y": -0.6318632364273071,
+                "z": 0.1361958086490631,
+                "w": 0.7458896040916443
+            },
+            "fov": 57.0,
+            "basis": "Starting value: inspect depth, shelf setbacks and waterfall crests."
+        },
+        {
+            "name": "ReferenceRear",
+            "position": {
+                "x": 82.83369445800781,
+                "y": 123.88760375976563,
+                "z": 192.89810180664063
+            },
+            "rotation": {
+                "x": -0.07619453221559525,
+                "y": 0.9236406683921814,
+                "z": -0.27451810240745547,
+                "w": -0.25636330246925356
+            },
+            "fov": 58.0,
+            "basis": "Starting value: inspect continuous upper plateau, reverse slopes and landmark grounding."
+        }
+    ],
+    "sourceScene": "Assets/Project/Scenes/Battle.unity",
+    "sourceSceneSha256": "8a366b81ba4567c5d1abcbce337f76b14726b976835fa44dead43dd9e6a878bf",
+    "cameraSourceSha256": "098dbf212a5a685e2d6a41886bf285b2e34fcd854a1d30bca2fc52ef35e16eab",
+    "sourceCameraFov": 60.0
+}

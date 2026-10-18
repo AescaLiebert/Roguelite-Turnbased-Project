@@ -268,6 +268,18 @@ public sealed class PlayerInventoryService : MonoBehaviour
         return true;
     }
 
+    public bool TryEnhanceArtifact(ArtifactEnhancementPreview reviewed,
+        out ArtifactEnhancementPreview preview, out string error)
+    {
+        NormalizeSnapshot();
+        preview = null;
+        if (!HasLoadedArtifactAccount(out error)) return false;
+        if (!ArtifactRules.TryEnhance(snapshot.items, reviewed, out var next, out var result, out error)) return false;
+        if (!CommitArtifactInventory(next, out error)) return false;
+        preview = result;
+        return true;
+    }
+
     private bool HasLoadedArtifactAccount(out string error)
     {
         error = null;

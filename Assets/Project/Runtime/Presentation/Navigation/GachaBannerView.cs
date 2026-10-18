@@ -104,14 +104,14 @@ namespace FightingAllstar.Presentation.Navigation
         public static void OpenDetails(VisualElement root, string title, string opener)
         {
             var overlay = root?.Q("details-overlay"); if (overlay == null) return;
-            overlay.userData = root.Q<Button>(opener); ScreenMotion.Show(overlay);
+            overlay.userData = root.Q<Button>(opener); ScreenMotion.ShowModal(overlay);
             Text(root, "details-title", title); root.Q("banner-screen")?.SetEnabled(false); root.Q<Button>("details-close")?.Focus();
         }
         public static void CloseDetails(VisualElement root)
         {
             var overlay = root?.Q("details-overlay"); if (overlay == null) return;
-            ScreenMotion.Hide(overlay);
-            var panel = root.Q("details-panel"); if (panel != null) panel.style.display = DisplayStyle.None;
+            var panel = root.Q("details-panel");
+            ScreenMotion.Hide(overlay, () => { if (panel != null) panel.style.display = DisplayStyle.None; });
             root.Q("banner-screen")?.SetEnabled(true); (overlay.userData as Button)?.Focus();
         }
     }

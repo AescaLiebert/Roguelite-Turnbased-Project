@@ -10,7 +10,8 @@ namespace FightingAllstar.Core.Content
             if (stats == null) return 0;
             long secondary = (long)stats.PierceBp + stats.ResistanceBp + stats.RegenerationBp + stats.CritChanceBp + stats.CritDamageBp +
                 stats.CritResistanceBp + stats.CritDefenseBp + stats.RecoveryBp + stats.BlockChanceBp + stats.BlockPowerBp + stats.LifeStealBp +
-                stats.EvadeBp + stats.PerceptionBp + stats.ControlBp + stats.AvoidanceBp + stats.ReflectDamageBp;
+                stats.EvadeBp + stats.PerceptionBp + stats.ControlBp + stats.AvoidanceBp + stats.ReflectDamageBp +
+                stats.DamageOverTimeDealtBp + stats.DamageDealtBp + stats.AdditionalDamageDealtBp;
             return (long)stats.MaxHealth * HealthWeight + (long)stats.Attack * AttackWeight + (long)stats.Defense * DefenseWeight + secondary * SecondaryBasisPointWeight;
         }
         public static void Calibrate(StatBlock stats, StatBlock levelOne, StatBlock levelNinety)

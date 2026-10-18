@@ -23,17 +23,17 @@ MonoBehaviour:
   - trait.japan
   - trait.sacred-treasure
   - trait.series-kof
-  passiveSourceDescription: Increases own damage dealt by 14% for each Ignite stack
-    on enemies. When attacking Kyo, deals additional damage equal to 5% of Kyo's
-    current Max HP once on the final hit.
+  passiveSourceDescription: "Increases own Damage Dealt by 14% for each Ignite stack
+    on enemies. \n\nWhen attacking Kyo, deals additional damage equal to 5% of Target
+    Max HP"
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 4d24608e12e5cda40909a1c0efdd3b68, type: 2}
   id: 1406
   fighterName: Yagami Iori 95
-  fighterPic: {fileID: 21300000, guid: eff1c514bfebf914588e680919556933, type: 3}
+  fighterPic: {fileID: 21300000, guid: f06df1bd05af7bf4a9439c4cb0b51e88, type: 3}
   fighterIcon: {fileID: 21300000, guid: 17fd06f2ae5ddb54eb8463a667d0eee5, type: 3}
-  fighterFull: {fileID: 21300000, guid: eff1c514bfebf914588e680919556933, type: 3}
+  fighterFull: {fileID: 21300000, guid: f06df1bd05af7bf4a9439c4cb0b51e88, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}

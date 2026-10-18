@@ -131,7 +131,9 @@ namespace FightingAllstar.Presentation.Combat
         public static string StatName(StatId stat) => stat switch
         {
             StatId.MaxHealth => "Max HP", StatId.Pierce => "Pierce Rate", StatId.Recovery => "Recovery Rate",
-            StatId.LifeSteal => "Lifesteal", _ => Regex.Replace(stat.ToString(), "([a-z])([A-Z])", "$1 $2")
+            StatId.LifeSteal => "Lifesteal", StatId.DamageOverTimeDealt => "DOT Dealt",
+            StatId.DamageDealt => "Damage Dealt", StatId.AdditionalDamageDealt => "Additional Damage Dealt",
+            _ => Regex.Replace(stat.ToString(), "([a-z])([A-Z])", "$1 $2")
         };
 
         public static string CanonicalKeyword(string id)

@@ -516,6 +516,7 @@
 }
 
 .artifact-workshop-left {
+    position: relative;
     width: 43%;
     flex-shrink: 0;
     min-height: 0;
@@ -976,6 +977,11 @@
 }
 
 .artifact-picker-host {
+    position: absolute;
+    left: 0;
+    right: 20px;
+    top: 0;
+    bottom: 0;
     display: none;
     flex-grow: 1;
     min-height: 0;
@@ -985,11 +991,12 @@
     display: flex;
 }
 
-.material-picker-open .artifact-workshop-left {
-    width: 47%;
-}
-
 .artifact-picker-docked {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     flex-grow: 1;
     min-height: 0;
 }
@@ -1060,7 +1067,7 @@
 
 .narrow-layout .material-picker-open .artifact-workshop-left {
     width: 100%;
-    height: 400px;
+    height: 250px;
 }
 
 .narrow-layout .artifact-workshop-hero {
@@ -1239,7 +1246,7 @@
 .compact-layout .artifact-equipment-inventory .artifact-equipped-strip { padding: 6px; }
 .compact-layout .artifact-equipment-inventory .artifact-strip-character { margin-right: 8px; }
 .artifact-workshop-footer .artifact-selected-scroll { height: 308px; min-height: 0; max-height: 308px; margin-top: 4px; }
-.artifact-selected-materials { flex-wrap: wrap; max-width: 650px; }
+.artifact-selected-materials { flex-wrap: nowrap; }
 .compact-layout .artifact-workshop-footer .artifact-selected-scroll { height: 180px; max-height: 180px; }
 .narrow-layout .hub-hero.artifact-inventory-open { height: 520px; }
 .narrow-layout .artifact-equipment-inventory { padding: 8px 12px; }
@@ -1250,3 +1257,57 @@
 .narrow-layout .artifact-strip-character { margin-right: 8px; }
 .narrow-layout .artifact-hub-slots { flex-direction: row; align-items: center; justify-content: center; }
 .narrow-layout .artifact-hub-slots .artifact-equipment-slot { position: relative; left: auto; right: auto; top: auto; bottom: auto; }
+
+
+/* Artifact enhancement: preview columns, one-row material tray, and shared lookup. */
+.artifact-sorting { flex-direction: row; flex-shrink: 0; align-items: center; margin: 12px 0 8px; }
+.artifact-sorting .unity-base-field { flex-grow: 1; margin: 0 8px 0 0; }
+.artifact-sorting .unity-base-field__input { min-height: 40px; background-color: rgb(232, 226, 210); color: rgb(36, 44, 55); font-size: 19px; border-radius: 20px; padding: 4px 14px; }
+.artifact-sort-direction { width: 40px; height: 40px; min-width: 40px; padding: 0; font-size: 26px; color: rgb(35, 46, 58); background-color: rgb(232, 226, 210); border-radius: 20px; border-width: 0; }
+.artifact-draft-level { font-size: 30px; color: rgb(255, 225, 120); margin-left: 14px; margin-right: 20px; -unity-font-style: bold; }
+.enhance-upgrade-revealed .artifact-xp-heading { min-height: 62px; background-color: rgb(40, 67, 113); border-left-width: 2px; border-left-color: rgb(255, 225, 120); }
+.enhance-upgrade-revealed #enhance-level { flex-grow: 1; -unity-text-align: middle-center; color: rgb(255, 245, 214); }
+.enhance-upgrade-revealed #enhance-xp-text { display: none; }
+.enhance-upgrade-revealed .artifact-comparison-values { padding-right: 34px; }
+.artifact-xp-heading { justify-content: flex-start; min-height: 48px; }
+.artifact-xp-heading #enhance-xp-text { flex-grow: 1; -unity-text-align: middle-right; }
+.artifact-xp-track { position: relative; height: 14px; min-height: 14px; margin: 10px 0 22px; background-color: rgb(39, 51, 67); border-radius: 6px; }
+.artifact-xp-track .artifact-xp { position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: 0; height: 14px; }
+.artifact-xp-current .unity-progress-bar__background { background-color: rgba(0, 0, 0, 0); }
+.artifact-xp-preview .unity-progress-bar__progress { background-color: rgba(230, 190, 255, .45); }
+.artifact-comparison-values { flex-direction: row; align-items: center; justify-content: flex-end; min-width: 240px; }
+.artifact-comparison-values Label { flex-shrink: 0; }
+.artifact-stat-before { min-width: 76px; -unity-text-align: middle-right; color: rgb(240, 239, 232); }
+.artifact-stat-separator { width: 48px; -unity-text-align: middle-center; font-size: 24px; color: rgb(149, 173, 195); }
+.artifact-stat-after, .artifact-stat-revealed { min-width: 84px; -unity-text-align: middle-right; color: rgb(255, 225, 120); -unity-font-style: bold; }
+.artifact-stat-current { min-width: 84px; -unity-text-align: middle-right; }
+.artifact-stat-up-arrow { color: rgb(141, 235, 159); font-size: 27px; margin-left: 10px; -unity-font-style: bold; width: 24px; }
+.artifact-affix-draft { color: rgb(255, 225, 120); font-size: 18px; white-space: normal; margin: 12px 0; }
+.artifact-main-row, .artifact-stat-row { align-items: center; position: relative; }
+.artifact-stat-name { flex-shrink: 1; min-width: 0; }
+.artifact-commit-arrow { position: absolute; right: 0; top: 3px; }
+.artifact-workshop-footer { height: auto; min-height: 258px; padding-top: 10px; }
+.artifact-workshop-footer .artifact-selected-scroll { height: 156px; min-height: 156px; max-height: 156px; margin-top: 4px; }
+.artifact-selected-materials { flex-direction: row; flex-wrap: nowrap; max-width: none; padding-right: 12px; }
+.artifact-selected-scroll .unity-scroll-view__content-container { flex-direction: row; flex-wrap: nowrap; }
+.artifact-selected-materials .item-reward-tile { flex-shrink: 0; }
+.artifact-workshop-footer .artifact-small { margin: 4px 0 8px; }
+.artifact-workshop-footer .artifact-commit-row { flex-wrap: nowrap; }
+.artifact-workshop-footer .artifact-action-row { flex-wrap: nowrap; }
+.compact-layout .artifact-workshop-footer { height: 250px; min-height: 250px; max-height: 250px; }
+.compact-layout .artifact-workshop-footer .artifact-selected-scroll { height: 122px; min-height: 122px; max-height: 122px; }
+.compact-layout .artifact-workshop-footer .artifact-cost { width: auto; font-size: 19px; }
+.compact-layout .artifact-workshop-details { padding: 10px 16px 8px; }
+.compact-layout .artifact-workshop-details .artifact-main-row { padding: 8px; }
+.compact-layout .artifact-comparison-values { min-width: 190px; }
+.compact-layout .artifact-stat-before { min-width: 56px; }
+.compact-layout .artifact-stat-after, .compact-layout .artifact-stat-current { min-width: 64px; }
+.compact-layout .artifact-stat-separator { width: 32px; }
+.compact-layout .artifact-main-row .artifact-stat-name, .compact-layout .artifact-main-row .artifact-stat-value { font-size: 24px; }
+.compact-layout .artifact-affix-draft { font-size: 14px; margin: 6px 0; }
+.compact-layout .artifact-sorting .unity-base-field__input { min-height: 34px; font-size: 16px; }
+.compact-layout .artifact-draft-level { font-size: 27px; }
+.compact-layout .artifact-workshop-heading { margin-bottom: 12px; }
+.narrow-layout .artifact-workshop-footer .artifact-commit-row { flex-wrap: wrap; }
+.narrow-layout .artifact-comparison-values { min-width: 174px; }
+.narrow-layout .artifact-hub-slots { flex-wrap: wrap; align-content: center; }

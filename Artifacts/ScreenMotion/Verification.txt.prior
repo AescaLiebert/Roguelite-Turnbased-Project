@@ -1,0 +1,4 @@
+FAIL during initial scene entry: System.Exception: Scene UIDocument entry did not settle.
+  at ScreenMotionRuntimeProbe.Check (System.Boolean condition, System.String message) [0x00018] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ScreenMotionUiProject\Assets\ScreenMotionRuntimeProbe.cs:236 
+  at ScreenMotionRuntimeProbe+<Checks>d__22.MoveNext () [0x000ec] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ScreenMotionUiProject\Assets\ScreenMotionRuntimeProbe.cs:60 
+  at ScreenMotionRuntimeProbe+<Start>d__21.MoveNext () [0x0004c] in E:\Program Files\Unity\RogueliteTurnbasedProject\Temp\ScreenMotionUiProject\Assets\ScreenMotionRuntimeProbe.cs:46 

@@ -1,0 +1,102 @@
+{
+    "passed": true,
+    "originalCameraPosesRetained": true,
+    "independentTerrain": true,
+    "shadersSupported": true,
+    "missingScripts": 0,
+    "grassHeadClearanceViolations": 0,
+    "grassCellBoundsViolations": 0,
+    "grassAnimatedBoundsViolations": 0,
+    "grassVerticesSampled": 306300,
+    "sweepPositions": 264,
+    "surroundingLandMin": -0.7355804443359375,
+    "surroundingLandMax": 3.958615303039551,
+    "islands": [
+        {
+            "name": "Heron",
+            "center": {
+                "x": -45.16630172729492,
+                "y": 2.5885744094848635,
+                "z": 26.89810562133789
+            },
+            "nativeTopAboveWater": 2.0509705543518068,
+            "wetSurroundSamples": 12,
+            "passed": true
+        },
+        {
+            "name": "Willow",
+            "center": {
+                "x": -12.166301727294922,
+                "y": 2.9868526458740236,
+                "z": 32.89810562133789
+            },
+            "nativeTopAboveWater": 2.449248790740967,
+            "wetSurroundSamples": 12,
+            "passed": true
+        },
+        {
+            "name": "Split",
+            "center": {
+                "x": 29.833698272705079,
+                "y": 2.3880615234375,
+                "z": 29.89810562133789
+            },
+            "nativeTopAboveWater": 1.850457787513733,
+            "wetSurroundSamples": 12,
+            "passed": true
+        },
+        {
+            "name": "LeftCascade",
+            "center": {
+                "x": -42.16630172729492,
+                "y": 4.3876953125,
+                "z": 44.89810562133789
+            },
+            "nativeTopAboveWater": 3.8500914573669435,
+            "wetSurroundSamples": 12,
+            "passed": true
+        },
+        {
+            "name": "RightCascade",
+            "center": {
+                "x": 42.83369827270508,
+                "y": 3.5874767303466799,
+                "z": 42.89810562133789
+            },
+            "nativeTopAboveWater": 3.049872875213623,
+            "wetSurroundSamples": 12,
+            "passed": true
+        }
+    ],
+    "cascades": [
+        {
+            "name": "Left",
+            "pathPoints": 6,
+            "drop": 24.009910583496095,
+            "totalHorizontalRun": 21.003808975219728,
+            "waterJoinError": 0.08000004291534424,
+            "descending": true,
+            "passed": true
+        },
+        {
+            "name": "Hero",
+            "pathPoints": 6,
+            "drop": 24.698566436767579,
+            "totalHorizontalRun": 26.78042221069336,
+            "waterJoinError": 0.08000004291534424,
+            "descending": true,
+            "passed": true
+        },
+        {
+            "name": "Right",
+            "pathPoints": 6,
+            "drop": 16.034975051879884,
+            "totalHorizontalRun": 28.70891761779785,
+            "waterJoinError": 0.08000004291534424,
+            "descending": true,
+            "passed": true
+        }
+    ],
+    "method": "Actual native TerrainData, saved geometry and vegetation matrices. Five island centers and12 exterior wet-bed probes each; three descending6point cascade paths. Original17 camera transforms retained. Grass full rotated bothLOD bounds inside saved cells; sampled animated vertices (every200th placement,12 times,strength1) plus264 gameplay sweep-to-head AABB checks. Surrounding land sampled outside core and above water.",
+    "limitations": "Wet-bed probes establish local separation, not fluid connectivity. Cascade paths and terrain support are layout evidence; water shader breakup, mist, erosion and polished foam are WP06. Static proxy head rays and sampled bounds do not replace actual animated combat or player performance."
+}

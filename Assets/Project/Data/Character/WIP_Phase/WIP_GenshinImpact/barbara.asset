@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: barbara
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.barbara
+  runtimeReady: 1
+  familyId: family.barbara
+  seriesId: series.genshin-impact
+  role: 
+  traitIds:
+  - trait.genshin-impact
+  - trait.region.mondstadt
+  - trait.women
+  passiveSourceDescription: 'Increase applicable allies Max HP by 30%
+
+
+    Everytime
+    self do damage will regenerate HP to lowest HP ratio allies 30% of damage dealt
+
+
+    When
+    self can successful regenerate HP, target will grant Melody Loop for 2 turns
+
+
+    [Gnosis
+    Reaction: When all formatting team(including SUB) consists of ''Genshin Impact'',
+    Elemental Damage applies Elemental Status and can trigger Elemental Reactions]'
+  passiveSourceType: 2
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: ab08a3fdbe3531c49a72b6ed9d6886f3, type: 2}
+  id: 1412
+  fighterName: '[Genshin Impact] Barbara'
+  fighterPic: {fileID: 21300000, guid: 328fcbd20e25f7a4a9ebf569bb26bd45, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 29d81cebca31a754c8291dd2f4d1cec5, type: 3}
+  fighterFull: {fileID: 21300000, guid: 328fcbd20e25f7a4a9ebf569bb26bd45, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 4bebc2fc5dc292145ac3dbb79d11f318, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 232c5ec94feed204a8ed96e73a5cc80a, type: 2}
+  Skill2: {fileID: 11400000, guid: 746da10128c0be843b1a76620690c936, type: 2}
+  Ultimate: {fileID: 11400000, guid: fead1da688e72c741956481344d2f860, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 1
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
+  Classpower: 3200
+  attack: 230
+  defense: 300
+  health: 5700
+  SecondaryStats:
+    PierceRate: 5
+    Resistance: 20
+    Regenerate: 5
+    CritChance: 5
+    CritDmg: 150
+    CritResistance: 20
+    CritDefense: 30
+    RecoveryRate: 110
+    BlockChance: 10
+    BlockPower: 25
+    LifeSteal: 0
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

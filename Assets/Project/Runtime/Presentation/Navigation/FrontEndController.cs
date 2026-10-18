@@ -14,10 +14,13 @@ namespace FightingAllstar.Presentation.Navigation
         [SerializeField] private SummonBannerConfigurationSO bannerConfiguration;
         [SerializeField, Tooltip("Banners offered by this screen, in display order. The default banner is included once.")]
         private List<SummonBannerConfigurationSO> availableBanners = new List<SummonBannerConfigurationSO>();
-        private VisualElement _root, _banner, _results;
+        private VisualElement _root, _banner;
         private Label _wallet, _notice, _guarantee;
         private bool _busy;
         private bool _uiInitialized;
+        private int _summonPresentationVersion;
+        private Button _summonOpener;
+        private SummonSequenceView _summonSequence;
         private void OnEnable()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
@@ -31,7 +34,17 @@ namespace FightingAllstar.Presentation.Navigation
             PlayerInventoryService.InventoryChanged += InventoryChanged;
             _root.schedule.Execute(InitializeUI).ExecuteLater(1);
         }
-        private void OnDisable() { PlayerInventoryService.InventoryChanged -= InventoryChanged; _uiInitialized = false; }
+        private void OnDisable()
+        {
+            PlayerInventoryService.InventoryChanged -= InventoryChanged;
+            _uiInitialized = false;
+            _summonPresentationVersion++;
+            _summonSequence?.Dispose();
+            _summonSequence = null;
+            _busy = false;
+            _root?.Q("gacha-stage")?.SetEnabled(true);
+            if (_banner != null) _banner.style.display = DisplayStyle.Flex;
+        }
         private void InventoryChanged() { if (_uiInitialized) Refresh(); }
 
         private void InitializeUI()
@@ -42,18 +55,13 @@ namespace FightingAllstar.Presentation.Navigation
             _wallet = QueryLabel("wallet", "economy-wallet");
             _notice = QueryLabel("notice", "economy-notice");
             _guarantee = QueryLabel("guarantee", "economy-guarantee");
-            _banner = _root.Q("banner-screen"); _results = _root.Q("result-screen");
+            _banner = _root.Q("banner-screen");
             BindIfPresent("battle", () => Navigate("Combat"));
             BindIfPresent("training", () => TrainingCharacterPicker.Show(_root));
             BindIfPresent("summon", () => Navigate("Scene-Gacha"));
             BindIfPresent("back", () => Navigate("MainMenu"));
             BindFirst(new[] { "summon-one", "summon-single" }, () => Summon(1));
             BindIfPresent("summon-ten", () => Summon(10));
-            BindIfPresent("result-close", () =>
-            {
-                if (_results != null) _results.style.display = DisplayStyle.None;
-                if (_banner != null) _banner.style.display = DisplayStyle.Flex;
-            });
             BindIfPresent("details", ShowDetails);
             BindIfPresent("selector", ShowSelectors);
             var banners = new[] { bannerConfiguration }.Concat(availableBanners ?? new List<SummonBannerConfigurationSO>())
@@ -123,13 +131,8 @@ namespace FightingAllstar.Presentation.Navigation
             var operation = SceneManager.LoadSceneAsync(scene);
             operation.allowSceneActivation = false;
             while (operation.progress < .9f) yield return null;
-            // Starting value: a brief fade, independent of frame rate and game time scale.
-            for (var elapsed = 0f; elapsed < .2f; elapsed += Time.unscaledDeltaTime)
-            {
-                _root.style.opacity = 1f - elapsed / .2f;
-                yield return null;
-            }
-            operation.allowSceneActivation = true;
+            ScreenMotion.FadeSceneToBlack(() => operation.allowSceneActivation = true);
+            while (!operation.isDone) yield return null;
         }
         private void Refresh()
         {
@@ -153,6 +156,11 @@ namespace FightingAllstar.Presentation.Navigation
             if (_busy) return;
             Debug.Log("Summon button clicked: " + count, this);
             _busy = true;
+            var keepBusy = false;
+            List<CharacterObject> committedCharacters = null;
+            List<SummonDrawPresentation> committedDraws = null;
+            var ownedBefore = System.Array.Empty<string>();
+            Dictionary<string, int> constellationBefore = null;
             try
             {
                 var inventory = PlayerInventoryService.Instance;
@@ -162,36 +170,110 @@ namespace FightingAllstar.Presentation.Navigation
                     Debug.LogError("Inventory is unavailable.", this);
                     return;
                 }
+                // Materialize ownership before TrySummon grants every draw and raises InventoryChanged.
+                ownedBefore = inventory.GetOwnedDefinitions().Where(character => character != null)
+                    .Select(character => character.DefinitionId).Where(id => !string.IsNullOrWhiteSpace(id))
+                    .Distinct(System.StringComparer.Ordinal).ToArray();
+                constellationBefore = ownedBefore.ToDictionary(id => id,
+                    id => inventory.FindOwnedByDefinition(id)?.constellationTier ?? 0, System.StringComparer.Ordinal);
                 if (!inventory.TrySummon(count, bannerConfiguration, out var draws, out var error))
                 {
                     SetNotice(error);
                     Debug.LogWarning("Summon failed: " + error, this);
                     return;
                 }
-                var cards = _root.Q("result-cards");
-                if (cards != null && _results != null && _banner != null)
-                {
-                    cards.Clear();
-                    CharacterGridView.Populate(cards, draws);
-                    var resultTitle = _root.Q<Label>("result-title");
-                    if (resultTitle != null) resultTitle.text = count == 1 ? "FIGHTER SUMMONED" : "10 FIGHTERS SUMMONED";
-                    _banner.style.display = DisplayStyle.None;
-                    ScreenMotion.Show(_results);
-                }
-                else
-                {
-                    var receipt = _root.Q<Label>("summon-results");
-                    if (receipt != null)
-                        receipt.text = "Summoned: " + string.Join(", ", draws.Select(x => x.FighterRarity + " " + x.FighterName));
-                }
+                // The purchase and rewards are already saved. Everything below only presents this receipt.
+                committedCharacters = draws;
+                committedDraws = SummonDrawPresentation.Classify(draws, ownedBefore, constellationBefore);
                 SetNotice("Fighters added to your collection. Duplicates advance constellation up to C5, then grant tokens.");
                 Debug.Log("Summon completed successfully: " + draws.Count + " fighter(s).", this);
                 Refresh();
+                keepBusy = true;
+                _summonOpener = _root.Q<Button>(count == 10 ? "summon-ten" : "summon-one") ?? _root.Q<Button>("summon-single");
+                _root.Q("gacha-stage")?.SetEnabled(false);
+                var version = ++_summonPresentationVersion;
+                if (_summonSequence == null) _summonSequence = new SummonSequenceView(_root);
+                _summonSequence.Play(committedDraws, () =>
+                {
+                    if (!isActiveAndEnabled || version != _summonPresentationVersion) return;
+                    _summonPresentationVersion++;
+                    CompleteSummonPresentation();
+                });
             }
-            finally { _busy = false; }
+            catch (System.Exception ex)
+            {
+                Debug.LogException(ex, this);
+                _summonPresentationVersion++;
+                _summonSequence?.Dispose();
+                _summonSequence = null;
+                if (committedCharacters != null && isActiveAndEnabled)
+                {
+                    // A presentation failure must still expose the committed rewards without another purchase.
+                    if (committedDraws == null)
+                        committedDraws = SummonDrawPresentation.Classify(committedCharacters, ownedBefore, constellationBefore);
+                    try
+                    {
+                        var version = ++_summonPresentationVersion;
+                        _root.Q("gacha-stage")?.SetEnabled(false);
+                        _summonSequence = new SummonSequenceView(_root);
+                        _summonSequence.Play(committedDraws, () =>
+                        {
+                            if (isActiveAndEnabled && version == _summonPresentationVersion) CompleteSummonPresentation();
+                        });
+                        _summonSequence.Skip();
+                        keepBusy = true;
+                    }
+                    catch (System.Exception presentationError)
+                    {
+                        Debug.LogException(presentationError, this);
+                        _summonSequence?.Dispose(); _summonSequence = null;
+                        ShowSummonReceipt(committedDraws);
+                        keepBusy = false;
+                    }
+                }
+                else SetNotice("Summon could not be displayed. Please reopen this screen.");
+            }
+            finally { if (!keepBusy) ReleaseSummonInput(); }
+        }
+
+        private void ShowSummonReceipt(IReadOnlyList<SummonDrawPresentation> draws)
+        {
+            var text = "Summoned: " + string.Join(", ", draws.Where(draw => draw?.Character != null).Select(SummonReceiptText));
+            var receipt = _root?.Q<Label>("summon-results");
+            if (receipt != null) receipt.text = text;
+            else SetNotice(text);
+        }
+
+        private static string SummonReceiptText(SummonDrawPresentation draw)
+        {
+            var reward = draw.IsNew ? "NEW" : draw.FragmentCount > 0 ? "MEMORY ×" + draw.FragmentCount :
+                draw.ConstellationTier >= 0 ? "MEMORY · C" + draw.ConstellationTier : "MEMORY";
+            return draw.Character.FighterRarity + " " + draw.Character.FighterName + " · " + reward;
+        }
+
+        private void CompleteSummonPresentation()
+        {
+            _summonPresentationVersion++;
+            ReleaseSummonInput();
+            Refresh();
+            if (_summonOpener != null && _summonOpener.enabledInHierarchy) _summonOpener.Focus();
+            else
+            {
+                var target = new[] { "summon-one", "summon-single", "summon-ten", "account-back", "details", "back" }
+                    .Select(name => _root?.Q<Button>(name)).FirstOrDefault(button => button != null && button.enabledInHierarchy);
+                target?.Focus();
+            }
+        }
+
+        private void ReleaseSummonInput()
+        {
+            _busy = false;
+            _root?.Q("gacha-stage")?.SetEnabled(true);
+            if (_banner != null) _banner.style.display = DisplayStyle.Flex;
         }
         private void ShowDetails()
         {
+            if (_busy) return;
             var panel = _root.Q("details-panel");
             if (panel == null) return;
             var opening = panel.style.display.value == DisplayStyle.None;
@@ -217,6 +299,7 @@ namespace FightingAllstar.Presentation.Navigation
         }
         private void ShowSelectors()
         {
+            if (_busy) return;
             var inventory = PlayerInventoryService.Instance;
             var panel = _root.Q("details-panel");
             if (panel == null) return;
@@ -228,8 +311,50 @@ namespace FightingAllstar.Presentation.Navigation
             {
                 var grid = new VisualElement(); panel.Add(grid);
                 CharacterGridView.Populate(grid, pool.Characters,
-                    selected => { inventory.TryClaimSelector(selected, out var error); SetNotice(error ?? "Selector claimed."); Refresh(); ShowSelectors(); },
+                    ClaimSelector,
                     _ => inventory != null && inventory.SelectorEntitlements > 0);
+            }
+        }
+
+        private void ClaimSelector(CharacterObject selected)
+        {
+            if (_busy || selected == null) return;
+            var inventory = PlayerInventoryService.Instance;
+            if (inventory == null) { SetNotice("Inventory is unavailable."); return; }
+            _busy = true;
+            List<SummonDrawPresentation> committed = null;
+            try
+            {
+                // Capture ownership before the selector grants/advances this fighter.
+                var previous = inventory.FindOwnedByDefinition(selected.DefinitionId);
+                var owned = previous == null ? System.Array.Empty<string>() : new[] { selected.DefinitionId };
+                var tiers = new Dictionary<string, int>(System.StringComparer.Ordinal);
+                if (previous != null) tiers[selected.DefinitionId] = previous.constellationTier;
+                if (!inventory.TryClaimSelector(selected, out var error))
+                { SetNotice(error); ReleaseSummonInput(); return; }
+                committed = SummonDrawPresentation.Classify(new[] { selected }, owned, tiers);
+                SetNotice("Selector reward added to your collection."); Refresh();
+                GachaBannerView.CloseDetails(_root);
+                var details = _root.Q("details-panel");
+                if (details != null) details.style.display = DisplayStyle.None;
+                _summonOpener = _root.Q<Button>("selector");
+                _root.Q("gacha-stage")?.SetEnabled(false);
+                var version = ++_summonPresentationVersion;
+                if (_summonSequence == null) _summonSequence = new SummonSequenceView(_root);
+                _summonSequence.Play(committed, () =>
+                {
+                    if (!isActiveAndEnabled || version != _summonPresentationVersion) return;
+                    CompleteSummonPresentation();
+                });
+            }
+            catch (System.Exception error)
+            {
+                Debug.LogException(error, this);
+                _summonPresentationVersion++;
+                _summonSequence?.Dispose(); _summonSequence = null;
+                if (committed != null) ShowSummonReceipt(committed);
+                else SetNotice("Selector claim could not be displayed. Check your collection before retrying.");
+                ReleaseSummonInput();
             }
         }
 

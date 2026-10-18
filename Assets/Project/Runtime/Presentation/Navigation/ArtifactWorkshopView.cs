@@ -25,7 +25,7 @@ namespace FightingAllstar.Presentation.Navigation
             if (overlay == null) return false;
             if (overlay.userData is Workshop workshop) workshop.Close();
             else if (overlay.userData is PickerPanel picker) picker.Close();
-            else { var focus = overlay.userData as VisualElement; overlay.RemoveFromHierarchy(); focus?.Focus(); }
+            else CloseModal(overlay, overlay.userData as VisualElement);
             return true;
         }
 
@@ -56,9 +56,27 @@ namespace FightingAllstar.Presentation.Navigation
         private static VisualElement Modal(VisualElement root, string name, VisualElement returnFocus)
         {
             Attach(root); var overlay = Box(root, "artifact-modal", name); overlay.userData = returnFocus;
-            overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) { overlay.RemoveFromHierarchy(); returnFocus?.Focus(); } });
-            overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) { overlay.RemoveFromHierarchy(); returnFocus?.Focus(); evt.StopPropagation(); } });
+            Action dismiss = () => { if (overlay.userData is PickerPanel picker) picker.Close(); else CloseModal(overlay, returnFocus); };
+            overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) dismiss(); });
+            overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) { dismiss(); evt.StopPropagation(); } });
+            ScreenMotion.Enter(overlay);
             return overlay;
+        }
+        private static void CloseModal(VisualElement overlay, VisualElement focus = null)
+        {
+            if (overlay == null || overlay.name.EndsWith("-closing", StringComparison.Ordinal)) return;
+            var originalName = overlay.name; var parent = overlay.parent;
+            overlay.name += "-closing";
+            ScreenMotion.Exit(overlay, () => { if (parent?.Q(originalName) == null && focus?.panel != null) focus.Focus(); });
+        }
+        private static void EnterLookup(VisualElement element, int delayMs = 0, int durationMs = 600)
+        {
+            element.style.opacity = 0; element.style.translate = new Translate(-28, 0);
+            ScreenMotion.Animate(element, durationMs, t =>
+            {
+                var eased = ScreenMotion.EaseOut(t);
+                element.style.opacity = eased; element.style.translate = new Translate(-28 * (1 - eased), 0);
+            }, () => { element.style.opacity = 1; element.style.translate = new Translate(0, 0); }, delayMs);
         }
 
         private sealed class Loadout
@@ -99,10 +117,11 @@ namespace FightingAllstar.Presentation.Navigation
                 {
                     var button = _slots[i]; button.Clear(); button.AddToClassList("item-reward-tile"); button.AddToClassList("artifact-item-tile"); ItemRewardView.StandardizeTile(button);
                     for (var rarity = 1; rarity <= 5; rarity++) button.RemoveFromClassList("item-frame-" + rarity);
-                    if (i == 5) { var locked = ItemRewardView.EmptyFrame("LOCKED"); locked.Q<Label>(className: "item-empty-icon").text = "◇"; button.Add(locked); button.tooltip = "Holy Relics are not available yet."; continue; }
+                    if (i == 5) { var locked = ItemRewardView.EmptyFrame("LOCKED"); locked.Q<Label>(className: "item-empty-icon").text = "◇"; button.Add(locked); button.tooltip = "Holy Relics are not available yet."; SizeSlot(button); continue; }
                     var slot = (ArtifactSlot)i; var piece = equipped.FirstOrDefault(a => a.Slot == slot); button.EnableInClassList("selected", _slot == slot);
                     button.Add(piece != null ? ArtifactItemView.CreateFrame(piece, showOwner: false) : ItemRewardView.EmptyFrame(ArtifactRules.SlotName(slot).ToUpperInvariant()));
                     button.tooltip = piece == null ? "Choose a " + ArtifactRules.SlotName(slot) : ArtifactItemView.Name(piece);
+                    SizeSlot(button);
                 }
                 _sets.Clear();
                 foreach (ArtifactSet set in Enum.GetValues(typeof(ArtifactSet)))
@@ -114,6 +133,16 @@ namespace FightingAllstar.Presentation.Navigation
                 _sets.style.display = _sets.childCount == 0 ? DisplayStyle.None : DisplayStyle.Flex;
                 if (_selected == null) _selected = equipped.FirstOrDefault(a => a.Slot == _slot)?.InstanceId;
                 Inspect(); _equipment?.Refresh();
+            }
+            private void SizeSlot(VisualElement tile)
+            {
+                var compact = _root.ClassListContains("compact-layout");
+                var side = compact ? 124f : 156f; var footer = compact ? 26f : 32f;
+                tile.style.width = tile.style.minWidth = side + 4; tile.style.height = tile.style.minHeight = side + footer + 4;
+                var frame = tile.Q(className: "item-reward-frame"); frame.style.width = side; frame.style.height = side + footer;
+                var icon = frame.Q(className: "artifact-item-icon"); if (icon != null) icon.style.height = side - 4;
+                var amount = frame.Q<Label>(className: "item-reward-amount"); amount.style.height = footer; amount.style.fontSize = compact ? 16 : 19;
+                var stars = frame.Q<Label>(className: "artifact-rarity-stars"); if (stars != null) { stars.style.bottom = footer; stars.style.fontSize = compact ? 14 : 17; }
             }
             private void SelectSlot(int index)
             {
@@ -215,6 +244,7 @@ namespace FightingAllstar.Presentation.Navigation
                     { loadout._selected = piece.InstanceId; loadout._slot = piece.Slot; loadout.SetMessage(""); loadout.Refresh(); },
                         loadout._slots[(int)loadout._slot], dock: pickerHost, restore: Close, keepOpen: true, initialSlot: (int)loadout._slot,
                         isSelected: piece => piece.InstanceId == loadout._selected);
+                    ScreenMotion.Enter(_panel);
                     AccountHeaderView.OverrideBack(loadout._root, this, Close, "Back to artifacts");
                     _panel.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) { Close(); evt.StopPropagation(); } });
                     _panel.RegisterCallback<DetachFromPanelEvent>(_ => { AccountHeaderView.ClearBackOverride(loadout._root, this); });
@@ -255,9 +285,15 @@ namespace FightingAllstar.Presentation.Navigation
                 public void Close()
                 {
                     if (_closed) return; _closed = true;
-                    AccountHeaderView.ClearBackOverride(_loadout._root, this); _picker.Close(); _panel.RemoveFromHierarchy();
-                    _hero.RemoveFromClassList("artifact-inventory-open"); _portrait.style.display = _portraitDisplay; _loadout._stage.style.display = _stageDisplay;
-                    _loadout._equipment = null; _loadout._slots[(int)_loadout._slot].Focus();
+                    AccountHeaderView.ClearBackOverride(_loadout._root, this); _picker.Close();
+                    ScreenMotion.Exit(_panel, () =>
+                    {
+                        var artifactsActive = _loadout._root.Q<Button>("hub-tab-artifacts")?.ClassListContains("selected") == true;
+                        _hero.RemoveFromClassList("artifact-inventory-open"); _portrait.style.display = _portraitDisplay;
+                        _loadout._stage.style.display = artifactsActive ? _stageDisplay : DisplayStyle.None;
+                        _loadout._equipment = null;
+                        if (artifactsActive) { ScreenMotion.Enter(_loadout._stage); _loadout._slots[(int)_loadout._slot].Focus(); }
+                    });
                 }
             }
         }
@@ -270,7 +306,16 @@ namespace FightingAllstar.Presentation.Navigation
             public Action Rebuild;
             public Action<int> SetSlot;
             public PickerPanel(VisualElement root, VisualElement panel, VisualElement focus, Action restore) { _root = root; _panel = panel; _focus = focus; _restore = restore; }
-            public void Close() { if (_closed) return; _closed = true; ItemRewardView.CloseTooltip(_root); _panel.RemoveFromHierarchy(); _restore?.Invoke(); if (_focus?.panel != null) _focus.Focus(); }
+            public void Close()
+            {
+                if (_closed) return; _closed = true; ItemRewardView.CloseTooltip(_root);
+                _panel.name += "-closing";
+                ScreenMotion.Exit(_panel, () =>
+                {
+                    _restore?.Invoke();
+                    if (_root.Q("artifact-picker-overlay") == null && _focus?.panel != null) _focus.Focus();
+                });
+            }
         }
 
         private static void DismissPicker(VisualElement root)
@@ -290,30 +335,39 @@ namespace FightingAllstar.Presentation.Navigation
             var heading = Box(dialog, "artifact-dialog-heading"); Label(heading, title, "artifact-title heavy");
             Button(heading, "✕", panel.Close, "artifact-close", "artifact-picker-close");
             Label(dialog, multiple ? "Select artifacts to consume. Favourites, equipped pieces and the enhancement target are protected." : "Select an artifact to inspect its stats before equipping.");
-            var filters = Box(dialog, "artifact-filters");
-            var search = new TextField { name = "artifact-picker-search", label = "Search" }; search.AddToClassList("artifact-search"); filters.Add(search);
-            search.tooltip = "Search artifact or oath name";
-            var sets = new DropdownField(new List<string> { "All oaths", "Striker’s Oath", "Bulwark’s Oath", "Lifebloom’s Oath" }, 0) { name = "artifact-picker-set" }; filters.Add(sets);
-            var rarities = new DropdownField(new List<string> { "All rarities", "Common", "Uncommon", "Rare", "SR", "SSR" }, 0) { name = "artifact-picker-rarity" }; filters.Add(rarities);
-            var slots = new DropdownField(new List<string> { "All slots", "Flower", "Feather", "Sand Clock", "Goblet", "Crown" }, 0) { name = "artifact-picker-slot" }; filters.Add(slots);
-            slots.index = initialSlot + 1; panel.SetSlot = slot => slots.index = slot + 1;
+            var sorting = Box(dialog, "artifact-sorting");
+            var sort = new DropdownField(new List<string> { "Base EXP", "1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars" }, 0) { name = "artifact-picker-sort" };
+            sort.tooltip = "Order by enhancement EXP, or place a star grade first."; sorting.Add(sort);
+            var descending = true; var slotFilter = initialSlot;
+            var direction = Button(sorting, "↓", null, "artifact-sort-direction", "artifact-picker-direction"); direction.tooltip = "Reverse sort order";
             var count = Label(dialog, "", "artifact-eyebrow", "artifact-picker-count");
             var scroll = new ScrollView(ScrollViewMode.Vertical) { name = "artifact-picker-scroll", horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden }; scroll.AddToClassList("artifact-picker-scroll"); dialog.Add(scroll);
             var grid = Box(scroll, "artifact-picker-grid", "artifact-picker-grid");
             var empty = Label(dialog, "", "artifact-empty", "artifact-picker-empty");
+            var animateGrid = true;
+            var renderedOrder = "";
             Action rebuild = () =>
             {
                 if (overlay.panel == null && root.panel != null) return;
                 if (Inventory.SubjectId != subject) { ItemRewardView.CloseTooltip(root); panel.Close(); return; }
                 var focused = root.panel?.focusController.focusedElement as VisualElement;
                 var focusedTile = focused != null && grid.Contains(focused) ? focused.name : null;
-                grid.Clear(); var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
+                var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
                 var currentSource = source.Select(a => byId.TryGetValue(a.InstanceId, out var current) ? current : null).Where(a => a != null && (!multiple || (!a.Favourite && string.IsNullOrEmpty(a.EquippedCharacterId)))).ToList();
-                var shown = currentSource.Where(a => (sets.index == 0 || (int)a.Set == sets.index - 1) && (rarities.index == 0 || (int)a.Rarity == rarities.index) && (slots.index == 0 || (int)a.Slot == slots.index - 1) &&
-                    (ArtifactItemView.Name(a) + " " + ArtifactRules.SetName(a.Set)).IndexOf(search.value ?? "", StringComparison.OrdinalIgnoreCase) >= 0)
-                    .OrderByDescending(a => a.Rarity).ThenByDescending(a => a.Level).ThenBy(a => a.InstanceId, StringComparer.Ordinal).ToList();
+                var shown = currentSource.Where(a => slotFilter < 0 || (int)a.Slot == slotFilter)
+                    .OrderBy(a => sort.index > 0 && (int)a.Rarity == sort.index ? 0 : 1)
+                    .ThenBy(a => descending ? -ArtifactRules.FodderXp(a) : ArtifactRules.FodderXp(a))
+                    .ThenBy(a => a.InstanceId, StringComparer.Ordinal).ToList();
                 count.text = shown.Count + " ARTIFACTS" + (multiple ? "  ·  " + (selected?.Count ?? 0) + " SELECTED" : "");
-                empty.text = currentSource.Count == 0 ? "No eligible artifacts. Win dungeon battles to obtain more." : "No artifacts match these filters."; empty.style.display = shown.Count == 0 ? DisplayStyle.Flex : DisplayStyle.None;
+                empty.text = currentSource.Count == 0 ? "No eligible artifacts. Win dungeon battles to obtain more." : "No artifacts for this slot."; empty.style.display = shown.Count == 0 ? DisplayStyle.Flex : DisplayStyle.None;
+                var order = string.Join("|", shown.Select(a => a.InstanceId + ":" + a.Level + ":" + a.Favourite + ":" + a.EquippedCharacterId));
+                if (order == renderedOrder && grid.childCount == shown.Count)
+                {
+                    foreach (var piece in shown) { var tile = grid.Q<Button>("picker-" + piece.InstanceId); tile?.EnableInClassList("material-selected", selected?.Contains(piece.InstanceId) ?? false); tile?.EnableInClassList("selected", isSelected?.Invoke(piece) ?? false); }
+                    return;
+                }
+                renderedOrder = order; grid.Clear();
+                var index = 0;
                 foreach (var piece in shown)
                 {
                     var tile = ArtifactItemView.CreateTile(root, piece, () => { select(piece); if (multiple) { grid.Q<Button>("picker-" + piece.InstanceId)?.EnableInClassList("material-selected", selected.Contains(piece.InstanceId)); count.text = shown.Count + " ARTIFACTS  ·  " + selected.Count + " SELECTED"; } else if (!keepOpen) panel.Close(); });
@@ -324,45 +378,59 @@ namespace FightingAllstar.Presentation.Navigation
                     {
                         Button(item, "INSPECT", () => ArtifactItemView.ShowTooltip(root, piece, tile), "artifact-inspect-link");
                     }
+                    if (animateGrid) EnterLookup(item, Math.Min(index++, 12) * 28, 450);
                 }
+                animateGrid = false;
                 if (!string.IsNullOrEmpty(focusedTile)) grid.Q<Button>(focusedTile)?.Focus();
             };
             panel.Rebuild = rebuild;
-            search.RegisterValueChangedCallback(_ => rebuild()); sets.RegisterValueChangedCallback(_ => rebuild()); rarities.RegisterValueChangedCallback(_ => rebuild()); slots.RegisterValueChangedCallback(_ => rebuild());
+            panel.SetSlot = slot => { slotFilter = slot; animateGrid = true; rebuild(); };
+            sort.RegisterValueChangedCallback(_ => { animateGrid = true; renderedOrder = ""; rebuild(); });
+            direction.clicked += () => { descending = !descending; direction.text = descending ? "↓" : "↑"; animateGrid = true; renderedOrder = ""; rebuild(); };
             PlayerInventoryService.InventoryChanged += rebuild;
             overlay.RegisterCallback<DetachFromPanelEvent>(_ => PlayerInventoryService.InventoryChanged -= rebuild);
-            rebuild(); if (dock == null) Button(dialog, multiple ? "DONE" : "CANCEL", panel.Close, "artifact-button"); search.Focus(); return panel;
+            rebuild(); EnterLookup(dialog); if (dock == null) Button(dialog, multiple ? "DONE" : "CANCEL", panel.Close, "artifact-button"); sort.Focus(); return panel;
         }
 
-        private sealed class Workshop
+                private sealed class Workshop
         {
             private const int MaterialSlots = 15;
             private readonly VisualElement _root, _overlay, _stats, _materials;
-            private readonly Label _title, _level, _xpText, _cost, _note, _result, _balance;
-            private readonly ProgressBar _xp;
+            private readonly Label _title, _level, _levelDelta, _xpText, _cost, _note, _result, _balance;
+            private readonly ProgressBar _xp, _xpPreview;
             private readonly Button _enhance;
             private readonly DropdownField _autoRarity;
             private readonly string _target, _subject;
             private readonly HashSet<string> _fodder = new HashSet<string>(StringComparer.Ordinal);
             private readonly VisualElement _previousFocus;
             private ArtifactEnhancementPreview _preview;
+            private IVisualElementScheduledItem _upgradeAnimation;
+            private string _draftKey;
             private bool _closed, _busy;
+
             public Workshop(VisualElement root, string target)
             {
-                root.Q("artifact-enhance-overlay")?.RemoveFromHierarchy(); _root = root; _target = target; _subject = Inventory.SubjectId; Attach(root); ItemRewardView.CloseTooltip(root);
+                if (root.Q("artifact-enhance-overlay")?.userData is Workshop prior) prior.Close();
+                _root = root; _target = target; _subject = Inventory.SubjectId; Attach(root); ItemRewardView.CloseTooltip(root);
                 _previousFocus = root.panel?.focusController.focusedElement as VisualElement;
-                var tree = Resources.Load<VisualTreeAsset>("UI/ArtifactWorkshop");
-                _overlay = tree.CloneTree(); _overlay.name = "artifact-enhance-overlay"; _overlay.AddToClassList("artifact-workshop-overlay"); _overlay.userData = this; root.Add(_overlay);
-                _title = _overlay.Q<Label>("enhance-title"); _level = _overlay.Q<Label>("enhance-level"); _balance = _overlay.Q<Label>("enhance-balance");
-                _xpText = _overlay.Q<Label>("enhance-xp-text"); _xp = _overlay.Q<ProgressBar>("enhance-xp"); _stats = _overlay.Q("enhance-stats"); _materials = _overlay.Q("enhance-materials");
+                _overlay = Resources.Load<VisualTreeAsset>("UI/ArtifactWorkshop").CloneTree();
+                _overlay.name = "artifact-enhance-overlay"; _overlay.focusable = true; _overlay.AddToClassList("artifact-workshop-overlay"); _overlay.userData = this; root.Add(_overlay);
+                _title = _overlay.Q<Label>("enhance-title"); _level = _overlay.Q<Label>("enhance-level"); _levelDelta = _overlay.Q<Label>("enhance-level-delta");
+                _balance = _overlay.Q<Label>("enhance-balance"); _xpText = _overlay.Q<Label>("enhance-xp-text");
+                _xp = _overlay.Q<ProgressBar>("enhance-xp"); _xpPreview = _overlay.Q<ProgressBar>("enhance-xp-preview");
+                _stats = _overlay.Q("enhance-stats"); _materials = _overlay.Q("enhance-materials");
                 _cost = _overlay.Q<Label>("enhance-cost"); _note = _overlay.Q<Label>("enhance-note"); _result = _overlay.Q<Label>("enhance-result");
                 _autoRarity = _overlay.Q<DropdownField>("enhance-auto-rarity"); _enhance = _overlay.Q<Button>("enhance-commit");
-                _autoRarity.choices = new List<string> { "Common and below", "Uncommon and below", "Rare and below", "SR and below", "SSR and below" }; _autoRarity.index = Mathf.Clamp(Inventory.AutoArtifactRarity - 1, 0, 4);
-                _autoRarity.RegisterValueChangedCallback(_ => { if (!Inventory.TrySetArtifactAutoRarity(_autoRarity.index + 1, out var error)) { _autoRarity.SetValueWithoutNotify(_autoRarity.choices[Mathf.Clamp(Inventory.AutoArtifactRarity - 1, 0, 4)]); _note.text = error; } });
+                _autoRarity.choices = new List<string> { "1 Star and below", "2 Stars and below", "3 Stars and below", "4 Stars and below", "5 Stars and below" };
+                _autoRarity.index = Mathf.Clamp(Inventory.AutoArtifactRarity - 1, 0, 4);
+                _autoRarity.RegisterValueChangedCallback(_ =>
+                {
+                    if (!Inventory.TrySetArtifactAutoRarity(_autoRarity.index + 1, out var error))
+                    { _autoRarity.SetValueWithoutNotify(_autoRarity.choices[Mathf.Clamp(Inventory.AutoArtifactRarity - 1, 0, 4)]); _note.text = error; }
+                });
                 AccountHeaderView.OverrideBack(root, this, Back, "Back to artifacts");
-                _overlay.Q<Button>("enhance-add").clicked += PickMaterials;
                 _overlay.Q<Button>("enhance-auto").clicked += AutoAdd;
-                _overlay.Q<Button>("enhance-clear").clicked += () => { _fodder.Clear(); _result.text = ""; Refresh(); };
+                _overlay.Q<Button>("enhance-clear").clicked += () => { if (_busy) return; _fodder.Clear(); _result.text = ""; Refresh(); };
                 _enhance.clicked += Confirm;
                 _overlay.RegisterCallback<KeyDownEvent>(evt =>
                 {
@@ -370,143 +438,280 @@ namespace FightingAllstar.Presentation.Navigation
                     if (_root.Q("artifact-picker-overlay") != null) DismissPicker(_root); else Close();
                     evt.StopPropagation();
                 });
-                _overlay.RegisterCallback<DetachFromPanelEvent>(_ => { PlayerInventoryService.InventoryChanged -= Changed; AccountHeaderView.ClearBackOverride(_root, this); });
-                PlayerInventoryService.InventoryChanged += Changed; Refresh(); _root.Q<Button>("account-back")?.Focus();
+                _overlay.RegisterCallback<DetachFromPanelEvent>(_ =>
+                { _closed = true; _upgradeAnimation?.Pause(); PlayerInventoryService.InventoryChanged -= Changed; AccountHeaderView.ClearBackOverride(_root, this); });
+                PlayerInventoryService.InventoryChanged += Changed;
+                Refresh(); ScreenMotion.Enter(_overlay); _overlay.Focus();
             }
             private void Back()
             {
                 var confirmation = _root.Q("artifact-confirm-overlay");
-                if (confirmation != null) { confirmation.RemoveFromHierarchy(); return; }
+                if (confirmation != null) { CloseModal(confirmation, _enhance); return; }
                 if (_root.Q("artifact-picker-overlay") != null) { DismissPicker(_root); return; }
                 if (_root.Q("item-tooltip-overlay") != null) { ItemRewardView.CloseTooltip(_root); return; }
                 Close();
             }
             public void Close()
             {
-                if (_closed) return; _closed = true; AccountHeaderView.ClearBackOverride(_root, this); PlayerInventoryService.InventoryChanged -= Changed;
-                DismissPicker(_root); _root.Q("artifact-confirm-overlay")?.RemoveFromHierarchy(); ItemRewardView.CloseTooltip(_root);
-                _overlay.RemoveFromHierarchy(); if (_previousFocus?.panel != null) _previousFocus.Focus(); else _root.Q<Button>("artifact-enhance")?.Focus();
+                if (_closed) return; _closed = true; _upgradeAnimation?.Pause();
+                AccountHeaderView.ClearBackOverride(_root, this); PlayerInventoryService.InventoryChanged -= Changed;
+                DismissPicker(_root); CloseModal(_root.Q("artifact-confirm-overlay")); ItemRewardView.CloseTooltip(_root);
+                _overlay.name += "-closing";
+                ScreenMotion.Exit(_overlay, () =>
+                {
+                    if (_root.Q("artifact-enhance-overlay") != null) return;
+                    if (_previousFocus?.panel != null) _previousFocus.Focus(); else _root.Q<Button>("artifact-enhance")?.Focus();
+                });
             }
             private void Changed()
             {
-                if (_closed || _busy) return;
+                if (_closed) return;
                 if (Inventory.SubjectId != _subject) { Close(); return; }
+                if (_busy) return;
                 var confirmation = _root.Q("artifact-confirm-overlay");
-                if (confirmation != null) { confirmation.RemoveFromHierarchy(); _result.EnableInClassList("artifact-failed", true); _result.text = "Inventory changed. Review the updated materials before confirming."; }
+                if (confirmation != null)
+                { CloseModal(confirmation); _result.EnableInClassList("artifact-failed", true); _result.text = "Inventory changed. Review the updated materials before confirming."; }
                 Refresh();
             }
             private void Refresh()
             {
+                if (_closed || _busy) return;
                 if (Inventory.SubjectId != _subject) { Close(); return; }
                 var piece = Inventory.FindArtifact(_target); if (piece == null) { Close(); return; }
                 _title.text = ArtifactItemView.Name(piece); if (_balance != null) _balance.text = "COINS  " + Inventory.Coins.ToString("N0");
                 var artwork = _overlay.Q<Image>("enhance-art"); artwork.sprite = ArtifactItemView.Icon(piece); artwork.scaleMode = ScaleMode.ScaleToFit;
                 _overlay.Q<Label>("enhance-art-meta").text = ArtifactRules.SetName(piece.Set) + "  ·  " + new string('★', (int)piece.Rarity);
                 var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
-                _fodder.RemoveWhere(id => !byId.TryGetValue(id, out var a) || a.Favourite || !string.IsNullOrEmpty(a.EquippedCharacterId) || id == _target);
+                _fodder.RemoveWhere(id => !byId.TryGetValue(id, out var a) || !ArtifactRules.CanUseAsFodder(a, _target));
+                if (_fodder.Count > 0 || string.IsNullOrEmpty(_result.text)) _overlay.RemoveFromClassList("enhance-upgrade-revealed");
                 var valid = Inventory.PreviewArtifactEnhancement(_target, 0, _fodder.OrderBy(id => id, StringComparer.Ordinal), out _preview, out var error);
                 var after = _preview?.TargetAfter ?? piece;
-                _level.text = "+" + piece.Level + (after.Level != piece.Level ? "  →  +" + after.Level : "  / 20");
-                var required = piece.Level >= 20 ? 0 : ArtifactRules.RequiredXp(piece.Rarity, piece.Level);
-                _xp.lowValue = 0; _xp.highValue = Math.Max(1, required); _xp.value = Math.Min(_xp.highValue, piece.Experience + (_preview?.ExperienceGained ?? 0)); _xp.title = "";
-                _xpText.text = piece.Level >= 20 ? "MAX LEVEL" : piece.Experience.ToString("N0") + " / " + required.ToString("N0") + " XP" + (_preview != null ? "   + " + _preview.ExperienceGained.ToString("N0") + " SELECTED" : "");
-                _stats.Clear(); Comparison(_stats, piece.MainStat, after.MainStat, true);
-                for (var i = 0; i < piece.Substats.Count; i++) Comparison(_stats, piece.Substats[i], after.Substats.ElementAtOrDefault(i) ?? piece.Substats[i], false);
+                var draftKey = JsonUtility.ToJson(after) + "|" + string.Join("|", _fodder.OrderBy(id => id, StringComparer.Ordinal));
+                var animate = _draftKey != null && _draftKey != draftKey;
+                _draftKey = draftKey;
+                _level.text = "+" + piece.Level;
+                _levelDelta.text = after.Level != piece.Level ? "+" + after.Level : "";
+                _levelDelta.tooltip = "Draft level after enhancement";
+                _levelDelta.style.display = after.Level != piece.Level ? DisplayStyle.Flex : DisplayStyle.None;
+                if (animate && after.Level != piece.Level) ScreenMotion.Pulse(_levelDelta, false);
+                SetExperience(piece, piece.Experience);
+                var required = piece.Level >= 20 ? 1 : ArtifactRules.RequiredXp(piece, piece.Level);
+                _xpPreview.lowValue = 0; _xpPreview.highValue = 1; _xpPreview.title = "";
+                _xpPreview.value = Mathf.Clamp01((float)(piece.Experience + (_preview?.ExperienceGained ?? 0)) / required);
+                _xpPreview.style.display = _fodder.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+                if (_preview != null) _xpText.text += "    +" + _preview.ExperienceGained.ToString("N0") + " EXP";
+                RenderStats(piece, after, animate);
+                if (_preview?.AffixImprovements.Count > 0)
+                    Label(_stats, "✦  RANDOM AFFIX  ·  " + _preview.AffixImprovements.Count + " improvement" + (_preview.AffixImprovements.Count > 1 ? "s" : ""),
+                        "artifact-affix-draft", "enhance-affix-draft");
                 _result.style.display = string.IsNullOrEmpty(_result.text) ? DisplayStyle.None : DisplayStyle.Flex;
                 _materials.Clear();
                 foreach (var id in _fodder.OrderByDescending(id => byId[id].Rarity).ThenBy(id => id, StringComparer.Ordinal))
                 {
-                    if (!byId.TryGetValue(id, out var artifact)) continue;
-                    var tile = ArtifactItemView.CreateTile(_root, artifact, () => { _fodder.Remove(id); Refresh(); }); tile.AddToClassList("enhance-material-tile"); _materials.Add(tile);
+                    var artifact = byId[id];
+                    var tile = ArtifactItemView.CreateTile(_root, artifact, () => { if (_busy) return; _fodder.Remove(id); _result.text = ""; Refresh(); });
+                    tile.AddToClassList("enhance-material-tile"); _materials.Add(tile);
                 }
                 for (var i = _fodder.Count; i < MaterialSlots; i++)
                 {
-                    var add = ItemRewardView.EmptyTile(PickMaterials, "—", "enhance-empty-material-" + i); add.tooltip = "Select enhancement materials · " + _fodder.Count + " / " + MaterialSlots;
-                    add.SetEnabled(piece.Level < 20); _materials.Add(add);
+                    var add = ItemRewardView.EmptyTile(PickMaterials, "—", "enhance-empty-material-" + i);
+                    add.tooltip = "Select enhancement materials · " + _fodder.Count + " / " + MaterialSlots;
+                    add.SetEnabled(piece.Level < ArtifactRules.MaxLevel); _materials.Add(add);
                 }
+                if (_root.ClassListContains("compact-layout"))
+                    foreach (var tile in _materials.Children())
+                    {
+                        tile.style.width = tile.style.minWidth = 96; tile.style.height = tile.style.minHeight = 116;
+                        var frame = tile.Q(className: "item-reward-frame"); frame.style.width = 92; frame.style.height = 112;
+                        var icon = frame.Q(className: "artifact-item-icon"); if (icon != null) icon.style.height = 88;
+                        var footer = frame.Q<Label>(className: "item-reward-amount"); footer.style.height = 20; footer.style.fontSize = 13;
+                        var stars = frame.Q<Label>(className: "artifact-rarity-stars"); if (stars != null) { stars.style.bottom = 20; stars.style.fontSize = 12; }
+                    }
                 _cost.text = "REQUIRED COINS  " + (_preview?.CoinCost ?? 0).ToString("N0");
-                _note.text = _fodder.Count == 0 && piece.Level < 20 ? "Select artifacts to enhance." : error ?? (piece.Level >= 20 ? "Maximum enhancement reached." : "Materials are consumed only after you review and confirm enhancement.");
-                if (_preview != null && _preview.ExcessExperience > 0) _note.text += "  " + _preview.ExcessExperience.ToString("N0") + " XP exceeds +20 and will be lost.";
-                _enhance.SetEnabled(valid && !_busy && piece.Level < 20 && _fodder.Count > 0);
-                _overlay.Q<Button>("enhance-add").SetEnabled(piece.Level < 20); _overlay.Q<Button>("enhance-auto").SetEnabled(piece.Level < 20);
+                _note.text = _fodder.Count == 0 && piece.Level < ArtifactRules.MaxLevel ? "Select an empty slot to choose materials." :
+                    error ?? (piece.Level >= ArtifactRules.MaxLevel ? "Maximum enhancement reached." : "Review the draft. Materials are consumed after confirmation.");
+                if (_preview != null && _preview.ExcessExperience > 0) _note.text += "  " + _preview.ExcessExperience.ToString("N0") + " excess EXP will be lost.";
+                SetControls(true);
+                _enhance.SetEnabled(valid && piece.Level < ArtifactRules.MaxLevel && _fodder.Count > 0);
                 if (_root.Q("artifact-picker-overlay")?.userData is PickerPanel picker)
-                { if (piece.Level >= 20) picker.Close(); else picker.Rebuild?.Invoke(); }
+                { if (piece.Level >= ArtifactRules.MaxLevel) picker.Close(); else picker.Rebuild?.Invoke(); }
             }
-            private static void Comparison(VisualElement parent, ArtifactStatLine before, ArtifactStatLine after, bool main)
+            private void SetExperience(ArtifactInstance piece, long experience)
             {
-                var row = Box(parent, main ? "artifact-main-row" : "artifact-stat-row"); Label(row, ArtifactRules.StatName(before), "artifact-stat-name");
-                Label(row, ArtifactRules.Format(before) + (before.Value != after.Value ? "  →  " + ArtifactRules.Format(after) : ""), before.Value != after.Value ? "artifact-stat-gain" : "artifact-stat-value");
+                var maximum = piece.Level >= ArtifactRules.MaxLevel;
+                var required = maximum ? 1 : ArtifactRules.RequiredXp(piece, piece.Level);
+                _xp.lowValue = 0; _xp.highValue = 1; _xp.value = maximum ? 1 : (float)experience / required; _xp.title = "";
+                _xpText.text = maximum ? "MAX LEVEL" : experience.ToString("N0") + " / " + required.ToString("N0") + " EXP";
+            }
+            private void RenderStats(ArtifactInstance before, ArtifactInstance after, bool animate)
+            {
+                _stats.Clear(); Comparison(_stats, before.MainStat, after.MainStat, true, -1, animate);
+                for (var i = 0; i < before.Substats.Count; i++)
+                    Comparison(_stats, before.Substats[i], after.Substats.ElementAtOrDefault(i) ?? before.Substats[i], false, i, animate);
+            }
+            private static void Comparison(VisualElement parent, ArtifactStatLine before, ArtifactStatLine after, bool main, int index, bool animate)
+            {
+                var changed = before.Value != after.Value;
+                var row = Box(parent, main ? "artifact-main-row" : "artifact-stat-row", "enhance-stat-row-" + index);
+                Label(row, ArtifactRules.StatName(before), "artifact-stat-name");
+                var values = Box(row, "artifact-comparison-values");
+                if (changed)
+                {
+                    Label(values, ArtifactRules.Format(before), "artifact-stat-value artifact-stat-before");
+                    Label(values, "→", "artifact-stat-separator");
+                }
+                var value = Label(values, ArtifactRules.Format(after), changed ? "artifact-stat-value artifact-stat-after" : "artifact-stat-value artifact-stat-current", "enhance-stat-value-" + index);
+                if (changed)
+                {
+                    var arrow = Label(values, "↑", "artifact-stat-up-arrow");
+                    if (animate)
+                    {
+                        ScreenMotion.Pulse(value, false);
+                        ScreenMotion.Animate(arrow, 700, t =>
+                        { arrow.style.opacity = ScreenMotion.EaseOut(t); arrow.style.translate = new Translate(0, 12 * (1 - ScreenMotion.EaseOut(t))); });
+                    }
+                }
             }
             private void PickMaterials()
             {
+                if (_busy || _closed) return;
                 if (_root.Q("artifact-picker-overlay") != null) { DismissPicker(_root); return; }
                 var hero = _overlay.Q("enhance-hero"); hero.style.display = DisplayStyle.None;
+                var host = _overlay.Q("enhance-picker-host"); host.style.display = DisplayStyle.Flex;
                 _overlay.AddToClassList("material-picker-open");
-                OpenPicker(_root, "ENHANCEMENT MATERIALS", Inventory.GetItemInventorySnapshot().Artifacts.Where(a => a.InstanceId != _target && !a.Favourite && string.IsNullOrEmpty(a.EquippedCharacterId)), piece =>
+                var focus = _materials.Q<Button>(name: "enhance-empty-material-" + _fodder.Count) ?? _enhance;
+                OpenPicker(_root, "ENHANCEMENT MATERIALS", Inventory.GetItemInventorySnapshot().Artifacts.Where(a => ArtifactRules.CanUseAsFodder(a, _target)), piece =>
                 {
+                    if (_busy) return;
                     if (_fodder.Contains(piece.InstanceId)) _fodder.Remove(piece.InstanceId);
                     else if (_fodder.Count < MaterialSlots) _fodder.Add(piece.InstanceId);
-                    else { _note.text = "All 15 material slots are filled. Remove a material to replace it."; return; }
+                    else { _note.text = "All 15 slots are filled. Remove a material to replace it."; return; }
                     _result.text = ""; Refresh();
-                }, _overlay.Q("enhance-add"), _fodder, true, _overlay.Q("enhance-picker-host"), () =>
-                { hero.style.display = DisplayStyle.Flex; _overlay.RemoveFromClassList("material-picker-open"); });
+                }, focus, _fodder, true, host, () =>
+                {
+                    if (host.Q("artifact-picker-overlay") != null) return;
+                    host.style.display = DisplayStyle.None; hero.style.display = DisplayStyle.Flex;
+                    _overlay.RemoveFromClassList("material-picker-open"); ScreenMotion.Enter(hero);
+                });
             }
             private void AutoAdd()
             {
+                if (_busy) return;
                 _fodder.Clear(); _result.text = "";
-                var target = Inventory.FindArtifact(_target); if (target == null || target.Level >= 20) { Refresh(); return; }
-                var remaining = ArtifactRules.RequiredXp(target.Rarity, target.Level) - target.Experience;
-                var candidates = Inventory.GetItemInventorySnapshot().Artifacts.Where(a => a.InstanceId != _target && !a.Favourite && string.IsNullOrEmpty(a.EquippedCharacterId) && (int)a.Rarity <= _autoRarity.index + 1)
+                var target = Inventory.FindArtifact(_target); if (target == null || target.Level >= ArtifactRules.MaxLevel) { Refresh(); return; }
+                var remaining = ArtifactRules.RequiredXp(target, target.Level) - target.Experience;
+                var candidates = Inventory.GetItemInventorySnapshot().Artifacts.Where(a => ArtifactRules.CanUseAsFodder(a, _target) && (int)a.Rarity <= _autoRarity.index + 1)
                     .OrderBy(a => a.Rarity).ThenBy(a => a.Level).ThenBy(a => a.InstanceId, StringComparer.Ordinal);
                 foreach (var piece in candidates) { if (remaining <= 0 || _fodder.Count >= MaterialSlots) break; _fodder.Add(piece.InstanceId); remaining -= ArtifactRules.FodderXp(piece); }
-                Refresh(); if (_fodder.Count == 0) _note.text = "No eligible artifacts at this rarity. Favourites and equipped artifacts stay protected.";
+                Refresh(); if (_fodder.Count == 0) _note.text = "No eligible artifacts at this grade. Favourites and equipped artifacts stay protected.";
             }
             private void Confirm()
             {
-                if (_busy) return;
-                if (!Inventory.PreviewArtifactEnhancement(_target, 0, _fodder.OrderBy(id => id, StringComparer.Ordinal), out var preview, out var error)) { _note.text = error ?? "Select enhancement materials."; return; }
+                if (_busy || _closed) return;
+                if (!Inventory.PreviewArtifactEnhancement(_target, 0, _fodder.OrderBy(id => id, StringComparer.Ordinal), out var preview, out var error))
+                { _note.text = error ?? "Select enhancement materials."; return; }
+                if (_root.Q("artifact-confirm-overlay") != null) return;
                 var overlay = Modal(_root, "artifact-confirm-overlay", _enhance); var dialog = Box(overlay, "artifact-confirm-dialog");
                 Label(dialog, "CONFIRM ENHANCEMENT", "artifact-title heavy");
-                Label(dialog, ArtifactItemView.Name(preview.TargetBefore) + (preview.TargetAfter.Level > preview.TargetBefore.Level ? "  +" + preview.TargetBefore.Level + " → +" + preview.TargetAfter.Level : "  +" + preview.TargetBefore.Level + " · XP " + preview.TargetBefore.Experience + " → " + preview.TargetAfter.Experience + " / " + ArtifactRules.RequiredXp(preview.TargetBefore.Rarity, preview.TargetBefore.Level)), "artifact-eyebrow");
+                Label(dialog, ArtifactItemView.Name(preview.TargetBefore) + "  +" + preview.TargetBefore.Level +
+                    (preview.TargetAfter.Level > preview.TargetBefore.Level ? " → +" + preview.TargetAfter.Level : "  ·  +" + preview.ExperienceGained.ToString("N0") + " EXP"), "artifact-eyebrow");
                 Label(dialog, "Consume " + preview.CoinCost.ToString("N0") + " Coins.");
-                if (_fodder.Count > 0)
+                Label(dialog, "These artifacts will be permanently consumed:", "artifact-warning");
+                var scroll = new ScrollView(ScrollViewMode.Vertical) { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
+                scroll.AddToClassList("artifact-confirm-scroll"); dialog.Add(scroll);
+                var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
+                foreach (var id in preview.FodderIds)
                 {
-                    Label(dialog, "These exact artifacts will be permanently consumed:", "artifact-warning");
-                    var scroll = new ScrollView(ScrollViewMode.Vertical) { horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden }; scroll.AddToClassList("artifact-confirm-scroll"); dialog.Add(scroll);
-                    var byId = Inventory.GetItemInventorySnapshot().Artifacts.ToDictionary(a => a.InstanceId, StringComparer.Ordinal);
-                    foreach (var id in preview.FodderIds)
-                    {
-                        if (!byId.TryGetValue(id, out var piece)) continue;
-                        var row = Box(scroll, "artifact-consume-row"); row.Add(ArtifactItemView.CreateTile(_root, piece));
-                        Label(row, ArtifactItemView.Name(piece) + " · " + ArtifactItemView.RarityStars(piece) + " · +" + piece.Level + "\n" + ArtifactRules.StatName(piece.MainStat) + " " + ArtifactRules.Format(piece.MainStat), "artifact-copy");
-                    }
+                    if (!byId.TryGetValue(id, out var piece)) continue;
+                    var row = Box(scroll, "artifact-consume-row"); row.Add(ArtifactItemView.CreateTile(_root, piece));
+                    Label(row, ArtifactItemView.Name(piece) + " · " + ArtifactItemView.RarityStars(piece) + " · +" + piece.Level, "artifact-copy");
                 }
-                if (preview.ExcessExperience > 0) Label(dialog, preview.ExcessExperience.ToString("N0") + " excess XP will be lost at +20.", "artifact-warning");
-                var actions = Box(dialog, "artifact-action-row"); Button(actions, "CANCEL", () => { overlay.RemoveFromHierarchy(); _enhance.Focus(); });
-                Button(actions, "CONFIRM ENHANCE", () => { overlay.RemoveFromHierarchy(); Commit(preview); }, "artifact-primary", "artifact-confirm-commit");
+                if (preview.AffixImprovements.Count > 0) Label(dialog, "✦ " + preview.AffixImprovements.Count + " random affix improvement(s).", "artifact-affix-draft");
+                if (preview.ExcessExperience > 0) Label(dialog, preview.ExcessExperience.ToString("N0") + " excess EXP will be lost at +20.", "artifact-warning");
+                var actions = Box(dialog, "artifact-action-row");
+                var cancel = Button(actions, "CANCEL", () => CloseModal(overlay, _enhance));
+                Button(actions, "CONFIRM ENHANCE", () => { CloseModal(overlay); Commit(preview); }, "artifact-primary", "artifact-confirm-commit");
+                ScreenMotion.Enter(dialog); cancel.Focus();
+            }
+            private void SetControls(bool enabled)
+            {
+                _materials.SetEnabled(enabled); _autoRarity.SetEnabled(enabled);
+                _overlay.Q<Button>("enhance-auto").SetEnabled(enabled && Inventory.FindArtifact(_target)?.Level < ArtifactRules.MaxLevel);
+                _overlay.Q<Button>("enhance-clear").SetEnabled(enabled);
+                _enhance.SetEnabled(enabled);
             }
             private void Commit(ArtifactEnhancementPreview reviewed)
             {
-                if (_busy) return; _busy = true;
-                _result.EnableInClassList("artifact-failed", true);
-                try
+                if (_busy || _closed) return;
+                if (Inventory.SubjectId != _subject) { Close(); return; }
+                _busy = true; SetControls(false);
+                if (!Inventory.TryEnhanceArtifact(reviewed, out var result, out var error))
                 {
-                    if (Inventory.SubjectId != _subject) { Close(); return; }
-                    if (!Inventory.PreviewArtifactEnhancement(_target, reviewed.DustAmount, reviewed.FodderIds, out var current, out var previewError))
-                    { _result.text = previewError; return; }
-                    if (JsonUtility.ToJson(current) != JsonUtility.ToJson(reviewed))
-                    { _result.text = "The artifact or selected materials changed. Review enhancement again."; return; }
-                    if (Inventory.TryEnhanceArtifact(_target, reviewed.DustAmount, reviewed.FodderIds, out var result, out var error))
-                    {
-                        _result.EnableInClassList("artifact-failed", false);
-                        _fodder.Clear();
-                        _result.text = result.TargetAfter.Level > result.TargetBefore.Level ? "ENHANCEMENT COMPLETE  ·  +" + result.TargetBefore.Level + " → +" + result.TargetAfter.Level + "\n" + ArtifactRules.StatName(result.TargetAfter.MainStat) + "  " + ArtifactRules.Format(result.TargetBefore.MainStat) + " → " + ArtifactRules.Format(result.TargetAfter.MainStat) :
-                            "XP ADDED  ·  +" + result.ExperienceGained.ToString("N0") + "\n" + result.TargetAfter.Experience.ToString("N0") + " / " + ArtifactRules.RequiredXp(result.TargetAfter.Rarity, result.TargetAfter.Level).ToString("N0") + " XP toward +" + (result.TargetAfter.Level + 1);
-                        Feedback.Play();
-                    }
-                    else _result.text = error;
+                    _busy = false; _result.EnableInClassList("artifact-failed", true); _result.text = error; Refresh(); return;
                 }
-                finally { _busy = false; Refresh(); _result.Focus(); }
+                DismissPicker(_root);
+                _overlay.AddToClassList("enhance-upgrade-running");
+                _xpPreview.style.display = DisplayStyle.None; _levelDelta.style.display = DisplayStyle.None;
+                _result.text = ""; _result.style.display = DisplayStyle.None; _note.text = "Enhancing…";
+                var displayed = result.TargetBefore.Clone();
+                RenderStats(displayed, displayed, false); SetExperience(displayed, displayed.Experience);
+                var gained = result.ExperienceGained - result.ExcessExperience;
+                var shownLevel = displayed.Level;
+                var duration = Mathf.Clamp(900 + (result.TargetAfter.Level - shownLevel) * 150, 900, 3600);
+                _upgradeAnimation = ScreenMotion.Animate(_overlay, duration, t =>
+                {
+                    if (_closed || Inventory.SubjectId != _subject) { Close(); return; }
+                    var pending = result.TargetBefore.Experience + (long)(gained * ScreenMotion.EaseOut(t));
+                    var level = result.TargetBefore.Level;
+                    while (level < ArtifactRules.MaxLevel && pending >= ArtifactRules.RequiredXp(displayed.Rarity, level))
+                    { pending -= ArtifactRules.RequiredXp(displayed.Rarity, level); level++; }
+                    displayed.Level = level;
+                    if (level != shownLevel)
+                    {
+                        shownLevel = level; _level.text = "+" + level;
+                        displayed.MainStat.Value = ArtifactRules.MainValue(displayed);
+                        var main = _stats.Q<Label>("enhance-stat-value--1");
+                        main.text = ArtifactRules.Format(displayed.MainStat); ScreenMotion.Pulse(_level, false); ScreenMotion.Pulse(main, false);
+                    }
+                    SetExperience(displayed, level >= ArtifactRules.MaxLevel ? 0 : pending);
+                }, () =>
+                {
+                    if (_closed) return;
+                    displayed.Level = result.TargetAfter.Level; displayed.Experience = result.TargetAfter.Experience;
+                    displayed.MainStat = result.TargetAfter.MainStat.Clone(); _level.text = "+" + displayed.Level;
+                    SetExperience(displayed, displayed.Experience); RenderStats(displayed, displayed, false);
+                    _overlay.AddToClassList("enhance-upgrade-revealed");
+                    ScreenMotion.Sparkle(_overlay.Q(className: "artifact-xp-heading"));
+                    ScreenMotion.Pulse(_level); Feedback.Play(); RevealAffix(result, displayed, 0);
+                });
+            }
+            private void RevealAffix(ArtifactEnhancementPreview result, ArtifactInstance displayed, int index)
+            {
+                if (_closed) return;
+                if (index >= result.AffixImprovements.Count)
+                {
+                    _upgradeAnimation = ScreenMotion.Animate(_overlay, 700, _ => { }, () =>
+                    {
+                        if (_closed) return;
+                        _busy = false; _fodder.Clear(); _draftKey = null; _overlay.RemoveFromClassList("enhance-upgrade-running");
+                        _result.EnableInClassList("artifact-failed", false);
+                        _result.text = result.TargetAfter.Level > result.TargetBefore.Level ? "ENHANCEMENT COMPLETE" : "EXP ADDED";
+                        Refresh(); ScreenMotion.Enter(_result); _result.Focus();
+                    });
+                    return;
+                }
+                var improvement = result.AffixImprovements[index];
+                displayed.Substats[improvement.SubstatIndex].Value = improvement.AfterValue;
+                var value = _stats.Q<Label>("enhance-stat-value-" + improvement.SubstatIndex);
+                value.text = ArtifactRules.Format(displayed.Substats[improvement.SubstatIndex]); value.AddToClassList("artifact-stat-revealed");
+                value.schedule.Execute(() => _overlay.Q<ScrollView>(className: "artifact-workshop-scroll")?.ScrollTo(value)).ExecuteLater(1);
+                ScreenMotion.Pulse(value);
+                var row = _stats.Q("enhance-stat-row-" + improvement.SubstatIndex);
+                var arrow = Label(row, "↑", "artifact-stat-up-arrow artifact-commit-arrow");
+                ScreenMotion.Animate(arrow, 850, t =>
+                { arrow.style.opacity = 1 - t; arrow.style.translate = new Translate(0, -22 * ScreenMotion.EaseOut(t)); }, arrow.RemoveFromHierarchy);
+                _note.text = "✦  +" + improvement.Level + "  ·  " + ArtifactRules.StatName(displayed.Substats[improvement.SubstatIndex]) + " improved";
+                _upgradeAnimation = ScreenMotion.Animate(_overlay, 750, _ => { }, () => RevealAffix(result, displayed, index + 1));
             }
         }
 

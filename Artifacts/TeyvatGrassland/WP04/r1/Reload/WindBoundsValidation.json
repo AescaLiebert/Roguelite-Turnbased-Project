@@ -1,0 +1,10 @@
+{
+    "passed": true,
+    "testedVertices": 244224,
+    "testedRootVertices": 43392,
+    "escapedVertices": 0,
+    "maxRootDisplacement": 0.0,
+    "maxAnimatedDisplacement": 0.5213891863822937,
+    "method": "Every vertex in all16 persisted animated meshes,24 common wind times,4 horizontal directions at strength1 and response.65. CPU mirrors unchanged TG_Common, without far-fade reduction (conservative). Persisted mesh bounds tested at minimum XZ.78/Y.37 scale; rotated placement bounds plus independent world-wind padding checked separately. R0/G0 roots stationary.",
+    "limitations": "CPU deformation/bounds proof, not GPU pass-by-pass silhouette or shading-normal rotation proof. Lane shader Forward/ShadowCaster/DepthOnly call same TGFoliagePositionWS including distance-wind fade; no DepthNormals/motion vectors, SSAO/TAA off."
+}

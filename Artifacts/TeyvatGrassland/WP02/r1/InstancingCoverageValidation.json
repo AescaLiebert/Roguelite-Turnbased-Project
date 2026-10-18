@@ -1,0 +1,822 @@
+{
+    "schema": "TG_WP02_InstancedCoverageValidation_v1",
+    "method": "Temporary additive rig scene with a 70x60 grid of separated white quads, submitted by the actual ExecuteAlways TeyvatMaterialGlobals RenderMeshInstanced route. Two URP render requests warm the same-scene orthographic camera. Linear floating-point readback checks nine pixels around each projected instance center, all 4200 instances, API counters and a separate black-background spot.",
+    "limitations": "Coverage and matrix/submission-boundary microtest only. It does not establish per-instance frustum culling, shadow batching/correctness, textured foliage quality, full-scene rendering or standalone performance. Counters describe API submissions, not guaranteed hardware draw calls. Rig objects use layer29; the camera also includes layer0 because the unchanged runtime RenderParams defaults to layer0. Camera.scene isolates this temporary scene.",
+    "passed": true,
+    "linearColorSpace": true,
+    "floatingPointLinearTarget": true,
+    "allMatricesFiniteUniform": true,
+    "backgroundPassed": true,
+    "expectedInstances": 4200,
+    "visibleInstances": 4200,
+    "submittedInstances": 4200,
+    "submittedBatches": 9,
+    "submissionFrames": 2,
+    "runtimeInstancesPerSubmission": 500,
+    "expectedSubmissions": 9,
+    "cellSizeMetres": 0.30000001192092898,
+    "quadWidthMetres": 0.18000000715255738,
+    "minimumWhiteChannelStartingThreshold": 0.949999988079071,
+    "maximumBackgroundChannelStartingThreshold": 0.009999999776482582,
+    "backgroundLinear": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+    },
+    "backgroundWorld": {
+        "x": 135.0,
+        "y": 0.0,
+        "z": 129.5
+    },
+    "missingIndices": [],
+    "batches": [
+        {
+            "submissionIndex": 0,
+            "firstIndex": 0,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 1,
+            "firstIndex": 500,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 2,
+            "firstIndex": 1000,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 3,
+            "firstIndex": 1500,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 4,
+            "firstIndex": 2000,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 5,
+            "firstIndex": 2500,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 6,
+            "firstIndex": 3000,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 7,
+            "firstIndex": 3500,
+            "expectedCount": 500,
+            "visibleCount": 500,
+            "missingIndices": []
+        },
+        {
+            "submissionIndex": 8,
+            "firstIndex": 4000,
+            "expectedCount": 200,
+            "visibleCount": 200,
+            "missingIndices": []
+        }
+    ],
+    "boundaries": [
+        {
+            "index": 0,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 254,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 255,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 256,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 498,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 499,
+            "nominalSubmission": 0,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 500,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 501,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 754,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 755,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 756,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 998,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 999,
+            "nominalSubmission": 1,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1000,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1001,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1254,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1255,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1256,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1498,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1499,
+            "nominalSubmission": 2,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1500,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1501,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1754,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1755,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1756,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1998,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 1999,
+            "nominalSubmission": 3,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2000,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2001,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2254,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2255,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2256,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2498,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2499,
+            "nominalSubmission": 4,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2500,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2501,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2754,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2755,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2756,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2998,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 2999,
+            "nominalSubmission": 5,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3000,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3001,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3254,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3255,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3256,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3498,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3499,
+            "nominalSubmission": 6,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3500,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3501,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3754,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 254,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3755,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 255,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3756,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 256,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3998,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 498,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 3999,
+            "nominalSubmission": 7,
+            "offsetWithinSubmission": 499,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 4000,
+            "nominalSubmission": 8,
+            "offsetWithinSubmission": 0,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 4001,
+            "nominalSubmission": 8,
+            "offsetWithinSubmission": 1,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 4198,
+            "nominalSubmission": 8,
+            "offsetWithinSubmission": 198,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        },
+        {
+            "index": 4199,
+            "nominalSubmission": 8,
+            "offsetWithinSubmission": 199,
+            "visible": true,
+            "linearRGB": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            }
+        }
+    ],
+    "capture": "Diagnostics/InstancedCoverage.png",
+    "errors": []
+}

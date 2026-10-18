@@ -13,27 +13,31 @@
                     </ui:VisualElement>
                     <ui:Label name="enhance-art-meta" class="artifact-art-meta"/>
                 </ui:VisualElement>
-                <ui:VisualElement name="enhance-picker-host" class="artifact-picker-host" style="display: none;"/>
+                <ui:VisualElement name="enhance-picker-host" class="artifact-picker-host"/>
             </ui:VisualElement>
             <ui:VisualElement class="artifact-workshop-right">
                 <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="artifact-workshop-scroll">
                     <ui:VisualElement class="artifact-workshop-details">
                         <ui:VisualElement class="artifact-xp-heading">
-                            <ui:Label name="enhance-level" text="+0 / 20" class="artifact-enhance-level heavy"/>
+                            <ui:Label name="enhance-level" text="+0" class="artifact-enhance-level heavy"/>
+                            <ui:Label name="enhance-level-delta" class="artifact-draft-level heavy"/>
                             <ui:Label name="enhance-xp-text" class="artifact-eyebrow"/>
                         </ui:VisualElement>
-                        <ui:ProgressBar name="enhance-xp" class="artifact-xp"/>
+                        <ui:VisualElement class="artifact-xp-track">
+                            <ui:ProgressBar name="enhance-xp-preview" class="artifact-xp artifact-xp-preview"/>
+                            <ui:ProgressBar name="enhance-xp" class="artifact-xp artifact-xp-current"/>
+                        </ui:VisualElement>
                         <ui:VisualElement name="enhance-stats" class="artifact-enhance-stats"/>
                         <ui:Label name="enhance-result" tabindex="0" class="artifact-success"/>
                     </ui:VisualElement>
                 </ui:ScrollView>
-                <ui:VisualElement class="artifact-workshop-footer" style="height: 356px;">
+                <ui:VisualElement class="artifact-workshop-footer">
                     <ui:VisualElement class="artifact-material-section">
                         <ui:VisualElement class="artifact-auto-row">
                             <ui:DropdownField name="enhance-auto-rarity" class="artifact-auto-rarity"/>
                             <ui:Button name="enhance-auto" text="AUTO ADD" class="artifact-button"/>
                         </ui:VisualElement>
-                        <ui:ScrollView mode="Vertical" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="artifact-selected-scroll">
+                        <ui:ScrollView name="enhance-materials-scroll" mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" class="artifact-selected-scroll">
                             <ui:VisualElement name="enhance-materials" class="artifact-selected-materials"/>
                         </ui:ScrollView>
                     </ui:VisualElement>
@@ -41,7 +45,6 @@
                     <ui:VisualElement class="artifact-commit-row">
                         <ui:Label name="enhance-cost" class="artifact-cost"/>
                         <ui:VisualElement class="artifact-action-row">
-                            <ui:Button name="enhance-add" text="＋  MATERIALS" class="artifact-button"/>
                             <ui:Button name="enhance-clear" text="CLEAR" class="artifact-button"/>
                         </ui:VisualElement>
                         <ui:Button name="enhance-commit" text="ENHANCE  ›" class="artifact-primary"/>

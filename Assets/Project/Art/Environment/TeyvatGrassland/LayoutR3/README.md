@@ -1,0 +1,15 @@
+# WP01 R3 terrain/layout review
+
+Open `Scenes/TG_LayoutReview_r3.unity` in the isolated URP17.3 Forward/Linear art project `.utmp/TeyvatWorldLab` with Unity6000.3.4f1. The main game's Built-in/Gamma renderer is retained. Importing this module does not migrate project rendering settings.
+
+This revision replaces the old surrounding topography by explicit user direction: raised/rolling battle perimeter, sloping banks, five separate native-ground islands, fractured multi-bench cliffs, upper terraces, three descending cascade courses with catch shelves/pools, and recomposed landmarks/trees/rock groups. Six actor anchors and17 original camera poses remain. `Data/TG_Layout.json` and `TG_LayoutPlan.json` are the current spatial registry; the earlier FoundationR2/World surface is historical input, not the new cliff/waterfall authority.
+
+`Terrain/TG_Landscape.asset` is independent native TerrainData built from exact R3 metre samples, then painted with the shared grass/soil/rock layer convention. `Models/TG_LayoutGeometry.fbx` contains Blender-authored closed cliff, island-rim and rock modules, both authored detail levels and a diagnostic axis marker. Foreground/reverse hills and island tops use native terrain; source FBX does not duplicate it.
+
+`Meadow/` reuses the WP04 kit/shader/runtime with independent placement data and expanded mesh bounds. Grass actual geometry is1.2–1.8m relative to3m review capsules (40–60% height); the old short-grass cap is superseded. Grass may grow at character positions. One scene-level TeyvatMaterialGlobals owner supplies wind and color; no second clock is created. World-coordinate placement matrices require regeneration/transformation if relocating the prefab. Materials and art settings remain owned here; Shared/WP03/WP04 assets are retained.
+
+`Prefabs/TG_LayoutR3.prefab` is a layout asset, without the review actors/cameras/light/global owner. Supply the master scene's shared globals with the accepted field/bounds. Native terrain supplies continuous ground collision; detailed visible rocks/cliffs use temporary colliders only during review. A simplified final gameplay-collision pass is still required for an explorable stage; this battle review does not make the river/cliffs traversable.
+
+Tree masses and species are WP05 composition guides. Water uses the WP02 shader on revised3D courses and pools; final water breakup/foam/mist remains WP06. Static capsules and sampled camera/head-clearance checks are not animated battle acceptance. Final tree/surface/lighting quality, camera-motion shimmer and standalone PC performance remain to be completed.
+
+Regenerate plan → Blender geometry → `Tests/Environment/RunTeyvatLayoutR3Lab.ps1`; cold saved-scene proof uses `-VerifySaved`. Close the isolated art project before starting another process on it. Read current COMPLETE/FAILED markers with their reports. Full handoff: `ArtDirection/TeyvatGrasslandConcepts/WP01_LayoutR3.md`; source: `ArtSource/TeyvatGrassland/LayoutR3/`; evidence: `Artifacts/TeyvatGrassland/WP01/Revision03/`.

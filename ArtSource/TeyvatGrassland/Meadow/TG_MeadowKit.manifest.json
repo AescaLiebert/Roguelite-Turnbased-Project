@@ -1,0 +1,2643 @@
+{
+  "schema": "TG_WP04_MeadowKit_v1",
+  "seed": 20261018,
+  "blender_version": "5.1.1",
+  "units": "metres",
+  "source_up": "+Z",
+  "generator": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Meadow\\create_meadow_kit.py",
+  "generator_sha256": "7f4b408d8803db950cbf88555ef01ba03c19c6b488e6b83b5ca258bafdba999e",
+  "geometry_helper": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Shared\\create_material_samples.py",
+  "geometry_helper_sha256": "56a01da00bc84f28f06cec456012a8be0626c6e23d614f35e99704e902d713ef",
+  "source_blend": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Meadow\\TG_MeadowKit.blend",
+  "source_fbx": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Meadow\\TG_MeadowKit.fbx",
+  "unity_fbx": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\Assets\\Project\\Art\\Environment\\TeyvatGrassland\\Meadow\\Models\\TG_MeadowKit.fbx",
+  "fbx_sha256": "841b6baab68e9e7b598f563f70b1ab19722628c4288ec03eed1e08256551a970",
+  "export": {
+    "scale": 1,
+    "axis_forward": "-Z",
+    "axis_up": "Y",
+    "bake_space_transform": true,
+    "triangulation_stage": "Explicit loop triangles before custom split normals through WP02 Geometry.object",
+    "use_triangles": false,
+    "use_mesh_modifiers": false,
+    "colors_type": "LINEAR",
+    "UV0": true,
+    "custom_normals": true,
+    "mesh_objects_only": true
+  },
+  "coordinates": "Author Blender Z-up, root Z0. Proven WP02 raw imported Unity coordinates=(BlenderX,BlenderZ,BlenderY). No prefab-node transform dependency; all export inputs identity.",
+  "unity_import_required": {
+    "globalScale": 1,
+    "bakeAxisConversion": true,
+    "normals": "Import",
+    "meshCompression": "Off",
+    "readWriteForValidation": true,
+    "material_remap": "Grass->shared Grass, White/Gold/Purple->shared Flower family with matching petal tint; Axis slots diagnostic only"
+  },
+  "mask_contract": "R height/bend0root..1tip; G0; B stable per-element phase; A1. Numerical LINEAR data, not color; A is AO not opacity.",
+  "normals": "Grass and leaf-like polygons have deliberate upward-biased custom normals; stems use tube normals. Triangulate before authoring, never recompute at import.",
+  "grass_lod_source_endpoint_subset_verified": true,
+  "authoring_layout": "Species in X columns, LOD0/LOD1 in Y rows for editable inspection; export restores every origin to zero and imports independently.",
+  "starting_values_and_test": "Blade heights short.15/meadow.55/tall.85/accent1.15m and widths~.045-.085m are starting values. Test matched battle and attack cameras; lower height/density if fighters obscure, widen or adjust density if coverage breaks, tune LOD transition by captured silhouette stability.",
+  "limitations": "Geometry kit only; Unity import/shading/wind/mips/LOD thresholds/distribution/camera and performance validation remain pending. No grass-card alpha texture, vegetation collision, trees or water assets are included.",
+  "objects": [
+    {
+      "name": "SM_ShortGrass_LOD0",
+      "mesh_name": "SM_ShortGrass_LOD0",
+      "vertices_before_fbx_seam_splitting": 144,
+      "polygons_before_triangulation": 64,
+      "polygons_in_authored_triangulated_mesh": 112,
+      "expected_triangles_after_export": 112,
+      "loops": 336,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.16717243,
+          -0.24708049,
+          0.0
+        ],
+        "max": [
+          0.26615635,
+          0.27810368,
+          0.15000001
+        ],
+        "size": [
+          0.43332878,
+          0.52518417,
+          0.15000001
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.16717243,
+          0.0,
+          -0.27810368
+        ],
+        "max": [
+          0.26615635,
+          0.15000001,
+          0.24708049
+        ],
+        "size": [
+          0.43332878,
+          0.15000001,
+          0.52518417
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.05790842,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.92786306,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.340864896774292,
+        -0.3413146436214447,
+        0.9398736357688904
+      ],
+      "normal_component_max": [
+        0.32601574063301086,
+        0.3414543569087982,
+        0.9399372339248657
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "ShortGrass",
+      "lod": 0,
+      "role": "Short readable combat edge",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.16717243,
+          0.0,
+          -0.24708049
+        ],
+        "max": [
+          0.26615635,
+          0.15000001,
+          0.27810368
+        ],
+        "size": [
+          0.43332878,
+          0.15000001,
+          0.52518417
+        ]
+      },
+      "footprint_radius_metres": 0.29999999010644696,
+      "expected_unity_normal_min": [
+        -0.340864896774292,
+        0.9398736357688904,
+        -0.3413146436214447
+      ],
+      "expected_unity_normal_max": [
+        0.32601574063301086,
+        0.9399372339248657,
+        0.3414543569087982
+      ]
+    },
+    {
+      "name": "SM_ShortGrass_LOD1",
+      "mesh_name": "SM_ShortGrass_LOD1",
+      "vertices_before_fbx_seam_splitting": 35,
+      "polygons_before_triangulation": 15,
+      "polygons_in_authored_triangulated_mesh": 25,
+      "expected_triangles_after_export": 25,
+      "loops": 75,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.13311325,
+          -0.23041157,
+          0.0
+        ],
+        "max": [
+          0.26561368,
+          0.26432657,
+          0.15000001
+        ],
+        "size": [
+          0.39872693,
+          0.49473815,
+          0.15000001
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.13311325,
+          0.0,
+          -0.26432657
+        ],
+        "max": [
+          0.26561368,
+          0.15000001,
+          0.23041157
+        ],
+        "size": [
+          0.39872693,
+          0.15000001,
+          0.49473815
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.11557949,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.90555871,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.32103198766708374,
+        -0.3219086825847626,
+        0.9398733973503113
+      ],
+      "normal_component_max": [
+        0.3260253667831421,
+        0.3414839208126068,
+        0.9399411082267761
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "ShortGrass",
+      "lod": 1,
+      "role": "Short readable combat edge",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        15,
+        7,
+        11,
+        3
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.13311325,
+          0.0,
+          -0.23041157
+        ],
+        "max": [
+          0.26561368,
+          0.15000001,
+          0.26432657
+        ],
+        "size": [
+          0.39872693,
+          0.15000001,
+          0.49473815
+        ]
+      },
+      "footprint_radius_metres": 0.2988175470926077,
+      "expected_unity_normal_min": [
+        -0.32103198766708374,
+        0.9398733973503113,
+        -0.3219086825847626
+      ],
+      "expected_unity_normal_max": [
+        0.3260253667831421,
+        0.9399411082267761,
+        0.3414839208126068
+      ]
+    },
+    {
+      "name": "SM_MeadowGrass_LOD0",
+      "mesh_name": "SM_MeadowGrass_LOD0",
+      "vertices_before_fbx_seam_splitting": 198,
+      "polygons_before_triangulation": 88,
+      "polygons_in_authored_triangulated_mesh": 154,
+      "expected_triangles_after_export": 154,
+      "loops": 462,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.34039739,
+          -0.36469331,
+          0.0
+        ],
+        "max": [
+          0.26005062,
+          0.35519546,
+          0.55000001
+        ],
+        "size": [
+          0.60044801,
+          0.71988878,
+          0.55000001
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.34039739,
+          0.0,
+          -0.35519546
+        ],
+        "max": [
+          0.26005062,
+          0.55000001,
+          0.36469331
+        ],
+        "size": [
+          0.60044801,
+          0.55000001,
+          0.71988878
+        ]
+      },
+      "source_preview_location": [
+        1.7000000476837158,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.05937986,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.99981415,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.37115439772605896,
+        -0.43027225136756897,
+        0.9022125601768494
+      ],
+      "normal_component_max": [
+        0.43076786398887634,
+        0.43106207251548767,
+        0.9023518562316895
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "MeadowGrass",
+      "lod": 0,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.34039739,
+          0.0,
+          -0.36469331
+        ],
+        "max": [
+          0.26005062,
+          0.55000001,
+          0.35519546
+        ],
+        "size": [
+          0.60044801,
+          0.55000001,
+          0.71988878
+        ]
+      },
+      "footprint_radius_metres": 0.3840834987982569,
+      "expected_unity_normal_min": [
+        -0.37115439772605896,
+        0.9022125601768494,
+        -0.43027225136756897
+      ],
+      "expected_unity_normal_max": [
+        0.43076786398887634,
+        0.9023518562316895,
+        0.43106207251548767
+      ]
+    },
+    {
+      "name": "SM_MeadowGrass_LOD1",
+      "mesh_name": "SM_MeadowGrass_LOD1",
+      "vertices_before_fbx_seam_splitting": 49,
+      "polygons_before_triangulation": 21,
+      "polygons_in_authored_triangulated_mesh": 35,
+      "expected_triangles_after_export": 35,
+      "loops": 105,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.31722876,
+          -0.36469331,
+          0.0
+        ],
+        "max": [
+          0.25495717,
+          0.30450743,
+          0.55000001
+        ],
+        "size": [
+          0.57218593,
+          0.66920075,
+          0.55000001
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.31722876,
+          0.0,
+          -0.30450743
+        ],
+        "max": [
+          0.25495717,
+          0.55000001,
+          0.36469331
+        ],
+        "size": [
+          0.57218593,
+          0.55000001,
+          0.66920075
+        ]
+      },
+      "source_preview_location": [
+        1.7000000476837158,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.05937986,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.99981415,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.36973267793655396,
+        -0.4019165337085724,
+        0.9021854400634766
+      ],
+      "normal_component_max": [
+        0.2637876868247986,
+        0.41245782375335693,
+        0.9023436903953552
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "MeadowGrass",
+      "lod": 1,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        14,
+        7,
+        18,
+        3,
+        10,
+        5
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.31722876,
+          0.0,
+          -0.36469331
+        ],
+        "max": [
+          0.25495717,
+          0.55000001,
+          0.30450743
+        ],
+        "size": [
+          0.57218593,
+          0.55000001,
+          0.66920075
+        ]
+      },
+      "footprint_radius_metres": 0.3840834987982569,
+      "expected_unity_normal_min": [
+        -0.36973267793655396,
+        0.9021854400634766,
+        -0.4019165337085724
+      ],
+      "expected_unity_normal_max": [
+        0.2637876868247986,
+        0.9023436903953552,
+        0.41245782375335693
+      ]
+    },
+    {
+      "name": "SM_TallGrass_LOD0",
+      "mesh_name": "SM_TallGrass_LOD0",
+      "vertices_before_fbx_seam_splitting": 162,
+      "polygons_before_triangulation": 72,
+      "polygons_in_authored_triangulated_mesh": 126,
+      "expected_triangles_after_export": 126,
+      "loops": 378,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.45155478,
+          -0.41959223,
+          0.0
+        ],
+        "max": [
+          0.4579438,
+          0.33669525,
+          0.85000002
+        ],
+        "size": [
+          0.90949857,
+          0.75628749,
+          0.85000002
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.45155478,
+          0.0,
+          -0.33669525
+        ],
+        "max": [
+          0.4579438,
+          0.85000002,
+          0.41959223
+        ],
+        "size": [
+          0.90949857,
+          0.85000002,
+          0.75628749
+        ]
+      },
+      "source_preview_location": [
+        3.4000000953674316,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.01730592,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.9837696,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.4311617612838745,
+        -0.43096426129341125,
+        0.9021900296211243
+      ],
+      "normal_component_max": [
+        0.4092632234096527,
+        0.4008069634437561,
+        0.9023512005805969
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "TallGrass",
+      "lod": 0,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.45155478,
+          0.0,
+          -0.41959223
+        ],
+        "max": [
+          0.4579438,
+          0.85000002,
+          0.33669525
+        ],
+        "size": [
+          0.90949857,
+          0.85000002,
+          0.75628749
+        ]
+      },
+      "footprint_radius_metres": 0.48303857800445305,
+      "expected_unity_normal_min": [
+        -0.4311617612838745,
+        0.9021900296211243,
+        -0.43096426129341125
+      ],
+      "expected_unity_normal_max": [
+        0.4092632234096527,
+        0.9023512005805969,
+        0.4008069634437561
+      ]
+    },
+    {
+      "name": "SM_TallGrass_LOD1",
+      "mesh_name": "SM_TallGrass_LOD1",
+      "vertices_before_fbx_seam_splitting": 42,
+      "polygons_before_triangulation": 18,
+      "polygons_in_authored_triangulated_mesh": 30,
+      "expected_triangles_after_export": 30,
+      "loops": 90,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.45155478,
+          -0.41959223,
+          0.0
+        ],
+        "max": [
+          0.35590753,
+          0.24138929,
+          0.85000002
+        ],
+        "size": [
+          0.8074623,
+          0.66098152,
+          0.85000002
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.45155478,
+          0.0,
+          -0.24138929
+        ],
+        "max": [
+          0.35590753,
+          0.85000002,
+          0.41959223
+        ],
+        "size": [
+          0.8074623,
+          0.85000002,
+          0.66098152
+        ]
+      },
+      "source_preview_location": [
+        3.4000000953674316,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.36725685,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.9412511,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.43059808015823364,
+        -0.23166009783744812,
+        0.9022287130355835
+      ],
+      "normal_component_max": [
+        0.3672621548175812,
+        0.40080615878105164,
+        0.902348518371582
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "TallGrass",
+      "lod": 1,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        7,
+        12,
+        3,
+        15,
+        5
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.45155478,
+          0.0,
+          -0.41959223
+        ],
+        "max": [
+          0.35590753,
+          0.85000002,
+          0.24138929
+        ],
+        "size": [
+          0.8074623,
+          0.85000002,
+          0.66098152
+        ]
+      },
+      "footprint_radius_metres": 0.48303857800445305,
+      "expected_unity_normal_min": [
+        -0.43059808015823364,
+        0.9022287130355835,
+        -0.23166009783744812
+      ],
+      "expected_unity_normal_max": [
+        0.3672621548175812,
+        0.902348518371582,
+        0.40080615878105164
+      ]
+    },
+    {
+      "name": "SM_AccentGrass_LOD0",
+      "mesh_name": "SM_AccentGrass_LOD0",
+      "vertices_before_fbx_seam_splitting": 90,
+      "polygons_before_triangulation": 40,
+      "polygons_in_authored_triangulated_mesh": 70,
+      "expected_triangles_after_export": 70,
+      "loops": 210,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.32720283,
+          -0.59813571,
+          0.0
+        ],
+        "max": [
+          0.41783905,
+          0.39720562,
+          1.14999998
+        ],
+        "size": [
+          0.74504188,
+          0.99534133,
+          1.14999998
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.32720283,
+          0.0,
+          -0.39720562
+        ],
+        "max": [
+          0.41783905,
+          1.14999998,
+          0.59813571
+        ],
+        "size": [
+          0.74504188,
+          1.14999998,
+          0.99534133
+        ]
+      },
+      "source_preview_location": [
+        5.099999904632568,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.19190264,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.97170395,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.4392561912536621,
+        -0.46294543147087097,
+        0.8859685659408569
+      ],
+      "normal_component_max": [
+        0.4619702100753784,
+        0.46103575825691223,
+        0.8861373662948608
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "AccentGrass",
+      "lod": 0,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.32720283,
+          0.0,
+          -0.59813571
+        ],
+        "max": [
+          0.41783905,
+          1.14999998,
+          0.39720562
+        ],
+        "size": [
+          0.74504188,
+          1.14999998,
+          0.99534133
+        ]
+      },
+      "footprint_radius_metres": 0.6000000271306606,
+      "expected_unity_normal_min": [
+        -0.4392561912536621,
+        0.8859685659408569,
+        -0.46294543147087097
+      ],
+      "expected_unity_normal_max": [
+        0.4619702100753784,
+        0.8861373662948608,
+        0.46103575825691223
+      ]
+    },
+    {
+      "name": "SM_AccentGrass_LOD1",
+      "mesh_name": "SM_AccentGrass_LOD1",
+      "vertices_before_fbx_seam_splitting": 28,
+      "polygons_before_triangulation": 12,
+      "polygons_in_authored_triangulated_mesh": 20,
+      "expected_triangles_after_export": 20,
+      "loops": 60,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.32596022,
+          -0.59813571,
+          0.0
+        ],
+        "max": [
+          0.31194028,
+          0.19421931,
+          1.14999998
+        ],
+        "size": [
+          0.6379005,
+          0.79235502,
+          1.14999998
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.32596022,
+          0.0,
+          -0.19421931
+        ],
+        "max": [
+          0.31194028,
+          1.14999998,
+          0.59813571
+        ],
+        "size": [
+          0.6379005,
+          1.14999998,
+          0.79235502
+        ]
+      },
+      "source_preview_location": [
+        5.099999904632568,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.61742932,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.97170395,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.37979769706726074,
+        -0.46258825063705444,
+        0.8860169053077698
+      ],
+      "normal_component_max": [
+        0.19134964048862457,
+        0.4214949309825897,
+        0.8861274719238281
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "AccentGrass",
+      "lod": 1,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [
+        0,
+        7,
+        3,
+        5
+      ],
+      "lod_strategy": "Exact stable subset of full LOD0 blade records; tallest/outermost retained; shared footprint scale; fewer strip rows",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.32596022,
+          0.0,
+          -0.59813571
+        ],
+        "max": [
+          0.31194028,
+          1.14999998,
+          0.19421931
+        ],
+        "size": [
+          0.6379005,
+          1.14999998,
+          0.79235502
+        ]
+      },
+      "footprint_radius_metres": 0.6000000271306606,
+      "expected_unity_normal_min": [
+        -0.37979769706726074,
+        0.8860169053077698,
+        -0.46258825063705444
+      ],
+      "expected_unity_normal_max": [
+        0.19134964048862457,
+        0.8861274719238281,
+        0.4214949309825897
+      ]
+    },
+    {
+      "name": "SM_Clover_LOD0",
+      "mesh_name": "SM_Clover_LOD0",
+      "vertices_before_fbx_seam_splitting": 315,
+      "polygons_before_triangulation": 161,
+      "polygons_in_authored_triangulated_mesh": 294,
+      "expected_triangles_after_export": 294,
+      "loops": 882,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.36642393,
+          -0.40058964,
+          0.0
+        ],
+        "max": [
+          0.29780787,
+          0.41826123,
+          0.211334
+        ],
+        "size": [
+          0.66423181,
+          0.81885087,
+          0.211334
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.36642393,
+          0.0,
+          -0.41826123
+        ],
+        "max": [
+          0.29780787,
+          0.211334,
+          0.40058964
+        ],
+        "size": [
+          0.66423181,
+          0.211334,
+          0.81885087
+        ]
+      },
+      "source_preview_location": [
+        6.800000190734863,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.2475946545600891,
+          -0.2769266664981842
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.01614402,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.91520655,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999867677688599,
+        -0.9510179162025452,
+        -0.9981693625450134
+      ],
+      "normal_component_max": [
+        0.8180040121078491,
+        0.9510174989700317,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "Clover",
+      "lod": 0,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.36642393,
+          0.0,
+          -0.40058964
+        ],
+        "max": [
+          0.29780787,
+          0.211334,
+          0.41826123
+        ],
+        "size": [
+          0.66423181,
+          0.211334,
+          0.81885087
+        ]
+      },
+      "footprint_radius_metres": 0.42895519638831414,
+      "expected_unity_normal_min": [
+        -0.9999867677688599,
+        -0.9981693625450134,
+        -0.9510179162025452
+      ],
+      "expected_unity_normal_max": [
+        0.8180040121078491,
+        1.0000001192092896,
+        0.9510174989700317
+      ]
+    },
+    {
+      "name": "SM_Clover_LOD1",
+      "mesh_name": "SM_Clover_LOD1",
+      "vertices_before_fbx_seam_splitting": 105,
+      "polygons_before_triangulation": 45,
+      "polygons_in_authored_triangulated_mesh": 90,
+      "expected_triangles_after_export": 90,
+      "loops": 270,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.28017655,
+          -0.34182027,
+          0.0
+        ],
+        "max": [
+          0.29666948,
+          0.35900924,
+          0.20195162
+        ],
+        "size": [
+          0.57684603,
+          0.70082951,
+          0.20195162
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.28017655,
+          0.0,
+          -0.35900924
+        ],
+        "max": [
+          0.29666948,
+          0.20195162,
+          0.34182027
+        ],
+        "size": [
+          0.57684603,
+          0.20195162,
+          0.70082951
+        ]
+      },
+      "source_preview_location": [
+        6.800000190734863,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.18608695268630981,
+          -0.2315485030412674
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.01614402,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.91520655,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9997796416282654,
+        -0.8659899234771729,
+        -0.9979910850524902
+      ],
+      "normal_component_max": [
+        0.5144628882408142,
+        0.865990936756134,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass"
+      ],
+      "species": "Clover",
+      "lod": 1,
+      "role": "Border foliage",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.28017655,
+          0.0,
+          -0.34182027
+        ],
+        "max": [
+          0.29666948,
+          0.20195162,
+          0.35900924
+        ],
+        "size": [
+          0.57684603,
+          0.20195162,
+          0.70082951
+        ]
+      },
+      "footprint_radius_metres": 0.41830262017063236,
+      "expected_unity_normal_min": [
+        -0.9997796416282654,
+        -0.9979910850524902,
+        -0.8659899234771729
+      ],
+      "expected_unity_normal_max": [
+        0.5144628882408142,
+        1.0000001192092896,
+        0.865990936756134
+      ]
+    },
+    {
+      "name": "SM_DaisyWhite_LOD0",
+      "mesh_name": "SM_DaisyWhite_LOD0",
+      "vertices_before_fbx_seam_splitting": 228,
+      "polygons_before_triangulation": 114,
+      "polygons_in_authored_triangulated_mesh": 174,
+      "expected_triangles_after_export": 174,
+      "loops": 522,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.31885052,
+          -0.3669042,
+          0.0
+        ],
+        "max": [
+          0.40031055,
+          0.35862663,
+          0.55285108
+        ],
+        "size": [
+          0.71916106,
+          0.72553083,
+          0.55285108
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.31885052,
+          0.0,
+          -0.35862663
+        ],
+        "max": [
+          0.40031055,
+          0.55285108,
+          0.3669042
+        ],
+        "size": [
+          0.71916106,
+          0.55285108,
+          0.72553083
+        ]
+      },
+      "source_preview_location": [
+        8.5,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.1929222047328949,
+          -0.24314318597316742
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.05433805,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.852808,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9997636079788208,
+        -0.951023519039154,
+        -0.9991964101791382
+      ],
+      "normal_component_max": [
+        0.8112583756446838,
+        0.9510238766670227,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass",
+        "White",
+        "Gold"
+      ],
+      "species": "DaisyWhite",
+      "lod": 0,
+      "role": "Meadow accent",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass",
+        "White",
+        "Gold"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.31885052,
+          0.0,
+          -0.3669042
+        ],
+        "max": [
+          0.40031055,
+          0.55285108,
+          0.35862663
+        ],
+        "size": [
+          0.71916106,
+          0.55285108,
+          0.72553083
+        ]
+      },
+      "footprint_radius_metres": 0.4273583059681448,
+      "expected_unity_normal_min": [
+        -0.9997636079788208,
+        -0.9991964101791382,
+        -0.951023519039154
+      ],
+      "expected_unity_normal_max": [
+        0.8112583756446838,
+        1.0000001192092896,
+        0.9510238766670227
+      ]
+    },
+    {
+      "name": "SM_DaisyWhite_LOD1",
+      "mesh_name": "SM_DaisyWhite_LOD1",
+      "vertices_before_fbx_seam_splitting": 94,
+      "polygons_before_triangulation": 46,
+      "polygons_in_authored_triangulated_mesh": 70,
+      "expected_triangles_after_export": 70,
+      "loops": 210,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.42140776,
+          -0.17804562,
+          0.0
+        ],
+        "max": [
+          0.40031055,
+          0.17788462,
+          0.54490465
+        ],
+        "size": [
+          0.82171831,
+          0.35593024,
+          0.54490465
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.42140776,
+          0.0,
+          -0.17788462
+        ],
+        "max": [
+          0.40031055,
+          0.54490465,
+          0.17804562
+        ],
+        "size": [
+          0.82171831,
+          0.54490465,
+          0.35593024
+        ]
+      },
+      "source_preview_location": [
+        8.5,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.2966913878917694,
+          -0.05247979238629341
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.05433805,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.49175546,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9991966485977173,
+        -0.8660054206848145,
+        -0.9991722702980042
+      ],
+      "normal_component_max": [
+        0.49983352422714233,
+        0.8660055994987488,
+        1.0
+      ],
+      "material_slots": [
+        "Grass",
+        "White",
+        "Gold"
+      ],
+      "species": "DaisyWhite",
+      "lod": 1,
+      "role": "Meadow accent",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass",
+        "White",
+        "Gold"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.42140776,
+          0.0,
+          -0.17804562
+        ],
+        "max": [
+          0.40031055,
+          0.54490465,
+          0.17788462
+        ],
+        "size": [
+          0.82171831,
+          0.54490465,
+          0.35593024
+        ]
+      },
+      "footprint_radius_metres": 0.42735831317147205,
+      "expected_unity_normal_min": [
+        -0.9991966485977173,
+        -0.9991722702980042,
+        -0.8660054206848145
+      ],
+      "expected_unity_normal_max": [
+        0.49983352422714233,
+        1.0,
+        0.8660055994987488
+      ]
+    },
+    {
+      "name": "SM_FlowerGold_LOD0",
+      "mesh_name": "SM_FlowerGold_LOD0",
+      "vertices_before_fbx_seam_splitting": 198,
+      "polygons_before_triangulation": 102,
+      "polygons_in_authored_triangulated_mesh": 156,
+      "expected_triangles_after_export": 156,
+      "loops": 468,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.33256137,
+          -0.31987005,
+          0.0
+        ],
+        "max": [
+          0.3129257,
+          0.34493262,
+          0.42658761
+        ],
+        "size": [
+          0.64548707,
+          0.66480267,
+          0.42658761
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.33256137,
+          0.0,
+          -0.34493262
+        ],
+        "max": [
+          0.3129257,
+          0.42658761,
+          0.31987005
+        ],
+        "size": [
+          0.64548707,
+          0.42658761,
+          0.66480267
+        ]
+      },
+      "source_preview_location": [
+        10.199999809265137,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.22417926788330078,
+          -0.22304610908031464
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.04989709,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.94524741,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9997090697288513,
+        -0.9510114789009094,
+        -0.9985532164573669
+      ],
+      "normal_component_max": [
+        0.8132158517837524,
+        0.9510114192962646,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass",
+        "Gold"
+      ],
+      "species": "FlowerGold",
+      "lod": 0,
+      "role": "Meadow accent",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass",
+        "Gold"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.33256137,
+          0.0,
+          -0.31987005
+        ],
+        "max": [
+          0.3129257,
+          0.42658761,
+          0.34493262
+        ],
+        "size": [
+          0.64548707,
+          0.42658761,
+          0.66480267
+        ]
+      },
+      "footprint_radius_metres": 0.4347991872110991,
+      "expected_unity_normal_min": [
+        -0.9997090697288513,
+        -0.9985532164573669,
+        -0.9510114789009094
+      ],
+      "expected_unity_normal_max": [
+        0.8132158517837524,
+        1.0000001192092896,
+        0.9510114192962646
+      ]
+    },
+    {
+      "name": "SM_FlowerGold_LOD1",
+      "mesh_name": "SM_FlowerGold_LOD1",
+      "vertices_before_fbx_seam_splitting": 84,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 64,
+      "expected_triangles_after_export": 64,
+      "loops": 192,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.42528966,
+          -0.17130154,
+          0.0
+        ],
+        "max": [
+          0.3129257,
+          0.06709469,
+          0.42657971
+        ],
+        "size": [
+          0.73821536,
+          0.23839623,
+          0.42657971
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.42528966,
+          0.0,
+          -0.06709469
+        ],
+        "max": [
+          0.3129257,
+          0.42657971,
+          0.17130154
+        ],
+        "size": [
+          0.73821536,
+          0.42657971,
+          0.23839623
+        ]
+      },
+      "source_preview_location": [
+        10.199999809265137,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.3260408639907837,
+          -0.07162733376026154
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.04989709,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.47817063,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9986169934272766,
+        -0.8659845590591431,
+        -0.9985532164573669
+      ],
+      "normal_component_max": [
+        0.4998164474964142,
+        0.8659844994544983,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass",
+        "Gold"
+      ],
+      "species": "FlowerGold",
+      "lod": 1,
+      "role": "Meadow accent",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass",
+        "Gold"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.42528966,
+          0.0,
+          -0.17130154
+        ],
+        "max": [
+          0.3129257,
+          0.42657971,
+          0.06709469
+        ],
+        "size": [
+          0.73821536,
+          0.42657971,
+          0.23839623
+        ]
+      },
+      "footprint_radius_metres": 0.434799165149329,
+      "expected_unity_normal_min": [
+        -0.9986169934272766,
+        -0.9985532164573669,
+        -0.8659845590591431
+      ],
+      "expected_unity_normal_max": [
+        0.4998164474964142,
+        1.0000001192092896,
+        0.8659844994544983
+      ]
+    },
+    {
+      "name": "SM_FlowerPurple_LOD0",
+      "mesh_name": "SM_FlowerPurple_LOD0",
+      "vertices_before_fbx_seam_splitting": 556,
+      "polygons_before_triangulation": 248,
+      "polygons_in_authored_triangulated_mesh": 376,
+      "expected_triangles_after_export": 376,
+      "loops": 1128,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.36662251,
+          -0.40313321,
+          0.0
+        ],
+        "max": [
+          0.3660697,
+          0.29862431,
+          0.61745822
+        ],
+        "size": [
+          0.73269221,
+          0.70175752,
+          0.61745822
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.36662251,
+          0.0,
+          -0.29862431
+        ],
+        "max": [
+          0.3660697,
+          0.61745822,
+          0.40313321
+        ],
+        "size": [
+          0.73269221,
+          0.61745822,
+          0.70175752
+        ]
+      },
+      "source_preview_location": [
+        11.899999618530273,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.29597508907318115,
+          -0.3330477476119995
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.06040949,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.90111786,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999739527702332,
+        -0.9510403871536255,
+        -0.9993861317634583
+      ],
+      "normal_component_max": [
+        0.810218334197998,
+        0.9510400891304016,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass",
+        "Purple",
+        "Gold"
+      ],
+      "species": "FlowerPurple",
+      "lod": 0,
+      "role": "Meadow accent",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass",
+        "Purple",
+        "Gold"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.36662251,
+          0.0,
+          -0.40313321
+        ],
+        "max": [
+          0.3660697,
+          0.61745822,
+          0.29862431
+        ],
+        "size": [
+          0.73269221,
+          0.61745822,
+          0.70175752
+        ]
+      },
+      "footprint_radius_metres": 0.4119449482353115,
+      "expected_unity_normal_min": [
+        -0.9999739527702332,
+        -0.9993861317634583,
+        -0.9510403871536255
+      ],
+      "expected_unity_normal_max": [
+        0.810218334197998,
+        1.0000001192092896,
+        0.9510400891304016
+      ]
+    },
+    {
+      "name": "SM_FlowerPurple_LOD1",
+      "mesh_name": "SM_FlowerPurple_LOD1",
+      "vertices_before_fbx_seam_splitting": 138,
+      "polygons_before_triangulation": 62,
+      "polygons_in_authored_triangulated_mesh": 94,
+      "expected_triangles_after_export": 94,
+      "loops": 282,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.29862431,
+          -0.02413074,
+          0.0
+        ],
+        "max": [
+          0.3660697,
+          0.14048348,
+          0.60878843
+        ],
+        "size": [
+          0.66469401,
+          0.16461423,
+          0.60878843
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.29862431,
+          0.0,
+          -0.14048348
+        ],
+        "max": [
+          0.3660697,
+          0.60878843,
+          0.02413074
+        ],
+        "size": [
+          0.66469401,
+          0.60878843,
+          0.16461423
+        ]
+      },
+      "source_preview_location": [
+        11.899999618530273,
+        2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.22869421541690826,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.06040949,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.47108391,
+          1.0
+        ],
+        "meaning": "R=height/bend 0 roots to 1 tips; G=0; B=stable element phase; A=1 numerical data"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9993975758552551,
+        -0.8660023808479309,
+        -0.9993699789047241
+      ],
+      "normal_component_max": [
+        0.4999212622642517,
+        0.8660028576850891,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Grass",
+        "Purple",
+        "Gold"
+      ],
+      "species": "FlowerPurple",
+      "lod": 1,
+      "role": "Meadow accent",
+      "collision": false,
+      "alpha_bitmap_required": false,
+      "material_slot_roles": [
+        "Grass",
+        "Purple",
+        "Gold"
+      ],
+      "source_blade_indices": [],
+      "lod_strategy": "Reduced flower/stem or clover count",
+      "expected_unity_bounds_metres": {
+        "min": [
+          -0.29862431,
+          0.0,
+          -0.02413074
+        ],
+        "max": [
+          0.3660697,
+          0.60878843,
+          0.14048348
+        ],
+        "size": [
+          0.66469401,
+          0.60878843,
+          0.16461423
+        ]
+      },
+      "footprint_radius_metres": 0.3756189848151783,
+      "expected_unity_normal_min": [
+        -0.9993975758552551,
+        -0.9993699789047241,
+        -0.8660023808479309
+      ],
+      "expected_unity_normal_max": [
+        0.4999212622642517,
+        1.0000001192092896,
+        0.8660028576850891
+      ]
+    },
+    {
+      "name": "SM_MeadowAxisMarker",
+      "mesh_name": "SM_MeadowAxisMarker",
+      "vertices_before_fbx_seam_splitting": 56,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 84,
+      "expected_triangles_after_export": 84,
+      "loops": 252,
+      "bounds_blender_local_metres": {
+        "min": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.0,
+          0.102
+        ],
+        "size": [
+          2.0,
+          1.0,
+          0.102
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          1.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        -2.200000047683716,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.10199999809265137
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=0; G=0; B=0; A=1; raised X/Z labels"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_slots": [
+        "AxisX",
+        "AxisZ",
+        "AxisLabel"
+      ],
+      "species": "AxisMarker",
+      "lod": -1,
+      "role": "Import units/orientation proof only; omit from stage",
+      "collision": false,
+      "expected_unity_bounds_metres": {
+        "min": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          0.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      },
+      "footprint_radius_metres": 2.0024984395244916,
+      "expected_unity_normal_min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "expected_unity_normal_max": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "mesh_count": 17,
+  "total_expected_triangles": 1974,
+  "lod0_expected_triangles": 1462,
+  "lod1_expected_triangles": 428
+}

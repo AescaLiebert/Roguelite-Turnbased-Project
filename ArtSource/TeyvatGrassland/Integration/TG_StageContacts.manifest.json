@@ -1,0 +1,2065 @@
+{
+  "schema": "TG_WP07_Contacts_v1",
+  "generator_sha256": "1fbe5717691d5ad1abd4a89649f01d895f043de42758e0914049db7b1c6e0b17",
+  "source_blend_sha256": "d7cae4bdff10e891943fe98497584f0447ecb646c7ab3eff6a4f737e92bbe3c6",
+  "fbx_sha256": "a6b0da72deb42669287a518dd97b22a85e85c572e40f418d0de8f0722ba75759",
+  "clearance_below_water_metres": 0.34,
+  "water_channel_width": "half_width*1.16+.45 each side",
+  "objects": [
+    {
+      "name": "SM_WP07_CascadeLanding_00_LOD0",
+      "mesh_name": "SM_WP07_CascadeLanding_00_LOD0",
+      "vertices_before_fbx_seam_splitting": 166,
+      "polygons_before_triangulation": 108,
+      "polygons_in_authored_triangulated_mesh": 222,
+      "expected_triangles_after_export": 324,
+      "loops": 768,
+      "bounds_blender_local_metres": {
+        "min": [
+          -47.65618134,
+          58.97805023,
+          -2.20000005
+        ],
+        "max": [
+          -37.05109406,
+          71.96737671,
+          4.20757723
+        ],
+        "size": [
+          10.60508728,
+          12.98932648,
+          6.40757728
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -47.65618134,
+          -2.20000005,
+          -71.96737671
+        ],
+        "max": [
+          -37.05109406,
+          4.20757723,
+          -58.97805023
+        ],
+        "size": [
+          10.60508728,
+          6.40757728,
+          12.98932648
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -7.148427486419678,
+          -0.33000001311302185
+        ],
+        "max": [
+          10.7652587890625,
+          10.795106887817383
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9977853894233704,
+        -0.9918797016143799,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9977859854698181,
+        1.0,
+        1.0
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_CascadeLanding_00_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -47.65618134,
+          -2.20000005,
+          58.97805023
+        ],
+        "max": [
+          -37.05109406,
+          4.20757723,
+          71.96737671
+        ],
+        "size": [
+          10.60508728,
+          6.40757728,
+          12.98932648
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_CascadeLanding_00_LOD1",
+      "mesh_name": "SM_WP07_CascadeLanding_00_LOD1",
+      "vertices_before_fbx_seam_splitting": 115,
+      "polygons_before_triangulation": 64,
+      "polygons_in_authored_triangulated_mesh": 138,
+      "expected_triangles_after_export": 222,
+      "loops": 498,
+      "bounds_blender_local_metres": {
+        "min": [
+          -46.94562912,
+          58.68112564,
+          -2.20000005
+        ],
+        "max": [
+          -37.05109406,
+          72.31287384,
+          4.15738678
+        ],
+        "size": [
+          9.89453506,
+          13.6317482,
+          6.35738683
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -46.94562912,
+          -2.20000005,
+          -72.31287384
+        ],
+        "max": [
+          -37.05109406,
+          4.15738678,
+          -58.68112564
+        ],
+        "size": [
+          9.89453506,
+          6.35738683,
+          13.6317482
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -7.041844844818115,
+          -0.33000001311302185
+        ],
+        "max": [
+          10.70059871673584,
+          10.846930503845215
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9977850914001465,
+        -0.9448708891868591,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9756022095680237,
+        1.0,
+        0.9950371384620667
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_CascadeLanding_00_LOD1",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -46.94562912,
+          -2.20000005,
+          58.68112564
+        ],
+        "max": [
+          -37.05109406,
+          4.15738678,
+          72.31287384
+        ],
+        "size": [
+          9.89453506,
+          6.35738683,
+          13.6317482
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_CascadeLanding_01_LOD0",
+      "mesh_name": "SM_WP07_CascadeLanding_01_LOD0",
+      "vertices_before_fbx_seam_splitting": 168,
+      "polygons_before_triangulation": 108,
+      "polygons_in_authored_triangulated_mesh": 219,
+      "expected_triangles_after_export": 328,
+      "loops": 766,
+      "bounds_blender_local_metres": {
+        "min": [
+          -18.23724937,
+          55.76025391,
+          -2.20000005
+        ],
+        "max": [
+          -4.28442717,
+          74.46651459,
+          6.50367165
+        ],
+        "size": [
+          13.95282221,
+          18.70626068,
+          8.70367169
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -18.23724937,
+          -2.20000005,
+          -74.46651459
+        ],
+        "max": [
+          -4.28442717,
+          6.50367165,
+          -55.76025391
+        ],
+        "size": [
+          13.95282221,
+          8.70367169,
+          18.70626068
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.7355873584747314,
+          -0.33000001311302185
+        ],
+        "max": [
+          11.164450645446777,
+          11.169977188110352
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.997785210609436,
+        -0.9926641583442688,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9848272204399109,
+        1.0,
+        0.9972387552261353
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_CascadeLanding_01_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -18.23724937,
+          -2.20000005,
+          55.76025391
+        ],
+        "max": [
+          -4.28442717,
+          6.50367165,
+          74.46651459
+        ],
+        "size": [
+          13.95282221,
+          8.70367169,
+          18.70626068
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_CascadeLanding_01_LOD1",
+      "mesh_name": "SM_WP07_CascadeLanding_01_LOD1",
+      "vertices_before_fbx_seam_splitting": 102,
+      "polygons_before_triangulation": 64,
+      "polygons_in_authored_triangulated_mesh": 127,
+      "expected_triangles_after_export": 196,
+      "loops": 450,
+      "bounds_blender_local_metres": {
+        "min": [
+          -18.08294296,
+          55.96351624,
+          -2.20000005
+        ],
+        "max": [
+          -4.65748882,
+          75.16542053,
+          6.53685379
+        ],
+        "size": [
+          13.42545414,
+          19.2019043,
+          8.73685384
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -18.08294296,
+          -2.20000005,
+          -75.16542053
+        ],
+        "max": [
+          -4.65748882,
+          6.53685379,
+          -55.96351624
+        ],
+        "size": [
+          13.42545414,
+          8.73685384,
+          19.2019043
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -2.7124414443969727,
+          -0.33000001311302185
+        ],
+        "max": [
+          11.04179859161377,
+          11.274812698364258
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9977851510047913,
+        -0.9930251836776733,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9605153799057007,
+        0.9526265263557434,
+        0.9972389936447144
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_CascadeLanding_01_LOD1",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -18.08294296,
+          -2.20000005,
+          55.96351624
+        ],
+        "max": [
+          -4.65748882,
+          6.53685379,
+          75.16542053
+        ],
+        "size": [
+          13.42545414,
+          8.73685384,
+          19.2019043
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_CascadeLanding_02_LOD0",
+      "mesh_name": "SM_WP07_CascadeLanding_02_LOD0",
+      "vertices_before_fbx_seam_splitting": 177,
+      "polygons_before_triangulation": 108,
+      "polygons_in_authored_triangulated_mesh": 234,
+      "expected_triangles_after_export": 346,
+      "loops": 814,
+      "bounds_blender_local_metres": {
+        "min": [
+          37.41413879,
+          64.90939331,
+          -2.20000005
+        ],
+        "max": [
+          49.63279724,
+          85.84397125,
+          4.06812048
+        ],
+        "size": [
+          12.21865845,
+          20.93457794,
+          6.26812053
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          37.41413879,
+          -2.20000005,
+          -85.84397125
+        ],
+        "max": [
+          49.63279724,
+          4.06812048,
+          -64.90939331
+        ],
+        "size": [
+          12.21865845,
+          6.26812053,
+          20.93457794
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          -0.33000001311302185
+        ],
+        "max": [
+          12.700172424316406,
+          12.876596450805664
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9977852702140808,
+        -0.9885247945785522,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9952256083488464,
+        0.9999999403953552,
+        0.9950371980667114
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_CascadeLanding_02_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          37.41413879,
+          -2.20000005,
+          64.90939331
+        ],
+        "max": [
+          49.63279724,
+          4.06812048,
+          85.84397125
+        ],
+        "size": [
+          12.21865845,
+          6.26812053,
+          20.93457794
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_CascadeLanding_02_LOD1",
+      "mesh_name": "SM_WP07_CascadeLanding_02_LOD1",
+      "vertices_before_fbx_seam_splitting": 105,
+      "polygons_before_triangulation": 64,
+      "polygons_in_authored_triangulated_mesh": 132,
+      "expected_triangles_after_export": 202,
+      "loops": 466,
+      "bounds_blender_local_metres": {
+        "min": [
+          37.50568771,
+          65.21266174,
+          -2.20000005
+        ],
+        "max": [
+          49.36594772,
+          86.00862885,
+          3.95274639
+        ],
+        "size": [
+          11.86026001,
+          20.7959671,
+          6.15274644
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          37.50568771,
+          -2.20000005,
+          -86.00862885
+        ],
+        "max": [
+          49.36594772,
+          3.95274639,
+          -65.21266174
+        ],
+        "size": [
+          11.86026001,
+          6.15274644,
+          20.7959671
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          -0.33000001311302185
+        ],
+        "max": [
+          12.751960754394531,
+          12.901294708251953
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.997785747051239,
+        -0.9895718693733215,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.993166983127594,
+        0.9546830654144287,
+        0.9950371384620667
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_CascadeLanding_02_LOD1",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          37.50568771,
+          -2.20000005,
+          65.21266174
+        ],
+        "max": [
+          49.36594772,
+          3.95274639,
+          86.00862885
+        ],
+        "size": [
+          11.86026001,
+          6.15274644,
+          20.7959671
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_Cliff_T1_05_LOD0",
+      "mesh_name": "SM_WP07_Cliff_T1_05_LOD0",
+      "vertices_before_fbx_seam_splitting": 180,
+      "polygons_before_triangulation": 338,
+      "polygons_in_authored_triangulated_mesh": 356,
+      "expected_triangles_after_export": 356,
+      "loops": 1068,
+      "bounds_blender_local_metres": {
+        "min": [
+          -39.0,
+          61.55634308,
+          -7.0
+        ],
+        "max": [
+          -18.0,
+          97.21116638,
+          23.37073898
+        ],
+        "size": [
+          21.0,
+          35.6548233,
+          30.37073898
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -39.0,
+          -7.0,
+          -97.21116638
+        ],
+        "max": [
+          -18.0,
+          23.37073898,
+          -61.55634308
+        ],
+        "size": [
+          21.0,
+          30.37073898,
+          35.6548233
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -5.849999904632568,
+          -1.0499999523162842
+        ],
+        "max": [
+          14.581674575805664,
+          14.581674575805664
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9998728036880493,
+        -0.999996542930603,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9998878240585327,
+        0.9999964833259583,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_Cliff_T1_05_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -39.0,
+          -7.0,
+          61.55634308
+        ],
+        "max": [
+          -18.0,
+          23.37073898,
+          97.21116638
+        ],
+        "size": [
+          21.0,
+          30.37073898,
+          35.6548233
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_Cliff_T1_05_LOD1",
+      "mesh_name": "SM_WP07_Cliff_T1_05_LOD1",
+      "vertices_before_fbx_seam_splitting": 72,
+      "polygons_before_triangulation": 122,
+      "polygons_in_authored_triangulated_mesh": 140,
+      "expected_triangles_after_export": 140,
+      "loops": 420,
+      "bounds_blender_local_metres": {
+        "min": [
+          -39.0,
+          61.55400848,
+          -7.0
+        ],
+        "max": [
+          -18.0,
+          97.21116638,
+          23.37073898
+        ],
+        "size": [
+          21.0,
+          35.6571579,
+          30.37073898
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -39.0,
+          -7.0,
+          -97.21116638
+        ],
+        "max": [
+          -18.0,
+          23.37073898,
+          -61.55400848
+        ],
+        "size": [
+          21.0,
+          30.37073898,
+          35.6571579
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -5.849999904632568,
+          -1.0499999523162842
+        ],
+        "max": [
+          14.581674575805664,
+          14.581674575805664
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9998728036880493,
+        -0.9995819926261902,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9998878240585327,
+        0.9995819926261902,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_Cliff_T1_05_LOD1",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -39.0,
+          -7.0,
+          61.55400848
+        ],
+        "max": [
+          -18.0,
+          23.37073898,
+          97.21116638
+        ],
+        "size": [
+          21.0,
+          30.37073898,
+          35.6571579
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_Cliff_T1_06_LOD0",
+      "mesh_name": "SM_WP07_Cliff_T1_06_LOD0",
+      "vertices_before_fbx_seam_splitting": 154,
+      "polygons_before_triangulation": 242,
+      "polygons_in_authored_triangulated_mesh": 270,
+      "expected_triangles_after_export": 304,
+      "loops": 844,
+      "bounds_blender_local_metres": {
+        "min": [
+          -6.9791584,
+          67.15126038,
+          -7.0
+        ],
+        "max": [
+          9.87111473,
+          108.2876358,
+          22.4762001
+        ],
+        "size": [
+          16.85027313,
+          41.13637543,
+          29.4762001
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -6.9791584,
+          -7.0,
+          -108.2876358
+        ],
+        "max": [
+          9.87111473,
+          22.4762001,
+          -67.15126038
+        ],
+        "size": [
+          16.85027313,
+          29.4762001,
+          41.13637543
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.0468738079071045,
+          -1.0499999523162842
+        ],
+        "max": [
+          16.243144989013672,
+          16.243144989013672
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9984603524208069,
+        -0.9900107383728027,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9997029304504395,
+        0.9249477386474609,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_Cliff_T1_06_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -6.9791584,
+          -7.0,
+          67.15126038
+        ],
+        "max": [
+          9.87111473,
+          22.4762001,
+          108.2876358
+        ],
+        "size": [
+          16.85027313,
+          29.4762001,
+          41.13637543
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_Cliff_T1_06_LOD1",
+      "mesh_name": "SM_WP07_Cliff_T1_06_LOD1",
+      "vertices_before_fbx_seam_splitting": 82,
+      "polygons_before_triangulation": 98,
+      "polygons_in_authored_triangulated_mesh": 126,
+      "expected_triangles_after_export": 160,
+      "loops": 412,
+      "bounds_blender_local_metres": {
+        "min": [
+          -6.9791584,
+          67.15126038,
+          -7.0
+        ],
+        "max": [
+          9.87111473,
+          108.2876358,
+          22.4762001
+        ],
+        "size": [
+          16.85027313,
+          41.13637543,
+          29.4762001
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -6.9791584,
+          -7.0,
+          -108.2876358
+        ],
+        "max": [
+          9.87111473,
+          22.4762001,
+          -67.15126038
+        ],
+        "size": [
+          16.85027313,
+          29.4762001,
+          41.13637543
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.0468738079071045,
+          -1.0499999523162842
+        ],
+        "max": [
+          16.243144989013672,
+          16.243144989013672
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9984602928161621,
+        -0.965742290019989,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9997029304504395,
+        0.9206084609031677,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_Cliff_T1_06_LOD1",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -6.9791584,
+          -7.0,
+          67.15126038
+        ],
+        "max": [
+          9.87111473,
+          22.4762001,
+          108.2876358
+        ],
+        "size": [
+          16.85027313,
+          29.4762001,
+          41.13637543
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_FallTalus_1_04_LOD0",
+      "mesh_name": "SM_WP07_FallTalus_1_04_LOD0",
+      "vertices_before_fbx_seam_splitting": 50,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 96,
+      "expected_triangles_after_export": 96,
+      "loops": 288,
+      "bounds_blender_local_metres": {
+        "min": [
+          -6.32962894,
+          62.93837357,
+          1.9257611
+        ],
+        "max": [
+          -2.7778008,
+          64.84310913,
+          4.52689552
+        ],
+        "size": [
+          3.55182815,
+          1.90473557,
+          2.60113442
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -6.32962894,
+          1.9257611,
+          -64.84310913
+        ],
+        "max": [
+          -2.7778008,
+          4.52689552,
+          -62.93837357
+        ],
+        "size": [
+          3.55182815,
+          2.60113442,
+          1.90473557
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.9114559888839722,
+          0.2888641655445099
+        ],
+        "max": [
+          9.70649528503418,
+          9.704753875732422
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9003059267997742,
+        -0.9991703629493713,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9802903532981873,
+        0.993232250213623,
+        0.9967160224914551
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_FallTalus_1_04_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          -6.32962894,
+          1.9257611,
+          62.93837357
+        ],
+        "max": [
+          -2.7778008,
+          4.52689552,
+          64.84310913
+        ],
+        "size": [
+          3.55182815,
+          2.60113442,
+          1.90473557
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_FallTalus_2_02_LOD0",
+      "mesh_name": "SM_WP07_FallTalus_2_02_LOD0",
+      "vertices_before_fbx_seam_splitting": 50,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 96,
+      "expected_triangles_after_export": 96,
+      "loops": 288,
+      "bounds_blender_local_metres": {
+        "min": [
+          47.36842728,
+          64.25435638,
+          -3.71110177
+        ],
+        "max": [
+          50.02744675,
+          70.6964035,
+          -1.51356065
+        ],
+        "size": [
+          2.65901947,
+          6.44204712,
+          2.19754112
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          47.36842728,
+          -3.71110177,
+          -70.6964035
+        ],
+        "max": [
+          50.02744675,
+          -1.51356065,
+          -64.25435638
+        ],
+        "size": [
+          2.65901947,
+          2.19754112,
+          6.44204712
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          7.138956546783447,
+          -0.556665301322937
+        ],
+        "max": [
+          10.604460716247559,
+          10.604460716247559
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9688945412635803,
+        -0.925060510635376,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9993448257446289,
+        0.9039271473884583,
+        0.9942744970321655
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_FallTalus_2_02_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          47.36842728,
+          -3.71110177,
+          64.25435638
+        ],
+        "max": [
+          50.02744675,
+          -1.51356065,
+          70.6964035
+        ],
+        "size": [
+          2.65901947,
+          2.19754112,
+          6.44204712
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_FallTalus_2_05_LOD0",
+      "mesh_name": "SM_WP07_FallTalus_2_05_LOD0",
+      "vertices_before_fbx_seam_splitting": 50,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 96,
+      "expected_triangles_after_export": 96,
+      "loops": 288,
+      "bounds_blender_local_metres": {
+        "min": [
+          35.02222824,
+          68.27339935,
+          -2.38995981
+        ],
+        "max": [
+          38.79601288,
+          70.51386261,
+          -0.83126253
+        ],
+        "size": [
+          3.77378464,
+          2.24046326,
+          1.55869728
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          35.02222824,
+          -2.38995981,
+          -70.51386261
+        ],
+        "max": [
+          38.79601288,
+          -0.83126253,
+          -68.27339935
+        ],
+        "size": [
+          3.77378464,
+          1.55869728,
+          2.24046326
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          5.267569065093994,
+          -0.35849398374557495
+        ],
+        "max": [
+          10.502941131591797,
+          10.558176040649414
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9379139542579651,
+        -0.9980459213256836,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9074460864067078,
+        0.9672238230705261,
+        0.9920057058334351
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_FallTalus_2_05_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          35.02222824,
+          -2.38995981,
+          68.27339935
+        ],
+        "max": [
+          38.79601288,
+          -0.83126253,
+          70.51386261
+        ],
+        "size": [
+          3.77378464,
+          1.55869728,
+          2.24046326
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_FallTalus_2_06_LOD0",
+      "mesh_name": "SM_WP07_FallTalus_2_06_LOD0",
+      "vertices_before_fbx_seam_splitting": 50,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 96,
+      "expected_triangles_after_export": 96,
+      "loops": 288,
+      "bounds_blender_local_metres": {
+        "min": [
+          44.23862457,
+          68.75400543,
+          -2.23109508
+        ],
+        "max": [
+          50.78460312,
+          70.91241455,
+          -0.79069823
+        ],
+        "size": [
+          6.54597855,
+          2.15840912,
+          1.44039685
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          44.23862457,
+          -2.23109508,
+          -70.91241455
+        ],
+        "max": [
+          50.78460312,
+          -0.79069823,
+          -68.75400543
+        ],
+        "size": [
+          6.54597855,
+          1.44039685,
+          2.15840912
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          6.635793209075928,
+          -0.3346642553806305
+        ],
+        "max": [
+          10.492905616760254,
+          10.619523048400879
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.7734190225601196,
+        -0.9874458312988281,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.5660976767539978,
+        0.9775872826576233,
+        0.9981479644775391
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_FallTalus_2_06_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          44.23862457,
+          -2.23109508,
+          68.75400543
+        ],
+        "max": [
+          50.78460312,
+          -0.79069823,
+          70.91241455
+        ],
+        "size": [
+          6.54597855,
+          1.44039685,
+          2.15840912
+        ]
+      }
+    },
+    {
+      "name": "SM_WP07_FallTalus_2_07_LOD0",
+      "mesh_name": "SM_WP07_FallTalus_2_07_LOD0",
+      "vertices_before_fbx_seam_splitting": 50,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 96,
+      "expected_triangles_after_export": 96,
+      "loops": 288,
+      "bounds_blender_local_metres": {
+        "min": [
+          46.41109848,
+          68.68180847,
+          -1.15150595
+        ],
+        "max": [
+          50.18962479,
+          72.98877716,
+          1.08184063
+        ],
+        "size": [
+          3.77852631,
+          4.30696869,
+          2.23334658
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          46.41109848,
+          -1.15150595,
+          -72.98877716
+        ],
+        "max": [
+          50.18962479,
+          1.08184063,
+          -68.68180847
+        ],
+        "size": [
+          3.77852631,
+          2.23334658,
+          4.30696869
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          6.994100570678711,
+          -0.1727258861064911
+        ],
+        "max": [
+          10.94831657409668,
+          10.94831657409668
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R0 G0 B0 A1; rigid authored landscape"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.879883348941803,
+        -0.9840677380561829,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9644215703010559,
+        0.9183304309844971,
+        0.9878907203674316
+      ],
+      "material_slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "replaces": "SM_R3_FallTalus_2_07_LOD0",
+      "slots": [
+        "Ground",
+        "Soil",
+        "Rock",
+        "RockShade",
+        "Moss"
+      ],
+      "bounds_unity_local_metres": {
+        "min": [
+          46.41109848,
+          -1.15150595,
+          68.68180847
+        ],
+        "max": [
+          50.18962479,
+          1.08184063,
+          72.98877716
+        ],
+        "size": [
+          3.77852631,
+          2.23334658,
+          4.30696869
+        ]
+      }
+    }
+  ]
+}

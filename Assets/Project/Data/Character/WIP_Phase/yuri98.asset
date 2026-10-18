@@ -21,15 +21,16 @@ MonoBehaviour:
   - trait.art-of-fighting
   - trait.women
   - trait.series-kof
-  passiveSourceDescription: "When an enemy is defeated, decrease all enemies' Power Gauge by 2 orbs."
+  passiveSourceDescription: When an enemy is defeated, decrease all enemies' Power
+    Gauge by 2 orbs.
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: b19ba5f1f9801014a847513d1093fa88, type: 2}
   id: 1223
   fighterName: Yuri Sakazaki 98
-  fighterPic: {fileID: 21300000, guid: 5be8e5f7d3ac9174c8001a2be3b84412, type: 3}
+  fighterPic: {fileID: 21300000, guid: 5ff3cb7c80d81bd478a907250c575216, type: 3}
   fighterIcon: {fileID: 21300000, guid: 48a26524b3ca4bf46894eb42cb31dd53, type: 3}
-  fighterFull: {fileID: 21300000, guid: 5be8e5f7d3ac9174c8001a2be3b84412, type: 3}
+  fighterFull: {fileID: 21300000, guid: 5ff3cb7c80d81bd478a907250c575216, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}

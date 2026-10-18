@@ -1,0 +1,872 @@
+{
+  "schema": "TG_WP01_LayoutR3_Handoff_v1",
+  "generatedUtc": "2026-10-18T13:08:43.040729+00:00",
+  "status": "Revised layout implementation and isolated static review; not final tree/water/lighting art or animated combat/player performance acceptance",
+  "revision": "WP01-r3",
+  "userDirection": "Redesign battle land/river/five islands/stepped cliff hierarchy and cascade bases; undulate surroundings and recompose props/trees/rocks; grass40-60percent actorheight",
+  "warm": {
+    "passed": true,
+    "imports": true,
+    "camera": true,
+    "anchors": true,
+    "tallGrass": true,
+    "rootContact": true,
+    "islands": 5,
+    "cascades": 3,
+    "meshes": 186,
+    "cameras": 20,
+    "placements": 27856,
+    "gpu": "AMD Radeon(TM) Graphics",
+    "context": "R3 authored layout redesign, isolated URP Linear editor review; static actor proxies, tree/sky/water look development remains."
+  },
+  "cold": {
+    "passed": true,
+    "imports": true,
+    "camera": true,
+    "anchors": true,
+    "tallGrass": true,
+    "rootContact": true,
+    "islands": 5,
+    "cascades": 3,
+    "meshes": 186,
+    "cameras": 20,
+    "placements": 27856,
+    "gpu": "AMD Radeon(TM) Graphics",
+    "context": "Independent cold saved-scene process, no rebuild."
+  },
+  "composition": {
+    "passed": true,
+    "originalCameraPosesRetained": true,
+    "independentTerrain": true,
+    "shadersSupported": true,
+    "missingScripts": 0,
+    "grassHeadClearanceViolations": 0,
+    "grassCellBoundsViolations": 0,
+    "grassAnimatedBoundsViolations": 0,
+    "grassVerticesSampled": 306300,
+    "sweepPositions": 264,
+    "surroundingLandMin": -0.7355804443359375,
+    "surroundingLandMax": 3.958615303039551,
+    "islands": [
+      {
+        "name": "Heron",
+        "center": {
+          "x": -45.16630172729492,
+          "y": 2.5885744094848633,
+          "z": 26.89810562133789
+        },
+        "nativeTopAboveWater": 2.0509705543518066,
+        "wetSurroundSamples": 12,
+        "passed": true
+      },
+      {
+        "name": "Willow",
+        "center": {
+          "x": -12.166301727294922,
+          "y": 2.9868526458740234,
+          "z": 32.89810562133789
+        },
+        "nativeTopAboveWater": 2.449248790740967,
+        "wetSurroundSamples": 12,
+        "passed": true
+      },
+      {
+        "name": "Split",
+        "center": {
+          "x": 29.833698272705078,
+          "y": 2.3880615234375,
+          "z": 29.89810562133789
+        },
+        "nativeTopAboveWater": 1.850457787513733,
+        "wetSurroundSamples": 12,
+        "passed": true
+      },
+      {
+        "name": "LeftCascade",
+        "center": {
+          "x": -42.16630172729492,
+          "y": 4.3876953125,
+          "z": 44.89810562133789
+        },
+        "nativeTopAboveWater": 3.8500914573669434,
+        "wetSurroundSamples": 12,
+        "passed": true
+      },
+      {
+        "name": "RightCascade",
+        "center": {
+          "x": 42.83369827270508,
+          "y": 3.5874767303466797,
+          "z": 42.89810562133789
+        },
+        "nativeTopAboveWater": 3.049872875213623,
+        "wetSurroundSamples": 12,
+        "passed": true
+      }
+    ],
+    "cascades": [
+      {
+        "name": "Left",
+        "pathPoints": 6,
+        "drop": 24.009910583496094,
+        "totalHorizontalRun": 21.003808975219727,
+        "waterJoinError": 0.08000004291534424,
+        "descending": true,
+        "passed": true
+      },
+      {
+        "name": "Hero",
+        "pathPoints": 6,
+        "drop": 24.698566436767578,
+        "totalHorizontalRun": 26.78042221069336,
+        "waterJoinError": 0.08000004291534424,
+        "descending": true,
+        "passed": true
+      },
+      {
+        "name": "Right",
+        "pathPoints": 6,
+        "drop": 16.034975051879883,
+        "totalHorizontalRun": 28.70891761779785,
+        "waterJoinError": 0.08000004291534424,
+        "descending": true,
+        "passed": true
+      }
+    ],
+    "method": "Actual native TerrainData, saved geometry and vegetation matrices. Five island centers and12 exterior wet-bed probes each; three descending6point cascade paths. Original17 camera transforms retained. Grass full rotated bothLOD bounds inside saved cells; sampled animated vertices (every200th placement,12 times,strength1) plus264 gameplay sweep-to-head AABB checks. Surrounding land sampled outside core and above water.",
+    "limitations": "Wet-bed probes establish local separation, not fluid connectivity. Cascade paths and terrain support are layout evidence; water shader breakup, mist, erosion and polished foam are WP06. Static proxy head rays and sampled bounds do not replace actual animated combat or player performance."
+  },
+  "grass": {
+    "revision": "LayoutR3-user-height-direction",
+    "policy": "Grass is allowed throughout the battle field and character positions. Most grass targets 40-60 percent of the actual 3m review proxy (1.2-1.8m), lower near actors and taller in broad border clusters. The previous 0.35m short-cover cap is superseded. Clover is understory; flowers are accents. Actual highest terrain/mesh surface controls placement, with a 0.08m maximum root gap. Head visibility uses 2.5m targets, not a 1.6m torso prohibition.",
+    "measurement": "Height statistics use transformed actual LOD0 vertex positions, excluding stored animation bounds. Root tests sample actual root vertices against highest scene geometry. Values are starting art choices, not a player performance guarantee.",
+    "seed": 20261021,
+    "candidates": 197349,
+    "placed": 27856,
+    "surfaceRejected": 9610,
+    "contactRejected": 511,
+    "cameraRejected": 0,
+    "densityRejected": 159372,
+    "budgetRejected": 0,
+    "grassPlants": 26248,
+    "flowerPlants": 1038,
+    "speciesCounts": [
+      0,
+      15110,
+      8488,
+      2650,
+      570,
+      439,
+      384,
+      215
+    ],
+    "actorProxyHeight": 3.0,
+    "requestedGrassMinMetres": 1.2000000476837158,
+    "requestedGrassMaxMetres": 1.8000000715255737,
+    "grassMinMetres": 1.2225314378738403,
+    "grassMaxMetres": 1.8000001907348633,
+    "grassAverageMetres": 1.6345750093460083,
+    "grassMinRatio": 0.4075104892253876,
+    "grassMaxRatio": 0.6000000834465027,
+    "maximumRootGap": 0.079345703125,
+    "maximumRootBurial": 0.1290264129638672,
+    "rootContactPassed": true,
+    "grassRangePassed": true
+  },
+  "mainPreserved": true,
+  "unitypackage": {
+    "path": "Artifacts/TeyvatGrassland/WP01/Revision03/TG_WP01_LayoutR3.unitypackage",
+    "bytes": 13757512,
+    "sha256": "848214893d847e699b352a3f0bf238d5d49b8b361fd9e5a1d7e0acaab7134cb4",
+    "assets": 87
+  },
+  "editableSource": {
+    "path": "Artifacts/TeyvatGrassland/WP01/Revision03/TG_WP01_LayoutR3_EditableSource.zip",
+    "bytes": 13051898,
+    "sha256": "26c6d1c0cca79077a089bee9a4b6c368c303cf5a32e0b3624dd54cf3656b2757",
+    "files": 17,
+    "requires": "Accepted Shared/WP03/WP04 inputs from repository or delivered Unity package; not standalone Unity project"
+  },
+  "files": [
+    {
+      "path": "ArtDirection/TeyvatGrasslandConcepts/WP01_LayoutR3.md",
+      "bytes": 9913,
+      "sha256": "3dc9c87ed4331f48bf698d9210c73f44d26824811532629d1ab346ff5dd1cc9d"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/create_layout_geometry.py",
+      "bytes": 16649,
+      "sha256": "90b704dbd3d4acf52bd2c27e9bc2e0fff2882bd3c2e44cc94cc9485d99d988a7"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/create_layout_plan.py",
+      "bytes": 5503,
+      "sha256": "2baaa683aa3165c70f6fe04518fc3d0aaa5a56f8cc646203fc4ddc5405d1f00c"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/README.md",
+      "bytes": 1991,
+      "sha256": "09842282a84dd9a2931653e1a380d2744ac57e1170e7ddea6fc258dced2f9212"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutGeometry.blend",
+      "bytes": 2230721,
+      "sha256": "d7cae4bdff10e891943fe98497584f0447ecb646c7ab3eff6a4f737e92bbe3c6"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutGeometry.fbx",
+      "bytes": 3675516,
+      "sha256": "548b9a6a11a40e08598b2f1b4b33445ce1740dc7d288db411bacf9e19f146d81"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutGeometry.manifest.json",
+      "bytes": 604340,
+      "sha256": "948e21a9644a1fb367915845a3f6c493b958faf642039ac09e1a873fbf10a9b7"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutPlan.json",
+      "bytes": 4863,
+      "sha256": "e0c8b1f64e1a07470d7c46b78bfa7ad4654653a74750ae8bd89b8465e9ac952b"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutTerrainSource.json",
+      "bytes": 4919887,
+      "sha256": "4d3d209970b16ecbd27516975744a97b400fbca1dc6ee44f38a2812ba6437b0f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_Layout.json",
+      "bytes": 10665,
+      "sha256": "6a51b0990741e6effe8bf8e2de9bd65d651d52f3c11ea6cf7aecc163177c90bb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_Layout.json.meta",
+      "bytes": 158,
+      "sha256": "e0241fe039e3e12136a08a9630c477c4b6cf6eec4fe0435bb0bb4c4640c8f468"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_LayoutPlan.json",
+      "bytes": 4863,
+      "sha256": "e0c8b1f64e1a07470d7c46b78bfa7ad4654653a74750ae8bd89b8465e9ac952b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_LayoutPlan.json.meta",
+      "bytes": 158,
+      "sha256": "00c76189393ecfd472f20f095532a73cef6600c4e4f4828afd468b0f4ac29ea4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_LayoutTerrainSource.json",
+      "bytes": 4919887,
+      "sha256": "4d3d209970b16ecbd27516975744a97b400fbca1dc6ee44f38a2812ba6437b0f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_LayoutTerrainSource.json.meta",
+      "bytes": 158,
+      "sha256": "1bfc885d58f827c4baa23b75bf8b1425f43f9b7c9d0502c03b00dbc6d090fa77"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_TreeComposition.json",
+      "bytes": 38529,
+      "sha256": "4ad11728ea82bd34628be91b4be39a7152b1b535680bbf16eb50db77aee848e2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data/TG_TreeComposition.json.meta",
+      "bytes": 158,
+      "sha256": "da717c60dfd97deb79dfd03adb640f6e7e65b0fb544e9377bec78372cf36e5e9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Data.meta",
+      "bytes": 172,
+      "sha256": "b75f4176ce68c8ce758145c97c83a3321b6e040f756342af694b17285c989f40"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_CanopyVolume.mat",
+      "bytes": 1160,
+      "sha256": "0815cb5fb3bc5782a7e6aaac0e98e4920bbca2dc73180e2a93200c2163cfd00f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_CanopyVolume.mat.meta",
+      "bytes": 188,
+      "sha256": "7f73de05de2df8fb14e95f68ba0120a74dc6fcfd769667d6fc7a909269ae7777"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_DistantBlue.mat",
+      "bytes": 1160,
+      "sha256": "74b312900477f0d87ad9d22828e10d1c8dba929cec97295a6643162b44d2beab"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_DistantBlue.mat.meta",
+      "bytes": 188,
+      "sha256": "fb3df9a0c0073e39c32fc14c6f7c3f756707e423365157529009d243f3ca3e9d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Enemy.mat",
+      "bytes": 1153,
+      "sha256": "a0bcb0b97b9aed78b4487d8914a58b585d428c5eaf35b1ca65d5d7de3aa51a24"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Enemy.mat.meta",
+      "bytes": 188,
+      "sha256": "130d0989a02b5699e5fc10623acd20b8393b9dfd21b2c04cd54b52ebd07f9b8c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Ground.mat",
+      "bytes": 1146,
+      "sha256": "ecf8d96559c7e911cd86ed6161e37b3508c40baf6de46e9f4ba9723e5d1b7bfe"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Ground.mat.meta",
+      "bytes": 188,
+      "sha256": "13a5421ed3c97018fd0b2f5a95d35ee09d6202089314967f1073eb1f882691e0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Leaf.mat",
+      "bytes": 1231,
+      "sha256": "a58ac08cbb1207c99819baa644277f017c84d09a70457d96706e566c8ea439e0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Leaf.mat.meta",
+      "bytes": 188,
+      "sha256": "6b10efdfa4040130debc449523809971741cd80e351cfdb01334dbba50f4231f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Moss.mat",
+      "bytes": 1144,
+      "sha256": "e5c12ec4bc283bddfaa43058cc30e88375a1dd6a917f876edbafc32bafa00c0e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Moss.mat.meta",
+      "bytes": 188,
+      "sha256": "9476342e18295b2f8cc6d0fe95ab54d8243206c321b6410066654629bd568be5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_PineVolume.mat",
+      "bytes": 1159,
+      "sha256": "b5c050a59b14af34b7d2cc99f9c827b13a57308b6ce4192a067a40a6876fb45e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_PineVolume.mat.meta",
+      "bytes": 188,
+      "sha256": "223d21ebb2cfd40612a16499cf8b2d05adf4c0f4e736a76eed802116b8aee59c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Player.mat",
+      "bytes": 1155,
+      "sha256": "a256b92d4d4fcea31548469213e4c1b663ad654d8e77846a53e827a720b93581"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Player.mat.meta",
+      "bytes": 188,
+      "sha256": "4bcae728d4270738afb5c873a0cb8a232f06ad06ca45a7bbf2a1f2d8a2cf874e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_River.mat",
+      "bytes": 1162,
+      "sha256": "d3ec00400546028c0c0a25034de7cf467dd939b0588ba7d7f005feb7ecceef26"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_River.mat.meta",
+      "bytes": 188,
+      "sha256": "d2f76bbad94054688a57b74a02636423f16d0a54f8688dcabe11acbe9d6cfc26"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Rock.mat",
+      "bytes": 1208,
+      "sha256": "689c65d8fb8a0d0815d77e550c4e2772c2922dd36def3cb32751a3c6612686f3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Rock.mat.meta",
+      "bytes": 188,
+      "sha256": "af6ea1859f911d8682ee0dd00225ad847e6d3b64a7a5827679ffd6c91ae52032"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_RockShade.mat",
+      "bytes": 1216,
+      "sha256": "d23c11198a3a2675579f08c22eacfa513aa70a8d92fe02517a1fe9b4fd76a260"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_RockShade.mat.meta",
+      "bytes": 188,
+      "sha256": "7c20caba3ebfbd86fb732662e111552eeea64e576202f984c8b73ec81d3462a2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Roof.mat",
+      "bytes": 1153,
+      "sha256": "fae0f964edbdf6ff646b57d0b99a62f07c73900fe77d22308d6cde807cfed3b2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Roof.mat.meta",
+      "bytes": 188,
+      "sha256": "f78539c8332507238824b9e56b59586570f6b15643341801bd8265e816092f83"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Soil.mat",
+      "bytes": 1153,
+      "sha256": "ffd941d41b906d134ef58f9562d1db32c14832f67c740eda9c356245b1daeed7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Soil.mat.meta",
+      "bytes": 188,
+      "sha256": "8f53bdc4302fb478273b71c68293854342ed1796536faa94ae1e965ee75733c4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Terrain.mat",
+      "bytes": 2708,
+      "sha256": "1970fdd47e5742fc3147564dcce0256611df17667d0107f21e62c8bc9b141fa3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Terrain.mat.meta",
+      "bytes": 188,
+      "sha256": "fae1be5a4d674524ed2e392271424afb8f3b0b9c16e56ee8993e2904507aa1a5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Trunk.mat",
+      "bytes": 1154,
+      "sha256": "f3510631ca9faa706a7f25ab613e7bf8e1449568edc2139cb0b5a50e121744f2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Trunk.mat.meta",
+      "bytes": 188,
+      "sha256": "4d88074ad636169961abc67c072438fab0fafb655f18da74c1ecb0ac2db9715d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Waterfall.mat",
+      "bytes": 1168,
+      "sha256": "92b594e9db4f80e57dd5292c8b067b239a345f90781d48b93854c8d4cfff2da2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Waterfall.mat.meta",
+      "bytes": 188,
+      "sha256": "bbcc9b41f83c40fafee9506622f6f6ef2bf5c543579cb7cd8c4aac7b75231554"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Window.mat",
+      "bytes": 1154,
+      "sha256": "40a6958731c87f42b936dbf9032729e1f1d33258caa68846fcee1be3ef5bba34"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials/TG_R3_Window.mat.meta",
+      "bytes": 188,
+      "sha256": "7f191cd3b84736ed012c03e65c282bcc99870c707e681d2478c68dd6bbfebac3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Materials.meta",
+      "bytes": 172,
+      "sha256": "8b9dbb4f7894acfe3c6a56b59533c43875136149d105598e512ba29a6d2cd4db"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD0.asset",
+      "bytes": 13724,
+      "sha256": "93d52f55582937046c008669473cc0a05a5a784b71c20adf32423a1aab0c8320"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "4a942fb5774d1ab6f05df8194c82f0301c2f259bb148e12ef5c950cdef3f19f8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD1.asset",
+      "bytes": 6676,
+      "sha256": "eefe75dfb70540d5e2eb250be2f4cc9e4292baf6eb01357a28b0835b589528dc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "7efa434bcba7940d23fa8829583543d92e3da1e7c62f34a1110fc87f2d9f51d6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD0.asset",
+      "bytes": 42006,
+      "sha256": "03f1c80d866f3bde728506f237da152e6870da0588d38608c1d3d2c50db5bbd1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "ff0c4c0d5e27b071716f62da510c29289a1654f9aa7c1200928e5a2e94a7845c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD1.asset",
+      "bytes": 16476,
+      "sha256": "72bc2be140fe4ae88857b13b49f3da1246374f673e41b83e38c55e0e43bbcd70"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "583ea78213fe34cdf548592fc18270873fe35330acb6a67f27bf135d2f5fa0cf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD0.asset",
+      "bytes": 31081,
+      "sha256": "e7835941c1d317dee767ca04b0b2cd1ea7588663767e3c6c0c86a1fe1079e249"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "ecd1886f55c4a9609a4a04748b82033d034c11d5f35d7cda09f503ed0bdc91dd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD1.asset",
+      "bytes": 15594,
+      "sha256": "9d3b362e76304d3695ab11cfcdcb72ea692e316bd52bbff6d3e925b3ea055811"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "3d73372a0df7a47f37a2590e5613e2346d3b45704658412a710aef48444855e1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD0.asset",
+      "bytes": 27343,
+      "sha256": "e4418c9e1fafa7cc59fcd0b2267d6690b39670bd85ad2bd52ecd5efc4ed39f3a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "3aa131bb279bdeb46d6f602ae685243d68501f8285d83ece68ab48d5c7b5925a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD1.asset",
+      "bytes": 14068,
+      "sha256": "1fe7e41b766e07398486dd204b3a35acf1ead6455ba6d7723505771f0afba383"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "c26f65aa36028e343f10e0982ba0dc39a84a39527d008903f0404a9b8357096c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD0.asset",
+      "bytes": 67941,
+      "sha256": "cc8377c4184be0371ead7efcbc19d14ee0a9dcf03b379ee3d79761e19dae23ac"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "ac47c9092f7a2852e0f8f4f9c5bd48797f32f74084706efa14dc2ee8a3a2ec80"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD1.asset",
+      "bytes": 20438,
+      "sha256": "bc199157b2bfdc232d6d5f86caa6746979c43a66682ca88937de2cfc5c28c950"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "2a43c53105522132752fd0e2f97810740e39ae081acd06e8489c1f99af7cf439"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD0.asset",
+      "bytes": 25972,
+      "sha256": "57fc02a8035b66d31b264ea94d7d94391b58f4b894fe58f09ed32bac4afeab73"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "51a2aede7f92204ad83448e1ad8895035eb401a62600f46c4ecdb84d4d69254f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD1.asset",
+      "bytes": 9046,
+      "sha256": "00ae127c34ce56c186894719b7b1c457b1d83b35b401f1cd23747c576ecb5dcb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "4b383cb5f41d1e9e9f552ed4e921d0e7a2f92c8255d02bc986e08c03948d82fb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD0.asset",
+      "bytes": 19835,
+      "sha256": "e9a83e9ffe178f3ca90350b36060c6ca8a8225b7eda8eb67911fef07b4ce6c2f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "976c6b845db9b17f458ed91c42eba92f15146f72b6f01537fdd7e52575d70da7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD1.asset",
+      "bytes": 7459,
+      "sha256": "b23b1a4bc63a85e669b19986d819d0fb29e15b004126cc0599f69cee5add8c56"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "220729dc80f66a8d64cb9b88ae0ede2861c9565d11d1d909cb6f0a99a6253407"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD0.asset",
+      "bytes": 21883,
+      "sha256": "ace10a7b79234229e4bcbc5b37b31066ca91c83ac5831385395db657595a95f4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD0.asset.meta",
+      "bytes": 188,
+      "sha256": "b002df376564b52879d4ca504040783bd736b09c4c3f807f51fc6e9716294d63"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD1.asset",
+      "bytes": 8249,
+      "sha256": "ef1e9da8ee336c08e0cf459cca628c445a2d3cd604d359352b38e1944c805c18"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD1.asset.meta",
+      "bytes": 188,
+      "sha256": "1342973aeb56af9341c7b6781f62729b04ac53a73fdba3f528c82ef82a873668"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes.meta",
+      "bytes": 172,
+      "sha256": "53bfa3e6f9376ba66dbbc77fcc6beae135027ee74721fac1f53c81cc263df88d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/TG_HeightPolicy.json",
+      "bytes": 1656,
+      "sha256": "1314498c56dbf2199a321e8b99984b2c956e174bb4b4b93e8319dd178d3a498d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/TG_HeightPolicy.json.meta",
+      "bytes": 158,
+      "sha256": "cb4b75f45c7c9a33ea73d227f9009a9297ed478ff70bd1a5be1c2090d1caa834"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/TG_Meadow.prefab",
+      "bytes": 1592,
+      "sha256": "78292d78d080c0924ab51dd39217a08cea9636ae6c1241652e31a3065395c7d8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/TG_Meadow.prefab.meta",
+      "bytes": 154,
+      "sha256": "e767e6125c35f80ee515bb94d07dd289f2403b21982b72c0d1979fb768f2b99e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/TG_MeadowPlacement.asset",
+      "bytes": 11294351,
+      "sha256": "45e1bab364b2b1e8d4a9645b2edcab03931871daf3cb09da0a28451e6d3c6152"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/TG_MeadowPlacement.asset.meta",
+      "bytes": 189,
+      "sha256": "972d6555f447c1c8e1657301812709020c0d31dd9473c98ff0e8e9cf66e8c885"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow.meta",
+      "bytes": 172,
+      "sha256": "876cf26a4fb2a4a9c62092ef5ed34e7340707cfab0bdb554162492236dc45b62"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_Cascade_Hero.asset",
+      "bytes": 71535,
+      "sha256": "75ce289fb278d21f2bbe7c7a1e973f975657b28081b8142b39982e8fee6caefc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_Cascade_Hero.asset.meta",
+      "bytes": 188,
+      "sha256": "bce6e3abaef5cd1adf52ecd38a631416eea8ef2dde861d34cba0749a070a13c6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_Cascade_Left.asset",
+      "bytes": 71539,
+      "sha256": "5f1ec08a20be194aca7e5374208d281493173f5bf03234a475c98a99b4efeac8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_Cascade_Left.asset.meta",
+      "bytes": 188,
+      "sha256": "abeb179f34aa811a70dcba133a6a1445573a797ca8605c5e80c200605c6ed418"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_Cascade_Right.asset",
+      "bytes": 71532,
+      "sha256": "3c29c099d1a33143279ebfb9463706c9caae57651608c16efce174d240d68069"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_Cascade_Right.asset.meta",
+      "bytes": 188,
+      "sha256": "68af918f890a99b7321513e47346617e4a80de2f1a6fb45f02bd3cc510db4683"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Hero0.asset",
+      "bytes": 6630,
+      "sha256": "23e49aac544cef5b3bc72e9cd80268275f97a4e45bb7cacba558b7fcb6aa1a7b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Hero0.asset.meta",
+      "bytes": 188,
+      "sha256": "3828c13a0400b41f29d7933c19dc8b8921785d414c25be6757a77b890a2d4948"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Hero1.asset",
+      "bytes": 6624,
+      "sha256": "2acccc4a76655fe57e3cd9d7e3dab8524adffa020a6427aa52ca61b02e7b477a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Hero1.asset.meta",
+      "bytes": 188,
+      "sha256": "15bfb33b34fb54421c872e09ce6047370340041928ef1073ed2c44e2ce3ac78c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Left0.asset",
+      "bytes": 6608,
+      "sha256": "1f9f0c3cde052370e6a13c84385d07fccb07abf3f87008ca21e62019ac013970"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Left0.asset.meta",
+      "bytes": 188,
+      "sha256": "42755360c9fe8ea933582c35e962b3bc827b902e9c2500452553dd1ca2c30c5c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Left1.asset",
+      "bytes": 6612,
+      "sha256": "3aa980360a9d595d973f97cb17bdfdb95fe61f8ebed8132aa95994935ff77027"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Left1.asset.meta",
+      "bytes": 188,
+      "sha256": "240602adecb8475443f7584db75d0aa77e098b37babe0585d3a3cf6652c04d78"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Right0.asset",
+      "bytes": 6617,
+      "sha256": "815e5159475db3c065b0e1b7d7c69b7f55c72dae3e201a250f9d23c9785f8967"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Right0.asset.meta",
+      "bytes": 188,
+      "sha256": "83b97f1fac21811012996441b73bebcbdd064306c904dbf50923d3d0b456f24e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Right1.asset",
+      "bytes": 6607,
+      "sha256": "bb8f8a03c7ddac24ce050f78c322441ac4a26e7a3b919049cb212cb231e1f20f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_CatchPool_Right1.asset.meta",
+      "bytes": 188,
+      "sha256": "41de9a7c4c0c745beae2f8c503730e1127083d32046bfd5c71079106dc9abb10"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_ConiferCrown.asset",
+      "bytes": 4374,
+      "sha256": "2e2c35ca055fb11f0c56abfa7d4df2180b947433d0509c1465f6d7ab1c5b1703"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_ConiferCrown.asset.meta",
+      "bytes": 188,
+      "sha256": "4aac5e162898fd66d5e2722a518648cfc49ec578b943c5ac7728a3a86fd581e0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_River_with_five_islands.asset",
+      "bytes": 321098,
+      "sha256": "1f7c5acbbfe9966012909963bc39a0d8b4d2894103eba5affafd4e91cc5398a5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes/R3_River_with_five_islands.asset.meta",
+      "bytes": 188,
+      "sha256": "50e8ccb50cf12cecf777d399647788c4a99be0e55e71cc4a56445ff38c091355"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meshes.meta",
+      "bytes": 172,
+      "sha256": "e4dee345187488de7e871ec1468e55ebdbb1e3fb8b9f5898027095e674d1279b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models/TG_LayoutGeometry.fbx",
+      "bytes": 3675516,
+      "sha256": "548b9a6a11a40e08598b2f1b4b33445ce1740dc7d288db411bacf9e19f146d81"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models/TG_LayoutGeometry.fbx.meta",
+      "bytes": 2880,
+      "sha256": "1bf314c14a13242002490b095b81a1aee60f2ce1d9ad695489cf5a34de2f08c5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models/TG_LayoutGeometry.manifest.json",
+      "bytes": 604340,
+      "sha256": "948e21a9644a1fb367915845a3f6c493b958faf642039ac09e1a873fbf10a9b7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models/TG_LayoutGeometry.manifest.json.meta",
+      "bytes": 158,
+      "sha256": "c15b72a1de668ef978c1c5f105a95aedda5be45ceff168ba527221be4243c81d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models.meta",
+      "bytes": 172,
+      "sha256": "0f57c4d2b14875ae7a7c42985b2158abdb56b28094cdf633c9ec455263e29554"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Prefabs/TG_LayoutR3.prefab",
+      "bytes": 3693392,
+      "sha256": "b8e49e060db3881b414b3fa45c1f5ca7b296514d3e20f355a4c9f7d17830f414"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Prefabs/TG_LayoutR3.prefab.meta",
+      "bytes": 154,
+      "sha256": "2051059d8bece24c12b07742b07a08bd9e26172515f540bffd8a3f90039d407f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Prefabs.meta",
+      "bytes": 172,
+      "sha256": "b2c058418907de4ea8d72e6a34283cd4adac551bd052c3a7ad999e9a799d1b76"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/README.md",
+      "bytes": 3047,
+      "sha256": "48b00204a23a826fd40095e6447920427c1aa756b665b88f7de4af39af1dd82d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Scenes/TG_LayoutReview_r3.unity",
+      "bytes": 3627130,
+      "sha256": "d19a76679393a446ee522b3f383f7dfb052f0dc2ba368953e6e64719be736181"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Scenes/TG_LayoutReview_r3.unity.meta",
+      "bytes": 155,
+      "sha256": "40f14b5966e0bcd6511529bc192b11b18438d0d3dfe412b82d90c136cb565938"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Scenes.meta",
+      "bytes": 172,
+      "sha256": "4d8621d55ba58044793fbbfc170b128a1c7f0b63f4434166ac7ca388a6e11225"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Terrain/TG_Landscape.asset",
+      "bytes": 1950720,
+      "sha256": "3ce4752501b534e8909012ae2a9ea8e2996c2c1594ff29cb2bca84e0c27c6d05"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Terrain/TG_Landscape.asset.meta",
+      "bytes": 189,
+      "sha256": "1ce41d62bc107665a36bbeaba5c7f06eaa596b1e9e50d2508bad3f0ff23c3642"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Terrain.meta",
+      "bytes": 172,
+      "sha256": "40b8e63dbf193d8c46ea79e0f34ecf722bae38cd3315bb7bbe4beee663e4079c"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLayoutR3Composition.cs",
+      "bytes": 6996,
+      "sha256": "85e12257f9bf0cd5300057cab7cd1d46744514abfeb6bfac2f7f0c2a0f5ae539"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLayoutR3Lab.cs",
+      "bytes": 27501,
+      "sha256": "4445f524068ce627d67440d5332f14807bdee4c69f64ff87f09ece67860f9db3"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLayoutR3Meadow.cs",
+      "bytes": 22387,
+      "sha256": "6e487d4df512498d1e431ba5d4a407735d4b34add000f6b968748ab9ad7bbc74"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLayoutR3Validation.cs",
+      "bytes": 13015,
+      "sha256": "e84fad105ae075b5b8604bbab92cfeab0dedf6edebf69c6e3b39c8070895e5b8"
+    },
+    {
+      "path": "Tests/Environment/RunTeyvatLayoutR3Lab.ps1",
+      "bytes": 4930,
+      "sha256": "72b91c2a3648b6ba8ba77589f67fd1cc6ed76c5bf6da0dc5b3336abbc16ecf27"
+    }
+  ]
+}

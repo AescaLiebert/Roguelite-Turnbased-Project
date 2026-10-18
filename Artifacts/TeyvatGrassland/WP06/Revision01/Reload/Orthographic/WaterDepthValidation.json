@@ -1,0 +1,108 @@
+{
+    "schema": "TG_WP06_WaterDepthValidation_v2",
+    "method": "Temporary isolated layer-31 known-depth rig, independent perspective and orthographic cameras. The actual water shader outputs thickness / DepthRange into a linear floating-point render target. Nine center pixels are averaged per bed after two render requests.",
+    "limitations": "Numerical depth and fallback validation only; this does not validate water appearance, transparency sorting, refraction, reflected light or player-build performance. All temporary scene objects and resources are destroyed after capture.",
+    "passed": true,
+    "requiresCameraDepthTexture": true,
+    "floatingPointLinearTarget": true,
+    "sceneDepthMonotonic": true,
+    "depthRangeMetres": 4.0,
+    "fractionStartingTolerance": 0.02500000037252903,
+    "equivalentMetreStartingTolerance": 0.10000000149011612,
+    "sceneDepth": [
+        {
+            "name": "Scene depth",
+            "bedDepthMetres": 0.20000000298023225,
+            "expectedFraction": 0.05000000074505806,
+            "actualFraction": 0.04999971389770508,
+            "minimumFraction": 0.04999971389770508,
+            "maximumFraction": 0.04999971389770508,
+            "absoluteErrorMetres": 0.0000011473894119262696,
+            "rawHardwareDepth": 0.6967418193817139,
+            "sceneEyeDepthMetres": 12.20000171661377,
+            "surfaceEyeDepthMetres": 12.000001907348633,
+            "unclampedThicknessMetres": 0.19999980926513673,
+            "passed": true
+        },
+        {
+            "name": "Scene depth",
+            "bedDepthMetres": 1.0,
+            "expectedFraction": 0.25,
+            "actualFraction": 0.25,
+            "minimumFraction": 0.25,
+            "maximumFraction": 0.25,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.6766915917396545,
+            "sceneEyeDepthMetres": 13.000001907348633,
+            "surfaceEyeDepthMetres": 12.000001907348633,
+            "unclampedThicknessMetres": 1.0,
+            "passed": true
+        },
+        {
+            "name": "Scene depth",
+            "bedDepthMetres": 3.0,
+            "expectedFraction": 0.75,
+            "actualFraction": 0.75,
+            "minimumFraction": 0.75,
+            "maximumFraction": 0.75,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.6265663504600525,
+            "sceneEyeDepthMetres": 15.000000953674317,
+            "surfaceEyeDepthMetres": 12.000001907348633,
+            "unclampedThicknessMetres": 2.9999990463256838,
+            "passed": true
+        }
+    ],
+    "fallbackDepth": [
+        {
+            "name": "Fixed fallback",
+            "bedDepthMetres": 0.20000000298023225,
+            "expectedFraction": 0.5,
+            "actualFraction": 0.5,
+            "minimumFraction": 0.5,
+            "maximumFraction": 0.5,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.0,
+            "sceneEyeDepthMetres": 0.0,
+            "surfaceEyeDepthMetres": 0.0,
+            "unclampedThicknessMetres": 0.0,
+            "passed": true
+        },
+        {
+            "name": "Fixed fallback",
+            "bedDepthMetres": 1.0,
+            "expectedFraction": 0.5,
+            "actualFraction": 0.5,
+            "minimumFraction": 0.5,
+            "maximumFraction": 0.5,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.0,
+            "sceneEyeDepthMetres": 0.0,
+            "surfaceEyeDepthMetres": 0.0,
+            "unclampedThicknessMetres": 0.0,
+            "passed": true
+        },
+        {
+            "name": "Fixed fallback",
+            "bedDepthMetres": 3.0,
+            "expectedFraction": 0.5,
+            "actualFraction": 0.5,
+            "minimumFraction": 0.5,
+            "maximumFraction": 0.5,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.0,
+            "sceneEyeDepthMetres": 0.0,
+            "surfaceEyeDepthMetres": 0.0,
+            "unclampedThicknessMetres": 0.0,
+            "passed": true
+        }
+    ],
+    "captures": [
+        "Diagnostics/WaterDepth.png",
+        "Diagnostics/WaterDepth_RawHardware.png",
+        "Diagnostics/WaterDepth_SceneEye.png",
+        "Diagnostics/WaterDepth_SurfaceEye.png",
+        "Diagnostics/WaterDepth_Fallback.png"
+    ],
+    "errors": []
+}

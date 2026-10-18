@@ -16,12 +16,24 @@ MonoBehaviour:
   cardIcon: {fileID: 21300000, guid: 7aaf8d87698a8f94c8eb5b2744b28740, type: 3}
   statusVisuals: []
   ranks:
-  - description: "Taunts enemies and increases HP-related stats by 8% for 2 turns"
+  - description: Taunts enemies and increases HP-related stats by 8% for 2 turns
     skillType: 1
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 1
       Family: 0
@@ -31,9 +43,32 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: status.taunt
         NameKey: 
         Polarity: 0
@@ -45,6 +80,11 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -103,6 +143,7 @@ MonoBehaviour:
           SerializedFamily: -1
           SerializedOperation: -1
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -128,6 +169,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -151,7 +194,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 2
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -165,12 +207,27 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 0
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.hp.related
           Kind: 1
           Family: 0
@@ -180,9 +237,32 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.hp.related
             NameKey: 
             Polarity: 0
@@ -194,50 +274,16 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
             Tags: []
             Modifiers:
-            - Target: 0
-              Stat: 2
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: 800
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 6
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 800
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 11
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 800
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
             - Target: 0
               Stat: 14
               Bundle: 0
@@ -246,12 +292,13 @@ MonoBehaviour:
               Amount: 800
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 3
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -277,6 +324,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -300,7 +349,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 2
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -314,13 +362,26 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-          Sequence: []
-  - description: "Taunts enemies and increases HP-related stats by 12% for 3 turns, If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2 turns"
+  - description: Taunts enemies and increases HP-related stats by 12% for 3 turns,
+      If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2
+      turns
     skillType: 1
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 1
       Family: 0
@@ -330,9 +391,32 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: status.taunt
         NameKey: 
         Polarity: 0
@@ -344,6 +428,11 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -402,6 +491,7 @@ MonoBehaviour:
           SerializedFamily: -1
           SerializedOperation: -1
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -427,6 +517,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -450,7 +542,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 3
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -464,12 +555,27 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 0
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.hp.related
           Kind: 1
           Family: 0
@@ -479,9 +585,32 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.hp.related
             NameKey: 
             Polarity: 0
@@ -493,6 +622,11 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
@@ -506,51 +640,13 @@ MonoBehaviour:
               Amount: 1200
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 6
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 1200
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 11
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 1200
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 14
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 1200
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 3
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -576,6 +672,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -599,7 +697,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -613,12 +710,24 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-          Sequence: []
       - Timing: 2
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.buff.apply-debuff
           Kind: 1
           Family: 0
@@ -628,9 +737,32 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.buff.apply-debuff
             NameKey: 
             Polarity: 0
@@ -642,12 +774,18 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -673,6 +811,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -696,7 +836,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 2500
@@ -710,13 +849,26 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 6
-          Sequence: []
-  - description: "Taunts enemies and increases HP-related stats by 20% for 3 turns, If got attacked by Women Trait Enemy will reduce their Defense by 25% for 2 turns"
+  - description: Taunts enemies and increases HP-related stats by 20% for 3 turns,
+      If got attacked by Women Trait Enemy will reduce their Defense by 50% for 2
+      turns
     skillType: 1
     runtimeEffect:
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 1
       Family: 0
@@ -726,9 +878,32 @@ MonoBehaviour:
       CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
-      Tags: []
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: status.taunt
         NameKey: 
         Polarity: 0
@@ -740,6 +915,11 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
@@ -798,6 +978,7 @@ MonoBehaviour:
           SerializedFamily: -1
           SerializedOperation: -1
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -823,6 +1004,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -846,7 +1029,6 @@ MonoBehaviour:
         IgnoreCritResistanceBp: 0
         IgnoreCritDefenseBp: 0
         ImmuneStatusTags: []
-        Reactions: []
       StatusDurationOverride: 3
       StatusStackCount: 1
       StatusPotencyBp: 0
@@ -860,12 +1042,27 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 0
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence:
       - Timing: 2
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.increase.hp.related
           Kind: 1
           Family: 0
@@ -875,9 +1072,32 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.increase.hp.related
             NameKey: 
             Polarity: 0
@@ -889,50 +1109,16 @@ MonoBehaviour:
             DefaultDuration: 2
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
             Tags: []
             Modifiers:
-            - Target: 0
-              Stat: 2
-              Bundle: 0
-              Family: 0
-              Operation: 1
-              Amount: 2000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 6
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 2000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
-            - Target: 0
-              Stat: 11
-              Bundle: 0
-              Family: 0
-              Operation: 2
-              Amount: 2000
-              ScaleByStatusPotency: 0
-              PotencyCoefficientBp: 0
-              SerializedTarget: -1
-              SerializedStat: -1
-              SerializedBundle: -1
-              SerializedFamily: -1
-              SerializedOperation: -1
             - Target: 0
               Stat: 14
               Bundle: 0
@@ -941,12 +1127,13 @@ MonoBehaviour:
               Amount: 2000
               ScaleByStatusPotency: 0
               PotencyCoefficientBp: 0
-              SerializedTarget: -1
+              SerializedTarget: 7
               SerializedStat: -1
-              SerializedBundle: -1
+              SerializedBundle: 3
               SerializedFamily: -1
               SerializedOperation: -1
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -972,6 +1159,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -995,7 +1184,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 0
@@ -1009,12 +1197,24 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 0
-          Sequence: []
       - Timing: 2
+        BatchId: 
         Effect:
+          Explosion: 0
+          ConsumeTargetRecipeId: 
+          DamagePerConsumedStackBp: 0
+          OnKillSelfHealMaxHealthBp: 0
+          DamageElement: 0
+          ElementalApplication:
+            Element: 0
+            HitIndex: 1
+            StatusEffectId: 
+            RequiresCritical: 0
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Id: status.buff.apply-debuff
           Kind: 1
           Family: 0
@@ -1024,9 +1224,32 @@ MonoBehaviour:
           CoefficientBp: 0
           KeywordFactorBp: 0
           KeywordId: 
-          Tags: []
           Conditions: []
           StatusRecipe:
+            PowerGaugeGainBp: 0
+            EndTurnPowerGaugeLoss: 0
+            PhysicalDamageReceivedBp: 0
+            SourceOnlyDamageReductionBp: 0
+            SkipApplyingTurnEnd: 0
+            NaturalExpiryAttack:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            Retaliation:
+              Element: 0
+              AttackCoefficientBp: 0
+              ReceivedDamageCoefficientBp: 0
+              Explosion: 0
+              StatusRecipeId: 
+              StatusDuration: 0
+              StatusStackCount: 1
+              SelfHealDamageBp: 0
+            ElementalModifiers: []
             Id: status.buff.apply-debuff
             NameKey: 
             Polarity: 0
@@ -1038,12 +1261,18 @@ MonoBehaviour:
             DefaultDuration: 3
             MaxStacks: 0
             DefaultPotencyBp: 0
+            BarrierCoefficientBp: 0
+            BarrierMaxHealthCapBp: 0
+            BarrierSourceStat: 0
+            BarrierDurationPolicy: 0
+            BarrierAmountPolicy: 0
             BypassDebuffImmunity: 0
             BreakRule: 0
             DisableMask: 0
             Tags: []
             Modifiers: []
             PeriodicDamage:
+              Element: 0
               Family: 0
               Timing: 0
               Scaling: 0
@@ -1069,6 +1298,8 @@ MonoBehaviour:
               Attack:
                 HitCount: 1
                 Range: 0
+                Reaction: 0
+                ReactionTiming: 0
               Kind: 0
               Target: 0
               Family: 0
@@ -1092,7 +1323,6 @@ MonoBehaviour:
             IgnoreCritResistanceBp: 0
             IgnoreCritDefenseBp: 0
             ImmuneStatusTags: []
-            Reactions: []
           StatusDurationOverride: 3
           StatusStackCount: 1
           StatusPotencyBp: 5000
@@ -1106,4 +1336,3 @@ MonoBehaviour:
           HealCoefficientBp: 0
           PowerGaugeAmount: 0
           Target: 6
-          Sequence: []

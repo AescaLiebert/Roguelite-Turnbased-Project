@@ -1,0 +1,4846 @@
+{
+    "passed": true,
+    "hashMatches": true,
+    "axisMarkerPass": true,
+    "method": "Read-only FBX raw mesh bounds, topology, UV0, rigid numerical RGBA and custom-normal range checks against Blender's manifest in actual Unity-local coordinates. Asymmetric axis marker verifies the baked conversion; no prefab-node rotations are needed.",
+    "limitations": "Ranges and triangle counts do not establish per-loop correspondence, silhouette quality, collision quality or performance. Authored welded boundary counts are reported separately; overlapping closed masonry pieces are not a Boolean union.",
+    "meshes": [
+        {
+            "name": "SM_R3_Cliff_T1_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 437,
+            "colorCount": 437,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -136.15689086914063,
+                    "y": 4.043702125549316,
+                    "z": 77.7362060546875
+                },
+                "m_Extent": {
+                    "x": 9.956893920898438,
+                    "y": 11.043702125549317,
+                    "z": 20.462310791015626
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 212,
+            "colorCount": 212,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -136.15689086914063,
+                    "y": 4.043702125549316,
+                    "z": 77.7362060546875
+                },
+                "m_Extent": {
+                    "x": 9.956893920898438,
+                    "y": 11.043702125549317,
+                    "z": 20.462310791015626
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 450,
+            "colorCount": 450,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -116.19436645507813,
+                    "y": 4.660699844360352,
+                    "z": 72.16985321044922
+                },
+                "m_Extent": {
+                    "x": 10.106082916259766,
+                    "y": 11.660699844360352,
+                    "z": 19.104040145874025
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 231,
+            "colorCount": 231,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -116.19436645507813,
+                    "y": 4.660699844360352,
+                    "z": 72.16985321044922
+                },
+                "m_Extent": {
+                    "x": 10.106082916259766,
+                    "y": 11.660699844360352,
+                    "z": 19.104040145874025
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 428,
+            "colorCount": 428,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -96.5,
+                    "y": 6.045243263244629,
+                    "z": 72.14411163330078
+                },
+                "m_Extent": {
+                    "x": 9.900001525878907,
+                    "y": 13.045243263244629,
+                    "z": 19.07829475402832
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 216,
+            "colorCount": 216,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -96.5,
+                    "y": 6.045243263244629,
+                    "z": 72.14411163330078
+                },
+                "m_Extent": {
+                    "x": 9.900001525878907,
+                    "y": 13.045243263244629,
+                    "z": 19.07829475402832
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 424,
+            "colorCount": 424,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -76.60649108886719,
+                    "y": 6.9835662841796879,
+                    "z": 76.79061889648438
+                },
+                "m_Extent": {
+                    "x": 10.50735092163086,
+                    "y": 13.983566284179688,
+                    "z": 20.204540252685548
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 208,
+            "colorCount": 208,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -76.60649108886719,
+                    "y": 6.9835662841796879,
+                    "z": 76.79061889648438
+                },
+                "m_Extent": {
+                    "x": 10.50735092163086,
+                    "y": 13.983566284179688,
+                    "z": 20.204540252685548
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 456,
+            "colorCount": 456,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -56.900001525878909,
+                    "y": 7.626629829406738,
+                    "z": 80.28147888183594
+                },
+                "m_Extent": {
+                    "x": 9.900001525878907,
+                    "y": 14.626629829406739,
+                    "z": 17.438995361328126
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 230,
+            "colorCount": 230,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -56.900001525878909,
+                    "y": 7.626629829406738,
+                    "z": 80.33768463134766
+                },
+                "m_Extent": {
+                    "x": 9.900001525878907,
+                    "y": 14.626629829406739,
+                    "z": 17.371994018554689
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 503,
+            "colorCount": 503,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -28.5,
+                    "y": 8.185369491577149,
+                    "z": 79.38375854492188
+                },
+                "m_Extent": {
+                    "x": 10.5,
+                    "y": 15.185369491577149,
+                    "z": 17.827411651611329
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_05_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 239,
+            "colorCount": 239,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -28.5,
+                    "y": 8.185369491577149,
+                    "z": 79.38258361816406
+                },
+                "m_Extent": {
+                    "x": 10.5,
+                    "y": 15.185369491577149,
+                    "z": 17.82857894897461
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 260,
+            "expectedTriangles": 260,
+            "subMeshes": 3,
+            "uvCount": 354,
+            "colorCount": 354,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 1.4459781646728516,
+                    "y": 7.738100051879883,
+                    "z": 87.6187973022461
+                },
+                "m_Extent": {
+                    "x": 8.42513656616211,
+                    "y": 14.738100051879883,
+                    "z": 20.668838500976564
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_06_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 116,
+            "expectedTriangles": 116,
+            "subMeshes": 3,
+            "uvCount": 186,
+            "colorCount": 186,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 1.4459781646728516,
+                    "y": 7.738100051879883,
+                    "z": 87.6187973022461
+                },
+                "m_Extent": {
+                    "x": 8.42513656616211,
+                    "y": 14.738100051879883,
+                    "z": 20.668838500976564
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 260,
+            "expectedTriangles": 260,
+            "subMeshes": 3,
+            "uvCount": 367,
+            "colorCount": 367,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 16.0,
+                    "y": 4.709273338317871,
+                    "z": 93.18975830078125
+                },
+                "m_Extent": {
+                    "x": 7.333333492279053,
+                    "y": 11.709273338317871,
+                    "z": 18.902118682861329
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000013709068298339844,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_07_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 116,
+            "expectedTriangles": 116,
+            "subMeshes": 3,
+            "uvCount": 198,
+            "colorCount": 198,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 16.0,
+                    "y": 4.709273338317871,
+                    "z": 93.18975830078125
+                },
+                "m_Extent": {
+                    "x": 7.333333492279053,
+                    "y": 11.709273338317871,
+                    "z": 18.902118682861329
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000013709068298339844,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 260,
+            "expectedTriangles": 260,
+            "subMeshes": 3,
+            "uvCount": 365,
+            "colorCount": 365,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.447425842285158,
+                    "y": 3.3329434394836427,
+                    "z": 94.64031219482422
+                },
+                "m_Extent": {
+                    "x": 7.552573204040527,
+                    "y": 10.332942962646485,
+                    "z": 17.64276123046875
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_08_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 116,
+            "expectedTriangles": 116,
+            "subMeshes": 3,
+            "uvCount": 194,
+            "colorCount": 194,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.447425842285158,
+                    "y": 3.3329434394836427,
+                    "z": 94.68876647949219
+                },
+                "m_Extent": {
+                    "x": 7.552573204040527,
+                    "y": 10.332942962646485,
+                    "z": 17.593128204345704
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 459,
+            "colorCount": 459,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 57.79999923706055,
+                    "y": 4.258533477783203,
+                    "z": 90.6539306640625
+                },
+                "m_Extent": {
+                    "x": 9.799999237060547,
+                    "y": 11.258533477783204,
+                    "z": 18.454959869384767
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_09_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 229,
+            "colorCount": 229,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 57.79999923706055,
+                    "y": 4.256850242614746,
+                    "z": 90.74357604980469
+                },
+                "m_Extent": {
+                    "x": 9.799999237060547,
+                    "y": 11.256850242614746,
+                    "z": 18.365314483642579
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 467,
+            "colorCount": 467,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 77.29722595214844,
+                    "y": 10.20934772491455,
+                    "z": 91.73603057861328
+                },
+                "m_Extent": {
+                    "x": 10.516956329345704,
+                    "y": 17.209346771240236,
+                    "z": 18.65772247314453
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_10_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 218,
+            "colorCount": 218,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 77.29722595214844,
+                    "y": 10.20934772491455,
+                    "z": 91.73603057861328
+                },
+                "m_Extent": {
+                    "x": 10.516956329345704,
+                    "y": 17.209346771240236,
+                    "z": 18.65772247314453
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 438,
+            "colorCount": 438,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 97.0,
+                    "y": 10.20934772491455,
+                    "z": 94.29927825927735
+                },
+                "m_Extent": {
+                    "x": 9.800003051757813,
+                    "y": 17.209346771240236,
+                    "z": 17.90552520751953
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_11_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 230,
+            "colorCount": 230,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 97.0,
+                    "y": 10.20934772491455,
+                    "z": 94.29263305664063
+                },
+                "m_Extent": {
+                    "x": 9.800003051757813,
+                    "y": 17.209346771240236,
+                    "z": 17.898883819580079
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 481,
+            "colorCount": 481,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 116.47701263427735,
+                    "y": 10.105172157287598,
+                    "z": 91.74345397949219
+                },
+                "m_Extent": {
+                    "x": 10.060760498046875,
+                    "y": 17.10517120361328,
+                    "z": 20.156455993652345
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_12_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 244,
+            "colorCount": 244,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 116.47701263427735,
+                    "y": 10.096755027770996,
+                    "z": 91.74345397949219
+                },
+                "m_Extent": {
+                    "x": 10.060760498046875,
+                    "y": 17.096755981445314,
+                    "z": 20.156455993652345
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_13_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 332,
+            "expectedTriangles": 332,
+            "subMeshes": 3,
+            "uvCount": 447,
+            "colorCount": 447,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 136.25689697265626,
+                    "y": 6.2454071044921879,
+                    "z": 84.49433898925781
+                },
+                "m_Extent": {
+                    "x": 9.856891632080079,
+                    "y": 13.245407104492188,
+                    "z": 21.092662811279298
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000019669532775878908,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T1_13_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 223,
+            "colorCount": 223,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 136.25689697265626,
+                    "y": 6.2454071044921879,
+                    "z": 84.49433898925781
+                },
+                "m_Extent": {
+                    "x": 9.856891632080079,
+                    "y": 13.245407104492188,
+                    "z": 21.092662811279298
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 451,
+            "colorCount": 451,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -129.53953552246095,
+                    "y": 11.50520133972168,
+                    "z": 109.02855682373047
+                },
+                "m_Extent": {
+                    "x": 11.50628662109375,
+                    "y": 18.50520133972168,
+                    "z": 17.27153778076172
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 7.152557373046875e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 199,
+            "colorCount": 199,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -129.53953552246095,
+                    "y": 11.50520133972168,
+                    "z": 109.06460571289063
+                },
+                "m_Extent": {
+                    "x": 11.50628662109375,
+                    "y": 18.50520133972168,
+                    "z": 17.235488891601564
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 7.152557373046875e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 517,
+            "colorCount": 517,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -108.61538696289063,
+                    "y": 14.357915878295899,
+                    "z": 110.25447845458985
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 21.3579158782959,
+                    "z": 17.954383850097658
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000019669532775878908,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 226,
+            "colorCount": 226,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -108.61538696289063,
+                    "y": 14.357915878295899,
+                    "z": 110.25447845458985
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 21.3579158782959,
+                    "z": 17.954383850097658
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000019669532775878908,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 457,
+            "colorCount": 457,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -87.69338989257813,
+                    "y": 17.567333221435548,
+                    "z": 112.80388641357422
+                },
+                "m_Extent": {
+                    "x": 11.501964569091797,
+                    "y": 24.567333221435548,
+                    "z": 18.59502410888672
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 204,
+            "colorCount": 204,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -87.69338989257813,
+                    "y": 17.567333221435548,
+                    "z": 112.80388641357422
+                },
+                "m_Extent": {
+                    "x": 11.501964569091797,
+                    "y": 24.567333221435548,
+                    "z": 18.59502410888672
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 460,
+            "colorCount": 460,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -66.76922607421875,
+                    "y": 18.47051239013672,
+                    "z": 116.20802307128906
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 25.47051239013672,
+                    "z": 18.80910873413086
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 197,
+            "colorCount": 197,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -66.76922607421875,
+                    "y": 18.469755172729493,
+                    "z": 116.20802307128906
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 25.469755172729493,
+                    "z": 18.80910873413086
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 474,
+            "colorCount": 474,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -45.847251892089847,
+                    "y": 18.442201614379884,
+                    "z": 119.21144104003906
+                },
+                "m_Extent": {
+                    "x": 11.49760627746582,
+                    "y": 25.442201614379884,
+                    "z": 18.884490966796876
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 214,
+            "colorCount": 214,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -45.847251892089847,
+                    "y": 18.442201614379884,
+                    "z": 119.2529525756836
+                },
+                "m_Extent": {
+                    "x": 11.49760627746582,
+                    "y": 25.442201614379884,
+                    "z": 18.842979431152345
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 485,
+            "colorCount": 485,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -24.923076629638673,
+                    "y": 17.35364532470703,
+                    "z": 121.95391845703125
+                },
+                "m_Extent": {
+                    "x": 10.461539268493653,
+                    "y": 24.35364532470703,
+                    "z": 17.85799789428711
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 4.172325134277344e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_05_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 215,
+            "colorCount": 215,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -24.923076629638673,
+                    "y": 17.35364532470703,
+                    "z": 121.95391845703125
+                },
+                "m_Extent": {
+                    "x": 10.461539268493653,
+                    "y": 24.35364532470703,
+                    "z": 17.85799789428711
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 4.172325134277344e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 471,
+            "colorCount": 471,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.001104831695557,
+                    "y": 15.169401168823243,
+                    "z": 122.85299682617188
+                },
+                "m_Extent": {
+                    "x": 11.493206024169922,
+                    "y": 22.169401168823243,
+                    "z": 17.146774291992189
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 0.000013232231140136719,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_06_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 216,
+            "colorCount": 216,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.001104831695557,
+                    "y": 15.169401168823243,
+                    "z": 122.85218048095703
+                },
+                "m_Extent": {
+                    "x": 11.493206024169922,
+                    "y": 22.169401168823243,
+                    "z": 17.145957946777345
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 0.000013232231140136719,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 484,
+            "colorCount": 484,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 16.923076629638673,
+                    "y": 11.94460391998291,
+                    "z": 121.62403869628906
+                },
+                "m_Extent": {
+                    "x": 10.461538314819336,
+                    "y": 18.944602966308595,
+                    "z": 18.082183837890626
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_07_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 209,
+            "colorCount": 209,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 16.923076629638673,
+                    "y": 11.94460391998291,
+                    "z": 121.62403869628906
+                },
+                "m_Extent": {
+                    "x": 10.461538314819336,
+                    "y": 18.944602966308595,
+                    "z": 18.082183837890626
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 491,
+            "colorCount": 491,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 37.84503936767578,
+                    "y": 10.570748329162598,
+                    "z": 119.21475219726563
+                },
+                "m_Extent": {
+                    "x": 11.48876667022705,
+                    "y": 17.57074737548828,
+                    "z": 18.592342376708986
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_08_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 224,
+            "colorCount": 224,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 37.84503936767578,
+                    "y": 10.56847095489502,
+                    "z": 119.21475219726563
+                },
+                "m_Extent": {
+                    "x": 11.48876667022705,
+                    "y": 17.568470001220704,
+                    "z": 18.592342376708986
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 498,
+            "colorCount": 498,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 58.769229888916019,
+                    "y": 10.56847095489502,
+                    "z": 115.81314086914063
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 17.568470001220704,
+                    "z": 18.809280395507814
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_09_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 208,
+            "colorCount": 208,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 58.769229888916019,
+                    "y": 10.56847095489502,
+                    "z": 115.81314086914063
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 17.568470001220704,
+                    "z": 18.809280395507814
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 445,
+            "colorCount": 445,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 79.69117736816406,
+                    "y": 10.308151245117188,
+                    "z": 112.46149444580078
+                },
+                "m_Extent": {
+                    "x": 11.48428726196289,
+                    "y": 17.308151245117189,
+                    "z": 18.54236602783203
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_10_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 204,
+            "colorCount": 204,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 79.69117736816406,
+                    "y": 10.308151245117188,
+                    "z": 112.46149444580078
+                },
+                "m_Extent": {
+                    "x": 11.48428726196289,
+                    "y": 17.308151245117189,
+                    "z": 18.54236602783203
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 486,
+            "colorCount": 486,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 100.61538696289063,
+                    "y": 10.165902137756348,
+                    "z": 110.05614471435547
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 17.16590118408203,
+                    "z": 17.86298370361328
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_11_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 213,
+            "colorCount": 213,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 100.61538696289063,
+                    "y": 10.165902137756348,
+                    "z": 110.05614471435547
+                },
+                "m_Extent": {
+                    "x": 10.461536407470704,
+                    "y": 17.16590118408203,
+                    "z": 17.86298370361328
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 5.960464477539063e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 356,
+            "expectedTriangles": 356,
+            "subMeshes": 3,
+            "uvCount": 482,
+            "colorCount": 482,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 121.53732299804688,
+                    "y": 10.122577667236329,
+                    "z": 109.14398193359375
+                },
+                "m_Extent": {
+                    "x": 11.47976303100586,
+                    "y": 17.122577667236329,
+                    "z": 17.143543243408204
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Cliff_T2_12_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 140,
+            "expectedTriangles": 140,
+            "subMeshes": 3,
+            "uvCount": 214,
+            "colorCount": 214,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 121.53732299804688,
+                    "y": 10.122577667236329,
+                    "z": 109.14497375488281
+                },
+                "m_Extent": {
+                    "x": 11.47976303100586,
+                    "y": 17.122577667236329,
+                    "z": 17.142559051513673
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 2,
+            "uvCount": 518,
+            "colorCount": 518,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -44.69891357421875,
+                    "y": -1.470027208328247,
+                    "z": 37.063873291015628
+                },
+                "m_Extent": {
+                    "x": 7.986169815063477,
+                    "y": 2.329972743988037,
+                    "z": 5.178732872009277
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 108,
+            "expectedTriangles": 108,
+            "subMeshes": 2,
+            "uvCount": 217,
+            "colorCount": 217,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -44.862648010253909,
+                    "y": -1.4700790643692017,
+                    "z": 37.02216339111328
+                },
+                "m_Extent": {
+                    "x": 7.783849716186523,
+                    "y": 2.329920768737793,
+                    "z": 5.134406089782715
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 2,
+            "uvCount": 498,
+            "colorCount": 498,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -11.883886337280274,
+                    "y": -1.2700002193450928,
+                    "z": 42.93694305419922
+                },
+                "m_Extent": {
+                    "x": 9.907773971557618,
+                    "y": 2.5299997329711916,
+                    "z": 6.2581939697265629
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 108,
+            "expectedTriangles": 108,
+            "subMeshes": 2,
+            "uvCount": 224,
+            "colorCount": 224,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -11.844330787658692,
+                    "y": -1.2709808349609376,
+                    "z": 43.00403594970703
+                },
+                "m_Extent": {
+                    "x": 9.868218421936036,
+                    "y": 2.5290191173553469,
+                    "z": 6.232784271240234
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 2,
+            "uvCount": 517,
+            "colorCount": 517,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.038738250732423,
+                    "y": -1.5702117681503297,
+                    "z": 40.066097259521487
+                },
+                "m_Extent": {
+                    "x": 6.530455589294434,
+                    "y": 2.229788303375244,
+                    "z": 4.6223907470703129
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 108,
+            "expectedTriangles": 108,
+            "subMeshes": 2,
+            "uvCount": 231,
+            "colorCount": 231,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.047061920166017,
+                    "y": -1.571589469909668,
+                    "z": 40.015235900878909
+                },
+                "m_Extent": {
+                    "x": 6.522132873535156,
+                    "y": 2.228410482406616,
+                    "z": 4.613927841186523
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 2,
+            "uvCount": 558,
+            "colorCount": 558,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -41.782318115234378,
+                    "y": -0.5740107297897339,
+                    "z": 55.00016784667969
+                },
+                "m_Extent": {
+                    "x": 5.405309677124023,
+                    "y": 3.22598934173584,
+                    "z": 3.5918312072753908
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 108,
+            "expectedTriangles": 108,
+            "subMeshes": 2,
+            "uvCount": 252,
+            "colorCount": 252,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -41.90968322753906,
+                    "y": -0.5740107297897339,
+                    "z": 55.047489166259769
+                },
+                "m_Extent": {
+                    "x": 5.201921463012695,
+                    "y": 3.22598934173584,
+                    "z": 3.5295028686523439
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 2,
+            "uvCount": 519,
+            "colorCount": 519,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 42.4237060546875,
+                    "y": -0.9700605869293213,
+                    "z": 52.82147979736328
+                },
+                "m_Extent": {
+                    "x": 8.686065673828125,
+                    "y": 2.829939365386963,
+                    "z": 5.708383560180664
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Island_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 108,
+            "expectedTriangles": 108,
+            "subMeshes": 2,
+            "uvCount": 236,
+            "colorCount": 236,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 42.47951889038086,
+                    "y": -0.97056645154953,
+                    "z": 52.86549377441406
+                },
+                "m_Extent": {
+                    "x": 8.544334411621094,
+                    "y": 2.8294334411621095,
+                    "z": 5.527671813964844
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_CascadeLanding_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 3,
+            "uvCount": 450,
+            "colorCount": 450,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -42.3536376953125,
+                    "y": 1.064503788948059,
+                    "z": 65.47271728515625
+                },
+                "m_Extent": {
+                    "x": 5.302543640136719,
+                    "y": 3.2645039558410646,
+                    "z": 6.494663238525391
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.364418029785156e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_CascadeLanding_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 142,
+            "expectedTriangles": 142,
+            "subMeshes": 3,
+            "uvCount": 272,
+            "colorCount": 272,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -41.99835968017578,
+                    "y": 1.0523442029953004,
+                    "z": 65.49700164794922
+                },
+                "m_Extent": {
+                    "x": 4.947267532348633,
+                    "y": 3.2523441314697267,
+                    "z": 6.815874099731445
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 2,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -48.90437316894531,
+                    "y": -3.011488437652588,
+                    "z": 56.06493377685547
+                },
+                "m_Extent": {
+                    "x": 1.1498050689697266,
+                    "y": 0.7550003528594971,
+                    "z": 1.7167587280273438
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -49.21135711669922,
+                    "y": -2.4393134117126467,
+                    "z": 62.23898696899414
+                },
+                "m_Extent": {
+                    "x": 2.20172119140625,
+                    "y": 1.323182225227356,
+                    "z": 2.6396141052246095
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -49.35960388183594,
+                    "y": -2.757347583770752,
+                    "z": 59.28599166870117
+                },
+                "m_Extent": {
+                    "x": 1.8541698455810547,
+                    "y": 1.0044528245925904,
+                    "z": 1.5286102294921876
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -38.33556365966797,
+                    "y": -3.126765251159668,
+                    "z": 57.540771484375
+                },
+                "m_Extent": {
+                    "x": 1.514322280883789,
+                    "y": 0.8674238920211792,
+                    "z": 1.9472408294677735
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -49.637054443359378,
+                    "y": -2.9346768856048586,
+                    "z": 63.252403259277347
+                },
+                "m_Extent": {
+                    "x": 2.9115047454833986,
+                    "y": 0.8269598484039307,
+                    "z": 2.183095932006836
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -34.61285400390625,
+                    "y": -3.19545578956604,
+                    "z": 62.780738830566409
+                },
+                "m_Extent": {
+                    "x": 1.0591773986816407,
+                    "y": 0.9146006107330322,
+                    "z": 1.5339374542236329
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -48.19808578491211,
+                    "y": -2.9774320125579836,
+                    "z": 62.47148895263672
+                },
+                "m_Extent": {
+                    "x": 1.2427024841308594,
+                    "y": 0.7960953712463379,
+                    "z": 2.5109691619873049
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -50.804927825927737,
+                    "y": -2.295347213745117,
+                    "z": 62.74110412597656
+                },
+                "m_Extent": {
+                    "x": 2.0628738403320314,
+                    "y": 1.4572386741638184,
+                    "z": 1.8781986236572266
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_0_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -33.00571823120117,
+                    "y": -2.7808210849761965,
+                    "z": 63.73998260498047
+                },
+                "m_Extent": {
+                    "x": 2.6963682174682619,
+                    "y": 1.3078296184539796,
+                    "z": 1.10107421875
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_CascadeLanding_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 3,
+            "uvCount": 433,
+            "colorCount": 433,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -11.260838508605957,
+                    "y": 2.334066867828369,
+                    "z": 65.11338806152344
+                },
+                "m_Extent": {
+                    "x": 6.976410865783691,
+                    "y": 4.534067153930664,
+                    "z": 9.353130340576172
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_CascadeLanding_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 142,
+            "expectedTriangles": 142,
+            "subMeshes": 3,
+            "uvCount": 270,
+            "colorCount": 270,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -11.370216369628907,
+                    "y": 2.325867176055908,
+                    "z": 65.56446838378906
+                },
+                "m_Extent": {
+                    "x": 6.712727069854736,
+                    "y": 4.525867462158203,
+                    "z": 9.6009521484375
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -3.441441297531128,
+                    "y": -2.8103199005126955,
+                    "z": 53.45819854736328
+                },
+                "m_Extent": {
+                    "x": 1.3625495433807374,
+                    "y": 1.40005624294281,
+                    "z": 2.1229076385498049
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -3.0052878856658937,
+                    "y": -2.748480796813965,
+                    "z": 58.191253662109378
+                },
+                "m_Extent": {
+                    "x": 2.6010215282440187,
+                    "y": 0.9474242329597473,
+                    "z": 2.5191192626953127
+                }
+            },
+            "boundsError": 1.7881393432617188e-7,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 2,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -19.75656509399414,
+                    "y": -3.832491397857666,
+                    "z": 53.352054595947269
+                },
+                "m_Extent": {
+                    "x": 1.9222116470336915,
+                    "y": 0.6102663278579712,
+                    "z": 1.8911476135253907
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -20.612150192260743,
+                    "y": -3.477799892425537,
+                    "z": 57.16792678833008
+                },
+                "m_Extent": {
+                    "x": 2.8465957641601564,
+                    "y": 0.9594273567199707,
+                    "z": 2.7063331604003908
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.553714752197266,
+                    "y": 3.2263283729553224,
+                    "z": 63.89073944091797
+                },
+                "m_Extent": {
+                    "x": 1.7759140729904175,
+                    "y": 1.3005671501159669,
+                    "z": 0.9523677825927734
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -20.240806579589845,
+                    "y": -2.7699828147888185,
+                    "z": 60.11812973022461
+                },
+                "m_Extent": {
+                    "x": 1.1620244979858399,
+                    "y": 1.2272133827209473,
+                    "z": 3.214435577392578
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -3.171170711517334,
+                    "y": 3.245945930480957,
+                    "z": 64.15080261230469
+                },
+                "m_Extent": {
+                    "x": 1.6740751266479493,
+                    "y": 1.0945425033569337,
+                    "z": 2.838836669921875
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 182,
+            "colorCount": 182,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -20.63180923461914,
+                    "y": 0.15453189611434937,
+                    "z": 64.28189849853516
+                },
+                "m_Extent": {
+                    "x": 2.192026138305664,
+                    "y": 1.1607513427734376,
+                    "z": 2.7409229278564455
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_1_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -20.589618682861329,
+                    "y": -3.561267852783203,
+                    "z": 52.64298629760742
+                },
+                "m_Extent": {
+                    "x": 1.525507926940918,
+                    "y": 0.8749098777770996,
+                    "z": 1.0577964782714844
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_CascadeLanding_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 252,
+            "expectedTriangles": 252,
+            "subMeshes": 3,
+            "uvCount": 452,
+            "colorCount": 452,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 43.523468017578128,
+                    "y": 1.0986801385879517,
+                    "z": 75.37667846679688
+                },
+                "m_Extent": {
+                    "x": 6.1093292236328129,
+                    "y": 3.298680305480957,
+                    "z": 10.467288970947266
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_CascadeLanding_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 142,
+            "expectedTriangles": 142,
+            "subMeshes": 3,
+            "uvCount": 270,
+            "colorCount": 270,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 43.43581771850586,
+                    "y": 1.0999232530593873,
+                    "z": 75.61064147949219
+                },
+                "m_Extent": {
+                    "x": 5.9301300048828129,
+                    "y": 3.2999234199523927,
+                    "z": 10.39798355102539
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 50.99760055541992,
+                    "y": -2.8638038635253908,
+                    "z": 66.15673065185547
+                },
+                "m_Extent": {
+                    "x": 1.2161827087402344,
+                    "y": 1.3416876792907715,
+                    "z": 2.5462818145751955
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 32.95075607299805,
+                    "y": -3.1991264820098879,
+                    "z": 62.97114562988281
+                },
+                "m_Extent": {
+                    "x": 1.7354307174682618,
+                    "y": 0.8411257266998291,
+                    "z": 2.483633041381836
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 48.69793701171875,
+                    "y": -2.6123311519622804,
+                    "z": 67.47537994384766
+                },
+                "m_Extent": {
+                    "x": 1.3295097351074219,
+                    "y": 1.0987706184387208,
+                    "z": 3.2210235595703127
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 48.770362854003909,
+                    "y": -3.6973118782043459,
+                    "z": 63.513755798339847
+                },
+                "m_Extent": {
+                    "x": 2.660928726196289,
+                    "y": 0.7346676588058472,
+                    "z": 3.0284271240234377
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 2,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 50.21466064453125,
+                    "y": -0.5254365801811218,
+                    "z": 69.88874816894531
+                },
+                "m_Extent": {
+                    "x": 1.817108154296875,
+                    "y": 1.1169183254241944,
+                    "z": 1.3023796081542969
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 0.0000011324882507324219,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 36.90911865234375,
+                    "y": -1.6106112003326417,
+                    "z": 69.39363098144531
+                },
+                "m_Extent": {
+                    "x": 1.886892318725586,
+                    "y": 0.779348611831665,
+                    "z": 1.1202316284179688
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 47.51161193847656,
+                    "y": -1.5108966827392579,
+                    "z": 69.83320617675781
+                },
+                "m_Extent": {
+                    "x": 3.272989273071289,
+                    "y": 0.720198392868042,
+                    "z": 1.0792045593261719
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 180,
+            "colorCount": 180,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 48.30036163330078,
+                    "y": -0.034832656383514407,
+                    "z": 70.83529663085938
+                },
+                "m_Extent": {
+                    "x": 1.8892631530761719,
+                    "y": 1.116673231124878,
+                    "z": 2.153484344482422
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_FallTalus_2_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 96,
+            "expectedTriangles": 96,
+            "subMeshes": 3,
+            "uvCount": 182,
+            "colorCount": 182,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 51.25553894042969,
+                    "y": -3.8361692428588869,
+                    "z": 64.50733947753906
+                },
+                "m_Extent": {
+                    "x": 2.513885498046875,
+                    "y": 0.612486720085144,
+                    "z": 1.6469230651855469
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 252,
+            "colorCount": 252,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.993629455566408,
+                    "y": 5.495492458343506,
+                    "z": -1.4020828008651734
+                },
+                "m_Extent": {
+                    "x": 4.867968559265137,
+                    "y": 2.1206483840942385,
+                    "z": 3.992262363433838
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_00_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.839801788330079,
+                    "y": 5.487343788146973,
+                    "z": -1.4915144443511963
+                },
+                "m_Extent": {
+                    "x": 4.714140892028809,
+                    "y": 2.112499952316284,
+                    "z": 3.5096023082733156
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 236,
+            "colorCount": 236,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.07743453979492,
+                    "y": 4.351963996887207,
+                    "z": -4.001885890960693
+                },
+                "m_Extent": {
+                    "x": 2.358295440673828,
+                    "y": 1.0700544118881226,
+                    "z": 2.002363443374634
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 0.0000018477439880371094,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_01_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -35.07783508300781,
+                    "y": 4.349693298339844,
+                    "z": -4.044345855712891
+                },
+                "m_Extent": {
+                    "x": 2.3586959838867189,
+                    "y": 1.0677834749221802,
+                    "z": 1.842592477798462
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 248,
+            "colorCount": 248,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.544265747070314,
+                    "y": 3.756293296813965,
+                    "z": -5.620003700256348
+                },
+                "m_Extent": {
+                    "x": 1.047074317932129,
+                    "y": 0.45200836658477785,
+                    "z": 0.8862016201019287
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.000016629695892333984,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_02_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.499805450439454,
+                    "y": 3.7551283836364748,
+                    "z": -5.5842437744140629
+                },
+                "m_Extent": {
+                    "x": 1.0026140213012696,
+                    "y": 0.4508434534072876,
+                    "z": 0.8607125282287598
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 236,
+            "colorCount": 236,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.735172271728517,
+                    "y": 4.4202470779418949,
+                    "z": -3.1826159954071047
+                },
+                "m_Extent": {
+                    "x": 2.205230712890625,
+                    "y": 1.011609435081482,
+                    "z": 1.908397912979126
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_03_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.726163864135743,
+                    "y": 4.4222731590271,
+                    "z": -3.249234199523926
+                },
+                "m_Extent": {
+                    "x": 2.1896800994873049,
+                    "y": 1.013635277748108,
+                    "z": 2.037609577178955
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 256,
+            "colorCount": 256,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.067359924316408,
+                    "y": 4.28125,
+                    "z": -4.529656410217285
+                },
+                "m_Extent": {
+                    "x": 2.0163536071777345,
+                    "y": 0.9066981077194214,
+                    "z": 1.6471912860870362
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_04_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 130,
+            "colorCount": 130,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.06505012512207,
+                    "y": 4.273236274719238,
+                    "z": -4.493690490722656
+                },
+                "m_Extent": {
+                    "x": 1.704355239868164,
+                    "y": 0.8986841440200806,
+                    "z": 1.6536190509796143
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 5.364418029785156e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 248,
+            "colorCount": 248,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -32.3018684387207,
+                    "y": 3.9698312282562258,
+                    "z": 10.269391059875489
+                },
+                "m_Extent": {
+                    "x": 4.970645904541016,
+                    "y": 2.222580671310425,
+                    "z": 4.277742385864258
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_05_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 128,
+            "colorCount": 128,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -32.19489669799805,
+                    "y": 3.9468936920166017,
+                    "z": 10.311661720275879
+                },
+                "m_Extent": {
+                    "x": 4.489192962646484,
+                    "y": 2.199643135070801,
+                    "z": 3.7855069637298586
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 252,
+            "colorCount": 252,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.251243591308595,
+                    "y": 2.162043333053589,
+                    "z": 11.05036735534668
+                },
+                "m_Extent": {
+                    "x": 1.2096529006958008,
+                    "y": 0.5479493141174316,
+                    "z": 1.0174212455749512
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_06_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -31.199859619140626,
+                    "y": 2.16408109664917,
+                    "z": 11.03455924987793
+                },
+                "m_Extent": {
+                    "x": 1.1582708358764649,
+                    "y": 0.5499870777130127,
+                    "z": 0.8765897750854492
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 238,
+            "colorCount": 238,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -36.184364318847659,
+                    "y": 1.7830979824066163,
+                    "z": 14.977851867675782
+                },
+                "m_Extent": {
+                    "x": 1.8621768951416016,
+                    "y": 0.8491756319999695,
+                    "z": 1.546600341796875
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_07_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 128,
+            "colorCount": 128,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -36.16883087158203,
+                    "y": 1.783280849456787,
+                    "z": 14.912179946899414
+                },
+                "m_Extent": {
+                    "x": 1.846639633178711,
+                    "y": 0.8493583798408508,
+                    "z": 1.4440288543701172
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 254,
+            "colorCount": 254,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -37.929325103759769,
+                    "y": 1.7264137268066407,
+                    "z": 13.781497955322266
+                },
+                "m_Extent": {
+                    "x": 1.4594383239746094,
+                    "y": 0.6473044753074646,
+                    "z": 1.2078547477722169
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_08_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 130,
+            "colorCount": 130,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -37.93965148925781,
+                    "y": 1.7264137268066407,
+                    "z": 13.669618606567383
+                },
+                "m_Extent": {
+                    "x": 1.469766616821289,
+                    "y": 0.6473044753074646,
+                    "z": 1.1427807807922364
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 234,
+            "colorCount": 234,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 33.71794891357422,
+                    "y": 5.294456481933594,
+                    "z": 12.32921314239502
+                },
+                "m_Extent": {
+                    "x": 4.696074485778809,
+                    "y": 2.1562845706939699,
+                    "z": 4.0705366134643559
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.000009059906005859375,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_09_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 128,
+            "colorCount": 128,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 33.826629638671878,
+                    "y": 5.286710739135742,
+                    "z": 12.412275314331055
+                },
+                "m_Extent": {
+                    "x": 4.587392807006836,
+                    "y": 2.148538827896118,
+                    "z": 4.247587203979492
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 244,
+            "colorCount": 244,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.81991195678711,
+                    "y": 3.8382673263549806,
+                    "z": 14.225906372070313
+                },
+                "m_Extent": {
+                    "x": 2.1096572875976564,
+                    "y": 0.9113397598266602,
+                    "z": 1.7606453895568848
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_10_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 30.90475082397461,
+                    "y": 3.8374412059783937,
+                    "z": 14.271483421325684
+                },
+                "m_Extent": {
+                    "x": 1.8755083084106446,
+                    "y": 0.9105136394500732,
+                    "z": 1.848769187927246
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 245,
+            "colorCount": 245,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 36.092735290527347,
+                    "y": 3.4725117683410646,
+                    "z": 13.792106628417969
+                },
+                "m_Extent": {
+                    "x": 1.0672760009765626,
+                    "y": 0.45475661754608157,
+                    "z": 0.8886232376098633
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_11_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 36.02660369873047,
+                    "y": 3.4713239669799806,
+                    "z": 13.802316665649414
+                },
+                "m_Extent": {
+                    "x": 0.9777812957763672,
+                    "y": 0.45356857776641848,
+                    "z": 0.8116116523742676
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 246,
+            "colorCount": 246,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 33.8329963684082,
+                    "y": 4.243805885314941,
+                    "z": 12.564994812011719
+                },
+                "m_Extent": {
+                    "x": 2.502574920654297,
+                    "y": 1.1030356884002686,
+                    "z": 2.1202845573425295
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_12_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 33.88777160644531,
+                    "y": 4.236658096313477,
+                    "z": 12.54410171508789
+                },
+                "m_Extent": {
+                    "x": 2.3688697814941408,
+                    "y": 1.0958878993988038,
+                    "z": 1.812668800354004
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_13_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 246,
+            "colorCount": 246,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.457290649414064,
+                    "y": 4.546235084533691,
+                    "z": -25.84438705444336
+                },
+                "m_Extent": {
+                    "x": 4.895966529846191,
+                    "y": 2.187805414199829,
+                    "z": 4.004530906677246
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_13_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -30.432403564453126,
+                    "y": 4.545263290405273,
+                    "z": -26.12326431274414
+                },
+                "m_Extent": {
+                    "x": 4.871079444885254,
+                    "y": 2.186833143234253,
+                    "z": 3.54763126373291
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 6.556510925292969e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_14_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 246,
+            "colorCount": 246,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -29.437950134277345,
+                    "y": 3.3781726360321047,
+                    "z": -33.52339172363281
+                },
+                "m_Extent": {
+                    "x": 1.960679054260254,
+                    "y": 0.8761117458343506,
+                    "z": 1.638991355895996
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_14_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -29.35028839111328,
+                    "y": 3.3715009689331056,
+                    "z": -33.47846221923828
+                },
+                "m_Extent": {
+                    "x": 1.8730173110961915,
+                    "y": 0.8694400787353516,
+                    "z": 1.5390453338623047
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_15_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 244,
+            "colorCount": 244,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -25.583477020263673,
+                    "y": 3.154116153717041,
+                    "z": -30.105884552001954
+                },
+                "m_Extent": {
+                    "x": 2.028156280517578,
+                    "y": 0.8951150178909302,
+                    "z": 1.739354133605957
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 2.980232238769531e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_15_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -25.514698028564454,
+                    "y": 3.1541199684143068,
+                    "z": -30.0507869720459
+                },
+                "m_Extent": {
+                    "x": 1.9593782424926758,
+                    "y": 0.8951188325881958,
+                    "z": 1.7650089263916016
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_16_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 244,
+            "colorCount": 244,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -32.27431869506836,
+                    "y": 2.964977741241455,
+                    "z": -26.437171936035158
+                },
+                "m_Extent": {
+                    "x": 1.1784591674804688,
+                    "y": 0.5455672740936279,
+                    "z": 1.0202913284301758
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000016093254089355469,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_16_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -32.20819854736328,
+                    "y": 2.9630675315856935,
+                    "z": -26.38629913330078
+                },
+                "m_Extent": {
+                    "x": 1.1123371124267579,
+                    "y": 0.5436569452285767,
+                    "z": 1.0859699249267579
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_17_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 242,
+            "colorCount": 242,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 26.984905242919923,
+                    "y": 4.740756988525391,
+                    "z": -28.165618896484376
+                },
+                "m_Extent": {
+                    "x": 4.916190147399902,
+                    "y": 2.1052534580230715,
+                    "z": 4.226803779602051
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_17_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 27.054244995117189,
+                    "y": 4.740830421447754,
+                    "z": -28.079444885253908
+                },
+                "m_Extent": {
+                    "x": 4.448145866394043,
+                    "y": 2.1053271293640138,
+                    "z": 4.0035200119018559
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_18_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 242,
+            "colorCount": 242,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 29.690465927124025,
+                    "y": 3.7789859771728517,
+                    "z": -31.094371795654298
+                },
+                "m_Extent": {
+                    "x": 1.4854602813720704,
+                    "y": 0.6325000524520874,
+                    "z": 1.230788230895996
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_18_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 29.62558937072754,
+                    "y": 3.7779741287231447,
+                    "z": -31.10248565673828
+                },
+                "m_Extent": {
+                    "x": 1.3840255737304688,
+                    "y": 0.6314879655838013,
+                    "z": 1.0574922561645508
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_19_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 236,
+            "colorCount": 236,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 32.18446350097656,
+                    "y": 3.2978057861328127,
+                    "z": -26.498865127563478
+                },
+                "m_Extent": {
+                    "x": 1.8187990188598633,
+                    "y": 0.804843544960022,
+                    "z": 1.5200042724609376
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_19_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 128,
+            "colorCount": 128,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 32.19834899902344,
+                    "y": 3.297243118286133,
+                    "z": -26.546667098999025
+                },
+                "m_Extent": {
+                    "x": 1.8049125671386719,
+                    "y": 0.8042808771133423,
+                    "z": 1.3476543426513672
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_20_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 242,
+            "colorCount": 242,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 28.886293411254884,
+                    "y": 4.118558406829834,
+                    "z": -30.95135498046875
+                },
+                "m_Extent": {
+                    "x": 2.308368682861328,
+                    "y": 1.017079472541809,
+                    "z": 1.9488525390625
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_20_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 28.922195434570314,
+                    "y": 4.114805698394775,
+                    "z": -30.963787078857423
+                },
+                "m_Extent": {
+                    "x": 2.272465705871582,
+                    "y": 1.0133270025253297,
+                    "z": 1.8065309524536133
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_21_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 244,
+            "colorCount": 244,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -54.90248107910156,
+                    "y": -1.6770471334457398,
+                    "z": 22.13396453857422
+                },
+                "m_Extent": {
+                    "x": 4.857963562011719,
+                    "y": 2.2344870567321779,
+                    "z": 4.171082496643066
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000013709068298339844,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_21_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 130,
+            "colorCount": 130,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -54.80427169799805,
+                    "y": -1.6770471334457398,
+                    "z": 22.207599639892579
+                },
+                "m_Extent": {
+                    "x": 4.759754180908203,
+                    "y": 2.2344870567321779,
+                    "z": 4.113656044006348
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_22_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 236,
+            "colorCount": 236,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -51.384033203125,
+                    "y": -2.7177491188049318,
+                    "z": 21.237369537353517
+                },
+                "m_Extent": {
+                    "x": 2.362781524658203,
+                    "y": 1.1251102685928345,
+                    "z": 2.0187149047851564
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_22_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -51.232574462890628,
+                    "y": -2.7278590202331545,
+                    "z": 21.369693756103517
+                },
+                "m_Extent": {
+                    "x": 2.2113208770751955,
+                    "y": 1.1150004863739014,
+                    "z": 2.1732683181762697
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 7.748603820800781e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_23_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 252,
+            "colorCount": 252,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -53.409767150878909,
+                    "y": -3.310605525970459,
+                    "z": 28.547950744628908
+                },
+                "m_Extent": {
+                    "x": 1.3461971282958985,
+                    "y": 0.5909113883972168,
+                    "z": 1.1408281326293946
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_23_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 128,
+            "colorCount": 128,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -53.38326644897461,
+                    "y": -3.313737630844116,
+                    "z": 28.57581329345703
+                },
+                "m_Extent": {
+                    "x": 1.1967887878417969,
+                    "y": 0.5877792835235596,
+                    "z": 1.1251192092895508
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_24_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 241,
+            "colorCount": 241,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -54.15373992919922,
+                    "y": -2.9541454315185549,
+                    "z": 23.906173706054689
+                },
+                "m_Extent": {
+                    "x": 2.195901870727539,
+                    "y": 0.9501359462738037,
+                    "z": 1.8831462860107422
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 3.5762786865234377e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_24_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 2,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -54.092750549316409,
+                    "y": -2.9510903358459474,
+                    "z": 23.919647216796876
+                },
+                "m_Extent": {
+                    "x": 1.9760322570800782,
+                    "y": 0.9531909823417664,
+                    "z": 1.644948959350586
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_25_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 252,
+            "colorCount": 252,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 61.8191032409668,
+                    "y": 0.6867611408233643,
+                    "z": 23.37310028076172
+                },
+                "m_Extent": {
+                    "x": 4.814456939697266,
+                    "y": 2.124067783355713,
+                    "z": 4.091198921203613
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_25_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 61.90363693237305,
+                    "y": 0.6876075267791748,
+                    "z": 23.402481079101564
+                },
+                "m_Extent": {
+                    "x": 4.729923248291016,
+                    "y": 2.1249141693115236,
+                    "z": 3.6588401794433595
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_26_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 240,
+            "colorCount": 240,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 61.43426513671875,
+                    "y": -3.9081947803497316,
+                    "z": 29.191326141357423
+                },
+                "m_Extent": {
+                    "x": 1.2537193298339844,
+                    "y": 0.58414626121521,
+                    "z": 1.0532712936401368
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_26_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 128,
+            "colorCount": 128,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 61.43543243408203,
+                    "y": -3.9081947803497316,
+                    "z": 29.15752410888672
+                },
+                "m_Extent": {
+                    "x": 1.252553939819336,
+                    "y": 0.58414626121521,
+                    "z": 0.9605875015258789
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_27_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 252,
+            "colorCount": 252,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 52.456600189208987,
+                    "y": -2.079460382461548,
+                    "z": 24.611888885498048
+                },
+                "m_Extent": {
+                    "x": 1.1217880249023438,
+                    "y": 0.4754573702812195,
+                    "z": 0.9300193786621094
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_27_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 52.538692474365237,
+                    "y": -2.080289363861084,
+                    "z": 24.683483123779298
+                },
+                "m_Extent": {
+                    "x": 1.0396957397460938,
+                    "y": 0.4746285676956177,
+                    "z": 0.8915796279907227
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_28_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 136,
+            "expectedTriangles": 136,
+            "subMeshes": 3,
+            "uvCount": 234,
+            "colorCount": 234,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 55.37496566772461,
+                    "y": -4.085742950439453,
+                    "z": 28.447235107421876
+                },
+                "m_Extent": {
+                    "x": 1.0952186584472657,
+                    "y": 0.5017392635345459,
+                    "z": 0.9387960433959961
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.000003993511199951172,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_Boulder_28_LOD1",
+            "role": "visual",
+            "passed": true,
+            "triangles": 66,
+            "expectedTriangles": 66,
+            "subMeshes": 3,
+            "uvCount": 126,
+            "colorCount": 126,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 55.429405212402347,
+                    "y": -4.088595390319824,
+                    "z": 28.492380142211915
+                },
+                "m_Extent": {
+                    "x": 1.040781021118164,
+                    "y": 0.49888670444488528,
+                    "z": 0.9922580718994141
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_00_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -103.01779174804688,
+                    "y": -3.8084168434143068,
+                    "z": 25.121782302856447
+                },
+                "m_Extent": {
+                    "x": 1.1211585998535157,
+                    "y": 0.42104899883270266,
+                    "z": 1.1398048400878907
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_01_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -96.0234603881836,
+                    "y": -1.7399067878723145,
+                    "z": 22.283924102783204
+                },
+                "m_Extent": {
+                    "x": 1.5662307739257813,
+                    "y": 0.6228353381156921,
+                    "z": 1.3251152038574219
+                }
+            },
+            "boundsError": 1.1920928955078126e-7,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_02_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -88.8758544921875,
+                    "y": -1.5111969709396363,
+                    "z": 22.374244689941408
+                },
+                "m_Extent": {
+                    "x": 1.9651870727539063,
+                    "y": 0.8438643217086792,
+                    "z": 1.474924087524414
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_03_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 160,
+            "colorCount": 160,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -81.80131530761719,
+                    "y": -4.028599739074707,
+                    "z": 24.878986358642579
+                },
+                "m_Extent": {
+                    "x": 2.3728103637695314,
+                    "y": 0.44478678703308108,
+                    "z": 1.0601797103881837
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 0.0000012516975402832032,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_04_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -74.96212768554688,
+                    "y": -1.4399298429489136,
+                    "z": 20.571041107177736
+                },
+                "m_Extent": {
+                    "x": 1.2507247924804688,
+                    "y": 0.6177786588668823,
+                    "z": 1.296891212463379
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_05_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -68.05322265625,
+                    "y": -1.0018730163574219,
+                    "z": 19.027294158935548
+                },
+                "m_Extent": {
+                    "x": 1.5829010009765626,
+                    "y": 0.851966917514801,
+                    "z": 1.6155023574829102
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_06_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 1,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -61.061431884765628,
+                    "y": -3.4864156246185304,
+                    "z": 20.970876693725587
+                },
+                "m_Extent": {
+                    "x": 1.839071273803711,
+                    "y": 0.43411827087402346,
+                    "z": 1.1428089141845704
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_07_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 1,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -53.976905822753909,
+                    "y": -1.1937782764434815,
+                    "z": 17.825176239013673
+                },
+                "m_Extent": {
+                    "x": 2.1985931396484377,
+                    "y": 0.6225418448448181,
+                    "z": 1.3372373580932618
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_08_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -46.90118408203125,
+                    "y": -1.125441074371338,
+                    "z": 18.5591983795166
+                },
+                "m_Extent": {
+                    "x": 1.1414165496826172,
+                    "y": 0.8327851295471191,
+                    "z": 1.5922660827636719
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_09_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -39.853580474853519,
+                    "y": -3.605374336242676,
+                    "z": 22.218460083007814
+                },
+                "m_Extent": {
+                    "x": 1.5790901184082032,
+                    "y": 0.4233311414718628,
+                    "z": 1.0886783599853516
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_10_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 166,
+            "colorCount": 166,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -32.81231689453125,
+                    "y": -1.5283808708190919,
+                    "z": 19.493633270263673
+                },
+                "m_Extent": {
+                    "x": 1.9079704284667969,
+                    "y": 0.670792281627655,
+                    "z": 1.3484439849853516
+                }
+            },
+            "boundsError": 5.960464477539063e-8,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_11_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -25.972549438476564,
+                    "y": -1.4730085134506226,
+                    "z": 19.230857849121095
+                },
+                "m_Extent": {
+                    "x": 2.2942590713500978,
+                    "y": 0.8386191129684448,
+                    "z": 1.602086067199707
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_12_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -19.05727767944336,
+                    "y": -4.091122627258301,
+                    "z": 21.716171264648439
+                },
+                "m_Extent": {
+                    "x": 1.1588211059570313,
+                    "y": 0.42444801330566409,
+                    "z": 1.136256217956543
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 9.5367431640625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_13_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -12.025712966918946,
+                    "y": -1.795914649963379,
+                    "z": 18.868234634399415
+                },
+                "m_Extent": {
+                    "x": 1.4954266548156739,
+                    "y": 0.6305578351020813,
+                    "z": 1.3664512634277344
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 4.76837158203125e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_14_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": -4.906652450561523,
+                    "y": -1.4822918176651,
+                    "z": 19.970584869384767
+                },
+                "m_Extent": {
+                    "x": 1.8774058818817139,
+                    "y": 0.8235131502151489,
+                    "z": 1.5766534805297852
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_15_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 166,
+            "colorCount": 166,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 2.270803451538086,
+                    "y": -3.6525070667266847,
+                    "z": 24.658870697021486
+                },
+                "m_Extent": {
+                    "x": 2.2865490913391115,
+                    "y": 0.4589698314666748,
+                    "z": 1.0558795928955079
+                }
+            },
+            "boundsError": 6.891787052154541e-8,
+            "normalRangeError": 0.000001430511474609375,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_16_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 9.127775192260743,
+                    "y": -1.3372986316680909,
+                    "z": 23.027374267578126
+                },
+                "m_Extent": {
+                    "x": 1.1979639530181885,
+                    "y": 0.6229131817817688,
+                    "z": 1.3306140899658204
+                }
+            },
+            "boundsError": 4.76837158203125e-7,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_17_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 1,
+            "uvCount": 166,
+            "colorCount": 166,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 16.044517517089845,
+                    "y": -0.9292021989822388,
+                    "z": 23.7396183013916
+                },
+                "m_Extent": {
+                    "x": 1.5771760940551758,
+                    "y": 0.8519618511199951,
+                    "z": 1.5750293731689454
+                }
+            },
+            "boundsError": 9.5367431640625e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_18_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 1,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 22.908727645874025,
+                    "y": -3.4125962257385256,
+                    "z": 26.432209014892579
+                },
+                "m_Extent": {
+                    "x": 1.907125473022461,
+                    "y": 0.44342029094696047,
+                    "z": 1.1358404159545899
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_19_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 166,
+            "colorCount": 166,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 29.97610092163086,
+                    "y": -0.7819976210594177,
+                    "z": 22.904260635375978
+                },
+                "m_Extent": {
+                    "x": 2.1670570373535158,
+                    "y": 0.6736697554588318,
+                    "z": 1.379547119140625
+                }
+            },
+            "boundsError": 2.2351741790771486e-8,
+            "normalRangeError": 7.152557373046875e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_20_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 36.969337463378909,
+                    "y": -0.7614074349403381,
+                    "z": 22.839393615722658
+                },
+                "m_Extent": {
+                    "x": 1.2153606414794922,
+                    "y": 0.8095209002494812,
+                    "z": 1.5295772552490235
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_21_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 44.12683868408203,
+                    "y": -3.95269513130188,
+                    "z": 26.414390563964845
+                },
+                "m_Extent": {
+                    "x": 1.5842151641845704,
+                    "y": 0.45288825035095217,
+                    "z": 1.035395622253418
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 5.960464477539063e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_22_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 164,
+            "colorCount": 164,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 51.20555877685547,
+                    "y": -1.5470784902572632,
+                    "z": 24.187437057495118
+                },
+                "m_Extent": {
+                    "x": 1.9706554412841797,
+                    "y": 0.6691704988479614,
+                    "z": 1.2844123840332032
+                }
+            },
+            "boundsError": 0.000003814697265625,
+            "normalRangeError": 6.556510925292969e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_23_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 58.11194610595703,
+                    "y": -1.4928348064422608,
+                    "z": 24.601037979125978
+                },
+                "m_Extent": {
+                    "x": 2.3354454040527345,
+                    "y": 0.828341007232666,
+                    "z": 1.5533790588378907
+                }
+            },
+            "boundsError": 5.960464477539063e-8,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_24_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 64.97793579101563,
+                    "y": -3.8943862915039064,
+                    "z": 26.933752059936525
+                },
+                "m_Extent": {
+                    "x": 1.1830062866210938,
+                    "y": 0.423061728477478,
+                    "z": 1.140096664428711
+                }
+            },
+            "boundsError": 2.384185791015625e-7,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_25_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 71.96719360351563,
+                    "y": -1.5035429000854493,
+                    "z": 22.475454330444337
+                },
+                "m_Extent": {
+                    "x": 1.4801864624023438,
+                    "y": 0.6310064196586609,
+                    "z": 1.3982963562011719
+                }
+            },
+            "boundsError": 5.960464477539063e-8,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_26_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 78.93231201171875,
+                    "y": -1.1897618770599366,
+                    "z": 20.938875198364259
+                },
+                "m_Extent": {
+                    "x": 1.9440574645996094,
+                    "y": 0.8447005748748779,
+                    "z": 1.5683307647705079
+                }
+            },
+            "boundsError": 0.00000762939453125,
+            "normalRangeError": 2.384185791015625e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_27_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 2,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 86.20112609863281,
+                    "y": -3.4053807258605959,
+                    "z": 23.07208251953125
+                },
+                "m_Extent": {
+                    "x": 2.23797607421875,
+                    "y": 0.4303855895996094,
+                    "z": 1.0968523025512696
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.7881393432617188e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_28_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 1,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 93.12671661376953,
+                    "y": -1.4524717330932618,
+                    "z": 19.840240478515626
+                },
+                "m_Extent": {
+                    "x": 1.2021560668945313,
+                    "y": 0.6330828666687012,
+                    "z": 1.3255300521850587
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 5.960464477539063e-8,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_ShoreStone_29_LOD0",
+            "role": "visual",
+            "passed": true,
+            "triangles": 86,
+            "expectedTriangles": 86,
+            "subMeshes": 1,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 100.04704284667969,
+                    "y": -1.4017423391342164,
+                    "z": 20.180286407470704
+                },
+                "m_Extent": {
+                    "x": 1.6455459594726563,
+                    "y": 0.8050657510757446,
+                    "z": 1.505812644958496
+                }
+            },
+            "boundsError": 0.0000019073486328125,
+            "normalRangeError": 1.1920928955078126e-7,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        },
+        {
+            "name": "SM_R3_AxisMarker",
+            "role": "diagnostic",
+            "passed": true,
+            "triangles": 84,
+            "expectedTriangles": 84,
+            "subMeshes": 3,
+            "uvCount": 162,
+            "colorCount": 162,
+            "actualBounds": {
+                "m_Center": {
+                    "x": 1.0,
+                    "y": 0.050999999046325687,
+                    "z": -0.5
+                },
+                "m_Extent": {
+                    "x": 1.0,
+                    "y": 0.050999999046325687,
+                    "z": 0.5
+                }
+            },
+            "boundsError": 0.0,
+            "normalRangeError": 0.0,
+            "sourceBoundaryEdges": 0,
+            "errors": []
+        }
+    ],
+    "errors": []
+}

@@ -1,0 +1,85 @@
+Summon presentation verification. Fixtures use authored character assets only.
+No FrontEndController, ownership service, account fixture, wallet, or summon transaction is created or accessed.
+Fixture: R / [Genshin Impact] Amber / fighter.amber
+Fixture: SR / [Genshin Impact] Barbara / fighter.barbara
+Fixture: SSR / Asumiya Athena 94 / fighter.athena94
+PASS SummonSequenceView source has no inventory, wallet, account, or transaction dependency.
+PASS Low-Arrival at 0.80s / 1920x1080
+PASS Low-Complete at 2.50s / 1920x1080
+PASS SSR-Cross at 1.40s / 1920x1080
+PASS SSR-Silhouette at 2.15s / 1920x1080
+PASS SSR-Hero at 3.10s / 1920x1080
+PASS SSR-Complete at 6.00s / 1920x1080
+PASS Ten-Low-Complete at 4.00s / 1920x1080
+PASS Ten-Mixed-Complete at 12.00s / 1920x1080
+PASS Receipt-White-Flash at 0.48s / 1920x1080
+PASS Receipt-Upward-Fade at 0.56s / 1920x1080
+PASS Receipt-Settle-Glint at 0.84s / 1920x1080
+PASS Receipt-Mixed-Complete at 12.00s / 1920x1080
+PASS SSR-Red at 2.70s / 1920x1080
+PASS SSR-Yellow at 2.70s / 1920x1080
+PASS SSR-Green at 2.70s / 1920x1080
+PASS SSR-Blue at 2.70s / 1920x1080
+PASS SSR-Purple at 2.70s / 1920x1080
+PASS SSR-Screen-Entry-Impulse at 0.54s / 1920x1080
+PASS SSR-Rush-Impulse at 1.54s / 1920x1080
+PASS Items-Arrival at 0.56s / 1920x1080
+PASS Items-Complete at 5.00s / 1920x1080
+PASS Items-Overflow at 10.00s / 1920x1080
+PASS Low-Arrival at 0.80s / 1280x720
+PASS Low-Complete at 2.50s / 1280x720
+PASS SSR-Cross at 1.40s / 1280x720
+PASS SSR-Silhouette at 2.15s / 1280x720
+PASS SSR-Hero at 3.10s / 1280x720
+PASS SSR-Complete at 6.00s / 1280x720
+PASS Ten-Low-Complete at 4.00s / 1280x720
+PASS Ten-Mixed-Complete at 12.00s / 1280x720
+PASS Receipt-White-Flash at 0.48s / 1280x720
+PASS Receipt-Upward-Fade at 0.56s / 1280x720
+PASS Receipt-Settle-Glint at 0.84s / 1280x720
+PASS Receipt-Mixed-Complete at 12.00s / 1280x720
+PASS SSR-Red at 2.70s / 1280x720
+PASS SSR-Yellow at 2.70s / 1280x720
+PASS SSR-Green at 2.70s / 1280x720
+PASS SSR-Blue at 2.70s / 1280x720
+PASS SSR-Purple at 2.70s / 1280x720
+PASS SSR-Screen-Entry-Impulse at 0.54s / 1280x720
+PASS SSR-Rush-Impulse at 1.54s / 1280x720
+PASS Items-Arrival at 0.56s / 1280x720
+PASS Items-Complete at 5.00s / 1280x720
+PASS Items-Overflow at 10.00s / 1280x720
+PASS Low-Arrival at 0.80s / 768x1024
+PASS Low-Complete at 2.50s / 768x1024
+PASS SSR-Cross at 1.40s / 768x1024
+PASS SSR-Silhouette at 2.15s / 768x1024
+PASS SSR-Hero at 3.10s / 768x1024
+PASS SSR-Complete at 6.00s / 768x1024
+PASS Ten-Low-Complete at 4.00s / 768x1024
+PASS Ten-Mixed-Complete at 12.00s / 768x1024
+PASS Receipt-White-Flash at 0.48s / 768x1024
+PASS Receipt-Upward-Fade at 0.56s / 768x1024
+PASS Receipt-Settle-Glint at 0.84s / 768x1024
+PASS Receipt-Mixed-Complete at 12.00s / 768x1024
+PASS SSR-Red at 2.70s / 768x1024
+PASS SSR-Yellow at 2.70s / 768x1024
+PASS SSR-Green at 2.70s / 768x1024
+PASS SSR-Blue at 2.70s / 768x1024
+PASS SSR-Purple at 2.70s / 768x1024
+PASS SSR-Screen-Entry-Impulse at 0.54s / 768x1024
+PASS SSR-Rush-Impulse at 1.54s / 768x1024
+PASS Items-Arrival at 0.56s / 768x1024
+PASS Items-Complete at 5.00s / 768x1024
+PASS Items-Overflow at 10.00s / 768x1024
+PASS Single draws dispatch all seven rarity tiers correctly, using temporary asset clones only.
+PASS Null entries are ignored while preserving valid draw order.
+PASS Mixed ten-pull preserves draw order and runs both SSR reveals before their respective card arrivals.
+PASS Nine original audio cues are deterministic, finite, peak limited, faded at their boundaries, and leave Unity RNG unchanged.
+PASS Visible X screen-entry/rush impulses settle to neutral before inspection and leave RNG unchanged.
+PASS Captured 131 finite timeline frames at24fps and two independently animated held-loop frames.
+PASS Each SSR holds after settling until input, including duplicate SSR; long frame deltas cannot pass either reveal.
+PASS Skip retains the same final board; asynchronous close completes once after the exit animation; repeated inputs are harmless.
+PASS Committed NEW/memory receipt overload follows the same completion lifecycle.
+PASS Empty and null draws complete immediately once.
+PASS Dispose cancels playback, suppresses completion, removes or hides the overlay, and can be repeated.
+PASS All checks completed. 66 deterministic preview images captured.
+PASS

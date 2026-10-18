@@ -405,7 +405,7 @@ namespace FightingAllstar.Presentation.Economy
             try
             {
                 _store.Save(_state);
-                SceneManager.LoadScene("Combat");
+                FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat");
             }
             catch (Exception exception) { SetNotice(exception.Message); }
         }

@@ -73,16 +73,17 @@ public sealed class ElementalAuraVisualRunner : MonoBehaviour
             var icon=new Image { sprite=visual.Icon };icon.style.position=Position.Absolute;icon.style.left=100+i*235;icon.style.top=150;icon.style.width=110;icon.style.height=110;root.Add(icon);
             Text(element.ToString(),110+i*235,275).style.color=GenshinCombatTextStyle.ElementColor(element);
         }
-        Check(fighter.Statuses.Instances.Count==0 && CoreFighterHud.DisplayStatuses(fighter).Count==5,"Aura display mutated debuff state.");
+        Check(fighter.Statuses.Instances.Count==0 && CoreFighterHud.DisplayStatuses(fighter).Count==0,"Aura display mutated debuff state.");
         var hudRoot=new GameObject("HUD",typeof(RectTransform));hudRoot.SetActive(false);
         var panel=new GameObject("StatusContainer",typeof(RectTransform),typeof(UnityEngine.UI.GridLayoutGroup));panel.transform.SetParent(hudRoot.transform,false);
         var hud=hudRoot.AddComponent<CoreFighterHud>();typeof(CoreFighterHud).GetField("_statusPanel",Private).SetValue(hud,panel);hudRoot.SetActive(true);
-        hud.SetStatuses(CoreFighterHud.DisplayStatuses(fighter));
-        Check(panel.transform.childCount==5,"Production HUD did not show exactly five aura icons.");
+        hud.SetStatuses(CoreFighterHud.DisplayStatuses(fighter));hud.SetElementStatuses(fighter.ElementStatuses.Instances);
+        var elementPanel=(GameObject)typeof(CoreFighterHud).GetField("_elementStatusPanel",Private).GetValue(hud);
+        Check(panel.transform.childCount==0 && elementPanel.transform.childCount==5,"Production HUD did not show exactly five aura icons.");
         foreach(var aura in fighter.ElementStatuses.Instances)
-            Check(panel.GetComponentsInChildren<UnityEngine.UI.Image>(true).Any(image=>image.sprite==StatusVisualData.GetSprite(aura.ToDisplayStatus().RecipeId,StatusPolarity.Neutral)),"Production HUD used fallback art: "+aura.Element);
-        fighter.ElementStatuses.AdvanceTargetTurnEnd();hud.SetStatuses(CoreFighterHud.DisplayStatuses(fighter));
-        Check(panel.transform.childCount==5 && fighter.ElementStatuses.Instances.All(a=>a.RemainingDuration==2),"HUD duplicated icons when clocks advanced.");
+            Check(elementPanel.GetComponentsInChildren<UnityEngine.UI.Image>(true).Any(image=>image.sprite==StatusVisualData.GetSprite(aura.ToDisplayStatus().RecipeId,StatusPolarity.Neutral)),"Production HUD used fallback art: "+aura.Element);
+        fighter.ElementStatuses.AdvanceTargetTurnEnd();hud.SetElementStatuses(fighter.ElementStatuses.Instances);
+        Check(elementPanel.transform.childCount==5 && panel.transform.childCount==0 && fighter.ElementStatuses.Instances.All(a=>a.RemainingDuration==2),"HUD duplicated icons when clocks advanced.");
         var roster=GenshinStarterRoster.Create().Take(4).ToArray();var state=BattleEngine.Create("aura-visual",roster,null,roster,null,21);
         var controller=new GameObject("Controller").AddComponent<CoreBattleSceneController>();controller.enabled=false;
         void Set(string name,object value)=>typeof(CoreBattleSceneController).GetField(name,Private).SetValue(controller,value);

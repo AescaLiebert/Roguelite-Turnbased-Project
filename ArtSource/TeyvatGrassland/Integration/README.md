@@ -1,0 +1,27 @@
+# WP07 editable stage contact corrections
+
+[create_stage_contact.py](create_stage_contact.py) opens the accepted [R3 Blender source](../LayoutR3/TG_LayoutGeometry.blend) and uses its [canonical plan](../LayoutR3/TG_LayoutPlan.json) to cut rock channels below the three waterfall courses. The saved `TG_StageContacts.blend` contains only changed contact meshes. Earlier landscape, tree, meadow and water sources remain separate lane inputs.
+
+The current [manifest](TG_StageContacts.manifest.json) records **15 meshes / 3,058 source triangles**, including corrected landing shelves, cliff pieces and talus; paired lower-detail versions are included where present. Each entry names the exact R3 mesh it replaces, material slots, bounds and export counts. No broad scenery replacement or automatic relocation is performed. These are source statistics, not the stage's visible-frame cost.
+
+The closed Boolean cutter follows the existing six-point course. Its bottom starts 0.34 m below the canonical course, with each-side clearance `half_width × 1.16 + 0.45 m`. This removes protruding caps while retaining surrounding shelf shoulders. Unity separately creates a native terrain derivative with bed cuts starting 0.36 m below the canonical course. The WP06 ribbon is offset 0.13 m above that course; these values are not physical film thicknesses. Both cuts are starting contact tolerances: inspect front/side/overhead joins when changing them.
+
+Regenerate from `E:/Program Files/Unity/RogueliteTurnbasedProject`:
+
+```powershell
+& 'C:/Program Files/Blender Foundation/Blender 5.1/blender.exe' --background --factory-startup --python 'ArtSource/TeyvatGrassland/Integration/create_stage_contact.py'
+```
+
+Requires Blender 5.1.1, its bundled FBX exporter, the R3 blend/plan and the adjacent WP02 geometry helper. The generator saves this folder's blend/FBX/manifest, then copies FBX/manifest into [Integration/Models](../../../Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/). Preserve manual revisions before regeneration and retain Unity `.meta` files. No generated texture, external model service or downloaded model is required.
+
+Coordinates are Blender X/right, Y/forward, Z/up metres; the tested raw Unity basis is X/right, Y/up, Z/forward. The source already uses arena-local coordinates; Unity applies the accepted stage origin once. Export uses scale 1, baked axis conversion, −Z forward/Y up and LINEAR vertex colors. These contact rocks use evaluated Boolean geometry and exporter triangulation; their importer keeps authored normals, no mesh compression and read/write for diagnostics. Material assignments are remapped by actual imported slot names, not an assumed FBX slot order.
+
+The six ballistic spray meshes are authored by the Unity stage builder rather than this Blender generator. Current counts are 920 emitters: hero 200 per landing, side courses 130 per landing. UV0 stores signed billboard corners; TEXCOORD1 stores object-local velocity XYZ/lifetime; TEXCOORD2 stores phase/half-size. Four coincident emitter-position vertices form each quad; the shader supplies ballistic movement and camera-facing expansion. Saved mesh bounds must include that movement, not just undeformed emitter positions.
+
+The three Integration-owned shaders are `IntegratedWater`, `ImpactFoam` and `ImpactSpray`, with their own procedural helper. They share `_TG_Wind.w` and leave previous Water/Shared shader assets unchanged. The retained WP06 shoreline effect is an explicit dependency. Normalized foam UV0 has +V at the impact/back edge and −V downstream; vertex R provides phase and A opacity. Read the shaders before changing those meanings. Flow rate, foam concentration, spray half-size/lifetime and bounds must be reviewed together; shader animation is not fluid simulation.
+
+Use [RunTeyvatStageLab.ps1](../../../Tests/Environment/RunTeyvatStageLab.ps1) for the isolated URP 17.3 Forward/Linear Windows review, then `-VerifySaved` after the full run. It saves the full `TG_BattleStage_r1` prefab and the separate `TG_StageReview_r1` master scene. `TeyvatStageBinding` rebases a temporary meadow copy for translation-only placement; keep world rotation identity and scale one. The persisted stage meadow derivative removes 119 watercourse tufts; original R3 data remains unchanged. The binding clones that derivative at runtime. Review tour cameras are outside the environment prefab and do not replace the game camera system.
+
+The [WP07 handoff](../../../ArtDirection/TeyvatGrasslandConcepts/WP07_Integration.md) defines output paths, contracts and verification evidence. Warm/cold contact, depth, standalone-prefab and camera checks pass. Actual Play Mode confirms moving water/spray and one shared clock; reports record the exact coverage. Main Built-in/Gamma gameplay is unchanged. Final lighting, real animated combat, arbitrary transparent VFX sorting and standalone named-minimum-PC performance are not claimed.
+
+Six Unity-authored vertical foam-fringe meshes add a broken white impact foot (effect mode 3, UV V bottom to top). The integration adds 12 effect meshes to the 40-renderer WP06 water assembly. Native bed cuts change 109 height samples; a separate persisted meadow derivative removes 119 tufts only from waterfall channels. Use `-Playback` for actual Play Mode review. [finalize_teyvat_stage.py](../../../Tests/Environment/finalize_teyvat_stage.py) records preservation, package inventory, reload image differences and source hashes.

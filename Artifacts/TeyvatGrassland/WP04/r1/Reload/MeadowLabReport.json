@@ -1,0 +1,19 @@
+{
+    "passed": true,
+    "imports": true,
+    "placement": true,
+    "camera": true,
+    "terrain": true,
+    "wind": true,
+    "gpuCoverage": true,
+    "shaders": true,
+    "missingScripts": 0,
+    "placements": 25521,
+    "cells": 240,
+    "species": 8,
+    "cameras": 21,
+    "unity": "6000.3.4f1",
+    "gpu": "AMD Radeon(TM) Graphics",
+    "context": "Cold saved-scene process; no Build or pipeline reconfiguration.",
+    "limitations": "WP04 module, not final map. Trees, water, lighting remain WP01/WP02 context for WP05/WP06/WP08. Actual animated combat and minimum-PC player performance remain WP07/WP09. Distance thresholds are starting values reviewed in captures."
+}

@@ -30,6 +30,9 @@ public static class ArtifactImprovementsUiChecks
     private static string accountPath, fighterId, otherId;
     private static int index, assertions;
     private static double next;
+    private static double enhancementDeadline;
+    private static Action pending;
+    private static VisualElement equipmentPreview;
     private static Vector2Int Size => Sizes[index];
 
     public static void Run()
@@ -94,25 +97,34 @@ public static class ArtifactImprovementsUiChecks
     {
         Seed(); Preview.GetField("_index", SP).SetValue(null, index); Preview.GetMethod("Build", SP).Invoke(null, null);
         root = ((UIDocument)Preview.GetField("_document", SP).GetValue(null)).rootVisualElement;
-        Steps.Clear(); Steps.Enqueue(InspectKit); Steps.Enqueue(InspectCardDetails);
-        if (!DetailOnly) { Steps.Enqueue(Equip); Steps.Enqueue(Positive); Steps.Enqueue(Unequip);
-            Steps.Enqueue(Negative); Steps.Enqueue(Materials); Steps.Enqueue(MaterialLimit); Steps.Enqueue(BackpackAndRewards); }
+        pending = null;
+        Steps.Clear(); Steps.Enqueue(OpenKit); Steps.Enqueue(InspectKit); Steps.Enqueue(InspectArtifactTab); Steps.Enqueue(InspectCardDetails);
+        if (!DetailOnly) { Steps.Enqueue(OpenEquipmentPicker); Steps.Enqueue(Equip); Steps.Enqueue(Positive); Steps.Enqueue(Unequip);
+            Steps.Enqueue(Negative); Steps.Enqueue(OpenWorkshop); Steps.Enqueue(Materials); Steps.Enqueue(MaterialLimit); Steps.Enqueue(CompleteEnhancement);
+            Steps.Enqueue(BackpackAndRewards); Steps.Enqueue(InspectLimitBreak); Steps.Enqueue(InspectBackpack); Steps.Enqueue(InspectDungeonRewards); Steps.Enqueue(InspectVictoryRewards); }
         next = EditorApplication.timeSinceStartup + .8;
     }
     private static void Tick()
     {
-        if (EditorApplication.timeSinceStartup < next) return;
         try
         {
+            Preview.GetMethod("Render", SP).Invoke(null, new object[] { Size, "Pump", false });
+            if (EditorApplication.timeSinceStartup < next) return;
+            if (pending != null) { var action = pending; pending = null; next = EditorApplication.timeSinceStartup + .1; action(); return; }
             if (Steps.Count > 0) { next = EditorApplication.timeSinceStartup + .3; Steps.Dequeue()(); return; }
             Notes.Add(Size + (DetailOnly ? ": rank artwork sequence, stable rank switching, all ultimate levels/current marker, passive artwork/conditions, unchanged status badges and runtime skill glyph mapping passed." : ": kit ratio, additional stats, persistent picker, swap, five-slot strip, CC gain/loss, 15 materials and shared grid sizes passed."));
             index++; if (index < Sizes.Length) Build(); else Finish(null);
         }
         catch (Exception error) { Finish(error); }
     }
+    private static void OpenKit()
+    {
+        CharacterInventoryView.Show(root); CharacterHubView.Show(root, fighter);
+        next = EditorApplication.timeSinceStartup + .7;
+    }
     private static void InspectKit()
     {
-        CharacterInventoryView.Show(root); CharacterHubView.Show(root, fighter); Settle(); Render("CharacterKit");
+        Settle(); Render("CharacterKit");
         var card = root.Q("hub-card-1").Q<Button>("card-button"); var bounds = card.worldBound;
         Check(Math.Abs(bounds.width / bounds.height - 1461f / 2650) < .015f, "Kit card frame is deformed: " + bounds);
         var type = root.Q("hub-card-1").Q<Image>("card-skill-type").worldBound;
@@ -121,7 +133,12 @@ public static class ArtifactImprovementsUiChecks
         Check(root.Q("cc-change-feedback").style.display == DisplayStyle.None, "Opening an inspector triggered CC feedback.");
         Click(root.Q<Button>("hub-stat-details")); Render("AdditionalStats");
         Check(root.Query(className: "hub-detail-stat").ToList().Count == Enum.GetValues(typeof(StatId)).Length - 4, "Additional stats still repeat front-page stats.");
-        Click(root.Q<Button>("hub-detail-close")); Click(root.Q<Button>("hub-tab-artifacts")); Settle(); Render("ArtifactTab");
+        Click(root.Q("hub-detail-overlay").Q<Button>("hub-detail-close")); Click(root.Q<Button>("hub-tab-artifacts"));
+        next = EditorApplication.timeSinceStartup + .7;
+    }
+    private static void InspectArtifactTab()
+    {
+        Settle(); Render("ArtifactTab");
         Check(root.Q("artifact-fighter-name") == null && root.Q("artifact-fighter-icon") == null, "Duplicate character identity remains on artifact tab.");
         Check(root.Q("artifact-detail-panel").Q(className: "artifact-detail-ownership") == null && root.Q("artifact-slot-0").Q(className: "artifact-owner-avatar") == null, "Selected fighter's equipped artifacts repeat ownership.");
         for (var i = 0; i < 6; i++)
@@ -131,10 +148,14 @@ public static class ArtifactImprovementsUiChecks
             Check(slot.worldBound.yMax <= hero.yMax + 1, "Artifact slot is clipped by the character hero.");
         }
     }
+    private static void OpenEquipmentPicker()
+    {
+        equipmentPreview = root.Q("artifact-detail-panel");
+        Click(root.Q<Button>("artifact-change")); next = EditorApplication.timeSinceStartup + 1;
+    }
     private static void Equip()
     {
-        var originalPreview = root.Q("artifact-detail-panel");
-        Click(root.Q<Button>("artifact-change")); Render("ArtifactInventory");
+        var originalPreview = equipmentPreview; Render("ArtifactInventory");
         Click(root.Q<Button>("picker-strong-flower")); Render("ArtifactSwapPreview");
         var preview = root.Q("artifact-detail-panel");
         var inventoryPanel = root.Q("artifact-equipment-inventory");
@@ -189,16 +210,17 @@ public static class ArtifactImprovementsUiChecks
         var skill = definition.Skills.First(s => s.Slot == 1);
         var details = FightingAllstar.Presentation.Combat.CombatDetailFormatter.ExtractCardDetails(new CardState { Kind = CardKind.Skill, Rank = 3, SkillId = skill.Id }, authoredOwner, fighter);
         Check(root.Q(className: "hub-tooltip-status-grid")?.Query<Image>().ToList().Select(i => i.sprite).SequenceEqual(details.statuses.Select(s => s.Icon)) ?? details.statuses.Count == 0, "Rank comparison changed status badges.");
-        Click(root.Q<Button>("hub-detail-close")); Click(root.Q("hub-card-0").Q<Button>("card-button")); Render("UltimateLevels");
+        Click(root.Q("hub-detail-overlay").Q<Button>("hub-detail-close")); Click(root.Q("hub-card-0").Q<Button>("card-button")); Render("UltimateLevels");
         Check(root.Query(className: "hub-ultimate-level").ToList().Count == 6 && root.Query(className: "hub-level-current-marker").ToList().Count == 1, "Ultimate details omit levels or the current level marker.");
         Click(root.Q<Button>("hub-detail-rank-5")); Render("UltimateLevel5");
         var currentTier = inventory.FindOwnedByDefinition(fighter.DefinitionId).constellationTier;
         Check(root.Q<Button>("hub-detail-rank-5").ClassListContains("selected") && root.Q<Button>("hub-detail-rank-" + currentTier).ClassListContains("current-level"), "Previewing a future ultimate level changed the current-level marker.");
-        Click(root.Q<Button>("hub-detail-close")); Click(root.Q<Button>("hub-passive-button")); Render("PassiveReference");
+        Click(root.Q("hub-detail-overlay").Q<Button>("hub-detail-close")); Click(root.Q<Button>("hub-passive-button")); Render("PassiveReference");
         Check(root.Q<Image>("hub-passive-preview").sprite != null && root.Q<Image>("hub-passive-preview").sprite == (fighter.FighterPassive != null ? fighter.FighterPassive : fighter.FighterIcon) && root.Q("hub-passive-conditions").Query<Image>().ToList().Count == 2, "Passive details lack artwork or source/mode condition icons.");
         Check(root.Q("hub-detail-overlay").Query(className: "hub-note").ToList().Count == 0, "Passive details still display restriction/type text.");
         ScrollbarsHidden(); Bounds(root.Q(className: "hub-detail-dialog"));
-        Click(root.Q<Button>("hub-detail-close")); Click(root.Q<Button>("hub-tab-artifacts"));
+        Click(root.Q("hub-detail-overlay").Q<Button>("hub-detail-close")); Click(root.Q<Button>("hub-tab-artifacts"));
+        next = EditorApplication.timeSinceStartup + .7;
     }
     private static void Positive()
     {
@@ -223,24 +245,36 @@ public static class ArtifactImprovementsUiChecks
     {
         Render("CCDecrease"); Check(root.Q<Label>("cc-change-delta").text.Contains("−") && root.Q("cc-change-feedback").ClassListContains("cc-decrease"), "Negative CC feedback lacks signed loss.");
         Check(root.Q("artifact-equipment-inventory") != null, "Unequip closed the inventory.");
-        Click(root.Q<Button>("account-back")); Check(root.Q("artifact-equipment-inventory") == null && root.Q("hub-portrait").style.display != DisplayStyle.None && root.Q("artifact-character-stage").style.display != DisplayStyle.None, "Back does not close inventory and restore the original character view.");
+        Click(root.Q<Button>("account-back")); Check(root.Q("artifact-equipment-inventory") == null, "Back did not begin closing the inventory.");
         next = EditorApplication.timeSinceStartup + 2.1;
+    }
+    private static void OpenWorkshop()
+    {
+        Check(root.Q("artifact-equipment-inventory") == null && root.Q("hub-portrait").style.display != DisplayStyle.None && root.Q("artifact-character-stage").style.display != DisplayStyle.None,
+            "Back does not finish closing inventory and restore the original character view.");
+        Click(root.Q<Button>("artifact-change")); Click(root.Q<Button>("picker-strong-flower"));
+        Click(root.Q("artifact-detail-panel").Q<Button>("artifact-enhance"));
+        next = EditorApplication.timeSinceStartup + .7;
     }
     private static void Materials()
     {
-        Click(root.Q<Button>("artifact-change")); Click(root.Q<Button>("picker-strong-flower"));
-        Click(root.Q("artifact-detail-panel").Q<Button>("artifact-enhance")); Render("EnhancementLab");
+        Render("EnhancementLab");
         Check(root.Q("artifact-equipment-inventory") == null && root.Q("enhance-materials").childCount == 15, "Lab lacks 15 material slots.");
         Click(root.Q<Button>("enhance-auto")); Render("Enhancement15Slots");
         Check(root.Q("enhance-materials").Query(className: "enhance-material-tile").ToList().Count == 15, "Auto Add bypassed the 15-slot capacity.");
         ScrollbarsHidden();
-        Click(root.Q<Button>("enhance-add"));
+        Check(root.Q("enhance-add") == null, "Removed Materials button returned.");
+        // The material slots are now the lookup affordance. Free one, open its empty slot, then restore that source.
+        var removed = root.Q("enhance-materials").Query<Button>(className: "enhance-material-tile").ToList().First();
+        var removedId = removed.name.Substring("artifact-".Length); Click(removed);
+        Click(root.Q<Button>("enhance-empty-material-14")); Click(root.Q<Button>("picker-" + removedId));
         var grid = root.Q("artifact-picker-grid"); Check(grid.Query<Button>().ToList().All(b => b.name != "picker-strong-flower" && b.name != "picker-weak-flower"), "Protected or equipped artifacts are eligible fodder.");
+        next = EditorApplication.timeSinceStartup + 1;
     }
     private static void MaterialLimit()
     {
         var grid = root.Q("artifact-picker-grid");
-        var unselected = grid.Query<Button>().ToList().First(b => !b.ClassListContains("material-selected")); Click(unselected);
+        var unselected = grid.Query<Button>().ToList().First(b => b.name != null && b.name.StartsWith("picker-") && !b.ClassListContains("material-selected")); Click(unselected);
         Check(root.Q<Label>("enhance-note").text.Contains("15") && root.Q("enhance-materials").childCount == 15, "Manual material selection exceeds the cap.");
         var selected = grid.Query<Button>().ToList().First(b => b.ClassListContains("material-selected")); Click(selected);
         Check(root.Q("enhance-materials").Query(className: "enhance-material-tile").ToList().Count == 14, "A full tray cannot remove materials.");
@@ -248,7 +282,17 @@ public static class ArtifactImprovementsUiChecks
         Click(root.Q<Button>("account-back")); Render("EnhancementMaterials"); Bounds(root.Q<Button>("enhance-commit"));
         Click(root.Q<Button>("enhance-commit")); var before = inventory.GetItemInventorySnapshot().Artifacts.Count;
         Click(root.Q<Button>("artifact-confirm-commit")); Check(inventory.GetItemInventorySnapshot().Artifacts.Count == before - 15 && inventory.FindArtifact("strong-flower").Favourite, "Enhancement did not consume exactly reviewed fodder or lost favourite protection.");
+        enhancementDeadline = EditorApplication.timeSinceStartup + 12;
+    }
+    private static void CompleteEnhancement()
+    {
+        if (root.Q("artifact-enhance-overlay").ClassListContains("enhance-upgrade-running"))
+        {
+            Check(EditorApplication.timeSinceStartup < enhancementDeadline, "Committed enhancement feedback never finished.");
+            pending = CompleteEnhancement; return;
+        }
         Check(root.Q("enhance-materials").childCount == 15, "Tray does not reset after enhancement.");
+        Check(root.Q("enhance-materials").Query(className: "enhance-material-tile").ToList().Count == 0, "Consumed materials remain in the tray after feedback.");
         Click(root.Q<Button>("account-back"));
         // The same observer also catches enhancement of a worn artifact and level growth.
         Check(inventory.TryEquipArtifact("strong-flower", fighterId, out _), "Could not equip enhancement target.");
@@ -267,15 +311,28 @@ public static class ArtifactImprovementsUiChecks
         Check(root.Q("cc-change-feedback").style.display == DisplayStyle.None, "A cancelled CC burst leaves stale feedback.");
         inventory.SaveCurrent(); Check(root.Q("cc-change-feedback").style.display == DisplayStyle.None, "Unchanged inventory replays CC feedback.");
         Click(root.Q<Button>("hub-tab-upgrade"));
-        var owned = inventory.FindOwnedByDefinition(fighter.DefinitionId); owned.level = 10; owned.levelCap = 10; inventory.SaveCurrent(); Settle(); Render("LimitBreak");
+        var owned = inventory.FindOwnedByDefinition(fighter.DefinitionId); owned.level = 10; owned.levelCap = 10; inventory.SaveCurrent();
+        next = EditorApplication.timeSinceStartup + .7;
+    }
+    private static void InspectLimitBreak()
+    {
+        Settle(); Render("LimitBreak");
         var upgradeTiles = root.Q("hub-upgrade-materials").Query<Button>().ToList();
         var tile = upgradeTiles.First(); GridSize(tile); Bounds(root.Q<Button>("hub-upgrade-action"));
         Check(upgradeTiles.Count > 1 && upgradeTiles.All(t => Math.Abs(t.worldBound.y - tile.worldBound.y) < 2), "Limit-break materials wrapped instead of staying on one standard upgrade row.");
         ScrollbarsHidden();
-        BackpackView.Show(root); Render("Backpack"); GridSize(root.Q("backpack-grid").Query<Button>().ToList().First()); ScrollbarsHidden();
+        BackpackView.Show(root); next = EditorApplication.timeSinceStartup + .7;
+    }
+    private static void InspectBackpack()
+    {
+        Render("Backpack"); GridSize(root.Q("backpack-grid").Query<Button>().ToList().First()); ScrollbarsHidden();
         Click(root.Q<Button>("backpack-close"));
         Preview.GetField("Screens", SP).SetValue(null, new[] { "DungeonRouteMap" }); Preview.GetMethod("Build", SP).Invoke(null, null);
         root = ((UIDocument)Preview.GetField("_document", SP).GetValue(null)).rootVisualElement;
+        next = EditorApplication.timeSinceStartup + .7;
+    }
+    private static void InspectDungeonRewards()
+    {
         Settle();
         ScrollbarsHidden();
         root.Q<ScrollView>("stage-detail-scroll").ScrollTo(root.Q("stage-reward-scroll")); Render("DungeonRewards");
@@ -286,12 +343,19 @@ public static class ArtifactImprovementsUiChecks
         var controller = ((GameObject)Preview.GetField("_screen", SP).GetValue(null)).GetComponent<FightingAllstar.Presentation.Route.DungeonRouteMapController>();
         var run = controller.GetRunSnapshot(); var receipt = DungeonRewards.Victory(run, run.Nodes.First(n => n.Type == RouteNodeType.Battle));
         run.Rewards.Add(receipt); inventory.Snapshot.items.ClaimedReceiptIds.Add(receipt.Id); Set(controller, "_run", run);
-        controller.GetType().GetMethod("ShowPendingRewards", IP).Invoke(controller, null); Settle(); Render("VictoryRewards");
-        var strip = root.Q<ScrollView>(className: "reward-item-strip"); Check(strip != null, "Victory reward strip is missing.");
-        GridSize(strip.Query<Button>().ToList().First());
+        controller.GetType().GetMethod("ShowPendingRewards", IP).Invoke(controller, null);
+        ((FightingAllstar.Presentation.Navigation.SummonSequenceView)controller.GetType().GetField("_rewardSequence", IP).GetValue(controller)).SampleItemsForPreview(receipt, 100f);
+        next = EditorApplication.timeSinceStartup + .7;
+    }
+    private static void InspectVictoryRewards()
+    {
+        Settle(); Render("VictoryRewards");
+        var strip = root.Q<ScrollView>("obtain-item-scroll"); Check(strip != null, "Victory reward strip is missing.");
+        var obtainTile = strip.Query<Button>().ToList().First();
+        Check(Math.Abs(obtainTile.Q(className: "item-reward-frame").worldBound.width - FightingAllstar.Presentation.Navigation.SummonSequenceView.ObtainTileSize) < 1, "Obtain tile is not the restored larger size.");
         Check(strip.contentViewport.worldBound.height >= ItemRewardView.TileSide + ItemRewardView.FooterHeight + 4, "Victory reward tiles are vertically clipped: " + strip.contentViewport.worldBound);
         ScrollbarsHidden();
-        Bounds(root.Q<Button>("continue-after-reward"));
+        Check(root.Q("summon-result-close-label").worldBound.yMax <= Size.y + 1, "Shared obtain close prompt exceeds viewport.");
         Preview.GetField("Screens", SP).SetValue(null, new[] { "MainMenu" });
     }
     private static void GridSize(VisualElement tile)

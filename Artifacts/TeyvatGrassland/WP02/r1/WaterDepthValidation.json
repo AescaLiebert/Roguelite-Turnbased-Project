@@ -1,0 +1,108 @@
+{
+    "schema": "TG_WP02_WaterDepthValidation_v2",
+    "method": "Temporary isolated layer-31 rig viewed straight down by a perspective camera. The actual water shader outputs thickness / DepthRange into a linear floating-point render target. Nine center pixels are averaged per bed after two render requests.",
+    "limitations": "Numerical depth and fallback validation only; this does not validate water appearance, transparency sorting, refraction, reflected light or player-build performance. All temporary scene objects and resources are destroyed after capture.",
+    "passed": true,
+    "requiresCameraDepthTexture": true,
+    "floatingPointLinearTarget": true,
+    "sceneDepthMonotonic": true,
+    "depthRangeMetres": 4.0,
+    "fractionStartingTolerance": 0.02500000037252903,
+    "equivalentMetreStartingTolerance": 0.10000000149011612,
+    "sceneDepth": [
+        {
+            "name": "Scene depth",
+            "bedDepthMetres": 0.20000000298023225,
+            "expectedFraction": 0.05000000074505806,
+            "actualFraction": 0.05001091957092285,
+            "minimumFraction": 0.05001091957092285,
+            "maximumFraction": 0.05001091957092285,
+            "absoluteErrorMetres": 0.00004367530345916748,
+            "rawHardwareDepth": 0.005711006000638008,
+            "sceneEyeDepthMetres": 12.200045585632325,
+            "surfaceEyeDepthMetres": 12.000001907348633,
+            "unclampedThicknessMetres": 0.2000436782836914,
+            "passed": true
+        },
+        {
+            "name": "Scene depth",
+            "bedDepthMetres": 1.0,
+            "expectedFraction": 0.25,
+            "actualFraction": 0.2500123977661133,
+            "minimumFraction": 0.2500123977661133,
+            "maximumFraction": 0.2500123977661133,
+            "absoluteErrorMetres": 0.000049591064453125,
+            "rawHardwareDepth": 0.005205329041928053,
+            "sceneEyeDepthMetres": 13.00005054473877,
+            "surfaceEyeDepthMetres": 12.000001907348633,
+            "unclampedThicknessMetres": 1.0000486373901368,
+            "passed": true
+        },
+        {
+            "name": "Scene depth",
+            "bedDepthMetres": 3.0,
+            "expectedFraction": 0.75,
+            "actualFraction": 0.750016450881958,
+            "minimumFraction": 0.750016450881958,
+            "maximumFraction": 0.750016450881958,
+            "absoluteErrorMetres": 0.00006580352783203125,
+            "rawHardwareDepth": 0.004177117254585028,
+            "sceneEyeDepthMetres": 15.000067710876465,
+            "surfaceEyeDepthMetres": 12.000001907348633,
+            "unclampedThicknessMetres": 3.000065803527832,
+            "passed": true
+        }
+    ],
+    "fallbackDepth": [
+        {
+            "name": "Fixed fallback",
+            "bedDepthMetres": 0.20000000298023225,
+            "expectedFraction": 0.5,
+            "actualFraction": 0.5,
+            "minimumFraction": 0.5,
+            "maximumFraction": 0.5,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.0,
+            "sceneEyeDepthMetres": 0.0,
+            "surfaceEyeDepthMetres": 0.0,
+            "unclampedThicknessMetres": 0.0,
+            "passed": true
+        },
+        {
+            "name": "Fixed fallback",
+            "bedDepthMetres": 1.0,
+            "expectedFraction": 0.5,
+            "actualFraction": 0.5,
+            "minimumFraction": 0.5,
+            "maximumFraction": 0.5,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.0,
+            "sceneEyeDepthMetres": 0.0,
+            "surfaceEyeDepthMetres": 0.0,
+            "unclampedThicknessMetres": 0.0,
+            "passed": true
+        },
+        {
+            "name": "Fixed fallback",
+            "bedDepthMetres": 3.0,
+            "expectedFraction": 0.5,
+            "actualFraction": 0.5,
+            "minimumFraction": 0.5,
+            "maximumFraction": 0.5,
+            "absoluteErrorMetres": 0.0,
+            "rawHardwareDepth": 0.0,
+            "sceneEyeDepthMetres": 0.0,
+            "surfaceEyeDepthMetres": 0.0,
+            "unclampedThicknessMetres": 0.0,
+            "passed": true
+        }
+    ],
+    "captures": [
+        "Diagnostics/WaterDepth.png",
+        "Diagnostics/WaterDepth_RawHardware.png",
+        "Diagnostics/WaterDepth_SceneEye.png",
+        "Diagnostics/WaterDepth_SurfaceEye.png",
+        "Diagnostics/WaterDepth_Fallback.png"
+    ],
+    "errors": []
+}

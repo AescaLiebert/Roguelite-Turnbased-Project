@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Content;
 using FightingAllstar.Presentation.Combat;
@@ -18,7 +17,7 @@ namespace FightingAllstar.Presentation.Navigation
             var overlay = panel.Q("hub-detail-overlay");
             if (overlay == null) return false;
             var previous = overlay.userData as VisualElement;
-            overlay.RemoveFromHierarchy(); if (previous?.panel != null) previous.Focus(); return true;
+            ScreenMotion.Remove(overlay, () => { if (panel.Q("hub-detail-overlay") == null && previous?.panel != null) previous.Focus(); }); return true;
         }
 
         private static VisualElement Open(VisualElement panel, string title, bool reference = false)
@@ -40,7 +39,7 @@ namespace FightingAllstar.Presentation.Navigation
             scroll.contentContainer.style.flexShrink = 0;
             scroll.contentContainer.style.minHeight = Length.Percent(100);
             dialog.Add(scroll);
-            overlay.Add(dialog); panel.Add(overlay);
+            overlay.Add(dialog); panel.Add(overlay); ScreenMotion.ShowModal(overlay, dialog);
             overlay.RegisterCallback<ClickEvent>(evt => { if (evt.target == overlay) Close(panel); evt.StopPropagation(); });
             overlay.Focus(); return scroll.contentContainer;
         }
@@ -49,9 +48,14 @@ namespace FightingAllstar.Presentation.Navigation
         {
             var body = Open(panel, "ADDITIONAL STATS");
             var stats = PlayerInventoryService.Instance.GetCharacterStats(character);
-            foreach (StatId stat in Enum.GetValues(typeof(StatId)))
+            var visibleStats = new[]
             {
-                if (stat == StatId.Attack || stat == StatId.Defense || stat == StatId.MaxHealth || stat == StatId.CombatClass) continue;
+                StatId.Pierce, StatId.Resistance, StatId.Regeneration, StatId.CritChance, StatId.CritDamage,
+                StatId.CritResistance, StatId.CritDefense, StatId.Recovery, StatId.BlockChance, StatId.BlockPower,
+                StatId.LifeSteal, StatId.DamageOverTimeDealt, StatId.DamageDealt, StatId.AdditionalDamageDealt
+            };
+            foreach (var stat in visibleStats)
+            {
                 var row = new VisualElement { name = "hub-detail-stat-" + stat }; row.AddToClassList("hub-detail-stat");
                 row.Add(new Label(StatName(stat)));
                 row.Add(new Label(stat >= StatId.Pierce ? (stats.Get(stat) / 100d).ToString("0.##") + "%" : stats.Get(stat).ToString("N0")));
@@ -59,8 +63,7 @@ namespace FightingAllstar.Presentation.Navigation
             }
         }
 
-        public static string StatName(StatId stat) => stat == StatId.MaxHealth ? "Max HP" : stat == StatId.CombatClass ? "Combat Class" :
-            Regex.Replace(stat.ToString(), "([a-z])([A-Z])", "$1 $2");
+        public static string StatName(StatId stat) => CombatTextCatalog.StatName(stat);
 
         public static void Card(VisualElement panel, CharacterObject character, int slot, int rank, int currentTier)
         {

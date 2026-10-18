@@ -114,6 +114,9 @@ namespace FightingAllstar.Presentation.Combat
             if (!transientOnly) _explosionRecipes.Clear();
             foreach (var effect in _actorEffects.Values)
                 if (effect != null) { if (transientOnly) effect.ClearTransient(); else effect.ClearAll(); }
+            if (_views != null)
+                foreach (var view in _views.Values)
+                    if (view != null) view.GetComponentInChildren<ActorHealVisual>()?.Stop();
         }
         private readonly Dictionary<string, GameObject> _shieldAuras = new Dictionary<string, GameObject>();
 
@@ -145,6 +148,21 @@ namespace FightingAllstar.Presentation.Combat
             SetAuraActive(_stanceAuras, id, !hidden);
             SetAuraActive(_shieldAuras, id, !hidden);
             if (_actorEffects.TryGetValue(id, out var effect) && effect != null) effect.SetHidden(hidden);
+            if (TryView(id, out var view)) view.GetComponentInChildren<ActorHealVisual>()?.SetHidden(hidden);
+        }
+
+        public void PlayHealFeedback(string targetId)
+        {
+            if (string.IsNullOrEmpty(targetId)) return;
+            if (TryView(targetId, out var view))
+            {
+                var radius = FighterRadius(view);
+                var height = FighterHeight(view);
+                var ground = FighterGroundPosition(view).y - view.position.y;
+                ActorHealVisual.PlayOn(view, height, radius, ground);
+                Pulse(targetId, new Color(.3f, 1f, .65f));
+            }
+            PlayCue(3);
         }
 
         private static void SetAuraActive(Dictionary<string, GameObject> auras, string id, bool active)

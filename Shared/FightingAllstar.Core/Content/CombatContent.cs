@@ -11,7 +11,9 @@ namespace FightingAllstar.Core.Content
         Attack, Defense, MaxHealth, CombatClass, Pierce, Resistance, Regeneration,
         CritChance, CritDamage, CritResistance, CritDefense, Recovery, BlockChance,
         BlockPower, LifeSteal, Evade, Perception, Control, Avoidance,
-        ReflectDamage // Hidden combat stat, stored as basis points.
+        ReflectDamage, // Hidden combat stat, stored as basis points.
+        // Append new values to keep numeric IDs in saved stat lines and authored content stable.
+        DamageOverTimeDealt, DamageDealt, AdditionalDamageDealt
     }
     public enum EffectKind { Damage, ApplyStatus, Heal, Cleanse, RemoveBuffs, RemoveDebuffs, ChangePowerGauge, ModifyCardRank, RemoveStance, None }
     public enum StatusPolarity { Buff, Debuff, Neutral }
@@ -66,6 +68,9 @@ namespace FightingAllstar.Core.Content
         public int ControlBp = 10000; // Multiplies debuff application chance; 10000 is neutral.
         public int AvoidanceBp = 10000; // Divides debuff application chance; 10000 is neutral.
         public int ReflectDamageBp;
+        public int DamageOverTimeDealtBp;
+        public int DamageDealtBp;
+        public int AdditionalDamageDealtBp;
 
         public List<ElementalModifierDefinition> ElementalModifiers = new List<ElementalModifierDefinition>();
         public StatBlock Clone()
@@ -99,6 +104,9 @@ namespace FightingAllstar.Core.Content
                 case StatId.Control: return ControlBp;
                 case StatId.Avoidance: return AvoidanceBp;
                 case StatId.ReflectDamage: return ReflectDamageBp;
+                case StatId.DamageOverTimeDealt: return DamageOverTimeDealtBp;
+                case StatId.DamageDealt: return DamageDealtBp;
+                case StatId.AdditionalDamageDealt: return AdditionalDamageDealtBp;
                 default: throw new ArgumentOutOfRangeException(nameof(stat), stat, "Unknown combat stat.");
             }
         }
@@ -127,6 +135,9 @@ namespace FightingAllstar.Core.Content
                 case StatId.Control: ControlBp = value; break;
                 case StatId.Avoidance: AvoidanceBp = value; break;
                 case StatId.ReflectDamage: ReflectDamageBp = value; break;
+                case StatId.DamageOverTimeDealt: DamageOverTimeDealtBp = value; break;
+                case StatId.DamageDealt: DamageDealtBp = value; break;
+                case StatId.AdditionalDamageDealt: AdditionalDamageDealtBp = value; break;
                 default: throw new ArgumentOutOfRangeException(nameof(stat), stat, "Unknown combat stat.");
             }
         }

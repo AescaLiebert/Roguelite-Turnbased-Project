@@ -44,6 +44,11 @@ namespace FightingAllstar.Presentation.Combat
         private GameObject _shieldRoot;
         private GameObject _statusPanel;
         private GameObject _statusTemplate;
+        private GameObject _elementStatusPanel;
+        private Vector2 _statusPanelBasePosition;
+        private Vector2 _elementStatusPanelBasePosition;
+        private bool _statusPanelPositionBound;
+        private bool _elementStatusPanelPositionBound;
 
         private sealed class PGSegment
         {
@@ -66,6 +71,10 @@ namespace FightingAllstar.Presentation.Combat
             public Image IconImage;
             public TMP_Text StackText;
             public Image CooldownOverlay;
+            public CanvasGroup Opacity;
+            public Image ApplicationFlash;
+            public RectTransform[] FeedbackParts;
+            public Vector2[] FeedbackPartPositions;
             public int RemainingDuration;
             public int MaxDuration;
             public bool IsPermanent;
@@ -79,7 +88,13 @@ namespace FightingAllstar.Presentation.Combat
         private Color _pgBaseColor = new Color(1f, 0.59f, 0f, 1f);
         private readonly Color _pgFlashColor = Color.white;
         private readonly Dictionary<string, StatusViewEntry> _statusViews = new Dictionary<string, StatusViewEntry>();
+        private readonly Dictionary<string, StatusViewEntry> _elementStatusViews = new Dictionary<string, StatusViewEntry>();
+        private readonly List<StatusViewEntry> _departingStatusViews = new List<StatusViewEntry>();
         private static readonly Dictionary<string, Sprite> _statusSpriteCache = new Dictionary<string, Sprite>();
+        private static Sprite _statusSettlingLight;
+        // Starting values: lean status feedback is shorter and quieter than reward reveals.
+        private const float StatusEnterDuration = 0.26f;
+        private const float StatusRefreshDuration = 0.22f;
 
         private void Awake()
         {
@@ -109,7 +124,7 @@ namespace FightingAllstar.Presentation.Combat
                 }
             }
 
-            foreach (var entry in _statusViews.Values)
+            foreach (var entry in AllStatusViews())
             {
                 if (entry.Routine != null)
                 {
@@ -118,6 +133,12 @@ namespace FightingAllstar.Presentation.Combat
                 }
                 ResetStatusFeedbackVisual(entry);
             }
+            foreach (var entry in _departingStatusViews)
+            {
+                if (entry.Routine != null) StopCoroutine(entry.Routine);
+                if (entry.Root != null) Destroy(entry.Root);
+            }
+            _departingStatusViews.Clear();
         }
 
         public void InitializeCore(Transform target, string fighterName, int currentHealth, int maxHealth,
@@ -558,9 +579,7 @@ namespace FightingAllstar.Presentation.Combat
 
         public static List<StatusInstance> DisplayStatuses(FighterState fighter)
         {
-            var display = fighter.Statuses.Instances.ConvertAll(s => s.Clone());
-            display.AddRange(fighter.ElementStatuses.Instances.ConvertAll(s => s.ToDisplayStatus()));
-            return display;
+            return fighter.Statuses.Instances.ConvertAll(s => s.Clone());
         }
 
         public void SetStatuses(IReadOnlyList<StatusInstance> statuses)
@@ -570,21 +589,114 @@ namespace FightingAllstar.Presentation.Combat
                 BindAuthoredUnitUi();
             }
             if (_statusPanel == null && _statusTemplate == null) return;
+            SetStatusViews(statuses, _statusPanel, _statusViews, false);
+            ArrangeStatusPanels();
+        }
+
+        public void SetElementStatuses(IReadOnlyList<ElementStatusInstance> elements)
+        {
+            if (_elementStatusPanel == null) BindAuthoredUnitUi();
+            if (_elementStatusPanel == null) return;
+            var display = new List<StatusInstance>();
+            if (elements != null)
+                foreach (var element in elements)
+                    if (element != null && element.RemainingDuration > 0)
+                        display.Add(element.ToDisplayStatus());
+            SetStatusViews(display, _elementStatusPanel, _elementStatusViews, true);
+            ArrangeStatusPanels();
+        }
+
+        private IEnumerable<StatusViewEntry> AllStatusViews()
+        {
+            foreach (var entry in _statusViews.Values) yield return entry;
+            foreach (var entry in _elementStatusViews.Values) yield return entry;
+        }
+
+        private void BindElementStatusPanel(Transform unitUi)
+        {
+            if (_statusPanel != null && !_statusPanelPositionBound)
+            {
+                _statusPanelBasePosition = ((RectTransform)_statusPanel.transform).anchoredPosition;
+                _statusPanelPositionBound = true;
+            }
+            if (_elementStatusPanel != null) return;
+            var authored = FindChildDirectOrRecursive(unitUi, "ElementStatusPanel");
+            if (authored != null)
+            {
+                _elementStatusPanel = authored.gameObject;
+                _elementStatusPanelBasePosition = ((RectTransform)authored).anchoredPosition;
+                _elementStatusPanelPositionBound = true;
+                return;
+            }
+            // Older HUD prefabs receive the same independent row as CharacterStatUI.
+            if (_statusPanel == null || !Application.isPlaying) return;
+            _elementStatusPanel = new GameObject("ElementStatusPanel", typeof(RectTransform),
+                typeof(GridLayoutGroup), typeof(ContentSizeFitter));
+            _elementStatusPanel.layer = _statusPanel.layer;
+            _elementStatusPanel.transform.SetParent(_statusPanel.transform.parent, false);
+            var ordinary = (RectTransform)_statusPanel.transform;
+            var rect = (RectTransform)_elementStatusPanel.transform;
+            rect.anchorMin = ordinary.anchorMin;
+            rect.anchorMax = ordinary.anchorMax;
+            rect.pivot = ordinary.pivot;
+            rect.anchoredPosition = _statusPanelBasePosition;
+            rect.sizeDelta = ordinary.sizeDelta;
+            _elementStatusPanelBasePosition = rect.anchoredPosition;
+            _elementStatusPanelPositionBound = true;
+            var ordinaryGrid = _statusPanel.GetComponent<GridLayoutGroup>();
+            var grid = _elementStatusPanel.GetComponent<GridLayoutGroup>();
+            grid.cellSize = ordinaryGrid != null ? ordinaryGrid.cellSize : new Vector2(25f, 25f);
+            grid.spacing = ordinaryGrid != null ? ordinaryGrid.spacing : new Vector2(1.3f, 3.84f);
+            grid.padding = ordinaryGrid != null ? ordinaryGrid.padding : new RectOffset();
+            grid.childAlignment = TextAnchor.LowerLeft;
+            grid.startCorner = GridLayoutGroup.Corner.LowerLeft;
+            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            grid.constraintCount = 5;
+            _elementStatusPanel.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            _elementStatusPanel.SetActive(false);
+        }
+
+        private void ArrangeStatusPanels()
+        {
+            if (_elementStatusPanel == null || !_elementStatusPanelPositionBound) return;
+            if (_statusPanel == null)
+            {
+                ((RectTransform)_elementStatusPanel.transform).anchoredPosition = _elementStatusPanelBasePosition;
+                return;
+            }
+            var elementRect = (RectTransform)_elementStatusPanel.transform;
+            var ordinaryRect = (RectTransform)_statusPanel.transform;
+            ordinaryRect.anchoredPosition = _statusPanelBasePosition;
+            var grid = _statusPanel.GetComponent<GridLayoutGroup>();
+            var offset = _statusViews.Count > 0
+                ? LayoutUtility.GetPreferredHeight(ordinaryRect) + (grid != null ? grid.spacing.y : 0f)
+                : 0f;
+            // Keep elemental icons above the ordinary-status grid as it grows upward from the health bar.
+            elementRect.anchoredPosition = _elementStatusPanelBasePosition + Vector2.up * offset;
+        }
+
+        private void SetStatusViews(IReadOnlyList<StatusInstance> statuses, GameObject panel,
+            Dictionary<string, StatusViewEntry> views, bool elemental)
+        {
 
             if (statuses == null || statuses.Count == 0)
             {
-                foreach (var entry in _statusViews.Values)
+                foreach (var entry in views.Values)
                 {
                     if (entry.Routine != null) StopCoroutine(entry.Routine);
-                    if (entry.Root != null) Destroy(entry.Root);
+                    if (entry.Root != null)
+                    {
+                        entry.Root.transform.SetParent(panel != null ? panel.transform.parent : transform, true);
+                        Destroy(entry.Root);
+                    }
                 }
-                _statusViews.Clear();
-                if (_statusPanel != null) _statusPanel.SetActive(false);
+                views.Clear();
+                if (panel != null) panel.SetActive(false);
                 return;
             }
 
-            if (_statusPanel != null && !_statusPanel.activeSelf)
-                _statusPanel.SetActive(true);
+            if (panel != null && !panel.activeSelf)
+                panel.SetActive(true);
 
             var currentIds = new HashSet<string>();
             var seenBaseIds = new HashSet<string>();
@@ -650,7 +762,7 @@ namespace FightingAllstar.Presentation.Combat
                     var stackKey = $"{baseId}_{s}";
                     currentIds.Add(stackKey);
 
-                    if (_statusViews.TryGetValue(stackKey, out var entry) && entry != null && entry.Root != null)
+                    if (views.TryGetValue(stackKey, out var entry) && entry != null && entry.Root != null)
                     {
                         entry.RemainingDuration = remDur;
                         if (remDur > entry.MaxDuration && !isPermanent) entry.MaxDuration = remDur;
@@ -660,12 +772,18 @@ namespace FightingAllstar.Presentation.Combat
                     }
                     else
                     {
-                        var newEntry = CreateStatusView(status, stackIndex);
+                        var newEntry = CreateStatusView(status, stackIndex, panel?.transform);
                         if (newEntry != null)
                         {
-                            _statusViews[stackKey] = newEntry;
+                            if (elemental)
+                            {
+                                newEntry.Root.name = "ElementStatus_" + status.Recipe.NameKey;
+                                newEntry.MaxDuration = ElementStatusContainer.Duration;
+                                UpdateDurationFill(newEntry, remDur, newEntry.MaxDuration);
+                            }
+                            views[stackKey] = newEntry;
                             orderedViews[category].Add(newEntry);
-                            newEntry.Routine = StartCoroutine(AnimateStatusEnter(newEntry.Rect));
+                            newEntry.Routine = StartCoroutine(AnimateStatusEnter(newEntry));
                         }
                     }
                 }
@@ -674,7 +792,7 @@ namespace FightingAllstar.Presentation.Combat
             }
 
             var toRemove = new List<string>();
-            foreach (var pair in _statusViews)
+            foreach (var pair in views)
             {
                 if (!currentIds.Contains(pair.Key))
                     toRemove.Add(pair.Key);
@@ -682,26 +800,28 @@ namespace FightingAllstar.Presentation.Combat
 
             foreach (var id in toRemove)
             {
-                var entry = _statusViews[id];
-                _statusViews.Remove(id);
+                var entry = views[id];
+                views.Remove(id);
                 if (entry != null && entry.Root != null)
                 {
                     if (entry.Routine != null) StopCoroutine(entry.Routine);
+                    ResetStatusFeedbackVisual(entry);
                     // The exit animation must not occupy a grid cell while survivors close the gap.
-                    if (_statusPanel != null)
-                        entry.Root.transform.SetParent(_statusPanel.transform.parent, true);
-                    StartCoroutine(AnimateStatusExit(entry.Root, entry.Rect));
+                    if (panel != null)
+                        entry.Root.transform.SetParent(panel.transform.parent, true);
+                    _departingStatusViews.Add(entry);
+                    entry.Routine = StartCoroutine(AnimateStatusExit(entry));
                 }
             }
 
-            if (_statusPanel != null)
+            if (panel != null)
             {
                 var siblingIndex = 0;
                 foreach (var category in orderedViews)
                     foreach (var entry in category)
                         entry.Root.transform.SetSiblingIndex(siblingIndex++);
 
-                var panelRect = _statusPanel.GetComponent<RectTransform>();
+                var panelRect = panel.GetComponent<RectTransform>();
                 if (panelRect != null)
                 {
                     LayoutRebuilder.ForceRebuildLayoutImmediate(panelRect);
@@ -715,7 +835,7 @@ namespace FightingAllstar.Presentation.Combat
             if (entry == null) return null;
             entry.Root.transform.SetParent(parent, false);
             var duration = Math.Max(status.RemainingDuration, status.Recipe?.DefaultDuration ?? 1);
-            foreach (var live in _statusViews.Values)
+            foreach (var live in AllStatusViews())
                 if (!string.IsNullOrEmpty(status.InstanceId) && live.InstanceId == status.InstanceId)
                 { duration = live.MaxDuration; break; }
             UpdateDurationFill(entry, status.RemainingDuration, duration);
@@ -743,23 +863,39 @@ namespace FightingAllstar.Presentation.Combat
                 entry.Rect.localRotation = Quaternion.identity;
             }
             if (entry?.IconImage != null) entry.IconImage.color = Color.white;
+            if (entry?.Opacity != null) entry.Opacity.alpha = 1f;
+            SetStatusFeedbackOffset(entry, 0f);
+            if (entry?.ApplicationFlash != null)
+            {
+                entry.ApplicationFlash.color = new Color(1f, 1f, 1f, 0f);
+                entry.ApplicationFlash.enabled = false;
+            }
         }
 
-        private StatusViewEntry CreateStatusView(StatusInstance status, int stackIndex)
+        private static void SetStatusFeedbackOffset(StatusViewEntry entry, float offsetY)
         {
+            if (entry?.FeedbackParts == null) return;
+            for (var i = 0; i < entry.FeedbackParts.Length; i++)
+                if (entry.FeedbackParts[i] != null)
+                    entry.FeedbackParts[i].anchoredPosition = entry.FeedbackPartPositions[i] + Vector2.up * offsetY;
+        }
+
+        private StatusViewEntry CreateStatusView(StatusInstance status, int stackIndex, Transform parent = null)
+        {
+            var targetParent = parent != null ? parent : (_statusPanel != null ? _statusPanel.transform : transform);
             GameObject obj = null;
             if (_statusTemplate != null)
             {
-                obj = Instantiate(_statusTemplate, _statusPanel != null ? _statusPanel.transform : transform);
+                obj = Instantiate(_statusTemplate, targetParent);
             }
             else if (statusIconPrefab != null)
             {
-                obj = Instantiate(statusIconPrefab, _statusPanel != null ? _statusPanel.transform : transform);
+                obj = Instantiate(statusIconPrefab, targetParent);
             }
-            else if (_statusPanel != null)
+            else if (targetParent != null)
             {
                 obj = new GameObject("StatusIcon", typeof(RectTransform), typeof(CanvasRenderer));
-                obj.transform.SetParent(_statusPanel.transform, false);
+                obj.transform.SetParent(targetParent, false);
 
                 var iconObj = new GameObject("Icon", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
                 iconObj.transform.SetParent(obj.transform, false);
@@ -791,7 +927,7 @@ namespace FightingAllstar.Presentation.Combat
             if (rect != null)
             {
                 rect.localScale = Vector3.one;
-                if (_statusPanel == null || _statusPanel.GetComponent<LayoutGroup>() == null)
+                if (targetParent == null || targetParent.GetComponent<LayoutGroup>() == null)
                 {
                     if (rect.sizeDelta == Vector2.zero)
                         rect.sizeDelta = new Vector2(25f, 25f);
@@ -852,8 +988,67 @@ namespace FightingAllstar.Presentation.Combat
                 IsPermanent = isPermanent
             };
 
+            BindStatusFeedbackVisual(entry);
             UpdateDurationFill(entry, remDur, maxDur);
             return entry;
+        }
+
+        private static void BindStatusFeedbackVisual(StatusViewEntry entry)
+        {
+            entry.Opacity = entry.Root.GetComponent<CanvasGroup>();
+            if (entry.Opacity == null) entry.Opacity = entry.Root.AddComponent<CanvasGroup>();
+            var flashRoot = new GameObject("ApplicationFlash", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+            flashRoot.layer = entry.Root.layer;
+            flashRoot.transform.SetParent(entry.Root.transform, false);
+            var flashRect = flashRoot.GetComponent<RectTransform>();
+            flashRect.anchorMin = Vector2.zero;
+            flashRect.anchorMax = Vector2.one;
+            flashRect.sizeDelta = Vector2.zero;
+            entry.ApplicationFlash = flashRoot.GetComponent<Image>();
+            entry.ApplicationFlash.raycastTarget = false;
+            entry.ApplicationFlash.color = new Color(1f, 1f, 1f, 0f);
+            entry.ApplicationFlash.enabled = false;
+
+            // Animate artwork inside its stable grid cell, so a layout rebuild cannot cancel the rise.
+            var parts = new List<RectTransform>();
+            var positions = new List<Vector2>();
+            foreach (Transform child in entry.Root.transform)
+                if (child is RectTransform part)
+                {
+                    parts.Add(part);
+                    positions.Add(part.anchoredPosition);
+                }
+            entry.FeedbackParts = parts.ToArray();
+            entry.FeedbackPartPositions = positions.ToArray();
+            ResetStatusFeedbackVisual(entry);
+        }
+
+        private static Sprite StatusSettlingLight()
+        {
+            if (_statusSettlingLight != null) return _statusSettlingLight;
+            const int size = 32;
+            var texture = new Texture2D(size, size, TextureFormat.RGBA32, false)
+            {
+                name = "Status Settling Light", hideFlags = HideFlags.HideAndDontSave,
+                filterMode = FilterMode.Bilinear, wrapMode = TextureWrapMode.Clamp
+            };
+            var pixels = new Color[size * size];
+            for (var y = 0; y < size; y++)
+                for (var x = 0; x < size; x++)
+                {
+                    var u = (x + 0.5f) / size;
+                    var v = (y + 0.5f) / size;
+                    var diagonal = u + v - 1f;
+                    var edge = Mathf.Clamp01(Mathf.Min(u, v, 1f - u, 1f - v) * 12f);
+                    var alpha = Mathf.Exp(-diagonal * diagonal * 90f) * edge;
+                    pixels[y * size + x] = new Color(1f, 1f, 1f, alpha);
+                }
+            texture.SetPixels(pixels);
+            texture.Apply(false, true);
+            _statusSettlingLight = Sprite.Create(texture, new Rect(0f, 0f, size, size), Vector2.one * 0.5f);
+            _statusSettlingLight.name = texture.name;
+            _statusSettlingLight.hideFlags = HideFlags.HideAndDontSave;
+            return _statusSettlingLight;
         }
 
         private static void UpdateDurationFill(StatusViewEntry entry, int remaining, int maxDuration)
@@ -884,118 +1079,87 @@ namespace FightingAllstar.Presentation.Combat
             }
         }
 
-        private IEnumerator AnimateStatusEnter(RectTransform rect)
+        private IEnumerator AnimateStatusEnter(StatusViewEntry entry)
         {
-            if (rect == null) yield break;
-            var duration = 0.22f;
+            if (entry?.Rect == null) yield break;
             var elapsed = 0f;
-            var initialPos = rect.localPosition;
-            var startOffset = new Vector3(14f, 4f, 0f);
-            var hasLayoutGroup = rect.parent != null && rect.parent.GetComponent<LayoutGroup>() != null;
-
-            rect.localScale = Vector3.one * 0.3f;
-            if (!hasLayoutGroup)
+            while (elapsed < StatusEnterDuration && entry.Root != null)
             {
-                rect.localPosition = initialPos + startOffset;
-            }
-
-            while (elapsed < duration)
-            {
-                elapsed += Time.unscaledDeltaTime;
-                var t = Mathf.Clamp01(elapsed / duration);
-
-                if (!hasLayoutGroup)
-                {
-                    var slideT = Mathf.Sin(t * Mathf.PI * 0.5f);
-                    rect.localPosition = Vector3.Lerp(initialPos + startOffset, initialPos, slideT);
-                }
-
-                float scale;
-                if (t < 0.65f)
-                    scale = Mathf.Lerp(0.3f, 1.25f, t / 0.65f);
-                else
-                    scale = Mathf.Lerp(1.25f, 1f, (t - 0.65f) / 0.35f);
-                rect.localScale = Vector3.one * scale;
-
+                ApplyStatusApplicationFrame(entry, elapsed, true);
                 yield return null;
+                elapsed += Time.unscaledDeltaTime;
             }
-
-            if (!hasLayoutGroup)
-            {
-                rect.localPosition = initialPos;
-            }
-            rect.localScale = Vector3.one;
+            ResetStatusFeedbackVisual(entry);
+            entry.Routine = null;
         }
 
-        private IEnumerator AnimateStatusPulse(RectTransform rect)
+        private static void ApplyStatusApplicationFrame(StatusViewEntry entry, float age, bool entering)
         {
-            if (rect == null) yield break;
-            var duration = 0.18f;
-            var elapsed = 0f;
-            while (elapsed < duration)
+            var duration = entering ? StatusEnterDuration : StatusRefreshDuration;
+            var slideDuration = duration - 0.09f;
+            var slideT = Mathf.Clamp01(age / slideDuration);
+            var ease = 1f - Mathf.Pow(1f - slideT, 3f);
+            entry.Rect.localScale = Vector3.one;
+            entry.Rect.localRotation = Quaternion.identity;
+            SetStatusFeedbackOffset(entry, -(entering ? 5f : 2f) * (1f - ease));
+            if (entry.Opacity != null)
             {
-                elapsed += Time.unscaledDeltaTime;
-                var t = Mathf.Clamp01(elapsed / duration);
-                var scale = 1f + Mathf.Sin(t * Mathf.PI) * 0.28f;
-                rect.localScale = Vector3.one * scale;
-                yield return null;
+                var fadeT = Mathf.Clamp01(age / (entering ? 0.13f : 0.10f));
+                entry.Opacity.alpha = Mathf.Lerp(entering ? 0f : 0.65f, 1f, fadeT * (2f - fadeT));
             }
-            rect.localScale = Vector3.one;
+            if (entry.ApplicationFlash != null)
+            {
+                var settled = age >= slideDuration;
+                var glintT = Mathf.Clamp01((age - slideDuration) / 0.09f);
+                var alpha = settled ? Mathf.Sin(glintT * Mathf.PI) * 0.55f :
+                    (1f - Mathf.Clamp01(age / 0.07f)) * 0.7f;
+                entry.ApplicationFlash.sprite = settled ? StatusSettlingLight() : null;
+                entry.ApplicationFlash.color = new Color(1f, 1f, 1f, Mathf.Max(0f, alpha));
+                entry.ApplicationFlash.enabled = alpha > 0.001f;
+            }
         }
 
         private IEnumerator AnimateStatusRefresh(StatusViewEntry entry, bool succeeded)
         {
             if (entry?.Rect == null) yield break;
-            var rect = entry.Rect;
-            var icon = entry.IconImage;
-            var duration = succeeded ? 0.34f : 0.38f;
+            var duration = succeeded ? StatusRefreshDuration : 0.20f;
             var elapsed = 0f;
-
-            rect.localScale = Vector3.one;
-            while (elapsed < duration)
+            while (elapsed < duration && entry.Root != null)
             {
-                elapsed += Time.unscaledDeltaTime;
-                var t = Mathf.Clamp01(elapsed / duration);
-                var pulse = Mathf.Sin(t * Mathf.PI);
-                if (succeeded)
-                {
-                    rect.localScale = Vector3.one * (1f + pulse * 0.32f);
-                    if (icon != null)
-                        icon.color = Color.Lerp(Color.white, new Color(0.45f, 1f, 0.58f, 1f), pulse);
-                }
-                else
-                {
-                    var shake = Mathf.Sin(t * Mathf.PI * 8f) * (1f - t);
-                    rect.localRotation = Quaternion.Euler(0f, 0f, shake * 12f);
-                    rect.localScale = Vector3.one * (1f - pulse * 0.12f);
-                    if (icon != null)
-                        icon.color = Color.Lerp(Color.white, new Color(1f, 0.25f, 0.2f, 1f), pulse);
-                }
+                if (succeeded) ApplyStatusApplicationFrame(entry, elapsed, false);
+                else ApplyStatusRejectedFrame(entry, elapsed);
                 yield return null;
+                elapsed += Time.unscaledDeltaTime;
             }
-
             ResetStatusFeedbackVisual(entry);
             entry.Routine = null;
         }
 
-        private IEnumerator AnimateStatusExit(GameObject root, RectTransform rect)
+        private static void ApplyStatusRejectedFrame(StatusViewEntry entry, float age)
         {
-            if (root == null) yield break;
-            var duration = 0.16f;
-            var elapsed = 0f;
-            var startScale = rect != null ? rect.localScale : Vector3.one;
+            // Rejection stays legible without a bounce, rotation or a success glint.
+            var pulse = Mathf.Sin(Mathf.Clamp01(age / 0.20f) * Mathf.PI);
+            entry.Rect.localScale = Vector3.one;
+            entry.Rect.localRotation = Quaternion.identity;
+            if (entry.IconImage != null)
+                entry.IconImage.color = Color.Lerp(Color.white, new Color(1f, 0.52f, 0.42f, 1f), pulse * 0.55f);
+            if (entry.Opacity != null) entry.Opacity.alpha = 1f - pulse * 0.12f;
+        }
 
-            while (elapsed < duration)
+        private IEnumerator AnimateStatusExit(StatusViewEntry entry)
+        {
+            var elapsed = 0f;
+            const float duration = 0.14f;
+            while (elapsed < duration && entry.Root != null)
             {
-                elapsed += Time.unscaledDeltaTime;
-                var t = Mathf.Clamp01(elapsed / duration);
-                if (rect != null)
-                {
-                    rect.localScale = Vector3.Lerp(startScale, Vector3.zero, t * t);
-                }
+                entry.Rect.localScale = Vector3.one;
+                if (entry.Opacity != null) entry.Opacity.alpha = 1f - Mathf.Clamp01(elapsed / duration);
                 yield return null;
+                elapsed += Time.unscaledDeltaTime;
             }
-            Destroy(root);
+            _departingStatusViews.Remove(entry);
+            if (entry.Root != null) Destroy(entry.Root);
+            entry.Routine = null;
         }
 
         private static Sprite ResolveStatusSprite(string recipeId, StatusPolarity polarity)
@@ -1164,6 +1328,7 @@ namespace FightingAllstar.Presentation.Combat
                     }
                 }
 #endif
+                BindElementStatusPanel(unitUi);
             }
 
             if (powerGaugeSlider == null)

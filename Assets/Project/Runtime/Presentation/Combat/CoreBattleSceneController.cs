@@ -484,8 +484,7 @@ namespace FightingAllstar.Presentation.Combat
                 ? null : hand.Hand.Find(item => item.Id == _tooltipCardId);
             if (card == null)
             {
-                if (_tooltipContainer != null) _tooltipContainer.style.display = DisplayStyle.None;
-                if (_tooltipText != null) _tooltipText.style.display = DisplayStyle.None;
+                ScreenMotion.Hide(_tooltipContainer); ScreenMotion.Hide(_tooltipText);
                 return;
             }
 
@@ -506,6 +505,8 @@ namespace FightingAllstar.Presentation.Combat
         {
             _tooltipCardId = id;
             RenderTooltip();
+            if (_tooltipContainer != null) ScreenMotion.ShowModal(_tooltipContainer);
+            else ScreenMotion.Show(_tooltipText);
         }
 
         private void HideTooltip()
@@ -526,14 +527,14 @@ namespace FightingAllstar.Presentation.Combat
             if (card == null) return;
             if (card.TargetScope == EffectTargetScope.SelectedAlly && allyId == null)
             {
-                _allyPicker?.RemoveFromHierarchy();
+                ScreenMotion.Remove(_allyPicker);
                 _allyPicker = new VisualElement { name = "ally-target-picker" };
                 _allyPicker.AddToClassList("ally-target-picker");
                 _allyPicker.Add(new Label("Choose an ally"));
                 foreach (var ally in _snapshot.Player.LivingActive())
                 {
                     var id = ally.Id;
-                    var button = new Button(() => { _allyPicker?.RemoveFromHierarchy(); _allyPicker = null; QueueCardTarget(cardId, id); });
+                    var button = new Button(() => { ScreenMotion.Remove(_allyPicker); _allyPicker = null; QueueCardTarget(cardId, id); });
                     button.AddToClassList("ally-choice");
                     var portrait = new Image { sprite = LoadCharacter(ally.Definition.Id)?.FighterIcon };
                     portrait.style.width = 48; portrait.style.height = 48;
@@ -545,11 +546,11 @@ namespace FightingAllstar.Presentation.Combat
                     button.Add(copy);
                     _allyPicker.Add(button);
                 }
-                _allyPicker.Add(new Button(() => { _allyPicker?.RemoveFromHierarchy(); _allyPicker = null; }) { text = "Cancel" });
-                _effectsLayer.Add(_allyPicker);
+                _allyPicker.Add(new Button(() => { ScreenMotion.Remove(_allyPicker); _allyPicker = null; }) { text = "Cancel" });
+                _effectsLayer.Add(_allyPicker); ScreenMotion.ShowModal(_allyPicker);
                 return;
             }
-            _allyPicker?.RemoveFromHierarchy(); _allyPicker = null;
+            ScreenMotion.Remove(_allyPicker); _allyPicker = null;
             var before = _draft.Preview.Clone();
             var target = card.TargetScope == EffectTargetScope.SelectedAlly ? _snapshot.Player.FindFighter(allyId) :
                 card.TargetScope == EffectTargetScope.Self || card.TargetScope == EffectTargetScope.AllAllies ?
@@ -791,7 +792,7 @@ namespace FightingAllstar.Presentation.Combat
             if (_trainingMode) { ExitTraining(); return; }
             if (ExitPreview()) return;
             LocalEncounterContext.StoreResult(_session.GetSnapshot());
-            SceneManager.LoadScene(returnScene);
+            FightingAllstar.Presentation.ScreenMotion.LoadScene(returnScene);
         }
 
         private void SurrenderRun()
@@ -802,7 +803,7 @@ namespace FightingAllstar.Presentation.Combat
             store.Clear();
             LocalEncounterContext.Clear();
             DungeonFlowContext.Clear();
-            SceneManager.LoadScene(returnScene);
+            FightingAllstar.Presentation.ScreenMotion.LoadScene(returnScene);
         }
 
         private bool ExitPreview()
@@ -812,7 +813,7 @@ namespace FightingAllstar.Presentation.Combat
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            SceneManager.LoadScene(returnScene);
+            FightingAllstar.Presentation.ScreenMotion.LoadScene(returnScene);
 #endif
             return true;
         }
@@ -851,6 +852,7 @@ namespace FightingAllstar.Presentation.Combat
                         ? (_draft.Preview.FindFighter(fighter.Id)?.PowerGaugeRemainderBp ?? fighter.PowerGaugeRemainderBp)
                         : fighter.PowerGaugeRemainderBp);
                     billboard.SetStatuses(CoreFighterHud.DisplayStatuses(fighter));
+                    billboard.SetElementStatuses(fighter.ElementStatuses.Instances);
                 }
             }
         }

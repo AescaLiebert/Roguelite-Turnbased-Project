@@ -22,7 +22,7 @@ namespace FightingAllstar.Presentation.Combat
             controls.Add(new Label("TRAINING · 1v1 · Both fighters: Infinite HP · Dummy: Kyo98 / No PG"));
             controls.Add(new Label("All ranks · Free ultimate · One action per side"));
             var buttons = new VisualElement(); buttons.style.flexDirection = FlexDirection.Row;
-            buttons.Add(new Button(() => SceneManager.LoadScene("Training")) { text = "RESTART ROUND" });
+            buttons.Add(new Button(() => FightingAllstar.Presentation.ScreenMotion.LoadScene("Training")) { text = "RESTART ROUND" });
             buttons.Add(new Button(ExitTraining) { text = "EXIT TRAINING" });
             controls.Add(buttons);
             root.Add(controls);
@@ -38,7 +38,7 @@ namespace FightingAllstar.Presentation.Combat
         private void ExitTraining()
         {
             TrainingContext.Clear();
-            SceneManager.LoadScene("MainMenu");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene("MainMenu");
         }
     }
 }

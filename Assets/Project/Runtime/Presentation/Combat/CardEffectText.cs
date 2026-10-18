@@ -117,6 +117,8 @@ namespace FightingAllstar.Presentation.Combat
             var duration = effect.StatusDurationOverride > 0 ? effect.StatusDurationOverride : recipe.DefaultDuration;
             var turns = recipe.DurationClock == StatusDurationClock.Permanent ? "" : " for " + duration + (duration == 1 ? " turn" : " turns");
             var isIgnite = recipe.Tags?.Contains(CombatTags.Ignite) == true || recipe.Id == "status.debuff.ignite";
+            var elementalModifiers = recipe.ElementalModifiers?.Where(m => m != null &&
+                (m.DamageDealtBp != 0 || m.ResistanceBp != 0)).ToArray() ?? Array.Empty<ElementalModifierDefinition>();
             var clauses = new List<string>();
             if (recipe.Behavior == StatusBehavior.Stat && !isIgnite && recipe.Modifiers?.Count > 0)
             {
@@ -145,13 +147,31 @@ namespace FightingAllstar.Presentation.Combat
                     clauses.Add("Apply Barrier equal to " + Percent(recipe.BarrierCoefficientBp) + " of the hero's " +
                         (recipe.BarrierSourceStat == BarrierSourceStat.Defense ? "Defense" : recipe.BarrierSourceStat == BarrierSourceStat.MaxHealth ? "Max HP" : "Attack") + " on " + target + turns);
                 else if (recipe.DebuffImmunity && string.IsNullOrWhiteSpace(name)) return null;
+                else if (elementalModifiers.Length > 0)
+                    clauses.Add("Apply " + (effect.StatusStackCount > 1 ? effect.StatusStackCount + " stacks of " : "") + name +
+                        " on " + target + ", " + string.Join(" and ", elementalModifiers.Select(ElementalStatusClause)) + turns);
                 else clauses.Add("Apply " + (effect.StatusStackCount > 1 ? effect.StatusStackCount + " stacks of " : "") + name + " on " + target + turns);
                 if (recipe.EndTurnPowerGaugeLoss > 0) clauses.Add("Remove " + recipe.EndTurnPowerGaugeLoss + " Power Gauge orbs at each affected enemy's turn end");
             }
+            if (recipe.Behavior == StatusBehavior.Stat && !isIgnite && recipe.Modifiers?.Count > 0 && elementalModifiers.Length > 0)
+                clauses.Add(string.Join(" and ", elementalModifiers.Select(ElementalStatusClause)) + turns);
             if (clauses.Count == 0) return null;
             var clause = clauses[0] + string.Concat(clauses.Skip(1).Select(c => ", then " + Lower(c)));
             if (effect.StatusApplyChanceBp < 10000) clause = "Has a " + Percent(effect.StatusApplyChanceBp) + " chance to " + Lower(clause);
             return clause;
+        }
+
+        private static string ElementalStatusClause(ElementalModifierDefinition modifier)
+        {
+            var clauses = new List<string>();
+            var element = modifier.Element.ToString();
+            if (modifier.DamageDealtBp != 0)
+                clauses.Add((modifier.DamageDealtBp > 0 ? "increasing " : "decreasing ") + element +
+                    " damage dealt by " + Percent(Math.Abs((long)modifier.DamageDealtBp)));
+            if (modifier.ResistanceBp != 0)
+                clauses.Add((modifier.ResistanceBp < 0 ? "increasing " : "decreasing ") + element +
+                    " damage taken by " + Percent(Math.Abs((long)modifier.ResistanceBp)));
+            return string.Join(" and ", clauses);
         }
 
         private static string Bundle(StatBundleKind bundle) => bundle switch

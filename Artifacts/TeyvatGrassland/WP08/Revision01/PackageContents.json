@@ -1,0 +1,781 @@
+{
+  "assets": 154,
+  "bytes": 23394074,
+  "sha256": "4de5eb4a4ba1e5f193144c22e0189ab51390619c012f0a7eede2cde7b43cbf71",
+  "localIncludesChecked": 25,
+  "allPayloadsMatchSynchronizedSource": true,
+  "payloads": [
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD2_Animated.asset",
+      "sha256": "82001cd3d9070b1e14a6b85fe3a4dd3a3e36f11c7d8d107abcd9f19f8f05b8be"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD2_Animated.asset",
+      "sha256": "d0d5e0436fbd3e903128011a88d12f8686613461dc36b621e62144a719aabfd2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingRig.cs",
+      "sha256": "8f9f418b3f5a909c27b39882710f4ec9819b27520c73a5cd73ce2f2f15a1c1c4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_0.asset",
+      "sha256": "83c8fe49befeb0496345fe67857ad821b9d40b14090330695dad454fa5a360ed"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/TG_TerrainLitPasses.hlsl",
+      "sha256": "2b31ea45ab93470417997d7f0d537957f78d0c77a17646830ac2a089a5e48750"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_1.asset",
+      "sha256": "23c34976564d8c08100db97adb114c4303ed13357a79e15135668af9c1eef368"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer0.terrainlayer",
+      "sha256": "04f678ebf3ef9a1415fecee7702a201c9d3b1bfb082ca8a3921d2e17124ff2b9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_GrassNeutral.asset",
+      "sha256": "d8a325e4ea7094c19f612de659cd16935b7a09109091602759d71c48ecec9fdc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_LightingTerrain.shader",
+      "sha256": "6e333a2a85983546cc8835db3cf3a98e58a15bc796dbcadb413249de9fcc874d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_WaterProcedural.hlsl",
+      "sha256": "1f03714a68675ba93f2c5c17268b6f8537d5b36c32d67505db82265112d3df64"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1.unity",
+      "sha256": "6b553860504338d991de5a87cdc0a4a42290e7226d28708ac5092bdb52643963"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/LICENSE.md",
+      "sha256": "4be520a425e06c8de56fa8aee1ce957cfe610406456278172a2d18b7c388c2cf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowData.cs",
+      "sha256": "7bbb8dab6ed815495ca8339cdcbf5f004d51c71fffd32e0a0e224336825038fd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpraySunTips_33c80a44.mat",
+      "sha256": "973ac4a5df19711a10c71bfe06e2ba38fc7926bb6bd5a2dd6a197a4b29d7d3c2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_1.asset",
+      "sha256": "0daf8f6aafce4289ce6e5c3d0a7b2ec601a5c04ccfe6dda1d4ed4c1aa46ae09c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_White_84653119.mat",
+      "sha256": "863bef1c41149d0f3baf73c5737ca11f55dabc20b9de93f3f9e6c1ad566faea7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_DaylightCloudShape.png",
+      "sha256": "c76f67df5d875cf0eb9fdc09bbb55823b92f1ecca4fea293624abcd060f3f339"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Amber_URPLit.mat",
+      "sha256": "2cf1dc5b6924241da48dc482311f0579ce03d893574ffc07364ffb385576ad0c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_TreeBark.mat",
+      "sha256": "babf32a4a5bd97f43d0b49446d1d619eb736e6eb7cf3e9616a7acd381300ebba"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_0.asset",
+      "sha256": "c505a291d0473a9d68ca14ca66a8d8ce4e8aabe1ce45f7b4dbcb5a51594a62ab"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models/TG_WaterKit.fbx",
+      "sha256": "a5f8b2175b232421355dfc751183a22ce711f2f35b8c11536a563360344183e7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Runtime/TeyvatMaterialGlobals.cs",
+      "sha256": "9cdbb7b54a7d875a0ee58678f5e16a323998467c9b8a410b1c8e18ea9dfd7af4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD1_Animated.asset",
+      "sha256": "e248a7795d30bdbeff26a792e52f31991e2195ba64092404b1d1b4e308c13f7e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_Shrub.prefab",
+      "sha256": "05f851e4bcded75bce340483c13cf93bdb1bdcb7dc91976c56d43c42e1300b13"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowRenderer.cs",
+      "sha256": "d257755166e6c4e4fca84d1f11830c4bcf06e207b9295c05d9bca7c0b1e8cccd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactFoam.shader",
+      "sha256": "69380b17d13eb12be0a9013d514b6cc59b7185dec280b4f9a834c3e197e0176b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpraySunTips.mat",
+      "sha256": "d924fa6c2b1269d7776d506682da1537a35a6b9a7db802e420e0e6dc096d32c6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineTips.mat",
+      "sha256": "5b355a724c176995ac9cc16be04e3922e77a12f034fadae7b430975b866e5916"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_Common.hlsl",
+      "sha256": "754d06d8e33baecada324f061a46fec56a0428c6dce5082d3ad90338f860e421"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Terrain/TG_StageLandscape.asset",
+      "sha256": "7dd52ff2126f2614317f91659109218d20fbcf816737ac3c3f4800d996b09f65"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterProcedural.hlsl",
+      "sha256": "1f03714a68675ba93f2c5c17268b6f8537d5b36c32d67505db82265112d3df64"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Lumine_URPLit.mat",
+      "sha256": "021c781a040fb835530c0ee3ccd11606eb7b670dfacae948dcb560f1616d6d0a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_Broadleaf.mat",
+      "sha256": "84ec2b2e789bb190f5b0fbde9a300c0aadade0442483fd539e6f9e9d9659fd36"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_1.asset",
+      "sha256": "bfd5625f0efae7f37bbe1bd742c6a8ae9379237fa5c316278f2583a89f50e34d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD0.asset",
+      "sha256": "93d52f55582937046c008669473cc0a05a5a784b71c20adf32423a1aab0c8320"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Fringe_b4c4d90e.mat",
+      "sha256": "03db555c58c9301fdc9263e44a7e210f3be90b7dc41bd5aab29ac1e08885b61f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD1.asset",
+      "sha256": "72bc2be140fe4ae88857b13b49f3da1246374f673e41b83e38c55e0e43bbcd70"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterEffects.shader",
+      "sha256": "3fa880a6d3d783d3f64685f65a5afc5d406fba14406318a17d80b90ab96ed15f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_0.asset",
+      "sha256": "33a15c5ba55a5b366bac78cd122aff3133c25a983bee90fa9b19bf7c06baa1f5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_0.asset",
+      "sha256": "e2760577011e410055e28c5cae398c5839c5106f15b08ed725a4c18ddea0f876"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Purple_a2d5ebf3.mat",
+      "sha256": "ea95bd575253f7a7e89f78f9c295d3cea4c088454d44b7d2c112de55356b8190"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Moss_d67b70ca.mat",
+      "sha256": "e4dc6b283fde118c00409318182680e8ae77dfae02a64b6fd3bb621ef0ec51a5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_BroadleafSunTips_fded8b0a.mat",
+      "sha256": "4c78a893120ed01d1fc2040db6354c5863737cc0235161635edb3be237338023"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD0.asset",
+      "sha256": "57fc02a8035b66d31b264ea94d7d94391b58f4b894fe58f09ed32bac4afeab73"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_AfternoonSky.mat",
+      "sha256": "17e9bae111e645ab49002cfa56bc5d60c411a1aa3c4b42437c2baa07ad7f7fc5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineTips_37ffd0b4.mat",
+      "sha256": "6fd98c828edac6e385eeeaca6d55d5d560cb58d17a5fbbfabbfa39982807c41c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LitMeadowPlacement.asset",
+      "sha256": "250504fc03e22cacfd5778171ef80d4eebe5d746304509b1b76b737a6b20d578"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD0_Animated.asset",
+      "sha256": "8f0f04588ad5ad29e6f907f64692712d08c1a48e809a920f8215a7ea5ef6c9e6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_1.asset",
+      "sha256": "60bf0373043deade5f1b756c34adb963985a03e047fecfb451c5a8ec23aea39a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_AfternoonVolume.asset",
+      "sha256": "894aa016358586fa3a44adc7781b47c8d4eb9507f86cd105a5f679c4c38a30f0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/LICENSE.md",
+      "sha256": "4be520a425e06c8de56fa8aee1ce957cfe610406456278172a2d18b7c388c2cf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Rock_870acbad.mat",
+      "sha256": "a6e8d80fedfd7a1f4766897d4eceaf2449bbbb0031d644779df030be83df5ec5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD0_Animated.asset",
+      "sha256": "0211ca458969b4fa69a1d395e24398ebb7f632846e27a47c4fa651755399370f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD0.asset",
+      "sha256": "ace10a7b79234229e4bcbc5b37b31066ca91c83ac5831385395db657595a95f4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Wake_38c7f6d1.mat",
+      "sha256": "f396342961da21b56cfac873deb19f4227ecf79b6d80b9e12abb57b3024e9d08"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpray_85f335e7.mat",
+      "sha256": "69e7a497924c2c5b93fd84b39deff65c9ac5b17a83eecd0b1a829023b564b57d"
+    },
+    {
+      "path": "Assets/Project/Art/Character/Icon/icon-gs-amber.png",
+      "sha256": "2987656d38bab38234d13f558d325c1500b6b031f62caeff5a5c4319c6710998"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD1.asset",
+      "sha256": "b23b1a4bc63a85e669b19986d819d0fb29e15b004126cc0599f69cee5add8c56"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_RockShade_8575f87d.mat",
+      "sha256": "f3e5354344439a31b52ade69292c7da01b298acacb84fbe23c8822c1535d5815"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Mist_e4330ec0.mat",
+      "sha256": "c1129e38b3981f5ee3f996c7ac4b5480f325a9ee362c914047a9b48ab5debfec"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_IntegratedWater.shader",
+      "sha256": "ab6ba1e32817e4a2fdbb3f50b42b82ffcbc4e58396e6e4ee0f158559abdab640"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_1.asset",
+      "sha256": "9ce419eca6ea1063bca6f1498adf6c8a155c77f1b4f57b11cfe213721a532340"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_YoungPine.prefab",
+      "sha256": "ff68dadf1b7a6722f921424416296764a2e1b7ce021771099c88ea601e8290fc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD1_Animated.asset",
+      "sha256": "7773c5a5a06b90e591f1513f442e9ce7e64af1fe29261b3864ae60cd698afc79"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Terrain_285ab485.mat",
+      "sha256": "b53418d126f3e7193fb88acdd0eae969fc44f7c611e93805d340858eb8c2fa3d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_TerrainLitPasses.hlsl",
+      "sha256": "2b31ea45ab93470417997d7f0d537957f78d0c77a17646830ac2a089a5e48750"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/ReflectionProbe-0.exr",
+      "sha256": "26d10357a67225190a1fba5e1a09cc7ada05b91df02470e15243f6d5cf8f3fc7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/TG_StageContacts.fbx",
+      "sha256": "a6b0da72deb42669287a518dd97b22a85e85c572e40f418d0de8f0722ba75759"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Foam_a8c0c926.mat",
+      "sha256": "ad6f9064bdf522e341c95565cf24d1c5d77d33e627cb0ab6d7d79a485359dde8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD2_Animated.asset",
+      "sha256": "18099e81f7e98f6e0c46548659fc4e2ffc43b0ba8212f537d80d72e316629465"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingRenderer.asset",
+      "sha256": "480a5c2549a9a463d0342bef6665d2b7843f190fa25ed07ad3d42585dca397a9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD2_Animated.asset",
+      "sha256": "10698aef3ed7a41406e7d9c665fce1ae6aa6aa09b04670152a7030fb2c58da61"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD1.asset",
+      "sha256": "ef1e9da8ee336c08e0cf459cca628c445a2d3cd604d359352b38e1944c805c18"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD1_Animated.asset",
+      "sha256": "d7361098a1704e27b5a79a8742c327b8c542872a467afe3eb2f3c12c91c418bc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_River_bb008298.mat",
+      "sha256": "21f9510d3260fc485c632999495ea40010f898a1d97d03b49d72861165280140"
+    },
+    {
+      "path": "Assets/Project/Art/Character/Icon/icon-gi-lumine_anemo.png",
+      "sha256": "8cb91570dfa0f2b4519976d83d51c79ad329eea077a3649376b1fd2617f8300c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD0.asset",
+      "sha256": "e4418c9e1fafa7cc59fcd0b2267d6690b39670bd85ad2bd52ecd5efc4ed39f3a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ProxyGround.mat",
+      "sha256": "ce8ab16675abda4ba495624389bb66155f8124cc3d81e398a1318f2146e25c66"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LightingColorField.asset",
+      "sha256": "a37dc22ace0f63faa0fb0828eb1e39170c2c6969d7ff2d31ac3752dee75c0042"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpray.mat",
+      "sha256": "3687991434f552bcddf76ced824245ec84128401c89b3629c163b9fc70535184"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageTour.cs",
+      "sha256": "a50bbc6b1ac90b06f51cbf3765a502003219bc9249be03a0d8d0f3f2e5824060"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD1.asset",
+      "sha256": "00ae127c34ce56c186894719b7b1c457b1d83b35b401f1cd23747c576ecb5dcb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD1.asset",
+      "sha256": "bc199157b2bfdc232d6d5f86caa6746979c43a66682ca88937de2cfc5c28c950"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer2.terrainlayer",
+      "sha256": "593aaf3f4ad3627a9dc51b775fe2636c81f30cf89bf108e6095599b2de6d6a10"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Broadleaf_3dc05f6f.mat",
+      "sha256": "8c07ade1741e8420856bf3a62d8213b06742b7845d73d52c507715fa41134216"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Water.shader",
+      "sha256": "a38c12366c27f3be7821a5658fae833b92df2648151a5f1d46e5d02e88c3cd0d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Window_83cb9742.mat",
+      "sha256": "4f98bcc52c75cb8331487bdadd6c90c8fdeec9f39fca3ae79486cb1986f93926"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/LightingData.asset",
+      "sha256": "6d70f46dc2665d6fa5500564ea13ce12638ca1ecd70845344b01cafa94a25812"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_IslandTree.prefab",
+      "sha256": "184a8666264923fa1f20a8974fb3e57d0321ba48677cb41b006f5be9fafa64a9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactSpray.shader",
+      "sha256": "2279851c6830c65f3f4ef993e7524ffd0a70d59c509fb78cb1ef4f762b24da25"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Roof_5275e083.mat",
+      "sha256": "145ff7a3ea50860572a1b7ff77ab9363d3a9e4e0f200ee5c39ab0f6f37376610"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Neutral.asset",
+      "sha256": "ddc5f240f2efac6b8af03b051fd1ba7bd79f273e92aafba923915b5a166c0512"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_0.asset",
+      "sha256": "4ed41bdd8afe825dbc65a615d321cbe53c3928322e90fe3448e9c2c8b052846d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD1_Animated.asset",
+      "sha256": "52ce4bbca467e6dc481564e00a7cbe888ce1a57430f40d1ea71f0c586c65aedb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_WindPine.prefab",
+      "sha256": "add803f04ef7729ed2fb991e910483332c4e93ae9d88a48329c4ed41f6c5edbe"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageBinding.cs",
+      "sha256": "67a9b7379cb0a3a3b8ff3de33b9679c1471cc0eb6d505d689a9c17b80535a0a2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Foliage.shader",
+      "sha256": "d460bcc5681ea05d6316d9a1c56fa64a7d41c3de56fb73d108795b4460e04790"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_NeutralVolume.asset",
+      "sha256": "ccd2c9f071f1245c93ccb5356d732f3ed57c2052c2b383ca7c01959f376d0799"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Gold_8ca2b2a4.mat",
+      "sha256": "883af6f3c8a221bc22832b55298bf6464079a6a4ba9bc06e4a8dbf287b9c255f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Afternoon.asset",
+      "sha256": "d3ba74646dc63387d9e201931d376b5a779600a1e99e917fbb297ab4a54e74d0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Surface.shader",
+      "sha256": "d14ec9bac615ecdf28967a40ffe5d81d9a9cc17d21ab1450d6963a5e3313919f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD2_Animated.asset",
+      "sha256": "7865771380183c96fd8ba759cc9828a201ccda47e04de303cf09f64625bcb505"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_241dd755.mat",
+      "sha256": "bcbec623ffacee7d64685b3bafa7f7cd3611efab869b41e79041248ecb8bac68"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_dir.png",
+      "sha256": "f5a49cb3a28ecea0a206b68ebf4fcdef29d1f9999266493e6365391991bd2376"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_StylizedWater.shader",
+      "sha256": "dc4faf02e9d1e5f12b6eba96ab1ea1d8b74ea8b09f842b1e93cf06844fd0e544"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_HeroOak.prefab",
+      "sha256": "8c7a0e4d447b1ab7b0f95e5fe0454b1d1055ccddfbcbad5dce2e4344d8f0e611"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingFoliage.shader",
+      "sha256": "0b8d128d586b74b377af0e7bc30a6754b0c3a8f7e943b8449557f757fab9cf04"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ArenaReflection.exr",
+      "sha256": "99f151897c04a39c36c2b14100a42f128e439c3326ac1538330ad4ae5c5d2836"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD0_Animated.asset",
+      "sha256": "84cff8a9bba9c83c2183e7baaf5162a2cca54aebbee66e02f45b572436789ca3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Textures/TG_LeafSprayAlbedoOpacity.png",
+      "sha256": "4467d393351ba95a753ed4b695b359da04135d93e852112376ced593b00224b0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_NeutralSky.mat",
+      "sha256": "b98f33fec8c05fa84e3fcca8363417c67883e5dd5d6e33010158ba959b488719"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_PaintedSky.shader",
+      "sha256": "2c75e19b117b6d9c5e57646e6b7372e1158aa34a8c58f17f8d5263820433d93f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/TG_TerrainGrassland.shader",
+      "sha256": "79d487e7b17b2f1a69d66c6922d0caf27b4d3a73a90addb0045636a08be177f9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD0_Animated.asset",
+      "sha256": "234c2fac57904514a37517267c022d1597db2bcfada2b4f869d410e11bbbf3df"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_DistantBlue_1494f146.mat",
+      "sha256": "300488e16df3906151d26fb096f2009fac07177fe59e9647f6bc5d7e24c1b786"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineNeedles_f3259f8c.mat",
+      "sha256": "a0b55e7cb77bb989a70d7fd2632956f0750617bd29e83aeadb93a58aed3d644f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD1.asset",
+      "sha256": "eefe75dfb70540d5e2eb250be2f4cc9e4292baf6eb01357a28b0835b589528dc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_0396a9e1.mat",
+      "sha256": "545e4bce1be05209e53b7cfabbf99254722add7f5629872d146cad9c591852f3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_SoilPaint.asset",
+      "sha256": "4bdcba50071209e6429d37418e3b7b2dc1073c44f19cf9b815fc6cdc7a559a1b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Grass_2dfaa2f7.mat",
+      "sha256": "7d9d341a4ed98d8c59661867c3740807db54713adabc1b9b568fd18c6fdcf924"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Shore_9f22a301.mat",
+      "sha256": "2f5f15d6f342ab009d4ba55f19d475ac291bde9edd2eaeb0bf7852b00eb7f9a1"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_light.exr",
+      "sha256": "cea7d700578ba321582bd5a74d6a9db2e1c016458f4561d6dd3c4695458e3ce2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Spray_7e4051f1.mat",
+      "sha256": "ca8c1830f3bd41f9ac7c7d4fc3269a619576704538dfd2ceff3dd167178b6e3b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD0.asset",
+      "sha256": "e9a83e9ffe178f3ca90350b36060c6ca8a8225b7eda8eb67911fef07b4ce6c2f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD1.asset",
+      "sha256": "9d3b362e76304d3695ab11cfcdcb72ea692e316bd52bbff6d3e925b3ea055811"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_0.asset",
+      "sha256": "3c7893fadd7b4aec5e4474549f3dd6c239bf3bcdc97e04b7fac16c2c631972c5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Common.hlsl",
+      "sha256": "2055d61123ad761f0f56317f588ea9c79b163641cf47aa0b9331d9afd7910d39"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingURP.asset",
+      "sha256": "c9a22700d2c1b67a91b22a2df0ba80fe76fb30e4b5117dcdfaf015540f8cbcd8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Pool_3f9ffd0b.mat",
+      "sha256": "b09aeac0147aad5b4f1cc438aee81938ebdb980bc34cb7905c8dc7aa29c8e04c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD0.asset",
+      "sha256": "e7835941c1d317dee767ca04b0b2cd1ea7588663767e3c6c0c86a1fe1079e249"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_RockPainted.png",
+      "sha256": "32daff953b0d1eab483873ebdf0e0fcc64a32bfb260c9e8b5020f5453fb8cf0a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD0.asset",
+      "sha256": "cc8377c4184be0371ead7efcbc19d14ee0a9dcf03b379ee3d79761e19dae23ac"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_ActorProbeBake.asset",
+      "sha256": "e327a2b55cac61c9f65a6a8c24991576f65a666c104ed69b9a28d9c52a144128"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models/TG_LayoutGeometry.fbx",
+      "sha256": "548b9a6a11a40e08598b2f1b4b33445ce1740dc7d288db411bacf9e19f146d81"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingSurface.shader",
+      "sha256": "15b3d5f785fdde1ba01c7cf2ace4c7dc037dd2d4a283e88c796b7d6d88d7bed7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD2_Animated.asset",
+      "sha256": "95c688f8f1de1b429391d41d0575cb41edcb1b66255d294b41c36d8947f0ac00"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Models/TG_WorldGeometry.fbx",
+      "sha256": "0775b911990a30cae3708b9d8dc44b3fe754663d72bc2cd6d34e6b2456458d29"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_TreeBark_1eb61c57.mat",
+      "sha256": "4e669b235c624b9b032cc002c44c1d17a30bbdfe822a230c8fd76ded4bffe365"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD1.asset",
+      "sha256": "1fe7e41b766e07398486dd204b3a35acf1ead6455ba6d7723505771f0afba383"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_MeadowOak.prefab",
+      "sha256": "ee0db58cb0541255c66b1600cb6b31e19a188afe3b69ece59cc7e3d5e84ac6b2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD0_Animated.asset",
+      "sha256": "1e86601734f333ede6551211be2a7b8ce0cfedf50c20512c8fe690ef0fffab80"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineNeedles.mat",
+      "sha256": "8c10806ddee3e88897af2b1b23ac685cee08ddbf659f1118742225f783d037af"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD1_Animated.asset",
+      "sha256": "2fbeb89631c00a8e0c80308bf64363f608997529e6993c71e5e1af7c41d198bb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD0.asset",
+      "sha256": "03f1c80d866f3bde728506f237da152e6870da0588d38608c1d3d2c50db5bbd1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingProfile.cs",
+      "sha256": "49b173081da8ae37d3862d10d21b5e8f1221819384a56738969caef8e09101cf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD0_Animated.asset",
+      "sha256": "5903bfd85f5e4c4c1e969961ae4b35730e7cfb9d630d86fc898615eada63dad9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer1.terrainlayer",
+      "sha256": "5e07dd13e9bb80a7c1915d0c267ab1fa746dfe527d9382d9ce7255e32bf413b7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingMeadow.shader",
+      "sha256": "0feb8c64284e79cb722376a34a527d4895f67c5c9e3547d0bbce036fef404f50"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/README.md",
+      "sha256": "438355074a8cadc76f563cacf99a2044a6598c123fdbf37c9edf33a1f4de2167"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_BroadleafSunTips.mat",
+      "sha256": "380ba7ea95a7c7ae1f34d9688ded1d21ba6ec7a273fee91d5d455d1bca2b950d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Prefabs/TG_LitBattleStage_r1.prefab",
+      "sha256": "895f126ba0948e95715b5e8e22c41a8ece5dbd1a4bf8401985aa374aaaf77a77"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_1.asset",
+      "sha256": "fcadbc9be09fb0e8e1ac0e31731136940b5308375cd3f633ec77b8e6dd92ca8d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_68cf94f9.mat",
+      "sha256": "2a82b10ed728f09e6c3b5dde809e941edb1244e6439fcefd33d15193dc995b04"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD1_Animated.asset",
+      "sha256": "69858a10de9f3327b59b7098201433dea96912d79056fdc83c190048364fdd2c"
+    }
+  ],
+  "paths": [
+    "Assets/Project/Art/Character/Icon/icon-gi-lumine_anemo.png",
+    "Assets/Project/Art/Character/Icon/icon-gs-amber.png",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/TG_StageContacts.fbx",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageBinding.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageTour.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactFoam.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactSpray.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_IntegratedWater.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_WaterProcedural.hlsl",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Terrain/TG_StageLandscape.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/AccentGrass_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/Clover_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/DaisyWhite_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerGold_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/FlowerPurple_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/MeadowGrass_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/ShortGrass_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD0.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Meadow/Meshes/TallGrass_LOD1.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/LayoutR3/Models/TG_LayoutGeometry.fbx",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Amber_URPLit.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Lumine_URPLit.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_DaylightCloudShape.png",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LightingColorField.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LitMeadowPlacement.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_AfternoonSky.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_BroadleafSunTips_fded8b0a.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Broadleaf_3dc05f6f.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpraySunTips_33c80a44.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpray_85f335e7.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Gold_8ca2b2a4.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Grass_2dfaa2f7.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Purple_a2d5ebf3.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_White_84653119.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_NeutralSky.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineNeedles_f3259f8c.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineTips_37ffd0b4.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_DistantBlue_1494f146.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Moss_d67b70ca.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_RockShade_8575f87d.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Rock_870acbad.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Roof_5275e083.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Terrain_285ab485.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Window_83cb9742.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Foam_a8c0c926.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Fringe_b4c4d90e.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Mist_e4330ec0.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Pool_3f9ffd0b.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_River_bb008298.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Shore_9f22a301.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Spray_7e4051f1.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Wake_38c7f6d1.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_0396a9e1.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_241dd755.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_68cf94f9.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_TreeBark_1eb61c57.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Prefabs/TG_LitBattleStage_r1.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ArenaReflection.exr",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ProxyGround.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Afternoon.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_AfternoonVolume.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Neutral.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_NeutralVolume.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingProfile.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingRig.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_ActorProbeBake.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingRenderer.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingURP.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_Common.hlsl",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingFoliage.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingMeadow.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingSurface.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_PaintedSky.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/LICENSE.md",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_LightingTerrain.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_TerrainLitPasses.hlsl",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowData.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowRenderer.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Runtime/TeyvatMaterialGlobals.cs",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Common.hlsl",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Foliage.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Surface.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/TG_Water.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/LICENSE.md",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/README.md",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/TG_TerrainGrassland.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Shaders/Terrain/TG_TerrainLitPasses.hlsl",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_GrassNeutral.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_RockPainted.png",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_SoilPaint.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_Broadleaf.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_BroadleafSunTips.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpray.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpraySunTips.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineNeedles.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineTips.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_TreeBark.mat",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD0_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD1_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD2_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD0_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD1_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD2_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD0_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD1_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD2_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD0_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD1_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD2_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD0_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD1_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD2_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD0_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD1_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD2_Animated.asset",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_HeroOak.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_IslandTree.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_MeadowOak.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_Shrub.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_WindPine.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_YoungPine.prefab",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Textures/TG_LeafSprayAlbedoOpacity.png",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Water/Models/TG_WaterKit.fbx",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_StylizedWater.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterEffects.shader",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Water/Shaders/TG_WaterProcedural.hlsl",
+    "Assets/Project/Art/Environment/TeyvatGrassland/World/Models/TG_WorldGeometry.fbx",
+    "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer0.terrainlayer",
+    "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer1.terrainlayer",
+    "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer2.terrainlayer",
+    "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1.unity",
+    "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/LightingData.asset",
+    "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_dir.png",
+    "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_light.exr",
+    "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/ReflectionProbe-0.exr"
+  ]
+}

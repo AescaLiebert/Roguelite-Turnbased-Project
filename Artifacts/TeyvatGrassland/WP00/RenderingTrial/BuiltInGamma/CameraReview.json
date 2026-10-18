@@ -1,0 +1,86 @@
+{
+    "context": "Editor offscreen static proxy review only. Only ground colliders are checked here; use CameraEnvelopeReview for all visual modules. Not gameplay or player-build performance acceptance.",
+    "renderers": 322,
+    "triangles": 143772,
+    "gpu": "AMD Radeon(TM) Graphics",
+    "cameras": [
+        {
+            "name": "TG_PlayerPlanning",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyPlanning",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReferencePlanningCandidate",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReversePlanningCandidate",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnvironmentOverview",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_PlayerAttack",
+            "visibleActors": 5,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyAttack",
+            "visibleActors": 4,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_PlayerContact",
+            "visibleActors": 3,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyContact",
+            "visibleActors": 3,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_PlayerPortrait",
+            "visibleActors": 2,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_EnemyPortrait",
+            "visibleActors": 2,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_WideMultiTarget",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        },
+        {
+            "name": "TG_ReverseOverview",
+            "visibleActors": 6,
+            "occludedActors": 0,
+            "obstructions": []
+        }
+    ]
+}

@@ -10,7 +10,7 @@ The artifact system has **three stat families**, each with a fixed **five-piece 
 4. Goblet
 5. Crown
 
-The three working set names are **Striker’s Oath** (ATK boost), **Bulwark’s Oath** (DEF boost), and **Lifebloom’s Oath** (HP boost). A piece belongs to exactly one set and one slot. The five pieces within a set share that set’s stat identity. Main stats roll from the basic stat family; the rarity-based substat count and set bonuses are specified below. Exact roll ranges, slot eligibility, and acquisition rules remain open.
+The three set names are **Striker’s Oath** (ATK boost), **Bulwark’s Oath** (DEF boost), and **Lifebloom’s Oath** (HP boost). A piece belongs to exactly one set and one slot. The five pieces within a set share that set’s stat identity. Main stats, substat values, slot eligibility and rarity scaling follow the authored [Artifact Balance Table](ArtifactBalanceTable.md); the rarity-based substat count and set bonuses are specified below.
 
 ## Readability rules
 
@@ -50,7 +50,7 @@ The following are the completed V3 artifact individuals. Each set has exactly on
 
 ## Relationship to the current project
 
-The current `ItemCatalog` contains five rarity-based artifact placeholders plus Artifact Dust; artifact equipment and upgrades are still prototype functionality. This brief defines 15 proposed artifact identities to replace those generic rarity placeholders. It does not change the catalog, inventory IDs, stat calculations, acquisition rules, or upgrade economy.
+The current `ItemCatalog` contains the 15 set/slot identities plus Artifact Dust. Equipment, enhancement, migration and combat stat application are implemented by the artifact core rules. The authored [Artifact Balance Table](ArtifactBalanceTable.md) defines the current roll values and supersedes earlier draft pool/range notes.
 
 
 ## Main stats and substats
@@ -59,7 +59,7 @@ Each individual artifact rolls one **main stat** and a rarity-sized **substat co
 
 ### Main stat
 
-Roll the main stat from the basic-stat family: **ATK, DEF, or Max HP**, each available as a flat value or percentage value (six main-stat forms total). A main stat has no quality roll. Instead, each main-stat form has its own minimum and maximum values across artifact upgrades. Per-slot eligibility and exact ranges still need to be balanced.
+Flower and Feather roll **ATK%, DEF%, or Max HP%**. Sand Clock, Goblet and Crown use those identities plus the 13 secondary percentage stats in the [Artifact Balance Table](ArtifactBalanceTable.md). Main stats have no quality or rarity multiplier; the table specifies their +0 and +20 endpoints with linear growth in between. Flat mains are excluded.
 
 ### Substat compact by rarity
 
@@ -71,20 +71,19 @@ Roll the main stat from the basic-stat family: **ATK, DEF, or Max HP**, each ava
 | SR | 3 |
 | SSR | 4 |
 
-Each line rolls its own quality within that substat’s defined range. A single artifact cannot roll the same exact substat identity twice. Flat DEF and DEF% are distinct identities, so both can appear together. A main stat and a substat may share a base stat when their forms differ, such as DEF main stat with DEF% substat; exact identity is what cannot repeat within the substat compact.
+Each line rolls quality from **0.7 to 1.0** and applies its rarity multiplier, **0.2 / 0.4 / 0.6 / 0.8 / 1.0**. The exact main identity and other substat identities cannot repeat. Flat DEF and DEF% are distinct identities, so a DEF% main may appear with a flat DEF substat. Round once after multiplying the authored base, quality and rarity.
 
 ### Substat pool audit
 
-The project exposes 20 `StatId` entries. The proposed pool below includes that full vocabulary and adds flat / percentage forms for the three basic stats, yielding 23 candidate line identities. Percentage-form basic stats are distinct from their flat forms. Percentage secondary values use the game’s basis-point representation.
+All slots share the 19 substat identities below. Percentage-form basic stats are distinct from their flat forms. Percentage secondary values use the game’s basis-point representation. The [Artifact Balance Table](ArtifactBalanceTable.md) lists each base roll value.
 
 | Stat group | Candidate substat identities |
 |---|---|
 | Basic stats | ATK flat, ATK%, DEF flat, DEF%, Max HP flat, Max HP% |
-| Rating | Combat Class flat |
-| Offense / defense / sustain | Pierce, Resistance, Regeneration, Crit Chance, Crit Damage, Crit Resistance, Crit Defense, Recovery, Block Chance, Block Power, Life Steal |
-| Other combat stats | Evade, Perception, Control, Avoidance, Reflect Damage |
+| Offense / defense / sustain | Pierce, Regeneration, Crit Chance, Crit Damage, Crit Resistance, Crit Defense, Recovery, Block Chance, Block Power, Life Steal |
+| Damage bonuses | DOT Dealt, Damage Dealt, Additional Damage |
 
-`CombatClass` and `ReflectDamage` are **Special Stats**. Both can appear in the substat compact, but neither is in the basic-stat main-stat pool. They are included in the candidate substat pool even though they are not part of the existing `AllStats` bundle. Flat versions of secondary stats are not proposed because the project stores those stats as basis-point values.
+Combat Class, Reflect Damage, Resistance, Evade, Perception, Control and Avoidance are excluded from this substat pool. Resistance remains an eligible main stat on Sand Clock, Goblet and Crown. Additional Damage is a substat only. Flat versions of secondary stats are excluded because the project stores those stats as basis-point values.
 
 ## Set bonuses and battle state
 
@@ -103,8 +102,8 @@ When a 4-piece set's low-HP conditional effect activates during battle, show the
 ## Implementation clarifications
 
 - “Lifesteal / Damage Dealt +5%”, “Critical Resistance / Critical Defense +15%”, and “Regeneration / Recovery +10%” are interpreted as bonuses to **both** named stats.
-- The exact numeric quality-roll ranges, main-stat min/max progression, per-slot main-stat eligibility, and rarity acquisition/upgrade flow remain unspecified.
-- The current catalog still has rarity-based artifact placeholders. This brief describes the proposed system and does not change code or live behavior.
+- The [Artifact Balance Table](ArtifactBalanceTable.md) specifies numeric roll bases, quality/rarity scaling, main-stat endpoints, slot eligibility and deterministic saved-artifact migration.
+- [ArtifactImplementation.md](ArtifactImplementation.md) documents the implemented catalog, inventory transactions, upgrade economy and UI.
 
 
 

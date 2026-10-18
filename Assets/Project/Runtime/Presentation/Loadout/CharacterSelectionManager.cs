@@ -398,6 +398,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
         if (inventoryScreen == null) return;
         inventoryScreen.SetActive(true);
+        FightingAllstar.Presentation.ScreenMotion.Enter(inventoryScreen.transform as RectTransform);
         var scrollRect = inventoryScreen.GetComponent<ScrollRect>();
         if (scrollRect != null) scrollRect.verticalNormalizedPosition = 1f;
     }
@@ -492,17 +493,17 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             if (DungeonFlowContext.ActiveRun != null)
             {
-                SceneManager.LoadScene("Combat");
+                FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat");
             }
             else
             {
                 DungeonFlowContext.Clear();
-                SceneManager.LoadScene("Combat");
+                FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat");
             }
         }
         else
         {
-            SceneManager.LoadScene("MainMenu");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene("MainMenu");
         }
     }
 
@@ -510,7 +511,8 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         foreach (var slot in characterSlots)
             slot?.LoadOutPosition?.ToggleSelectionVisual(false);
-        if (inventoryScreen != null) inventoryScreen.SetActive(false);
+        if (inventoryScreen != null) FightingAllstar.Presentation.ScreenMotion.Exit(inventoryScreen.transform as RectTransform,
+            () => { if (inventoryScreen != null) inventoryScreen.SetActive(false); });
         currentSelectedLoadOut = null;
     }
 
@@ -588,7 +590,7 @@ public class CharacterSelectionManager : MonoBehaviour
         SaveRunFormation();
         var inventory = PlayerInventoryService.Instance;
         var run = DungeonFlowContext.ActiveRun;
-        if (run == null) { SceneManager.LoadScene("Combat"); return; }
+        if (run == null) { FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat"); return; }
         if (inventory == null || characterSlots == null || characterSlots.Count != 4) return;
         try
         {
@@ -613,7 +615,7 @@ public class CharacterSelectionManager : MonoBehaviour
             new LocalRunStateStore().Save(candidate);
             DungeonFlowContext.BeginDungeonFlowForEncounter(DungeonFlowContext.ActiveProfile, candidate, encounter);
             LocalEncounterContext.Begin(encounter);
-            SceneManager.LoadScene("Battle");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene("Battle");
         }
         catch (Exception ex)
         {

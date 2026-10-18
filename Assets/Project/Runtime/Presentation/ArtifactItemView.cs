@@ -129,7 +129,7 @@ namespace FightingAllstar.Presentation
             var message = Label("", "artifact-detail-muted"); message.name = "artifact-tooltip-message";
             var subject = PlayerInventoryService.Instance?.SubjectId;
             var ownedAtOpen = PlayerInventoryService.Instance?.FindArtifact(artifact.InstanceId) != null;
-            Action close = () => { overlay.RemoveFromHierarchy(); if (previous?.panel != null) previous.Focus(); };
+            Action close = () => ScreenMotion.Remove(overlay, () => { if (root.Q("item-tooltip-overlay") == null && previous?.panel != null) previous.Focus(); });
             Action refresh = () =>
             {
                 if (!string.Equals(PlayerInventoryService.Instance?.SubjectId, subject, StringComparison.Ordinal)) { close(); return; }
@@ -156,7 +156,7 @@ namespace FightingAllstar.Presentation
             };
             overlay.userData = close;
             var dismiss = new Button(close) { name = "close-item-tooltip", text = "×" }; dismiss.AddToClassList("item-tooltip-close"); dialog.Add(dismiss);
-            overlay.Add(dialog); root.Add(overlay); refresh();
+            overlay.Add(dialog); root.Add(overlay); refresh(); ScreenMotion.ShowModal(overlay, dialog);
             PlayerInventoryService.InventoryChanged += refresh;
             overlay.RegisterCallback<DetachFromPanelEvent>(_ => PlayerInventoryService.InventoryChanged -= refresh);
             overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) close(); });

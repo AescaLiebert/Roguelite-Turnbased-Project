@@ -22,16 +22,19 @@ MonoBehaviour:
   - trait.Ikari
   - trait.series-kof
   - trait.women
-  passiveSourceDescription: Increases own LifeSteal by 25%. Deals 40% more damage
-    to enemies below 35% HP.
+  passiveSourceDescription: 'Increases own LifeSteal by 25%
+
+
+    Deals 40% more
+    damage to enemies below 35% HP'
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 94ebcad408bb87846807b68310d8443b, type: 2}
   id: 1418
   fighterName: Leona Heidern 96
-  fighterPic: {fileID: 21300000, guid: 3525fd5530c0adc40a13f9f6d6c00024, type: 3}
+  fighterPic: {fileID: 21300000, guid: 6bbb526a889f8ea4fa743890c3083af1, type: 3}
   fighterIcon: {fileID: 21300000, guid: 2fe7778e05e27034aa4c87465091e41d, type: 3}
-  fighterFull: {fileID: 21300000, guid: 3525fd5530c0adc40a13f9f6d6c00024, type: 3}
+  fighterFull: {fileID: 21300000, guid: 6bbb526a889f8ea4fa743890c3083af1, type: 3}
   fighterPassive: {fileID: 0}
   fighterCard1: {fileID: 0}
   fighterCard2: {fileID: 0}

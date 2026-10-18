@@ -1,0 +1,781 @@
+{
+  "package": "WP08 daylight lighting r1",
+  "date": "2026-10-19",
+  "renderer": "Unity6000.3.4f1 / URP17.3 Forward / Linear",
+  "protectedFiles": 3727,
+  "sourceFiles": 24,
+  "sourceBytes": 79934,
+  "sourceSHA256": "1c9d54004c9ce68d2c3c44e3eb8dd12e1caa5d94158d8b7e40369d43c318ad12",
+  "owned": [
+    {
+      "path": "ArtDirection/Level Design/TeyvatGrasslandConcepts/ASSET_CONTRACT.md",
+      "bytes": 11817,
+      "sha256": "d929162f25ee0830ec27c52233a6605a783f479bb8b27803e73ff1f2c35fd567"
+    },
+    {
+      "path": "ArtDirection/Level Design/TeyvatGrasslandConcepts/WORK_PACKAGES.md",
+      "bytes": 12667,
+      "sha256": "57578917e519a5b2c6227222e51b7563baa5600b9888f415f266a471214df360"
+    },
+    {
+      "path": "ArtDirection/Level Design/TeyvatGrasslandConcepts/WP08_Lighting.md",
+      "bytes": 16256,
+      "sha256": "5b3ad20debdb8d07106aed3b0073b88f51be121f73d2ae7f0dbc3f23677e3eed"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Amber_URPLit.mat",
+      "bytes": 3929,
+      "sha256": "2cf1dc5b6924241da48dc482311f0579ce03d893574ffc07364ffb385576ad0c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Amber_URPLit.mat.meta",
+      "bytes": 188,
+      "sha256": "ee9298f278773502bd48528f832176e132011ed9b556f209c7ab5a827ffe09d8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Lumine_URPLit.mat",
+      "bytes": 3930,
+      "sha256": "021c781a040fb835530c0ee3ccd11606eb7b670dfacae948dcb560f1616d6d0a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Lumine_URPLit.mat.meta",
+      "bytes": 188,
+      "sha256": "9f3cbd3b9d47a3b2f2760a40927d3a869a1da9538dae4b2e75d9803a153ec5bc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials.meta",
+      "bytes": 172,
+      "sha256": "d8a378a075c0f90059dcb9ce5137bfdb44da72ba6bb3fd11a8ace584b52078da"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors.meta",
+      "bytes": 172,
+      "sha256": "e670f8e8af3127b3564b3863abf91c142490d3b985d7fe86a99d195f5e26bbc5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_DaylightCloudShape.png",
+      "bytes": 2023218,
+      "sha256": "c76f67df5d875cf0eb9fdc09bbb55823b92f1ecca4fea293624abcd060f3f339"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_DaylightCloudShape.png.meta",
+      "bytes": 3359,
+      "sha256": "bad9de5610990c8d5f8b81230f3ebae8c154d977ab6abbd07586ef5833966ecb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LightingColorField.asset",
+      "bytes": 525330,
+      "sha256": "a37dc22ace0f63faa0fb0828eb1e39170c2c6969d7ff2d31ac3752dee75c0042"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LightingColorField.asset.meta",
+      "bytes": 188,
+      "sha256": "a077b8adfe286840cf5de30b3024f406b6629c3eebd475160abccddf88c3d89e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LitMeadowPlacement.asset",
+      "bytes": 11246225,
+      "sha256": "250504fc03e22cacfd5778171ef80d4eebe5d746304509b1b76b737a6b20d578"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LitMeadowPlacement.asset.meta",
+      "bytes": 189,
+      "sha256": "65ebd9a3a063cc739f2cd953bf4e97931de804b063a16ab94133b77c4a3ba4fd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data.meta",
+      "bytes": 172,
+      "sha256": "e23d23125ff6b70049404535c7b72f9b2a9819a872b8dc06d39e25f7119013e1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_AfternoonSky.mat",
+      "bytes": 1316,
+      "sha256": "17e9bae111e645ab49002cfa56bc5d60c411a1aa3c4b42437c2baa07ad7f7fc5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_AfternoonSky.mat.meta",
+      "bytes": 188,
+      "sha256": "56edb35150873f868160cd5b1fbe55c4a9bdacfe8d15282d8ea015f052378c9f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Broadleaf_3dc05f6f.mat",
+      "bytes": 1244,
+      "sha256": "8c07ade1741e8420856bf3a62d8213b06742b7845d73d52c507715fa41134216"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Broadleaf_3dc05f6f.mat.meta",
+      "bytes": 188,
+      "sha256": "84dc65b071dcb1857cda16d120edd4ce5fc4cece3cc3ff64051c309d5b1e30ba"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_BroadleafSunTips_fded8b0a.mat",
+      "bytes": 1260,
+      "sha256": "4c78a893120ed01d1fc2040db6354c5863737cc0235161635edb3be237338023"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_BroadleafSunTips_fded8b0a.mat.meta",
+      "bytes": 188,
+      "sha256": "c4e7347df2ec99aa62858530598ad7e8160304bb3f2d1eefdbcca7c855b690ea"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpray_85f335e7.mat",
+      "bytes": 1318,
+      "sha256": "69e7a497924c2c5b93fd84b39deff65c9ac5b17a83eecd0b1a829023b564b57d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpray_85f335e7.mat.meta",
+      "bytes": 188,
+      "sha256": "8f3f2c9744f5ba705242efd311911eccdf972ffca713c8146d8f0923244a8fb5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpraySunTips_33c80a44.mat",
+      "bytes": 1320,
+      "sha256": "973ac4a5df19711a10c71bfe06e2ba38fc7926bb6bd5a2dd6a197a4b29d7d3c2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_LeafSpraySunTips_33c80a44.mat.meta",
+      "bytes": 188,
+      "sha256": "66bbbfa26ff7514cf7d76cd46de979c5557bd731841c84de04dc406e93a5eaaf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Gold_8ca2b2a4.mat",
+      "bytes": 1223,
+      "sha256": "883af6f3c8a221bc22832b55298bf6464079a6a4ba9bc06e4a8dbf287b9c255f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Gold_8ca2b2a4.mat.meta",
+      "bytes": 188,
+      "sha256": "b621dd904605a41190f920e2ee4fcf6eb14fba7229b6b8026f2ad30991529b12"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Grass_2dfaa2f7.mat",
+      "bytes": 1233,
+      "sha256": "7d9d341a4ed98d8c59661867c3740807db54713adabc1b9b568fd18c6fdcf924"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Grass_2dfaa2f7.mat.meta",
+      "bytes": 188,
+      "sha256": "10a00784eb3b8cc7363efdab8e6d06fc768ef4314b6e4553a435f69ac74ec886"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Purple_a2d5ebf3.mat",
+      "bytes": 1226,
+      "sha256": "ea95bd575253f7a7e89f78f9c295d3cea4c088454d44b7d2c112de55356b8190"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_Purple_a2d5ebf3.mat.meta",
+      "bytes": 188,
+      "sha256": "48915daf2a4fb72d69b0804693adfd3891b8439f1cf697ff0a7e4e565a9429ce"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_White_84653119.mat",
+      "bytes": 1225,
+      "sha256": "863bef1c41149d0f3baf73c5737ca11f55dabc20b9de93f3f9e6c1ad566faea7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Meadow_White_84653119.mat.meta",
+      "bytes": 188,
+      "sha256": "f9c8744430d2317b689fad3adfea3bf62b9d2da70d2e2aa74bad83e4ce74ef56"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_NeutralSky.mat",
+      "bytes": 1315,
+      "sha256": "b98f33fec8c05fa84e3fcca8363417c67883e5dd5d6e33010158ba959b488719"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_NeutralSky.mat.meta",
+      "bytes": 188,
+      "sha256": "00ce4f4911e6cd98ca38d0f3020c78a1c031971a1d9b7d5244c59eea5429c0b0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineNeedles_f3259f8c.mat",
+      "bytes": 1255,
+      "sha256": "a0b55e7cb77bb989a70d7fd2632956f0750617bd29e83aeadb93a58aed3d644f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineNeedles_f3259f8c.mat.meta",
+      "bytes": 188,
+      "sha256": "b9846039306b42ace23254c60b04d0f3b6ee288bb24a45474ea84c3896a476ea"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineTips_37ffd0b4.mat",
+      "bytes": 1248,
+      "sha256": "6fd98c828edac6e385eeeaca6d55d5d560cb58d17a5fbbfabbfa39982807c41c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_PineTips_37ffd0b4.mat.meta",
+      "bytes": 188,
+      "sha256": "9d78b8d1d97b4ac6aeb02c0a41975d1a00e571daad5e1e83e30cad34713623cc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_DistantBlue_1494f146.mat",
+      "bytes": 1160,
+      "sha256": "300488e16df3906151d26fb096f2009fac07177fe59e9647f6bc5d7e24c1b786"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_DistantBlue_1494f146.mat.meta",
+      "bytes": 188,
+      "sha256": "35175c238fea8bf326ed73b7dd9aba2f09a591c5cac8ef66b2c1edf194af9347"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Moss_d67b70ca.mat",
+      "bytes": 1144,
+      "sha256": "e4dc6b283fde118c00409318182680e8ae77dfae02a64b6fd3bb621ef0ec51a5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Moss_d67b70ca.mat.meta",
+      "bytes": 188,
+      "sha256": "ac71578cc376096e88d9e591fb379d79c4fbbc38d795d7d4ed6e7246667eb01d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Rock_870acbad.mat",
+      "bytes": 1210,
+      "sha256": "a6e8d80fedfd7a1f4766897d4eceaf2449bbbb0031d644779df030be83df5ec5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Rock_870acbad.mat.meta",
+      "bytes": 188,
+      "sha256": "6152cd47481d1c02f6282a58e27171085ee004e6576e3a4214b3502e92e234ad"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_RockShade_8575f87d.mat",
+      "bytes": 1216,
+      "sha256": "f3e5354344439a31b52ade69292c7da01b298acacb84fbe23c8822c1535d5815"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_RockShade_8575f87d.mat.meta",
+      "bytes": 188,
+      "sha256": "1a4ee936bd3261b460c2aa92ec89f10914019f110844337ced3a1caa6e6d23ba"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Roof_5275e083.mat",
+      "bytes": 1153,
+      "sha256": "145ff7a3ea50860572a1b7ff77ab9363d3a9e4e0f200ee5c39ab0f6f37376610"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Roof_5275e083.mat.meta",
+      "bytes": 188,
+      "sha256": "09b44cb70080c5ab6da09f0b3d22f049a003d2e1e842080d97535d39f012d147"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Terrain_285ab485.mat",
+      "bytes": 2708,
+      "sha256": "b53418d126f3e7193fb88acdd0eae969fc44f7c611e93805d340858eb8c2fa3d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Terrain_285ab485.mat.meta",
+      "bytes": 188,
+      "sha256": "41fc926614469fbe6abce79ee6c75b99404fa98516f2ccd4f6a66026be4f39ae"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Window_83cb9742.mat",
+      "bytes": 1154,
+      "sha256": "4f98bcc52c75cb8331487bdadd6c90c8fdeec9f39fca3ae79486cb1986f93926"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Window_83cb9742.mat.meta",
+      "bytes": 188,
+      "sha256": "25a9fe8528bb3af1916e8718906a5bb6b82f183c233d01dbbec81eb3a9e68c2e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Foam_a8c0c926.mat",
+      "bytes": 981,
+      "sha256": "ad6f9064bdf522e341c95565cf24d1c5d77d33e627cb0ab6d7d79a485359dde8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Foam_a8c0c926.mat.meta",
+      "bytes": 188,
+      "sha256": "569954ae56ae5e4b23180e91c0138e0a1e342eb0088c8ee828218ce555f50cd3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Fringe_b4c4d90e.mat",
+      "bytes": 983,
+      "sha256": "03db555c58c9301fdc9263e44a7e210f3be90b7dc41bd5aab29ac1e08885b61f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Fringe_b4c4d90e.mat.meta",
+      "bytes": 188,
+      "sha256": "7394cfef21d0a526912b1239ec2e03954699402bb1de6134198cfa97d6e57de8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Mist_e4330ec0.mat",
+      "bytes": 979,
+      "sha256": "c1129e38b3981f5ee3f996c7ac4b5480f325a9ee362c914047a9b48ab5debfec"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Mist_e4330ec0.mat.meta",
+      "bytes": 188,
+      "sha256": "d338f3f47df4b980fcb1b342305d16a14a964928e58f6a44450a2e8ed20d21bd"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Pool_3f9ffd0b.mat",
+      "bytes": 1390,
+      "sha256": "b09aeac0147aad5b4f1cc438aee81938ebdb980bc34cb7905c8dc7aa29c8e04c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Pool_3f9ffd0b.mat.meta",
+      "bytes": 188,
+      "sha256": "13e05fe73768775bb3a09b57603b887bcfdaa7f314e1e76f751751a546417c42"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_River_bb008298.mat",
+      "bytes": 1391,
+      "sha256": "21f9510d3260fc485c632999495ea40010f898a1d97d03b49d72861165280140"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_River_bb008298.mat.meta",
+      "bytes": 188,
+      "sha256": "ac3e2c94567641fd9f3362eed0b79fde87f6083293f8c792ed938e6608374066"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Shore_9f22a301.mat",
+      "bytes": 981,
+      "sha256": "2f5f15d6f342ab009d4ba55f19d475ac291bde9edd2eaeb0bf7852b00eb7f9a1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Shore_9f22a301.mat.meta",
+      "bytes": 188,
+      "sha256": "3708405653dc52a3b07c20159b47605a60c4f8b5f05f3370c805bb42bed4428b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Spray_7e4051f1.mat",
+      "bytes": 943,
+      "sha256": "ca8c1830f3bd41f9ac7c7d4fc3269a619576704538dfd2ceff3dd167178b6e3b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Spray_7e4051f1.mat.meta",
+      "bytes": 188,
+      "sha256": "dacf2a22f49f612fa9d6a56b71b5f71df2c6347d31bceefd883f49133ef6318c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Wake_38c7f6d1.mat",
+      "bytes": 981,
+      "sha256": "f396342961da21b56cfac873deb19f4227ecf79b6d80b9e12abb57b3024e9d08"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Wake_38c7f6d1.mat.meta",
+      "bytes": 188,
+      "sha256": "74d7e0fc60d91a35bc7ff3e46873a5d1048215ba3e5576f59edefd0e86b7004a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_0396a9e1.mat",
+      "bytes": 1396,
+      "sha256": "545e4bce1be05209e53b7cfabbf99254722add7f5629872d146cad9c591852f3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_0396a9e1.mat.meta",
+      "bytes": 188,
+      "sha256": "21c4eb748afe20106ee50a4d235c15fc5ef555624eb4a5a01a199385b854cc5c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_241dd755.mat",
+      "bytes": 1396,
+      "sha256": "bcbec623ffacee7d64685b3bafa7f7cd3611efab869b41e79041248ecb8bac68"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_241dd755.mat.meta",
+      "bytes": 188,
+      "sha256": "92a98886f0e927ff12fd0a492191612fcc846c9c1cd66ccdf17c33a0d6ff2a69"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_68cf94f9.mat",
+      "bytes": 1392,
+      "sha256": "2a82b10ed728f09e6c3b5dde809e941edb1244e6439fcefd33d15193dc995b04"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_Stage_Waterfall_68cf94f9.mat.meta",
+      "bytes": 188,
+      "sha256": "db6d6c2c310529702cb52d2f0148843bcbd0740072df960b08c5bcc6d8f1fd97"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_TreeBark_1eb61c57.mat",
+      "bytes": 1212,
+      "sha256": "4e669b235c624b9b032cc002c44c1d17a30bbdfe822a230c8fd76ded4bffe365"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_TreeBark_1eb61c57.mat.meta",
+      "bytes": 188,
+      "sha256": "e3ece14beb4161cd0197269c8d1b62ccc8c1ca63a41ccfdddbefcdc315b4eb72"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials.meta",
+      "bytes": 172,
+      "sha256": "076bf755d254c929df5df0a7a809782841d5b0c6d9a79fecc23e9594c4f0769d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Prefabs/TG_LitBattleStage_r1.prefab",
+      "bytes": 2358524,
+      "sha256": "895f126ba0948e95715b5e8e22c41a8ece5dbd1a4bf8401985aa374aaaf77a77"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Prefabs/TG_LitBattleStage_r1.prefab.meta",
+      "bytes": 154,
+      "sha256": "0a435242a4bb20b9d4aa450b5c94e0022b6528981292b74570073b9aa7b0176a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Prefabs.meta",
+      "bytes": 172,
+      "sha256": "d55d5bc2aca9138b1309a5e0687c4c2a70af67415a11179ece28a7cd159a8d5c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ArenaReflection.exr",
+      "bytes": 247038,
+      "sha256": "99f151897c04a39c36c2b14100a42f128e439c3326ac1538330ad4ae5c5d2836"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ArenaReflection.exr.meta",
+      "bytes": 3365,
+      "sha256": "6aac2ba016eaa2796d3d0a3a5359f2e8098e61d4172c18d15b4765b1aff35066"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ProxyGround.mat",
+      "bytes": 3842,
+      "sha256": "ce8ab16675abda4ba495624389bb66155f8124cc3d81e398a1318f2146e25c66"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes/TG_ProxyGround.mat.meta",
+      "bytes": 188,
+      "sha256": "57adc8d0d4326b808fbd649f066aa63cf6c86d6a4452da499085c85f043898d6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Probes.meta",
+      "bytes": 172,
+      "sha256": "87647cc36cf4b1cab0082bacde19054a1de6386d1dc1a65e4723f1596bbaa52b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Afternoon.asset",
+      "bytes": 1227,
+      "sha256": "d3ba74646dc63387d9e201931d376b5a779600a1e99e917fbb297ab4a54e74d0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Afternoon.asset.meta",
+      "bytes": 189,
+      "sha256": "1e64bc1c1df357c97695c8a2323cbedf9a676144696cb3269d757a69f3dab74c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_AfternoonVolume.asset",
+      "bytes": 3466,
+      "sha256": "894aa016358586fa3a44adc7781b47c8d4eb9507f86cd105a5f679c4c38a30f0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_AfternoonVolume.asset.meta",
+      "bytes": 189,
+      "sha256": "ab2a770b9a3d869a6e7ccf03e453e4ccbc04a3104dfcae38d21d1a0d6d94e54c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Neutral.asset",
+      "bytes": 1218,
+      "sha256": "ddc5f240f2efac6b8af03b051fd1ba7bd79f273e92aafba923915b5a166c0512"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_Neutral.asset.meta",
+      "bytes": 189,
+      "sha256": "c6f6391fbe776cbe75dd10db317908d7ac233f9a0ef016be71fc5c992b106427"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_NeutralVolume.asset",
+      "bytes": 3456,
+      "sha256": "ccd2c9f071f1245c93ccb5356d732f3ed57c2052c2b383ca7c01959f376d0799"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_NeutralVolume.asset.meta",
+      "bytes": 189,
+      "sha256": "aae0dcee88c01b2ee56faa73cd16654486a9ce6914b4899ab06e36037099b96f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles.meta",
+      "bytes": 172,
+      "sha256": "c3e1807d5c346668a23a882d1bdc02012d56e6d6f74e22aad80a9449ac95f966"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingProfile.cs",
+      "bytes": 1073,
+      "sha256": "49b173081da8ae37d3862d10d21b5e8f1221819384a56738969caef8e09101cf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingProfile.cs.meta",
+      "bytes": 59,
+      "sha256": "612d570c6e0abcee68e8f54f88377194b63351e251b4c27746ad41e0af5aee79"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingRig.cs",
+      "bytes": 2751,
+      "sha256": "8f9f418b3f5a909c27b39882710f4ec9819b27520c73a5cd73ce2f2f15a1c1c4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime/TeyvatLightingRig.cs.meta",
+      "bytes": 59,
+      "sha256": "aaedb948f44397ae6ffae41cbc177d936a78251600152512e8af93f77b494929"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Runtime.meta",
+      "bytes": 172,
+      "sha256": "2c8e39636e777dabb3d0edf70adec487900709d1e6e55e24164f4d0a3fea72c4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_ActorProbeBake.asset",
+      "bytes": 1974,
+      "sha256": "e327a2b55cac61c9f65a6a8c24991576f65a666c104ed69b9a28d9c52a144128"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_ActorProbeBake.asset.meta",
+      "bytes": 200,
+      "sha256": "5ea7b1dee223d0436aa5be3ee2b58d0caa2aff2a3533f23cb61af6ae7af61a3b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingRenderer.asset",
+      "bytes": 1952,
+      "sha256": "480a5c2549a9a463d0342bef6665d2b7843f190fa25ed07ad3d42585dca397a9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingRenderer.asset.meta",
+      "bytes": 189,
+      "sha256": "221d1e0fb08d01680f9d3af5e2e754a3685ae3ca94f555e9823541b881c5c9e2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingURP.asset",
+      "bytes": 4692,
+      "sha256": "c9a22700d2c1b67a91b22a2df0ba80fe76fb30e4b5117dcdfaf015540f8cbcd8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingURP.asset.meta",
+      "bytes": 189,
+      "sha256": "ff7fb0ba6702f4e9a0f4e3d7044b9b9dbf8c4fe03fc58fa02c77818f20073a2c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings.meta",
+      "bytes": 172,
+      "sha256": "a81498ae6a65cd952f1659ecebac93913acaebcb727ec5524f40aa5d3ee8e08a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/LICENSE.md",
+      "bytes": 496,
+      "sha256": "4be520a425e06c8de56fa8aee1ce957cfe610406456278172a2d18b7c388c2cf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/LICENSE.md.meta",
+      "bytes": 158,
+      "sha256": "9693ce152ba244ad85c2b13b0d8d35c61014ed150675c86dd68eb810e9d15a2c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_LightingTerrain.shader",
+      "bytes": 13858,
+      "sha256": "6e333a2a85983546cc8835db3cf3a98e58a15bc796dbcadb413249de9fcc874d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_LightingTerrain.shader.meta",
+      "bytes": 204,
+      "sha256": "a7585a19e9cfb7650a89e20e63df9f6004de625907fbcd25d6ac45a86c387184"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_TerrainLitPasses.hlsl",
+      "bytes": 25474,
+      "sha256": "2b31ea45ab93470417997d7f0d537957f78d0c77a17646830ac2a089a5e48750"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain/TG_TerrainLitPasses.hlsl.meta",
+      "bytes": 161,
+      "sha256": "9a5a343073e2d3c0d0a00158d16e91b38555c149f21bba24cd3134cf2d8b54ef"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/Terrain.meta",
+      "bytes": 172,
+      "sha256": "8b3b94514dc0481182be4a3caf7f332a90e092b52e148ef112d5ab619c19f269"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_Common.hlsl",
+      "bytes": 4052,
+      "sha256": "754d06d8e33baecada324f061a46fec56a0428c6dce5082d3ad90338f860e421"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_Common.hlsl.meta",
+      "bytes": 161,
+      "sha256": "2658bc6b617eed18d6c120f6280acc55469f7f77241d451b23a228a554fcd3fa"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingFoliage.shader",
+      "bytes": 9244,
+      "sha256": "0b8d128d586b74b377af0e7bc30a6754b0c3a8f7e943b8449557f757fab9cf04"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingFoliage.shader.meta",
+      "bytes": 204,
+      "sha256": "f174098f492f4d80e4207accdb834a4b2676db8b40920455f0d0b2e3701964c9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingMeadow.shader",
+      "bytes": 9949,
+      "sha256": "0feb8c64284e79cb722376a34a527d4895f67c5c9e3547d0bbce036fef404f50"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingMeadow.shader.meta",
+      "bytes": 204,
+      "sha256": "893a39228b2896658d027180169be9cfdf8258f025e187040028c169778b935a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingSurface.shader",
+      "bytes": 4544,
+      "sha256": "15b3d5f785fdde1ba01c7cf2ace4c7dc037dd2d4a283e88c796b7d6d88d7bed7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingSurface.shader.meta",
+      "bytes": 204,
+      "sha256": "20280ea8441d46ba364cd8cf5fa4998dd8c51537d6b18a4519bf0fc50903b7a4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_PaintedSky.shader",
+      "bytes": 5356,
+      "sha256": "2c75e19b117b6d9c5e57646e6b7372e1158aa34a8c58f17f8d5263820433d93f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_PaintedSky.shader.meta",
+      "bytes": 204,
+      "sha256": "c99e8274eebaf763bf7f4be0b5f2465ff038b46df7b61f89a46fd50922ae884b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders.meta",
+      "bytes": 172,
+      "sha256": "50b1d761a276633ef1f5fa50a3c4d316a5bd58f72061f11c643e9a138c9adf92"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting.meta",
+      "bytes": 172,
+      "sha256": "8a741cf9ea5b5e1a2366eb4d8a2f87077166f79cb4a54cb56bd51740b6782e97"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingActors.cs",
+      "bytes": 12721,
+      "sha256": "1c89865d041839fc2b30d99610a9651291de460813ea79c1f186126a00d0d312"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingActors.cs.meta",
+      "bytes": 59,
+      "sha256": "d890e75d58646817936f6af4dc126f08c9e22454ad08a51753c6947a4c0cf677"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingLab.cs",
+      "bytes": 21972,
+      "sha256": "a3c3e237596f97735f106f3940b1f194598dffaa8293cbfa4cf89fd1d20ed56b"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingLab.cs.meta",
+      "bytes": 59,
+      "sha256": "3c026ec0cdd8a682ed94051ba44d3ec3fb07ba44d1a981d802758b432965e249"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingPlayback.cs",
+      "bytes": 6527,
+      "sha256": "185469c6a8a93b5b2a35f92f4b3999d9b4bc1695917ca86c904aa75857a8fb3e"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingPlayback.cs.meta",
+      "bytes": 59,
+      "sha256": "ce9a8b82512ddb52f3fd20b4b0cc839e2dd7b4cdc378d8843323373a94828ca4"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingProbes.cs",
+      "bytes": 7947,
+      "sha256": "a1c3d48f0d5b4eb6acd5d5e25fd2c9887ccee9b37b284a45c1275b86ef72e081"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingProbes.cs.meta",
+      "bytes": 59,
+      "sha256": "c29b78c95481550252620baf829c6f0272e683d0977cefdc6b3f0cd73e743f4d"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingValidation.cs",
+      "bytes": 8086,
+      "sha256": "213ead818f7b11b167892d8336ed642f9dbc181668d94f22af962bb6ae23b493"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatLightingValidation.cs.meta",
+      "bytes": 59,
+      "sha256": "3337bd47f69a89de954465056d17eb2cc323a89d1512704f4bace4ab502ea75a"
+    },
+    {
+      "path": "Assets/Project/Runtime/Presentation/Combat/ActorVisualEffectGeometry.cs",
+      "bytes": 9096,
+      "sha256": "8209ad768090199982fa202df9d8c69de3053ab702b332d385327814ccafb333"
+    },
+    {
+      "path": "Assets/Project/Runtime/Presentation/Combat/UltimateReadyAura.cs",
+      "bytes": 26850,
+      "sha256": "0c37f8cf4cc3a857e8886c5886d6b3d993eea9e99550d845e33c7d7b488451e4"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/LightingData.asset",
+      "bytes": 41197,
+      "sha256": "6d70f46dc2665d6fa5500564ea13ce12638ca1ecd70845344b01cafa94a25812"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/LightingData.asset.meta",
+      "bytes": 190,
+      "sha256": "095babd33cdab2efce9ac3b63c693d262326d279a818d865b2b06a5a4f12e05c"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_dir.png",
+      "bytes": 938,
+      "sha256": "f5a49cb3a28ecea0a206b68ebf4fcdef29d1f9999266493e6365391991bd2376"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_dir.png.meta",
+      "bytes": 3365,
+      "sha256": "b3b78fe72667745a7ecb89f56a303c96f7e7d209e04688c8fc152246d5a0134d"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_light.exr",
+      "bytes": 4984,
+      "sha256": "cea7d700578ba321582bd5a74d6a9db2e1c016458f4561d6dd3c4695458e3ce2"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/Lightmap-0_comp_light.exr.meta",
+      "bytes": 3364,
+      "sha256": "990579d8a2ccdc435b071e78a2a045e9edbf7d34a41ee117c7399adda3127e9a"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/ReflectionProbe-0.exr",
+      "bytes": 240242,
+      "sha256": "26d10357a67225190a1fba5e1a09cc7ada05b91df02470e15243f6d5cf8f3fc7"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1/ReflectionProbe-0.exr.meta",
+      "bytes": 3365,
+      "sha256": "0d7e650c91ff8d5e0abbaa27d54c3b1e63afbe808603979da899354064c63572"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1.meta",
+      "bytes": 172,
+      "sha256": "edee2d604960684b06f06f77b1a79906b171fe26d3e4f1078126ff97853e30bb"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1.unity",
+      "bytes": 2485857,
+      "sha256": "6b553860504338d991de5a87cdc0a4a42290e7226d28708ac5092bdb52643963"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_LightingReview_r1.unity.meta",
+      "bytes": 155,
+      "sha256": "3ea9c2ee54d4dbc147f147d74f90b504c06b6777639212d8c6d82f8981a10fe4"
+    },
+    {
+      "path": "Assets/Resources/ActorVisualEffects.shader",
+      "bytes": 937,
+      "sha256": "d782a8631913661e97f4aea84ee216d7f425c1de45f373db9b6adb5e34d62730"
+    },
+    {
+      "path": "Assets/Resources/UltimateReadyAura.shader",
+      "bytes": 8634,
+      "sha256": "4e0418e8048b81634ef68da4b3ff6c57e97bf859fee7532dd1be420259311926"
+    },
+    {
+      "path": "Tests/Environment/finalize_teyvat_lighting.py",
+      "bytes": 9449,
+      "sha256": "b6d6c6153f66a3ec66b7388b8ccfaaecb977df3315fce97cebc68b1fa9cdd818"
+    },
+    {
+      "path": "Tests/Environment/RunTeyvatLightingLab.ps1",
+      "bytes": 13966,
+      "sha256": "fcb2aebc8f518216c4ac1ed6adf61de740221acfa1ddef7e12dde91c0ea5e885"
+    }
+  ]
+}

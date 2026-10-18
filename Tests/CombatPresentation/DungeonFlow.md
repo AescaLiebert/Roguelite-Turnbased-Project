@@ -16,7 +16,7 @@
 
 Choose category → saved route → selected node → run formation → battle → battle result → route / terminal state. Back from loadout preserves the run; leaving a banner spends nothing. Invalid categories, missing ownership, insufficient Diamonds, and invalid formations have visible reasons. Button disabling prevents duplicate navigation and summon submission. Existing battle audio is retained; this refactor adds no new economy or audio balance.
 
-The scene fade is a **starting value of 0.2 seconds**, measured in unscaled time. Check ten rapid scene transitions at low and high frame rates: each click should navigate once with no frozen overlay. Shorten the fade if it feels delayed; lengthen only if the transition visibly flashes.
+Scene changes use a black overlay: it fades in over **180 ms**, then fades out over **320 ms** after the new scene loads. Timing uses unscaled time. Check rapid transitions at low and high frame rates for duplicate navigation or a stuck overlay.
 
 ## Automated verification
 

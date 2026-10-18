@@ -31,6 +31,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private CardExecution _execution;
         private bool _cutFromSupport;
+        private bool _windUpComplete = true;
         private readonly Dictionary<string, TeamSide> _teams = new Dictionary<string, TeamSide>();
         private readonly HashSet<string> _formationMembers = new HashSet<string>();
         private readonly Dictionary<string, Bounds> _formationBounds = new Dictionary<string, Bounds>();
@@ -86,10 +87,12 @@ namespace FightingAllstar.Presentation.Combat
         }
 
         public IEnumerator BeginExecution(string sourceId, string targetId, int rank, bool ultimate,
-            CardCategory category = CardCategory.Attack, IReadOnlyList<string> targetIds = null, bool area = false, bool? selfTarget = null)
+            CardCategory category = CardCategory.Attack, IReadOnlyList<string> targetIds = null, bool area = false, bool? selfTarget = null,
+            bool overlapBeforeAction = false)
         {
             yield return RecoverAttacker();
             EndExecutionContext();
+            _windUpComplete = true;
             if (!TryView(sourceId, out var source) || !source.gameObject.activeInHierarchy) yield break;
             var actor = source.GetComponent<ActorCardPresentation>() ?? source.gameObject.AddComponent<ActorCardPresentation>();
             _execution = new CardExecution { SourceId = sourceId, Actor = actor, Rank = Mathf.Clamp(rank, 1, 3),
@@ -133,11 +136,36 @@ namespace FightingAllstar.Presentation.Combat
                     : FrameBounds(_execution.TargetBounds, -Facing(source) + Vector3.up * .45f, 48f, 0f, 1.4f);
             }
 
+            _windUpComplete = false;
+            if (overlapBeforeAction)
+            {
+                StartCoroutine(PlayWindUp(rank, ultimate));
+                yield break;
+            }
+            yield return PlayWindUp(rank, ultimate);
+        }
+
+        public IEnumerator WaitForWindUp()
+        {
+            while (_execution != null && !_windUpComplete) yield return null;
+        }
+
+        private IEnumerator PlayWindUp(int rank, bool ultimate)
+        {
+            if (_execution == null || !TryView(_execution.SourceId, out var source))
+            {
+                _windUpComplete = true;
+                yield break;
+            }
+            var actor = _execution.Actor;
+            var sourceId = _execution.SourceId;
+
             // Support cuts are immediate. Rank 1 skips the actor's WindUp phase too.
             if (_execution.Support && _execution.Rank == 1 && !ultimate)
             {
                 _cutFromSupport = true;
                 CutToShot(_execution.SupportShot);
+                _windUpComplete = true;
                 yield break;
             }
             var authored = actor.Enter(ActorCardPhase.WindUp);
@@ -163,6 +191,7 @@ namespace FightingAllstar.Presentation.Combat
             {
                 yield return UltimateReveal(source);
             }
+            _windUpComplete = true;
         }
 
         private void OnActorPhaseChanged(ActorCardPhase phase)

@@ -255,45 +255,51 @@ namespace FightingAllstar.Core.Combat
             var resolution = new ActionResolutionContext {
                 EventStart = state.Events.Count,
                 RequiresSuccessfulHit = effect.Kind == EffectKind.Damage && IsAttack(category) };
+            var deferStanceGroup = HasDeferredStanceGroup(effect);
+            var stanceRootsByTarget = deferStanceGroup ? new Dictionary<string, string>(StringComparer.Ordinal) : null;
             resolution.AttackTargets.UnionWith(targets.ConvertAll(item => item.Id));
             PrepareSupportAction(state, owner, card, effect, targets, resolution, rng);
             team.Hand.RemoveAt(index);
             if (card.Kind == CardKind.Ultimate) PowerGaugeRules.SpendUltimate(owner);
             else PowerGaugeRules.GainForAction(owner);
-            EmitActionTiming(state, owner, card, CardEffectTiming.BeforeAction);
-            ApplyCardEffectSteps(state, rng, owner, target, effect, card.Id, CardEffectTiming.BeforeAction,
-                card.Kind == CardKind.Ultimate, resolution: resolution);
-            CharacterPassiveRuntime.Refresh(state);
             AddEvent(state, BattleEventKind.CardPlayed, owner.Id, target.Id, card.Id, card.Rank, "Card played.");
             state.Events[state.Events.Count - 1].Card = card.Clone();
             foreach (var actionTarget in targets) state.Events[state.Events.Count - 1].TargetIds.Add(actionTarget.Id);
             state.Events[state.Events.Count - 1].PowerGaugeAfter = owner.PowerGauge;
             state.Events[state.Events.Count - 1].PowerGaugeRemainderAfter = owner.PowerGaugeRemainderBp;
             SetAttackFacts(state.Events[state.Events.Count - 1], effect, IsAttack(category));
+            EmitActionTiming(state, owner, card, CardEffectTiming.BeforeAction);
+            ApplyCardEffectSteps(state, rng, owner, target, effect, card.Id, CardEffectTiming.BeforeAction,
+                card.Kind == CardKind.Ultimate, resolution: resolution, deferStanceGroup: deferStanceGroup,
+                stanceRootsByTarget: stanceRootsByTarget);
+            CharacterPassiveRuntime.Refresh(state);
             EmitActionTiming(state, owner, card, CardEffectTiming.Damaging);
             foreach (var actionTarget in targets)
                 ApplyCardEffectSteps(state, rng, owner, actionTarget, effect, card.Id, CardEffectTiming.Damaging,
                     card.Kind == CardKind.Ultimate, includeGroupEffects: actionTarget == targets[0],
-                    resolution: resolution);
+                    resolution: resolution, deferStanceGroup: deferStanceGroup, stanceRootsByTarget: stanceRootsByTarget);
             CharacterPassiveRuntime.Refresh(state);
             var mergedAfterPlay = new List<BattleEvent>();
             CardRules.MergeAdjacent(team, null, mergedAfterPlay);
             AppendTimeline(state, mergedAfterPlay);
             if (effect.Kind != EffectKind.Damage || !IsAttack(category))
             {
-                foreach (var utilityTarget in targets)
-                    ApplyCardUtilityEffectSingle(state, rng, owner, utilityTarget, effect, card.Id, card.Kind == CardKind.Ultimate);
+                if (!deferStanceGroup)
+                    foreach (var utilityTarget in targets)
+                        ApplyCardUtilityEffectSingle(state, rng, owner, utilityTarget, effect, card.Id, card.Kind == CardKind.Ultimate);
                 EmitActionTiming(state, owner, card, CardEffectTiming.AfterDamage);
                 // Legacy support assets authored their utility in AfterDamage. Execute it without a damage packet.
                 foreach (var supportTarget in targets)
                 {
                     ApplyCardEffectSteps(state, rng, owner, supportTarget, effect, card.Id, CardEffectTiming.AfterDamage,
-                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0], resolution: resolution);
+                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0], resolution: resolution,
+                        deferStanceGroup: deferStanceGroup, stanceRootsByTarget: stanceRootsByTarget);
                 }
                 EmitActionTiming(state, owner, card, CardEffectTiming.AfterAction);
                 foreach (var supportTarget in targets)
                     ApplyCardEffectSteps(state, rng, owner, supportTarget, effect, card.Id, CardEffectTiming.AfterAction,
-                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0], resolution: resolution);
+                        card.Kind == CardKind.Ultimate, includeGroupEffects: supportTarget == targets[0], resolution: resolution,
+                        deferStanceGroup: deferStanceGroup, stanceRootsByTarget: stanceRootsByTarget);
                 ResolvePendingPassiveEffects(state, card.Id);
                 AddEvent(state, BattleEventKind.ActionCompleted, owner.Id, null, card.Id, 0, "Action complete.");
                 CheckOutcome(state);
@@ -375,14 +381,14 @@ namespace FightingAllstar.Core.Combat
                     var counterDealsDamage = IsAttack(counter.Category) && effect.Kind == EffectKind.Damage;
                     var resolution = new ActionResolutionContext { RequiresSuccessfulHit = counterDealsDamage };
                     resolution.AttackTargets.UnionWith(targets.ConvertAll(item => item.Id));
-                    EmitActionTiming(state, defender, counter, CardEffectTiming.BeforeAction);
-                    ApplyCardEffectSteps(state, rng, defender, targets[0], effect, counter.Id, CardEffectTiming.BeforeAction,
-                        resolution: resolution);
                     AddEvent(state, BattleEventKind.CounterStarted, defender.Id, targets[0].Id, counter.Id, 0, "COUNTER");
                     var started = state.Events[state.Events.Count - 1];
                     started.Card = counter.Clone();
                     started.TargetIds = targets.ConvertAll(f => f.Id);
                     SetAttackFacts(started, effect, counterDealsDamage);
+                    EmitActionTiming(state, defender, counter, CardEffectTiming.BeforeAction);
+                    ApplyCardEffectSteps(state, rng, defender, targets[0], effect, counter.Id, CardEffectTiming.BeforeAction,
+                        resolution: resolution);
                     EmitActionTiming(state, defender, counter, CardEffectTiming.Damaging);
                     foreach (var target in targets)
                         ApplyCardEffectSteps(state, rng, defender, target, effect, counter.Id, CardEffectTiming.Damaging,
@@ -691,15 +697,52 @@ namespace FightingAllstar.Core.Combat
             CharacterPassiveRuntime.Refresh(state, previousMaxHealthOverrides: previousMaxHealth);
         }
 
+        private static bool IsStanceStatus(EffectOperationDefinition effect) => effect?.Kind == EffectKind.ApplyStatus &&
+            effect.StatusRecipe != null && ((effect.StatusRecipe.Behavior & StatusBehavior.Stance) != 0 ||
+            effect.StatusRecipe.Tags?.Contains(CombatTags.Stance) == true);
+
+        private static bool HasDeferredStanceGroup(EffectDefinition effect) => IsStanceStatus(effect) &&
+            effect.Sequence?.Exists(step => IsStanceStatus(step?.Effect)) == true;
+
+        private static CardEffectTiming FirstStanceSequenceTiming(EffectDefinition effect)
+        {
+            foreach (var step in effect?.Sequence ?? new List<CardEffectStep>())
+                if (IsStanceStatus(step?.Effect)) return step.Timing;
+            return CardEffectTiming.AfterAction;
+        }
+
         private static void ApplyCardEffectSteps(BattleState state, DeterministicRandom rng, FighterState owner, FighterState target,
             EffectDefinition rootEffect, string cardId, CardEffectTiming timing, bool isUltimate = false, int triggeringDamage = 0,
             bool includeGroupEffects = true, int actualHealthDamage = 0,
-            ActionResolutionContext resolution = null)
+            ActionResolutionContext resolution = null, bool deferStanceGroup = false,
+            Dictionary<string, string> stanceRootsByTarget = null)
         {
             if (rootEffect?.Sequence == null) return;
+            var stanceGroupTiming = deferStanceGroup ? FirstStanceSequenceTiming(rootEffect) : CardEffectTiming.AfterAction;
+            if (deferStanceGroup && timing == stanceGroupTiming && includeGroupEffects && stanceRootsByTarget != null)
+            {
+                foreach (var rootTarget in ResolveUtilityTargets(state, owner, target, rootEffect.Target))
+                {
+                    if (stanceRootsByTarget.ContainsKey(rootTarget.Id)) continue;
+                    var eventStart = state.Events.Count;
+                    ApplyCardUtilityEffectSingle(state, rng, owner, rootTarget, rootEffect, cardId, isUltimate);
+                    string rootInstanceId = null;
+                    for (var eventIndex = eventStart; eventIndex < state.Events.Count; eventIndex++)
+                    {
+                        var statusEvent = state.Events[eventIndex];
+                        if (statusEvent.Kind != BattleEventKind.StatusApplied || statusEvent.TargetId != rootTarget.Id ||
+                            statusEvent.StatusRecipeId != rootEffect.StatusRecipe?.Id) continue;
+                        rootInstanceId = statusEvent.StatusInstanceId;
+                        break;
+                    }
+                    stanceRootsByTarget[rootTarget.Id] = rootInstanceId ?? string.Empty;
+                }
+            }
             foreach (var step in rootEffect.Sequence)
             {
-                if (step?.Effect == null || step.Timing != timing || step.Effect.Kind == EffectKind.Damage) continue;
+                if (step?.Effect == null || step.Effect.Kind == EffectKind.Damage) continue;
+                var isStanceChildStep = deferStanceGroup && IsStanceStatus(step.Effect);
+                if (step.Timing != timing && !(isStanceChildStep && timing == stanceGroupTiming)) continue;
                 if (!includeGroupEffects && (step.Effect.Target == EffectTargetScope.AllAllies ||
                     step.Effect.Target == EffectTargetScope.Self || step.Effect.Target == EffectTargetScope.AllEnemies)) continue;
                 var resolvedEffect = step.Effect.ToEffectDefinition();
@@ -712,6 +755,13 @@ namespace FightingAllstar.Core.Combat
                     member.Effect.Target != EffectTargetScope.SelectedAlly);
                 foreach (var effectTarget in ResolveUtilityTargets(state, owner, target, resolvedEffect.Target))
                 {
+                    string parentStanceInstanceId = null;
+                    if (isStanceChildStep && stanceRootsByTarget != null &&
+                        stanceRootsByTarget.TryGetValue(effectTarget.Id, out var stanceRootInstanceId))
+                    {
+                        if (string.IsNullOrEmpty(stanceRootInstanceId)) continue;
+                        parentStanceInstanceId = stanceRootInstanceId;
+                    }
                     // Spread effects follow the selected attack's hit. Directly attacked recipients
                     // still need their own successful hit, including each target of an area attack.
                     var hitTarget = effectTarget.Side != owner.Side &&
@@ -748,7 +798,7 @@ namespace FightingAllstar.Core.Combat
                             resolution?.HitsResolved == true ? CardHealthDamageTotal(state, cardId, damageTarget.Id) : triggeringDamage,
                             resolution?.HitsResolved == true
                                 ? (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)) : actualHealthDamage,
-                            skipApplyChance: batch != null);
+                            skipApplyChance: batch != null, parentStanceInstanceId: parentStanceInstanceId);
                     }
                     // Contact effects authored before damage wait for a successful damage hit.
                     if (requiresHit && !resolution.HitsResolved) resolution.DeferredHitEffects.Add(ApplyStep);
@@ -818,7 +868,7 @@ namespace FightingAllstar.Core.Combat
 
         private static void ApplyCardUtilityEffectSingle(BattleState state, DeterministicRandom rng, FighterState owner, FighterState effectTarget,
             EffectDefinition effect, string cardId, bool isUltimate, int triggeringDamage = 0, int actualHealthDamage = 0,
-            bool skipApplyChance = false, int? contactSnapshotDamage = null)
+            bool skipApplyChance = false, int? contactSnapshotDamage = null, string parentStanceInstanceId = null)
         {
             if (effectTarget == null || !effectTarget.IsAlive || effectTarget.Health <= 0) return;
             if (!EffectConditionsPass(state, owner, effectTarget, effect, cardId, isUltimate)) return;
@@ -883,12 +933,14 @@ namespace FightingAllstar.Core.Combat
                         : null;
                     if (applyResult != null && applyResult.Accepted)
                     {
+                        if (IsStanceStatus(effect) && !string.IsNullOrEmpty(parentStanceInstanceId))
+                            applyResult.Instance.ParentInstanceId = parentStanceInstanceId;
                         var barrier = GrantBarrierShield(effectTarget, appliedRecipe, applyResult.Instance);
                         var recipeId = effect.StatusRecipe.Id;
                         AddEvent(state, BattleEventKind.StatusApplied, owner?.Id, effectTarget.Id, cardId, Math.Max(1, effect.StatusStackCount),
                             recipeId);
                         var statusEvt = state.Events[state.Events.Count - 1];
-                        statusEvt.StatusInstanceId = statusInstanceId;
+                        statusEvt.StatusInstanceId = applyResult.Instance.InstanceId;
                         statusEvt.StatusRecipeId = recipeId;
                         statusEvt.StatusOutcome = applyResult.Outcome;
                         statusEvt.StatusesAfter = effectTarget.Statuses.Instances.ConvertAll(s => s.Clone());

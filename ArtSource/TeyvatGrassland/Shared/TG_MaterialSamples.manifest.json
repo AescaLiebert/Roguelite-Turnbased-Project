@@ -1,0 +1,717 @@
+{
+  "schema": "TG_WP02_MaterialSamples_v1",
+  "seed": 20261018,
+  "generator": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Shared\\create_material_samples.py",
+  "generator_sha256": "56a01da00bc84f28f06cec456012a8be0626c6e23d614f35e99704e902d713ef",
+  "blender_version": "5.1.1",
+  "units": "metres",
+  "source_up": "+Z",
+  "source_blend": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Shared\\TG_MaterialSamples.blend",
+  "source_fbx": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ArtSource\\TeyvatGrassland\\Shared\\TG_MaterialSamples.fbx",
+  "unity_fbx": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\Assets\\Project\\Art\\Environment\\TeyvatGrassland\\Shared\\Models\\TG_MaterialSamples.fbx",
+  "fbx_sha256": "68d821fe5fcd029a483d11f95fc6e4e5941c59ed8cfe5aefb25507440dbb975f",
+  "export": {
+    "scale": 1.0,
+    "apply_unit_scale": true,
+    "apply_scale_options": "FBX_SCALE_UNITS",
+    "axis_forward": "-Z",
+    "axis_up": "Y",
+    "bake_space_transform": true,
+    "triangulated": true,
+    "triangulation_stage": "Explicit loop triangles before custom split normals; exporter triangulation disabled",
+    "use_triangles": false,
+    "use_mesh_modifiers": false,
+    "colors_type": "LINEAR",
+    "custom_normals": true,
+    "UV0": true,
+    "mesh_objects_only": true
+  },
+  "authoring_layout": "Source objects are arranged on a preview grid; FBX input transforms are identity and each mesh has its own ground/attachment origin. The -Z-forward/Y-up export conversion is baked into static raw mesh data so Unity can extract Mesh subassets without depending on FBX prefab-node rotations.",
+  "reproducibility": "Geometry, UVs, masks, normals and counts are deterministic for this seed and generator. FBX/blend metadata timestamps may change file bytes.",
+  "unity_import_required": {
+    "globalScale": 1.0,
+    "bakeAxisConversion": true,
+    "normals": "Import",
+    "tangents": "Import or deliberate matching recalculation",
+    "readWriteForInitialVerification": true,
+    "materials": "Remap by the recorded slot names; Blender preview materials are not final shaders"
+  },
+  "unity_verification": "Check the six mesh names, metre bounds, triangle counts, RGBA numerical ranges, normals/UVs and raised X/Z axis labels after importing. FBX/Unity can split or weld vertices at seams; compare triangle counts and geometry, not raw vertex counts alone. Axis basis/handedness must be confirmed from the marker before accepting the preset.",
+  "axis_marker": {
+    "source_X_arm_end_metres": [
+      2,
+      0,
+      0
+    ],
+    "source_labelled_Z_arm_end_metres": [
+      0,
+      -1,
+      0
+    ],
+    "long_short_ratio": 2.0,
+    "raised_labels": [
+      "X",
+      "Z"
+    ],
+    "native_bounds_metres": {
+      "X": 2,
+      "Y": 1,
+      "Z_height": 0.102
+    }
+  },
+  "objects": [
+    {
+      "name": "SM_GrassClump",
+      "mesh_name": "SM_GrassClump",
+      "vertices_before_fbx_seam_splitting": 190,
+      "polygons_before_triangulation": 120,
+      "polygons_in_authored_triangulated_mesh": 220,
+      "expected_triangles_after_export": 220,
+      "loops": 660,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.17228353,
+          -0.34494138,
+          0.0
+        ],
+        "max": [
+          0.17873117,
+          0.25586939,
+          0.67846739
+        ],
+        "size": [
+          0.3510147,
+          0.60081077,
+          0.67846739
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.17228353,
+          0.0,
+          -0.25586939
+        ],
+        "max": [
+          0.17873117,
+          0.67846739,
+          0.34494138
+        ],
+        "size": [
+          0.3510147,
+          0.67846739,
+          0.60081077
+        ]
+      },
+      "source_preview_location": [
+        -2.299999952316284,
+        -1.2999999523162842,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.10077792,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.98020339,
+          1.0
+        ],
+        "meaning": "R=bend 0 at roots/1 at tips; G=0; B=stable blade phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.6459134817123413,
+        -0.6489807367324829,
+        0.7564949989318848
+      ],
+      "normal_component_max": [
+        0.5959887504577637,
+        0.6487024426460266,
+        0.7600194811820984
+      ],
+      "material_slots": [
+        "M_TG_GrassPreview"
+      ]
+    },
+    {
+      "name": "SM_LeafCluster",
+      "mesh_name": "SM_LeafCluster",
+      "vertices_before_fbx_seam_splitting": 1260,
+      "polygons_before_triangulation": 1008,
+      "polygons_in_authored_triangulated_mesh": 1008,
+      "expected_triangles_after_export": 1008,
+      "loops": 3024,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.57303393,
+          -0.51406157,
+          0.0
+        ],
+        "max": [
+          0.5772236,
+          0.51658839,
+          0.70421493
+        ],
+        "size": [
+          1.15025753,
+          1.03064996,
+          0.70421493
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.57303393,
+          0.0,
+          -0.51658839
+        ],
+        "max": [
+          0.5772236,
+          0.70421493,
+          0.51406157
+        ],
+        "size": [
+          1.15025753,
+          0.70421493,
+          1.03064996
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        -1.2999999523162842,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.2,
+          0.12916666,
+          0.05015698,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.77083331,
+          0.99654019,
+          1.0
+        ],
+        "meaning": "R=leaf flutter 0.2..1; G=branch sway within 0.1..0.8; B=stable spray phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.8195363879203796,
+        -0.8215200901031494,
+        0.5401272773742676
+      ],
+      "normal_component_max": [
+        0.812257707118988,
+        0.7883318662643433,
+        0.9552676677703857
+      ],
+      "material_slots": [
+        "M_TG_LeafPreview"
+      ]
+    },
+    {
+      "name": "SM_Trunk",
+      "mesh_name": "SM_Trunk",
+      "vertices_before_fbx_seam_splitting": 186,
+      "polygons_before_triangulation": 146,
+      "polygons_in_authored_triangulated_mesh": 228,
+      "expected_triangles_after_export": 228,
+      "loops": 684,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.47123495,
+          -0.10336952,
+          0.0
+        ],
+        "max": [
+          0.43824822,
+          0.42758048,
+          1.49782801
+        ],
+        "size": [
+          0.90948316,
+          0.53094999,
+          1.49782801
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.47123495,
+          0.0,
+          -0.42758048
+        ],
+        "max": [
+          0.43824822,
+          1.49782801,
+          0.10336952
+        ],
+        "size": [
+          0.90948316,
+          1.49782801,
+          0.53094999
+        ]
+      },
+      "source_preview_location": [
+        2.0,
+        -1.2999999523162842,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.4712349474430084,
+          -0.10336951911449432
+        ],
+        "max": [
+          1.0,
+          1.4976284503936768
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=0; G=0; B=0; A=1; rigid branching trunk"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9997807145118713,
+        -0.9998968243598938,
+        -0.9927222728729248
+      ],
+      "normal_component_max": [
+        0.9537596106529236,
+        0.9998964071273804,
+        0.9755382537841797
+      ],
+      "material_slots": [
+        "M_TG_TrunkPreview"
+      ]
+    },
+    {
+      "name": "SM_FlowerCluster",
+      "mesh_name": "SM_FlowerCluster",
+      "vertices_before_fbx_seam_splitting": 570,
+      "polygons_before_triangulation": 490,
+      "polygons_in_authored_triangulated_mesh": 540,
+      "expected_triangles_after_export": 540,
+      "loops": 1620,
+      "bounds_blender_local_metres": {
+        "min": [
+          -0.28728506,
+          -0.28439805,
+          0.0
+        ],
+        "max": [
+          0.34066996,
+          0.31591335,
+          0.46328273
+        ],
+        "size": [
+          0.62795502,
+          0.6003114,
+          0.46328273
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -0.28728506,
+          0.0,
+          -0.31591335
+        ],
+        "max": [
+          0.34066996,
+          0.46328273,
+          0.28439805
+        ],
+        "size": [
+          0.62795502,
+          0.46328273,
+          0.6003114
+        ]
+      },
+      "source_preview_location": [
+        -2.299999952316284,
+        1.100000023841858,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.1889834851026535,
+          -0.18600432574748993
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.02361519,
+          1.0
+        ],
+        "rgba_max": [
+          1.0,
+          0.0,
+          0.91672164,
+          1.0
+        ],
+        "meaning": "R=stem bend/root 0 and flower tips 1; G=0; B=stable flower phase; A=1"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9999874234199524,
+        -0.9509941339492798,
+        -0.9963392615318298
+      ],
+      "normal_component_max": [
+        0.8137478828430176,
+        0.951004147529602,
+        1.0000001192092896
+      ],
+      "material_slots": [
+        "M_TG_LeafPreview",
+        "M_TG_FlowerWhite",
+        "M_TG_FlowerGold"
+      ]
+    },
+    {
+      "name": "SM_Cliff",
+      "mesh_name": "SM_Cliff",
+      "vertices_before_fbx_seam_splitting": 24,
+      "polygons_before_triangulation": 18,
+      "polygons_in_authored_triangulated_mesh": 44,
+      "expected_triangles_after_export": 44,
+      "loops": 132,
+      "bounds_blender_local_metres": {
+        "min": [
+          -1.16999996,
+          -0.73339999,
+          0.0
+        ],
+        "max": [
+          1.1494,
+          0.67000002,
+          2.25
+        ],
+        "size": [
+          2.31939995,
+          1.4034,
+          2.25
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -1.16999996,
+          0.0,
+          -0.67000002
+        ],
+        "max": [
+          1.1494,
+          2.25,
+          0.73339999
+        ],
+        "size": [
+          2.31939995,
+          2.25,
+          1.4034
+        ]
+      },
+      "source_preview_location": [
+        0.20000000298023224,
+        1.399999976158142,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.1699999570846558,
+          -0.7200000286102295
+        ],
+        "max": [
+          1.149399995803833,
+          2.25
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=0; G=0; B=0; A=1; stone masks unused"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.9983507394790649,
+        -0.9964470863342285,
+        -1.0
+      ],
+      "normal_component_max": [
+        0.9884604811668396,
+        0.9973960518836975,
+        0.9914430379867554
+      ],
+      "material_slots": [
+        "M_TG_CliffBlueGray"
+      ]
+    },
+    {
+      "name": "SM_AxisMarker",
+      "mesh_name": "SM_AxisMarker",
+      "vertices_before_fbx_seam_splitting": 56,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 84,
+      "expected_triangles_after_export": 84,
+      "loops": 252,
+      "bounds_blender_local_metres": {
+        "min": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.0,
+          0.102
+        ],
+        "size": [
+          2.0,
+          1.0,
+          0.102
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          1.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      },
+      "source_preview_location": [
+        2.5999999046325684,
+        1.2000000476837158,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.10199999809265137
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=0; G=0; B=0; A=1; axis labels use material slots"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_slots": [
+        "M_TG_AxisX",
+        "M_TG_AxisZ",
+        "M_TG_AxisLabels"
+      ]
+    }
+  ],
+  "total_expected_triangles": 2124
+}

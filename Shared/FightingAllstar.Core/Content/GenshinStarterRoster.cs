@@ -99,10 +99,12 @@ namespace FightingAllstar.Core.Content
             AddSkill(lumine, 2, CardCategory.AttackDebuff, r => {
                 var effect = Damage(Scale(25000, r), EffectTargetScope.AllEnemies, ElementId.Anemo);
                 effect.OnKillSelfHealMaxHealthBp = Scale(800, r);
-                Status(effect, new StatusRecipeDefinition { Id = "status.debuff.anemo-resistance", NameKey = "Anemo Resistance Down",
+                var resistanceDownBp = r == 1 ? -2000 : r == 2 ? -3000 : -4000;
+                var duration = r == 3 ? 3 : 2;
+                Status(effect, new StatusRecipeDefinition { Id = "status.debuff.anemo-resistance", NameKey = "Anemo RES",
                     Polarity = StatusPolarity.Debuff, Behavior = StatusBehavior.Stat,
                     ElementalModifiers = new List<ElementalModifierDefinition> { new ElementalModifierDefinition {
-                        Element = ElementId.Anemo, ResistanceBp = -Scale(2500, r) } } }, Turns(3, r), CardEffectTiming.BeforeAction);
+                        Element = ElementId.Anemo, ResistanceBp = resistanceDownBp } } }, duration, CardEffectTiming.BeforeAction);
                 return effect;
             });
             AddUlt(lumine, CardCategory.Attack, c => {

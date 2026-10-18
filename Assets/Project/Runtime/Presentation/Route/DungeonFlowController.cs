@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FightingAllstar.Core.Content;
 using FightingAllstar.Core.Run;
@@ -5,6 +6,7 @@ using FightingAllstar.Presentation.Combat;
 using FightingAllstar.Adapters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace FightingAllstar.Presentation.Route
 {
@@ -38,7 +40,7 @@ namespace FightingAllstar.Presentation.Route
 
         private void OnReturnToEntry()
         {
-            SceneManager.LoadScene("Combat");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat");
         }
 
         private void Start()
@@ -46,12 +48,13 @@ namespace FightingAllstar.Presentation.Route
             if (LocalEncounterContext.TryConsumeResult(out var battle))
             {
                 HasBattleResultPresentation = true;
-                if (entry != null) entry.gameObject.SetActive(false);
-                if (routeMap != null) routeMap.gameObject.SetActive(true);
                 if (routeMap == null)
                     Debug.LogError("Could not apply local battle result to the run: Route map is missing.", this);
-                else if (!routeMap.ApplyBattleResult(battle, battle.MatchId + ":result", out var error))
-                    Debug.LogError("Could not apply local battle result to the run: " + error, this);
+                else PresentDocument(routeMap, entry, () =>
+                {
+                    if (!routeMap.ApplyBattleResult(battle, battle.MatchId + ":result", out var error))
+                        Debug.LogError("Could not apply local battle result to the run: " + error, this);
+                });
                 DeliverSavedVictoryRewards();
                 return;
             }
@@ -67,20 +70,13 @@ namespace FightingAllstar.Presentation.Route
                 Debug.LogError("Dungeon flow requires Entry and Route Map controllers.", this);
                 return;
             }
-            entry.gameObject.SetActive(true);
-            routeMap.gameObject.SetActive(false);
-            entry.Bind(userId, contentVersion, contentHash, seed, catalog, roster);
+            PresentDocument(entry, routeMap, () => entry.Bind(userId, contentVersion, contentHash, seed, catalog, roster));
         }
 
         /// <summary>Keep the player on entry and explain why this local build cannot start a dungeon.</summary>
         public void ShowEntryUnavailable(string message)
         {
-            if (entry != null)
-            {
-                entry.gameObject.SetActive(true);
-                entry.ShowUnavailable(message);
-            }
-            if (routeMap != null) routeMap.gameObject.SetActive(false);
+            if (entry != null) PresentDocument(entry, routeMap, () => entry.ShowUnavailable(message));
         }
 
         /// <summary>Show the persisted local run map when resuming from the app menu.</summary>
@@ -90,9 +86,7 @@ namespace FightingAllstar.Presentation.Route
             var run = new LocalRunStateStore().TryLoad(out var saved) ? saved : null;
             if (!CanResumeRun(run)) return false;
             DungeonFlowContext.SetCatalog(catalog);
-            entry.gameObject.SetActive(false);
-            routeMap.gameObject.SetActive(true);
-            routeMap.SetRun(run);
+            PresentDocument(routeMap, entry, () => routeMap.SetRun(run));
             return true;
         }
 
@@ -102,9 +96,23 @@ namespace FightingAllstar.Presentation.Route
 
         private void OnRunStarted(RunState run)
         {
-            routeMap.gameObject.SetActive(true);
-            routeMap.SetRun(run);
-            entry.gameObject.SetActive(false);
+            PresentDocument(routeMap, entry, () => routeMap.SetRun(run));
+        }
+
+        private void PresentDocument(MonoBehaviour destination, MonoBehaviour outgoing, Action initialize)
+        {
+            var outgoingRoot = outgoing != null ? outgoing.GetComponent<UIDocument>()?.rootVisualElement : null;
+            var destinationRoot = destination.GetComponent<UIDocument>()?.rootVisualElement;
+            ScreenMotion.Cancel(outgoingRoot); ScreenMotion.Cancel(destinationRoot);
+            destination.gameObject.SetActive(true);
+            destinationRoot = destination.GetComponent<UIDocument>()?.rootVisualElement;
+            if (destinationRoot != null)
+            {
+                destinationRoot.style.display = DisplayStyle.Flex;
+                destinationRoot.style.visibility = Visibility.Visible;
+            }
+            initialize?.Invoke();
+            if (outgoing != null && outgoing != destination) outgoing.gameObject.SetActive(false);
         }
 
         private void OnEncounterReady(EncounterProjection encounter)
@@ -113,7 +121,7 @@ namespace FightingAllstar.Presentation.Route
             if (run == null) return;
             var profile = DungeonFlowContext.GetProfileForId(run.ProfileId);
             DungeonFlowContext.BeginDungeonFlowForEncounter(profile, run, encounter);
-            SceneManager.LoadScene("Scene-CharacterLoadOut");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene("Scene-CharacterLoadOut");
         }
 
         private void DeliverSavedVictoryRewards()
@@ -132,6 +140,7 @@ namespace FightingAllstar.Presentation.Route
                 run.RewardClaimed = true;
             }
             store.Save(run);
+            if (routeMap != null && routeMap.isActiveAndEnabled) routeMap.PresentSavedRewards();
         }
     }
 }

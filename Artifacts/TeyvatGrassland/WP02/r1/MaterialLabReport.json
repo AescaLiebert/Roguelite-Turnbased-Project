@@ -1,0 +1,69 @@
+{
+    "context": "Isolated URP/Linear editor offscreen sample; static and fixed-time material checks, not combat playback or player-build performance.",
+    "unity": "6000.3.4f1",
+    "gpu": "AMD Radeon(TM) Graphics",
+    "pipeline": "TG_MaterialURP",
+    "colorSpace": "Linear",
+    "importsPass": true,
+    "windPass": true,
+    "waterDepthPass": true,
+    "colorFieldPass": true,
+    "instancingCoveragePass": true,
+    "shaderErrors": false,
+    "shaders": [
+        {
+            "name": "Teyvat/URP/TerrainGrassland",
+            "supported": true,
+            "errors": []
+        },
+        {
+            "name": "Teyvat/URP/Foliage",
+            "supported": true,
+            "errors": []
+        },
+        {
+            "name": "Teyvat/URP/Surface",
+            "supported": true,
+            "errors": []
+        },
+        {
+            "name": "Teyvat/URP/Water",
+            "supported": true,
+            "errors": []
+        }
+    ],
+    "submittedGrassInstances": 4200,
+    "submittedGrassBatches": 9,
+    "submissionFrames": 56,
+    "renderers": 202,
+    "meshTrianglesExcludingTerrain": 129920,
+    "editorCaptureMilliseconds": 6050.0,
+    "captures": [
+        "Neutral/TG_CanopyBack.png",
+        "Neutral/TG_EnemyAttack.png",
+        "Neutral/TG_EnemyPlanning.png",
+        "Neutral/TG_GrassTransition.png",
+        "Neutral/TG_MaterialOverview.png",
+        "Neutral/TG_PlayerAttack.png",
+        "Neutral/TG_PlayerPlanning.png",
+        "Neutral/TG_ReferencePlanningCandidate.png",
+        "Neutral/TG_RockClose.png",
+        "Neutral/TG_WaterDepth.png",
+        "Neutral/TG_WaterGrazing.png",
+        "Afternoon/TG_CanopyBack.png",
+        "Afternoon/TG_EnemyAttack.png",
+        "Afternoon/TG_EnemyPlanning.png",
+        "Afternoon/TG_GrassTransition.png",
+        "Afternoon/TG_MaterialOverview.png",
+        "Afternoon/TG_PlayerAttack.png",
+        "Afternoon/TG_PlayerPlanning.png",
+        "Afternoon/TG_ReferencePlanningCandidate.png",
+        "Afternoon/TG_RockClose.png",
+        "Afternoon/TG_WaterDepth.png",
+        "Afternoon/TG_WaterGrazing.png",
+        "Motion/Grass_t0.0.png",
+        "Motion/Grass_t1.5.png",
+        "Motion/Grass_t3.0.png"
+    ],
+    "limitations": "Native terrain field supported within four layers, far basemap disabled and realtime lighting only. No SSAO/TAA/motion-vector pass, refraction, reflection camera or sorting-proof combat effects. RenderMeshInstanced grass explicit submissions are measured; no player-build timing claim."
+}

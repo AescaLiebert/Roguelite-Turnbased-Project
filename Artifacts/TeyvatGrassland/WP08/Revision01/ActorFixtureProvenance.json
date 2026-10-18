@@ -1,0 +1,198 @@
+{
+    "schema": "TG_WP08_CurrentProjectActorFixture_v1",
+    "sourcePrefab": "Assets/Project/Prefabs/In-Game-CharacterPrefab.prefab",
+    "geometry": "The current Lumine and Amber CharacterObjects both reference the shared native cube placeholder prefab, with no fighter3DMesh override. This review reconstructs that same built-in cube at scale (1.5,3,1.5), removes its collider and applies source-derived URP/Lit review materials. It does not contain detailed character meshes, skin, hair, rigs or animation.",
+    "grounding": "After placing each cube at the existing world anchor, shift its centre by anchor.worldPosition.y minus Renderer.bounds.min.y, matching CoreBattleSceneController's production ground-offset rule. Anchor transforms and the environment prefab are unchanged.",
+    "scope": "Lighting review objects outside the environment root only; no gameplay actor prefab or source material is saved or converted. The two teams face yaw 0/180. Each centre uses Lumine and each outer slot uses Amber.",
+    "probeSupport": "Opaque URP/Lit renderers use BlendProbes and BlendProbesAndSkybox. This establishes a supported test route, not a completed bake or proof of detailed character appearance.",
+    "aura": "Optional temporary fixture uses the repository UltimateReadyAura.Create implementation at radius .85m and height 3m, explicit particle seeds and Evaluate(.8). Its original additive unlit shader has no probe/shadow lighting response; assess transparency, exposure, bloom and actor readability. These dimensions and sample time are review starting values.",
+    "actors": 6,
+    "materials": [
+        {
+            "character": "Lumine",
+            "definition": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo.asset",
+            "sourceMaterial": "Assets/Project/Art/Character/3D-Material/gi-lumine_anemo.mat",
+            "sourceShader": "Standard",
+            "sourceTexture": "Assets/Project/Art/Character/Icon/icon-gi-lumine_anemo.png",
+            "reviewMaterial": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Lumine_URPLit.mat",
+            "reviewShader": "Universal Render Pipeline/Lit",
+            "baseColor": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "textureScale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "textureOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "metallic": 0.2539999783039093,
+            "smoothness": 0.5,
+            "sourceSurfaceMode": 0
+        },
+        {
+            "character": "Amber",
+            "definition": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber.asset",
+            "sourceMaterial": "Assets/Project/Art/Character/3D-Material/gi-amber.mat",
+            "sourceShader": "Standard",
+            "sourceTexture": "Assets/Project/Art/Character/Icon/icon-gs-amber.png",
+            "reviewMaterial": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Actors/Materials/TG_Amber_URPLit.mat",
+            "reviewShader": "Universal Render Pipeline/Lit",
+            "baseColor": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "textureScale": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "textureOffset": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "metallic": 0.2539999783039093,
+            "smoothness": 0.5,
+            "sourceSurfaceMode": 0
+        }
+    ],
+    "placements": [
+        {
+            "name": "WP08 Amber CharHeroPosition1",
+            "anchor": "CharHeroPosition1",
+            "character": "Amber",
+            "groundAnchor": {
+                "x": -5.7563018798828129,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "actorCentre": {
+                "x": -5.7563018798828129,
+                "y": 3.387603759765625,
+                "z": -15.101893424987793
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "yawDegrees": 0.0,
+            "finalGroundError": 0.0
+        },
+        {
+            "name": "WP08 Lumine CharHeroPosition2",
+            "anchor": "CharHeroPosition2",
+            "character": "Lumine",
+            "groundAnchor": {
+                "x": -0.16630172729492188,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "actorCentre": {
+                "x": -0.16630172729492188,
+                "y": 3.387603759765625,
+                "z": -15.101893424987793
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "yawDegrees": 0.0,
+            "finalGroundError": 0.0
+        },
+        {
+            "name": "WP08 Amber CharHeroPosition3",
+            "anchor": "CharHeroPosition3",
+            "character": "Amber",
+            "groundAnchor": {
+                "x": 5.083698272705078,
+                "y": 1.887603759765625,
+                "z": -15.101893424987793
+            },
+            "actorCentre": {
+                "x": 5.083698272705078,
+                "y": 3.387603759765625,
+                "z": -15.101893424987793
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "yawDegrees": 0.0,
+            "finalGroundError": 0.0
+        },
+        {
+            "name": "WP08 Amber EnemyHeroPosition1",
+            "anchor": "EnemyHeroPosition1",
+            "character": "Amber",
+            "groundAnchor": {
+                "x": -5.7563018798828129,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "actorCentre": {
+                "x": -5.7563018798828129,
+                "y": 3.387603759765625,
+                "z": -5.101893424987793
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "yawDegrees": 180.0,
+            "finalGroundError": 0.0
+        },
+        {
+            "name": "WP08 Lumine EnemyHeroPosition2",
+            "anchor": "EnemyHeroPosition2",
+            "character": "Lumine",
+            "groundAnchor": {
+                "x": -0.16630172729492188,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "actorCentre": {
+                "x": -0.16630172729492188,
+                "y": 3.387603759765625,
+                "z": -5.101893424987793
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "yawDegrees": 180.0,
+            "finalGroundError": 0.0
+        },
+        {
+            "name": "WP08 Amber EnemyHeroPosition3",
+            "anchor": "EnemyHeroPosition3",
+            "character": "Amber",
+            "groundAnchor": {
+                "x": 5.083698272705078,
+                "y": 1.887603759765625,
+                "z": -5.101893424987793
+            },
+            "actorCentre": {
+                "x": 5.083698272705078,
+                "y": 3.387603759765625,
+                "z": -5.101893424987793
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 3.0,
+                "z": 1.5
+            },
+            "yawDegrees": 180.0,
+            "finalGroundError": 0.0
+        }
+    ]
+}

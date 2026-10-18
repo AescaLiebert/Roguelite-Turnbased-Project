@@ -1,0 +1,505 @@
+{
+  "package": "WP07 integrated stage r1",
+  "target": "Windows PC; final lighting/actual combat/player performance pending",
+  "protectedFiles": 3664,
+  "sourceFiles": 22,
+  "sourceBytes": 2735021,
+  "sourceSHA256": "34abd6c1e13a06b8bf093a88c184536b23b6c55590874309dcf74bb7e7d710ad",
+  "owned": [
+    {
+      "path": "ArtDirection/TeyvatGrasslandConcepts/WP07_Integration.md",
+      "bytes": 12265,
+      "sha256": "9cbd5c93588234c5bd42180414f501f8261d1d236b5ea23525a8a716bf7774b0"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Integration/create_stage_contact.py",
+      "bytes": 6001,
+      "sha256": "1fbe5717691d5ad1abd4a89649f01d895f043de42758e0914049db7b1c6e0b17"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Integration/README.md",
+      "bytes": 5504,
+      "sha256": "15b94b9b00c272d4733fc4136957b2ddcd18e28511e03eb754c61b7e8a67ea9e"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Integration/TG_StageContacts.blend",
+      "bytes": 186669,
+      "sha256": "9675b86cbc652de29cbdea55debec7408c46894648d1fcb5e5cb6f2f85d9165d"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Integration/TG_StageContacts.fbx",
+      "bytes": 388348,
+      "sha256": "a6b0da72deb42669287a518dd97b22a85e85c572e40f418d0de8f0722ba75759"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Integration/TG_StageContacts.manifest.json",
+      "bytes": 44328,
+      "sha256": "07e7407b8850779f3df4bd7e751fe0d8d947497431bac86965e94385b7b5550a"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutGeometry.blend",
+      "bytes": 2230721,
+      "sha256": "d7cae4bdff10e891943fe98497584f0447ecb646c7ab3eff6a4f737e92bbe3c6"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/LayoutR3/TG_LayoutPlan.json",
+      "bytes": 4863,
+      "sha256": "e0c8b1f64e1a07470d7c46b78bfa7ad4654653a74750ae8bd89b8465e9ac952b"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Shared/create_material_samples.py",
+      "bytes": 31902,
+      "sha256": "56a01da00bc84f28f06cec456012a8be0626c6e23d614f35e99704e902d713ef"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_DressingPlan.json",
+      "bytes": 23314,
+      "sha256": "b546e1963fab5ec94de865b569b76aaea5e15095178cd136ae6bf7bb683bcde5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_DressingPlan.json.meta",
+      "bytes": 158,
+      "sha256": "8827dff0e2e9b87dc273e930ab468ed02c471ae15bfeadcc936aaf99dc0bb92f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_MeadowChannelExclusion.json",
+      "bytes": 150,
+      "sha256": "c7021cb3a360c563b60c72e722fc6f8208ac77f80e8109048ac9dc10955712ca"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_MeadowChannelExclusion.json.meta",
+      "bytes": 158,
+      "sha256": "88cdb08086e80e245fb503a16dda219136113b559d83fdb44f92dc3fc1959d74"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_StageMeadowPlacement.asset",
+      "bytes": 11246216,
+      "sha256": "6ecb017dc7dc934e4959e32e116001985a86aa2072e9e7a57519a2ba7811a810"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_StageMeadowPlacement.asset.meta",
+      "bytes": 189,
+      "sha256": "e61a580fab0f20a9768ef66ebf992d0b7f66b29d1c409cd8e54b6c8404a94142"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_WaterBedCorrection.json",
+      "bytes": 93,
+      "sha256": "3b2750bc79f58737459682b076e99de849f6c0a66c5a7832a0baadf554833c86"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data/TG_WaterBedCorrection.json.meta",
+      "bytes": 158,
+      "sha256": "9b35ea3f3b2a4e32bdb843e7fdc1f096d2e9ee92c4fee34d504b85799668c210"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Data.meta",
+      "bytes": 172,
+      "sha256": "f3d6a1c69842420abb5d989812a9c7ec9b9ee6c0536445235acf8b4daf7af9a3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fall_Hero.mat",
+      "bytes": 1396,
+      "sha256": "bcbec623ffacee7d64685b3bafa7f7cd3611efab869b41e79041248ecb8bac68"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fall_Hero.mat.meta",
+      "bytes": 188,
+      "sha256": "83cdad4170db59acb1c058f1eb9e3cba66e7b90c2d0290c7f2911e7df2a4a739"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fall_Left.mat",
+      "bytes": 1392,
+      "sha256": "2a82b10ed728f09e6c3b5dde809e941edb1244e6439fcefd33d15193dc995b04"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fall_Left.mat.meta",
+      "bytes": 188,
+      "sha256": "860380a4235d568bd55d14e8c6de552945c68ff1e5b55dc0a20d8189f7d4adc4"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fall_Right.mat",
+      "bytes": 1396,
+      "sha256": "545e4bce1be05209e53b7cfabbf99254722add7f5629872d146cad9c591852f3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fall_Right.mat.meta",
+      "bytes": 188,
+      "sha256": "eb972bfdc25cc4e59fd294879c58fd2d6dc88cc68dbe1c863c296270d3a73a17"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Foam.mat",
+      "bytes": 981,
+      "sha256": "ad6f9064bdf522e341c95565cf24d1c5d77d33e627cb0ab6d7d79a485359dde8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Foam.mat.meta",
+      "bytes": 188,
+      "sha256": "12763ae02990d84313bac0e9708b93c54c26a111a2b9561595c873d7ad952e67"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fringe.mat",
+      "bytes": 983,
+      "sha256": "03db555c58c9301fdc9263e44a7e210f3be90b7dc41bd5aab29ac1e08885b61f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Fringe.mat.meta",
+      "bytes": 188,
+      "sha256": "039c0c703f19c566e8ed812c9862bc40b65801cd93615182277b6169ff5f6b31"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Mist.mat",
+      "bytes": 979,
+      "sha256": "c1129e38b3981f5ee3f996c7ac4b5480f325a9ee362c914047a9b48ab5debfec"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Mist.mat.meta",
+      "bytes": 188,
+      "sha256": "454055ec44c650ae96285a0e9c19b90116b2869566736192ea9c70607aeb7610"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Pool.mat",
+      "bytes": 1391,
+      "sha256": "25feb6e170b9bde6edb22bd97d08110b7c6d2ea37f4e069caa1777da4fb26882"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Pool.mat.meta",
+      "bytes": 188,
+      "sha256": "946bf327f25cffea4a83f374d365dd8f0436ed0c70cfdfb94f5b54acbeab58a0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_River.mat",
+      "bytes": 1392,
+      "sha256": "2b89f5a1883be04531e5fab88d3ea617fc04199043197b8d33a30643e4a9f4b3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_River.mat.meta",
+      "bytes": 188,
+      "sha256": "f2547b9ecc9b0c403e67c31b9471e609a1388a9d1d32ad6cff8412f3b46fc5f9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Shore.mat",
+      "bytes": 981,
+      "sha256": "2f5f15d6f342ab009d4ba55f19d475ac291bde9edd2eaeb0bf7852b00eb7f9a1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Shore.mat.meta",
+      "bytes": 188,
+      "sha256": "2d904d99b10ac8bbf590decffd7ea8f35c0624ae4cd7ae053902c2f0cd25eb72"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Spray.mat",
+      "bytes": 943,
+      "sha256": "ca8c1830f3bd41f9ac7c7d4fc3269a619576704538dfd2ceff3dd167178b6e3b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Spray.mat.meta",
+      "bytes": 188,
+      "sha256": "d7093ffdde3271e5791d1e068cee562eb13f97e2516e1c06886287769be4bb8b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Wake.mat",
+      "bytes": 981,
+      "sha256": "f396342961da21b56cfac873deb19f4227ecf79b6d80b9e12abb57b3024e9d08"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Wake.mat.meta",
+      "bytes": 188,
+      "sha256": "97d506ccf63a52c93e6909b0fd1c4f409ad20f9532d1212c5c901d5f9b11398d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Waterfall.mat",
+      "bytes": 1387,
+      "sha256": "5cb1037f8b1ab6c6bbf251dcdc873581e2d1d3d2d3e9b124a0b5bdd4ac30c977"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials/TG_Stage_Waterfall.mat.meta",
+      "bytes": 188,
+      "sha256": "cd6bb9409657eb1b2779e5a22212f6834508af71d4163a30ca743ffdbb6010b8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Materials.meta",
+      "bytes": 172,
+      "sha256": "23949a1bf1a6f2eeac664c94bf5b8b9cf37555c4a53017d10174225dfceae99c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_0.asset",
+      "bytes": 22103,
+      "sha256": "c505a291d0473a9d68ca14ca66a8d8ce4e8aabe1ce45f7b4dbcb5a51594a62ab"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_0.asset.meta",
+      "bytes": 188,
+      "sha256": "c36037022912a157b061aedab799eee3006facff1b845b203e50f3b12a15227b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_1.asset",
+      "bytes": 22107,
+      "sha256": "bfd5625f0efae7f37bbe1bd742c6a8ae9379237fa5c316278f2583a89f50e34d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Hero_1.asset.meta",
+      "bytes": 188,
+      "sha256": "f722115e8851163bd3f5a89c2f8633623fd5c90ace2c12daec3e5862bde4fccf"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_0.asset",
+      "bytes": 22093,
+      "sha256": "e2760577011e410055e28c5cae398c5839c5106f15b08ed725a4c18ddea0f876"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_0.asset.meta",
+      "bytes": 188,
+      "sha256": "dd98a3c41997aef0f4bda0dd1b05060a828680a629887947e6c270130f3bc7c0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_1.asset",
+      "bytes": 22097,
+      "sha256": "60bf0373043deade5f1b756c34adb963985a03e047fecfb451c5a8ec23aea39a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Left_1.asset.meta",
+      "bytes": 188,
+      "sha256": "30c19bb5ed4e95b811b741870616dc419bbbda1c67e953ac716d575df0d951b1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_0.asset",
+      "bytes": 22100,
+      "sha256": "33a15c5ba55a5b366bac78cd122aff3133c25a983bee90fa9b19bf7c06baa1f5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_0.asset.meta",
+      "bytes": 188,
+      "sha256": "a7f19eac39cb1f54ef6c8999824f02a6872d17177851fbc420377fda21bb745c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_1.asset",
+      "bytes": 22098,
+      "sha256": "9ce419eca6ea1063bca6f1498adf6c8a155c77f1b4f57b11cfe213721a532340"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageFringe_Right_1.asset.meta",
+      "bytes": 188,
+      "sha256": "03d2b780f8e9fc0b2e94bd1c602c8a53effbe1af841e3f5f1370489e3e085b8e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_0.asset",
+      "bytes": 104267,
+      "sha256": "3c7893fadd7b4aec5e4474549f3dd6c239bf3bcdc97e04b7fac16c2c631972c5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_0.asset.meta",
+      "bytes": 188,
+      "sha256": "5afbeca6a6c2ed2f46ad0e5a72b54477ea477d7c3fc7dfae74a732c31e21e03e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_1.asset",
+      "bytes": 104273,
+      "sha256": "23c34976564d8c08100db97adb114c4303ed13357a79e15135668af9c1eef368"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Hero_1.asset.meta",
+      "bytes": 188,
+      "sha256": "b0a7284f52e66ca2d56039bac56cc10480b23e980e9a1fe2cc032d3d8447a1ef"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_0.asset",
+      "bytes": 68996,
+      "sha256": "83c8fe49befeb0496345fe67857ad821b9d40b14090330695dad454fa5a360ed"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_0.asset.meta",
+      "bytes": 188,
+      "sha256": "851604e3b85699a91c3ae4a3ed30d28677eef91917a9427e6be4e010216d4e19"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_1.asset",
+      "bytes": 68990,
+      "sha256": "fcadbc9be09fb0e8e1ac0e31731136940b5308375cd3f633ec77b8e6dd92ca8d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Left_1.asset.meta",
+      "bytes": 188,
+      "sha256": "064c61d7806cc60be750a1792dd896382be48fdcf025c61c566a5a899773f913"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_0.asset",
+      "bytes": 68998,
+      "sha256": "4ed41bdd8afe825dbc65a615d321cbe53c3928322e90fe3448e9c2c8b052846d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_0.asset.meta",
+      "bytes": 188,
+      "sha256": "998f24d371603148e86507c4663487d85cc53c74a19d41c685206999dffaec3a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_1.asset",
+      "bytes": 68984,
+      "sha256": "0daf8f6aafce4289ce6e5c3d0a7b2ec601a5c04ccfe6dda1d4ed4c1aa46ae09c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes/SM_StageSpray_Right_1.asset.meta",
+      "bytes": 188,
+      "sha256": "2b25b9f9696f0c907209101bfc8cdab305944ef6a1226068ec0378ac66ff28a5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Meshes.meta",
+      "bytes": 172,
+      "sha256": "f5fb2fee1d1bd914c432614cd12edac5751e11e1b00d6e833de418542ab7f2ec"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/TG_StageContacts.fbx",
+      "bytes": 388348,
+      "sha256": "a6b0da72deb42669287a518dd97b22a85e85c572e40f418d0de8f0722ba75759"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/TG_StageContacts.fbx.meta",
+      "bytes": 2880,
+      "sha256": "6e3bf28f1f9330ca58cd4dc7a0fc70370051683afd508a37d2554652612f942c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/TG_StageContacts.manifest.json",
+      "bytes": 44328,
+      "sha256": "07e7407b8850779f3df4bd7e751fe0d8d947497431bac86965e94385b7b5550a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models/TG_StageContacts.manifest.json.meta",
+      "bytes": 158,
+      "sha256": "1d0e08ace58dd4d73c105a7282c829ea4a87390347da49e304d076cfea038b0e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Models.meta",
+      "bytes": 172,
+      "sha256": "5914e5967192c3c1850b4d18c9c6ba7c7ccd974a0e199485e0b759daf6d0ddb1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageBinding.cs",
+      "bytes": 9692,
+      "sha256": "67a9b7379cb0a3a3b8ff3de33b9679c1471cc0eb6d505d689a9c17b80535a0a2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageBinding.cs.meta",
+      "bytes": 59,
+      "sha256": "89210714cb627c422b62803b6eccd8059ba2a0d5bf3043155829ecbda1e1cdbb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageTour.cs",
+      "bytes": 1811,
+      "sha256": "a50bbc6b1ac90b06f51cbf3765a502003219bc9249be03a0d8d0f3f2e5824060"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime/TeyvatStageTour.cs.meta",
+      "bytes": 59,
+      "sha256": "0c3bc0d29bbe0533258e7e5789112eed789b168f593fee32227cc6b98acbed78"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Runtime.meta",
+      "bytes": 172,
+      "sha256": "0ac2f8b14322be20b07b73943b8be366a2bfe53040e27a690a90216767c4e24c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactFoam.shader",
+      "bytes": 9363,
+      "sha256": "69380b17d13eb12be0a9013d514b6cc59b7185dec280b4f9a834c3e197e0176b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactFoam.shader.meta",
+      "bytes": 204,
+      "sha256": "06ab4afb95ad789608bf3483ba6a34d01a73a18bd7f9c94b003c26b9be277dc9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactSpray.shader",
+      "bytes": 4732,
+      "sha256": "2279851c6830c65f3f4ef993e7524ffd0a70d59c509fb78cb1ef4f762b24da25"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_ImpactSpray.shader.meta",
+      "bytes": 204,
+      "sha256": "7df2035b924974bb4eb9ba9f107243d21212fa5a4d18f627eab873d2a1397b08"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_IntegratedWater.shader",
+      "bytes": 11709,
+      "sha256": "ab6ba1e32817e4a2fdbb3f50b42b82ffcbc4e58396e6e4ee0f158559abdab640"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_IntegratedWater.shader.meta",
+      "bytes": 204,
+      "sha256": "5fc72ca2e2e12f976145115ab9839c1228d61a8b6ec08904e832d186fda65393"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_WaterProcedural.hlsl",
+      "bytes": 1452,
+      "sha256": "1f03714a68675ba93f2c5c17268b6f8537d5b36c32d67505db82265112d3df64"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders/TG_WaterProcedural.hlsl.meta",
+      "bytes": 161,
+      "sha256": "bdb2e4e34ce131542f7ba99cc154d5a35abd9d8ec093c718496b323c4131b582"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Shaders.meta",
+      "bytes": 172,
+      "sha256": "6305bd32898742168f35776df44e217d331482b9806a4da72edf45d88c12601e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Terrain/TG_StageLandscape.asset",
+      "bytes": 1950728,
+      "sha256": "7dd52ff2126f2614317f91659109218d20fbcf816737ac3c3f4800d996b09f65"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Terrain/TG_StageLandscape.asset.meta",
+      "bytes": 189,
+      "sha256": "34febc3b7df8ee5b81bcc6e18480a38d493ed234d1bb5c88fdf7dc5b4f85cd60"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Terrain.meta",
+      "bytes": 172,
+      "sha256": "a51f984fbea5c5e11496367e101f90092e4da7e200ab858f97ee1dfd69e8e181"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Prefabs/TG_BattleStage_r1.prefab",
+      "bytes": 1738338,
+      "sha256": "1b3f5db0f57c7159c30344bae96afde7d2e720dba40c6ce11cc7805a00a502b1"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatStageDepthValidation.cs",
+      "bytes": 17017,
+      "sha256": "119d1e533c567cb61a48c3d185d68b5881a6b4610a033332bc7bdd0e51b013ef"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatStageLab.cs",
+      "bytes": 26831,
+      "sha256": "d0bb817640d38c5dfb29529c4bb39a20f570a5e4cbba07ee4979782c2e639847"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatStagePlayback.cs",
+      "bytes": 5762,
+      "sha256": "3e15990cd6bee7248a4f0a5b8adb8e72e83319dea728e296cf587847f77b0da0"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatStagePrefabValidation.cs",
+      "bytes": 27602,
+      "sha256": "f537046f45bac09c3eb1937fc9eb29c98f761a76e57f9369c6aeb2fbfd359ece"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatStageValidation.cs",
+      "bytes": 11392,
+      "sha256": "37d5e57b8ed5cd554486f779554a5055edb65276a3c9bf1bcd889578f8dc2480"
+    },
+    {
+      "path": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_StageReview_r1.unity",
+      "bytes": 1831726,
+      "sha256": "a2172cce91d0a4514eafa89aceaf768728ee4494875bc0612cee478ccc04456c"
+    },
+    {
+      "path": "Tests/Environment/finalize_teyvat_stage.py",
+      "bytes": 7175,
+      "sha256": "8d80b2c409420424ceee8dd7d258480e636d2ebc417e2f0879c5767a990c7228"
+    },
+    {
+      "path": "Tests/Environment/RunTeyvatStageLab.ps1",
+      "bytes": 12637,
+      "sha256": "8fe9de070228c6a68010f5dbc576b8ff7950785d0e80a2e5b3f571201edc1f9e"
+    }
+  ]
+}

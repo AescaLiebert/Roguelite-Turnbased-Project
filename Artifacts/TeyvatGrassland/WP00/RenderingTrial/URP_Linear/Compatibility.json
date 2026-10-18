@@ -1,0 +1,78 @@
+{
+    "colorSpace": "Linear",
+    "context": "Isolated representative material sphere probes; fraction of image with error-pink-like pixels. This tests render visibility, not full gameplay/effect behavior.",
+    "samples": [
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_ActorCryo.mat",
+            "shader": "Fighting Allstar/Actor Cryo",
+            "candidateShader": "Fighting Allstar/Actor Cryo",
+            "originalMagentaFraction": 0.0,
+            "candidateMagentaFraction": 0.0,
+            "note": "Original custom shader retained; absence of error-pink does not prove parity of lighting, blending, depth or animation."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_ActorStatusParticles.mat",
+            "shader": "Fighting Allstar/Actor Status Particles",
+            "candidateShader": "Fighting Allstar/Actor Status Particles",
+            "originalMagentaFraction": 0.0,
+            "candidateMagentaFraction": 0.0,
+            "note": "Original custom shader retained; absence of error-pink does not prove parity of lighting, blending, depth or animation."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_ActorVisualEffects.mat",
+            "shader": "Fighting Allstar/Actor Visual Effects",
+            "candidateShader": "Fighting Allstar/Actor Visual Effects",
+            "originalMagentaFraction": 0.0,
+            "candidateMagentaFraction": 0.0,
+            "note": "Original custom shader retained; absence of error-pink does not prove parity of lighting, blending, depth or animation."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_gi-amber.mat",
+            "shader": "Standard",
+            "candidateShader": "Universal Render Pipeline/Lit",
+            "originalMagentaFraction": 0.3895941972732544,
+            "candidateMagentaFraction": 0.0,
+            "note": "Trial-only Standard to URP/Lit mapping of color/base map/smoothness; full material conversion not claimed."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_gi-lumine_anemo.mat",
+            "shader": "Standard",
+            "candidateShader": "Universal Render Pipeline/Lit",
+            "originalMagentaFraction": 0.3895941972732544,
+            "candidateMagentaFraction": 0.0,
+            "note": "Trial-only Standard to URP/Lit mapping of color/base map/smoothness; full material conversion not claimed."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_kyo94.mat",
+            "shader": "Standard",
+            "candidateShader": "Universal Render Pipeline/Lit",
+            "originalMagentaFraction": 0.3895941972732544,
+            "candidateMagentaFraction": 0.0,
+            "note": "Trial-only Standard to URP/Lit mapping of color/base map/smoothness; full material conversion not claimed."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_OsakaGlow.mat",
+            "shader": "Hidden/OsakaNight/Glow",
+            "candidateShader": "Hidden/OsakaNight/Glow",
+            "originalMagentaFraction": 0.0,
+            "candidateMagentaFraction": 0.0,
+            "note": "Original custom shader retained; absence of error-pink does not prove parity of lighting, blending, depth or animation."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_OsakaNeon.mat",
+            "shader": "OsakaNight/Neon",
+            "candidateShader": "OsakaNight/Neon",
+            "originalMagentaFraction": 0.0,
+            "candidateMagentaFraction": 0.0,
+            "note": "Original custom shader retained; absence of error-pink does not prove parity of lighting, blending, depth or animation."
+        },
+        {
+            "material": "Assets/Project/Art/Environment/TeyvatGrassland/Foundation/Compatibility/Source_UltimateReadyAura.mat",
+            "shader": "Fighting Allstar/Ultimate Ready Aura",
+            "candidateShader": "Fighting Allstar/Ultimate Ready Aura",
+            "originalMagentaFraction": 0.0,
+            "candidateMagentaFraction": 0.0,
+            "note": "Original custom shader retained; absence of error-pink does not prove parity of lighting, blending, depth or animation."
+        }
+    ]
+}

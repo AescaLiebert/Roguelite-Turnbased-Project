@@ -1,0 +1,504 @@
+{
+  "package": "WP05 r1",
+  "contract": "WP02 r1; spatial R3",
+  "editableSourceFiles": 17,
+  "editableSourceBytes": 21161586,
+  "editableSourceSHA256": "fd1af6b99f4c5d6391b599bc2fdf28730fb9c550786ad26fac7025e5f6126441",
+  "owned": [
+    {
+      "path": "ArtDirection/TeyvatGrasslandConcepts/WP05_Trees.md",
+      "bytes": 12722,
+      "sha256": "dcab465349eb1419e8c7a80bba8a5b310af8aa61b4008d799716488171aea1b2"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/create_tree_kit.py",
+      "bytes": 11251,
+      "sha256": "af68c658ed64112c8fe9f76a1d118ccb24436373f508ad37e4fe907b02d89518"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/README.md",
+      "bytes": 7550,
+      "sha256": "f82d5c739fb511c5c577b56e45e1581959f14d65fc5475be34ee89b288fb6408"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/Textures/Provenance.json",
+      "bytes": 1671,
+      "sha256": "820f8092d92ba8e084cd084f23be6f3ae99fc7e0287e44ee7482aefd808eb4a0"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/Textures/TG_LeafSprayAlbedoOpacity.png",
+      "bytes": 1623249,
+      "sha256": "4467d393351ba95a753ed4b695b359da04135d93e852112376ced593b00224b0"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/TG_TreeKit.blend",
+      "bytes": 8195284,
+      "sha256": "178b16bb51ec42d824f4084905b7af143a063487eb69d337592615b603411d44"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/TG_TreeKit.fbx",
+      "bytes": 12161068,
+      "sha256": "86bbcbda5e644cb04c5ae783a7a39015b155b330233d2c49dc828babf583097f"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/TG_TreeKit.manifest.json",
+      "bytes": 60202,
+      "sha256": "31c4816a5cc4fb0654a3c370919529bfdabf5b58fba13655cdfb368d3ad2d403"
+    },
+    {
+      "path": "ArtSource/TeyvatGrassland/Trees/tree_shapes.py",
+      "bytes": 7790,
+      "sha256": "a535e555ba063dba2e00e0a925cbb3067e78249a965f79d53e14fce68b79b213"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Data/TG_TreePlacement.json",
+      "bytes": 64563,
+      "sha256": "9f76c3d0fb3515b4f1f681f42d7336e4aec44023c0c2c2380342669a67932492"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Data/TG_TreePlacement.json.meta",
+      "bytes": 158,
+      "sha256": "7ed6f9a2e2339c93adfc4e115181194ece514a4bc7f6db2da3787091e5b8a69b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Data.meta",
+      "bytes": 172,
+      "sha256": "ec421d702a6ea2f13ebc7955e4f1b140a0a8b6ec1b58f094804882a175b8ad0f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_Broadleaf.mat",
+      "bytes": 1233,
+      "sha256": "84ec2b2e789bb190f5b0fbde9a300c0aadade0442483fd539e6f9e9d9659fd36"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_Broadleaf.mat.meta",
+      "bytes": 188,
+      "sha256": "12840928a5129320ff2adeeafc13f704fd1e66f8a316f62c5e65bf4dba6af934"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_BroadleafSunTips.mat",
+      "bytes": 1240,
+      "sha256": "380ba7ea95a7c7ae1f34d9688ded1d21ba6ec7a273fee91d5d455d1bca2b950d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_BroadleafSunTips.mat.meta",
+      "bytes": 188,
+      "sha256": "99f1cc94029111a80babcee1503504770c1b22bff4282d6b45b05296e5461274"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_CanopySampleGround.mat",
+      "bytes": 1164,
+      "sha256": "a154b6937b0cd8400b3123bf2a45a602b0bee89b1109b65a882df35db15f38f6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_CanopySampleGround.mat.meta",
+      "bytes": 188,
+      "sha256": "59cec052be1c7447ea2e645a1b9ee7d219c5c5776755bf6e528997ce1abccec2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpray.mat",
+      "bytes": 1302,
+      "sha256": "3687991434f552bcddf76ced824245ec84128401c89b3629c163b9fc70535184"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpray.mat.meta",
+      "bytes": 188,
+      "sha256": "2fc275c68083cf6a3d1d9557a5ce0c4555abc61de42df0f1b2c1ff105d48a0c1"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpraySunTips.mat",
+      "bytes": 1309,
+      "sha256": "d924fa6c2b1269d7776d506682da1537a35a6b9a7db802e420e0e6dc096d32c6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_LeafSpraySunTips.mat.meta",
+      "bytes": 188,
+      "sha256": "a392a9611d483622a5d8c333393831edaaee3f712d8b239879f9ac462a69a5c9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineNeedles.mat",
+      "bytes": 1235,
+      "sha256": "8c10806ddee3e88897af2b1b23ac685cee08ddbf659f1118742225f783d037af"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineNeedles.mat.meta",
+      "bytes": 188,
+      "sha256": "6593143651cd5d7086704357146b935a69329f92fcf113a2cac77c01d6405661"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineTips.mat",
+      "bytes": 1231,
+      "sha256": "5b355a724c176995ac9cc16be04e3922e77a12f034fadae7b430975b866e5916"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_PineTips.mat.meta",
+      "bytes": 188,
+      "sha256": "70f28b0b95b37fc59dee422afbcacffed3be4ccde1802fbc98956293a194c05d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_TreeBark.mat",
+      "bytes": 1212,
+      "sha256": "babf32a4a5bd97f43d0b49446d1d619eb736e6eb7cf3e9616a7acd381300ebba"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials/TG_TreeBark.mat.meta",
+      "bytes": 188,
+      "sha256": "34cd58259574dc47e48b3ce83561e69849fff50ef1a24773ac76634d62221fd7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Materials.meta",
+      "bytes": 172,
+      "sha256": "ffaa4703ee02ecc2dc93ff48d1a181768258c6b09e140ab81e911525a42892cb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD0_Animated.asset",
+      "bytes": 1472387,
+      "sha256": "84cff8a9bba9c83c2183e7baaf5162a2cca54aebbee66e02f45b572436789ca3"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "eeb8f4f8a13eafbd61af18035a297b2d0e1d201971e64212531c1a12611b013d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD1_Animated.asset",
+      "bytes": 551242,
+      "sha256": "2fbeb89631c00a8e0c80308bf64363f608997529e6993c71e5e1af7c41d198bb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "0af49f44130ba28a9f255866236a8c3962be4c09515946057d8e684bfe33f584"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD2_Animated.asset",
+      "bytes": 391720,
+      "sha256": "d0d5e0436fbd3e903128011a88d12f8686613461dc36b621e62144a719aabfd2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_HeroOak_LOD2_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "4e73935c508983913033b3d9b2530ec63a4679d4a233c1e4a7bcc93dc6ef7e2a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD0_Animated.asset",
+      "bytes": 947524,
+      "sha256": "8f0f04588ad5ad29e6f907f64692712d08c1a48e809a920f8215a7ea5ef6c9e6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "adf79825616bff981c22ee8a2075e832ed399b4f5093b782cf46e831de7847b9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD1_Animated.asset",
+      "bytes": 361867,
+      "sha256": "d7361098a1704e27b5a79a8742c327b8c542872a467afe3eb2f3c12c91c418bc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "70271f28f0aa037f0f887d021c5c5cef1b04e76efaa0ba5f542c43fabda4470b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD2_Animated.asset",
+      "bytes": 258737,
+      "sha256": "10698aef3ed7a41406e7d9c665fce1ae6aa6aa09b04670152a7030fb2c58da61"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_IslandTree_LOD2_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "0d705c9635405ad146257704e2102e88f905972f7821df643a3a6fbc3f6c408d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD0_Animated.asset",
+      "bytes": 948804,
+      "sha256": "234c2fac57904514a37517267c022d1597db2bcfada2b4f869d410e11bbbf3df"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "f4eaa1df7b2edd361e67ba80d6737b0e5bcbb3a4062fdf68add8c530d5c24f4b"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD1_Animated.asset",
+      "bytes": 361483,
+      "sha256": "e248a7795d30bdbeff26a792e52f31991e2195ba64092404b1d1b4e308c13f7e"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "6f342e264e7b517827bdef4f78088cf5d66d58f0597565e2042f696a18c0aab2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD2_Animated.asset",
+      "bytes": 259888,
+      "sha256": "95c688f8f1de1b429391d41d0575cb41edcb1b66255d294b41c36d8947f0ac00"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_MeadowOak_LOD2_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "68cf7bfa832f15a1b5cb7f5cf753f1405d0c32caca0619a516ee3dfe1724fce5"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD0_Animated.asset",
+      "bytes": 534720,
+      "sha256": "0211ca458969b4fa69a1d395e24398ebb7f632846e27a47c4fa651755399370f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "d1ffbc21f9a5c2e51820c3fbe1acc2759b1bf906ae05a1d51312894a6bdfe6d7"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD1_Animated.asset",
+      "bytes": 190080,
+      "sha256": "7773c5a5a06b90e591f1513f442e9ce7e64af1fe29261b3864ae60cd698afc79"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "f38102ec4ffbdc462d831cc867f859b7b1317bb3564b5bb6a06ef007e4bd38d6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD2_Animated.asset",
+      "bytes": 133270,
+      "sha256": "18099e81f7e98f6e0c46548659fc4e2ffc43b0ba8212f537d80d72e316629465"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_Shrub_LOD2_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "f891d16064ced8758e7578299161a3566aead1315e88411ddaad1b01d7102f48"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD0_Animated.asset",
+      "bytes": 5199249,
+      "sha256": "1e86601734f333ede6551211be2a7b8ce0cfedf50c20512c8fe690ef0fffab80"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "9479ad2fa5b9beb1a7738c0f92651312592e85f2a5dfee43497f072b60440729"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD1_Animated.asset",
+      "bytes": 1403288,
+      "sha256": "52ce4bbca467e6dc481564e00a7cbe888ce1a57430f40d1ea71f0c586c65aedb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "0359e20f8d74b619d3a714217948be359c525ab507bead29b6b2bee92ae6dc41"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD2_Animated.asset",
+      "bytes": 432539,
+      "sha256": "82001cd3d9070b1e14a6b85fe3a4dd3a3e36f11c7d8d107abcd9f19f8f05b8be"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_WindPine_LOD2_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "07d40feebd0d011c4bf88b5052e9981ea6190993b5fd6d976a1da5572c7e7f26"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD0_Animated.asset",
+      "bytes": 5294991,
+      "sha256": "5903bfd85f5e4c4c1e969961ae4b35730e7cfb9d630d86fc898615eada63dad9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD0_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "af38f53b4a31d64e4f87a7ca40d7e113b183801825d58bf2656227030f2e08fa"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD1_Animated.asset",
+      "bytes": 1407766,
+      "sha256": "69858a10de9f3327b59b7098201433dea96912d79056fdc83c190048364fdd2c"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD1_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "7bcf40f9ae9c725d9289182445a891d1cc46f8b7d9753b414c0e6d3ebcef7de8"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD2_Animated.asset",
+      "bytes": 434845,
+      "sha256": "7865771380183c96fd8ba759cc9828a201ccda47e04de303cf09f64625bcb505"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes/SM_TG_YoungPine_LOD2_Animated.asset.meta",
+      "bytes": 188,
+      "sha256": "2345f4b5b41e32e2a613093c057be20034a2334263d092792208b7a753f3d99f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Meshes.meta",
+      "bytes": 172,
+      "sha256": "9475b437f2450deee56e84a1450761f9aa9c2434c32696c0e819aebf8641f97f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Models/TG_TreeKit.fbx",
+      "bytes": 12161068,
+      "sha256": "86bbcbda5e644cb04c5ae783a7a39015b155b330233d2c49dc828babf583097f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Models/TG_TreeKit.fbx.meta",
+      "bytes": 2892,
+      "sha256": "2eead6a0ac540122efa0947e0ec5440d033ac2a771150278374b0bf730188f21"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Models/TG_TreeKit.manifest.json",
+      "bytes": 60202,
+      "sha256": "31c4816a5cc4fb0654a3c370919529bfdabf5b58fba13655cdfb368d3ad2d403"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Models/TG_TreeKit.manifest.json.meta",
+      "bytes": 158,
+      "sha256": "b6b2da4271af05858367ef7d7bdba1b255ec7d490df497f61064b31e1c59a50a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Models.meta",
+      "bytes": 172,
+      "sha256": "22b8eee24570bf8d6e8c229796b5e7e5140c595f102e93fbba2e918e616e96b6"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_HeroOak.prefab",
+      "bytes": 10527,
+      "sha256": "8c7a0e4d447b1ab7b0f95e5fe0454b1d1055ccddfbcbad5dce2e4344d8f0e611"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_HeroOak.prefab.meta",
+      "bytes": 154,
+      "sha256": "57cec74fd1d23387a3b0fab1d734f8f1707874d62f0c1abf27dd14e9878d672a"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_IslandTree.prefab",
+      "bytes": 10535,
+      "sha256": "184a8666264923fa1f20a8974fb3e57d0321ba48677cb41b006f5be9fafa64a9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_IslandTree.prefab.meta",
+      "bytes": 154,
+      "sha256": "adad819a1f34cae83f15c9461af92fae0f2b98f57db356ca7c9d5b928b66ebc9"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_MeadowOak.prefab",
+      "bytes": 10531,
+      "sha256": "ee0db58cb0541255c66b1600cb6b31e19a188afe3b69ece59cc7e3d5e84ac6b2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_MeadowOak.prefab.meta",
+      "bytes": 154,
+      "sha256": "8e0e265aac9b4d3fdb33ecaa925b852f9bda5416564433d230ca9f158cfa39de"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_Shrub.prefab",
+      "bytes": 10528,
+      "sha256": "05f851e4bcded75bce340483c13cf93bdb1bdcb7dc91976c56d43c42e1300b13"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_Shrub.prefab.meta",
+      "bytes": 154,
+      "sha256": "5137ededfcf58a71a797198b63951d09073020469e16f37a4a09c3d8e9501ade"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_TreeComposition.prefab",
+      "bytes": 625717,
+      "sha256": "b522cef7364d683074f89c27dff6eb27ce1873b531dd0fef09322de150985adc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_TreeComposition.prefab.meta",
+      "bytes": 154,
+      "sha256": "e1e56059c461f017cea9bda4f76d1e6496d92075964acb925c56574b0694de9f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_WindPine.prefab",
+      "bytes": 10113,
+      "sha256": "add803f04ef7729ed2fb991e910483332c4e93ae9d88a48329c4ed41f6c5edbe"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_WindPine.prefab.meta",
+      "bytes": 154,
+      "sha256": "98a98de3b61b4158d86a3127b5296cc21c6fe238e8b17b772b5f66e42c99bf27"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_YoungPine.prefab",
+      "bytes": 10091,
+      "sha256": "ff68dadf1b7a6722f921424416296764a2e1b7ce021771099c88ea601e8290fc"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs/TG_YoungPine.prefab.meta",
+      "bytes": 154,
+      "sha256": "119f7ba46cbd1cd1759c909e1a1ff8df38388724dcb9bb9f363b8b94154c11cb"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Prefabs.meta",
+      "bytes": 172,
+      "sha256": "df54f51f5499efc5bd7bbc89b816ec26c29316bfc7f1b51fdcc4b1d28e715cab"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Scenes/TG_CanopyReview_r1.unity",
+      "bytes": 1370057,
+      "sha256": "61926b4d9974dd249aeacb36c85b54e05cc35a53b17e9bdb962f9099cde2f03d"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Scenes/TG_CanopyReview_r1.unity.meta",
+      "bytes": 155,
+      "sha256": "14c6edd14aed57b43d226544e8d1d5b7abd1f9f0874ca0f6466939e1baaf7754"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Scenes/TG_CanopySample_r1.unity",
+      "bytes": 30615,
+      "sha256": "dab168711ad260a5d5f644ae20263c4a641d7c2d693e5d9787bd27983ce8bb92"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Scenes/TG_CanopySample_r1.unity.meta",
+      "bytes": 155,
+      "sha256": "19a0a77abdd14ad9acd6af650409b10b61ae383a1a109acc167425a6d814d5c2"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Scenes.meta",
+      "bytes": 172,
+      "sha256": "af9200dee5a27c55b76948dcdd94d4596088637da37a180edd594c254b720411"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Textures/TG_LeafSprayAlbedoOpacity.png",
+      "bytes": 1623249,
+      "sha256": "4467d393351ba95a753ed4b695b359da04135d93e852112376ced593b00224b0"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Textures/TG_LeafSprayAlbedoOpacity.png.meta",
+      "bytes": 3364,
+      "sha256": "f1c46d4c201fb564e0576be1ac1b25c347a15102a0ed7174c62709fabb552f7f"
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Trees/Textures.meta",
+      "bytes": 172,
+      "sha256": "c2eba245e55bc886eec9171e363827ad86447aedcd23ebe4f024374c8fa268e7"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatTreesLab.cs",
+      "bytes": 27837,
+      "sha256": "8963d73790b3ba3159234e2238eb43339bcead756ad0eb41f8a133d931bf237c"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatTreesLab.cs.meta",
+      "bytes": 59,
+      "sha256": "fe160995b5ac7be8b779de256ad3640f995a016ed82bce560c883c3a2983a13c"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatTreesValidation.cs",
+      "bytes": 21903,
+      "sha256": "5d4f531d3e66ffe19a30c0f4bf7914236ba36fa70297fe52acb13b7f5c8d5022"
+    },
+    {
+      "path": "Assets/Project/Editor/TeyvatTreesValidation.cs.meta",
+      "bytes": 59,
+      "sha256": "5fe064ce4638c0e7ffb564ba87372db1c2ca3ab45a46dc7c1894567b15c194a6"
+    },
+    {
+      "path": "Tests/Environment/RunTeyvatTreesLab.ps1",
+      "bytes": 11305,
+      "sha256": "556c9ec0f36c37b0e334e2e12979ea5d7bf4b612db6990fab40c28726b3e658c"
+    }
+  ]
+}

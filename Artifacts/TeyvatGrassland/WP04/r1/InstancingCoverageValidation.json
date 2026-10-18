@@ -1,0 +1,13 @@
+{
+    "passed": true,
+    "expectedPlacements": 3600,
+    "expectedSamples": 7200,
+    "LOD0Samples": 7200,
+    "LOD1Samples": 7200,
+    "missingSamples": 0,
+    "LOD0Batches": 18,
+    "LOD1Batches": 18,
+    "maximumGroupSize": 500,
+    "method": "Actual runtime new meadow route in temporary additive scene:3species×1200 placements, each mesh2 colored submeshes, maximum500 matrices. Linear GPU readback at7200 separated left/right submesh centers for both forced-by-distance LOD0 andLOD1, 18API submissions each.",
+    "limitations": "Matrix/submesh/LOD coverage microtest. Not a final player GPU performance or full scene temporal-quality proof."
+}

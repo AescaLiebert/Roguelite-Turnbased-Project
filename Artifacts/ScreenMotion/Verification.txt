@@ -1,0 +1,4 @@
+PASS: Toolkit and Canvas enter/exit, original geometry, duplicate input guards, pause independence, canceled stale exit, detach cancellation and effect cleanup.
+PASS: same scene dungeon destination initializes immediately, outgoing screen fades before deactivation and rapid reversal cancels stale callbacks.
+PASS: late enabled UIDocument, visible scene exit/entry at timeScale zero and one persistent motion driver across a real asynchronous scene roundtrip.
+PASS: 42 assertions in native Unity Play mode at timeScale zero.

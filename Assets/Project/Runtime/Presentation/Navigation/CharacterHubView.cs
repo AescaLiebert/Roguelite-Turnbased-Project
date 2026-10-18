@@ -68,7 +68,7 @@ namespace FightingAllstar.Presentation.Navigation
                 _open = true; _character = character; _previewTier = Tier;
                 _ccFeedback.Reset(PlayerInventoryService.Instance.SubjectId + ":" + Owned.instanceId, PlayerInventoryService.Instance.GetCharacterStats(character).CombatClass);
                 CharacterDetailPopup.Close(_panel); ItemRewardView.CloseTooltip(_root);
-                if (_inventory != null) _inventory.style.display = DisplayStyle.None;
+                ScreenMotion.Hide(_inventory);
                 var section = _root.Q<Label>("section-title"); if (section != null) section.text = "FIGHTER DETAILS";
                 Text("hub-upgrade-result", ""); var result = _panel.Q("hub-upgrade-result"); if (result != null) result.style.display = DisplayStyle.None;
                 AccountHeaderView.OverrideBack(_root, this, Back, "Back to characters");
@@ -87,7 +87,7 @@ namespace FightingAllstar.Presentation.Navigation
                 if (!_open) return;
                 _open = false; AccountHeaderView.ClearBackOverride(_root, this); ArtifactWorkshopView.CloseAll(_root); CharacterDetailPopup.Close(_panel); ItemRewardView.CloseTooltip(_root); ScreenMotion.Hide(_panel);
                 _ccFeedback.Hide();
-                if (_inventory != null) _inventory.style.display = DisplayStyle.Flex;
+                ScreenMotion.Show(_inventory);
                 var section = _root.Q<Label>("section-title"); if (section != null) section.text = _previousSection ?? "CHARACTERS";
                 _root.Q("inventory-grid")?.Q<Button>("character-" + _character.DefinitionId)?.Focus();
             }
@@ -105,7 +105,8 @@ namespace FightingAllstar.Presentation.Navigation
                     if (page != null) { if (tab == selected) ScreenMotion.Show(page); else ScreenMotion.Hide(page); }
                 }
                 var scroll = _panel.Q<ScrollView>("hub-scroll"); if (scroll != null) { scroll.scrollOffset = Vector2.zero; scroll.contentContainer.EnableInClassList("hub-fitted-content", selected == "upgrade" || selected == "artifacts"); }
-                var slots = _panel.Q("artifact-character-stage"); if (slots != null) slots.style.display = selected == "artifacts" ? DisplayStyle.Flex : DisplayStyle.None;
+                var slots = _panel.Q("artifact-character-stage");
+                if (slots != null) { if (selected == "artifacts") ScreenMotion.Show(slots); else ScreenMotion.Hide(slots); }
                 _panel.Q<Button>("hub-tab-" + selected)?.Focus();
             }
 

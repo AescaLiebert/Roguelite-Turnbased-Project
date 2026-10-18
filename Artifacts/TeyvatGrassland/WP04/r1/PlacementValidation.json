@@ -1,0 +1,17 @@
+{
+    "passed": true,
+    "placements": 25521,
+    "tallCombatViolations": 0,
+    "invalidSpecies": 0,
+    "unboundedCells": 0,
+    "floatingOrigins": 0,
+    "torsoOrCameraViolations": 0,
+    "rootContactSamples": 14976,
+    "rootContactFailures": 0,
+    "maxOriginError": 0.0250091552734375,
+    "maxRootAboveGround": 0.0,
+    "maxRootBurial": 0.0287477970123291,
+    "placementHash": "f98c8332a411a0659e27b9dcaa0a1807af89b4988cd9b356c000058b2fc30328",
+    "maskSha256": "8d6cb6644664494e5ee16737dbf46ebce9040a0ec69161f05f5f99161b275955",
+    "method": "Saved world matrices: user-directed short cover in green region (<.35m undeformed), species, full rotated both-LOD bounds plus world wind inside cells, max-wind torso/camera AABBs for original19 views and264 path samples, actual highest WP03 ground origins.64 placements/species have every authored R0/G0 root checked against actual ground; root contact starting range [-.13,+.08]m includes .025m burial. Not all individual blade roots are sampled."
+}

@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: scii-lvy
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.scii-ivy
+  runtimeReady: 1
+  familyId: family.ivy
+  seriesId: series.sc
+  role: 4th SUB
+  traitIds:
+  - trait.women
+  - trait.soul-calibur
+  passiveSourceDescription: 'When the hero lands a critical hit with an attack, increase
+    all allies'' Attack by 10% for 2 turns.
+
+
+    [Soul Calibur: increases the hero''s
+    Max HP and Crit Defense by 10%. When attacking, increases the hero''s Attack
+    by 12%.]'
+  passiveSourceType: 1
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: 05809237145220a4ba7043e3cf537521, type: 2}
+  id: 2302
+  fighterName: '[Soul Calibur II] Ivy'
+  fighterPic: {fileID: 21300000, guid: 621f2348e75a91245a1eddeb61f5f866, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 621f2348e75a91245a1eddeb61f5f866, type: 3}
+  fighterFull: {fileID: 21300000, guid: cd21c7a8cd6d33c4db9f7ab21b95b51d, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 21300000, guid: 621f2348e75a91245a1eddeb61f5f866, type: 3}
+  fighterCard2: {fileID: 21300000, guid: 621f2348e75a91245a1eddeb61f5f866, type: 3}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: c657674bc3414074182655967d81b30b, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 7369f10c8cedb1640b8637ec1c2ffcc3, type: 2}
+  Skill2: {fileID: 11400000, guid: 4df0375bf97f2aa4793b7ecba4646c4b, type: 2}
+  Ultimate: {fileID: 11400000, guid: 17f00cd0b0f70f94c9d99b1fe0878f47, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 1935
+    DefenseBp: 2035
+    HealthBp: 2135
+  Classpower: 3750
+  attack: 530
+  defense: 280
+  health: 5700
+  SecondaryStats:
+    PierceRate: 20
+    Resistance: 5
+    Regenerate: 10
+    CritChance: 50
+    CritDmg: 130
+    CritResistance: 15
+    CritDefense: 35
+    RecoveryRate: 110
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 25
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

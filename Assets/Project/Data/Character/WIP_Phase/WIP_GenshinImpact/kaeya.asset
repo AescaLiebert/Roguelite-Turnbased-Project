@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: kaeya
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.kaeya
+  runtimeReady: 1
+  familyId: family.kaeya
+  seriesId: series.genshin-impact
+  role: 
+  traitIds:
+  - trait.genshin-impact
+  - trait.region.mondstadt
+  - trait.women
+  passiveSourceDescription: 'Increase allies Ultimate Gauge by 1
+
+
+    When that
+    allies attack enemy with frost bite debuff, their Gauge acceleration Increase
+    by 50% for 1 turn. When hero attack enemy with same condition will Increase Crit
+    Chance by 15% and Damage Dealt by 10%
+
+
+    [Gnosis Reaction: When all formatting
+    team(including SUB) consists of ''Genshin Impact'', Elemental Damage applies
+    Elemental Status and can trigger Elemental Reactions]'
+  passiveSourceType: 2
+  passiveRestriction: 1
+  passiveDefinition: {fileID: 11400000, guid: 67c5523cf8e5a044e8f6ff262734f3de, type: 2}
+  id: 1413
+  fighterName: '[Genshin Impact] Kaeya'
+  fighterPic: {fileID: 21300000, guid: c3afee8592fc0e749bed7dfc97035aff, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 5e34963c03f0614468be8b733ef80129, type: 3}
+  fighterFull: {fileID: 21300000, guid: c3afee8592fc0e749bed7dfc97035aff, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 988125f8da86e0c408119db3017e20be, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 0c9f98fa155dfb44bb53eb2b7285983d, type: 2}
+  Skill2: {fileID: 11400000, guid: d8f8b9f0d4d9fa941a6ddd36834e169e, type: 2}
+  Ultimate: {fileID: 11400000, guid: c5a6f4e575d654b45aabc080bdf7ecc8, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 1
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 0
+  LevelGrowth:
+    AttackBp: 2135
+    DefenseBp: 2135
+    HealthBp: 2135
+  Classpower: 3050
+  attack: 390
+  defense: 260
+  health: 4800
+  SecondaryStats:
+    PierceRate: 25
+    Resistance: 15
+    Regenerate: 5
+    CritChance: 40
+    CritDmg: 150
+    CritResistance: 10
+    CritDefense: 20
+    RecoveryRate: 130
+    BlockChance: 10
+    BlockPower: 25
+    LifeSteal: 8
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

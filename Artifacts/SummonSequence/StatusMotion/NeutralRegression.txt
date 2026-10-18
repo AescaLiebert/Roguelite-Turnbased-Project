@@ -1,0 +1,11 @@
+PASS: 26 existing Neutral HUD regression assertions.
+
+Coverage: Grey/Normal and Buff/Neutral/Debuff ordering; stable view reuse; stance parent/children ordering; removed icons immediately vacate grid cells; separate elemental row; three-turn elemental cooldown; independent ordinary/elemental clearing; inspector duration; catalog Neutral polarity and fallback.
+
+Method: hidden isolated Unity Play Mode fixture (Unity 6000.3.4f1), using Tests/CombatPresentation/NeutralStatusHudChecks.cs. The runner was copied to Temp and its Shared Core build omitted. Existing live Core/Contracts Plugins DLLs were read/copied only. Runtime presentation sources compiled into Temp with 0 errors and 6 existing warnings. No live wallet, account, combat session or project scene was opened/modified.
+
+The final run includes the explicit Unity CanvasGroup null check fix. The fixture exited after completing its image-render assertion. Log includes the existing UnityEditor.Search.SearchDatabase startup ArgumentOutOfRangeException; no CoreFighterHud/runtime exception occurred.
+
+Source result: Temp/NeutralStatusHudProject/Evidence/neutral-status-hud.txt
+Source log: Temp/NeutralStatusHudProject/visual.log
+Capture: NeutralRows.png

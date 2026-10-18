@@ -1,0 +1,9 @@
+{
+    "passed": true,
+    "independentTerrainAsset": true,
+    "changedControlSamples": 470,
+    "outsideRegionViolations": 0,
+    "maximumOutsideChange": 0.0,
+    "minimumCombatGrassWeight": 0.8509804606437683,
+    "method": "WP04 nativeTerrain clone control weights compared with unchanged WP03 asset. Only local |X|<26,|Z|<24 may change; outside tolerance2/255 allows control texture quantization. All height samples compared independently in CameraEnvelopeReview."
+}

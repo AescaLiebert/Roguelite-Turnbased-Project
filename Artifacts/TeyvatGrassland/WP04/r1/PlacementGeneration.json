@@ -1,0 +1,19 @@
+{
+    "seed": 20261018,
+    "candidates": 322886,
+    "placed": 25521,
+    "greenExcluded": 0,
+    "cameraExcluded": 0,
+    "slopeOrSurfaceExcluded": 4685,
+    "speciesCounts": [
+        7968,
+        13576,
+        1812,
+        292,
+        1504,
+        143,
+        116,
+        110
+    ],
+    "method": "Jittered candidate grid, seeded broad patches. User WP04 direction permits grass on battlefield/character anchors: original WP01 green now marks SHORT cover, not bare-ground exclusion. Taller grass/flowers remain outside; original mask bytes/layout unchanged. Native splat/slope and actual WP03 surface, rock/water and camera/torso rejection."
+}

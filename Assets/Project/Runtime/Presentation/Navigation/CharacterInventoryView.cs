@@ -67,7 +67,7 @@ namespace FightingAllstar.Presentation.Navigation
                 var section = _root.Q<Label>("section-title");
                 _previousSection = section?.text;
                 if (section != null) section.text = "CHARACTERS";
-                if (_home != null) _home.style.display = DisplayStyle.None;
+                ScreenMotion.Hide(_home);
                 AccountHeaderView.OverrideBack(_root, this, Close, "Back to Home");
                 ScreenMotion.Show(_panel); Refresh(); _search.Focus();
             }
@@ -77,7 +77,7 @@ namespace FightingAllstar.Presentation.Navigation
                 if (!_open) return;
                 _open = false; AccountHeaderView.ClearBackOverride(_root, this);
                 ScreenMotion.Hide(_panel);
-                if (_home != null) _home.style.display = DisplayStyle.Flex;
+                ScreenMotion.Show(_home);
                 SetText(_root, "section-title", _previousSection ?? "HOME");
                 _root.Q<Button>("character-inventory-open")?.Focus();
             }

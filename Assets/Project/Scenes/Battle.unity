@@ -3814,6 +3814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Osaka Night \u2022 Walking Mall"
       objectReference: {fileID: 0}
+    - target: {fileID: 3294689937483323677, guid: 9da3fb58d5a273e4ea66df3ba204632b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7190940942118295995, guid: 9da3fb58d5a273e4ea66df3ba204632b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.1263018

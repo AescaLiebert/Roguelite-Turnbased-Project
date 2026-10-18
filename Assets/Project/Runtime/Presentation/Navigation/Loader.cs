@@ -10,21 +10,21 @@ public class Loader : MonoBehaviour
     
     public static void Load(Scene scene)
     {
-        SceneManager.LoadScene(scene.ToString());
+        FightingAllstar.Presentation.ScreenMotion.LoadScene(scene.ToString());
     }
 
     public void GachaScene()
     {
-        SceneManager.LoadScene("Scene-Gacha");
+        FightingAllstar.Presentation.ScreenMotion.LoadScene("Scene-Gacha");
     }
     
     public void CharacterLoadOutScene()
     {
-        SceneManager.LoadScene("Scene-CharacterLoadOut");
+        FightingAllstar.Presentation.ScreenMotion.LoadScene("Scene-CharacterLoadOut");
     }
 
     public void GameScene()
     {
-        SceneManager.LoadScene("Scene-InGame");
+        FightingAllstar.Presentation.ScreenMotion.LoadScene("Scene-InGame");
     }
 }

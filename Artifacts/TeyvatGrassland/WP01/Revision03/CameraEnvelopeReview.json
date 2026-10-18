@@ -1,0 +1,203 @@
+{
+    "passed": true,
+    "bothPlanningViewsPass": true,
+    "allRegisteredCentersClear": true,
+    "allSampledPathsClear": true,
+    "allAnchorsPass": true,
+    "terrainHeightsMatchR3Source": true,
+    "method": "Static conservative 3m actor bounds at copied WP01 anchors, actual LOD0 visual-mesh collider ray checks plus native TerrainCollider, all registry cameras and eight spherical paths with 33 samples each. All native height samples compared with the canonical R3 source within .004m quantization tolerance; original six anchor heights retained.",
+    "limitations": "Review proxies and sampled common-origin camera paths only. Does not replace animated combat, moving attack pivots/FOV, both orbit directions, shake, physics gameplay or continuous path clearance. Tall foliage checked separately through R3 height/contact report and captures; this envelope uses static world geometry and native terrain.",
+    "cameras": [
+        {
+            "name": "TG_ReferenceFrontRight",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_EnemyContact",
+            "fullyVisibleActors": 3,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_PlayerPlanning",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_ReversePlanningCandidate",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_ReverseOverview",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_ReferencePlanningCandidate",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_ReferenceSide",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_ReferenceFrontLeft",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_PlayerAttack",
+            "fullyVisibleActors": 3,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_EnvironmentOverview",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_EnemyAttack",
+            "fullyVisibleActors": 3,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_PlayerContact",
+            "fullyVisibleActors": 3,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_PlayerPortrait",
+            "fullyVisibleActors": 2,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_WideMultiTarget",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_EnemyPlanning",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_EnemyPortrait",
+            "fullyVisibleActors": 2,
+            "blockedActorCenters": 0,
+            "hits": []
+        },
+        {
+            "name": "TG_ReferenceRear",
+            "fullyVisibleActors": 6,
+            "blockedActorCenters": 0,
+            "hits": []
+        }
+    ],
+    "paths": [
+        {
+            "name": "PlayerPlanning -> EnemyPlanning",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyPlanning -> PlayerPlanning",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerPlanning -> PlayerAttack",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerAttack -> PlayerContact",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "PlayerContact -> PlayerPlanning",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyPlanning -> EnemyAttack",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyAttack -> EnemyContact",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        },
+        {
+            "name": "EnemyContact -> EnemyPlanning",
+            "samples": 33,
+            "blocked": 0,
+            "hits": []
+        }
+    ],
+    "anchors": [
+        {
+            "name": "CharHeroPosition1",
+            "covered": true,
+            "passed": true,
+            "signedHeightError": 0.00054931640625
+        },
+        {
+            "name": "CharHeroPosition2",
+            "covered": true,
+            "passed": true,
+            "signedHeightError": 0.00054931640625
+        },
+        {
+            "name": "CharHeroPosition3",
+            "covered": true,
+            "passed": true,
+            "signedHeightError": 0.00054931640625
+        },
+        {
+            "name": "EnemyHeroPosition1",
+            "covered": true,
+            "passed": true,
+            "signedHeightError": 0.00054931640625
+        },
+        {
+            "name": "EnemyHeroPosition2",
+            "covered": true,
+            "passed": true,
+            "signedHeightError": 0.00054931640625
+        },
+        {
+            "name": "EnemyHeroPosition3",
+            "covered": true,
+            "passed": true,
+            "signedHeightError": 0.00054931640625
+        }
+    ],
+    "terrainHeightStartingTolerance": 0.019999999552965165
+}

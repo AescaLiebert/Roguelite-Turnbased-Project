@@ -1,0 +1,17 @@
+{
+    "passed": true,
+    "originalCameraPoses": true,
+    "terrainReference": true,
+    "meadowReference": true,
+    "shadersSupported": true,
+    "textureCoverage": true,
+    "animatedBuffersMatch": true,
+    "globalsOwners": 1,
+    "missingScripts": 0,
+    "textureWidth": 1024,
+    "textureHeight": 683,
+    "textureMips": 11,
+    "maxTreeHeightError": 2.384185791015625e-7,
+    "maxRootOriginError": 0.04000091552734375,
+    "method": "Read-only actual source references, original camera poses/FOVs, one global wind owner, all scene materials/shaders, texture import/mips, actualLOD0 species height and root-origin height against unchanged native R3 terrain. Root origin only; buttress tips on slopes remain a visual set-dressing check."
+}

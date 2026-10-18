@@ -1,0 +1,1206 @@
+{
+    "seed": 731,
+    "method": "Designed foreground/island anchors plus seeded mixed groves on terraces and reverse hills. Layout placeholders; final tree species/canopy asset WP05.",
+    "trees": [
+        {
+            "name": "TreeGroup_0",
+            "role": "hero tree",
+            "localPosition": {
+                "x": -32.0,
+                "y": 3.6993041038513185,
+                "z": -1.0
+            },
+            "heightStartingValue": 12.0
+        },
+        {
+            "name": "TreeGroup_1",
+            "role": "perimeter framing",
+            "localPosition": {
+                "x": 38.0,
+                "y": 3.285460948944092,
+                "z": 7.0
+            },
+            "heightStartingValue": 7.0
+        },
+        {
+            "name": "TreeGroup_2",
+            "role": "perimeter framing",
+            "localPosition": {
+                "x": -47.0,
+                "y": 1.6822742223739625,
+                "z": 10.0
+            },
+            "heightStartingValue": 7.0
+        },
+        {
+            "name": "TreeGroup_3",
+            "role": "perimeter framing",
+            "localPosition": {
+                "x": 46.0,
+                "y": 2.0155463218688967,
+                "z": -29.0
+            },
+            "heightStartingValue": 7.0
+        },
+        {
+            "name": "TreeGroup_4",
+            "role": "perimeter framing",
+            "localPosition": {
+                "x": -38.0,
+                "y": 2.532850742340088,
+                "z": -37.0
+            },
+            "heightStartingValue": 7.0
+        },
+        {
+            "name": "TreeGroup_5",
+            "role": "river island tree",
+            "localPosition": {
+                "x": -45.900001525878909,
+                "y": 0.5465854406356812,
+                "z": 37.0
+            },
+            "heightStartingValue": 4.034308433532715
+        },
+        {
+            "name": "TreeGroup_6",
+            "role": "river island tree",
+            "localPosition": {
+                "x": -12.899999618530274,
+                "y": 0.9476102590560913,
+                "z": 43.0
+            },
+            "heightStartingValue": 6.767723083496094
+        },
+        {
+            "name": "TreeGroup_7",
+            "role": "river island tree",
+            "localPosition": {
+                "x": 29.100000381469728,
+                "y": 0.34881916642189028,
+                "z": 40.0
+            },
+            "heightStartingValue": 6.3438262939453129
+        },
+        {
+            "name": "TreeGroup_8",
+            "role": "river island tree",
+            "localPosition": {
+                "x": -42.900001525878909,
+                "y": 2.3457064628601076,
+                "z": 55.0
+            },
+            "heightStartingValue": 5.890428066253662
+        },
+        {
+            "name": "TreeGroup_9",
+            "role": "river island tree",
+            "localPosition": {
+                "x": 42.099998474121097,
+                "y": 1.5453027486801148,
+                "z": 53.0
+            },
+            "heightStartingValue": 4.237308502197266
+        },
+        {
+            "name": "TreeGroup_10",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -112.08232879638672,
+                "y": 15.667144775390625,
+                "z": 94.34928131103516
+            },
+            "heightStartingValue": 4.210454940795898
+        },
+        {
+            "name": "TreeGroup_11",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -107.56336212158203,
+                "y": 15.989696502685547,
+                "z": 88.63478088378906
+            },
+            "heightStartingValue": 4.342104911804199
+        },
+        {
+            "name": "TreeGroup_12",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -105.54283142089844,
+                "y": 33.01515579223633,
+                "z": 109.213134765625
+            },
+            "heightStartingValue": 5.759500980377197
+        },
+        {
+            "name": "TreeGroup_13",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -111.7410888671875,
+                "y": 15.69831657409668,
+                "z": 102.46415710449219
+            },
+            "heightStartingValue": 4.608076095581055
+        },
+        {
+            "name": "TreeGroup_14",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -117.74417877197266,
+                "y": 26.61918830871582,
+                "z": 106.99960327148438
+            },
+            "heightStartingValue": 6.772199630737305
+        },
+        {
+            "name": "TreeGroup_15",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -102.62750244140625,
+                "y": 16.599761962890626,
+                "z": 94.82501983642578
+            },
+            "heightStartingValue": 5.180761814117432
+        },
+        {
+            "name": "TreeGroup_16",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -98.87606811523438,
+                "y": 35.35013961791992,
+                "z": 111.12992095947266
+            },
+            "heightStartingValue": 6.5167083740234379
+        },
+        {
+            "name": "TreeGroup_17",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -111.89421844482422,
+                "y": 15.63936996459961,
+                "z": 90.50446319580078
+            },
+            "heightStartingValue": 6.416290760040283
+        },
+        {
+            "name": "TreeGroup_18",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -101.7333755493164,
+                "y": 17.0505428314209,
+                "z": 105.48983764648438
+            },
+            "heightStartingValue": 4.616873264312744
+        },
+        {
+            "name": "TreeGroup_19",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -114.8075942993164,
+                "y": 15.453714370727539,
+                "z": 101.93195343017578
+            },
+            "heightStartingValue": 5.766125679016113
+        },
+        {
+            "name": "TreeGroup_20",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -99.85775756835938,
+                "y": 16.975400924682618,
+                "z": 97.80048370361328
+            },
+            "heightStartingValue": 5.2294182777404789
+        },
+        {
+            "name": "TreeGroup_21",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -85.31552124023438,
+                "y": 39.77133560180664,
+                "z": 124.94446563720703
+            },
+            "heightStartingValue": 6.399328708648682
+        },
+        {
+            "name": "TreeGroup_22",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -82.8309326171875,
+                "y": 40.455543518066409,
+                "z": 137.45361328125
+            },
+            "heightStartingValue": 6.922831058502197
+        },
+        {
+            "name": "TreeGroup_23",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -86.43671417236328,
+                "y": 39.370216369628909,
+                "z": 132.55056762695313
+            },
+            "heightStartingValue": 4.263025760650635
+        },
+        {
+            "name": "TreeGroup_24",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -88.95487976074219,
+                "y": 38.55885696411133,
+                "z": 130.45535278320313
+            },
+            "heightStartingValue": 5.759350299835205
+        },
+        {
+            "name": "TreeGroup_25",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -75.14195251464844,
+                "y": 42.2962646484375,
+                "z": 127.31534576416016
+            },
+            "heightStartingValue": 5.0932087898254398
+        },
+        {
+            "name": "TreeGroup_26",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -75.98896026611328,
+                "y": 42.05061340332031,
+                "z": 135.42098999023438
+            },
+            "heightStartingValue": 5.05354118347168
+        },
+        {
+            "name": "TreeGroup_27",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -68.2168960571289,
+                "y": 43.38753890991211,
+                "z": 120.74617767333985
+            },
+            "heightStartingValue": 4.571352481842041
+        },
+        {
+            "name": "TreeGroup_28",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -86.55937957763672,
+                "y": 39.40253448486328,
+                "z": 123.29277038574219
+            },
+            "heightStartingValue": 4.318764686584473
+        },
+        {
+            "name": "TreeGroup_29",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -78.16506958007813,
+                "y": 41.67776107788086,
+                "z": 126.61109161376953
+            },
+            "heightStartingValue": 4.247866630554199
+        },
+        {
+            "name": "TreeGroup_30",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -80.88679504394531,
+                "y": 41.13554763793945,
+                "z": 114.4585189819336
+            },
+            "heightStartingValue": 4.047269821166992
+        },
+        {
+            "name": "TreeGroup_31",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -85.41233825683594,
+                "y": 39.729984283447269,
+                "z": 138.64402770996095
+            },
+            "heightStartingValue": 6.517398357391357
+        },
+        {
+            "name": "TreeGroup_32",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -96.48957061767578,
+                "y": 36.73542022705078,
+                "z": 157.09552001953126
+            },
+            "heightStartingValue": 4.710783004760742
+        },
+        {
+            "name": "TreeGroup_33",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -78.12520599365235,
+                "y": 41.83974838256836,
+                "z": 150.465576171875
+            },
+            "heightStartingValue": 5.303607940673828
+        },
+        {
+            "name": "TreeGroup_34",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -104.73078918457031,
+                "y": 33.36066436767578,
+                "z": 141.87359619140626
+            },
+            "heightStartingValue": 4.502418518066406
+        },
+        {
+            "name": "TreeGroup_35",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -95.32157135009766,
+                "y": 36.93561553955078,
+                "z": 152.44406127929688
+            },
+            "heightStartingValue": 5.291164398193359
+        },
+        {
+            "name": "TreeGroup_36",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -84.99579620361328,
+                "y": 39.88233947753906,
+                "z": 140.3880615234375
+            },
+            "heightStartingValue": 4.992300510406494
+        },
+        {
+            "name": "TreeGroup_37",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -101.08007049560547,
+                "y": 34.60429000854492,
+                "z": 143.2190399169922
+            },
+            "heightStartingValue": 6.615993022918701
+        },
+        {
+            "name": "TreeGroup_38",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -90.83613586425781,
+                "y": 37.99631118774414,
+                "z": 138.54446411132813
+            },
+            "heightStartingValue": 5.911134243011475
+        },
+        {
+            "name": "TreeGroup_39",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -91.49909210205078,
+                "y": 38.4382438659668,
+                "z": 158.10333251953126
+            },
+            "heightStartingValue": 5.023499965667725
+        },
+        {
+            "name": "TreeGroup_40",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -78.97772216796875,
+                "y": 41.495033264160159,
+                "z": 143.302978515625
+            },
+            "heightStartingValue": 5.7946672439575199
+        },
+        {
+            "name": "TreeGroup_41",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -94.5699234008789,
+                "y": 36.65884780883789,
+                "z": 135.51609802246095
+            },
+            "heightStartingValue": 5.758978366851807
+        },
+        {
+            "name": "TreeGroup_42",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -89.8769760131836,
+                "y": 38.25480270385742,
+                "z": 133.43203735351563
+            },
+            "heightStartingValue": 6.921775817871094
+        },
+        {
+            "name": "TreeGroup_43",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -22.93166732788086,
+                "y": 22.381864547729493,
+                "z": 101.34391784667969
+            },
+            "heightStartingValue": 5.7089104652404789
+        },
+        {
+            "name": "TreeGroup_44",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -29.774011611938478,
+                "y": 22.520952224731447,
+                "z": 103.3246841430664
+            },
+            "heightStartingValue": 5.793950080871582
+        },
+        {
+            "name": "TreeGroup_45",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -23.4962215423584,
+                "y": 22.479780197143556,
+                "z": 108.1015625
+            },
+            "heightStartingValue": 6.914409637451172
+        },
+        {
+            "name": "TreeGroup_46",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -38.879493713378909,
+                "y": 22.084463119506837,
+                "z": 98.78705596923828
+            },
+            "heightStartingValue": 4.306800365447998
+        },
+        {
+            "name": "TreeGroup_47",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -37.6892204284668,
+                "y": 22.239294052124025,
+                "z": 103.07205200195313
+            },
+            "heightStartingValue": 6.836207389831543
+        },
+        {
+            "name": "TreeGroup_48",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -29.63901138305664,
+                "y": 22.4682559967041,
+                "z": 98.3895263671875
+            },
+            "heightStartingValue": 6.639561176300049
+        },
+        {
+            "name": "TreeGroup_49",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -23.57990264892578,
+                "y": 22.56499671936035,
+                "z": 115.03436279296875
+            },
+            "heightStartingValue": 5.035965442657471
+        },
+        {
+            "name": "TreeGroup_50",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -41.089813232421878,
+                "y": 21.939313888549806,
+                "z": 99.1461410522461
+            },
+            "heightStartingValue": 6.144442558288574
+        },
+        {
+            "name": "TreeGroup_51",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -24.009166717529298,
+                "y": 22.55729103088379,
+                "z": 112.36055755615235
+            },
+            "heightStartingValue": 5.605835914611816
+        },
+        {
+            "name": "TreeGroup_52",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -48.630882263183597,
+                "y": 21.66756248474121,
+                "z": 111.33773040771485
+            },
+            "heightStartingValue": 6.519227504730225
+        },
+        {
+            "name": "TreeGroup_53",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -25.240766525268556,
+                "y": 24.74127769470215,
+                "z": 117.6531753540039
+            },
+            "heightStartingValue": 4.29080057144165
+        },
+        {
+            "name": "TreeGroup_54",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 14.152023315429688,
+                "y": 12.172039031982422,
+                "z": 92.8022232055664
+            },
+            "heightStartingValue": 6.631172180175781
+        },
+        {
+            "name": "TreeGroup_55",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 10.58566665649414,
+                "y": 14.451383590698243,
+                "z": 96.6689224243164
+            },
+            "heightStartingValue": 4.812895774841309
+        },
+        {
+            "name": "TreeGroup_56",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 8.206480026245118,
+                "y": 15.996465682983399,
+                "z": 116.66619110107422
+            },
+            "heightStartingValue": 4.5687174797058109
+        },
+        {
+            "name": "TreeGroup_57",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 26.869049072265626,
+                "y": 8.633050918579102,
+                "z": 108.6200180053711
+            },
+            "heightStartingValue": 4.640120506286621
+        },
+        {
+            "name": "TreeGroup_58",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 24.904361724853517,
+                "y": 8.083244323730469,
+                "z": 109.94291687011719
+            },
+            "heightStartingValue": 6.068129062652588
+        },
+        {
+            "name": "TreeGroup_59",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 15.839394569396973,
+                "y": 10.670448303222657,
+                "z": 113.21049499511719
+            },
+            "heightStartingValue": 6.865942478179932
+        },
+        {
+            "name": "TreeGroup_60",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 9.254406929016114,
+                "y": 15.245710372924805,
+                "z": 98.38520050048828
+            },
+            "heightStartingValue": 5.980767250061035
+        },
+        {
+            "name": "TreeGroup_61",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 22.66794776916504,
+                "y": 7.827955722808838,
+                "z": 104.38043212890625
+            },
+            "heightStartingValue": 6.196370601654053
+        },
+        {
+            "name": "TreeGroup_62",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 20.658620834350587,
+                "y": 6.271542072296143,
+                "z": 91.85623931884766
+            },
+            "heightStartingValue": 6.02506160736084
+        },
+        {
+            "name": "TreeGroup_63",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 4.108232498168945,
+                "y": 17.78731346130371,
+                "z": 103.36119842529297
+            },
+            "heightStartingValue": 5.642561435699463
+        },
+        {
+            "name": "TreeGroup_64",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 13.500524520874024,
+                "y": 12.608436584472657,
+                "z": 93.26022338867188
+            },
+            "heightStartingValue": 4.190038681030273
+        },
+        {
+            "name": "TreeGroup_65",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 72.10850524902344,
+                "y": 27.318132400512697,
+                "z": 116.77660369873047
+            },
+            "heightStartingValue": 4.693057060241699
+        },
+        {
+            "name": "TreeGroup_66",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 78.88263702392578,
+                "y": 27.246686935424806,
+                "z": 130.94764709472657
+            },
+            "heightStartingValue": 6.631321907043457
+        },
+        {
+            "name": "TreeGroup_67",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 85.8839340209961,
+                "y": 27.16914939880371,
+                "z": 114.87944793701172
+            },
+            "heightStartingValue": 4.455893039703369
+        },
+        {
+            "name": "TreeGroup_68",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 78.12458801269531,
+                "y": 27.244657516479493,
+                "z": 116.41329956054688
+            },
+            "heightStartingValue": 4.105657577514648
+        },
+        {
+            "name": "TreeGroup_69",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 86.09130859375,
+                "y": 27.096311569213868,
+                "z": 132.7003173828125
+            },
+            "heightStartingValue": 5.4810357093811039
+        },
+        {
+            "name": "TreeGroup_70",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 77.03677368164063,
+                "y": 27.25520133972168,
+                "z": 116.80513000488281
+            },
+            "heightStartingValue": 4.1884613037109379
+        },
+        {
+            "name": "TreeGroup_71",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 86.16194152832031,
+                "y": 27.03510856628418,
+                "z": 126.31314849853516
+            },
+            "heightStartingValue": 6.900715351104736
+        },
+        {
+            "name": "TreeGroup_72",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 65.40147399902344,
+                "y": 27.393468856811525,
+                "z": 117.14603424072266
+            },
+            "heightStartingValue": 4.505156517028809
+        },
+        {
+            "name": "TreeGroup_73",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 76.07393646240235,
+                "y": 27.350107192993165,
+                "z": 133.4674835205078
+            },
+            "heightStartingValue": 6.593372821807861
+        },
+        {
+            "name": "TreeGroup_74",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 68.33727264404297,
+                "y": 27.495927810668947,
+                "z": 130.23558044433595
+            },
+            "heightStartingValue": 6.971458435058594
+        },
+        {
+            "name": "TreeGroup_75",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 82.23997497558594,
+                "y": 27.118776321411134,
+                "z": 122.37284088134766
+            },
+            "heightStartingValue": 6.470439910888672
+        },
+        {
+            "name": "TreeGroup_76",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 110.24173736572266,
+                "y": 28.48482322692871,
+                "z": 156.70004272460938
+            },
+            "heightStartingValue": 6.477552890777588
+        },
+        {
+            "name": "TreeGroup_77",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 119.51370239257813,
+                "y": 28.269624710083009,
+                "z": 155.10955810546876
+            },
+            "heightStartingValue": 5.213920593261719
+        },
+        {
+            "name": "TreeGroup_78",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 102.32781219482422,
+                "y": 27.16477394104004,
+                "z": 146.94976806640626
+            },
+            "heightStartingValue": 5.469075679779053
+        },
+        {
+            "name": "TreeGroup_79",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 117.81465148925781,
+                "y": 26.795053482055665,
+                "z": 133.65261840820313
+            },
+            "heightStartingValue": 5.844940662384033
+        },
+        {
+            "name": "TreeGroup_80",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 105.86693572998047,
+                "y": 28.055418014526368,
+                "z": 154.45806884765626
+            },
+            "heightStartingValue": 4.786408424377441
+        },
+        {
+            "name": "TreeGroup_81",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 122.10456848144531,
+                "y": 27.671850204467775,
+                "z": 150.86785888671876
+            },
+            "heightStartingValue": 5.217333793640137
+        },
+        {
+            "name": "TreeGroup_82",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 121.48384857177735,
+                "y": 26.955472946166993,
+                "z": 138.48655700683595
+            },
+            "heightStartingValue": 4.931791305541992
+        },
+        {
+            "name": "TreeGroup_83",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 128.98568725585938,
+                "y": 27.28993034362793,
+                "z": 145.4761199951172
+            },
+            "heightStartingValue": 6.28279972076416
+        },
+        {
+            "name": "TreeGroup_84",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 125.21515655517578,
+                "y": 27.844125747680665,
+                "z": 151.98143005371095
+            },
+            "heightStartingValue": 5.103424072265625
+        },
+        {
+            "name": "TreeGroup_85",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 125.77947235107422,
+                "y": 28.526575088500978,
+                "z": 156.3948516845703
+            },
+            "heightStartingValue": 5.441433906555176
+        },
+        {
+            "name": "TreeGroup_86",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 107.78227996826172,
+                "y": 26.990320205688478,
+                "z": 141.48280334472657
+            },
+            "heightStartingValue": 6.998170375823975
+        },
+        {
+            "name": "TreeGroup_87",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -49.00971984863281,
+                "y": 3.19203519821167,
+                "z": -77.98268127441406
+            },
+            "heightStartingValue": 4.419982433319092
+        },
+        {
+            "name": "TreeGroup_88",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -40.69838333129883,
+                "y": 1.324867606163025,
+                "z": -59.97941589355469
+            },
+            "heightStartingValue": 5.672435760498047
+        },
+        {
+            "name": "TreeGroup_89",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -48.9356803894043,
+                "y": 2.100127696990967,
+                "z": -70.65078735351563
+            },
+            "heightStartingValue": 6.689523220062256
+        },
+        {
+            "name": "TreeGroup_90",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -63.13654327392578,
+                "y": 1.5032895803451539,
+                "z": -64.88431549072266
+            },
+            "heightStartingValue": 4.722446918487549
+        },
+        {
+            "name": "TreeGroup_91",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -36.31893539428711,
+                "y": 1.4140208959579468,
+                "z": -61.893218994140628
+            },
+            "heightStartingValue": 4.352180004119873
+        },
+        {
+            "name": "TreeGroup_92",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -57.478607177734378,
+                "y": 1.2542728185653687,
+                "z": -59.32012939453125
+            },
+            "heightStartingValue": 4.547863960266113
+        },
+        {
+            "name": "TreeGroup_93",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -39.7079963684082,
+                "y": 2.588930606842041,
+                "z": -72.9180679321289
+            },
+            "heightStartingValue": 6.045191764831543
+        },
+        {
+            "name": "TreeGroup_94",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -51.023372650146487,
+                "y": 1.2047322988510132,
+                "z": -57.15339660644531
+            },
+            "heightStartingValue": 6.0427327156066898
+        },
+        {
+            "name": "TreeGroup_95",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -47.2458610534668,
+                "y": 1.8392747640609742,
+                "z": -67.80670166015625
+            },
+            "heightStartingValue": 6.598296642303467
+        },
+        {
+            "name": "TreeGroup_96",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -53.544036865234378,
+                "y": 1.2112001180648804,
+                "z": -57.69173812866211
+            },
+            "heightStartingValue": 6.733916759490967
+        },
+        {
+            "name": "TreeGroup_97",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -52.37494659423828,
+                "y": 1.7387136220932007,
+                "z": -67.27435302734375
+            },
+            "heightStartingValue": 5.279214859008789
+        },
+        {
+            "name": "TreeGroup_98",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 13.050029754638672,
+                "y": 7.104118824005127,
+                "z": -91.09085845947266
+            },
+            "heightStartingValue": 5.518871784210205
+        },
+        {
+            "name": "TreeGroup_99",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -4.635234355926514,
+                "y": 6.61320161819458,
+                "z": -91.7757568359375
+            },
+            "heightStartingValue": 5.100893020629883
+        },
+        {
+            "name": "TreeGroup_100",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 1.6334376335144044,
+                "y": 7.415359973907471,
+                "z": -99.39131927490235
+            },
+            "heightStartingValue": 4.283087730407715
+        },
+        {
+            "name": "TreeGroup_101",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -9.335288047790528,
+                "y": 7.846672534942627,
+                "z": -99.10547637939453
+            },
+            "heightStartingValue": 6.850907325744629
+        },
+        {
+            "name": "TreeGroup_102",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -1.6289329528808594,
+                "y": 6.751293659210205,
+                "z": -93.05119323730469
+            },
+            "heightStartingValue": 6.7305498123168949
+        },
+        {
+            "name": "TreeGroup_103",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -14.957568168640137,
+                "y": 6.764944553375244,
+                "z": -89.9318618774414
+            },
+            "heightStartingValue": 5.158525466918945
+        },
+        {
+            "name": "TreeGroup_104",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 6.735879421234131,
+                "y": 7.592792987823486,
+                "z": -99.88960266113281
+            },
+            "heightStartingValue": 4.847504138946533
+        },
+        {
+            "name": "TreeGroup_105",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -8.74866771697998,
+                "y": 3.840941905975342,
+                "z": -78.93323516845703
+            },
+            "heightStartingValue": 6.243727207183838
+        },
+        {
+            "name": "TreeGroup_106",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 11.26203727722168,
+                "y": 7.640951633453369,
+                "z": -95.95662689208985
+            },
+            "heightStartingValue": 5.100679397583008
+        },
+        {
+            "name": "TreeGroup_107",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 0.8554762601852417,
+                "y": 3.7884697914123537,
+                "z": -78.46866607666016
+            },
+            "heightStartingValue": 6.925854682922363
+        },
+        {
+            "name": "TreeGroup_108",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": -3.8996927738189699,
+                "y": 6.99576997756958,
+                "z": -94.24886322021485
+            },
+            "heightStartingValue": 4.319342613220215
+        },
+        {
+            "name": "TreeGroup_109",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 58.58037567138672,
+                "y": 4.877115726470947,
+                "z": -71.39015197753906
+            },
+            "heightStartingValue": 4.160732269287109
+        },
+        {
+            "name": "TreeGroup_110",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 40.983009338378909,
+                "y": 4.1904072761535648,
+                "z": -70.18500518798828
+            },
+            "heightStartingValue": 5.335342884063721
+        },
+        {
+            "name": "TreeGroup_111",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 40.410423278808597,
+                "y": 6.265041828155518,
+                "z": -76.34890747070313
+            },
+            "heightStartingValue": 6.354796886444092
+        },
+        {
+            "name": "TreeGroup_112",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 47.84204864501953,
+                "y": 5.329145908355713,
+                "z": -72.81861114501953
+            },
+            "heightStartingValue": 6.171044826507568
+        },
+        {
+            "name": "TreeGroup_113",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 47.83350372314453,
+                "y": 5.8996357917785648,
+                "z": -74.35047149658203
+            },
+            "heightStartingValue": 4.223188400268555
+        },
+        {
+            "name": "TreeGroup_114",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 54.2852783203125,
+                "y": 8.826065063476563,
+                "z": -81.16104125976563
+            },
+            "heightStartingValue": 6.07953405380249
+        },
+        {
+            "name": "TreeGroup_115",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 41.738441467285159,
+                "y": 4.7623982429504398,
+                "z": -71.89933776855469
+            },
+            "heightStartingValue": 4.763433456420898
+        },
+        {
+            "name": "TreeGroup_116",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 61.919334411621097,
+                "y": 3.1068778038024904,
+                "z": -65.5073013305664
+            },
+            "heightStartingValue": 5.2645792961120609
+        },
+        {
+            "name": "TreeGroup_117",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 49.084171295166019,
+                "y": 3.0175156593322756,
+                "z": -65.11695098876953
+            },
+            "heightStartingValue": 6.74226188659668
+        },
+        {
+            "name": "TreeGroup_118",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 54.2406005859375,
+                "y": 2.3309273719787599,
+                "z": -61.9463996887207
+            },
+            "heightStartingValue": 4.539137363433838
+        },
+        {
+            "name": "TreeGroup_119",
+            "role": "terrace/reverse grove",
+            "localPosition": {
+                "x": 48.62971496582031,
+                "y": 2.1092848777770998,
+                "z": -60.6298942565918
+            },
+            "heightStartingValue": 5.748604774475098
+        }
+    ]
+}

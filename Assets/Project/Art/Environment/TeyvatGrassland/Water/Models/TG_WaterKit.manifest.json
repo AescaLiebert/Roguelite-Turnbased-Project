@@ -1,0 +1,5581 @@
+{
+  "schema": "TG_WP06_WaterKit_v1",
+  "seed": 606731,
+  "blender_version": "5.1.1",
+  "generator_sha256": "2d003be87b1faff1e752cb5c01838625c1971779e7313254af35de4c1c06b8fd",
+  "plan_sha256": "e0c8b1f64e1a07470d7c46b78bfa7ad4654653a74750ae8bd89b8465e9ac952b",
+  "fbx_sha256": "a5f8b2175b232421355dfc751183a22ce711f2f35b8c11536a563360344183e7",
+  "coordinates": "Metres, full R3 arena-local surfaces; Unity applies arena origin exactly once. RawUnity=(BlenderX,BlenderZ,BlenderY).",
+  "flow_uv": "Cascade U0..1 across width; V0..1 cumulative physical arc distance increasing source to impact. River UV worldmetres*.065. Foam radialpatchUV0..1, shorestripworldXZ*.21; effects vertexR stablephase,Aopacity, GB0.",
+  "objects": [
+    {
+      "name": "SM_WP06_River",
+      "mesh_name": "SM_WP06_River",
+      "vertices_before_fbx_seam_splitting": 6369,
+      "polygons_before_triangulation": 12288,
+      "polygons_in_authored_triangulated_mesh": 12288,
+      "expected_triangles_after_export": 12288,
+      "loops": 36864,
+      "bounds_blender_local_metres": {
+        "min": [
+          -192.0,
+          16.24817276,
+          -1.35000002
+        ],
+        "max": [
+          192.0,
+          67.98265076,
+          -1.35000002
+        ],
+        "size": [
+          384.0,
+          51.734478,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -192.0,
+          -1.35000002,
+          -67.98265076
+        ],
+        "max": [
+          192.0,
+          -1.35000002,
+          -16.24817276
+        ],
+        "size": [
+          384.0,
+          0.0,
+          51.734478
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -12.479999542236328,
+          1.0561312437057495
+        ],
+        "max": [
+          12.479999542236328,
+          4.418872356414795
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.1207330885554256e-07,
+        0.0,
+        1.0
+      ],
+      "normal_component_max": [
+        2.1120573023836187e-07,
+        0.0,
+        1.0
+      ],
+      "material_slots": [
+        "River"
+      ],
+      "role": "River",
+      "bounds_unity_local_metres": {
+        "min": [
+          -192.0,
+          -1.35,
+          16.24817303
+        ],
+        "max": [
+          192.0,
+          -1.35,
+          67.98265408
+        ],
+        "size": [
+          384.0,
+          0.0,
+          51.73448105
+        ]
+      },
+      "unity_normal_min": [
+        -1.1207330885554256e-07,
+        1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        2.1120573023836187e-07,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Cascade_Left",
+      "mesh_name": "SM_WP06_Cascade_Left",
+      "vertices_before_fbx_seam_splitting": 2525,
+      "polygons_before_triangulation": 4800,
+      "polygons_in_authored_triangulated_mesh": 4800,
+      "expected_triangles_after_export": 4800,
+      "loops": 14400,
+      "bounds_blender_local_metres": {
+        "min": [
+          -45.76741409,
+          58.8575325,
+          -1.13999999
+        ],
+        "max": [
+          -39.77193832,
+          79.85753632,
+          22.86990929
+        ],
+        "size": [
+          5.99547577,
+          21.00000381,
+          24.00990927
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -45.76741409,
+          -1.13999999,
+          -79.85753632
+        ],
+        "max": [
+          -39.77193832,
+          22.86990929,
+          -58.8575325
+        ],
+        "size": [
+          5.99547577,
+          24.00990927,
+          21.00000381
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.04852629080414772,
+        -0.9030405879020691,
+        0.4270963966846466
+      ],
+      "normal_component_max": [
+        0.04847267270088196,
+        0.0,
+        1.0
+      ],
+      "material_slots": [
+        "Waterfall"
+      ],
+      "role": "Waterfall",
+      "bounds_unity_local_metres": {
+        "min": [
+          -45.76741341,
+          -1.13999998,
+          58.85753357
+        ],
+        "max": [
+          -39.77193719,
+          22.86991013,
+          79.85753357
+        ],
+        "size": [
+          5.99547622,
+          24.00991011,
+          21.0
+        ]
+      },
+      "unity_normal_min": [
+        -0.04852629080414772,
+        0.4270963966846466,
+        -0.9030405879020691
+      ],
+      "unity_normal_max": [
+        0.04847267270088196,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_CatchPool_Left_0",
+      "mesh_name": "SM_WP06_CatchPool_Left_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -45.94282913,
+          67.10447693,
+          4.31999969
+        ],
+        "max": [
+          -38.75911713,
+          70.85053253,
+          4.31999969
+        ],
+        "size": [
+          7.18371201,
+          3.7460556,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -45.94282913,
+          4.31999969,
+          -70.85053253
+        ],
+        "max": [
+          -38.75911713,
+          4.31999969,
+          -67.10447693
+        ],
+        "size": [
+          7.18371201,
+          0.0,
+          3.7460556
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.008167368359863758,
+          -0.023071153089404106
+        ],
+        "max": [
+          1.0344115495681763,
+          1.0175000429153442
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -4.517773959378246e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        6.149969067337224e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Pool"
+      ],
+      "role": "Pool",
+      "bounds_unity_local_metres": {
+        "min": [
+          -45.94282842,
+          4.31999969,
+          67.10447742
+        ],
+        "max": [
+          -38.759119,
+          4.31999969,
+          70.85053391
+        ],
+        "size": [
+          7.18370942,
+          0.0,
+          3.74605649
+        ]
+      },
+      "unity_normal_min": [
+        -4.517773959378246e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        6.149969067337224e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_ImpactFoam_Left_0",
+      "mesh_name": "SM_WP06_ImpactFoam_Left_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -46.7554245,
+          66.2121582,
+          4.36499977
+        ],
+        "max": [
+          -37.91215134,
+          71.40854645,
+          4.36499977
+        ],
+        "size": [
+          8.84327316,
+          5.19638824,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -46.7554245,
+          4.36499977,
+          -71.40854645
+        ],
+        "max": [
+          -37.91215134,
+          4.36499977,
+          -66.2121582
+        ],
+        "size": [
+          8.84327316,
+          0.0,
+          5.19638824
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.00518308999016881,
+          -0.015075938776135445
+        ],
+        "max": [
+          1.033470869064331,
+          1.0242022275924683
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.2,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "rgba_max": [
+          0.2,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -3.820515303232241e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        2.839077751559671e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -46.75542543,
+          4.36499977,
+          66.21215693
+        ],
+        "max": [
+          -37.91215044,
+          4.36499977,
+          71.40854758
+        ],
+        "size": [
+          8.84327499,
+          0.0,
+          5.19639066
+        ]
+      },
+      "unity_normal_min": [
+        -3.820515303232241e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        2.839077751559671e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_RippleFan_Left_0",
+      "mesh_name": "SM_WP06_RippleFan_Left_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -48.38476944,
+          62.31745911,
+          4.3949995
+        ],
+        "max": [
+          -35.52174377,
+          70.76009369,
+          4.3949995
+        ],
+        "size": [
+          12.86302567,
+          8.44263458,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -48.38476944,
+          4.3949995,
+          -70.76009369
+        ],
+        "max": [
+          -35.52174377,
+          4.3949995,
+          -62.31745911
+        ],
+        "size": [
+          12.86302567,
+          0.0,
+          8.44263458
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.014664032496511936,
+          -0.02024640142917633
+        ],
+        "max": [
+          1.0062109231948853,
+          0.9848285913467407
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -3.1586350814905018e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        3.0979806524555897e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -48.38476833,
+          4.3949995,
+          62.31746074
+        ],
+        "max": [
+          -35.52174361,
+          4.3949995,
+          70.76009084
+        ],
+        "size": [
+          12.86302472,
+          0.0,
+          8.4426301
+        ]
+      },
+      "unity_normal_min": [
+        -3.1586350814905018e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        3.0979806524555897e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Left_0_0",
+      "mesh_name": "SM_WP06_Mist_Left_0_0",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -45.57764053,
+          67.56498718,
+          3.81999993
+        ],
+        "max": [
+          -40.82236099,
+          69.1100769,
+          7.42000008
+        ],
+        "size": [
+          4.75527954,
+          1.54508972,
+          3.60000014
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -45.57764053,
+          3.81999993,
+          -69.1100769
+        ],
+        "max": [
+          -40.82236099,
+          7.42000008,
+          -67.56498718
+        ],
+        "size": [
+          4.75527954,
+          3.60000014,
+          1.54508972
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "rgba_max": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        0.3090178966522217,
+        0.9510561227798462,
+        0.0
+      ],
+      "normal_component_max": [
+        0.3090183138847351,
+        0.951056182384491,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -45.57764053,
+          3.81999993,
+          67.56498718
+        ],
+        "max": [
+          -40.82236099,
+          7.42000008,
+          69.1100769
+        ],
+        "size": [
+          4.75527954,
+          3.60000014,
+          1.54508972
+        ]
+      },
+      "unity_normal_min": [
+        0.3090178966522217,
+        0.0,
+        0.9510561227798462
+      ],
+      "unity_normal_max": [
+        0.3090183138847351,
+        0.0,
+        0.951056182384491
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Left_0_1",
+      "mesh_name": "SM_WP06_Mist_Left_0_1",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -43.96506119,
+          67.08753204,
+          3.81999993
+        ],
+        "max": [
+          -39.63493729,
+          69.58753204,
+          7.42000008
+        ],
+        "size": [
+          4.3301239,
+          2.5,
+          3.60000014
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -43.96506119,
+          3.81999993,
+          -69.58753204
+        ],
+        "max": [
+          -39.63493729,
+          7.42000008,
+          -67.08753204
+        ],
+        "size": [
+          4.3301239,
+          3.60000014,
+          2.5
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "rgba_max": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.5000003576278687,
+        0.8660252094268799,
+        0.0
+      ],
+      "normal_component_max": [
+        -0.49999967217445374,
+        0.8660255670547485,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -43.96506119,
+          3.81999993,
+          67.08753204
+        ],
+        "max": [
+          -39.63493729,
+          7.42000008,
+          69.58753204
+        ],
+        "size": [
+          4.3301239,
+          3.60000014,
+          2.5
+        ]
+      },
+      "unity_normal_min": [
+        -0.5000003576278687,
+        0.0,
+        0.8660252094268799
+      ],
+      "unity_normal_max": [
+        -0.49999967217445374,
+        0.0,
+        0.8660255670547485
+      ]
+    },
+    {
+      "name": "SM_WP06_CatchPool_Left_1",
+      "mesh_name": "SM_WP06_CatchPool_Left_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -46.84283066,
+          57.10447693,
+          -1.30499995
+        ],
+        "max": [
+          -39.65911865,
+          60.85053253,
+          -1.30499995
+        ],
+        "size": [
+          7.18371201,
+          3.7460556,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -46.84283066,
+          -1.30499995,
+          -60.85053253
+        ],
+        "max": [
+          -39.65911865,
+          -1.30499995,
+          -57.10447693
+        ],
+        "size": [
+          7.18371201,
+          0.0,
+          3.7460556
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.008167368359863758,
+          -0.023071153089404106
+        ],
+        "max": [
+          1.0344115495681763,
+          1.0175000429153442
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.5364340697487933e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.4793615719099762e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Pool"
+      ],
+      "role": "Pool",
+      "bounds_unity_local_metres": {
+        "min": [
+          -46.84282995,
+          -1.30499995,
+          57.10447742
+        ],
+        "max": [
+          -39.65912052,
+          -1.30499995,
+          60.85053391
+        ],
+        "size": [
+          7.18370942,
+          0.0,
+          3.74605649
+        ]
+      },
+      "unity_normal_min": [
+        -1.5364340697487933e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.4793615719099762e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_ImpactFoam_Left_1",
+      "mesh_name": "SM_WP06_ImpactFoam_Left_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -47.82611084,
+          56.18630219,
+          -1.25999999
+        ],
+        "max": [
+          -39.0465889,
+          61.21167755,
+          -1.25999999
+        ],
+        "size": [
+          8.77952194,
+          5.02537537,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -47.82611084,
+          -1.25999999,
+          -61.21167755
+        ],
+        "max": [
+          -39.0465889,
+          -1.25999999,
+          -56.18630219
+        ],
+        "size": [
+          8.77952194,
+          0.0,
+          5.02537537
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.014664032496511936,
+          -0.02024640142917633
+        ],
+        "max": [
+          1.0062109231948853,
+          0.9848285913467407
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "rgba_max": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -2.175821464334149e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.988999656532542e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -47.8261122,
+          -1.25999999,
+          56.18630079
+        ],
+        "max": [
+          -39.04658739,
+          -1.25999999,
+          61.21167585
+        ],
+        "size": [
+          8.77952481,
+          0.0,
+          5.02537506
+        ]
+      },
+      "unity_normal_min": [
+        -2.175821464334149e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.988999656532542e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_RippleFan_Left_1",
+      "mesh_name": "SM_WP06_RippleFan_Left_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -49.24882889,
+          52.42586136,
+          -1.2299999
+        ],
+        "max": [
+          -36.61048508,
+          60.82586288,
+          -1.2299999
+        ],
+        "size": [
+          12.63834381,
+          8.40000153,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -49.24882889,
+          -1.2299999,
+          -60.82586288
+        ],
+        "max": [
+          -36.61048508,
+          -1.2299999,
+          -52.42586136
+        ],
+        "size": [
+          12.63834381,
+          0.0,
+          8.40000153
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.011811666190624237,
+          -0.007341798860579729
+        ],
+        "max": [
+          0.9912315011024475,
+          0.9926581978797913
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.73000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.73000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -6.143266659819346e-07,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        5.302021008901647e-07,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -49.24883004,
+          -1.2299999,
+          52.42586322
+        ],
+        "max": [
+          -36.61048582,
+          -1.2299999,
+          60.82586322
+        ],
+        "size": [
+          12.63834422,
+          0.0,
+          8.4
+        ]
+      },
+      "unity_normal_min": [
+        -6.143266659819346e-07,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        5.302021008901647e-07,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Left_1_0",
+      "mesh_name": "SM_WP06_Mist_Left_1_0",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -46.47764206,
+          57.564991,
+          -1.80499995
+        ],
+        "max": [
+          -41.72236252,
+          59.11007309,
+          1.79499996
+        ],
+        "size": [
+          4.75527954,
+          1.54508209,
+          3.5999999
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -46.47764206,
+          -1.80499995,
+          -59.11007309
+        ],
+        "max": [
+          -41.72236252,
+          1.79499996,
+          -57.564991
+        ],
+        "size": [
+          4.75527954,
+          3.5999999,
+          1.54508209
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        0.3090164363384247,
+        0.9510564804077148,
+        0.0
+      ],
+      "normal_component_max": [
+        0.3090169429779053,
+        0.9510566592216492,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -46.47764206,
+          -1.80499995,
+          57.564991
+        ],
+        "max": [
+          -41.72236252,
+          1.79499996,
+          59.11007309
+        ],
+        "size": [
+          4.75527954,
+          3.5999999,
+          1.54508209
+        ]
+      },
+      "unity_normal_min": [
+        0.3090164363384247,
+        0.0,
+        0.9510564804077148
+      ],
+      "unity_normal_max": [
+        0.3090169429779053,
+        0.0,
+        0.9510566592216492
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Left_1_1",
+      "mesh_name": "SM_WP06_Mist_Left_1_1",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -44.86506271,
+          57.08753204,
+          -1.80499995
+        ],
+        "max": [
+          -40.53493881,
+          59.58753204,
+          1.79499996
+        ],
+        "size": [
+          4.3301239,
+          2.5,
+          3.5999999
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -44.86506271,
+          -1.80499995,
+          -59.58753204
+        ],
+        "max": [
+          -40.53493881,
+          1.79499996,
+          -57.08753204
+        ],
+        "size": [
+          4.3301239,
+          3.5999999,
+          2.5
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.5000004172325134,
+        0.8660251498222351,
+        0.0
+      ],
+      "normal_component_max": [
+        -0.5000003576278687,
+        0.8660252094268799,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -44.86506271,
+          -1.80499995,
+          57.08753204
+        ],
+        "max": [
+          -40.53493881,
+          1.79499996,
+          59.58753204
+        ],
+        "size": [
+          4.3301239,
+          3.5999999,
+          2.5
+        ]
+      },
+      "unity_normal_min": [
+        -0.5000004172325134,
+        0.0,
+        0.8660251498222351
+      ],
+      "unity_normal_max": [
+        -0.5000003576278687,
+        0.0,
+        0.8660252094268799
+      ]
+    },
+    {
+      "name": "SM_WP06_Cascade_Hero",
+      "mesh_name": "SM_WP06_Cascade_Hero",
+      "vertices_before_fbx_seam_splitting": 2525,
+      "polygons_before_triangulation": 4800,
+      "polygons_in_authored_triangulated_mesh": 4800,
+      "expected_triangles_after_export": 4800,
+      "loops": 14400,
+      "bounds_blender_local_metres": {
+        "min": [
+          -16.87064743,
+          55.73680496,
+          -1.13999999
+        ],
+        "max": [
+          -6.83535528,
+          82.51424408,
+          23.55856514
+        ],
+        "size": [
+          10.03529215,
+          26.77743912,
+          24.69856513
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -16.87064743,
+          -1.13999999,
+          -82.51424408
+        ],
+        "max": [
+          -6.83535528,
+          23.55856514,
+          -55.73680496
+        ],
+        "size": [
+          10.03529215,
+          24.69856513,
+          26.77743912
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.02510598674416542,
+        -0.8830344676971436,
+        0.4686361253261566
+      ],
+      "normal_component_max": [
+        0.024802977219223976,
+        0.0,
+        1.0
+      ],
+      "material_slots": [
+        "Waterfall"
+      ],
+      "role": "Waterfall",
+      "bounds_unity_local_metres": {
+        "min": [
+          -16.87064761,
+          -1.13999998,
+          55.73680603
+        ],
+        "max": [
+          -6.83535516,
+          23.55856598,
+          82.51424133
+        ],
+        "size": [
+          10.03529245,
+          24.69856596,
+          26.7774353
+        ]
+      },
+      "unity_normal_min": [
+        -0.02510598674416542,
+        0.4686361253261566,
+        -0.8830344676971436
+      ],
+      "unity_normal_max": [
+        0.024802977219223976,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_CatchPool_Hero_0",
+      "mesh_name": "SM_WP06_CatchPool_Hero_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -16.81179237,
+          69.76118469,
+          6.92000008
+        ],
+        "max": [
+          -5.72835493,
+          73.5072403,
+          6.92000008
+        ],
+        "size": [
+          11.08343744,
+          3.7460556,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -16.81179237,
+          6.92000008,
+          -73.5072403
+        ],
+        "max": [
+          -5.72835493,
+          6.92000008,
+          -69.76118469
+        ],
+        "size": [
+          11.08343744,
+          0.0,
+          3.7460556
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.008167368359863758,
+          -0.023071153089404106
+        ],
+        "max": [
+          1.0344115495681763,
+          1.0175000429153442
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -4.1594371396058705e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        5.972834060230525e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Pool"
+      ],
+      "role": "Pool",
+      "bounds_unity_local_metres": {
+        "min": [
+          -16.81179242,
+          6.92000008,
+          69.76118518
+        ],
+        "max": [
+          -5.72835503,
+          6.92000008,
+          73.50724167
+        ],
+        "size": [
+          11.08343739,
+          0.0,
+          3.74605649
+        ]
+      },
+      "unity_normal_min": [
+        -4.1594371396058705e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        5.972834060230525e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_ImpactFoam_Hero_0",
+      "mesh_name": "SM_WP06_ImpactFoam_Hero_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -17.63572884,
+          68.86886597,
+          6.96500015
+        ],
+        "max": [
+          -4.88496113,
+          74.06525421,
+          6.96500015
+        ],
+        "size": [
+          12.75076771,
+          5.19638824,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -17.63572884,
+          6.96500015,
+          -74.06525421
+        ],
+        "max": [
+          -4.88496113,
+          6.96500015,
+          -68.86886597
+        ],
+        "size": [
+          12.75076771,
+          0.0,
+          5.19638824
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.00518308999016881,
+          -0.015075938776135445
+        ],
+        "max": [
+          1.033470869064331,
+          1.0242022275924683
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.2,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "rgba_max": [
+          0.2,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -5.60445823793998e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        4.875114882452181e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -17.63572969,
+          6.96500015,
+          68.86886469
+        ],
+        "max": [
+          -4.8849611,
+          6.96500015,
+          74.06525535
+        ],
+        "size": [
+          12.75076859,
+          0.0,
+          5.19639066
+        ]
+      },
+      "unity_normal_min": [
+        -5.60445823793998e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        4.875114882452181e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_RippleFan_Hero_0",
+      "mesh_name": "SM_WP06_RippleFan_Hero_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -19.34049034,
+          64.97416687,
+          6.99499989
+        ],
+        "max": [
+          -2.59814,
+          73.41680145,
+          6.99499989
+        ],
+        "size": [
+          16.74235034,
+          8.44263458,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -19.34049034,
+          6.99499989,
+          -73.41680145
+        ],
+        "max": [
+          -2.59814,
+          6.99499989,
+          -64.97416687
+        ],
+        "size": [
+          16.74235034,
+          0.0,
+          8.44263458
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.014664032496511936,
+          -0.02024640142917633
+        ],
+        "max": [
+          1.0062109231948853,
+          0.9848285913467407
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -4.533641003945377e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        4.432473815541016e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -19.34048975,
+          6.99499989,
+          64.9741685
+        ],
+        "max": [
+          -2.59814011,
+          6.99499989,
+          73.4167986
+        ],
+        "size": [
+          16.74234964,
+          0.0,
+          8.4426301
+        ]
+      },
+      "unity_normal_min": [
+        -4.533641003945377e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        4.432473815541016e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Hero_0_0",
+      "mesh_name": "SM_WP06_Mist_Hero_0_0",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -16.91664886,
+          69.63456726,
+          6.42000008
+        ],
+        "max": [
+          -8.54735184,
+          72.35391235,
+          10.02000046
+        ],
+        "size": [
+          8.36929703,
+          2.71934509,
+          3.60000038
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -16.91664886,
+          6.42000008,
+          -72.35391235
+        ],
+        "max": [
+          -8.54735184,
+          10.02000046,
+          -69.63456726
+        ],
+        "size": [
+          8.36929703,
+          3.60000038,
+          2.71934509
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "rgba_max": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        0.30901649594306946,
+        0.9510565996170044,
+        0.0
+      ],
+      "normal_component_max": [
+        0.30901649594306946,
+        0.9510566592216492,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -16.91664886,
+          6.42000008,
+          69.63456726
+        ],
+        "max": [
+          -8.54735184,
+          10.02000046,
+          72.35391235
+        ],
+        "size": [
+          8.36929703,
+          3.60000038,
+          2.71934509
+        ]
+      },
+      "unity_normal_min": [
+        0.30901649594306946,
+        0.0,
+        0.9510565996170044
+      ],
+      "unity_normal_max": [
+        0.30901649594306946,
+        0.0,
+        0.9510566592216492
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Hero_0_1",
+      "mesh_name": "SM_WP06_Mist_Hero_0_1",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -14.07851124,
+          68.79424286,
+          6.42000008
+        ],
+        "max": [
+          -6.45748806,
+          73.19423676,
+          10.02000046
+        ],
+        "size": [
+          7.62102318,
+          4.3999939,
+          3.60000038
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -14.07851124,
+          6.42000008,
+          -73.19423676
+        ],
+        "max": [
+          -6.45748806,
+          10.02000046,
+          -68.79424286
+        ],
+        "size": [
+          7.62102318,
+          3.60000038,
+          4.3999939
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "rgba_max": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.499999463558197,
+        0.8660256266593933,
+        0.0
+      ],
+      "normal_component_max": [
+        -0.49999943375587463,
+        0.8660256862640381,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -14.07851124,
+          6.42000008,
+          68.79424286
+        ],
+        "max": [
+          -6.45748806,
+          10.02000046,
+          73.19423676
+        ],
+        "size": [
+          7.62102318,
+          3.60000038,
+          4.3999939
+        ]
+      },
+      "unity_normal_min": [
+        -0.499999463558197,
+        0.0,
+        0.8660256266593933
+      ],
+      "unity_normal_max": [
+        -0.49999943375587463,
+        0.0,
+        0.8660256862640381
+      ]
+    },
+    {
+      "name": "SM_WP06_CatchPool_Hero_1",
+      "mesh_name": "SM_WP06_CatchPool_Hero_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -17.71179199,
+          53.98374939,
+          -1.30499995
+        ],
+        "max": [
+          -6.62835455,
+          57.72980499,
+          -1.30499995
+        ],
+        "size": [
+          11.08343744,
+          3.7460556,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -17.71179199,
+          -1.30499995,
+          -57.72980499
+        ],
+        "max": [
+          -6.62835455,
+          -1.30499995,
+          -53.98374939
+        ],
+        "size": [
+          11.08343744,
+          0.0,
+          3.7460556
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.008167368359863758,
+          -0.023071153089404106
+        ],
+        "max": [
+          1.0344115495681763,
+          1.0175000429153442
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.0061789907922503e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        9.130246212407656e-07,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Pool"
+      ],
+      "role": "Pool",
+      "bounds_unity_local_metres": {
+        "min": [
+          -17.71179204,
+          -1.30499995,
+          53.98374988
+        ],
+        "max": [
+          -6.62835464,
+          -1.30499995,
+          57.72980637
+        ],
+        "size": [
+          11.08343739,
+          0.0,
+          3.74605649
+        ]
+      },
+      "unity_normal_min": [
+        -1.0061789907922503e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        9.130246212407656e-07,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_ImpactFoam_Hero_1",
+      "mesh_name": "SM_WP06_ImpactFoam_Hero_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -18.78183365,
+          53.06557465,
+          -1.25999999
+        ],
+        "max": [
+          -6.12298393,
+          58.09095001,
+          -1.25999999
+        ],
+        "size": [
+          12.65884972,
+          5.02537537,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -18.78183365,
+          -1.25999999,
+          -58.09095001
+        ],
+        "max": [
+          -6.12298393,
+          -1.25999999,
+          -53.06557465
+        ],
+        "size": [
+          12.65884972,
+          0.0,
+          5.02537537
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.014664032496511936,
+          -0.02024640142917633
+        ],
+        "max": [
+          1.0062109231948853,
+          0.9848285913467407
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "rgba_max": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.720851855679939e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.6169703940249747e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -18.78183362,
+          -1.25999999,
+          53.06557326
+        ],
+        "max": [
+          -6.12298389,
+          -1.25999999,
+          58.09094832
+        ],
+        "size": [
+          12.65884973,
+          0.0,
+          5.02537506
+        ]
+      },
+      "unity_normal_min": [
+        -1.720851855679939e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.6169703940249747e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_RippleFan_Hero_1",
+      "mesh_name": "SM_WP06_RippleFan_Hero_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -20.19371033,
+          49.30513382,
+          -1.2299999
+        ],
+        "max": [
+          -3.74380231,
+          57.70513535,
+          -1.2299999
+        ],
+        "size": [
+          16.44990802,
+          8.40000153,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -20.19371033,
+          -1.2299999,
+          -57.70513535
+        ],
+        "max": [
+          -3.74380231,
+          -1.2299999,
+          -49.30513382
+        ],
+        "size": [
+          16.44990802,
+          0.0,
+          8.40000153
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.011811666190624237,
+          -0.007341798860579729
+        ],
+        "max": [
+          0.9912315011024475,
+          0.9926581978797913
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.73000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.73000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -5.062813670519972e-07,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        4.512503153364378e-07,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -20.19371056,
+          -1.2299999,
+          49.30513568
+        ],
+        "max": [
+          -3.74380221,
+          -1.2299999,
+          57.70513568
+        ],
+        "size": [
+          16.44990834,
+          0.0,
+          8.4
+        ]
+      },
+      "unity_normal_min": [
+        -5.062813670519972e-07,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        4.512503153364378e-07,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Hero_1_0",
+      "mesh_name": "SM_WP06_Mist_Hero_1_0",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -17.81664848,
+          53.85712814,
+          -1.80499995
+        ],
+        "max": [
+          -9.44735146,
+          56.57648087,
+          1.79499996
+        ],
+        "size": [
+          8.36929703,
+          2.71935272,
+          3.5999999
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -17.81664848,
+          -1.80499995,
+          -56.57648087
+        ],
+        "max": [
+          -9.44735146,
+          1.79499996,
+          -53.85712814
+        ],
+        "size": [
+          8.36929703,
+          3.5999999,
+          2.71935272
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        0.3090173006057739,
+        0.9510563611984253,
+        0.0
+      ],
+      "normal_component_max": [
+        0.3090173602104187,
+        0.9510564208030701,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -17.81664848,
+          -1.80499995,
+          53.85712814
+        ],
+        "max": [
+          -9.44735146,
+          1.79499996,
+          56.57648087
+        ],
+        "size": [
+          8.36929703,
+          3.5999999,
+          2.71935272
+        ]
+      },
+      "unity_normal_min": [
+        0.3090173006057739,
+        0.0,
+        0.9510563611984253
+      ],
+      "unity_normal_max": [
+        0.3090173602104187,
+        0.0,
+        0.9510564208030701
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Hero_1_1",
+      "mesh_name": "SM_WP06_Mist_Hero_1_1",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          -14.97851086,
+          53.01680374,
+          -1.80499995
+        ],
+        "max": [
+          -7.35748768,
+          57.41680527,
+          1.79499996
+        ],
+        "size": [
+          7.62102318,
+          4.40000153,
+          3.5999999
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -14.97851086,
+          -1.80499995,
+          -57.41680527
+        ],
+        "max": [
+          -7.35748768,
+          1.79499996,
+          -53.01680374
+        ],
+        "size": [
+          7.62102318,
+          3.5999999,
+          4.40000153
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.5000001788139343,
+        0.8660253286361694,
+        0.0
+      ],
+      "normal_component_max": [
+        -0.5000001192092896,
+        0.8660253286361694,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          -14.97851086,
+          -1.80499995,
+          53.01680374
+        ],
+        "max": [
+          -7.35748768,
+          1.79499996,
+          57.41680527
+        ],
+        "size": [
+          7.62102318,
+          3.5999999,
+          4.40000153
+        ]
+      },
+      "unity_normal_min": [
+        -0.5000001788139343,
+        0.0,
+        0.8660253286361694
+      ],
+      "unity_normal_max": [
+        -0.5000001192092896,
+        0.0,
+        0.8660253286361694
+      ]
+    },
+    {
+      "name": "SM_WP06_Cascade_Right",
+      "mesh_name": "SM_WP06_Cascade_Right",
+      "vertices_before_fbx_seam_splitting": 2525,
+      "polygons_before_triangulation": 4800,
+      "polygons_in_authored_triangulated_mesh": 4800,
+      "expected_triangles_after_export": 4800,
+      "loops": 14400,
+      "bounds_blender_local_metres": {
+        "min": [
+          39.45771027,
+          64.87000275,
+          -1.13999999
+        ],
+        "max": [
+          47.00475311,
+          93.57613373,
+          14.89497471
+        ],
+        "size": [
+          7.54704285,
+          28.70613098,
+          16.03497469
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          39.45771027,
+          -1.13999999,
+          -93.57613373
+        ],
+        "max": [
+          47.00475311,
+          14.89497471,
+          -64.87000275
+        ],
+        "size": [
+          7.54704285,
+          16.03497469,
+          28.70613098
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.028158336877822876,
+        -0.7637699246406555,
+        0.6451495885848999
+      ],
+      "normal_component_max": [
+        0.028097188100218773,
+        0.0,
+        1.0
+      ],
+      "material_slots": [
+        "Waterfall"
+      ],
+      "role": "Waterfall",
+      "bounds_unity_local_metres": {
+        "min": [
+          39.45771083,
+          -1.13999998,
+          64.87
+        ],
+        "max": [
+          47.00475459,
+          14.89497459,
+          93.57613098
+        ],
+        "size": [
+          7.54704376,
+          16.03497458,
+          28.70613098
+        ]
+      },
+      "unity_normal_min": [
+        -0.028158336877822876,
+        0.6451495885848999,
+        -0.7637699246406555
+      ],
+      "unity_normal_max": [
+        0.028097188100218773,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_CatchPool_Right_0",
+      "mesh_name": "SM_WP06_CatchPool_Right_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          39.36860657,
+          80.82307434,
+          4.31999969
+        ],
+        "max": [
+          47.98905563,
+          84.56912994,
+          4.31999969
+        ],
+        "size": [
+          8.62044907,
+          3.7460556,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          39.36860657,
+          4.31999969,
+          -84.56912994
+        ],
+        "max": [
+          47.98905563,
+          4.31999969,
+          -80.82307434
+        ],
+        "size": [
+          8.62044907,
+          0.0,
+          3.7460556
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.008167368359863758,
+          -0.023071153089404106
+        ],
+        "max": [
+          1.0344115495681763,
+          1.0175000429153442
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -4.010248630947899e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        5.2535820032062475e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Pool"
+      ],
+      "role": "Pool",
+      "bounds_unity_local_metres": {
+        "min": [
+          39.3686059,
+          4.31999969,
+          80.82307483
+        ],
+        "max": [
+          47.9890572,
+          4.31999969,
+          84.56913132
+        ],
+        "size": [
+          8.62045131,
+          0.0,
+          3.74605649
+        ]
+      },
+      "unity_normal_min": [
+        -4.010248630947899e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        5.2535820032062475e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_ImpactFoam_Right_0",
+      "mesh_name": "SM_WP06_ImpactFoam_Right_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          38.55183029,
+          79.93075562,
+          4.36499977
+        ],
+        "max": [
+          48.83470917,
+          85.12714386,
+          4.36499977
+        ],
+        "size": [
+          10.28287888,
+          5.19638824,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          38.55183029,
+          4.36499977,
+          -85.12714386
+        ],
+        "max": [
+          48.83470917,
+          4.36499977,
+          -79.93075562
+        ],
+        "size": [
+          10.28287888,
+          0.0,
+          5.19638824
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.00518308999016881,
+          -0.015075938776135445
+        ],
+        "max": [
+          1.033470869064331,
+          1.0242022275924683
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.2,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "rgba_max": [
+          0.2,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -3.2999241739162244e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        2.5687111246952554e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          38.5518309,
+          4.36499977,
+          79.93075434
+        ],
+        "max": [
+          48.83470879,
+          4.36499977,
+          85.12714499
+        ],
+        "size": [
+          10.2828779,
+          0.0,
+          5.19639066
+        ]
+      },
+      "unity_normal_min": [
+        -3.2999241739162244e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        2.5687111246952554e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_RippleFan_Right_0",
+      "mesh_name": "SM_WP06_RippleFan_Right_0",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          36.89470291,
+          76.03605652,
+          4.3949995
+        ],
+        "max": [
+          51.18695068,
+          84.4786911,
+          4.3949995
+        ],
+        "size": [
+          14.29224777,
+          8.44263458,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          36.89470291,
+          4.3949995,
+          -84.4786911
+        ],
+        "max": [
+          51.18695068,
+          4.3949995,
+          -76.03605652
+        ],
+        "size": [
+          14.29224777,
+          0.0,
+          8.44263458
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.014664032496511936,
+          -0.02024640142917633
+        ],
+        "max": [
+          1.0062109231948853,
+          0.9848285913467407
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -2.8591261980182026e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        2.7302785383653827e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          36.89470202,
+          4.3949995,
+          76.03605815
+        ],
+        "max": [
+          51.18695172,
+          4.3949995,
+          84.47868825
+        ],
+        "size": [
+          14.29224969,
+          0.0,
+          8.4426301
+        ]
+      },
+      "unity_normal_min": [
+        -2.8591261980182026e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        2.7302785383653827e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Right_0_0",
+      "mesh_name": "SM_WP06_Mist_Right_0_0",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          39.56061935,
+          81.067276,
+          3.81999993
+        ],
+        "max": [
+          45.64738083,
+          83.04498291,
+          7.42000008
+        ],
+        "size": [
+          6.08676147,
+          1.97770691,
+          3.60000014
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          39.56061935,
+          3.81999993,
+          -83.04498291
+        ],
+        "max": [
+          45.64738083,
+          7.42000008,
+          -81.067276
+        ],
+        "size": [
+          6.08676147,
+          3.60000014,
+          1.97770691
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "rgba_max": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        0.3090165853500366,
+        0.9510565400123596,
+        0.0
+      ],
+      "normal_component_max": [
+        0.309016615152359,
+        0.9510566592216492,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          39.56061935,
+          3.81999993,
+          81.067276
+        ],
+        "max": [
+          45.64738083,
+          7.42000008,
+          83.04498291
+        ],
+        "size": [
+          6.08676147,
+          3.60000014,
+          1.97770691
+        ]
+      },
+      "unity_normal_min": [
+        0.3090165853500366,
+        0.0,
+        0.9510565400123596
+      ],
+      "unity_normal_max": [
+        0.309016615152359,
+        0.0,
+        0.9510566592216492
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Right_0_1",
+      "mesh_name": "SM_WP06_Mist_Right_0_1",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          41.62471771,
+          80.45613098,
+          3.81999993
+        ],
+        "max": [
+          47.1672821,
+          83.65612793,
+          7.42000008
+        ],
+        "size": [
+          5.54256439,
+          3.19999695,
+          3.60000014
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          41.62471771,
+          3.81999993,
+          -83.65612793
+        ],
+        "max": [
+          47.1672821,
+          7.42000008,
+          -80.45613098
+        ],
+        "size": [
+          5.54256439,
+          3.60000014,
+          3.19999695
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "rgba_max": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.55000001
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.4999997615814209,
+        0.8660255670547485,
+        0.0
+      ],
+      "normal_component_max": [
+        -0.49999937415122986,
+        0.8660258054733276,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          41.62471771,
+          3.81999993,
+          80.45613098
+        ],
+        "max": [
+          47.1672821,
+          7.42000008,
+          83.65612793
+        ],
+        "size": [
+          5.54256439,
+          3.60000014,
+          3.19999695
+        ]
+      },
+      "unity_normal_min": [
+        -0.4999997615814209,
+        0.0,
+        0.8660255670547485
+      ],
+      "unity_normal_max": [
+        -0.49999937415122986,
+        0.0,
+        0.8660258054733276
+      ]
+    },
+    {
+      "name": "SM_WP06_CatchPool_Right_1",
+      "mesh_name": "SM_WP06_CatchPool_Right_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          38.46860504,
+          63.11694336,
+          -1.30499995
+        ],
+        "max": [
+          47.08905411,
+          66.86299896,
+          -1.30499995
+        ],
+        "size": [
+          8.62044907,
+          3.7460556,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          38.46860504,
+          -1.30499995,
+          -66.86299896
+        ],
+        "max": [
+          47.08905411,
+          -1.30499995,
+          -63.11694336
+        ],
+        "size": [
+          8.62044907,
+          0.0,
+          3.7460556
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.008167368359863758,
+          -0.023071153089404106
+        ],
+        "max": [
+          1.0344115495681763,
+          1.0175000429153442
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.30000001,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -2.0139596017543226e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.3676643675353262e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Pool"
+      ],
+      "role": "Pool",
+      "bounds_unity_local_metres": {
+        "min": [
+          38.46860437,
+          -1.30499995,
+          63.11694385
+        ],
+        "max": [
+          47.08905568,
+          -1.30499995,
+          66.86300034
+        ],
+        "size": [
+          8.62045131,
+          0.0,
+          3.74605649
+        ]
+      },
+      "unity_normal_min": [
+        -2.0139596017543226e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.3676643675353262e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_ImpactFoam_Right_1",
+      "mesh_name": "SM_WP06_ImpactFoam_Right_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          37.4533577,
+          62.19877243,
+          -1.25999999
+        ],
+        "max": [
+          47.66210938,
+          67.22414398,
+          -1.25999999
+        ],
+        "size": [
+          10.20875168,
+          5.02537155,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          37.4533577,
+          -1.25999999,
+          -67.22414398
+        ],
+        "max": [
+          47.66210938,
+          -1.25999999,
+          -62.19877243
+        ],
+        "size": [
+          10.20875168,
+          0.0,
+          5.02537155
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.014664032496511936,
+          -0.02024640142917633
+        ],
+        "max": [
+          1.0062109231948853,
+          0.9848285913467407
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "rgba_max": [
+          0.60000002,
+          0.0,
+          0.0,
+          0.94999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.224586412718054e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.4205637626218959e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          37.45335815,
+          -1.25999999,
+          62.19877104
+        ],
+        "max": [
+          47.66210793,
+          -1.25999999,
+          67.2241461
+        ],
+        "size": [
+          10.20874978,
+          0.0,
+          5.02537506
+        ]
+      },
+      "unity_normal_min": [
+        -1.224586412718054e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.4205637626218959e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_RippleFan_Right_1",
+      "mesh_name": "SM_WP06_RippleFan_Right_1",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          36.03463364,
+          58.43832779,
+          -1.2299999
+        ],
+        "max": [
+          50.07723999,
+          66.83833313,
+          -1.2299999
+        ],
+        "size": [
+          14.04260635,
+          8.40000534,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          36.03463364,
+          -1.2299999,
+          -66.83833313
+        ],
+        "max": [
+          50.07723999,
+          -1.2299999,
+          -58.43832779
+        ],
+        "size": [
+          14.04260635,
+          0.0,
+          8.40000534
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -0.011811666190624237,
+          -0.007341798860579729
+        ],
+        "max": [
+          0.9912315011024475,
+          0.9926581978797913
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.73000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.73000002,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -5.678732577507617e-07,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        4.964527988704504e-07,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          36.03463363,
+          -1.2299999,
+          58.43832965
+        ],
+        "max": [
+          50.07723831,
+          -1.2299999,
+          66.83832965
+        ],
+        "size": [
+          14.04260468,
+          0.0,
+          8.4
+        ]
+      },
+      "unity_normal_min": [
+        -5.678732577507617e-07,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        4.964527988704504e-07,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Right_1_0",
+      "mesh_name": "SM_WP06_Mist_Right_1_0",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          38.66061783,
+          63.36114502,
+          -1.80499995
+        ],
+        "max": [
+          44.7473793,
+          65.33885193,
+          1.79499996
+        ],
+        "size": [
+          6.08676147,
+          1.97770691,
+          3.5999999
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          38.66061783,
+          -1.80499995,
+          -65.33885193
+        ],
+        "max": [
+          44.7473793,
+          1.79499996,
+          -63.36114502
+        ],
+        "size": [
+          6.08676147,
+          3.5999999,
+          1.97770691
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.15000001,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        0.30901655554771423,
+        0.9510565400123596,
+        0.0
+      ],
+      "normal_component_max": [
+        0.30901697278022766,
+        0.9510566592216492,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          38.66061783,
+          -1.80499995,
+          63.36114502
+        ],
+        "max": [
+          44.7473793,
+          1.79499996,
+          65.33885193
+        ],
+        "size": [
+          6.08676147,
+          3.5999999,
+          1.97770691
+        ]
+      },
+      "unity_normal_min": [
+        0.30901655554771423,
+        0.0,
+        0.9510565400123596
+      ],
+      "unity_normal_max": [
+        0.30901697278022766,
+        0.0,
+        0.9510566592216492
+      ]
+    },
+    {
+      "name": "SM_WP06_Mist_Right_1_1",
+      "mesh_name": "SM_WP06_Mist_Right_1_1",
+      "vertices_before_fbx_seam_splitting": 4,
+      "polygons_before_triangulation": 2,
+      "polygons_in_authored_triangulated_mesh": 2,
+      "expected_triangles_after_export": 2,
+      "loops": 6,
+      "bounds_blender_local_metres": {
+        "min": [
+          40.72471619,
+          62.75,
+          -1.80499995
+        ],
+        "max": [
+          46.26728058,
+          65.94999695,
+          1.79499996
+        ],
+        "size": [
+          5.54256439,
+          3.19999695,
+          3.5999999
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          40.72471619,
+          -1.80499995,
+          -65.94999695
+        ],
+        "max": [
+          46.26728058,
+          1.79499996,
+          -62.75
+        ],
+        "size": [
+          5.54256439,
+          3.5999999,
+          3.19999695
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.0,
+          0.0
+        ],
+        "max": [
+          1.0,
+          1.0
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "rgba_max": [
+          0.57999998,
+          0.0,
+          0.0,
+          0.44999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -0.4999997615814209,
+        0.8660255074501038,
+        0.0
+      ],
+      "normal_component_max": [
+        -0.49999919533729553,
+        0.8660258054733276,
+        0.0
+      ],
+      "material_slots": [
+        "Mist"
+      ],
+      "role": "Mist",
+      "bounds_unity_local_metres": {
+        "min": [
+          40.72471619,
+          -1.80499995,
+          62.75
+        ],
+        "max": [
+          46.26728058,
+          1.79499996,
+          65.94999695
+        ],
+        "size": [
+          5.54256439,
+          3.5999999,
+          3.19999695
+        ]
+      },
+      "unity_normal_min": [
+        -0.4999997615814209,
+        0.0,
+        0.8660255074501038
+      ],
+      "unity_normal_max": [
+        -0.49999919533729553,
+        0.0,
+        0.8660258054733276
+      ]
+    },
+    {
+      "name": "SM_WP06_ShoreFoam",
+      "mesh_name": "SM_WP06_ShoreFoam",
+      "vertices_before_fbx_seam_splitting": 4092,
+      "polygons_before_triangulation": 2046,
+      "polygons_in_authored_triangulated_mesh": 2046,
+      "expected_triangles_after_export": 2046,
+      "loops": 6138,
+      "bounds_blender_local_metres": {
+        "min": [
+          -139.58773804,
+          17.5,
+          -1.30999994
+        ],
+        "max": [
+          140.25,
+          70.90499115,
+          -1.30999994
+        ],
+        "size": [
+          279.83773804,
+          53.40499115,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -139.58773804,
+          -1.30999994,
+          -70.90499115
+        ],
+        "max": [
+          140.25,
+          -1.30999994,
+          -17.5
+        ],
+        "size": [
+          279.83773804,
+          0.0,
+          53.40499115
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -29.313425064086914,
+          3.674999952316284
+        ],
+        "max": [
+          29.452499389648438,
+          14.890048027038574
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.34999999,
+          0.0,
+          0.0,
+          0.64999998
+        ],
+        "rgba_max": [
+          0.34999999,
+          0.0,
+          0.0,
+          0.64999998
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -3.682970054796897e-05,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        7.900868513388559e-05,
+        0.0,
+        1.0
+      ],
+      "material_slots": [
+        "Shore"
+      ],
+      "role": "Shore",
+      "bounds_unity_local_metres": {
+        "min": [
+          -139.58773804,
+          -1.30999994,
+          17.5
+        ],
+        "max": [
+          140.25,
+          -1.30999994,
+          70.90499115
+        ],
+        "size": [
+          279.83773804,
+          0.0,
+          53.40499115
+        ]
+      },
+      "unity_normal_min": [
+        -3.682970054796897e-05,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        7.900868513388559e-05,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_IslandWake_Heron",
+      "mesh_name": "SM_WP06_IslandWake_Heron",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -42.80681992,
+          33.353508,
+          -1.27999997
+        ],
+        "max": [
+          -34.16326904,
+          38.29921722,
+          -1.27999997
+        ],
+        "size": [
+          8.64355087,
+          4.94570923,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -42.80681992,
+          -1.27999997,
+          -38.29921722
+        ],
+        "max": [
+          -34.16326904,
+          -1.27999997,
+          -33.353508
+        ],
+        "size": [
+          8.64355087,
+          0.0,
+          4.94570923
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.003950109705328941,
+          -0.013969269581139088
+        ],
+        "max": [
+          1.0329442024230957,
+          1.0250459909439087
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "rgba_max": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.7606853361940011e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.5843868368392577e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -42.80681908,
+          -1.28,
+          33.35350628
+        ],
+        "max": [
+          -34.16326827,
+          -1.28,
+          38.29921865
+        ],
+        "size": [
+          8.64355081,
+          0.0,
+          4.94571237
+        ]
+      },
+      "unity_normal_min": [
+        -1.7606853361940011e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.5843868368392577e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_IslandWake_Willow",
+      "mesh_name": "SM_WP06_IslandWake_Willow",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -9.25852394,
+          39.00400543,
+          -1.27999997
+        ],
+        "max": [
+          1.54591465,
+          44.65625,
+          -1.27999997
+        ],
+        "size": [
+          10.80443859,
+          5.65224457,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -9.25852394,
+          -1.27999997,
+          -44.65625
+        ],
+        "max": [
+          1.54591465,
+          -1.27999997,
+          -39.00400543
+        ],
+        "size": [
+          10.80443859,
+          0.0,
+          5.65224457
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.003950109705328941,
+          -0.013969269581139088
+        ],
+        "max": [
+          1.0329442024230957,
+          1.0250459909439087
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "rgba_max": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.205709736495919e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.40142617510719e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -9.25852385,
+          -1.28,
+          39.00400718
+        ],
+        "max": [
+          1.54591466,
+          -1.28,
+          44.65624989
+        ],
+        "size": [
+          10.80443851,
+          0.0,
+          5.65224271
+        ]
+      },
+      "unity_normal_min": [
+        -1.205709736495919e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.40142617510719e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_IslandWake_Split",
+      "mesh_name": "SM_WP06_IslandWake_Split",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          31.82765007,
+          36.70300674,
+          -1.27999997
+        ],
+        "max": [
+          39.03060913,
+          40.94218826,
+          -1.27999997
+        ],
+        "size": [
+          7.20295906,
+          4.23918152,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          31.82765007,
+          -1.27999997,
+          -40.94218826
+        ],
+        "max": [
+          39.03060913,
+          -1.27999997,
+          -36.70300674
+        ],
+        "size": [
+          7.20295906,
+          0.0,
+          4.23918152
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.003950109705328941,
+          -0.013969269581139088
+        ],
+        "max": [
+          1.0329442024230957,
+          1.0250459909439087
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "rgba_max": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.3357507668843027e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        9.887173746392364e-07,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          31.82765077,
+          -1.28,
+          36.70300538
+        ],
+        "max": [
+          39.03060978,
+          -1.28,
+          40.94218742
+        ],
+        "size": [
+          7.20295901,
+          0.0,
+          4.23918204
+        ]
+      },
+      "unity_normal_min": [
+        -1.3357507668843027e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        9.887173746392364e-07,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_IslandWake_LeftCascade",
+      "mesh_name": "SM_WP06_IslandWake_LeftCascade",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          -40.53787994,
+          52.05250549,
+          -1.27999997
+        ],
+        "max": [
+          -34.7755127,
+          55.58515549,
+          -1.27999997
+        ],
+        "size": [
+          5.76236725,
+          3.53264999,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          -40.53787994,
+          -1.27999997,
+          -55.58515549
+        ],
+        "max": [
+          -34.7755127,
+          -1.27999997,
+          -52.05250549
+        ],
+        "size": [
+          5.76236725,
+          0.0,
+          3.53264999
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.003950109705328941,
+          -0.013969269581139088
+        ],
+        "max": [
+          1.0329442024230957,
+          1.0250459909439087
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "rgba_max": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -2.9750599424005486e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.529788960397127e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          -40.53787939,
+          -1.28,
+          52.05250448
+        ],
+        "max": [
+          -34.77551218,
+          -1.28,
+          55.58515618
+        ],
+        "size": [
+          5.76236721,
+          0.0,
+          3.5326517
+        ]
+      },
+      "unity_normal_min": [
+        -2.9750599424005486e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.529788960397127e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_IslandWake_RightCascade",
+      "mesh_name": "SM_WP06_IslandWake_RightCascade",
+      "vertices_before_fbx_seam_splitting": 385,
+      "polygons_before_triangulation": 704,
+      "polygons_in_authored_triangulated_mesh": 704,
+      "expected_triangles_after_export": 704,
+      "loops": 2112,
+      "bounds_blender_local_metres": {
+        "min": [
+          45.37594604,
+          49.00400543,
+          -1.27999997
+        ],
+        "max": [
+          54.73979187,
+          54.65625,
+          -1.27999997
+        ],
+        "size": [
+          9.36384583,
+          5.65224457,
+          0.0
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          45.37594604,
+          -1.27999997,
+          -54.65625
+        ],
+        "max": [
+          54.73979187,
+          -1.27999997,
+          -49.00400543
+        ],
+        "size": [
+          9.36384583,
+          0.0,
+          5.65224457
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          0.003950109705328941,
+          -0.013969269581139088
+        ],
+        "max": [
+          1.0329442024230957,
+          1.0250459909439087
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "rgba_max": [
+          0.19,
+          0.0,
+          0.0,
+          0.31999999
+        ],
+        "meaning": "R=stable effect phase; G/B=0; A=patch opacity. Water geometry rigid; shared clock animates shader."
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.4402221495402046e-06,
+        0.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.645443035158678e-06,
+        0.0,
+        -1.0
+      ],
+      "material_slots": [
+        "Foam"
+      ],
+      "role": "Foam",
+      "bounds_unity_local_metres": {
+        "min": [
+          45.375946,
+          -1.28,
+          49.00400718
+        ],
+        "max": [
+          54.73979271,
+          -1.28,
+          54.65624989
+        ],
+        "size": [
+          9.36384671,
+          0.0,
+          5.65224271
+        ]
+      },
+      "unity_normal_min": [
+        -1.4402221495402046e-06,
+        -1.0,
+        0.0
+      ],
+      "unity_normal_max": [
+        1.645443035158678e-06,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "SM_WP06_AxisMarker",
+      "mesh_name": "SM_WP06_AxisMarker",
+      "vertices_before_fbx_seam_splitting": 56,
+      "polygons_before_triangulation": 42,
+      "polygons_in_authored_triangulated_mesh": 84,
+      "expected_triangles_after_export": 84,
+      "loops": 252,
+      "bounds_blender_local_metres": {
+        "min": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.0,
+          0.102
+        ],
+        "size": [
+          2.0,
+          1.0,
+          0.102
+        ]
+      },
+      "bounds_export_axis_basis_metres": {
+        "min": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          1.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      },
+      "source_preview_location": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fbx_export_input_transform": {
+        "location": [
+          0,
+          0,
+          0
+        ],
+        "rotation_euler": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "uv0": {
+        "name": "UV0",
+        "min": [
+          -1.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.10199999809265137
+        ]
+      },
+      "vertex_attribute": {
+        "name": "TG_WindRGBA",
+        "domain": "CORNER",
+        "type": "FLOAT_COLOR",
+        "rgba_min": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "rgba_max": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "meaning": "Rigid axis diagnostic"
+      },
+      "custom_split_normals": true,
+      "normal_component_min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "normal_component_max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "material_slots": [
+        "River",
+        "Waterfall",
+        "Pool"
+      ],
+      "role": "Diagnostic",
+      "bounds_unity_local_metres": {
+        "min": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "max": [
+          2.0,
+          0.102,
+          0.0
+        ],
+        "size": [
+          2.0,
+          0.102,
+          1.0
+        ]
+      }
+    }
+  ],
+  "triangles": 45034
+}

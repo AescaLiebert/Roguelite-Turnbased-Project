@@ -59,7 +59,6 @@ namespace FightingAllstar.Presentation.Combat
             var entries = new List<ReactionPose>();
             var feedbackDuration = .28f * Mathf.Clamp(durationScale, .1f, 1f);
             var anyCritical = false;
-            var force = false;
             foreach (var item in facts.Values)
             {
                 if (!TryView(item.TargetId, out var target) || !target.gameObject.activeInHierarchy) continue;
@@ -67,7 +66,6 @@ namespace FightingAllstar.Presentation.Combat
                 var kind = item.HasHitReaction ? item.Reaction :
                     _stanceAuras.ContainsKey(item.TargetId) ? HitReaction.None : HitReaction.Hit;
                 anyCritical |= item.WasCritical;
-                force |= item.WasStanceCancelled;
                 var moreHits = item.HitCount > 1 && item.HitIndex > 0 && item.HitIndex < item.HitCount;
                 if (_reactionPoses.TryGetValue(target, out var active))
                 {
@@ -119,7 +117,7 @@ namespace FightingAllstar.Presentation.Combat
                 StartCoroutine(RunTargetReaction(entry));
             }
             // Damage can still be heard when a stance keeps the recipient motionless.
-            PlayCue(anyCritical || force ? 2 : 1);
+            _sfxPlayer?.PlayHit(anyCritical);
             if (entries.Count == 0) yield break;
             // Feedback does not move the held phase camera, even on critical impacts.
             yield return new WaitForSecondsRealtime(feedbackDuration);

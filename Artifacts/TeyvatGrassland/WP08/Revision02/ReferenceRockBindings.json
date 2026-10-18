@@ -1,0 +1,50 @@
+{
+    "bindingsPresent": true,
+    "nativeLayerUsesOriginalTexture": true,
+    "noTerrainDataOrLayerMutation": true,
+    "texture": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_RockPainted.png",
+    "terrainData": "Assets/Project/Art/Environment/TeyvatGrassland/Integration/Terrain/TG_StageLandscape.asset",
+    "nativeRockLayer": "Assets/Project/Art/Environment/TeyvatGrassland/World/Terrain/TG_WorldLayer2.terrainlayer",
+    "nativeRockTexture": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_RockPainted.png",
+    "previousSharedPaintStrength": 0.3499999940395355,
+    "sharedPaintStrength": 0.8500000238418579,
+    "worldUVPerMetre": 0.054999999701976779,
+    "tileMetres": 18.18181800842285,
+    "meshRockMaterialCount": 2,
+    "meshRockRendererSlots": 347,
+    "nativeControlSamples": 262144,
+    "nativeRockDominantSamples": 5733,
+    "maximumNativeRockWeight": 1.0,
+    "textureMeasuredLinearMean": {
+        "x": 0.17162999510765077,
+        "y": 0.18890999257564546,
+        "z": 0.21021999418735505
+    },
+    "materials": [
+        {
+            "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_Rock_870acbad.mat",
+            "name": "TG_R3_Rock",
+            "texture": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_RockPainted.png",
+            "rendererSlots": 189,
+            "previousTextureStrength": 0.800000011920929,
+            "previousSharedStyle": 1.0,
+            "textureStrength": 1.0,
+            "sharedStyle": 1.0,
+            "slotTintScale": 1.0
+        },
+        {
+            "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Materials/TG_R3_RockShade_8575f87d.mat",
+            "name": "TG_R3_RockShade",
+            "texture": "Assets/Project/Art/Environment/TeyvatGrassland/Shared/Textures/TG_RockPainted.png",
+            "rendererSlots": 158,
+            "previousTextureStrength": 0.3499999940395355,
+            "previousSharedStyle": 0.0,
+            "textureStrength": 1.0,
+            "sharedStyle": 1.0,
+            "slotTintScale": 0.8799999952316284
+        }
+    ],
+    "finding": "The original texture was already bound to mesh rocks and native layer2. The mesh shared-style branch ignored _TextureStrength and used only the scene's .35 paint strength; RockShade used a separate weak .35 path. Both suppressed the low-contrast painted strata. Native terrain already had world triplanar mapping.",
+    "change": "Lighting-owned mesh and native layer2 now use the same normalized painted albedo, coarse world projection and stronger shared paint amount. Normalize the original texture's linear mean around one before applying the profile's linear rock tint. Upward ground and soil layers retain their accepted color-field/control-map behavior; no geometry, heights, layer weights, source texture or earlier-lane material changes.",
+    "startingValues": "Paint .85; UV .055 per metre (18.18m tile); relative painted contrast1.20 clamped .50..1.65; shared mesh RockShade tint multiplier .88. Starting look-development values, to be judged in lit and unlit matched-camera ablations. These do not establish exact reference parity."
+}

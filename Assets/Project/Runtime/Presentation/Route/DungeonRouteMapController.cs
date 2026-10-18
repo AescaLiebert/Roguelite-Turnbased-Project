@@ -4,6 +4,7 @@ using System.Linq;
 using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Run;
 using FightingAllstar.Presentation;
+using FightingAllstar.Presentation.Navigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -35,12 +36,14 @@ namespace FightingAllstar.Presentation.Route
         private Button _returnLoadoutButton;
         private IVisualElementScheduledItem _pendingScroll;
         private LabyrinthBoard _board;
-        private VisualElement _rewardOverlay, _enemyOverlay;
+        private VisualElement _enemyOverlay;
+        private SummonSequenceView _rewardSequence;
         [NonSerialized] private string _inspectedNodeId;
 
         private void OnDisable()
         {
             CancelPendingScroll(); CloseEnemyDetails();
+            _rewardSequence?.Dispose(); _rewardSequence = null;
             if (_abandonButton != null) _abandonButton.clicked -= Abandon;
             if (_returnLoadoutButton != null) _returnLoadoutButton.clicked -= ReturnToDungeonSelect;
         }
@@ -241,7 +244,11 @@ namespace FightingAllstar.Presentation.Route
             var focus = anchor ?? root.panel?.focusController.focusedElement as VisualElement;
             var overlay = new VisualElement { name = "enemy-info-overlay", focusable = true }; overlay.AddToClassList("modal-scrim"); overlay.AddToClassList("enemy-info-overlay");
             var dialog = new VisualElement { name = "enemy-info-dialog" }; dialog.AddToClassList("enemy-info-dialog"); overlay.Add(dialog);
-            Action close = () => { overlay.RemoveFromHierarchy(); if (_enemyOverlay == overlay) _enemyOverlay = null; if (focus?.panel != null) focus.Focus(); };
+            Action close = () =>
+            {
+                if (_enemyOverlay == overlay) _enemyOverlay = null;
+                ScreenMotion.Remove(overlay, () => { if (_enemyOverlay == null && focus?.panel != null) focus.Focus(); });
+            };
             overlay.userData = close; _enemyOverlay = overlay;
             var d = fighter.Definition; var stats = fighter.Stats;
             var header = new VisualElement(); header.AddToClassList("enemy-popup-header"); dialog.Add(header);
@@ -278,7 +285,7 @@ namespace FightingAllstar.Presentation.Route
                 var ultimateInfo = new Foldout { text = "ULTIMATE · C" + fighter.ConstellationTier, value = false }; scroll.Add(ultimateInfo);
                 ultimateInfo.Add(new Label(Combat.CardDescriptionText.Format(ultimate?.Description ?? ultimate?.SourceDescription, ultimate?.Effect)));
             }
-            root.Add(overlay);
+            root.Add(overlay); ScreenMotion.ShowModal(overlay, dialog);
             overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) close(); });
             overlay.RegisterCallback<KeyDownEvent>(evt => { if (evt.keyCode == KeyCode.Escape) { close(); evt.StopPropagation(); } });
             overlay.Focus();
@@ -331,53 +338,42 @@ namespace FightingAllstar.Presentation.Route
 
         private void ShowPendingRewards()
         {
-            if (_document?.rootVisualElement == null || _run == null || _rewardOverlay?.panel != null) return;
+            if (_document?.rootVisualElement == null || _run == null || _rewardSequence != null) return;
             var receipt = _run.Rewards.FirstOrDefault(r => !r.CompletionBonus && !_run.PresentedRewardIds.Contains(r.Id));
             if (receipt == null) return;
-            var root = _document.rootVisualElement.Q("route-root") ?? _document.rootVisualElement;
-            var overlay = new VisualElement { name = "victory-reward-overlay", focusable = true };
-            _rewardOverlay = overlay; overlay.AddToClassList("modal-scrim"); overlay.AddToClassList("victory-reward-overlay");
-            var dialog = new VisualElement { name = "victory-reward-dialog" }; dialog.AddToClassList("modal-dialog"); dialog.AddToClassList("victory-reward-dialog"); overlay.Add(dialog);
-            var granted = PlayerInventoryService.Instance?.Snapshot?.items?.ClaimedReceiptIds.Contains(receipt.Id) == true;
-            var title = new Label(granted ? "VICTORY · REWARDS GRANTED" : "VICTORY · REWARDS SAVED"); title.AddToClassList("modal-title"); dialog.Add(title);
-            var caption = new Label(!granted ? "Your rewards are saved. Inventory delivery will retry automatically." :
-                _run.Status == RunStatus.Completed ? "Dungeon cleared. Your rewards are saved." : "Stage cleared. Prepare your team for the next stage."); caption.AddToClassList("body-copy"); dialog.Add(caption);
-            var scroll = new ScrollView(ScrollViewMode.Horizontal) { name = "victory-reward-scroll",
-                horizontalScrollerVisibility = ScrollerVisibility.Hidden, verticalScrollerVisibility = ScrollerVisibility.Hidden };
-            scroll.AddToClassList("reward-item-strip"); dialog.Add(scroll);
-            var rewards = new VisualElement { name = "victory-reward-items" }; scroll.Add(rewards);
-            rewards.style.flexWrap = Wrap.NoWrap;
-            ItemRewardView.Populate(rewards, receipt.Items.Select(i => ItemCatalog.Find(i.ItemId))
-                .Concat(receipt.Artifacts.Select(a => ItemCatalog.Find(a.ItemId))).Where(i => i != null).GroupBy(i => i.Id).Select(g => g.First()), root, receipt);
-            var hint = new Label("Scroll to see all rewards. Select an artifact to inspect its exact stats and set bonuses.");
-            hint.AddToClassList("reward-strip-hint"); dialog.Add(hint);
-            var continueButton = new Button(() =>
+            var root = _document.rootVisualElement;
+            var runId = _run.RunId;
+            // A saved receipt is only presented as obtained after its idempotent account delivery.
+            if (PlayerInventoryService.Instance?.Snapshot?.items?.ClaimedReceiptIds.Contains(receipt.Id) != true)
+            { ShowError("Rewards are saved. Inventory delivery is still pending."); return; }
+            _rewardSequence = new SummonSequenceView(root);
+            try
             {
-                if (!DungeonRunEngine.TryAcknowledgeReward(_run, receipt.Id, _run.Revision, NextRequest("reward-ack"), out var next, out var error))
-                { ShowError(error); return; }
-                try { _store.Save(next); }
-                catch (Exception exception) { caption.text = "Could not save acknowledgment. Please retry: " + exception.Message; return; }
-                _run = next;
-                DungeonFlowContext.BeginDungeonFlowForEncounter(DungeonFlowContext.GetProfileForId(_run.ProfileId), _run, null);
-                RunChanged?.Invoke(_run.Clone());
-                ItemRewardView.CloseTooltip(root); overlay.RemoveFromHierarchy(); _rewardOverlay = null;
-                ShowPendingRewards();
-            }) { name = "continue-after-reward", text = _run.Status == RunStatus.Completed ? "Continue →" : "Back to route →" };
-            continueButton.AddToClassList("primary-button"); dialog.Add(continueButton);
-            root.Add(overlay); continueButton.Focus(); ScreenMotion.Show(dialog);
-            overlay.RegisterCallback<ClickEvent>(evt => evt.StopPropagation());
-            overlay.RegisterCallback<KeyDownEvent>(evt =>
-            {
-                if (evt.keyCode == KeyCode.Tab)
+                _rewardSequence.PlayItems(receipt, () =>
                 {
-                    var controls = dialog.Query<Button>().ToList();
-                    var focused = root.panel?.focusController.focusedElement as Button;
-                    var index = controls.IndexOf(focused);
-                    controls[(index + (evt.shiftKey ? controls.Count - 1 : 1)) % controls.Count].Focus();
-                    evt.StopPropagation(); evt.PreventDefault();
-                }
-            });
+                    _rewardSequence?.Dispose(); _rewardSequence = null;
+                    if (!isActiveAndEnabled || _run == null || _run.RunId != runId) return;
+                    if (!DungeonRunEngine.TryAcknowledgeReward(_run, receipt.Id, _run.Revision, NextRequest("reward-ack"), out var next, out var error))
+                    { ShowError(error); ShowPendingRewards(); return; }
+                    try { _store.Save(next); }
+                    catch (Exception exception)
+                    { ShowError("Could not save reward acknowledgment. Please retry: " + exception.Message); ShowPendingRewards(); return; }
+                    _run = next;
+                    DungeonFlowContext.BeginDungeonFlowForEncounter(DungeonFlowContext.GetProfileForId(_run.ProfileId), _run, null);
+                    RunChanged?.Invoke(_run.Clone());
+                    ItemRewardView.CloseTooltip(root);
+                    ShowPendingRewards();
+                });
+            }
+            catch (Exception error)
+            {
+                _rewardSequence?.Dispose(); _rewardSequence = null;
+                ShowError("Your rewards are saved. Reopen the route to view them: " + error.Message);
+                Debug.LogException(error, this);
+            }
         }
+
+        public void PresentSavedRewards() => ShowPendingRewards();
 
         private bool CommitInspectedNode()
         {
@@ -457,7 +453,7 @@ namespace FightingAllstar.Presentation.Route
                 }
                 else
                 {
-                    SceneManager.LoadScene("Combat");
+                    FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat");
                 }
             }
             else { _confirmAbandon = false; ShowError(error); }
@@ -475,14 +471,14 @@ namespace FightingAllstar.Presentation.Route
             }
             else
             {
-                SceneManager.LoadScene("Combat");
+                FightingAllstar.Presentation.ScreenMotion.LoadScene("Combat");
             }
         }
 
         private void ReturnHome()
         {
             // The active run stays persisted so returning from Home resumes the map.
-            SceneManager.LoadScene("MainMenu");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene("MainMenu");
         }
 
         private void PersistAndNotify()

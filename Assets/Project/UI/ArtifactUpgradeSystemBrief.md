@@ -11,10 +11,10 @@ This brief defines how an individual artifact advances from **+0 to +20** and ho
 - Each successful level increase raises the artifact’s **main stat**. It always improves, regardless of whether the upgrade level is also a substat milestone.
 - At positive levels divisible by six—**+6, +12, and +18**—one randomly selected existing substat line receives an increase.
 - The milestone increases an existing line; it does not add another line. The artifact’s substat count remains set by its rarity: Common 0, Uncommon 1, Rare 2, SR 3, SSR 4.
-- The substat increase is a separate quality roll for that line, subject to the line’s allowed value range. Main-stat growth has its own level-based minimum/maximum values and no quality roll.
+- The substat increase uses its authored base multiplied by an independent **0.7–1.0** quality roll and **rarity / 5**, flooring once. Main-stat growth uses the +0/+20 endpoints in the [Artifact Balance Table](ArtifactBalanceTable.md), with no quality or rarity multiplier.
 - No substat milestone occurs at +20. +20 is the cap.
 
-For Common artifacts, which have no substat lines, the +6 / +12 / +18 substat event has no eligible line and is skipped; the main stat still increases at each level. Whether Common items should have any substitute milestone reward is not defined here.
+For Common artifacts, which have no substat lines, the +6 / +12 / +18 substat event has no eligible line and is skipped; the main stat still increases at each level.
 
 ## Upgrade materials
 
@@ -25,7 +25,7 @@ Two material sources can contribute to artifact upgrades:
 
 When used as fodder, the source artifact is consumed. A favorite artifact is never eligible as fodder. The player may still equip a favorite or upgrade it using valid materials; favorite protects it only from being consumed to upgrade another artifact.
 
-The Dust and fodder costs per level, upgrade points granted by each artifact, rarity multipliers, overflow handling, and whether both sources can be combined in a single upgrade action remain open economy decisions. The UI should show the target artifact, current and next level, expected main-stat increase, any substat milestone at that level, and the exact materials consumed before confirmation.
+Both material sources can be combined in one transaction. Existing starting economy values are listed in [ArtifactImplementation.md](ArtifactImplementation.md): Dust gives 100 EXP, Coins cost 2 per usable EXP, upgraded fodder returns 80% of invested EXP plus its base value, and cap overflow is disclosed and discarded. The UI shows the target artifact, current and draft level, expected stat increases, and exact materials consumed before confirmation.
 
 ## Favourite lock
 
@@ -39,7 +39,7 @@ Show a clear favorite marker in inventory and artifact detail views. When select
 
 ## Stat identity and roll rules
 
-The main-stat family, rarity-based substat count, no-duplicate-substat rule, and stat pool are defined in the parent artifact brief. Main-stat upgrades apply at every level. Only the +6 / +12 / +18 milestones increase a substat line. **Combat Class and Reflect Damage are Special Stats**: they are valid substat lines, but not main stats. A single compact cannot contain duplicate identities; flat DEF and DEF% remain distinct identities and may both appear.
+The main-stat eligibility, all 19 substat bases, and quality/rarity formula are defined in the [Artifact Balance Table](ArtifactBalanceTable.md). Main-stat upgrades apply at every level. Only the +6 / +12 / +18 milestones increase a substat line. Combat Class and Reflect Damage are excluded from the artifact pool. A compact cannot repeat its exact main identity or another substat identity; flat DEF and DEF% remain distinct identities. Random line selection and quality are stable for each artifact/milestone, so changing draft materials cannot reroll an outcome. Confirmation revalidates the complete reviewed result before consuming resources.
 
 ## Example progression
 
@@ -54,12 +54,6 @@ The main-stat family, rarity-based substat count, no-duplicate-substat rule, and
 | +18 | Increases | One random existing substat line increases, if any line exists |
 | +19 to +20 | Increases every level | None; +20 is the cap |
 
-## Out of scope / tuning still needed
+## Current implementation
 
-- Dust and fodder costs, fodder conversion, upgrade success guarantees, and excess-material handling.
-- Main-stat min/max growth by stat, slot, rarity, and artifact level.
-- Substat quality ranges and the size of a milestone increase by stat, rarity, and artifact level.
-- Random selection weights when an artifact has multiple substat lines.
-- Any replacement reward for Common artifacts at +6, +12, or +18.
-
-This is a design brief only. It does not change item definitions, inventory storage, UI, or upgrade behavior in code.
+Enhancement succeeds when the review remains valid and its costs can be saved. Eligible substat lines are selected uniformly at each milestone; a line may be selected more than once. The [Artifact Balance Table](ArtifactBalanceTable.md) records the authored values and saved-artifact migration. [ArtifactImplementation.md](ArtifactImplementation.md) describes the remaining starting economy values and UI behavior.

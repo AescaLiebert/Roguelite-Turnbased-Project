@@ -17,7 +17,7 @@ namespace FightingAllstar.Presentation
             if (tree == null) { Debug.LogError("Backpack UXML is missing from Resources/UI."); return; }
             var overlay = tree.CloneTree(); overlay.name = "item-inventory-overlay";
             overlay.AddToClassList("backpack-overlay"); root.Add(overlay);
-            overlay.userData = new Binding(root, overlay);
+            overlay.userData = new Binding(root, overlay); ScreenMotion.ShowModal(overlay);
         }
 
         private sealed class Binding
@@ -135,8 +135,8 @@ namespace FightingAllstar.Presentation
             {
                 if (_closed) return; _closed = true;
                 ItemRewardView.CloseTooltip(_root); PlayerInventoryService.InventoryChanged -= Refresh;
-                _overlay.RemoveFromHierarchy();
-                if (_previousFocus?.panel != null) _previousFocus.Focus(); else _root.Q<Button>("backpack")?.Focus();
+                ScreenMotion.Remove(_overlay, () =>
+                { if (_previousFocus?.panel != null) _previousFocus.Focus(); else _root.Q<Button>("backpack")?.Focus(); });
             }
         }
     }
