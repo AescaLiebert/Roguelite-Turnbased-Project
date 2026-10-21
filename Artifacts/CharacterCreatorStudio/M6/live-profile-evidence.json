@@ -1,0 +1,28 @@
+{
+  "Success": true,
+  "Error": null,
+  "Checks": [
+    "Profile setup still uses the actual 3D battle actors.",
+    "Normal lab card submission accepts the profiled ability.",
+    "Pausing Play Mode freezes the visual profile clock.",
+    "The extracted playback driver runs the authored ability in Play Mode.",
+    "The runtime driver samples the authored rig clip.",
+    "Committed contact playback emits authored socket FX.",
+    "Normal floating combat text and impact audio remain active.",
+    "The authored contact audio cue plays through the injected runtime audio source.",
+    "Recovery releases the driver and every contact effect.",
+    "Profiled playback preserves exact engine contact amounts, targets, indices and final HP.",
+    "Animation, FX and camera consume no combat or card RNG.",
+    "Final displayed HP projection agrees with authoritative state.",
+    "Stopping restores the original editor scene and dirty state.",
+    "Live profiles leave scene bytes unchanged and clear their volatile context."
+  ],
+  "SawClip": true,
+  "SawFx": true,
+  "SawFct": true,
+  "SawAudio": true,
+  "Paused": true,
+  "RuntimeAssemblyHash": "43iyAMVRrtch6vYMS0y3ylPt0SVzWnrNnIhnjV2JnQg=",
+  "EditorAssemblyHash": "5RQCcXSYyPPez0phALnuUB7UiAwtnc2iaQa0GF2r5tQ=",
+  "CapturedUtc": "2026-10-20T08:44:54.5654887Z"
+}

@@ -214,7 +214,7 @@ internal static partial class BattlePlaybackChecks
             var shatter=events.Single(e=>e.Kind==BattleEventKind.DamageApplied && e.ElementalReaction==ElementalReactionId.Shatter);
             var expected=level*500*3*15/10;
             Check(shatter.Amount==expected && shatter.DamageElement==ElementId.None && shatter.DamageOrigin==ElementalDamageOrigin.Reaction &&
-                shatter.ShieldLost==100 && shatter.HealthLost==expected-100 && !shatter.WasCritical && !shatter.WasBlocked,
+                shatter.ShieldLost==100 && shatter.HealthLost==System.Math.Min(target.Health,expected-100) && !shatter.WasCritical && !shatter.WasBlocked,
                 "Shatter must use one level/DOT-based non-elemental packet at 3x, independent of ATK and defense.");
             Check(events.Count(e=>e.Kind==BattleEventKind.ElementalReactionTriggered && e.ElementalReaction==ElementalReactionId.Shatter)==1 &&
                 shatter.ParentEventId==events.First(e=>e.Kind==BattleEventKind.DamageApplied).Id,

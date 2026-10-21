@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: heidern95
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.pre-release.heidern95
+  runtimeReady: 1
+  familyId: family.heidern95
+  seriesId: series.kof
+  role: 
+  traitIds:
+  - trait.ikari-team
+  - trait.series-kof
+  - trait.male
+  - trait.rival-team
+  - trait.secret-agent
+  passiveSourceDescription: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E49\u0E32\u0E19\u0E1E\u0E25\u0E31\u0E07\u0E0A\u0E35\u0E27\u0E34\u0E15\u0E17\u0E35\u0E21\u0E2A\u0E35\u0E19\u0E49\u0E33\u0E40\u0E07\u0E34\u0E19
+    20%"
+  passiveSourceType: 0
+  passiveRestriction: 0
+  passiveDefinition: {fileID: 11400000, guid: 4f88d0d322dc60b48a9682c7bc2c8574, type: 2}
+  studioSchema: 1
+  studioMetadataJson: "{\"CategoryId\":9117,\"SchemaVersion\":1,\"RuntimeReady\":true,\"Id\":\"fighter.pre-release.heidern95\",\"SourceId\":\"pre-release-character.csv#row-18\",\"SourceRecord\":18,\"DisplayName\":\"Heidern95\",\"FamilyId\":\"family.heidern95\",\"Role\":\"\",\"SeriesId\":\"series.kof\",\"AttributeId\":\"attribute.blue\",\"RarityId\":\"rarity.ssr\",\"TraitIds\":[\"trait.ikari-team\",\"trait.series-kof\",\"trait.male\",\"trait.rival-team\",\"trait.secret-agent\"],\"BaseStats\":{\"Attack\":450,\"Defense\":300,\"MaxHealth\":6000,\"CombatClass\":3400,\"HasDerivedCombatClass\":false,\"CombatClassReferenceValue\":0,\"CombatClassFlatBonus\":0,\"CombatClassReferenceScore\":0,\"CombatClassGrowthScore\":0,\"PierceBp\":4000,\"ResistanceBp\":0,\"RegenerationBp\":1000,\"CritChanceBp\":1000,\"CritDamageBp\":14000,\"CritResistanceBp\":2000,\"CritDefenseBp\":2000,\"RecoveryBp\":15000,\"BlockChanceBp\":1000,\"BlockPowerBp\":1000,\"LifeStealBp\":1500,\"EvadeBp\":0,\"PerceptionBp\":10000,\"ControlBp\":10000,\"AvoidanceBp\":10000,\"ReflectDamageBp\":0,\"DamageOverTimeDealtBp\":0,\"DamageDealtBp\":0,\"AdditionalDamageDealtBp\":0,\"ElementalModifiers\":[]},\"StatGrowth\":{\"AttackBp\":100,\"DefenseBp\":100,\"HealthBp\":100,\"CombatClassBp\":0},\"ArtifactLoadout\":[],\"Skills\":[],\"PassiveId\":\"fighter.pre-release.heidern95.passive\",\"PassiveSource\":{\"SourceType\":\"\",\"Description\":\"\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E49\u0E32\u0E19\u0E1E\u0E25\u0E31\u0E07\u0E0A\u0E35\u0E27\u0E34\u0E15\u0E17\u0E35\u0E21\u0E2A\u0E35\u0E19\u0E49\u0E33\u0E40\u0E07\u0E34\u0E19
+    20%\",\"Restriction\":\"\",\"Provenance\":\"ArtDirection/Character Database/Pre-Release-Character.csv\",\"Wording\":null},\"Passive\":null,\"HolyRelicSource\":null,\"ReviewNotes\":[\"Source:
+    ArtDirection/Character Database/Pre-Release-Character.csv, CSV row 18; release
+    label: Pre-Middle.\",\"The source provides one value per Skill and Ultimate.
+    That value is preserved across ranks 1-3 and Ultimate tiers C0-C5 until progression
+    data is supplied.\",\"The source omits Evade, Perception, Control, Avoidance,
+    and level growth. The four secondary fields use the project neutral defaults;
+    growth uses CharacterStatGrowth defaults.\"],\"SourceTraits\":[\"Ikari Team\",\"KOF\",\"Male\",\"Rival
+    Team\",\"Secret Agent\"],\"SourceStats\":[{\"StatId\":\"Attack\",\"SourceField\":\"ATK\",\"SourceValue\":450.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":450.0},{\"StatId\":\"Defense\",\"SourceField\":\"DEF\",\"SourceValue\":300.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":300.0},{\"StatId\":\"MaxHealth\",\"SourceField\":\"HP\",\"SourceValue\":6000.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":6000.0},{\"StatId\":\"CombatClass\",\"SourceField\":\"Class
+    Power\",\"SourceValue\":3400.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3400.0},{\"StatId\":\"Pierce\",\"SourceField\":\"Pierce
+    Rate\",\"SourceValue\":40.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":4000.0},{\"StatId\":\"Resistance\",\"SourceField\":\"Resistence\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"Regeneration\",\"SourceField\":\"Regenerate\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"CritChance\",\"SourceField\":\"Crit
+    Chance\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"CritDamage\",\"SourceField\":\"Crit
+    Damage\",\"SourceValue\":140.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":14000.0},{\"StatId\":\"CritResistance\",\"SourceField\":\"Crit
+    Resistence\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"CritDefense\",\"SourceField\":\"Crit
+    Defense\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"Recovery\",\"SourceField\":\"Recovery
+    Rate\",\"SourceValue\":150.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":15000.0},{\"StatId\":\"BlockChance\",\"SourceField\":\"Block
+    Chance\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"BlockPower\",\"SourceField\":\"Block
+    Power\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"LifeSteal\",\"SourceField\":\"Lifesteal\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Evade\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":0.0,\"Unit\":\"basis-points\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":0.0},{\"StatId\":\"Perception\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Control\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Avoidance\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0}],\"UltimateTiers\":[],\"StatsProvenance\":0}"
+  studioBundleHash: studio-bundle-v1:ce324289f6719aba40a86c5324e6ab4afc4baf73ae7198a7c0c951b0c8985dd5
+  studioAuthoringJson: "{\"SchemaVersion\":5,\"Id\":\"studio.pre-release.heidern95\",\"Name\":\"Heidern95\",\"SourceCharacterId\":\"fighter.pre-release.heidern95\",\"LegacyCharacter\":null,\"AuthoredCharacter\":null,\"OwnsOpeningGauge\":false,\"ReplacedNativeReactionIds\":[],\"NativeReactionOrder\":[],\"CompatibilityReasons\":{},\"Parameters\":[],\"Rules\":[],\"Conditions\":[],\"Actions\":[],\"Modules\":[],\"Resources\":[],\"Statuses\":[],\"Policies\":[],\"AbilityVariants\":[],\"AbilityOverrides\":[],\"Description\":{\"SchemaVersion\":1,\"Id\":\"description.default\",\"OwnerId\":\"studio.pre-release.heidern95\",\"DefaultLocale\":\"en\",\"Locales\":[{\"Locale\":\"en\",\"ReviewState\":\"Draft\",\"ReviewedTextHash\":\"\",\"ReviewedGameplayHash\":\"\",\"Blocks\":[{\"Id\":\"paragraph.main\",\"Kind\":0,\"StyleId\":\"\",\"Source\":\"\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E49\u0E32\u0E19\u0E1E\u0E25\u0E31\u0E07\u0E0A\u0E35\u0E27\u0E34\u0E15\u0E17\u0E35\u0E21\u0E2A\u0E35\u0E19\u0E49\u0E33\u0E40\u0E07\u0E34\u0E19
+    20%\",\"MechanicIds\":[],\"HasFallback\":true,\"Branches\":[],\"DetachedSnippetOrigins\":[]}]}],\"Bindings\":[]},\"Presentation\":{\"Id\":\"presentation.default\",\"ActorAssetGuid\":null,\"ActionClipGuid\":null,\"ReactionClipGuid\":null,\"DurationMilliseconds\":1000}}"
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
+  id: 9117
+  fighterName: Heidern95
+  fighterPic: {fileID: 21300000, guid: 9e1c151eebc57bb4d886487c6a758705, type: 3}
+  fighterIcon: {fileID: 21300000, guid: d25acc9ba57bfc146bcacecb394e8d3e, type: 3}
+  fighterFull: {fileID: 21300000, guid: 9e1c151eebc57bb4d886487c6a758705, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 0}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 0}
+  fighterModelYawOffset: 180
+  Skill1: {fileID: 11400000, guid: 24ed9b405d1e0d64795a7addc1b40fc4, type: 2}
+  Skill2: {fileID: 11400000, guid: f3229bbda4b51894a93ad445859184ba, type: 2}
+  Ultimate: {fileID: 11400000, guid: ee8b6fa50a45a4444912f6561461b700, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 1
+  LevelGrowth:
+    AttackBp: 100
+    DefenseBp: 100
+    HealthBp: 100
+  Classpower: 3400
+  attack: 450
+  defense: 300
+  health: 6000
+  SecondaryStats:
+    PierceRate: 40
+    Resistance: 0
+    Regenerate: 10
+    CritChance: 10
+    CritDmg: 140
+    CritResistance: 20
+    CritDefense: 20
+    RecoveryRate: 150
+    BlockChance: 10
+    BlockPower: 10
+    LifeSteal: 15
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

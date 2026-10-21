@@ -65,7 +65,15 @@ internal static partial class BattlePlaybackChecks
         StatusSystem.Apply(evade.Opponent.Fighters[0], "evade", TeamSide.Opponent,
             new StatusRecipeDefinition { Id = "evade", Polarity = StatusPolarity.Buff, EvadeAttacks = true }, "evade", "fixture", 1);
         var evadeNext = PlayKind(evade, CardCategory.Attack, EffectTargetScope.SelectedEnemy, ElementAttack(ElementId.Pyro));
-        Check(evadeNext.Opponent.Fighters[0].ElementStatuses.Instances.Count == 0, "Evaded hit applied aura.");
+        Check(evadeNext.Opponent.Fighters[0].ElementStatuses.Instances.Count == 0 &&
+            evadeNext.Events.Skip(evade.Events.Count).Any(e => e.Kind == BattleEventKind.AttackEvaded), "Evaded hit applied aura.");
+        var patience = ElementFixture();
+        var patienceHit = ElementAttack(ElementId.Electro); patienceHit.CoefficientBp = 0;
+        var patienceNext = PlayKind(patience, CardCategory.Attack, EffectTargetScope.SelectedEnemy, patienceHit);
+        Check(patienceNext.Events.Skip(patience.Events.Count).Any(e => e.Kind == BattleEventKind.DamageApplied && e.WasEndured) &&
+            !patienceNext.Opponent.Fighters[0].ElementStatuses.Has(ElementId.Electro) &&
+            !patienceNext.Events.Skip(patience.Events.Count).Any(e => e.Kind == BattleEventKind.ElementStatusApplied),
+            "Patience applied an elemental aura despite the failed damage hit.");
         foreach (var recipe in new[] { "status.debuff.ignite", "status.debuff.shock", "status.debuff.frost-bite" })
         {
             var state = ElementFixture();

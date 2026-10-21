@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: saisyu95_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Policies: []
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.pre-release.saisyu95.passive
+    Auras: []
+    Reactions: []
+    Triggers: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Policies":[],"Support":null,"Id":"fighter.pre-release.saisyu95.passive","Auras":[],"Reactions":[{"ExecutionVersion":0,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":"fighter.pre-release.saisyu95.low-health-burn","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":1,"DamageTiming":0,"OwnTeamTurnOnly":true,"ActorRelation":1,"TargetRelation":0,"CardOriginOnly":false,"ExcludeUltimate":false,"RequireGaugeLoss":false,"RequireCritical":false,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"DamageFamily":0,"FilterCategory":false,"Category":0,"MinimumRank":0,"LimitScope":0,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[{"Kind":15,"RecipeId":null,"Tag":null,"StringValue":null,"Threshold":5000,"Negate":false,"Logic":0,"Subject":1,"RosterFilter":null,"InitialRoster":false,"Children":[]}],"Commands":[{"Kind":2,"CounterKey":null,"CounterCap":2147483647,"ValueSource":0,"ValueBinding":null,"EffectBinding":0,"Amount":1,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":{"TargetQuery":null,"Id":"fighter.pre-release.saisyu95.passive-burning","Order":0,"Window":4,"Kind":1,"Target":3,"Conditions":[],"Damage":null,"Status":{"StatusRecipeId":"status.reaction.burning","DurationOverride":3,"StackCount":2,"PotencySource":0,"PotencySourceRecipeId":null,"PotencyBp":0,"ProcChanceBp":10000,"InlineRecipe":{"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"status.reaction.burning","NameKey":"Burning","Polarity":1,"Color":0,"Behavior":2,"Stacking":2,"Identity":0,"DurationClock":1,"DefaultDuration":3,"MaxStacks":3,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":["status.ignite","status.dot"],"Modifiers":[],"PeriodicDamage":{"Element":1,"Family":5,"Timing":2,"Scaling":2,"CoefficientBp":30000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":null,"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":null,"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]}},"StatTransfer":null,"RemovePolarity":0,"RemoveRecipeId":null,"RemoveAll":true,"Magnitude":0,"StatusDurationOverride":0,"Value":null},"SkillId":null,"VariantId":null,"VariantUnlocked":false}],"ElseCommands":[],"Actions":[]},{"ExecutionVersion":0,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":"fighter.pre-release.saisyu95.low-health-damage","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":5,"DamageTiming":0,"OwnTeamTurnOnly":false,"ActorRelation":1,"TargetRelation":3,"CardOriginOnly":true,"ExcludeUltimate":false,"RequireGaugeLoss":false,"RequireCritical":false,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"DamageFamily":0,"FilterCategory":false,"Category":0,"MinimumRank":0,"LimitScope":0,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[{"Kind":15,"RecipeId":null,"Tag":null,"StringValue":null,"Threshold":5000,"Negate":false,"Logic":0,"Subject":1,"RosterFilter":null,"InitialRoster":false,"Children":[]}],"Commands":[{"Kind":5,"CounterKey":null,"CounterCap":2147483647,"ValueSource":0,"ValueBinding":null,"EffectBinding":0,"Amount":2000,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":null,"SkillId":null,"VariantId":null,"VariantUnlocked":false}],"ElseCommands":[],"Actions":[]}],"Triggers":[]}'

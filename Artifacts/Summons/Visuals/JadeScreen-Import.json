@@ -1,0 +1,34 @@
+{
+  "entity": "JadeScreen",
+  "rig": "Generic",
+  "clips": [
+    {
+      "name": "AbsorbHit",
+      "length": 0.433333367,
+      "isLooping": false
+    },
+    {
+      "name": "Break",
+      "length": 0.866666734,
+      "isLooping": false
+    },
+    {
+      "name": "Despawn",
+      "length": 0.6666667,
+      "isLooping": false
+    },
+    {
+      "name": "Idle",
+      "length": 2.0,
+      "isLooping": true
+    },
+    {
+      "name": "Spawn",
+      "length": 0.900000036,
+      "isLooping": false
+    }
+  ],
+  "boundsCenter": "(0.00, 1.54, -0.03)",
+  "boundsSize": "(5.19, 3.07, 0.66)",
+  "skinnedMeshes": 2
+}

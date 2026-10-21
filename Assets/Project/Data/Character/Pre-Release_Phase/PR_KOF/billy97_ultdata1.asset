@@ -1,0 +1,1195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9ad1cdb4878bd4787c7185e9af84d4, type: 3}
+  m_Name: billy97_ultdata1
+  m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
+  ultimateName: "Billy Kane97 \xB7 Ultimate"
+  icon: {fileID: 0}
+  statusVisuals: []
+  levels:
+  - Wording:
+      rid: 1001
+    level: 0
+    description: "375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+      30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+      40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+      \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 5
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      StatusApplyChanceBonusStat: 7
+      StatusApplyChanceBonusCoefficientBp: 0
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: 1003
+    level: 1
+    description: "375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+      30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+      40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+      \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 5
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      StatusApplyChanceBonusStat: 7
+      StatusApplyChanceBonusCoefficientBp: 0
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: 1004
+    level: 2
+    description: "375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+      30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+      40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+      \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 5
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      StatusApplyChanceBonusStat: 7
+      StatusApplyChanceBonusCoefficientBp: 0
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: 1007
+    level: 3
+    description: "375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+      30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+      40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+      \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 5
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      StatusApplyChanceBonusStat: 7
+      StatusApplyChanceBonusCoefficientBp: 0
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: 1008
+    level: 4
+    description: "375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+      30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+      40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+      \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 5
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      StatusApplyChanceBonusStat: 7
+      StatusApplyChanceBonusCoefficientBp: 0
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: 1011
+    level: 5
+    description: "375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+      30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+      40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+      \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 5
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      StatusApplyChanceBonusStat: 7
+      StatusApplyChanceBonusCoefficientBp: 0
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: "[{\"Category\":5,\"Tier\":0,\"SourceLabel\":\"Billy Kane97
+    \xB7 Ultimate\",\"Description\":\"375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375%
+    \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-crit-resistance-down.c0\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.decrease.resistence\",\"NameKey\":\"Critical
+    Resistance Down\",\"Polarity\":1,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":0,\"Stat\":9,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":-3000,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":0,\"ResolvedStat\":9,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}},{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-stun.c0\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.stun\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":4,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":63,\"Tags\":[\"control.stun\",\"status.disable\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":1,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":4000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":2500,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate.damage.c0\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":37500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":{\"Text\":\"Inflict
+    damage equal to <color=#fbbf24><b>375%</b></color> of the hero's Attack on one
+    enemy, <color=#A3A3A3>then on a critical hit, decrease one enemy's Crit Resistance
+    by 30% for 2 turns, then on a critical hit, has a 40% chance to apply Stun on
+    one enemy for 1 turn</color>\",\"AutoHighlight\":false,\"AutomaticKeywords\":true,\"KeywordNotes\":\"\",\"Highlights\":[]}},{\"Category\":5,\"Tier\":1,\"SourceLabel\":\"Billy
+    Kane97 \xB7 Ultimate\",\"Description\":\"375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375%
+    \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-crit-resistance-down.c1\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.decrease.resistence\",\"NameKey\":\"Critical
+    Resistance Down\",\"Polarity\":1,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":0,\"Stat\":9,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":-3000,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":0,\"ResolvedStat\":9,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":6,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}},{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-stun.c1\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.stun\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":4,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":63,\"Tags\":[\"control.stun\",\"status.disable\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":1,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":4000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":2500,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":6,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate.damage.c1\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":{\"Text\":\"Inflict
+    damage equal to <color=#fbbf24><b>405%</b></color> of the hero's Attack on one
+    enemy, <color=#A3A3A3>then on a critical hit, decrease one enemy's Crit Resistance
+    by 30% for 2 turns, then on a critical hit, has a 40% chance to apply Stun on
+    one enemy for 1 turn</color>\",\"AutoHighlight\":false,\"AutomaticKeywords\":true,\"KeywordNotes\":\"\",\"Highlights\":[]}},{\"Category\":5,\"Tier\":2,\"SourceLabel\":\"Billy
+    Kane97 \xB7 Ultimate\",\"Description\":\"375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375%
+    \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-crit-resistance-down.c2\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.decrease.resistence\",\"NameKey\":\"Critical
+    Resistance Down\",\"Polarity\":1,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":0,\"Stat\":9,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":-3000,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":0,\"ResolvedStat\":9,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":6,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}},{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-stun.c2\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.stun\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":4,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":63,\"Tags\":[\"control.stun\",\"status.disable\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":1,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":4000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":2500,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate.damage.c2\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":43500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":{\"Text\":\"Inflict
+    damage equal to <color=#fbbf24><b>435%</b></color> of the hero's Attack on one
+    enemy, <color=#A3A3A3>then on a critical hit, decrease one enemy's Crit Resistance
+    by 30% for 2 turns, then on a critical hit, has a 40% chance to apply Stun on
+    one enemy for 1 turn</color>\",\"AutoHighlight\":false,\"AutomaticKeywords\":true,\"KeywordNotes\":\"\",\"Highlights\":[]}},{\"Category\":5,\"Tier\":3,\"SourceLabel\":\"Billy
+    Kane97 \xB7 Ultimate\",\"Description\":\"375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375%
+    \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-crit-resistance-down.c3\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.decrease.resistence\",\"NameKey\":\"Critical
+    Resistance Down\",\"Polarity\":1,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":0,\"Stat\":9,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":-3000,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":0,\"ResolvedStat\":9,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}},{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-stun.c3\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.stun\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":4,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":63,\"Tags\":[\"control.stun\",\"status.disable\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":1,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":4000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":2500,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate.damage.c3\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":46500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":{\"Text\":\"Inflict
+    damage equal to <color=#fbbf24><b>465%</b></color> of the hero's Attack on one
+    enemy, <color=#A3A3A3>then on a critical hit, decrease one enemy's Crit Resistance
+    by 30% for 2 turns, then on a critical hit, has a 40% chance to apply Stun on
+    one enemy for 1 turn</color>\",\"AutoHighlight\":false,\"AutomaticKeywords\":true,\"KeywordNotes\":\"\",\"Highlights\":[]}},{\"Category\":5,\"Tier\":4,\"SourceLabel\":\"Billy
+    Kane97 \xB7 Ultimate\",\"Description\":\"375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375%
+    \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-crit-resistance-down.c4\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.decrease.resistence\",\"NameKey\":\"Critical
+    Resistance Down\",\"Polarity\":1,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":0,\"Stat\":9,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":-3000,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":0,\"ResolvedStat\":9,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}},{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-stun.c4\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.stun\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":4,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":63,\"Tags\":[\"control.stun\",\"status.disable\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":1,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":4000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":2500,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate.damage.c4\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":49500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":{\"Text\":\"Inflict
+    damage equal to <color=#fbbf24><b>495%</b></color> of the hero's Attack on one
+    enemy, <color=#A3A3A3>then on a critical hit, decrease one enemy's Crit Resistance
+    by 30% for 2 turns, then on a critical hit, has a 40% chance to apply Stun on
+    one enemy for 1 turn</color>\",\"AutoHighlight\":false,\"AutomaticKeywords\":true,\"KeywordNotes\":\"\",\"Highlights\":[]}},{\"Category\":5,\"Tier\":5,\"SourceLabel\":\"Billy
+    Kane97 \xB7 Ultimate\",\"Description\":\"375% \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375%
+    \u0E2B\u0E32\u0E01\u0E42\u0E08\u0E21\u0E15\u0E35\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E08\u0E30\u0E16\u0E39\u0E14\u0E25\u0E14\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E15\u0E49\u0E32\u0E19\u0E17\u0E32\u0E19\u0E04\u0E23\u0E34\u0E25\u0E14
+    30% 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19 \u0E40\u0E40\u0E25\u0E30\u0E21\u0E35\u0E42\u0E2D\u0E01\u0E32\u0E28
+    40%(+1% \u0E15\u0E32\u0E21\u0E17\u0E38\u0E01\u0E46 4% \u0E02\u0E2D\u0E07\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E04\u0E23\u0E34\u0E15\u0E19\u0E40\u0E2D\u0E07)
+    \u0E2A\u0E15\u0E31\u0E49\u0E19\u0E28\u0E31\u0E15\u0E23\u0E39 1 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-crit-resistance-down.c5\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.decrease.resistence\",\"NameKey\":\"Critical
+    Resistance Down\",\"Polarity\":1,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":0,\"Stat\":9,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":-3000,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":0,\"ResolvedStat\":9,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}},{\"Timing\":3,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate-stun.c5\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[{\"Kind\":11,\"RecipeId\":null,\"Tag\":null,\"StringValue\":null,\"Threshold\":0,\"Negate\":false,\"Logic\":0,\"Subject\":0,\"RosterFilter\":null,\"InitialRoster\":false,\"Children\":[]}],\"StatusRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.stun\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":4,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":63,\"Tags\":[\"control.stun\",\"status.disable\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":1,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":4000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":2500,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.billy97.ultimate.damage.c5\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":52500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"StatusApplyChanceBonusStat\":7,\"StatusApplyChanceBonusCoefficientBp\":0,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageRecipe\":null,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":{\"Text\":\"Inflict
+    damage equal to <color=#fbbf24><b>525%</b></color> of the hero's Attack on one
+    enemy, <color=#A3A3A3>then on a critical hit, decrease one enemy's Crit Resistance
+    by 30% for 2 turns, then on a critical hit, has a 40% chance to apply Stun on
+    one enemy for 1 turn</color>\",\"AutoHighlight\":false,\"AutomaticKeywords\":true,\"KeywordNotes\":\"\",\"Highlights\":[]}}]"
+  hasStudioCardSettings: 1
+  studioCategory: 5
+  studioTargetScope: 3
+  studioDamageAnimation:
+    HitCount: 3
+    Range: 0
+    Reaction: 4
+    ReactionTiming: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1001
+      type: {class: AuthoredDescription, ns: FightingAllstar.Core.Content, asm: FightingAllstar.Core}
+      data:
+        Text: Inflict damage equal to <color=#fbbf24><b>375%</b></color> of the hero's
+          Attack on one enemy, <color=#A3A3A3>then on a critical hit, decrease one
+          enemy's Crit Resistance by 30% for 2 turns, then on a critical hit, has
+          a 40% chance to apply Stun on one enemy for 1 turn</color>
+        AutoHighlight: 0
+        AutomaticKeywords: 1
+        KeywordNotes: 
+        Highlights: []
+    - rid: 1003
+      type: {class: AuthoredDescription, ns: FightingAllstar.Core.Content, asm: FightingAllstar.Core}
+      data:
+        Text: Inflict damage equal to <color=#fbbf24><b>405%</b></color> of the hero's
+          Attack on one enemy, <color=#A3A3A3>then on a critical hit, decrease one
+          enemy's Crit Resistance by 30% for 2 turns, then on a critical hit, has
+          a 40% chance to apply Stun on one enemy for 1 turn</color>
+        AutoHighlight: 0
+        AutomaticKeywords: 1
+        KeywordNotes: 
+        Highlights: []
+    - rid: 1004
+      type: {class: AuthoredDescription, ns: FightingAllstar.Core.Content, asm: FightingAllstar.Core}
+      data:
+        Text: Inflict damage equal to <color=#fbbf24><b>435%</b></color> of the hero's
+          Attack on one enemy, <color=#A3A3A3>then on a critical hit, decrease one
+          enemy's Crit Resistance by 30% for 2 turns, then on a critical hit, has
+          a 40% chance to apply Stun on one enemy for 1 turn</color>
+        AutoHighlight: 0
+        AutomaticKeywords: 1
+        KeywordNotes: 
+        Highlights: []
+    - rid: 1007
+      type: {class: AuthoredDescription, ns: FightingAllstar.Core.Content, asm: FightingAllstar.Core}
+      data:
+        Text: Inflict damage equal to <color=#fbbf24><b>465%</b></color> of the hero's
+          Attack on one enemy, <color=#A3A3A3>then on a critical hit, decrease one
+          enemy's Crit Resistance by 30% for 2 turns, then on a critical hit, has
+          a 40% chance to apply Stun on one enemy for 1 turn</color>
+        AutoHighlight: 0
+        AutomaticKeywords: 1
+        KeywordNotes: 
+        Highlights: []
+    - rid: 1008
+      type: {class: AuthoredDescription, ns: FightingAllstar.Core.Content, asm: FightingAllstar.Core}
+      data:
+        Text: Inflict damage equal to <color=#fbbf24><b>495%</b></color> of the hero's
+          Attack on one enemy, <color=#A3A3A3>then on a critical hit, decrease one
+          enemy's Crit Resistance by 30% for 2 turns, then on a critical hit, has
+          a 40% chance to apply Stun on one enemy for 1 turn</color>
+        AutoHighlight: 0
+        AutomaticKeywords: 1
+        KeywordNotes: 
+        Highlights: []
+    - rid: 1011
+      type: {class: AuthoredDescription, ns: FightingAllstar.Core.Content, asm: FightingAllstar.Core}
+      data:
+        Text: Inflict damage equal to <color=#fbbf24><b>525%</b></color> of the hero's
+          Attack on one enemy, <color=#A3A3A3>then on a critical hit, decrease one
+          enemy's Crit Resistance by 30% for 2 turns, then on a critical hit, has
+          a 40% chance to apply Stun on one enemy for 1 turn</color>
+        AutoHighlight: 0
+        AutomaticKeywords: 1
+        KeywordNotes: 
+        Highlights: []

@@ -1,0 +1,109 @@
+ M .gitignore
+ M Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Profiles/TG_ReferenceDay.asset
+ M Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingURP.asset
+ M Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingFoliage.shader
+ M Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Shaders/TG_LightingSurface.shader
+ M Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowRenderer.cs
+ D Assets/Project/Art/KOF-Banner
+ D Assets/Project/Art/KOF-Banner.meta
+ M Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia_skilldata1.asset
+ M Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo_Skill2.asset
+ D Assets/Project/Data/StatusData/AnemoRES.asset
+ D Assets/Project/Data/StatusData/AnemoRES.asset.meta
+ M Assets/Project/Editor/BattlePreviewCapture.cs
+ M Assets/Project/Editor/OsakaBattleStageBuilder.cs
+ M Assets/Project/Plugins/FightingAllstar.Contracts.dll
+ M Assets/Project/Plugins/FightingAllstar.Core.dll
+ M Assets/Project/Runtime/Content/StatusVisualData.cs
+ M Assets/Project/Runtime/Presentation/Combat/BattleCharacterInspector.cs
+ M Assets/Project/Runtime/Presentation/Combat/CoreBattleSceneController.Elemental.cs
+ M Assets/Project/Runtime/Presentation/Combat/CoreBattleSceneController.Playback.cs
+ M Assets/Project/Runtime/Presentation/Combat/CoreBattleSceneController.cs
+ M Assets/Project/Runtime/Presentation/Combat/CoreFighterHud.cs
+ M Assets/Project/Runtime/Presentation/Loadout/CharacterSelectionManager.cs
+ M Assets/Project/Scenes/Battle.unity
+ M Assets/Project/Scenes/Scene-Gacha.unity
+ M Assets/Project/Scenes/Training.unity
+ M Assets/UniversalRenderPipelineGlobalSettings.asset
+ M ProjectSettings/EditorBuildSettings.asset
+ M ProjectSettings/GraphicsSettings.asset
+ M ProjectSettings/ProjectSettings.asset
+ M ProjectSettings/QualitySettings.asset
+ M ProjectSettings/URPProjectSettings.asset
+ M Shared/FightingAllstar.Contracts/Projections/BattleView.cs
+ M Shared/FightingAllstar.Core/Combat/BattleEngine.Elemental.cs
+ M Shared/FightingAllstar.Core/Combat/BattleEngine.ReactionOutputs.cs
+ M Shared/FightingAllstar.Core/Combat/BattleEngine.TriggeredElemental.cs
+ M Shared/FightingAllstar.Core/Combat/BattleEngine.cs
+ M Shared/FightingAllstar.Core/Combat/BattleModels.cs
+ M Shared/FightingAllstar.Core/Combat/BattlePlaybackState.cs
+ M Shared/FightingAllstar.Core/Combat/BattleProjectionBuilder.cs
+ M Shared/FightingAllstar.Core/Combat/ElementStatusContainer.cs
+ M Shared/FightingAllstar.Core/Combat/ElementalForecast.cs
+ M Shared/FightingAllstar.Core/Combat/ElementalReactionRules.cs
+ M Shared/FightingAllstar.Core/Combat/StatusSystem.cs
+ M Shared/FightingAllstar.Core/Content/GenshinStatusRecipes.cs
+ M Tests/CombatPresentation/CombatTextChecks.cs
+ M Tests/CombatPresentation/ElementalExpansionChecks.cs
+ M Tests/CombatPresentation/ElementalReactionChecks.cs
+ M Tests/CombatPresentation/FreezeBehaviorChecks.cs
+ M Tests/CombatPresentation/NeutralStatusHudChecks.cs
+?? "ArtDirection/Character Database/"
+?? ArtDirection/CharacterCreatorStudio/
+?? "ArtDirection/Level Design/TeyvatGrasslandConcepts/MapOptimization.md"
+?? "ArtDirection/Level Design/TeyvatGrasslandConcepts/PlayableDungeon.md"
+?? "ArtDirection/Level Design/TeyvatGrasslandConcepts/Surroundings.md"
+?? ArtSource/StatusIcons/
+?? Artifacts/CharacterCreatorStudio/
+?? Artifacts/MapOptimization/
+?? Artifacts/TeyvatGrassland/PlayableDungeon/
+?? Artifacts/TeyvatGrassland/Surroundings/
+?? Assets/Project/Art/Environment/MapStandard.meta
+?? Assets/Project/Art/Environment/MapStandard/
+?? Assets/Project/Art/Environment/OsakaNight/URP.meta
+?? Assets/Project/Art/Environment/OsakaNight/URP/
+?? Assets/Project/Art/Environment/TeyvatGrassland/Surroundings.meta
+?? Assets/Project/Art/Environment/TeyvatGrassland/Surroundings/
+?? Assets/Project/Art/GachaBanner/TK-Banner.png
+?? Assets/Project/Art/GachaBanner/TK-Banner.png.meta
+?? Assets/Project/Art/GachaBanner/TK-Banner2.png
+?? Assets/Project/Art/GachaBanner/TK-Banner2.png.meta
+?? Assets/Project/Art/UI/Stats_Icon/ElementStats_Icon.meta
+?? Assets/Project/Art/UI/Stats_Icon/ElementStats_Icon/
+?? Assets/Project/Data/Economy/TekkenBannerConfiguration.asset
+?? Assets/Project/Data/Economy/TekkenBannerConfiguration.asset.meta
+?? Assets/Project/Data/StatusData/em-AnemoRES.asset
+?? Assets/Project/Data/StatusData/em-AnemoRES.asset.meta
+?? Assets/Project/Editor/MapBenchmarkVariantFilter.cs
+?? Assets/Project/Editor/MapBenchmarkVariantFilter.cs.meta
+?? Assets/Project/Editor/MapOptimizationLab.cs
+?? Assets/Project/Editor/MapOptimizationLab.cs.meta
+?? Assets/Project/Editor/TeyvatDungeonBuilder.cs
+?? Assets/Project/Editor/TeyvatDungeonBuilder.cs.meta
+?? Assets/Project/Editor/TeyvatDungeonValidation.cs
+?? Assets/Project/Editor/TeyvatDungeonValidation.cs.meta
+?? Assets/Project/Editor/TeyvatSurroundingsBuilder.cs
+?? Assets/Project/Editor/TeyvatSurroundingsBuilder.cs.meta
+?? Assets/Project/Editor/TeyvatSurroundingsGeometry.cs
+?? Assets/Project/Editor/TeyvatSurroundingsGeometry.cs.meta
+?? Assets/Project/Editor/TeyvatSurroundingsReview.cs
+?? Assets/Project/Editor/TeyvatSurroundingsReview.cs.meta
+?? Assets/Project/Runtime/Presentation/Combat/TeyvatDungeonArena.cs
+?? Assets/Project/Runtime/Presentation/Combat/TeyvatDungeonArena.cs.meta
+?? Assets/Project/Runtime/Presentation/Route/DungeonBattleScene.cs
+?? Assets/Project/Runtime/Presentation/Route/DungeonBattleScene.cs.meta
+?? Assets/Project/Runtime/Rendering.meta
+?? Assets/Project/Runtime/Rendering/
+?? Assets/Project/Scenes/Battle/OcclusionCullingData.asset
+?? Assets/Project/Scenes/Battle/OcclusionCullingData.asset.meta
+?? Assets/Project/Scenes/BattleTeyvat.meta
+?? Assets/Project/Scenes/BattleTeyvat.unity
+?? Assets/Project/Scenes/BattleTeyvat.unity.meta
+?? Assets/Project/Scenes/BattleTeyvat/
+?? Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_SurroundingsReview.unity
+?? Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_SurroundingsReview.unity.meta
+?? Assets/Project/Scenes/PerformanceReview.meta
+?? Assets/Project/Scenes/PerformanceReview/
+?? Shared/FightingAllstar.Core/Studio/
+?? output/imagegen/tekken7-kazuya-nina-banner-16x9.png
+?? output/imagegen/tekken7-kazuya-nina-featured-banner.png

@@ -1,0 +1,164 @@
+{
+  "EvidenceVersion": 2,
+  "StandardEditorFontAssetPath": "Assets/Project/Resources/UI/zh-cn.ttf",
+  "StandardEditorFontDependencyHash": "154033b1c2f8e04995599aaebf8884d2",
+  "UnityVersion": "6000.3.4f1",
+  "CapturedUtc": "2026-10-19T20:02:26.9869365Z",
+  "OutputDirectory": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\Artifacts\\CharacterCreatorStudio\\DescriptionRendererEvidence",
+  "Scope": "Studio actual Label and isolated TextMeshProUGUI using the standard UI/zh-cn.ttf Editor font; explicit BattleInspector font checks retain runtime-font coverage evidence. Other runtime consumers remain unaudited.",
+  "CompilerSource": "<b>B</b> <i>I</i> <color=#4EE2A3>C</color>\nLiteral: \\<b\\>safe\\</b\\>",
+  "CompiledRichText": "<b>B</b> <i>I</i> <color=#4ee2a3>C</color>\nLiteral: <noparse><</noparse>b>safe<noparse><</noparse>/b>",
+  "ExpectedPlainText": "B I C\nLiteral: <b>safe</b>",
+  "TmpParsedText": "B I C\nLiteral: <b>safe</b>",
+  "ThaiTmpParsedText": "□□□□□□□□□□□□□□□□ □□□□□□□□□□□□ 2 □□□",
+  "ThaiDiagnostic": "Source font: BarlowCondensed-SemiBoldItalic · 35 parsed characters · 960×280 logical pixels · Missing glyphs: U+0E40 U+0E21 U+0E37 U+0E48 U+0E2D U+0E23 U+0E34 U+0E15 U+0E2A U+0E39 U+0E49 U+0E1E U+0E01 U+0E08 U+0E25 U+0E31 U+0E07 U+0E38 U+0E14. This locale needs a font/fallback before release.",
+  "ThaiGlyphCoverage": "Unsupported by the BattleInspector font profile; use EditorStandard for authoring or supply a runtime fallback font",
+  "EditorThaiRichText": "เมื่อเริ่มต่อสู้ เพิ่ม<b>เกจพลัง</b> <color=#FFD580><b>2</b></color> จุด",
+  "EditorThaiExpectedPlainText": "เมื่อเริ่มต่อสู้ เพิ่มเกจพลัง 2 จุด",
+  "EditorThaiTmpParsedText": "เมื่อเริ่มต่อสู้ เพิ่มเกจพลัง 2 จุด",
+  "EditorThaiDiagnostic": "Source font: zh-cn · 35 parsed characters · 960×280 logical pixels · All parsed glyphs available in the selected isolated font.",
+  "EditorThaiGlyphCoverage": "Verified for tested Thai source in default EditorStandard UI/zh-cn.ttf profile",
+  "EditorFontUnchanged": true,
+  "EditorVisibleThaiGlyphCount": 31,
+  "ThaiSourcePreserved": true,
+  "PersistentFontUnchanged": true,
+  "ToolkitCompleted": true,
+  "ToolkitMeasurementPassed": true,
+  "ToolkitScreenshot": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\Artifacts\\CharacterCreatorStudio\\DescriptionRendererEvidence\\portable-subset-toolkit-window.png",
+  "ToolkitVisualReview": "Final captured Toolkit panel reviewed: B is bold, I italic, C green, literal <b>safe</b> preserved, and Thai wording/bound 2 readable in zh-cn. Actual default TMP Thai capture matches plain text without replacement glyphs.",
+  "ToolkitRichWidth": 190.0,
+  "ToolkitLiteralMarkupWidth": 609.0,
+  "ToolkitLiteralEscapedWidth": 114.0,
+  "ToolkitLiteralPlainWidth": 114.0,
+  "MissingThaiGlyphs": [
+    "U+0E40",
+    "U+0E21",
+    "U+0E37",
+    "U+0E48",
+    "U+0E2D",
+    "U+0E23",
+    "U+0E34",
+    "U+0E15",
+    "U+0E2A",
+    "U+0E39",
+    "U+0E49",
+    "U+0E1E",
+    "U+0E01",
+    "U+0E08",
+    "U+0E25",
+    "U+0E31",
+    "U+0E07",
+    "U+0E38",
+    "U+0E14"
+  ],
+  "EditorMissingThaiGlyphs": [],
+  "Errors": [],
+  "Checks": [
+    {
+      "Passed": true,
+      "Message": "The compiler accepts only approved tags and escaped literal brackets."
+    },
+    {
+      "Passed": true,
+      "Message": "Actual TMP parsed text equals semantic plain output, including literal angle brackets and line breaks."
+    },
+    {
+      "Passed": true,
+      "Message": "Actual TMP B glyph has the Bold style and visible geometry."
+    },
+    {
+      "Passed": true,
+      "Message": "Actual TMP I glyph has the Italic style and visible geometry."
+    },
+    {
+      "Passed": true,
+      "Message": "Actual TMP C glyph has the authored #4EE2A3 vertex color and visible geometry."
+    },
+    {
+      "Passed": true,
+      "Message": "Compiler-generated noparse safety spans preserve literal approved-looking tags in TMP."
+    },
+    {
+      "Passed": true,
+      "Message": "The actual TMP slice resolves its shared gameplay parameter, keyword, semantic colors, and pinned snippet."
+    },
+    {
+      "Passed": true,
+      "Message": "Thai source and combining characters survive parsing unchanged."
+    },
+    {
+      "Passed": true,
+      "Message": "Save/reload preserves exact Thai source independently of font glyph availability."
+    },
+    {
+      "Passed": true,
+      "Message": "Coverage diagnostics inspect requested Thai codepoints, not replacement squares emitted by TMP."
+    },
+    {
+      "Passed": true,
+      "Message": "Default text preview uses the standard Thai-capable Editor font profile."
+    },
+    {
+      "Passed": true,
+      "Message": "Default Editor TMP renders the exact Thai semantic plain text without replacement squares."
+    },
+    {
+      "Passed": true,
+      "Message": "Default Editor font supplies Thai combining characters and visible Thai glyph geometry with no missing-codepoint diagnostics."
+    },
+    {
+      "Passed": true,
+      "Message": "Renderer font selection preserves the compiled Thai source payload."
+    },
+    {
+      "Passed": true,
+      "Message": "Changing to BattleInspector font profile preserves the source text."
+    },
+    {
+      "Passed": true,
+      "Message": "Switching back to EditorStandard restores the same complete Thai glyph output."
+    },
+    {
+      "Passed": true,
+      "Message": "The default Editor preview does not mutate the persistent UI/zh-cn.ttf source font."
+    },
+    {
+      "Passed": true,
+      "Message": "Renderer checks do not populate or mutate the persistent game TMP/source font."
+    },
+    {
+      "Passed": true,
+      "Message": "Attached UI Toolkit measures formatting tags as styling, with smaller glyph width than literal markup."
+    },
+    {
+      "Passed": true,
+      "Message": "Attached UI Toolkit measures generated noparse literal brackets like the corresponding plain literal text."
+    }
+  ],
+  "Capabilities": [
+    {
+      "Syntax": "b",
+      "CompilerStatus": "Enabled subset",
+      "TmpStatus": "Verified by actual parsed glyphs",
+      "ToolkitStatus": "Verified in Studio preview: attached measurement plus recorded screenshot review"
+    },
+    {
+      "Syntax": "i",
+      "CompilerStatus": "Enabled subset",
+      "TmpStatus": "Verified by actual parsed glyphs",
+      "ToolkitStatus": "Verified in Studio preview: attached measurement plus recorded screenshot review"
+    },
+    {
+      "Syntax": "color=#RRGGBB",
+      "CompilerStatus": "Enabled subset",
+      "TmpStatus": "Verified by actual parsed glyphs",
+      "ToolkitStatus": "Verified in Studio preview: attached measurement plus recorded screenshot review"
+    },
+    {
+      "Syntax": "escaped literal angles / generated noparse",
+      "CompilerStatus": "Enabled subset",
+      "TmpStatus": "Verified by actual parsed glyphs",
+      "ToolkitStatus": "Verified in Studio preview: attached measurement plus recorded screenshot review"
+    }
+  ]
+}

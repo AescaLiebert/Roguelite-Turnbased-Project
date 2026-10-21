@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "method": "Exact sorted multiset of mesh/material/submesh/LOD and all16 matrix float bits across six poses",
+  "shots": [
+    {
+      "pose": "Planning",
+      "exactEqual": true,
+      "instanceRecords": 12767,
+      "instances": 12217,
+      "lod0": 9234,
+      "lod1": 2983,
+      "groups": 45
+    },
+    {
+      "pose": "Reverse",
+      "exactEqual": true,
+      "instanceRecords": 19265,
+      "instances": 18311,
+      "lod0": 8378,
+      "lod1": 9933,
+      "groups": 56
+    },
+    {
+      "pose": "Left",
+      "exactEqual": true,
+      "instanceRecords": 13618,
+      "instances": 12975,
+      "lod0": 7891,
+      "lod1": 5084,
+      "groups": 45
+    },
+    {
+      "pose": "Right",
+      "exactEqual": true,
+      "instanceRecords": 14588,
+      "instances": 13843,
+      "lod0": 8356,
+      "lod1": 5487,
+      "groups": 47
+    },
+    {
+      "pose": "Rear",
+      "exactEqual": true,
+      "instanceRecords": 15238,
+      "instances": 14515,
+      "lod0": 9300,
+      "lod1": 5215,
+      "groups": 48
+    },
+    {
+      "pose": "Attack",
+      "exactEqual": true,
+      "instanceRecords": 9944,
+      "instances": 9575,
+      "lod0": 8129,
+      "lod1": 1446,
+      "groups": 39
+    }
+  ]
+}

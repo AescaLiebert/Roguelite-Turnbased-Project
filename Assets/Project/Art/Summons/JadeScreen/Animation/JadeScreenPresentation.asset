@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18464f9867b6e1449cc0bab9451b8c0, type: 3}
+  m_Name: JadeScreenPresentation
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.BattleEntityPresentationProfile
+  definitionId: geo-construct.jade-screen
+  prefab: {fileID: 8144656662011271112, guid: 15774f0f0ac358a4e8bc4c404987b3cc, type: 3}
+  portrait: {fileID: 21300000, guid: 13bb4debf1d367a4483321c7c656afa3, type: 3}
+  teamFront: 1
+  followFormation: 0
+  placementOffset: {x: 0, y: 0, z: 1.35}
+  modelScale: 1.1
+  modelYaw: 180
+  presentationBounds:
+    m_Center: {x: 0, y: 1.5353385, z: -0.028951824}
+    m_Extent: {x: 2.5956187, y: 1.5353234, z: 0.33095193}
+  spawn: {fileID: -4293841215451705315, guid: 2a377b8ab72510c45a1a7bda3d676d4e, type: 3}
+  idle: {fileID: -429512112410174799, guid: 2a377b8ab72510c45a1a7bda3d676d4e, type: 3}
+  attack: {fileID: 0}
+  absorbHit: {fileID: -239511369084547534, guid: 2a377b8ab72510c45a1a7bda3d676d4e, type: 3}
+  capacityBreak: {fileID: -855800099696857348, guid: 2a377b8ab72510c45a1a7bda3d676d4e, type: 3}
+  despawn: {fileID: 5359323258221492143, guid: 2a377b8ab72510c45a1a7bda3d676d4e, type: 3}
+  revealTime: 0.28
+  emitTime: 0.48
+  effectColor: {r: 1, g: 0.72, b: 0.22, a: 1}
+  spawnSound: {fileID: 8300000, guid: 7f069768fc1fcdc4c8248c024c9bb883, type: 3}
+  attackSound: {fileID: 8300000, guid: 3714d5d693503a241991e672da4de5ad, type: 3}
+  absorbSound: {fileID: 8300000, guid: f52bce9cae562654897d10956680f09a, type: 3}
+  breakSound: {fileID: 8300000, guid: aa1a26373fe8ecf4eb2453ffd3ca6306, type: 3}
+  despawnSound: {fileID: 8300000, guid: 2adb299f7077dc542918cc6d863b59d9, type: 3}

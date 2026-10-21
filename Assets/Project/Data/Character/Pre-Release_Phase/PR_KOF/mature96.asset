@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: mature96
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.pre-release.mature96
+  runtimeReady: 1
+  familyId: family.mature96
+  seriesId: series.kof
+  role: 
+  traitIds:
+  - trait.women
+  - trait.series-kof
+  - trait.orochi-blood
+  - trait.rival-team
+  passiveSourceDescription: "\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E08\u0E31\u0E14\u0E1E\u0E23\u0E49\u0E2D\u0E21
+    \"\u0E44\u0E27\u0E0A\u0E4C\" \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E14\u0E39\u0E14\u0E40\u0E25\u0E37\u0E2D\u0E14
+    20% \u0E40\u0E40\u0E25\u0E30\u0E2D\u0E31\u0E19\u0E15\u0E34\u0E08\u0E30\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34
+    100%"
+  passiveSourceType: 0
+  passiveRestriction: 0
+  passiveDefinition: {fileID: 11400000, guid: 5d7b9a42d1466a14fb858e9b83d8275a, type: 2}
+  studioSchema: 1
+  studioMetadataJson: "{\"CategoryId\":9113,\"SchemaVersion\":1,\"RuntimeReady\":true,\"Id\":\"fighter.pre-release.mature96\",\"SourceId\":\"pre-release-character.csv#row-14\",\"SourceRecord\":14,\"DisplayName\":\"Mature96\",\"FamilyId\":\"family.mature96\",\"Role\":\"\",\"SeriesId\":\"series.kof\",\"AttributeId\":\"attribute.yellow\",\"RarityId\":\"rarity.ssr\",\"TraitIds\":[\"trait.women\",\"trait.series-kof\",\"trait.orochi-blood\",\"trait.rival-team\"],\"BaseStats\":{\"Attack\":570,\"Defense\":375,\"MaxHealth\":6500,\"CombatClass\":3990,\"HasDerivedCombatClass\":false,\"CombatClassReferenceValue\":0,\"CombatClassFlatBonus\":0,\"CombatClassReferenceScore\":0,\"CombatClassGrowthScore\":0,\"PierceBp\":5000,\"ResistanceBp\":500,\"RegenerationBp\":1000,\"CritChanceBp\":5000,\"CritDamageBp\":15000,\"CritResistanceBp\":2000,\"CritDefenseBp\":1500,\"RecoveryBp\":11000,\"BlockChanceBp\":0,\"BlockPowerBp\":0,\"LifeStealBp\":1500,\"EvadeBp\":0,\"PerceptionBp\":10000,\"ControlBp\":10000,\"AvoidanceBp\":10000,\"ReflectDamageBp\":0,\"DamageOverTimeDealtBp\":0,\"DamageDealtBp\":0,\"AdditionalDamageDealtBp\":0,\"ElementalModifiers\":[]},\"StatGrowth\":{\"AttackBp\":100,\"DefenseBp\":100,\"HealthBp\":100,\"CombatClassBp\":0},\"ArtifactLoadout\":[],\"Skills\":[],\"PassiveId\":\"fighter.pre-release.mature96.passive\",\"PassiveSource\":{\"SourceType\":\"\",\"Description\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E08\u0E31\u0E14\u0E1E\u0E23\u0E49\u0E2D\u0E21
+    \\\"\u0E44\u0E27\u0E0A\u0E4C\\\" \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E14\u0E39\u0E14\u0E40\u0E25\u0E37\u0E2D\u0E14
+    20% \u0E40\u0E40\u0E25\u0E30\u0E2D\u0E31\u0E19\u0E15\u0E34\u0E08\u0E30\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34
+    100%\",\"Restriction\":\"\",\"Provenance\":\"ArtDirection/Character Database/Pre-Release-Character.csv\",\"Wording\":null},\"Passive\":null,\"HolyRelicSource\":null,\"ReviewNotes\":[\"Source:
+    ArtDirection/Character Database/Pre-Release-Character.csv, CSV row 14; release
+    label: Pre-Begin.\",\"The source provides one value per Skill and Ultimate. That
+    value is preserved across ranks 1-3 and Ultimate tiers C0-C5 until progression
+    data is supplied.\",\"The source omits Evade, Perception, Control, Avoidance,
+    and level growth. The four secondary fields use the project neutral defaults;
+    growth uses CharacterStatGrowth defaults.\"],\"SourceTraits\":[\"Female\",\"KOF\",\"Orochi
+    Blood\",\"Rival Team\"],\"SourceStats\":[{\"StatId\":\"Attack\",\"SourceField\":\"ATK\",\"SourceValue\":570.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":570.0},{\"StatId\":\"Defense\",\"SourceField\":\"DEF\",\"SourceValue\":375.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":375.0},{\"StatId\":\"MaxHealth\",\"SourceField\":\"HP\",\"SourceValue\":6500.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":6500.0},{\"StatId\":\"CombatClass\",\"SourceField\":\"Class
+    Power\",\"SourceValue\":3990.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3990.0},{\"StatId\":\"Pierce\",\"SourceField\":\"Pierce
+    Rate\",\"SourceValue\":50.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":5000.0},{\"StatId\":\"Resistance\",\"SourceField\":\"Resistence\",\"SourceValue\":5.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":500.0},{\"StatId\":\"Regeneration\",\"SourceField\":\"Regenerate\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"CritChance\",\"SourceField\":\"Crit
+    Chance\",\"SourceValue\":50.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":5000.0},{\"StatId\":\"CritDamage\",\"SourceField\":\"Crit
+    Damage\",\"SourceValue\":150.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":15000.0},{\"StatId\":\"CritResistance\",\"SourceField\":\"Crit
+    Resistence\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"CritDefense\",\"SourceField\":\"Crit
+    Defense\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Recovery\",\"SourceField\":\"Recovery
+    Rate\",\"SourceValue\":110.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":11000.0},{\"StatId\":\"BlockChance\",\"SourceField\":\"Block
+    Chance\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"BlockPower\",\"SourceField\":\"Block
+    Power\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"LifeSteal\",\"SourceField\":\"Lifesteal\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Evade\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":0.0,\"Unit\":\"basis-points\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":0.0},{\"StatId\":\"Perception\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Control\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Avoidance\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0}],\"UltimateTiers\":[],\"StatsProvenance\":0}"
+  studioBundleHash: studio-bundle-v1:481d9a0994336779db33db63e100fa074d537dec7f772767cbe641e33bc88c88
+  studioAuthoringJson: "{\"SchemaVersion\":5,\"Id\":\"studio.pre-release.mature96\",\"Name\":\"Mature96\",\"SourceCharacterId\":\"fighter.pre-release.mature96\",\"LegacyCharacter\":null,\"AuthoredCharacter\":null,\"OwnsOpeningGauge\":false,\"ReplacedNativeReactionIds\":[],\"NativeReactionOrder\":[],\"CompatibilityReasons\":{},\"Parameters\":[],\"Rules\":[],\"Conditions\":[],\"Actions\":[],\"Modules\":[],\"Resources\":[],\"Statuses\":[],\"Policies\":[],\"AbilityVariants\":[],\"AbilityOverrides\":[],\"Description\":{\"SchemaVersion\":1,\"Id\":\"description.default\",\"OwnerId\":\"studio.pre-release.mature96\",\"DefaultLocale\":\"en\",\"Locales\":[{\"Locale\":\"en\",\"ReviewState\":\"Draft\",\"ReviewedTextHash\":\"\",\"ReviewedGameplayHash\":\"\",\"Blocks\":[{\"Id\":\"paragraph.main\",\"Kind\":0,\"StyleId\":\"\",\"Source\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E08\u0E31\u0E14\u0E1E\u0E23\u0E49\u0E2D\u0E21
+    \\\"\u0E44\u0E27\u0E0A\u0E4C\\\" \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E14\u0E39\u0E14\u0E40\u0E25\u0E37\u0E2D\u0E14
+    20% \u0E40\u0E40\u0E25\u0E30\u0E2D\u0E31\u0E19\u0E15\u0E34\u0E08\u0E30\u0E15\u0E34\u0E14\u0E04\u0E23\u0E34
+    100%\",\"MechanicIds\":[],\"HasFallback\":true,\"Branches\":[],\"DetachedSnippetOrigins\":[]}]}],\"Bindings\":[]},\"Presentation\":{\"Id\":\"presentation.default\",\"ActorAssetGuid\":null,\"ActionClipGuid\":null,\"ReactionClipGuid\":null,\"DurationMilliseconds\":1000}}"
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
+  id: 9113
+  fighterName: Mature96
+  fighterPic: {fileID: 21300000, guid: 8bb949e07dc8af043b79582a768e5522, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 0dcc4d58852653c44840fcc50cc962d9, type: 3}
+  fighterFull: {fileID: 21300000, guid: 8bb949e07dc8af043b79582a768e5522, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 0}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 0}
+  fighterModelYawOffset: 180
+  Skill1: {fileID: 11400000, guid: ee933aa7ddac05e439e6291e149ea8ea, type: 2}
+  Skill2: {fileID: 11400000, guid: ea816ec31a7e63f43bdd4696f3e91cf5, type: 2}
+  Ultimate: {fileID: 11400000, guid: 721663881dd58504c974d7586ba6b1fc, type: 2}
+  FighterAttribute: 3
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 1
+  LevelGrowth:
+    AttackBp: 100
+    DefenseBp: 100
+    HealthBp: 100
+  Classpower: 3990
+  attack: 570
+  defense: 375
+  health: 6500
+  SecondaryStats:
+    PierceRate: 50
+    Resistance: 5
+    Regenerate: 10
+    CritChance: 50
+    CritDmg: 150
+    CritResistance: 20
+    CritDefense: 15
+    RecoveryRate: 110
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 15
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

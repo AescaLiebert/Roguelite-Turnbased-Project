@@ -1,0 +1,505 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
+  m_Name: kazuya-mishima_skilldata1
+  m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
+  cardName: "Kazuya Mishima \xB7 Skill 1"
+  cardIcon: {fileID: 0}
+  statusVisuals: []
+  ranks:
+  - Wording:
+      rid: -2
+    description: "375% \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+      3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    description: "375% \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+      3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    description: "375% \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+      3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: "{\"Id\":\"fighter.pre-release.kazuya-mishima.skill.1\",\"Slot\":1,\"Category\":0,\"TargetScope\":1,\"SourceTarget\":\"SelectedEnemy\",\"SourceType\":\"Attack\",\"SourceEffectTags\":null,\"Ranks\":[{\"Rank\":1,\"HasCardKind\":true,\"Category\":0,\"TargetScope\":1,\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.kazuya-mishima.skill1-shock.r1\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.shock\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":2,\"Stacking\":2,\"Identity\":1,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":10,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"status.shock\",\"status.dot\"],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":4500,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.kazuya-mishima.skill1.damage.r1\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":37500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"DescriptionKey\":null,\"Description\":\"375%
+    \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+    3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375% \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+    3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Provenance\":0,\"Wording\":null},{\"Rank\":2,\"HasCardKind\":true,\"Category\":0,\"TargetScope\":1,\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.kazuya-mishima.skill1-shock.r2\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.shock\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":2,\"Stacking\":2,\"Identity\":1,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":10,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"status.shock\",\"status.dot\"],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":4500,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.kazuya-mishima.skill1.damage.r2\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":37500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"DescriptionKey\":null,\"Description\":\"375%
+    \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+    3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375% \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+    3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Provenance\":0,\"Wording\":null},{\"Rank\":3,\"HasCardKind\":true,\"Category\":0,\"TargetScope\":1,\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.kazuya-mishima.skill1-shock.r3\",\"Kind\":1,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"status.debuff.shock\",\"NameKey\":null,\"Polarity\":1,\"Color\":0,\"Behavior\":2,\"Stacking\":2,\"Identity\":1,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":10,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"status.shock\",\"status.dot\"],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":4500,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":2,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.kazuya-mishima.skill1.damage.r3\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":37500,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"DescriptionKey\":null,\"Description\":\"375%
+    \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+    3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"SourceDescription\":\"375% \u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E34\u0E14\u0E44\u0E1F\u0E0A\u0E4A\u0E2D\u0E15
+    3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Provenance\":0,\"Wording\":null}],\"Variants\":[],\"ValueOverrides\":[]}"
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

@@ -56,6 +56,7 @@ Shader "Teyvat/URP/LightingSurface"
         Pass{Name "ForwardLit" Tags{"LightMode"="UniversalForward"}
             HLSLPROGRAM
             #pragma target 3.5
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_instancing
@@ -67,6 +68,7 @@ Shader "Teyvat/URP/LightingSurface"
         Pass{Name "ShadowCaster" Tags{"LightMode"="ShadowCaster"} ColorMask 0 ZWrite On
             HLSLPROGRAM
             #pragma target 3.5
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
             #pragma vertex shadow
             #pragma fragment depth
             #pragma multi_compile_instancing
@@ -76,6 +78,7 @@ Shader "Teyvat/URP/LightingSurface"
         Pass{Name "DepthOnly" Tags{"LightMode"="DepthOnly"} ColorMask R ZWrite On
             HLSLPROGRAM
             #pragma target 3.5
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
             #pragma vertex vert
             #pragma fragment depth
             #pragma multi_compile_instancing

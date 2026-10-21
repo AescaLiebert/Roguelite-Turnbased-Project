@@ -13,6 +13,7 @@ namespace FightingAllstar.Core.Combat.AI
                 CompletedTurnCount = source.CompletedTurnCount, ActingSide = source.ActingSide,
                 Phase = source.Phase, ActionBudget = source.ActionBudget, Mode = source.Mode,
                 IsTraining = source.IsTraining, Winner = source.Winner, IsDraw = source.IsDraw,
+                EntitySequence = source.EntitySequence, EntityTurnOccurrence = source.EntityTurnOccurrence,
                 ElementalSchemaVersion = source.ElementalSchemaVersion, ElementalRules = source.ElementalRules?.Clone(),
                 RngState = 0xA0761D6478BD642FUL, CardRngState = 0xE7037ED1A0B428DBUL
             };
@@ -31,6 +32,7 @@ namespace FightingAllstar.Core.Combat.AI
                 }
             }
             copy.ActivePassiveAuras.AddRange(source.ActivePassiveAuras);
+            if (source.Entities != null) copy.Entities = source.Entities.Where(e => e != null).Select(e => e.Clone()).ToList();
             return copy;
         }
     }

@@ -54,6 +54,10 @@ namespace FightingAllstar.Core.Combat
                     if (Enum.TryParse<ElementId>(aura.Element, out var element))
                         target.ElementStatuses.Instances.Add(new ElementStatusInstance { InstanceId = aura.InstanceId,
                             Element = element, RemainingDuration = aura.RemainingDuration });
+                foreach (var condition in f.ElementalReactionStatuses)
+                    if (Enum.TryParse<ElementalReactionId>(condition.Reaction, out var reaction))
+                        target.ElementStatuses.ReactionStatuses.Add(new ElementalReactionStatusInstance {
+                            InstanceId = condition.InstanceId, Reaction = reaction, RemainingDuration = condition.RemainingDuration });
                 foreach (var status in f.Statuses)
                 {
                     var recipe = GenshinStatusRecipes.CreateOutputs().Find(r => r.Id == status.RecipeId);
@@ -175,8 +179,8 @@ namespace FightingAllstar.Core.Combat
                     RecordShatter(branch, recipient, action, result);
                 return;
             }
-            if (id != ElementalReactionId.ElectroCharged && id != ElementalReactionId.Superconduct) return;
-            var recipeId = id == ElementalReactionId.ElectroCharged ? "status.reaction.charged" : "status.reaction.superconduct";
+            if (id != ElementalReactionId.ElectroCharged && id != ElementalReactionId.Superconduct &&
+                id != ElementalReactionId.Burning) return;
             var recipients = new List<FighterState> { target };
             if (id == ElementalReactionId.Superconduct)
                 recipients = branch.Targets.Where(t => Math.Abs(t.FormationSlot - target.FormationSlot) <= 1).ToList();
@@ -186,11 +190,9 @@ namespace FightingAllstar.Core.Combat
                 if (id == ElementalReactionId.ElectroCharged)
                     foreach (var neighbor in branch.Targets.Where(t => Math.Abs(t.FormationSlot - recipient.FormationSlot) == 1 && t.ElementStatuses.Has(ElementId.Hydro)))
                         if (!recipients.Contains(neighbor)) recipients.Add(neighbor);
-                if (recipient.Statuses.Instances.Exists(s => s.RecipeId == recipeId)) continue;
                 if (id == ElementalReactionId.Superconduct) RecordShatter(branch, recipient, action, result);
-                var recipe = GenshinStatusRecipes.CreateOutputs().Find(r => r.Id == recipeId);
-                StatusSystem.Apply(recipient, "forecast", TeamSide.Player, recipe,
-                    "forecast:" + recipeId + ":" + action + ":" + recipient.Id, "forecast", action);
+                recipient.ElementStatuses.ApplyReaction(id, "forecast",
+                    "forecast:reaction:" + id + ":" + action + ":" + recipient.Id, 0, 0);
                 if (id == ElementalReactionId.ElectroCharged && recipient != target)
                     Record(branch, recipient, new ElementalReactionDecision { Reaction = decision.Reaction.Clone() }, action, result);
             }

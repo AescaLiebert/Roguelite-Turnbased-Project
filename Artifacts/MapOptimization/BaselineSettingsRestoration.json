@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "defaultPipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset",
+  "tiers": [
+    {
+      "name": "Very Low",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    },
+    {
+      "name": "Low",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    },
+    {
+      "name": "Medium",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    },
+    {
+      "name": "High",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    },
+    {
+      "name": "Very High",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    },
+    {
+      "name": "Ultra",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    },
+    {
+      "name": "Teyvat Arena",
+      "pipeline": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Settings/TG_LightingURP.asset"
+    },
+    {
+      "name": "Map Standard URP",
+      "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset"
+    }
+  ],
+  "frameTimingRestored": true
+}

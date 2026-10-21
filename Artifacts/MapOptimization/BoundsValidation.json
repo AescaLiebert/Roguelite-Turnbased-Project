@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "unity": "6000.3.4f1",
+  "compiler": "codedom",
+  "method": "GPUDrivenProcessor.EnableGPUDrivenRenderingAndDispatchRendererData(ReadOnlySpan<EntityId>, callback, materialUpdateOnly:false)",
+  "baseline": {
+    "center": [
+      0,
+      0,
+      0
+    ],
+    "extents": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "override": {
+    "center": [
+      0.25,
+      -0.3,
+      0.7
+    ],
+    "extents": [
+      3.5,
+      4.5,
+      5.5
+    ]
+  },
+  "observedNativeRendererLocalBounds": {
+    "center": [
+      0.25,
+      -0.3,
+      0.7
+    ],
+    "extents": [
+      3.5,
+      4.5,
+      5.5
+    ]
+  },
+  "sourceMeshBoundsUnchanged": {
+    "center": [
+      0,
+      0,
+      0
+    ],
+    "extents": [
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "cleanup": "Processor disposed and transient GameObject/material destroyed in finally.",
+  "fixturePath": "Temp/MapOptimization/BoundsFixture.txt",
+  "verificationScope": "Transient MeshRenderer cube: native GPUDrivenProcessor rendererData.localBounds captures runtime override, shared source mesh remains unchanged. No GPU timing or full-scene visual claim."
+}

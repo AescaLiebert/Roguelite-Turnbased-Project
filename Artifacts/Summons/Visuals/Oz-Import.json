@@ -1,0 +1,29 @@
+{
+  "entity": "Oz",
+  "rig": "Generic",
+  "clips": [
+    {
+      "name": "Attack",
+      "length": 1.26666677,
+      "isLooping": false
+    },
+    {
+      "name": "Despawn",
+      "length": 0.6666667,
+      "isLooping": false
+    },
+    {
+      "name": "Idle",
+      "length": 2.0,
+      "isLooping": true
+    },
+    {
+      "name": "Spawn",
+      "length": 0.8000001,
+      "isLooping": false
+    }
+  ],
+  "boundsCenter": "(0.00, 0.92, -0.07)",
+  "boundsSize": "(3.14, 1.83, 1.49)",
+  "skinnedMeshes": 1
+}

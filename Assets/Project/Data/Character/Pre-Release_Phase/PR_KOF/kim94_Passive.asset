@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: kim94_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Policies: []
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.pre-release.kim94.passive
+    Auras: []
+    Reactions: []
+    Triggers: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Policies":[],"Support":null,"Id":"fighter.pre-release.kim94.passive","Auras":[{"Id":"fighter.pre-release.kim94.passive.critical-recovery","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Targets":{"Relation":1,"IncludeOwner":true,"IncludeReserve":true,"AttributeId":null,"TraitId":null,"SeriesId":null},"Scaling":2,"ScalingKey":"critical-stacks","ScalingRelation":0,"SourceStat":0,"MaximumUnits":7,"Modifiers":[{"Target":0,"Stat":11,"Bundle":0,"Family":0,"Operation":2,"Amount":800,"ScaleByStatusPotency":false,"PotencyCoefficientBp":10000,"SerializedTarget":-1,"SerializedStat":-1,"SerializedBundle":-1,"SerializedFamily":-1,"SerializedOperation":-1,"ResolvedTarget":0,"ResolvedStat":11,"ResolvedBundle":0,"ResolvedFamily":0,"ResolvedOperation":2}]}],"Reactions":[{"ExecutionVersion":1,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":"fighter.pre-release.kim94.critical-heal-and-stack","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":6,"DamageTiming":0,"OwnTeamTurnOnly":false,"ActorRelation":1,"TargetRelation":3,"CardOriginOnly":true,"ExcludeUltimate":false,"RequireGaugeLoss":false,"RequireCritical":true,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"DamageFamily":0,"FilterCategory":false,"Category":0,"MinimumRank":0,"LimitScope":0,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[],"Commands":[{"Kind":0,"CounterKey":"critical-stacks","CounterCap":7,"ValueSource":0,"ValueBinding":null,"EffectBinding":0,"Amount":1,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":null,"SkillId":null,"VariantId":null,"VariantUnlocked":false},{"Kind":2,"CounterKey":null,"CounterCap":2147483647,"ValueSource":3,"ValueBinding":null,"EffectBinding":4,"Amount":10000,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":{"TargetQuery":null,"Id":"fighter.pre-release.kim94.passive.critical-heal","Order":0,"Window":0,"Kind":4,"Target":0,"Conditions":[],"Damage":null,"Status":null,"StatTransfer":null,"RemovePolarity":0,"RemoveRecipeId":null,"RemoveAll":true,"Magnitude":0,"StatusDurationOverride":0,"Value":{"Source":0,"FixedAmount":0,"CoefficientBp":10000,"MaximumAmount":2147483647,"IsConfigured":false}},"SkillId":null,"VariantId":null,"VariantUnlocked":false}],"ElseCommands":[],"Actions":[]},{"ExecutionVersion":1,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":"fighter.pre-release.kim94.ultimate-splash","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":6,"DamageTiming":0,"OwnTeamTurnOnly":false,"ActorRelation":1,"TargetRelation":3,"CardOriginOnly":true,"ExcludeUltimate":false,"RequireGaugeLoss":false,"RequireCritical":false,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"DamageFamily":0,"FilterCategory":true,"Category":0,"MinimumRank":0,"LimitScope":0,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[],"Commands":[{"Kind":2,"CounterKey":null,"CounterCap":2147483647,"ValueSource":3,"ValueBinding":null,"EffectBinding":3,"Amount":3000,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":{"TargetQuery":{"BaseScope":3,"Anchor":2,"Filter":{"Relation":3,"IncludeOwner":false,"IncludeReserve":false,"AttributeId":null,"TraitId":null,"SeriesId":null},"ExcludeActor":false,"ExcludeOwner":false,"ExcludeEventTarget":true,"AdjacentToEventTarget":true,"ExcludeBinding":null,"ReuseBinding":null,"StoreBinding":null,"Sort":0,"RecipeId":null,"Limit":3,"SampleCount":0},"Id":"fighter.pre-release.kim94.passive.ultimate-splash","Order":0,"Window":0,"Kind":0,"Target":3,"Conditions":[],"Damage":{"Profile":null,"Family":0,"Scaling":3,"StatSource":0,"ScalingStat":0,"FixedAmount":0,"CoefficientBp":10000,"KeywordFactorBp":10000,"AttackEffectId":null,"CannotCrit":false,"CannotBlock":false,"ScaleFromTargetMaxHealth":false},"Status":null,"StatTransfer":null,"RemovePolarity":0,"RemoveRecipeId":null,"RemoveAll":true,"Magnitude":0,"StatusDurationOverride":0,"Value":null},"SkillId":null,"VariantId":null,"VariantUnlocked":false}],"ElseCommands":[],"Actions":[]}],"Triggers":[]}'

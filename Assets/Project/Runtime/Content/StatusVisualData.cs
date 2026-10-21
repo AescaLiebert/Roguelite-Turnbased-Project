@@ -158,9 +158,20 @@ namespace FightingAllstar.Presentation.Combat
             if (visual != null && visual.Icon != null)
                 return visual.Icon;
 
+            if (IsElementalStatusId(recipeOrStatusId))
+            {
+                var debuffFallback = GetDefaultByPolarity(StatusPolarity.Debuff);
+                if (debuffFallback != null && debuffFallback.Icon != null)
+                    return debuffFallback.Icon;
+            }
+
             var def = GetDefaultByPolarity(polarity);
             return def != null ? def.Icon : null;
         }
+
+        private static bool IsElementalStatusId(string recipeOrStatusId) =>
+            !string.IsNullOrWhiteSpace(recipeOrStatusId) &&
+            recipeOrStatusId.Trim().StartsWith("status.element.", StringComparison.OrdinalIgnoreCase);
 
         public static string GetDisplayName(string recipeOrStatusId, StatusPolarity polarity = StatusPolarity.Debuff)
         {

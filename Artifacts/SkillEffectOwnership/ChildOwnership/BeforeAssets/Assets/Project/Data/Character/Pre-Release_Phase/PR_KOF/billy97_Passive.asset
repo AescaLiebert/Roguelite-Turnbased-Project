@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: billy97_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Policies: []
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.pre-release.billy97.passive
+    Auras: []
+    Reactions: []
+    Triggers: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Policies":[],"Support":null,"Id":"fighter.pre-release.billy97.passive","Auras":[],"Reactions":[{"ExecutionVersion":0,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":"fighter.pre-release.billy97.low-health-crit","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":5,"DamageTiming":0,"OwnTeamTurnOnly":false,"ActorRelation":1,"TargetRelation":3,"CardOriginOnly":true,"ExcludeUltimate":false,"RequireGaugeLoss":false,"RequireCritical":false,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"RequiredDamageElement":0,"DamageFamily":0,"FilterCategory":false,"Category":0,"MinimumRank":0,"LimitScope":0,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[{"Kind":0,"RecipeId":null,"Tag":null,"StringValue":null,"Threshold":0,"Negate":false,"Logic":1,"Subject":0,"RosterFilter":{"Relation":2,"IncludeOwner":true,"IncludeReserve":true,"AttributeId":null,"TraitId":null,"SeriesId":null},"InitialRoster":false,"Children":[{"Kind":15,"RecipeId":null,"Tag":null,"StringValue":null,"Threshold":5000,"Negate":false,"Logic":0,"Subject":1,"RosterFilter":null,"InitialRoster":false,"Children":[]}]}],"Commands":[{"Kind":9,"CounterKey":null,"CounterCap":2147483647,"ValueSource":0,"ValueBinding":null,"EffectBinding":0,"Amount":5000,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":null,"SkillId":null,"VariantId":null,"VariantUnlocked":false}],"ElseCommands":[],"Actions":[]}],"Triggers":[]}'

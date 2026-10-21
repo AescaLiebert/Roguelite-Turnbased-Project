@@ -51,8 +51,19 @@ namespace FightingAllstar.Presentation.Combat
             group.RemoveFromHierarchy();
             _stage.PlayCue(10 + (int)evt.ElementalReaction);
             _stage.Pulse(evt.TargetId, GenshinCombatTextStyle.ReactionColor(evt.ElementalReaction));
-            FloatText(evt.TargetId, GenshinCombatTextStyle.ReactionName(evt.ElementalReaction) + (evt.ReactionOutputBlocked ? " · Immune" : ""), "reaction",
-                reaction: evt.ElementalReaction, styleSourceId: evt.SourceId);
+            if (ShouldShowReactionCaption(evt))
+                FloatText(evt.TargetId, GenshinCombatTextStyle.ReactionName(evt.ElementalReaction) + (evt.ReactionOutputBlocked ? " · Immune" : ""), "reaction",
+                    reaction: evt.ElementalReaction, styleSourceId: evt.SourceId);
+        }
+
+        private static bool ShouldShowReactionCaption(BattleEvent evt)
+        {
+            if (evt == null) return false;
+            var hasPersistentElementalStatus = evt.ElementalReaction == FightingAllstar.Core.Content.ElementalReactionId.Superconduct ||
+                evt.ElementalReaction == FightingAllstar.Core.Content.ElementalReactionId.ElectroCharged ||
+                evt.ElementalReaction == FightingAllstar.Core.Content.ElementalReactionId.Burning;
+            return !hasPersistentElementalStatus ||
+                evt.ElementalReactionStatusApplied && !evt.ElementalReactionStatusAlreadyActive;
         }
     }
 }

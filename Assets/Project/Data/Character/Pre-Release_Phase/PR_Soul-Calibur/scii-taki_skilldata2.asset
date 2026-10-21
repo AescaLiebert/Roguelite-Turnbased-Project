@@ -12,30 +12,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
   m_Name: scii-taki_skilldata2
   m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
-  cardName: "SCII Taki \xB7 Shadow Dance"
+  cardName: "[Soul Calibur II] Taki \xB7 Skill 2"
   cardIcon: {fileID: 21300000, guid: ae4c5e3facda33649975c0aac4bdd96d, type: 3}
   statusVisuals: []
   ranks:
-  - description: Deals 180% ATK damage to one enemy, plus additional damage equal
-      to 8% of the target's Max HP.
+  - Wording:
+      rid: -2
+    description: Inflict damage equal to 180% of the hero's Attack on one enemy,
+      plus additional damage equal to 8% of the target's Max HP.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 3
+        HitCount: 1
         Range: 0
-        Reaction: 2
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.scii-taki.skill.2.rank.1
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 18000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -48,6 +104,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -57,6 +114,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -123,26 +181,82 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - description: Deals 270% ATK damage to one enemy, plus additional damage equal
-      to 8% of the target's Max HP.
+  - Wording:
+      rid: -2
+    description: Inflict damage equal to 270% of the hero's Attack on one enemy,
+      plus additional damage equal to 8% of the target's Max HP.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 3
+        HitCount: 1
         Range: 0
-        Reaction: 3
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.scii-taki.skill.2.rank.2
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 27000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -155,6 +269,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -164,6 +279,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -230,26 +346,82 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - description: Deals 450% ATK damage to one enemy, plus additional damage equal
-      to 8% of the target's Max HP.
+  - Wording:
+      rid: -2
+    description: Inflict damage equal to 450% of the hero's Attack on one enemy,
+      plus additional damage equal to 8% of the target's Max HP.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassConstruct: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      SourceStackRecipeId: 
+      SourceStackDamageBp: 0
+      SourceStackDotScaleBp: 0
+      ConsumeSourceStacks: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 3
+        HitCount: 1
         Range: 0
-        Reaction: 3
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.scii-taki.skill.2.rank.3
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 45000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
       KeywordId: 
       Conditions: []
       StatusRecipe:
+        StructuralEntityMarker: 0
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          DamageBonusBp: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -262,6 +434,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -271,6 +444,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -337,3 +511,19 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Id":"fighter.scii-taki.skill.2","Slot":2,"Category":0,"TargetScope":1,"DamageAnimation":{"HitCount":3,"Range":0,"Reaction":2,"ReactionTiming":0,"ResolvedHitCount":3},"SourceTarget":"SelectedEnemy","SourceType":"Attack","SourceEffectTags":null,"Ranks":[{"Rank":1,"HasCardKind":true,"Category":0,"TargetScope":1,"Effect":{"AttributeAdvantageDamageBonusBp":0,"Batches":[],"Sequence":[{"Timing":2,"BatchId":null,"Effect":{"DamageProfile":null,"Explosion":false,"ConsumeTargetRecipeId":null,"DamagePerConsumedStackBp":0,"SourceStackRecipeId":null,"SourceStackDamageBp":0,"SourceStackDotScaleBp":0,"ConsumeSourceStacks":false,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Id":"fighter.scii-taki.skill.2.rank1.additional","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":10000,"KeywordFactorBp":10000,"KeywordId":null,"Conditions":[],"StatusRecipe":null,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageRecipe":{"Profile":{"Id":null,"ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassConstruct":false,"BypassDamageCap":false,"BypassFatalSave":false},"Family":2,"Scaling":2,"StatSource":1,"ScalingStat":0,"FixedAmount":0,"CoefficientBp":800,"KeywordFactorBp":10000,"AttackEffectId":"","CannotCrit":true,"CannotBlock":true,"ScaleFromTargetMaxHealth":false},"DamageHitCount":1,"Summon":null}}],"DamageProfile":{"Id":null,"ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassConstruct":false,"BypassDamageCap":false,"BypassFatalSave":false},"Explosion":false,"ConsumeTargetRecipeId":null,"DamagePerConsumedStackBp":0,"SourceStackRecipeId":null,"SourceStackDamageBp":0,"SourceStackDotScaleBp":0,"ConsumeSourceStacks":false,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":3,"Range":0,"Reaction":2,"ReactionTiming":0,"ResolvedHitCount":3},"Id":"fighter.scii-taki.skill.2.rank.1","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":18000,"KeywordFactorBp":10000,"KeywordId":"","Conditions":[],"StatusRecipe":{"StructuralEntityMarker":false,"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"","NameKey":"","Polarity":0,"Color":0,"Behavior":0,"Stacking":0,"Identity":0,"DurationClock":1,"DefaultDuration":2,"MaxStacks":1,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":[],"Modifiers":[],"PeriodicDamage":{"Element":0,"Family":3,"Timing":2,"Scaling":1,"CoefficientBp":10000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":{"Timing":1,"Scaling":0,"CoefficientBp":10000,"FixedAmount":0},"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":{"Sequence":[],"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Kind":0,"Target":1,"Family":0,"Scaling":0,"CoefficientBp":10000,"Magnitude":0,"KeywordId":"","Timing":3,"HealSource":3,"HealAmount":0,"HealCoefficientBp":10000,"StatusRecipeId":"","StatusPolarity":1,"StatusApplyChanceBp":10000,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"PowerGaugeAmount":0},"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]},"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageRecipe":null,"DamageHitCount":3,"Summon":null},"DescriptionKey":null,"Description":"Inflict
+    damage equal to 180% of the hero''s Attack on one enemy, plus additional damage
+    equal to 8% of the target''s Max HP.","SourceDescription":"Deals 180% ATK damage
+    to one enemy, plus additional damage equal to 8% of the target''s Max HP.","Provenance":0,"Wording":null},{"Rank":2,"HasCardKind":true,"Category":0,"TargetScope":1,"Effect":{"AttributeAdvantageDamageBonusBp":0,"Batches":[],"Sequence":[{"Timing":2,"BatchId":null,"Effect":{"DamageProfile":null,"Explosion":false,"ConsumeTargetRecipeId":null,"DamagePerConsumedStackBp":0,"SourceStackRecipeId":null,"SourceStackDamageBp":0,"SourceStackDotScaleBp":0,"ConsumeSourceStacks":false,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Id":"fighter.scii-taki.skill.2.rank2.additional","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":10000,"KeywordFactorBp":10000,"KeywordId":null,"Conditions":[],"StatusRecipe":null,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageRecipe":{"Profile":{"Id":null,"ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassConstruct":false,"BypassDamageCap":false,"BypassFatalSave":false},"Family":2,"Scaling":2,"StatSource":1,"ScalingStat":0,"FixedAmount":0,"CoefficientBp":800,"KeywordFactorBp":10000,"AttackEffectId":"","CannotCrit":true,"CannotBlock":true,"ScaleFromTargetMaxHealth":false},"DamageHitCount":1,"Summon":null}}],"DamageProfile":{"Id":null,"ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassConstruct":false,"BypassDamageCap":false,"BypassFatalSave":false},"Explosion":false,"ConsumeTargetRecipeId":null,"DamagePerConsumedStackBp":0,"SourceStackRecipeId":null,"SourceStackDamageBp":0,"SourceStackDotScaleBp":0,"ConsumeSourceStacks":false,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":3,"Range":0,"Reaction":2,"ReactionTiming":0,"ResolvedHitCount":3},"Id":"fighter.scii-taki.skill.2.rank.2","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":27000,"KeywordFactorBp":10000,"KeywordId":"","Conditions":[],"StatusRecipe":{"StructuralEntityMarker":false,"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"","NameKey":"","Polarity":0,"Color":0,"Behavior":0,"Stacking":0,"Identity":0,"DurationClock":1,"DefaultDuration":2,"MaxStacks":1,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":[],"Modifiers":[],"PeriodicDamage":{"Element":0,"Family":3,"Timing":2,"Scaling":1,"CoefficientBp":10000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":{"Timing":1,"Scaling":0,"CoefficientBp":10000,"FixedAmount":0},"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":{"Sequence":[],"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Kind":0,"Target":1,"Family":0,"Scaling":0,"CoefficientBp":10000,"Magnitude":0,"KeywordId":"","Timing":3,"HealSource":3,"HealAmount":0,"HealCoefficientBp":10000,"StatusRecipeId":"","StatusPolarity":1,"StatusApplyChanceBp":10000,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"PowerGaugeAmount":0},"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]},"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageRecipe":null,"DamageHitCount":3,"Summon":null},"DescriptionKey":null,"Description":"Inflict
+    damage equal to 270% of the hero''s Attack on one enemy, plus additional damage
+    equal to 8% of the target''s Max HP.","SourceDescription":"Deals 270% ATK damage
+    to one enemy, plus additional damage equal to 8% of the target''s Max HP.","Provenance":0,"Wording":null},{"Rank":3,"HasCardKind":true,"Category":0,"TargetScope":1,"Effect":{"AttributeAdvantageDamageBonusBp":0,"Batches":[],"Sequence":[{"Timing":2,"BatchId":null,"Effect":{"DamageProfile":null,"Explosion":false,"ConsumeTargetRecipeId":null,"DamagePerConsumedStackBp":0,"SourceStackRecipeId":null,"SourceStackDamageBp":0,"SourceStackDotScaleBp":0,"ConsumeSourceStacks":false,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Id":"fighter.scii-taki.skill.2.rank3.additional","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":10000,"KeywordFactorBp":10000,"KeywordId":null,"Conditions":[],"StatusRecipe":null,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageRecipe":{"Profile":{"Id":null,"ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassConstruct":false,"BypassDamageCap":false,"BypassFatalSave":false},"Family":2,"Scaling":2,"StatSource":1,"ScalingStat":0,"FixedAmount":0,"CoefficientBp":800,"KeywordFactorBp":10000,"AttackEffectId":"","CannotCrit":true,"CannotBlock":true,"ScaleFromTargetMaxHealth":false},"DamageHitCount":1,"Summon":null}}],"DamageProfile":{"Id":null,"ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassConstruct":false,"BypassDamageCap":false,"BypassFatalSave":false},"Explosion":false,"ConsumeTargetRecipeId":null,"DamagePerConsumedStackBp":0,"SourceStackRecipeId":null,"SourceStackDamageBp":0,"SourceStackDotScaleBp":0,"ConsumeSourceStacks":false,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":3,"Range":0,"Reaction":2,"ReactionTiming":0,"ResolvedHitCount":3},"Id":"fighter.scii-taki.skill.2.rank.3","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":45000,"KeywordFactorBp":10000,"KeywordId":"","Conditions":[],"StatusRecipe":{"StructuralEntityMarker":false,"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"","NameKey":"","Polarity":0,"Color":0,"Behavior":0,"Stacking":0,"Identity":0,"DurationClock":1,"DefaultDuration":2,"MaxStacks":1,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":[],"Modifiers":[],"PeriodicDamage":{"Element":0,"Family":3,"Timing":2,"Scaling":1,"CoefficientBp":10000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":{"Timing":1,"Scaling":0,"CoefficientBp":10000,"FixedAmount":0},"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":{"Sequence":[],"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Kind":0,"Target":1,"Family":0,"Scaling":0,"CoefficientBp":10000,"Magnitude":0,"KeywordId":"","Timing":3,"HealSource":3,"HealAmount":0,"HealCoefficientBp":10000,"StatusRecipeId":"","StatusPolarity":1,"StatusApplyChanceBp":10000,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"PowerGaugeAmount":0},"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]},"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageRecipe":null,"DamageHitCount":3,"Summon":null},"DescriptionKey":null,"Description":"Inflict
+    damage equal to 450% of the hero''s Attack on one enemy, plus additional damage
+    equal to 8% of the target''s Max HP.","SourceDescription":"Deals 450% ATK damage
+    to one enemy, plus additional damage equal to 8% of the target''s Max HP.","Provenance":0,"Wording":null}],"Variants":[],"ValueOverrides":[]}'
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

@@ -158,7 +158,11 @@ namespace FightingAllstar.Core.Content
             for (var rank = 1; rank <= 3; rank++)
             {
                 var effect = factory(rank); effect.Id = skill.Id + ".rank." + rank;
-                skill.TargetScope = effect.Target;
+                if (rank == 1)
+                {
+                    skill.TargetScope = effect.Target;
+                    skill.DamageAnimation = FirstDamageAnimation(effect);
+                }
                 skill.Ranks.Add(new SkillRankDefinition { Rank = rank, HasCardKind = true, Category = category, TargetScope = effect.Target,
                     Effect = effect, Provenance = rank == 3 ? SourceProvenance.Supplied : SourceProvenance.GeneratedStartingValue });
             }
@@ -166,8 +170,29 @@ namespace FightingAllstar.Core.Content
         }
         private static void AddUlt(CharacterDefinition fighter, CardCategory category, Func<int, EffectDefinition> factory)
         {
-            for (var tier = 0; tier <= 5; tier++) fighter.UltimateTiers.Add(new UltimateTierDefinition {
-                Tier = tier, Category = category, Effect = factory(tier), Provenance = tier == 0 ? SourceProvenance.Supplied : SourceProvenance.GeneratedStartingValue });
+            for (var tier = 0; tier <= 5; tier++)
+            {
+                var effect = factory(tier);
+                if (tier == 0)
+                {
+                    fighter.HasUltimateCardSettings = true;
+                    fighter.UltimateCategory = category;
+                    fighter.UltimateTargetScope = effect.Target;
+                    fighter.UltimateDamageAnimation = FirstDamageAnimation(effect);
+                }
+                fighter.UltimateTiers.Add(new UltimateTierDefinition {
+                    Tier = tier, Category = category, Effect = effect,
+                    Provenance = tier == 0 ? SourceProvenance.Supplied : SourceProvenance.GeneratedStartingValue });
+            }
+        }
+        private static DamageAttackDefinition FirstDamageAnimation(EffectDefinition effect)
+        {
+            if (effect?.Kind == EffectKind.Damage && effect.Attack != null) return effect.Attack.Clone();
+            if (effect?.Sequence != null)
+                foreach (var step in effect.Sequence)
+                    if (step?.Effect?.Kind == EffectKind.Damage && step.Effect.Attack != null)
+                        return step.Effect.Attack.Clone();
+            return null;
         }
         private static void Aura(CharacterDefinition fighter, string id, PassiveTargetFilter targets, params StatModifierDefinition[] modifiers)
         {

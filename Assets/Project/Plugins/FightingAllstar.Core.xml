@@ -4,6 +4,12 @@
         <name>FightingAllstar.Core</name>
     </assembly>
     <members>
+        <member name="T:FightingAllstar.Core.Combat.AbilityVariantSystem">
+            <summary>Variant readiness changes presentation metadata, never a card's stable identity or rank.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.AbilityVariantSystem.ResolveAuthored(FightingAllstar.Core.Content.SkillDefinition,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>Pure authored-configuration preview. Readiness/resources are battle state and deliberately excluded.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.AI.BattleSituation">
             <summary>Immutable snapshot of the battlefield from the AI's perspective.</summary>
         </member>
@@ -113,6 +119,21 @@
         <member name="M:FightingAllstar.Core.Combat.BattleEngine.ExecutePassiveOperation(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.CardEffectContext,FightingAllstar.Core.Content.CardEffectOperationDefinition,System.String,System.String)">
             <summary>Resolves supported effect operations emitted by passive reactions against their authored targets.</summary>
         </member>
+        <member name="M:FightingAllstar.Core.Combat.BattleEngine.SourceStackCoefficient(FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Content.EffectDefinition,FightingAllstar.Core.Combat.BattleEngine.ActionResolutionContext)">
+            <summary>Generic owner-layer damage scaling; no character identity is required by the engine.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.BattleEntitySystem">
+            <summary>Owns entity identity and lifetime links; damage allocation is a separate capability.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.BattleEntitySystem.Absorb(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,System.Int32,System.String)">
+            <summary>Consumes shared pools once, after formula resolution and before personal barriers.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.BattleEntitySystem.ValidateSnapshot(FightingAllstar.Core.Combat.BattleState)">
+            <summary>Reject malformed persisted links without inventing objects from historical status names.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.BattleEntitySystem.SuppressUnavailableAuras(FightingAllstar.Core.Combat.BattleState)">
+            <summary>Pending zero-HP owners stop supplying entity auras without finalizing their defeat.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.BattleEntropy">
             <summary>Creates unpredictable seeds for battle-local random streams.</summary>
         </member>
@@ -125,8 +146,17 @@
         <member name="T:FightingAllstar.Core.Combat.CardEffectContext">
             <summary>Facts available to card and passive conditions. It contains IDs and resolved outcomes, never presentation state.</summary>
         </member>
+        <member name="F:FightingAllstar.Core.Combat.CardEffectContext.ActionCritChanceBp">
+            <summary>Owner Crit Chance used for the critical hit that unlocked this sequence, before target resistance.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.CardEffectSystem">
             <summary>Resolves ordered recipe operations and ownership-aware conditions without mutating battle state.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CardRules.ApplySharedSkillSettings(FightingAllstar.Core.Content.SkillDefinition)">
+            <summary>Normalizes every rank to the skill-root target and damage animation.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CardRules.ApplySharedDamageSettings(FightingAllstar.Core.Content.EffectDefinition,FightingAllstar.Core.Content.EffectTargetScope,FightingAllstar.Core.Content.DamageAttackDefinition)">
+            <summary>Applies card-root targeting and optional shared choreography to each top-level damage action.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Combat.PassiveFact">
             <summary>Committed facts, not presentation/animation callbacks. Only supported facts are exposed.</summary>
@@ -146,8 +176,20 @@
         <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.ChangePowerGauge(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Combat.FighterState,System.Int32,System.String,System.Boolean,System.Boolean)">
             <summary>Single gateway for effect-driven gauge changes. Positive passive refunds cannot be mistaken for card drains.</summary>
         </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.EmitInterceptFact(FightingAllstar.Core.Combat.BattleState,FightingAllstar.Core.Combat.PassiveFact)">
+            <summary>Interception is synchronous; facts emitted by its commands retain the root queue and budget.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.CharacterPassiveRuntime.BeginRootResolution(FightingAllstar.Core.Combat.BattleState,System.String)">
+            <summary>All effects and nested facts inside the lease share one deterministic budget.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.CombatPolicySystem">
+            <summary>One interception pipeline for card, generated, periodic and reflected contacts.</summary>
+        </member>
         <member name="M:FightingAllstar.Core.Combat.DamageResolver.Resolve(FightingAllstar.Core.Content.DamagePacket,FightingAllstar.Core.Content.StatBlock,FightingAllstar.Core.Content.StatBlock,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
             <summary>Uses exact basis-point fractions and floors once, after all calculation stages.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.DamageResolver.Allocate(FightingAllstar.Core.Content.DamageResult,FightingAllstar.Core.Content.DamagePolicy,System.Int32,System.Int32)">
+            <summary>Allocates the already rounded contact; never repeats formula stages or random rolls.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Combat.DeterministicRandom">
             <summary>Versioned xorshift64* stream. A stream is copied with state and draw count for replay.</summary>
@@ -170,6 +212,18 @@
         <member name="T:FightingAllstar.Core.Combat.LocalBattleSession">
             <summary>Development-only authority host. It is intentionally not an economy or run-reward service.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Combat.PassiveExecutionException">
+            <summary>A bounded root failed. The caller must discard its working snapshot.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.StatusContainer">
+            <summary>Owns all mutable status instances for one fighter.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Combat.StatusContainer.ConsumeLayers(System.String,System.Int32,System.String,System.Boolean,FightingAllstar.Core.Content.StatusRemovalReason)">
+            <summary>Consume oldest matching layers. Insufficient exact requests never mutate any instance.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.PassiveRuleTrace">
+            <summary>Optional observer record captured by the production dispatcher without RNG draws or battle events.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Combat.TriggeredPassiveEffect">
             <summary>A passive effect queued from an explicit trigger; callers resolve it in returned order.</summary>
         </member>
@@ -179,14 +233,17 @@
         <member name="T:FightingAllstar.Core.Combat.PlanDraft">
             <summary>A disposable preview. Reset rebuilds from the captured authority snapshot and never advances RNG.</summary>
         </member>
-        <member name="T:FightingAllstar.Core.Combat.StatusContainer">
-            <summary>Owns all mutable status instances for one fighter.</summary>
-        </member>
         <member name="M:FightingAllstar.Core.Combat.StatusSystem.GetExplicitFamilyDamageDealtBp(FightingAllstar.Core.Combat.FighterState,FightingAllstar.Core.Content.DamageFamily)">
             <summary>Explicit family bonuses only; global bonuses already present on Normal must not cross a second time.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Combat.TurnExecutionState">
             <summary>A frozen turn queue shared by both sides. Card availability is checked at execution.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Combat.TurnLedger">
+            <summary>Queries authoritative committed inputs. Moving/merging a card is not using it; a fizzled card is not a play.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.AbilityVariantDefinition">
+            <summary>Alternate skill ranks selected from authoritative readiness at card resolution.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.ArtifactRules">
             <summary>
@@ -221,6 +278,12 @@
         <member name="M:FightingAllstar.Core.Content.ArtifactRules.RepairLines(FightingAllstar.Core.Run.ArtifactInstance,System.Boolean)">
             <summary>Migrates authored balance once, then repairs imported data without rerolling valid current-schema lines.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Content.AuthoredDescription">
+            <summary>Optional designer-owned text. Null retains the existing combat text generator.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.BattleEntityDefinition">
+            <summary>Authoritative battle-local object content. Presentation never supplies combat behavior.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Content.CharacterStatGrowth">
             <summary>Linear growth as a fraction of level-one stats, in basis points per level.</summary>
         </member>
@@ -236,8 +299,20 @@
         <member name="T:FightingAllstar.Core.Content.EffectOperationDefinition">
             <summary>Non-recursive effect payload shared by root effects and sequence steps.</summary>
         </member>
+        <member name="P:FightingAllstar.Core.Content.EffectOperationDefinition.DamageRecipe">
+            <summary>Optional packet payload for sequence damage; primary attacks keep their legacy fields.</summary>
+        </member>
+        <member name="F:FightingAllstar.Core.Content.EffectOperationDefinition.SourceStackRecipeId">
+            <summary>Snapshot the owner's layers at the first hit, after BeforeAction effects.</summary>
+        </member>
+        <member name="F:FightingAllstar.Core.Content.EffectOperationDefinition.SourceStackDotScaleBp">
+            <summary>Zero leaves the per-stack coefficient unscaled; otherwise multiplies by explicit DOT Dealt.</summary>
+        </member>
         <member name="F:FightingAllstar.Core.Content.EffectOperationDefinition.StatusApplyChanceBp">
             <summary>Authored status proc chance in basis points; 10000 is 100% and zero is 0%.</summary>
+        </member>
+        <member name="F:FightingAllstar.Core.Content.EffectOperationDefinition.StatusApplyChanceBonusStat">
+            <summary>Adds a fraction of the effect owner's current stat to the authored status proc chance.</summary>
         </member>
         <member name="F:FightingAllstar.Core.Content.EffectDefinition.AttributeAdvantageDamageBonusBp">
             <summary>Extra damage dealt when this card hits a target with attribute advantage, in basis points.</summary>
@@ -245,8 +320,20 @@
         <member name="T:FightingAllstar.Core.Content.StatBundleRules">
             <summary>Defines which stats a bundle modifier affects and the operation used for each member.</summary>
         </member>
+        <member name="F:FightingAllstar.Core.Content.SkillDefinition.DamageAnimation">
+            <summary>Shared hit choreography and damage target for every rank and damage step in this skill.</summary>
+        </member>
+        <member name="F:FightingAllstar.Core.Content.CharacterDefinition.HasUltimateCardSettings">
+            <summary>Shared card settings for the Ultimate C0–C5 progression.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Content.ContentAuthoringValidator">
             <summary>Checks WIP authoring completeness without pretending that source prose is executable gameplay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.CombatPolicyDefinition">
+            <summary>Declarative interception owned by a passive. Caps limit HP-directed loss per committed contact.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.DamageProfileDefinition">
+            <summary>Explicit damage semantics. A null profile preserves the legacy family behavior.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Content.CombatSupportDefinition">
             <summary>Reusable combat capabilities; the resolver never switches on character identity.</summary>
@@ -266,6 +353,18 @@
         <member name="T:FightingAllstar.Core.Content.GenshinStarterRoster">
             <summary>Source kits plus explicitly generated level-one stats and lower-rank starting values.</summary>
         </member>
+        <member name="T:FightingAllstar.Core.Content.GenshinSummonKits">
+            <summary>Source-backed upgrades for the three pre-release summon kits; safe to apply repeatedly.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.PassiveActionDefinition">
+            <summary>Compiled execution tree. Editor storage remains a flat stable-ID node table.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.SkillEffectOwnershipMigration">
+            <summary>Explicit authoring migration. Never called by battle loading.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.SkillEffectValidator">
+            <summary>Context validation for canonical native skill/ultimate payloads.</summary>
+        </member>
         <member name="T:FightingAllstar.Core.Content.SnapshotJson">
             <summary>Serializes plain combat snapshots, including recursive effect-condition trees.</summary>
         </member>
@@ -277,6 +376,9 @@
         </member>
         <member name="T:FightingAllstar.Core.Content.StandardEffectDatabase">
             <summary>Stable recipe IDs and source-backed defaults from the combat database.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Content.TargetQueryDefinition">
+            <summary>Bounded selection over logical battle slots. Bindings contain frozen IDs, never live object references.</summary>
         </member>
         <member name="T:FightingAllstar.Core.Economy.LocalEconomyService">
             <summary>Disposable offline economy simulation. It grants no online entitlement or trusted currency.</summary>
@@ -310,6 +412,39 @@
         </member>
         <member name="T:FightingAllstar.Core.Run.EnemyFormationTemplate">
             <summary>A complete, authored enemy formation owned by one dungeon policy.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.BattleLabSimulation">
+            <summary>Disposable in-memory setup over the production engine. No scenario persistence or economy writes.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.PresentationTimeline">
+            <summary>Pure presentation clock. Committed event order and contact identities are immutable.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioAuthoringCatalog">
+            <summary>One allow-list for picker choices and compiler acceptance.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioBindingAnalysis">
+            <summary>Definite assignment over ordered actions. A loop or one branch cannot promise a value to later siblings.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Studio.StudioDocumentService.Duplicate(FightingAllstar.Core.Studio.StudioDocument)">
+            <summary>Copies local identities while retaining external keyword, snippet, style, and imported source IDs.</summary>
+        </member>
+        <member name="M:FightingAllstar.Core.Studio.StudioDocumentService.TryMigrate(FightingAllstar.Core.Studio.StudioDocument,FightingAllstar.Core.Studio.StudioDocument@,System.Collections.Generic.List{FightingAllstar.Core.Studio.StudioDiagnostic}@)">
+            <summary>Version one upgrades add empty M3 tables while retaining its exact version-zero gameplay.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioActionNode">
+            <summary>Flat action storage. Modules are expanded only after references and budgets pass validation.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioCapabilities">
+            <summary>Authoring capabilities share the compiler's allow-list; imported legacy behavior remains frozen.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioPassiveEditing">
+            <summary>Semantic import and ownership operations, independent of Unity and view controls.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioPassiveView">
+            <summary>Pure presentation projections. The same projection drives initial and live summaries.</summary>
+        </member>
+        <member name="T:FightingAllstar.Core.Studio.StudioRunSnapshot">
+            <summary>Frozen source/run data. Every state/list returned is a copy, so editing a draft cannot rewrite a prior run.</summary>
         </member>
     </members>
 </doc>

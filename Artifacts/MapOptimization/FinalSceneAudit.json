@@ -1,0 +1,1024 @@
+{
+  "schema": "MapOptimization_FinalSceneAudit_v1",
+  "generatedAtUTC": "2026-10-19T15:00:26.151697+00:00",
+  "method": "Read-only parsing of final saved Unity scene, referenced prefab, policy and authored camera JSON. No Unity Editor calls, source changes or live render inspection.",
+  "scopePassed": true,
+  "scene": "Assets/Project/Scenes/BattleTeyvat.unity",
+  "sourcePrefab": "Assets/Project/Art/Environment/TeyvatGrassland/Surroundings/Prefabs/TG_SurroundedBattleStage.prefab",
+  "fileSHA256": {
+    "Assets/Project/Scenes/BattleTeyvat.unity": "92b9b4bffe756a4ff78f1ddc2ee52bcae6a24393efaa5a4460df0762cdb706f4",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Surroundings/Prefabs/TG_SurroundedBattleStage.prefab": "f40f661b18649c8d6d5f500558cc65e9921472e585a3f3c0b6e6c8275e537155",
+    "Assets/Project/Art/Environment/MapStandard/Settings/BattleMaps.asset": "4432bf91d428093717ecb8015b6642cf2467155c1daf849163326ccb82c33969",
+    "Assets/Project/Art/Environment/TeyvatGrassland/FoundationR2/TG_Layout.json": "35f91adf2954743a289cd77678663e0a2a1cdcd36438366aed507d425c262626",
+    "Assets/Project/Scenes/PerformanceReview/MapProfile_BattleTeyvat_After.unity": "e7d06d8d923f3ee8aec61fdfeda2b419287285df2595b957e8efb6153921bdef",
+    "Assets/Project/Scenes/PerformanceReview/MapProfile_BattleTeyvat_Before.unity": "d0dbf71d635527bd9abb8d37b9b015c571536c2269a414871dba0214db1fb906",
+    "Assets/Project/Art/Environment/TeyvatGrassland/Meadow/Runtime/TeyvatMeadowRenderer.cs": "6fe2afe69e99f657a30a495070da27809e73df6795e903fbbddea069946247c8",
+    "Artifacts/MapOptimization/MeadowOrderValidation.json": "1109349c3b4d9298bfb44f1ad9d0abfb943a3fd10afc35d3a00f27db2e4bbf6d"
+  },
+  "cliffOccluders": {
+    "lod0Groups": 27,
+    "allLOD0OccluderAndOccludee": true,
+    "allLOD1OccludeeOnly": true,
+    "WP07ReplacementsRetainOccluderFlags": [
+      "SM_R3_Cliff_T1_05",
+      "SM_R3_Cliff_T1_06"
+    ],
+    "records": [
+      {
+        "group": "SM_R3_Cliff_T1_00",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_00_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -4220474214507756976, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_00_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -6019546296653179051, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_01",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_01_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 5485609848965834533, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_01_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -8345357188099339034, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_02",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_02_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 6188720338162440654, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_02_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -1307113645160366464, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_03",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_03_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 7133109974910902695, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_03_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 4743149729444667917, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_04",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_04_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 103903841731897514, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_04_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 7898797056303364482, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_05",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_05_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -8777705600991952021, guid: 6ee2711cd0840864aae8a4502267f23d, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_05_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -7115883220353401826, guid: 6ee2711cd0840864aae8a4502267f23d, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_06",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_06_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 6081883580302071090, guid: 6ee2711cd0840864aae8a4502267f23d, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_06_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -2761696997558896793, guid: 6ee2711cd0840864aae8a4502267f23d, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_07",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_07_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -870440112669762324, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_07_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 3699130325576438639, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_08",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_08_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 338094227060259944, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_08_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 855331596553808489, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_09",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_09_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -6190433458788978492, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_09_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 879392690752251066, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_10",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_10_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 3600356004699973392, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_10_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -8408411427059738408, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_11",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_11_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -1099600351410630879, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_11_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -3436068074523809968, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_12",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_12_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 3136139876954227670, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_12_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -2490676619596642252, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T1_13",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T1_13_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 5711277044540803359, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T1_13_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -772372686128890081, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_00",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_00_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -8422152791889228727, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_00_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 2345226826566348083, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_01",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_01_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -6596858959640170401, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_01_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -7743065954130112201, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_02",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_02_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -4155686191228839168, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_02_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 3795091467397369090, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_03",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_03_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 9162795784419473601, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_03_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -8298347824833116790, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_04",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_04_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -3403561495033896187, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_04_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -3967681450226948487, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_05",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_05_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 8040661981295722403, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_05_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 1816761551686605512, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_06",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_06_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -1915157021037502828, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_06_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -640249231051444121, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_07",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_07_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 1503272625210127779, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_07_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -3492089937058801276, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_08",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_08_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -3555747413309003663, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_08_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -4398953313981005290, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_09",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_09_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -7914655513072438961, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_09_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -7256828455315118900, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_10",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_10_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 6694674069459871718, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_10_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -6744172868769081110, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_11",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_11_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: -1283261961002762605, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_11_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 3576434062811820478, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      },
+      {
+        "group": "SM_R3_Cliff_T2_12",
+        "lods": [
+          {
+            "lod": 0,
+            "rendererName": "SM_R3_Cliff_T2_12_LOD0",
+            "staticFlags": 18,
+            "occluderStatic": true,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 6224586899948994190, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          },
+          {
+            "lod": 1,
+            "rendererName": "SM_R3_Cliff_T2_12_LOD1",
+            "staticFlags": 16,
+            "occluderStatic": false,
+            "occludeeStatic": true,
+            "batchingStatic": false,
+            "meshReference": "{fileID: 7313755173869804315, guid: ded6619530669444fbf672fa3823d821, type: 3}"
+          }
+        ]
+      }
+    ]
+  },
+  "customTreeInstancer": {
+    "enabled": false,
+    "sourceGroups": 737
+  },
+  "windBoundsPadding": {
+    "present": true,
+    "enabled": true,
+    "sourceGroups": 737,
+    "sourceMembershipMatchesInstancer": true,
+    "worldPaddingMetres": 0.8
+  },
+  "occlusionViewVolume": {
+    "stageOrigin": [
+      -0.16630173,
+      1.8876038,
+      -10.101893
+    ],
+    "localCenter": [
+      0.0,
+      20.0,
+      0.0
+    ],
+    "size": [
+      90.0,
+      45.0,
+      90.0
+    ],
+    "worldMin": [
+      -45.16630173,
+      -0.6123961999999992,
+      -55.101893000000004
+    ],
+    "worldMax": [
+      44.83369827,
+      44.3876038,
+      34.898106999999996
+    ],
+    "isViewVolume": true,
+    "benchmarksAllInside": true,
+    "benchmarks": [
+      {
+        "name": "Planning",
+        "worldPosition": [
+          -0.16630173,
+          15.3876038,
+          -27.101893
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 16.0
+      },
+      {
+        "name": "Reverse",
+        "worldPosition": [
+          -0.16630173,
+          15.3876038,
+          6.8981069999999995
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 16.0
+      },
+      {
+        "name": "Left",
+        "worldPosition": [
+          -0.16630173,
+          7.8876038,
+          -15.101893
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 8.5
+      },
+      {
+        "name": "Right",
+        "worldPosition": [
+          -0.16630173,
+          7.8876038,
+          -15.101893
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 8.5
+      },
+      {
+        "name": "Rear",
+        "worldPosition": [
+          -0.16630173,
+          8.8876038,
+          -8.101893
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 9.5
+      },
+      {
+        "name": "Attack",
+        "worldPosition": [
+          1.18369827,
+          5.787603799999999,
+          -20.501893000000003
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 6.399999999999999
+      }
+    ],
+    "authoredCombatAndEnvironmentRecordsAllInside": true,
+    "authoredCombatAndEnvironmentRecords": [
+      {
+        "name": "PlayerPlanning",
+        "worldPosition": [
+          -0.16630172729492188,
+          15.387603759765625,
+          -27.10189437866211
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 15.999999959765624
+      },
+      {
+        "name": "EnemyPlanning",
+        "worldPosition": [
+          -0.16630172729492188,
+          15.387603759765625,
+          6.898106575012207
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 15.999999959765624
+      },
+      {
+        "name": "ReferencePlanningCandidate",
+        "worldPosition": [
+          -0.16630172729492188,
+          10.887603759765625,
+          -41.10189437866211
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 11.499999959765624
+      },
+      {
+        "name": "ReversePlanningCandidate",
+        "worldPosition": [
+          -0.16630172729492188,
+          11.887603759765625,
+          13.898106575012207
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 12.499999959765624
+      },
+      {
+        "name": "EnvironmentOverview",
+        "worldPosition": [
+          25.833698272705078,
+          23.887603759765625,
+          -52.10189437866211
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 2.9999986213378946
+      },
+      {
+        "name": "PlayerAttack",
+        "worldPosition": [
+          1.183698296546936,
+          5.787603855133057,
+          -20.50189208984375
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 6.400000055133056
+      },
+      {
+        "name": "EnemyAttack",
+        "worldPosition": [
+          -1.5163017511367798,
+          5.787603855133057,
+          0.29810619354248047
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 6.400000055133056
+      },
+      {
+        "name": "PlayerContact",
+        "worldPosition": [
+          4.9336981773376465,
+          5.787603855133057,
+          -13.501893997192383
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 6.400000055133056
+      },
+      {
+        "name": "EnemyContact",
+        "worldPosition": [
+          -5.26630163192749,
+          5.787603855133057,
+          -6.701893329620361
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 6.400000055133056
+      },
+      {
+        "name": "PlayerPortrait",
+        "worldPosition": [
+          2.533698320388794,
+          4.887603759765625,
+          -9.101893424987793
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 5.499999959765624
+      },
+      {
+        "name": "EnemyPortrait",
+        "worldPosition": [
+          -2.8663017749786377,
+          4.887603759765625,
+          -11.101893424987793
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 5.499999959765624
+      },
+      {
+        "name": "WideMultiTarget",
+        "worldPosition": [
+          13.833698272705078,
+          9.887603759765625,
+          -25.10189437866211
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 10.499999959765624
+      },
+      {
+        "name": "ReverseOverview",
+        "worldPosition": [
+          -27.166301727294922,
+          20.887603759765625,
+          24.89810562133789
+        ],
+        "insideBakeVolume": true,
+        "minimumBoundaryMarginMetres": 10.000001378662105
+      }
+    ],
+    "distantModellingReferenceRecords": [
+      {
+        "name": "ReferenceFrontLeft",
+        "worldPosition": [
+          -108.16630554199219,
+          86.88760375976562,
+          -127.10189056396484
+        ],
+        "insideBakeVolume": false,
+        "minimumBoundaryMarginMetres": -71.99999756396484
+      },
+      {
+        "name": "ReferenceFrontRight",
+        "worldPosition": [
+          114.83369445800781,
+          79.88760375976562,
+          -109.10189056396484
+        ],
+        "insideBakeVolume": false,
+        "minimumBoundaryMarginMetres": -69.99999618800781
+      },
+      {
+        "name": "ReferenceSide",
+        "worldPosition": [
+          143.8336944580078,
+          86.88760375976562,
+          30.89810562133789
+        ],
+        "insideBakeVolume": false,
+        "minimumBoundaryMarginMetres": -98.99999618800781
+      },
+      {
+        "name": "ReferenceRear",
+        "worldPosition": [
+          82.83369445800781,
+          123.88760375976562,
+          192.89810180664062
+        ],
+        "insideBakeVolume": false,
+        "minimumBoundaryMarginMetres": -157.99999480664064
+      }
+    ]
+  },
+  "runtimeProductionCameraAssessment": {
+    "planningPositionsCovered": true,
+    "sourceFiles": [
+      "Assets/Project/Runtime/Presentation/Combat/BattleStagePresenter.cs",
+      "Assets/Project/Runtime/Presentation/Combat/BattleStagePresenter.Camera.cs"
+    ],
+    "allAdaptiveRuntimeShotsAndTransitionsProven": false,
+    "reason": "Production FrameBounds and AttackShot adapt to actual actor/formation bounds and camera aspect ratio; AttackShot can expand rear distance through 80 fitting attempts, and OrbitCamera interpolates arcs. No hard camera-volume clamp exists. File-only checks prove the six benchmark endpoints and 13 authored review positions, not every runtime actor/aspect/path combination.",
+    "expectedCurrentWindowsLandscape": "The ordinary planning, attack, contact and portrait recorded positions fit with margin; four distant modelling overview references intentionally lie outside the gameplay camera bake volume."
+  },
+  "limitations": [
+    "Static flag membership is proven from saved assets; this audit does not inspect the native PVS contents or guarantee its runtime visual correctness.",
+    "No performance, animation, runtime camera sweep, GPU timing or build result claim is made by this file."
+  ],
+  "meadowSubmissionOrdering": {
+    "productionFrontToBack": true,
+    "afterBenchmarkFrontToBack": true,
+    "beforeBenchmarkFrontToBack": false,
+    "savedPrefabComponentID": 8672805674927325354,
+    "sourceDefaultFalse": true,
+    "exactSelectedMatrixMultisetValidation": {
+      "path": "Artifacts/MapOptimization/MeadowOrderValidation.json",
+      "passed": true,
+      "poses": 6,
+      "method": "Exact sorted multiset of mesh/material/submesh/LOD and all16 matrix float bits across six poses",
+      "scope": "Exact full records match with ordering toggled at fixed camera poses. This validates no selected mesh/material/submesh/LOD/matrix changes, independently of animation timing in screenshot pairs."
+    }
+  },
+  "nativeVisualReview": {
+    "reviewedAtUTC": "2026-10-19T15:00:26.151697+00:00",
+    "method": "Human visual comparison of all six 1920x1080 Native Before screenshots against final NativeOrdered After screenshots through view_image.",
+    "apparentGeometryOrShadowRegressionObserved": false,
+    "observedQualityChange": "No apparent quality reduction. Overall geometry coverage, plant density, material palette and broad shadow coverage are retained in these six views. Fine foliage/water differences are consistent with different animation phases.",
+    "limitations": "Static screenshots at different wind/water times cannot prove pixel equality, uninterrupted motion, every occlusion transition or all production camera paths. This review makes no GPU performance claim.",
+    "records": [
+      {
+        "pose": "Planning",
+        "before": "Artifacts/MapOptimization/Player/Native/BattleTeyvat_Before_Planning.png",
+        "after": "Artifacts/MapOptimization/Player/NativeOrdered/BattleTeyvat_After_Planning.png",
+        "beforeSHA256": "d6bebc77eaa98ffe0ad37fc8ddf4b6cc47d2171c4cb85911e996af9dd9b94716",
+        "afterSHA256": "84b7be50fe919175283cf3b5d58015740f120cb3f2a008467337f2f163b570d2",
+        "missingGeometryObserved": false,
+        "missingBroadShadowsObserved": false,
+        "observations": "Same island rocks, trees, river bank and dense grass/flower clusters; cliff/rock cast-shadow shapes remain visible. Waterfall streak and river ripple phases differ."
+      },
+      {
+        "pose": "Reverse",
+        "before": "Artifacts/MapOptimization/Player/Native/BattleTeyvat_Before_Reverse.png",
+        "after": "Artifacts/MapOptimization/Player/NativeOrdered/BattleTeyvat_After_Reverse.png",
+        "beforeSHA256": "e6194920d4a9482527b88bf7c1cdfdc9880599c4e8eb487df33121191a1353cf",
+        "afterSHA256": "6843eb9ce916d4943c7300e3452c58147cb3ca6c08a5dbde1c53c2c75a173ae4",
+        "missingGeometryObserved": false,
+        "missingBroadShadowsObserved": false,
+        "observations": "Same two framing boulders, tree trunks/canopies, flower patches and broad grass coverage; large tree and rock shadows remain. Fine blades differ with wind phase."
+      },
+      {
+        "pose": "Left",
+        "before": "Artifacts/MapOptimization/Player/Native/BattleTeyvat_Before_Left.png",
+        "after": "Artifacts/MapOptimization/Player/NativeOrdered/BattleTeyvat_After_Left.png",
+        "beforeSHA256": "6007ef1e69ad51f651a50c5e03f514c806426652359b2a41b3509acde394c7b6",
+        "afterSHA256": "c7099ade7f507f5942360e7a1755b5cc22a09ef7eab8fdb52037babb1e60396d",
+        "missingGeometryObserved": false,
+        "missingBroadShadowsObserved": false,
+        "observations": "Great-tree silhouette, background cliff terraces, snow peak, framing rocks and tree canopy/trunk density match. Rock/ground and tree shadows remain visible; fine leaf/blade edges differ."
+      },
+      {
+        "pose": "Right",
+        "before": "Artifacts/MapOptimization/Player/Native/BattleTeyvat_Before_Right.png",
+        "after": "Artifacts/MapOptimization/Player/NativeOrdered/BattleTeyvat_After_Right.png",
+        "beforeSHA256": "1250b13e86a8388bcee3ffa2be60df18d61ff4acd85672b9dd644027febb4436",
+        "afterSHA256": "b4bfafeb0bf28097152aaa07268debcddaf7b07a01d26a271667d5cbfa7ccbb0",
+        "missingGeometryObserved": false,
+        "missingBroadShadowsObserved": false,
+        "observations": "Ruin arch, coastal terraces, beacon, foreground boulder, woodland and meadow coverage match; no missing ledges or canopy groups observed. Wind-moved flower/blade microdetail differs."
+      },
+      {
+        "pose": "Rear",
+        "before": "Artifacts/MapOptimization/Player/Native/BattleTeyvat_Before_Rear.png",
+        "after": "Artifacts/MapOptimization/Player/NativeOrdered/BattleTeyvat_After_Rear.png",
+        "beforeSHA256": "bf11524f23dbdbc733237ce6eb3ea3abd0ef889523ec98426de3ceebad37100d",
+        "afterSHA256": "d45613cb4b3e1b892f543655ced3aa13534c1ecb485f566c7c7b5be62e1d02ce",
+        "missingGeometryObserved": false,
+        "missingBroadShadowsObserved": false,
+        "observations": "Alpine massif, pine ridges, broadleaf groups and two framing boulders match; ground tree-shadow patches remain. Grass/flower microedges differ with animation phase."
+      },
+      {
+        "pose": "Attack",
+        "before": "Artifacts/MapOptimization/Player/Native/BattleTeyvat_Before_Attack.png",
+        "after": "Artifacts/MapOptimization/Player/NativeOrdered/BattleTeyvat_After_Attack.png",
+        "beforeSHA256": "af48d20f97082d2e0ed7b986ee2bf6bf1d8aed9eee72315b5fb504aab1a8b704",
+        "afterSHA256": "cd3cbbfcbed86e68c581006ccfb8297a59208f70e751b8e1fc5c14b8840a4927",
+        "missingGeometryObserved": false,
+        "missingBroadShadowsObserved": false,
+        "observations": "Same multi-level cliffs, three waterfall courses, bridge, islands and trees. Cliff/rock/terrain shadows remain visible; water streaks, impact flecks and grass tips are at different animation phases."
+      }
+    ]
+  }
+}

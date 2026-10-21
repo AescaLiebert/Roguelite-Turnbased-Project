@@ -1,0 +1,31 @@
+{
+  "Status": "PASS",
+  "CapturedUtc": "2026-10-20T06:11:53.7503772Z",
+  "SchemaVersion": 3,
+  "SharedAssertions": 365,
+  "ClosureAssertions": 32,
+  "ElementalRegressionAssertions": 873,
+  "NativePreviewChecks": 5,
+  "UIAuthoringSteps": 93,
+  "UIAuthoringAssertions": 21,
+  "UIAuthoringSuccess": true,
+  "DuplicateReimport": true,
+  "SourceDraftUntouched": true,
+  "LegacyDraftMigrates": true,
+  "LegacySourceUntouched": true,
+  "ViewingVariantPreservesDocument": true,
+  "UnityCSharpErrors": 0,
+  "RuntimeAssemblyHash": "hx69ND+XW9RY0aghwY3i3aLhVYcSTKhiP6YaX5t7ewc=",
+  "EditorAssemblyHash": "0ADSL6gYhPdgbb/iqCylSrFkPB2eDW/M4LCtUVM/WEQ=",
+  "TrialAssembliesMatch": true,
+  "AuthoredDraft": "Assets/Project/Editor/CharacterCreatorStudio/Drafts/kaeyaStudio 13.asset",
+  "Bundle": "studio-bundle-v1:5ff1ff23aa4ffaf04ee56dd64a61f372c6ab6782e9ac4cda03422df879b7e8f8",
+  "MianCaseStudyOnly": true,
+  "Captures": [
+    "studio-rules.png",
+    "studio-inspector.png",
+    "studio-resources.png",
+    "studio-variants.png"
+  ],
+  "Scope": "Audited M3 closure. Fixed synthetic acceptance scenarios; M4-M8 remain planned. Elemental/Genshin regression subset, not the entire repository suite."
+}

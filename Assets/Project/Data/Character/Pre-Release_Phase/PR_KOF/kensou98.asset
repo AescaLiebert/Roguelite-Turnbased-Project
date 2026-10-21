@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: kensou98
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.pre-release.kensou98
+  runtimeReady: 1
+  familyId: family.kensou
+  seriesId: series.kof
+  role: 
+  traitIds:
+  - trait.chinese
+  - trait.series-kof
+  - trait.male
+  - trait.psycho-soldier
+  passiveSourceDescription: "\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E43\u0E0A\u0E49\u0E15\u0E19\u0E40\u0E2D\u0E07\u0E2D\u0E31\u0E19\u0E15\u0E34\u0E17\u0E35\u0E21\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A\u0E1A\u0E31\u0E1E\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    35% 3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+  passiveSourceType: 0
+  passiveRestriction: 0
+  passiveDefinition: {fileID: 11400000, guid: 640856a172d4d5b49a54aba8c9e8b4ea, type: 2}
+  studioSchema: 1
+  studioMetadataJson: "{\"CategoryId\":9107,\"SchemaVersion\":1,\"RuntimeReady\":true,\"Id\":\"fighter.pre-release.kensou98\",\"SourceId\":\"pre-release-character.csv#row-8\",\"SourceRecord\":8,\"DisplayName\":\"Sie
+    Kensou98\",\"FamilyId\":\"family.kensou\",\"Role\":\"\",\"SeriesId\":\"series.kof\",\"AttributeId\":\"attribute.red\",\"RarityId\":\"rarity.ssr\",\"TraitIds\":[\"trait.chinese\",\"trait.series-kof\",\"trait.male\",\"trait.psycho-soldier\"],\"BaseStats\":{\"Attack\":540,\"Defense\":300,\"MaxHealth\":6000,\"CombatClass\":3390,\"HasDerivedCombatClass\":false,\"CombatClassReferenceValue\":0,\"CombatClassFlatBonus\":0,\"CombatClassReferenceScore\":0,\"CombatClassGrowthScore\":0,\"PierceBp\":2000,\"ResistanceBp\":3000,\"RegenerationBp\":2000,\"CritChanceBp\":3000,\"CritDamageBp\":17000,\"CritResistanceBp\":2000,\"CritDefenseBp\":2000,\"RecoveryBp\":14000,\"BlockChanceBp\":2000,\"BlockPowerBp\":1000,\"LifeStealBp\":1500,\"EvadeBp\":0,\"PerceptionBp\":10000,\"ControlBp\":10000,\"AvoidanceBp\":10000,\"ReflectDamageBp\":0,\"DamageOverTimeDealtBp\":0,\"DamageDealtBp\":0,\"AdditionalDamageDealtBp\":0,\"ElementalModifiers\":[]},\"StatGrowth\":{\"AttackBp\":100,\"DefenseBp\":100,\"HealthBp\":100,\"CombatClassBp\":0},\"ArtifactLoadout\":[],\"Skills\":[],\"PassiveId\":\"fighter.pre-release.kensou98.passive\",\"PassiveSource\":{\"SourceType\":\"\",\"Description\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E43\u0E0A\u0E49\u0E15\u0E19\u0E40\u0E2D\u0E07\u0E2D\u0E31\u0E19\u0E15\u0E34\u0E17\u0E35\u0E21\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A\u0E1A\u0E31\u0E1E\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    35% 3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"Restriction\":\"\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Wording\":null},\"Passive\":null,\"HolyRelicSource\":null,\"ReviewNotes\":[\"Source:
+    ArtDirection/Character Database/Pre-Release-Character.csv, CSV row 8; release
+    label: Pre-Lunch.\",\"The source provides one value per Skill and Ultimate. That
+    value is preserved across ranks 1-3 and Ultimate tiers C0-C5 until progression
+    data is supplied.\",\"The source omits Evade, Perception, Control, Avoidance,
+    and level growth. The four secondary fields use the project neutral defaults;
+    growth uses CharacterStatGrowth defaults.\"],\"SourceTraits\":[\"China\",\"KOF\",\"Male\",\"Psycho
+    Soldier\"],\"SourceStats\":[{\"StatId\":\"Attack\",\"SourceField\":\"ATK\",\"SourceValue\":540.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":540.0},{\"StatId\":\"Defense\",\"SourceField\":\"DEF\",\"SourceValue\":300.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":300.0},{\"StatId\":\"MaxHealth\",\"SourceField\":\"HP\",\"SourceValue\":6000.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":6000.0},{\"StatId\":\"CombatClass\",\"SourceField\":\"Class
+    Power\",\"SourceValue\":3390.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3390.0},{\"StatId\":\"Pierce\",\"SourceField\":\"Pierce
+    Rate\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"Resistance\",\"SourceField\":\"Resistence\",\"SourceValue\":30.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3000.0},{\"StatId\":\"Regeneration\",\"SourceField\":\"Regenerate\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"CritChance\",\"SourceField\":\"Crit
+    Chance\",\"SourceValue\":30.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3000.0},{\"StatId\":\"CritDamage\",\"SourceField\":\"Crit
+    Damage\",\"SourceValue\":170.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":17000.0},{\"StatId\":\"CritResistance\",\"SourceField\":\"Crit
+    Resistence\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"CritDefense\",\"SourceField\":\"Crit
+    Defense\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"Recovery\",\"SourceField\":\"Recovery
+    Rate\",\"SourceValue\":140.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":14000.0},{\"StatId\":\"BlockChance\",\"SourceField\":\"Block
+    Chance\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"BlockPower\",\"SourceField\":\"Block
+    Power\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"LifeSteal\",\"SourceField\":\"Lifesteal\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Evade\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":0.0,\"Unit\":\"basis-points\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":0.0},{\"StatId\":\"Perception\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Control\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Avoidance\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0}],\"UltimateTiers\":[],\"StatsProvenance\":0}"
+  studioBundleHash: studio-bundle-v1:c5df7b453f79265672ac844e3b9778450aff186f74bc47bc169f7e6213072197
+  studioAuthoringJson: "{\"SchemaVersion\":5,\"Id\":\"studio.pre-release.kensou98\",\"Name\":\"Sie
+    Kensou98\",\"SourceCharacterId\":\"fighter.pre-release.kensou98\",\"LegacyCharacter\":null,\"AuthoredCharacter\":null,\"OwnsOpeningGauge\":false,\"ReplacedNativeReactionIds\":[],\"NativeReactionOrder\":[],\"CompatibilityReasons\":{},\"Parameters\":[],\"Rules\":[],\"Conditions\":[],\"Actions\":[],\"Modules\":[],\"Resources\":[],\"Statuses\":[],\"Policies\":[],\"AbilityVariants\":[],\"AbilityOverrides\":[],\"Description\":{\"SchemaVersion\":1,\"Id\":\"description.default\",\"OwnerId\":\"studio.pre-release.kensou98\",\"DefaultLocale\":\"en\",\"Locales\":[{\"Locale\":\"en\",\"ReviewState\":\"Draft\",\"ReviewedTextHash\":\"\",\"ReviewedGameplayHash\":\"\",\"Blocks\":[{\"Id\":\"paragraph.main\",\"Kind\":0,\"StyleId\":\"\",\"Source\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E43\u0E0A\u0E49\u0E15\u0E19\u0E40\u0E2D\u0E07\u0E2D\u0E31\u0E19\u0E15\u0E34\u0E17\u0E35\u0E21\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A\u0E1A\u0E31\u0E1E\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    35% 3 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\",\"MechanicIds\":[],\"HasFallback\":true,\"Branches\":[],\"DetachedSnippetOrigins\":[]}]}],\"Bindings\":[]},\"Presentation\":{\"Id\":\"presentation.default\",\"ActorAssetGuid\":null,\"ActionClipGuid\":null,\"ReactionClipGuid\":null,\"DurationMilliseconds\":1000}}"
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
+  id: 9107
+  fighterName: Sie Kensou98
+  fighterPic: {fileID: 21300000, guid: 6def7918d092e6f40be1e964c8a72c75, type: 3}
+  fighterIcon: {fileID: 21300000, guid: d2db7bfa3c0015e4da4ddc1ed923acac, type: 3}
+  fighterFull: {fileID: 21300000, guid: 6def7918d092e6f40be1e964c8a72c75, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 33ebcb9046a6de04f8eb4e3f80eb3c70, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: db8822f840b331240b252e21d7e0d9a0, type: 2}
+  Skill2: {fileID: 11400000, guid: 41896e97034e22e48bc58037bd3d1e3d, type: 2}
+  Ultimate: {fileID: 11400000, guid: 2efc5247aff118941a02a7c797d1731a, type: 2}
+  FighterAttribute: 0
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 1
+  LevelGrowth:
+    AttackBp: 100
+    DefenseBp: 100
+    HealthBp: 100
+  Classpower: 3390
+  attack: 540
+  defense: 300
+  health: 6000
+  SecondaryStats:
+    PierceRate: 20
+    Resistance: 30
+    Regenerate: 20
+    CritChance: 30
+    CritDmg: 170
+    CritResistance: 20
+    CritDefense: 20
+    RecoveryRate: 140
+    BlockChance: 20
+    BlockPower: 10
+    LifeSteal: 15
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

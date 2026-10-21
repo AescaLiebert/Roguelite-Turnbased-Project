@@ -1,0 +1,55 @@
+{
+  "entity": "Oz",
+  "source": "Blender 5.1",
+  "fps": 30,
+  "units": "meters",
+  "clips": {
+    "Spawn": 0.8,
+    "Idle": 2.0,
+    "Attack": 1.25,
+    "Despawn": 0.65
+  },
+  "markers": {
+    "Reveal": 0.28,
+    "Emit": 0.48,
+    "Impact": 0.1
+  },
+  "sockets": {
+    "Emit": [
+      0,
+      -0.61,
+      1.2
+    ],
+    "Center": [
+      0,
+      0,
+      0.9
+    ],
+    "Placement": [
+      0,
+      0,
+      0
+    ]
+  },
+  "bones": 10,
+  "vertices": 2261,
+  "triangles": 4370,
+  "boundsMin": [
+    -1.5272809267044067,
+    -0.6200000047683716,
+    0.06000000238418579
+  ],
+  "boundsMax": [
+    1.5272809267044067,
+    0.6502799987792969,
+    1.760093331336975
+  ],
+  "fbxSha256": "ea629d1de75926a53f5ae859240851df17988db4a4f94423bd289449529f8f36",
+  "atlasSize": 1024,
+  "maskChannels": {
+    "R": "emission",
+    "G": "opacity"
+  },
+  "budgetPolicy": "Starting values. Compare simultaneous set against scene without entities; reduce hidden geometry/passes/atlas if frame cost fails; enlarge visible markings if unreadable.",
+  "backside": "Artist interpretation; no reference background or watermark in textures."
+}

@@ -21,56 +21,101 @@ internal static partial class BattlePlaybackChecks
             var state = ElementFixture(); var source = state.Player.Fighters[0]; source.Level = level; source.Stats.Attack = attack;
             DotBonus(source, 5000);
             state.Opponent.Fighters[0].ElementStatuses.Apply(ElementId.Pyro, "setup", "overload");
-            var effect = ElementAttack(ElementId.Electro); effect.CoefficientBp = 0;
+            var effect = ElementAttack(ElementId.Electro);
             var next = PlayKind(state, CardCategory.Attack, EffectTargetScope.SelectedEnemy, effect);
             var damage = next.Events.Skip(state.Events.Count).Where(e => e.DamageOrigin == ElementalDamageOrigin.Reaction && e.Kind == BattleEventKind.DamageApplied).ToList();
             Check(damage.Count == 2 && damage.All(e => e.Amount == level * 500 * 20000L * 15000L / 100000000 && e.DamageElement == ElementId.Pyro), "Overload is not level/DOT based at 2x or spreads beyond adjacent slots.");
         }
         var shield = ElementFixture(); shield.Player.Fighters[0].Level = 10;
-        shield.Opponent.Fighters[0].Shield = 100;
+        shield.Opponent.Fighters[0].Shield = 20000;
         shield.Opponent.Fighters[0].ElementStatuses.Apply(ElementId.Pyro, "setup", "shield");
-        var zeroElectro = ElementAttack(ElementId.Electro); zeroElectro.CoefficientBp = 0;
+        var zeroElectro = ElementAttack(ElementId.Electro);
         var shieldNext = PlayKind(shield, CardCategory.Attack, EffectTargetScope.SelectedEnemy, zeroElectro);
         var overload = shieldNext.Events.Skip(shield.Events.Count).Single(e => e.DamageOrigin == ElementalDamageOrigin.Reaction && e.TargetId == shield.Opponent.Fighters[0].Id);
-        Check(overload.Amount == 2000 && overload.ShieldLost == 100 && overload.HealthLost == 1920, "Overload did not use 2x damage and 80% shield efficiency.");
+        Check(overload.Amount == 10000 && overload.ShieldLost == 12500 && overload.HealthLost == 0, "Overload did not use 2x damage and 80% shield efficiency.");
         var charged = ElementFixture(); charged.Player.Fighters[0].Level = 10; charged.Player.Fighters[0].Stats.Attack = 12345; DotBonus(charged.Player.Fighters[0], 5000);
-        foreach (var target in charged.Opponent.LivingActive()) target.ElementStatuses.Apply(ElementId.Hydro, "setup", "hydro:" + target.Id);
+        foreach (var target in charged.Opponent.LivingActive())
+        {
+            target.ElementStatuses.Apply(ElementId.Hydro, "setup", "hydro:" + target.Id);
+            StatusSystem.Apply(target, "immune", TeamSide.Opponent,
+                new StatusRecipeDefinition { Id = "charged-immunity", Polarity = StatusPolarity.Buff, DebuffImmunity = true },
+                "charged-immunity", "fixture", 1);
+        }
         charged.Opponent.Fighters[0].ElementStatuses.Instances[0].RemainingDuration = 1;
         var chargedNext = PlayKind(charged, CardCategory.Attack, EffectTargetScope.SelectedEnemy, zeroElectro);
+        var firstChargedReactions = chargedNext.Events.Skip(charged.Events.Count)
+            .Where(e => e.Kind == BattleEventKind.ElementalReactionTriggered && e.ElementalReaction == ElementalReactionId.ElectroCharged).ToList();
+        Check(firstChargedReactions.Count == 3 && firstChargedReactions.All(e => e.ElementalReactionStatusApplied &&
+            !e.ElementalReactionStatusAlreadyActive),
+            "Electro-Charged status application was not attached to each first reaction caption.");
+        var projectedChargedReactions = BattleProjectionBuilder.Build(chargedNext, TeamSide.Player, "caption-check", charged.Events.Count)
+            .Events.Where(e => e.Kind == BattleEventKind.ElementalReactionTriggered.ToString() &&
+                e.ElementalReaction == ElementalReactionId.ElectroCharged.ToString()).ToList();
+        Check(projectedChargedReactions.Count == 3 && projectedChargedReactions.All(e => e.ElementalReactionStatusApplied &&
+            !e.ElementalReactionStatusAlreadyActive),
+            "Battle projection dropped the elemental reaction status application signal.");
         foreach (var target in chargedNext.Opponent.LivingActive())
         {
-            var status = target.Statuses.Instances.Single(s => s.RecipeId == "status.reaction.charged");
-            Check(status.RemainingDuration == 2 && status.Snapshot.FixedAmount == 1000, "Charged spread did not use a two-turn level snapshot.");
+            var status = target.ElementStatuses.ReactionStatuses.Single(s => s.Reaction == ElementalReactionId.ElectroCharged);
+            Check(status.RemainingDuration == 2 && status.FixedDamageSnapshot == 5000, "Charged spread did not use a two-turn level snapshot.");
+            Check(!target.Statuses.Instances.Any(s => s.RecipeId == "status.reaction.charged"), "Charged entered the ordinary status container.");
             Check(target.ElementStatuses.Has(ElementId.Hydro), "Charged consumed Hydro.");
+            StatusSystem.Remove(target, StatusPolarity.Debuff, true);
+            Check(target.ElementStatuses.HasReaction(ElementalReactionId.ElectroCharged), "Cleanse removed an elemental reaction status.");
         }
         Check(chargedNext.Opponent.Fighters[0].ElementStatuses.Has(ElementId.Electro) && chargedNext.Opponent.Fighters[0].ElementStatuses.Instances.First(s => s.Element == ElementId.Hydro).RemainingDuration == 1,
             "Charged consumed incoming Electro or refreshed existing Hydro.");
         var spread = chargedNext.Events.Skip(charged.Events.Count).Where(e => e.Kind == BattleEventKind.ElementalReactionTriggered && e.TargetIds.Count > 0).ToList();
         Check(spread.Count == 2 && spread.All(e => e.ElementalReaction == ElementalReactionId.ElectroCharged && e.ParentEventId > 0), "Electrify arcs lost their public origin/lineage.");
-        var instance = chargedNext.Opponent.Fighters[0].Statuses.Instances.Single(); instance.RemainingDuration = 1;
-        Check(!StatusSystem.Apply(chargedNext.Opponent.Fighters[0], "stronger", TeamSide.Player, instance.Recipe.Clone(), "stronger", "fixture", 1,
-            snapshot: new StatusSnapshot { SourceAttack = 9999 }, duration: 9).Accepted, "Charged refreshed/replaced while active.");
-        Check(instance.RemainingDuration == 1 && instance.Snapshot.FixedAmount == 1000, "Existing Charged changed strength/duration.");
+        var instance = chargedNext.Opponent.Fighters[0].ElementStatuses.ReactionStatuses.Single(s => s.Reaction == ElementalReactionId.ElectroCharged);
+        instance.RemainingDuration = 1;
+        Check(!chargedNext.Opponent.Fighters[0].ElementStatuses.ApplyReaction(ElementalReactionId.ElectroCharged,
+            "stronger", "stronger", 9999, 9000), "Charged refreshed/replaced while active.");
+        Check(instance.RemainingDuration == 1 && instance.FixedDamageSnapshot == 5000, "Existing Charged changed strength/duration.");
+        var chargedRepeatStart = chargedNext.Clone();
+        chargedRepeatStart.ActingSide = TeamSide.Player;
+        var chargedDurations = chargedRepeatStart.Opponent.Fighters.SelectMany(f => f.ElementStatuses.ReactionStatuses)
+            .Where(s => s.Reaction == ElementalReactionId.ElectroCharged).Select(s => s.InstanceId + "=" + s.RemainingDuration).OrderBy(x => x).ToList();
+        var chargedRepeat = PlayKind(chargedRepeatStart, CardCategory.Attack, EffectTargetScope.SelectedEnemy, zeroElectro);
+        var repeatedChargedReactions = chargedRepeat.Events.Skip(chargedRepeatStart.Events.Count)
+            .Where(e => e.Kind == BattleEventKind.ElementalReactionTriggered && e.ElementalReaction == ElementalReactionId.ElectroCharged).ToList();
+        var chargedDurationsAfterRepeat = chargedRepeat.Opponent.Fighters.SelectMany(f => f.ElementStatuses.ReactionStatuses)
+            .Where(s => s.Reaction == ElementalReactionId.ElectroCharged).Select(s => s.InstanceId + "=" + s.RemainingDuration).OrderBy(x => x).ToList();
+        Check(repeatedChargedReactions.Count > 0 && repeatedChargedReactions.All(e => !e.ElementalReactionStatusApplied &&
+            e.ElementalReactionStatusAlreadyActive) &&
+            chargedDurations.SequenceEqual(chargedDurationsAfterRepeat),
+            "Repeated Electro-Charged should not emit status captions or refresh active conditions.");
         Check(BattleEngine.TryResolvePlan(chargedNext, new PlanDraft(chargedNext).BuildPlan("charged-tick"), out var ticked, out var error), error);
         var ticks = ticked.Events.Skip(chargedNext.Events.Count).Where(e => e.Kind == BattleEventKind.DamageApplied && e.StatusRecipeId == "status.reaction.charged").ToList();
-        Check(ticks.Count == 3 && ticks.All(e => e.Amount == 2250 && e.DamageElement == ElementId.Electro), "Charged ticks did not use 1.5x damage, DOT bonus/level or recursed.");
+        Check(ticks.Count == 3 && ticks.All(e => e.Amount == 11250 && e.DamageElement == ElementId.Electro), "Charged ticks did not use 1.5x damage, DOT bonus/level or recursed.");
         Check(!ticked.Opponent.Fighters[0].ElementStatuses.Has(ElementId.Hydro) && ticked.Opponent.Fighters[0].ElementStatuses.Instances.Single().RemainingDuration == 2, "Charged altered aura expiry clocks.");
         var lateSpread = ElementFixture(); lateSpread.Player.Fighters[0].Level = 10;
         lateSpread.Opponent.Fighters[0].ElementStatuses.Apply(ElementId.Hydro, "setup", "late-hydro0");
         var lateStart = PlayKind(lateSpread, CardCategory.Attack, EffectTargetScope.SelectedEnemy, zeroElectro);
         lateStart.Opponent.Fighters[1].ElementStatuses.Apply(ElementId.Hydro, "setup", "late-hydro1");
         Check(BattleEngine.TryResolvePlan(lateStart, new PlanDraft(lateStart).BuildPlan("late-spread"), out var lateTick, out error), error);
-        Check(lateTick.Opponent.Fighters[1].Statuses.Instances.Any(s => s.RecipeId == "status.reaction.charged" && s.RemainingDuration == 2), "Charged tick did not spread to newly Hydro neighbor with full duration.");
+        Check(lateTick.Opponent.Fighters[1].ElementStatuses.ReactionStatuses.Any(s => s.Reaction == ElementalReactionId.ElectroCharged && s.RemainingDuration == 2), "Charged tick did not spread to newly Hydro neighbor with full duration.");
         Check(lateTick.Events.Skip(lateStart.Events.Count).Count(e => e.Kind == BattleEventKind.DamageApplied && e.StatusRecipeId == "status.reaction.charged") == 1, "New spread ticked in the same batch.");
         var superconduct = ElementFixture(); superconduct.Player.Fighters[0].Level = 10; DotBonus(superconduct.Player.Fighters[0], 5000);
+        foreach (var recipient in superconduct.Opponent.LivingActive())
+            StatusSystem.Apply(recipient, "immune", TeamSide.Opponent,
+                new StatusRecipeDefinition { Id = "superconduct-immunity", Polarity = StatusPolarity.Buff, DebuffImmunity = true },
+                "superconduct-immunity", "fixture", 1);
         superconduct.Opponent.Fighters[0].ElementStatuses.Apply(ElementId.Cryo, "setup", "cryo");
         var superNext = PlayKind(superconduct, CardCategory.Attack, EffectTargetScope.SelectedEnemy, zeroElectro);
+        var firstSuperconduct = superNext.Events.Skip(superconduct.Events.Count)
+            .Single(e => e.Kind == BattleEventKind.ElementalReactionTriggered && e.ElementalReaction == ElementalReactionId.Superconduct);
+        Check(firstSuperconduct.ElementalReactionStatusApplied && !firstSuperconduct.ElementalReactionStatusAlreadyActive,
+            "First Superconduct did not mark its newly applied condition for a caption.");
         var superDamage = superNext.Events.Skip(superconduct.Events.Count).Where(e => e.Kind == BattleEventKind.DamageApplied && e.DamageOrigin == ElementalDamageOrigin.Reaction).ToList();
-        Check(superDamage.Count == 2 && superDamage.All(e => e.Amount == 2250 && e.DamageElement == ElementId.Cryo), "Superconduct 1.5x level/DOT spread is wrong.");
+        Check(superDamage.Count == 2 && superDamage.All(e => e.Amount == 11250 && e.DamageElement == ElementId.Cryo), "Superconduct 1.5x level/DOT spread is wrong.");
         foreach (var recipient in superNext.Opponent.LivingActive().Take(2))
         {
-            var status = recipient.Statuses.Instances.Single(s => s.RecipeId == "status.reaction.superconduct");
+            var status = recipient.ElementStatuses.ReactionStatuses.Single(s => s.Reaction == ElementalReactionId.Superconduct);
             Check(status.RemainingDuration == 2, "Superconduct must last two turns.");
+            Check(!recipient.Statuses.Instances.Any(s => s.RecipeId == "status.reaction.superconduct"), "Superconduct entered the ordinary status container.");
+            StatusSystem.Remove(recipient, StatusPolarity.Debuff, true);
+            Check(recipient.ElementStatuses.HasReaction(ElementalReactionId.Superconduct), "Cleanse removed Superconduct.");
             foreach (var family in new[] { DamageFamily.Normal, DamageFamily.True, DamageFamily.Additional, DamageFamily.DamageOverTime })
             {
                 var policy = StatusSystem.BuildDamagePolicy(superNext.Player.Fighters[0], recipient, family);
@@ -82,8 +127,18 @@ internal static partial class BattlePlaybackChecks
                 Check(DamageResolver.Resolve(new DamagePacket { BaseAmount = 100, Policy = policy }, new StatBlock(), new StatBlock(), 10000, 0, -1, -1).CalculatedDamage == before, "Superconduct increased elemental damage.");
             }
             status.RemainingDuration = 1;
-            Check(!StatusSystem.Apply(recipient, "again", TeamSide.Player, status.Recipe.Clone(), "again", "fixture", 1).Accepted && status.RemainingDuration == 1, "Superconduct refreshed.");
+            Check(!recipient.ElementStatuses.ApplyReaction(ElementalReactionId.Superconduct, "again", "again", 9999, 0) &&
+                status.RemainingDuration == 1, "Superconduct refreshed.");
         }
+        var superRepeatStart = superNext.Clone();
+        superRepeatStart.ActingSide = TeamSide.Player;
+        superRepeatStart.Opponent.Fighters[0].ElementStatuses.Apply(ElementId.Cryo, "repeat", "repeat-superconduct");
+        var superRepeat = PlayKind(superRepeatStart, CardCategory.Attack, EffectTargetScope.SelectedEnemy, zeroElectro);
+        var repeatedSuperconduct = superRepeat.Events.Skip(superRepeatStart.Events.Count)
+            .Where(e => e.Kind == BattleEventKind.ElementalReactionTriggered && e.ElementalReaction == ElementalReactionId.Superconduct).ToList();
+        Check(repeatedSuperconduct.Count == 1 && !repeatedSuperconduct[0].ElementalReactionStatusApplied &&
+            repeatedSuperconduct[0].ElementalReactionStatusAlreadyActive,
+            "Repeated Superconduct should not emit another status caption while its condition is active.");
         var swirl = ElementFixture(); DotBonus(swirl.Player.Fighters[0], 9000);
         swirl.Opponent.Fighters[0].ElementStatuses.Apply(ElementId.Pyro, "setup", "swirl");
         var swirlNext = PlayKind(swirl, CardCategory.Attack, EffectTargetScope.SelectedEnemy, ElementAttack(ElementId.Anemo));
@@ -138,15 +193,38 @@ internal static partial class BattlePlaybackChecks
             source.Stats.ElementalModifiers.Add(new ElementalModifierDefinition { Element=ElementId.Pyro,DamageDealtBp=2000 });
             target.Stats.ElementalModifiers.Add(new ElementalModifierDefinition { Element=ElementId.Pyro,ResistanceBp=2000 });
             target.ElementStatuses.Apply(existing,"setup","burning");
-            var hit=ElementAttack(existing==ElementId.Pyro?ElementId.Dendro:ElementId.Pyro,3); hit.CoefficientBp=0;
+            StatusSystem.Apply(target,"immune",TeamSide.Opponent,
+                new StatusRecipeDefinition { Id="burning-immunity",Polarity=StatusPolarity.Buff,DebuffImmunity=true },"immune","fixture",1);
+            var hit=ElementAttack(existing==ElementId.Pyro?ElementId.Dendro:ElementId.Pyro,3);
             var next=PlayKind(state,CardCategory.Attack,EffectTargetScope.SelectedEnemy,hit);
             var damage=next.Events.Skip(state.Events.Count).Where(e=>e.Kind==BattleEventKind.DamageApplied &&
                 e.ElementalReaction==ElementalReactionId.Burning && e.DamageOrigin==ElementalDamageOrigin.Reaction).ToList();
-            Check(damage.Count==0 && next.Opponent.Fighters[0].Statuses.Instances.Single(s=>s.RecipeId=="status.reaction.burning").RemainingDuration==2,
+            var firstBurningReaction = next.Events.Skip(state.Events.Count).Single(e =>
+                e.Kind == BattleEventKind.ElementalReactionTriggered && e.ElementalReaction == ElementalReactionId.Burning);
+            Check(firstBurningReaction.ElementalReactionStatusApplied, "First Burning application was not attached to its reaction caption.");
+            var burningStatus=next.Opponent.Fighters[0].ElementStatuses.ReactionStatuses.Single(s=>s.Reaction==ElementalReactionId.Burning);
+            Check(damage.Count==0 && burningStatus.RemainingDuration==2,
                 "Burning must retain a two-turn status without an immediate reaction packet.");
-            Check(next.Opponent.Fighters[0].Statuses.Instances.Single(s=>s.RecipeId=="status.reaction.burning").Snapshot.SourceAttack==attack &&
+            Check(burningStatus.SourceAttackSnapshot==attack &&
+                !next.Opponent.Fighters[0].Statuses.Instances.Any(s=>s.RecipeId=="status.reaction.burning") &&
                 next.Opponent.Fighters[1].Health==state.Opponent.Fighters[1].Health,
                 "Burning lost its existing ATK snapshot or spread beyond its target.");
+            var burningRepeatStart = next.Clone();
+            burningRepeatStart.ActingSide = TeamSide.Player;
+            var activeBurningStacks = burningRepeatStart.Opponent.Fighters[0].ElementStatuses.ReactionStatuses
+                .Count(s => s.Reaction == ElementalReactionId.Burning && s.RemainingDuration > 0);
+            Check(activeBurningStacks == 1, "Burning repeat fixture should start with one active stack.");
+            var existingBurningDuration = burningRepeatStart.Opponent.Fighters[0].ElementStatuses.ReactionStatuses
+                .Single(s => s.Reaction == ElementalReactionId.Burning).RemainingDuration;
+            burningRepeatStart.Opponent.Fighters[0].ElementStatuses.Apply(existing, "repeat", "repeat-burning:" + level + ":" + attack);
+            var repeatedBurning = PlayKind(burningRepeatStart, CardCategory.Attack, EffectTargetScope.SelectedEnemy, hit);
+            var repeatedBurningReactions = repeatedBurning.Events.Skip(burningRepeatStart.Events.Count).Where(e =>
+                e.Kind == BattleEventKind.ElementalReactionTriggered && e.ElementalReaction == ElementalReactionId.Burning).ToList();
+            var existingBurningAfter = repeatedBurning.Opponent.Fighters[0].ElementStatuses.ReactionStatuses
+                .Single(s => s.InstanceId == burningStatus.InstanceId);
+            Check(repeatedBurningReactions.Count == 1 && repeatedBurningReactions[0].ElementalReactionStatusApplied &&
+                repeatedBurningReactions[0].ElementalReactionStatusAlreadyActive && existingBurningAfter.RemainingDuration == existingBurningDuration,
+                "Repeated Burning stack should preserve the existing duration and hide its status caption.");
             var ticking=next;
             for(var turn=0;turn<3;turn++)
             {
@@ -155,7 +233,7 @@ internal static partial class BattlePlaybackChecks
             }
             var ticks=ticking.Events.Skip(next.Events.Count).Where(e=>e.Kind==BattleEventKind.DamageApplied && e.StatusRecipeId=="status.reaction.burning").ToList();
             Check(ticks.Count==2 && ticks.All(e=>e.Amount==(long)attack*3*12000*8000/100000000 && e.DamageElement==ElementId.Pyro) &&
-                ticking.Opponent.Fighters[0].Statuses.Instances.All(s=>s.RecipeId!="status.reaction.burning"),
+                !ticking.Opponent.Fighters[0].ElementStatuses.ReactionStatuses.Any(s=>s.Reaction==ElementalReactionId.Burning),
                 "Burning must tick twice at 3x snapshotted ATK, retaining its Pyro modifiers and natural expiry.");
         }
         var legacy=ElementFixture(); legacy.ElementalRules.ContentVersion="elemental-auras-v3";
@@ -168,11 +246,11 @@ internal static partial class BattlePlaybackChecks
             if(reaction.Id==ElementalReactionId.Burning) reaction.AttackCoefficientBp=0;
         }
         legacy.ElementalRules.Reactions.First(r=>r.Id==ElementalReactionId.Overload).AttackCoefficientBp=17777;
-        var charged=GenshinStatusRecipes.CreateOutputs().Single(r=>r.Id=="status.reaction.charged");
+        var charged=GenshinStatusRecipes.CreateLegacyReactionStatusRecipes().Single(r=>r.Id=="status.reaction.charged");
         charged.PeriodicDamage.CoefficientBp=10000;
         StatusSystem.Apply(legacy.Opponent.Fighters[0],legacy.Player.Fighters[0].Id,TeamSide.Player,charged,"legacy-charged","fixture",1,
             snapshot:new StatusSnapshot { FixedAmount=1000 });
-        var burning=GenshinStatusRecipes.CreateOutputs().Single(r=>r.Id=="status.reaction.burning");
+        var burning=GenshinStatusRecipes.CreateLegacyReactionStatusRecipes().Single(r=>r.Id=="status.reaction.burning");
         burning.PeriodicDamage.CoefficientBp=10000;
         StatusSystem.Apply(legacy.Opponent.Fighters[0],legacy.Player.Fighters[0].Id,TeamSide.Player,burning,"legacy-burning","fixture",2,
             snapshot:new StatusSnapshot { SourceAttack=123 });
@@ -184,8 +262,9 @@ internal static partial class BattlePlaybackChecks
             updated.ElementalRules.Reactions.Where(r=>r.Id==ElementalReactionId.Superconduct).All(r=>r.AttackCoefficientBp==15000) &&
             updated.ElementalRules.Reactions.Where(r=>r.Id==ElementalReactionId.Burning).All(r=>r.AttackCoefficientBp==0),
             "Legacy reaction migration lost custom coefficients/caps or failed to upgrade defaults.");
-        Check(updated.Opponent.Fighters[0].Statuses.Instances.Single(s=>s.RecipeId==charged.Id).Recipe.PeriodicDamage.CoefficientBp==15000 &&
-            updated.Opponent.Fighters[0].Statuses.Instances.Single(s=>s.RecipeId==burning.Id).Recipe.PeriodicDamage.CoefficientBp==30000 &&
+        Check(updated.Opponent.Fighters[0].ElementStatuses.ReactionStatuses.Single(s=>s.Reaction==ElementalReactionId.ElectroCharged).DamageCoefficientBp==15000 &&
+            updated.Opponent.Fighters[0].ElementStatuses.ReactionStatuses.Single(s=>s.Reaction==ElementalReactionId.Burning).DamageCoefficientBp==30000 &&
+            !updated.Opponent.Fighters[0].Statuses.Instances.Any(s=>s.RecipeId==charged.Id || s.RecipeId==burning.Id) &&
             SnapshotJson.Serialize(legacy)==before,"Legacy Charged/Burning did not upgrade on a detached snapshot.");
     }
 

@@ -15,6 +15,9 @@ namespace FightingAllstar.Core.Combat
             var policy = packet.Policy;
             var family = policy.Family;
             var isTrue = family == DamageFamily.True;
+            var profile = policy.AuthoredProfile;
+            var explicitTrue = isTrue && profile?.ExplicitTrueDamage == true;
+            var legacyTrue = isTrue && !explicitTrue;
             var normalFormula = family == DamageFamily.Normal || isTrue || family == DamageFamily.Destructive;
             var numerator = new BigInteger(Math.Max(0, packet.BaseAmount));
             var denominator = BigInteger.One;
@@ -27,8 +30,8 @@ namespace FightingAllstar.Core.Combat
                 var coeffBp = Math.Max(0, packet.CoefficientBp);
                 var keywordFactorBp = Math.Max(0, packet.KeywordFactorBp);
                 var pierceBp = Math.Max(0L, attacker.PierceBp);
-                var defense = (!policy.BypassDefense && !isTrue) ? Math.Max(0, defender.Defense) : 0L;
-                var resistanceBp = (policy.BypassResistance || isTrue) ? 0L : Math.Max(0L, defender.ResistanceBp);
+                var defense = (!policy.BypassDefense && !legacyTrue) ? Math.Max(0, defender.Defense) : 0L;
+                var resistanceBp = (policy.BypassResistance || legacyTrue) ? 0L : Math.Max(0L, defender.ResistanceBp);
 
                 // 7DS Grand Cross order:
                 // Crit and Block apply to the offensive skill multiplier before defense subtraction
@@ -71,7 +74,7 @@ namespace FightingAllstar.Core.Combat
                 var totalOffenseNumerator = skillPowerNumerator + piercePowerNumerator;
 
                 // Attacker bonus damage (e.g. Joe95 aura passive, damage dealt buffs) calculates first on attacker's attack
-                var trueBonus = isTrue ? 3000 : 0;
+                var trueBonus = explicitTrue ? Math.Max(0, profile.TrueDamageBonusBp) : legacyTrue ? 3000 : 0;
                 var conditionalOutgoing = critical ? 0 : Math.Max(0, policy.NonCriticalOutgoingIncreaseBp);
                 var outgoingBp = Math.Max(0L, 10000L + policy.OutgoingIncreaseBp - policy.OutgoingDecreaseBp +
                     conditionalOutgoing + trueBonus);
@@ -82,7 +85,7 @@ namespace FightingAllstar.Core.Combat
                 var defenseNumerator = new BigInteger(defense) * scale20;
                 numerator = BigInteger.Max(BigInteger.Zero, finalOffenseNumerator - defenseNumerator);
                 denominator = scale20;
-                if (isTrue)
+                if (legacyTrue || explicitTrue && policy.BypassGenericReduction)
                     Multiply(ref numerator, ref denominator, Math.Max(0, 10000L + policy.IncomingIncreaseBp + (policy.Element == ElementId.None ? policy.PhysicalReceivedIncreaseBp : 0)), 10000);
                 else if (!policy.BypassGenericReduction)
                     Multiply(ref numerator, ref denominator,
@@ -90,10 +93,12 @@ namespace FightingAllstar.Core.Combat
                             (policy.Element == ElementId.None ? policy.PhysicalReceivedIncreaseBp : 0)), 10000);
 
                 Multiply(ref numerator, ref denominator, Math.Max(0, packet.VarianceBp), 10000);
-                if (!isTrue)
+                if (!legacyTrue)
                 {
-                    Multiply(ref numerator, ref denominator, Math.Max(0, 10000 - policy.FinalReductionBp), 10000);
-                    numerator -= new BigInteger(Math.Max(0, policy.FlatReduction)) * denominator;
+                    if (profile?.BypassFinalReduction != true)
+                        Multiply(ref numerator, ref denominator, Math.Max(0, 10000 - policy.FinalReductionBp), 10000);
+                    if (profile?.BypassFlatReduction != true)
+                        numerator -= new BigInteger(Math.Max(0, policy.FlatReduction)) * denominator;
                 }
                 numerator = BigInteger.Max(BigInteger.Zero, numerator);
             }
@@ -132,6 +137,18 @@ namespace FightingAllstar.Core.Combat
             var hit = Math.Max(1, Math.Min(hits, packet.HitIndex));
             damage = (int)((long)damage * hit / hits - (long)damage * (hit - 1) / hits);
 
+            var result = new DamageResult { FormulaDamage = damage, CalculatedDamage = damage,
+                WasCritical = critical, WasBlocked = blocked, WasEndured = damage == 0,
+                WasCapped = capped, AllocationSurviveAtOne = surviveAtOne };
+            Allocate(result, policy, currentHealth, currentShield);
+            return result;
+        }
+
+        /// <summary>Allocates the already rounded contact; never repeats formula stages or random rolls.</summary>
+        public static void Allocate(DamageResult result, DamagePolicy policy, int currentHealth, int currentShield)
+        {
+            if (result == null || policy == null) throw new ArgumentNullException();
+            var damage = Math.Max(0, result.FormulaDamage - result.ConstructAbsorbed);
             var shield = Math.Max(0, currentShield);
             var health = Math.Max(0, currentHealth);
             var efficiency = Math.Max(1, Math.Min(10000, policy.ShieldEfficiencyBp));
@@ -140,16 +157,20 @@ namespace FightingAllstar.Core.Combat
                 ? shield : (int)Math.Min(shield, ((long)absorbed * 10000 + efficiency - 1) / efficiency);
             shield -= shieldLost;
             var hpDirected = Math.Max(0, damage - absorbed);
-            var executes = family == DamageFamily.Destructive && hpDirected >= health && health > 0;
+            var executes = policy.Family == DamageFamily.Destructive && hpDirected >= health && health > 0;
             var healthLost = executes ? health : Math.Min(health, hpDirected);
-            if (surviveAtOne && !policy.BypassSurviveAtOne && health > 0 && healthLost >= health)
+            if (result.AllocationSurviveAtOne && !policy.BypassSurviveAtOne && health > 0 && healthLost >= health)
                 healthLost = health - 1;
             health -= healthLost;
             if (executes && policy.BypassSurviveAtOne) health = 0;
 
-            return new DamageResult { CalculatedDamage = damage, ShieldLost = shieldLost, HealthLost = healthLost,
-                RemainingHealth = health, RemainingShield = shield, WasCritical = critical, WasBlocked = blocked,
-                WasEndured = damage == 0, Executed = executes && health == 0, WasCapped = capped };
+            result.ShieldAbsorbed = absorbed;
+            result.HpDirectedDamage = hpDirected;
+            result.ShieldLost = shieldLost;
+            result.HealthLost = healthLost;
+            result.RemainingHealth = health;
+            result.RemainingShield = shield;
+            result.Executed = executes && health == 0;
         }
 
         private static void Multiply(ref BigInteger numerator, ref BigInteger denominator, long factor, long scale)

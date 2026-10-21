@@ -5,17 +5,23 @@ using FightingAllstar.Core.Content;
 namespace FightingAllstar.Core.Combat
 {
     /// <summary>Facts available to card and passive conditions. It contains IDs and resolved outcomes, never presentation state.</summary>
-    public sealed class CardEffectContext
+    public sealed partial class CardEffectContext
     {
         public BattleState Battle;
         public FighterState EffectOwner;
         public FighterState Actor;
         public FighterState SelectedTarget;
         public string RootActionId;
+        public string SkillId;
+        public int UltimateTier;
+        public CardEffectTiming Phase;
+        public EffectProvenance Provenance;
         public CardCategory CardCategory;
         public int CardRank;
         public bool IsUltimate;
         public bool WasCritical;
+        /// <summary>Owner Crit Chance used for the critical hit that unlocked this sequence, before target resistance.</summary>
+        public int? ActionCritChanceBp;
         public bool WasBlocked;
         public int HitIndex;
         public int HitCount;
@@ -23,6 +29,8 @@ namespace FightingAllstar.Core.Combat
         public int ActualHealthDamage;
         public int ActualShieldDamage;
         public DamageFamily DamageFamily;
+        // Opt-in observer used only by diagnostics. It does not enter battle authority.
+        public List<PassiveConditionTrace> ConditionTrace;
     }
 
     public sealed class ResolvedCardEffect
@@ -46,7 +54,9 @@ namespace FightingAllstar.Core.Combat
                 ? left.Order.CompareTo(right.Order) : string.CompareOrdinal(left.Id, right.Id));
 
             foreach (var operation in operations)
-                foreach (var target in ResolveTargets(operation.Target, context))
+                foreach (var target in operation.Kind == CardEffectOperationKind.Summon
+                    ? new List<FighterState> { context.EffectOwner ?? context.Actor }
+                    : operation.TargetQuery != null ? TargetQuerySystem.Resolve(operation.TargetQuery, context) : ResolveTargets(operation.Target, context))
                     if (AllConditionsPass(operation.Conditions, context, target))
                         result.Add(new ResolvedCardEffect { Operation = operation.Clone(), Target = target });
             return result;
@@ -96,6 +106,7 @@ namespace FightingAllstar.Core.Combat
             var policy = calculation.Policy;
             policy.CannotCrit |= recipe.CannotCrit || recipe.Family == DamageFamily.Additional;
             policy.CannotBlock |= recipe.CannotBlock || recipe.Family == DamageFamily.Additional;
+            CombatPolicySystem.ApplyProfile(policy, recipe.Profile);
             return new DamagePacket { BaseAmount = Math.Max(0, baseAmount),
                 CoefficientBp = Math.Max(0, recipe.CoefficientBp), KeywordFactorBp = Math.Max(0,
                     (int)Math.Min(int.MaxValue, (long)recipe.KeywordFactorBp * calculation.KeywordFactorBp / 10000)),
@@ -119,34 +130,58 @@ namespace FightingAllstar.Core.Combat
         {
             if (condition == null) return true;
             bool passed;
+            int? observed = null;
+            var evaluatedChildren = 0;
             switch (condition.Logic)
             {
                 case ConditionLogic.All:
                     passed = true;
                     if (condition.Children != null)
                         foreach (var child in condition.Children)
+                        {
+                            evaluatedChildren++;
                             if (!EvaluateCondition(child, context, target)) { passed = false; break; }
+                        }
                     break;
                 case ConditionLogic.Any:
                     passed = false;
                     if (condition.Children != null)
                         foreach (var child in condition.Children)
+                        {
+                            evaluatedChildren++;
                             if (EvaluateCondition(child, context, target)) { passed = true; break; }
+                        }
                     break;
                 case ConditionLogic.Not:
+                    evaluatedChildren = condition.Children?.Count > 0 ? 1 : 0;
                     passed = condition.Children == null || condition.Children.Count == 0 ||
                         !EvaluateCondition(condition.Children[0], context, target);
                     break;
                 default:
-                    passed = Evaluate(condition, context, target);
+                    passed = Evaluate(condition, context, target, out observed);
                     break;
             }
-            return condition.Negate ? !passed : passed;
+            passed = condition.Negate ? !passed : passed;
+            if (context?.ConditionTrace != null)
+            {
+                var declared = condition.Children?.Count ?? 0;
+                var explanation = condition.Logic == ConditionLogic.Leaf
+                    ? observed.HasValue ? condition.Kind + ": observed " + observed.Value + ", threshold " + condition.Threshold + " → " + passed
+                        : condition.Kind + " → " + passed
+                    : condition.Logic + ": " + evaluatedChildren + "/" + declared + " children evaluated" +
+                        (evaluatedChildren < declared ? " (short-circuited)" : "") + " → " + passed;
+                context.ConditionTrace.Add(new PassiveConditionTrace { NodeId = condition.StudioNodeId,
+                    Logic = condition.Logic.ToString(), Kind = condition.Kind.ToString(), Passed = passed,
+                    HasObservedValue = observed.HasValue, ObservedValue = observed ?? 0, Threshold = condition.Threshold,
+                    EvaluatedChildren = evaluatedChildren, DeclaredChildren = declared, Explanation = explanation });
+            }
+            return passed;
         }
 
         private static bool Evaluate(EffectConditionDefinition condition, CardEffectContext context,
-            FighterState target)
+            FighterState target, out int? observed)
         {
+            observed = null;
             var source = context.Actor;
             var subject = ResolveSubject(condition.Subject, context, target);
             switch (condition.Kind)
@@ -182,13 +217,51 @@ namespace FightingAllstar.Core.Combat
                         subject.Definition?.AttributeId) == AttributeAffinity.Disadvantage;
                 case EffectConditionKind.WasCritical: return context.WasCritical;
                 case EffectConditionKind.WasBlocked: return context.WasBlocked;
-                case EffectConditionKind.SourceGaugeAtLeast: return source.PowerGauge >= condition.Threshold;
+                case EffectConditionKind.SourceGaugeAtLeast:
+                    observed = source.PowerGauge;
+                    return observed.Value >= condition.Threshold;
                 case EffectConditionKind.TargetGaugeAtLeast: return subject != null && subject.PowerGauge >= condition.Threshold;
-                case EffectConditionKind.SourceHealthAtMost: return HealthRatioBp(source) <= condition.Threshold;
+                case EffectConditionKind.SourceHealthAtMost:
+                    observed = HealthRatioBp(source);
+                    return observed.Value <= condition.Threshold;
                 case EffectConditionKind.TargetHealthAtMost: return HealthRatioBp(subject) <= condition.Threshold;
                 case EffectConditionKind.CounterAtLeast:
-                    return CharacterPassiveRuntime.Counter(context.EffectOwner ?? source,
-                        FirstValue(condition.StringValue, condition.Tag, condition.RecipeId)) >= condition.Threshold;
+                    observed = CharacterPassiveRuntime.Counter(context.EffectOwner ?? source,
+                        FirstValue(condition.StringValue, condition.Tag, condition.RecipeId));
+                    return observed >= condition.Threshold;
+                case EffectConditionKind.ResourceEnteredAtLeast:
+                case EffectConditionKind.ResourceExitedBelow:
+                    observed = context.ResourceValue;
+                    if (context.EventFact?.Kind != PassiveEventKind.ResourceChanged ||
+                        !string.IsNullOrEmpty(condition.StringValue) && condition.StringValue != context.ResourceKey) return false;
+                    return condition.Kind == EffectConditionKind.ResourceEnteredAtLeast
+                        ? TurnLedger.CrossedAtLeast(context.PreviousResourceValue, context.ResourceValue, condition.Threshold)
+                        : TurnLedger.CrossedBelow(context.PreviousResourceValue, context.ResourceValue, condition.Threshold);
+                case EffectConditionKind.RemovedLayersAtLeast:
+                    observed = context.RemovedStatus?.RemovedLayers ?? 0;
+                    return context.RemovedStatus != null && (string.IsNullOrEmpty(condition.RecipeId) ||
+                        condition.RecipeId == context.RemovedStatus.Status?.RecipeId) && observed >= condition.Threshold;
+                case EffectConditionKind.RemovedStatusFromEffectOwner:
+                    return context.RemovedStatus?.Status != null &&
+                        context.RemovedStatus.Status.SourceFighterId == (context.EffectOwner ?? source)?.Id;
+                case EffectConditionKind.BindingValueAtLeast:
+                    observed = context.Values.TryGetValue(condition.StringValue ?? "", out var bound) ? bound : 0;
+                    return observed >= condition.Threshold;
+                case EffectConditionKind.OwnerCardsPlayedThisTurnAtLeast:
+                    observed = TurnLedger.CardsPlayedDuringCurrentOwnerTurn(context.Battle, context.EffectOwner ?? source);
+                    return observed >= condition.Threshold;
+                case EffectConditionKind.OwnerCardsPlayedPreviousTurnAtLeast:
+                    observed = TurnLedger.CardsPlayedDuringPreviousOwnerTurn(context.Battle, context.EffectOwner ?? source);
+                    return observed >= condition.Threshold;
+                case EffectConditionKind.OwnerLevelAtLeast:
+                    observed = (context.EffectOwner ?? source)?.Level ?? 0;
+                    return observed >= condition.Threshold;
+                case EffectConditionKind.OwnerTierAtLeast:
+                    observed = (context.EffectOwner ?? source)?.ConstellationTier ?? 0;
+                    return observed >= condition.Threshold;
+                case EffectConditionKind.CardRankAtLeast:
+                    observed = context.CardRank;
+                    return observed >= condition.Threshold;
                 case EffectConditionKind.TargetTraitIs:
                     return ContainsContentId(subject?.Definition?.TraitIds,
                         FirstValue(condition.StringValue, condition.Tag), "trait.");
@@ -196,7 +269,8 @@ namespace FightingAllstar.Core.Combat
                     return MatchesContentId(subject?.Definition?.SeriesId,
                         FirstValue(condition.StringValue, condition.Tag), "series.");
                 case EffectConditionKind.RosterCountAtLeast:
-                    return RosterCount(context, condition) >= Math.Max(1, condition.Threshold);
+                    observed = RosterCount(context, condition);
+                    return observed.Value >= Math.Max(1, condition.Threshold);
                 case EffectConditionKind.TargetIsAlive:
                     return subject != null && subject.IsAlive && subject.Health > 0;
                 case EffectConditionKind.TargetIsLowestHealthEnemy:
@@ -218,7 +292,7 @@ namespace FightingAllstar.Core.Combat
             {
                 ConditionSubject.Owner => context?.EffectOwner ?? context?.Actor,
                 ConditionSubject.Actor => context?.Actor,
-                ConditionSubject.EventTarget => context?.SelectedTarget,
+                ConditionSubject.EventTarget => EventTarget(context),
                 _ => operationTarget
             };
         }
@@ -355,7 +429,8 @@ namespace FightingAllstar.Core.Combat
                 case EffectTargetScope.AllEnemies: AddAllActive(result, enemyTeam); break;
                 case EffectTargetScope.AllAllies: AddAllActive(result, actorTeam); break;
                 case EffectTargetScope.TriggerActor: AddAlive(result, context.Actor); break;
-                case EffectTargetScope.TriggerTarget: AddAlive(result, context.SelectedTarget); break;
+                case EffectTargetScope.TriggerTarget: AddAlive(result, EventTarget(context)); break;
+                case EffectTargetScope.OperationTarget: AddAlive(result, context.SelectedTarget); break;
                 case EffectTargetScope.StatusOwner: AddAlive(result, context.EffectOwner); break;
             }
             return result;
@@ -365,6 +440,13 @@ namespace FightingAllstar.Core.Combat
         {
             if (team == null) return;
             foreach (var fighter in team.LivingActive()) result.Add(fighter);
+        }
+
+        public static FighterState EventTarget(CardEffectContext context)
+        {
+            var id = context?.EventFact?.TargetId;
+            if (string.IsNullOrEmpty(id)) return context?.SelectedTarget;
+            return context.Battle?.Player.FindFighter(id) ?? context.Battle?.Opponent.FindFighter(id);
         }
 
         private static void AddAlive(List<FighterState> result, FighterState fighter)

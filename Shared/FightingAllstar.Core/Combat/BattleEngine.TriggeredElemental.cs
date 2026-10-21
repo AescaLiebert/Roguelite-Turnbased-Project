@@ -51,18 +51,21 @@ namespace FightingAllstar.Core.Combat
 
         private static void ResolveTriggeredElementalAttack(BattleState state, FighterState source, FighterState target,
             TriggeredElementalAttackDefinition attack, CardState card, int sourceAttack, int receivedDamage,
-            long parent, DeterministicRandom rng, List<FighterState> pendingDefeats)
+            long parent, DeterministicRandom rng, List<FighterState> pendingDefeats,
+            List<Action> deferredContacts = null, List<Action> deferredFreezes = null)
         {
             if (target.Statuses.Instances.Exists(s => s.Recipe?.EvadeAttacks == true))
             {
                 AddEvent(state, BattleEventKind.AttackEvaded, source.Id, target.Id, card.Id, 0, "Evade");
                 return;
             }
+            var damageStatusesBefore = target.Statuses.Instances.ConvertAll(s => s.Clone());
             var freezeBroken = StatusSystem.BreakFreezeOnAttack(target);
             var decision = state.Team(source.Side).ElementalReactionsEnabled
                 ? ElementalReactionRules.Evaluate(state.ElementalRules, target, attack.Element) : null;
             var family = attack.ReceivedDamageCoefficientBp > 0 ? DamageFamily.ElementalReaction : DamageFamily.Normal;
             var policy = StatusSystem.BuildDamagePolicy(source, target, family);
+            policy.OutgoingIncreaseBp = (int)Math.Min(int.MaxValue, (long)policy.OutgoingIncreaseBp + attack.DamageBonusBp);
             policy.CannotCrit = policy.CannotBlock = true;
             policy.DamageCap = state.ElementalRules?.ReactionDamageCap ?? int.MaxValue;
             policy.AmplificationBp = decision?.Reaction.AmplificationBp ?? 10000;
@@ -71,10 +74,12 @@ namespace FightingAllstar.Core.Combat
             var damage = DamageResolver.Resolve(new DamagePacket { BaseAmount = family == DamageFamily.Normal ? sourceAttack : receivedDamage,
                 CoefficientBp = family == DamageFamily.Normal ? attack.AttackCoefficientBp : attack.ReceivedDamageCoefficientBp, Policy = policy },
                 StatusSystem.GetEffectiveStats(source), StatusSystem.GetEffectiveStats(target), target.Health, target.Shield, -1, -1);
+            var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, source, target, damage, policy, card.Id);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
             ConsumeBarrierShield(target, damage.ShieldLost);
-            var contact = new ElementalContactCommit { Target = target, Decision = decision, SourceAttack = sourceAttack,
+            var hitLanded = damage.CalculatedDamage > 0;
+            var contact = new ElementalContactCommit { Target = target, Decision = hitLanded ? decision : null, SourceAttack = sourceAttack,
                 HealthDamage = target.CannotDie ? 0 : damage.HealthLost, ShieldDamage = damage.ShieldLost,
                 HitIndex = 1, HitCount = 1, ParentEventId = parent };
             AddEvent(state, BattleEventKind.DamageApplied, source.Id, target.Id, card.Id, damage.CalculatedDamage, "Triggered elemental attack.");
@@ -86,40 +91,57 @@ namespace FightingAllstar.Core.Combat
             evt.ShieldAfter = target.Shield;
             evt.HealthLost = contact.HealthDamage;
             evt.ShieldLost = damage.ShieldLost;
+            evt.FormulaDamage = damage.FormulaDamage;
+            evt.ConstructAbsorbed = damage.ConstructAbsorbed;
             evt.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
+            CharacterPassiveRuntime.RecordStatusRemovals(state, source, target, damageStatusesBefore,
+                StatusRemovalReason.Broken, card.Id);
+            CombatPolicySystem.NotifyDamageCommitted(state, source, target, damage, policyReceipt, card.Id);
             contact.ParentEventId = evt.Id;
-            var context = new ElementalActionContext();
-            if (freezeBroken) QueueShatter(state, target, evt, context);
-            ResolvePendingShatters(state, source, card, context, pendingDefeats);
-            if (decision != null)
+            if (deferredContacts == null) ResolveContactEffects();
+            else deferredContacts.Add(ResolveContactEffects);
+
+            void ResolveContactEffects()
             {
-                if (decision.Reaction.Id == ElementalReactionId.Swirl)
-                    ResolveSwirl(state, source, card, contact, context, rng, pendingDefeats);
-                else
+                var childEventStart = state.Events.Count;
+                var context = new ElementalActionContext();
+                if (hitLanded && freezeBroken) QueueShatter(state, target, evt, context);
+                if (hitLanded) ResolvePendingShatters(state, source, card, context, pendingDefeats);
+                if (hitLanded && decision != null)
                 {
-                    CommitReactionFacts(state, source, card, contact, context);
-                    ResolveReactionOutput(state, source, card, contact, context, pendingDefeats);
+                    if (decision.Reaction.Id == ElementalReactionId.Swirl)
+                        ResolveSwirl(state, source, card, contact, context, rng, pendingDefeats);
+                    else
+                    {
+                        CommitReactionFacts(state, source, card, contact, context);
+                        ResolveReactionOutput(state, source, card, contact, context, pendingDefeats);
+                    }
                 }
+                if (hitLanded && (decision == null || decision.Reaction.PreserveFuel) && target.Health > 0)
+                    ApplyElementStatus(state, source, target, attack.Element, card.Id, evt.Id);
+                if (hitLanded && target.Health > 0 && !string.IsNullOrEmpty(attack.StatusRecipeId))
+                    ApplyCardUtilityEffectSingle(state, rng, source, target, new EffectDefinition {
+                        Kind = EffectKind.ApplyStatus, StatusRecipe = StandardEffectDatabase.CreateStatusRecipes().Find(r => r.Id == attack.StatusRecipeId),
+                        StatusDurationOverride = attack.StatusDuration, StatusStackCount = Math.Max(1, attack.StatusStackCount) }, card.Id, false,
+                        contact.HealthDamage, contact.HealthDamage, contactSnapshotDamage: contact.HealthDamage, cardOrigin: false);
+                if (attack.SelfHealDamageBp > 0 && source.Health > 0)
+                    TryApplyRecovery(state, source, source, (int)((long)contact.HealthDamage * attack.SelfHealDamageBp / 10000),
+                        StatusSystem.GetEffectiveStats(source).MaxHealth, card.Id, "Retaliation recovery.");
+                long ownedHealthDamage = contact.HealthDamage;
+                for (var eventIndex = childEventStart; eventIndex < state.Events.Count; eventIndex++)
+                {
+                    var item = state.Events[eventIndex];
+                    if (item.Kind == BattleEventKind.DamageApplied && item.CardId == card.Id && item.SourceId == source.Id)
+                        ownedHealthDamage += item.HealthLost;
+                }
+                HealLowestAllyFromDamage(state, source, ownedHealthDamage, card.Id);
+                ResolvePendingShatters(state, source, card, context, pendingDefeats);
+                FlushEntityReactionFollowUps(state, rng, pendingDefeats);
+                if (deferredFreezes == null) ResolveDeferredFreezes(state, source, card, context);
+                else deferredFreezes.Add(() => ResolveDeferredFreezes(state, source, card, context));
+                if (target.Health <= 0 && !target.CannotDie && !pendingDefeats.Contains(target)) pendingDefeats.Add(target);
+                // Generated attacks stop here: no card PG, generic reflect, stance counter or retaliation callback.
             }
-            if ((decision == null || decision.Reaction.PreserveFuel) && target.Health > 0)
-                ApplyElementStatus(state, source, target, attack.Element, card.Id, evt.Id);
-            if (target.Health > 0 && !string.IsNullOrEmpty(attack.StatusRecipeId))
-                ApplyCardUtilityEffectSingle(state, rng, source, target, new EffectDefinition {
-                    Kind = EffectKind.ApplyStatus, StatusRecipe = StandardEffectDatabase.CreateStatusRecipes().Find(r => r.Id == attack.StatusRecipeId),
-                    StatusDurationOverride = attack.StatusDuration, StatusStackCount = Math.Max(1, attack.StatusStackCount) }, card.Id, false,
-                    contact.HealthDamage, contact.HealthDamage, contactSnapshotDamage: contact.HealthDamage);
-            if (attack.SelfHealDamageBp > 0 && source.Health > 0)
-                TryApplyRecovery(state, source, source, (int)((long)contact.HealthDamage * attack.SelfHealDamageBp / 10000),
-                    StatusSystem.GetEffectiveStats(source).MaxHealth, card.Id, "Retaliation recovery.");
-            long ownedHealthDamage = 0;
-            foreach (var item in state.Events)
-                if (item.Kind == BattleEventKind.DamageApplied && item.CardId == card.Id && item.SourceId == source.Id)
-                    ownedHealthDamage += item.HealthLost;
-            HealLowestAllyFromDamage(state, source, ownedHealthDamage, card.Id);
-            ResolvePendingShatters(state, source, card, context, pendingDefeats);
-            ResolveDeferredFreezes(state, source, card, context);
-            if (target.Health <= 0 && !target.CannotDie && !pendingDefeats.Contains(target)) pendingDefeats.Add(target);
-            // Generated attacks stop here: no card PG, generic reflect, stance counter or retaliation callback.
         }
     }
 }

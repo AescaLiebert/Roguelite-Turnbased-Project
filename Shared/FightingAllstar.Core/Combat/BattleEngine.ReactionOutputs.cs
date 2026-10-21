@@ -23,11 +23,11 @@ namespace FightingAllstar.Core.Combat
                         context.DeferredFreezes.Add(contact);
                     break;
                 case ElementalReactionId.ElectroCharged:
-                    ApplyReactionStatus(state, source, contact.Target, card, contact, "status.reaction.charged");
+                    ApplyElementalReactionStatus(state, source, contact.Target, card, contact, ElementalReactionId.ElectroCharged);
                     SpreadElectroCharged(state, source, contact.Target, card, contact);
                     break;
                 case ElementalReactionId.Burning:
-                    ApplyReactionStatus(state, source, contact.Target, card, contact, "status.reaction.burning");
+                    ApplyElementalReactionStatus(state, source, contact.Target, card, contact, ElementalReactionId.Burning);
                     break;
                 case ElementalReactionId.Crystallize:
                     ApplyReactionStatus(state, source, source, card, contact, "status.reaction.crystallize",
@@ -37,7 +37,6 @@ namespace FightingAllstar.Core.Combat
                     foreach (var recipient in state.Team(contact.Target.Side).LivingActive())
                     {
                         if (recipient.Health <= 0 || Math.Abs(recipient.FormationSlot - contact.Target.FormationSlot) > 1 ||
-                            recipient.Statuses.Instances.Exists(s => s.RecipeId == "status.reaction.superconduct") ||
                             !context.ReactionDamageRecipients.Add(recipient.Id + ":" + id)) continue;
                         var policy = StatusSystem.BuildDamagePolicy(source, recipient, DamageFamily.ElementalReaction);
                         ElementalReactionRules.ConfigureReactionDamagePolicy(policy, ElementalReactionId.Superconduct);
@@ -49,8 +48,10 @@ namespace FightingAllstar.Core.Combat
                             CoefficientBp = contact.Decision.Reaction.AttackCoefficientBp, Policy = policy },
                             StatusSystem.GetEffectiveStats(source), StatusSystem.GetEffectiveStats(recipient),
                             recipient.Health, recipient.Shield, -1, -1);
+                        var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, source, recipient, damage, policy, card.Id);
                         if (!recipient.CannotDie) recipient.Health = damage.RemainingHealth;
                         recipient.Shield = damage.RemainingShield;
+                        var damageStatusesBefore = recipient.Statuses.Instances.ConvertAll(s => s.Clone());
                         ConsumeBarrierShield(recipient, damage.ShieldLost);
                         var freezeBroken = StatusSystem.BreakFreezeOnAttack(recipient);
                         AddEvent(state, BattleEventKind.DamageApplied, source.Id, recipient.Id, card.Id, damage.CalculatedDamage, "Superconduct");
@@ -62,9 +63,14 @@ namespace FightingAllstar.Core.Combat
                         evt.ShieldAfter = recipient.Shield;
                         evt.HealthLost = recipient.CannotDie ? 0 : damage.HealthLost;
                         evt.ShieldLost = damage.ShieldLost;
+                        evt.FormulaDamage = damage.FormulaDamage;
+                        evt.ConstructAbsorbed = damage.ConstructAbsorbed;
                         evt.StatusesAfter = recipient.Statuses.Instances.ConvertAll(s => s.Clone());
+                        CharacterPassiveRuntime.RecordStatusRemovals(state, source, recipient, damageStatusesBefore,
+                            StatusRemovalReason.Broken, card.Id);
+                        CombatPolicySystem.NotifyDamageCommitted(state, source, recipient, damage, policyReceipt, card.Id);
                         if (freezeBroken) QueueShatter(state, recipient, evt, context);
-                        ApplyReactionStatus(state, source, recipient, card, contact, "status.reaction.superconduct");
+                        ApplyElementalReactionStatus(state, source, recipient, card, contact, ElementalReactionId.Superconduct);
                         if (recipient.Health <= 0 && !recipient.CannotDie && !pendingDefeats.Contains(recipient)) pendingDefeats.Add(recipient);
                     }
                     break;
@@ -89,8 +95,10 @@ namespace FightingAllstar.Core.Combat
                 CoefficientBp = reaction.AttackCoefficientBp, Policy = policy },
                 StatusSystem.GetEffectiveStats(source), StatusSystem.GetEffectiveStats(target),
                 target.Health, target.Shield, -1, -1);
+            var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, source, target, damage, policy, card.Id);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
+            var damageStatusesBefore = target.Statuses.Instances.ConvertAll(s => s.Clone());
             ConsumeBarrierShield(target, damage.ShieldLost);
             AddEvent(state, BattleEventKind.DamageApplied, source.Id, target.Id, card.Id, damage.CalculatedDamage, reaction.Id.ToString());
             var evt = state.Events[state.Events.Count - 1];
@@ -101,7 +109,12 @@ namespace FightingAllstar.Core.Combat
             evt.ShieldAfter = target.Shield;
             evt.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
             evt.ShieldLost = damage.ShieldLost;
+            evt.FormulaDamage = damage.FormulaDamage;
+            evt.ConstructAbsorbed = damage.ConstructAbsorbed;
             evt.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
+            CharacterPassiveRuntime.RecordStatusRemovals(state, source, target, damageStatusesBefore,
+                StatusRemovalReason.Broken, card.Id);
+            CombatPolicySystem.NotifyDamageCommitted(state, source, target, damage, policyReceipt, card.Id);
             if (target.Health <= 0 && !target.CannotDie && !pendingDefeats.Contains(target)) pendingDefeats.Add(target);
             // Terminal damage does not trigger lifesteal, reflect or another attack/reaction chain.
         }
@@ -136,7 +149,6 @@ namespace FightingAllstar.Core.Combat
                     if (neighbor.Health <= 0 || Math.Abs(neighbor.FormationSlot - origin.FormationSlot) != 1 ||
                         !neighbor.ElementStatuses.Has(ElementId.Hydro) || !visited.Add(neighbor.Id)) continue;
                     queue.Enqueue(neighbor);
-                    if (neighbor.Statuses.Instances.Exists(s => s.RecipeId == "status.reaction.charged")) continue;
                     var spread = new ElementalContactCommit { Target = neighbor, SourceAttack = contact.SourceAttack,
                         ParentEventId = contact.ParentEventId, HitIndex = contact.HitIndex, HitCount = contact.HitCount,
                         Decision = new ElementalReactionDecision { IncomingElement = ElementId.Electro,
@@ -144,12 +156,14 @@ namespace FightingAllstar.Core.Combat
                                 ExistingElement = ElementId.Hydro, IncomingElement = ElementId.Electro, PreserveFuel = true } } };
                     AddEvent(state, BattleEventKind.ElementalReactionTriggered, source.Id, neighbor.Id, card.Id, 10000, "Electro-Charged spread");
                     var evt = state.Events[state.Events.Count - 1];
+                    spread.ReactionEventId = evt.Id;
+                    evt.ElementalReactionStatusAlreadyActive = neighbor.ElementStatuses.HasReaction(ElementalReactionId.ElectroCharged);
                     SetElementalFacts(evt, spread, card.Id);
                     evt.SourceId = source.Id;
                     evt.TargetIds.Add(origin.Id); // Public animation origin for the electrify arc.
                     evt.DamageElement = ElementId.Hydro;
                     evt.TriggerElement = ElementId.Electro;
-                    ApplyReactionStatus(state, source, neighbor, card, spread, "status.reaction.charged");
+                    ApplyElementalReactionStatus(state, source, neighbor, card, spread, ElementalReactionId.ElectroCharged);
                 }
             }
         }
@@ -159,8 +173,7 @@ namespace FightingAllstar.Core.Combat
         {
             if (target.Health <= 0) return false;
             var recipe = GenshinStatusRecipes.CreateOutputs().Find(r => r.Id == recipeId);
-            if (recipe.Stacking == StatusStackingPolicy.IgnoreExisting && target.Statuses.Instances.Exists(s => s.RecipeId == recipeId))
-                return false;
+            if (recipe == null) return false;
             var order = state.Events.Count + 1;
             var shieldBefore = target.Shield;
             var result = StatusSystem.Apply(target, source.Id, source.Side, recipe, "reaction:" + order,
@@ -189,6 +202,35 @@ namespace FightingAllstar.Core.Combat
             evt.StatusOutcome = result.Outcome;
             evt.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             if (barrier != 0 || shieldBefore != target.Shield) { evt.ShieldAfter = target.Shield; evt.ShieldChanged = true; }
+            return true;
+        }
+
+        private static bool ApplyElementalReactionStatus(BattleState state, FighterState source, FighterState target,
+            CardState card, ElementalContactCommit contact, ElementalReactionId reaction)
+        {
+            if (target == null || target.Health <= 0 || source == null) return false;
+            var order = state.Events.Count + 1;
+            var instanceId = "reaction:" + order;
+            var fixedDamage = reaction == ElementalReactionId.ElectroCharged
+                ? ElementalReactionRules.LevelDamage(source, state.ElementalRules) : 0;
+            if (!target.ElementStatuses.ApplyReaction(reaction, source.Id, instanceId,
+                contact?.SourceAttack ?? StatusSystem.GetEffectiveStats(source).Attack, fixedDamage,
+                skipNextDurationClock: target.Side == state.ActingSide)) return false;
+
+            if (contact?.ReactionEventId > 0)
+            {
+                var reactionEvent = state.Events.Find(candidate => candidate.Id == contact.ReactionEventId);
+                if (reactionEvent != null) reactionEvent.ElementalReactionStatusApplied = true;
+            }
+
+            AddEvent(state, BattleEventKind.ElementStatusesChanged, source.Id, target.Id, card?.Id, 0,
+                "Elemental reaction status applied.");
+            var evt = state.Events[state.Events.Count - 1];
+            if (contact != null) SetElementalFacts(evt, contact, card?.Id);
+            evt.StatusInstanceId = instanceId;
+            evt.StatusRecipeId = target.ElementStatuses.ReactionStatuses.Find(status => status.InstanceId == instanceId)?.RecipeId;
+            evt.ElementStatusesAfter = target.ElementStatuses.Instances.ConvertAll(s => s.Clone());
+            evt.ElementalReactionStatusesAfter = target.ElementStatuses.ReactionStatuses.ConvertAll(s => s.Clone());
             return true;
         }
     }

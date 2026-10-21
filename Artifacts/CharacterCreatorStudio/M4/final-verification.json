@@ -1,0 +1,32 @@
+{
+  "Status": "PASS_WITH_RUNTIME_FONT_LIMITS",
+  "CapturedUtc": "2026-10-20T07:07:56.9046931Z",
+  "SharedAssertions": 410,
+  "M4Assertions": 45,
+  "CombatRegressionAssertions": 873,
+  "UIAuthoringSteps": 66,
+  "UIAuthoringAssertions": 26,
+  "RendererAssertions": 47,
+  "RendererProfiles": 10,
+  "BlockedRuntimeLocaleProfiles": [
+    "Battle card / th",
+    "Passive inspector / th",
+    "Status tooltip / th"
+  ],
+  "DuplicateReimport": true,
+  "SourceDraftUntouched": true,
+  "SceneDirty": false,
+  "PlayMode": false,
+  "UnityCSharpErrors": 0,
+  "TrialAssembliesMatch": true,
+  "RuntimeAssemblyHash": "cAzJIkkGDOBZTFNM1K3IVNTMuEtiRbdqDbPN9KkVjec=",
+  "EditorAssemblyHash": "7ypuy8FX+uyV2QK9igC97VrGnsBOshK8ek8sxqpgz4k=",
+  "AuthoredDraft": "Assets/Project/Editor/CharacterCreatorStudio/Drafts/kaeyaStudio 19.asset",
+  "MianCaseStudyOnly": true,
+  "Scope": "M4 authoring delivered. Barlow battle font lacks Thai glyphs; affected preview profiles are diagnosed and blocked for production release. No roster migration or runtime activation.",
+  "Captures": [
+    "writer.png",
+    "rendered-preview.png",
+    "Renderers/toolkit-matrix.png"
+  ]
+}

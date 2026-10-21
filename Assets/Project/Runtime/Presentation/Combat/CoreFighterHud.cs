@@ -593,7 +593,8 @@ namespace FightingAllstar.Presentation.Combat
             ArrangeStatusPanels();
         }
 
-        public void SetElementStatuses(IReadOnlyList<ElementStatusInstance> elements)
+        public void SetElementStatuses(IReadOnlyList<ElementStatusInstance> elements,
+            IReadOnlyList<ElementalReactionStatusInstance> reactions = null)
         {
             if (_elementStatusPanel == null) BindAuthoredUnitUi();
             if (_elementStatusPanel == null) return;
@@ -602,6 +603,10 @@ namespace FightingAllstar.Presentation.Combat
                 foreach (var element in elements)
                     if (element != null && element.RemainingDuration > 0)
                         display.Add(element.ToDisplayStatus());
+            if (reactions != null)
+                foreach (var reaction in reactions)
+                    if (reaction != null && reaction.RemainingDuration > 0)
+                        display.Add(reaction.ToDisplayStatus());
             SetStatusViews(display, _elementStatusPanel, _elementStatusViews, true);
             ArrangeStatusPanels();
         }
@@ -778,12 +783,14 @@ namespace FightingAllstar.Presentation.Combat
                             if (elemental)
                             {
                                 newEntry.Root.name = "ElementStatus_" + status.Recipe.NameKey;
-                                newEntry.MaxDuration = ElementStatusContainer.Duration;
+                                newEntry.MaxDuration = status.Recipe.DefaultDuration > 0
+                                    ? status.Recipe.DefaultDuration : ElementStatusContainer.Duration;
                                 UpdateDurationFill(newEntry, remDur, newEntry.MaxDuration);
                             }
                             views[stackKey] = newEntry;
                             orderedViews[category].Add(newEntry);
-                            newEntry.Routine = StartCoroutine(AnimateStatusEnter(newEntry));
+                            if (isActiveAndEnabled) newEntry.Routine = StartCoroutine(AnimateStatusEnter(newEntry));
+                            else ResetStatusFeedbackVisual(newEntry);
                         }
                     }
                 }
@@ -809,8 +816,12 @@ namespace FightingAllstar.Presentation.Combat
                     // The exit animation must not occupy a grid cell while survivors close the gap.
                     if (panel != null)
                         entry.Root.transform.SetParent(panel.transform.parent, true);
-                    _departingStatusViews.Add(entry);
-                    entry.Routine = StartCoroutine(AnimateStatusExit(entry));
+                    if (isActiveAndEnabled)
+                    {
+                        _departingStatusViews.Add(entry);
+                        entry.Routine = StartCoroutine(AnimateStatusExit(entry));
+                    }
+                    else Destroy(entry.Root);
                 }
             }
 
@@ -851,7 +862,7 @@ namespace FightingAllstar.Presentation.Combat
                     !string.Equals(entry.RecipeId, recipeId, StringComparison.OrdinalIgnoreCase)) continue;
                 if (entry.Routine != null) StopCoroutine(entry.Routine);
                 ResetStatusFeedbackVisual(entry);
-                entry.Routine = StartCoroutine(AnimateStatusRefresh(entry, succeeded));
+                if (isActiveAndEnabled) entry.Routine = StartCoroutine(AnimateStatusRefresh(entry, succeeded));
             }
         }
 
@@ -1164,6 +1175,12 @@ namespace FightingAllstar.Presentation.Combat
 
         private static Sprite ResolveStatusSprite(string recipeId, StatusPolarity polarity)
         {
+            if (!string.IsNullOrEmpty(recipeId) && recipeId.EndsWith(".marker", StringComparison.Ordinal))
+            {
+                var catalog = Resources.Load<BattleEntityPresentationCatalog>("BattleEntityPresentationCatalog");
+                var entityPortrait = catalog?.Find(recipeId.Substring(0,recipeId.Length-7))?.portrait;
+                if (entityPortrait != null) return entityPortrait;
+            }
             var key = recipeId ?? "";
             if (_statusSpriteCache.TryGetValue(key, out var cached) && cached != null)
                 return cached;
@@ -1171,8 +1188,17 @@ namespace FightingAllstar.Presentation.Combat
             var sprite = StatusVisualData.GetSprite(recipeId, polarity);
             if (sprite == null)
             {
-                var fallbackKey = StatusLibrary.GetIconKey(recipeId, polarity);
-                sprite = LoadSpriteByName(fallbackKey);
+                var isElemental = !string.IsNullOrWhiteSpace(recipeId) && recipeId.StartsWith("status.element.", System.StringComparison.OrdinalIgnoreCase);
+                if (isElemental)
+                {
+                    sprite = StatusVisualData.GetSprite("stat_down", StatusPolarity.Debuff);
+                    if (sprite == null) sprite = LoadSpriteByName("icon_buff_eternal_all_stat_dec_per");
+                }
+                if (sprite == null)
+                {
+                    var fallbackKey = StatusLibrary.GetIconKey(recipeId, isElemental ? StatusPolarity.Debuff : polarity);
+                    sprite = LoadSpriteByName(fallbackKey);
+                }
             }
 
             if (sprite != null)
@@ -1184,7 +1210,7 @@ namespace FightingAllstar.Presentation.Combat
         {
             if (string.IsNullOrEmpty(name)) return null;
 
-            string[] subfolders = { "Stats_Icon", "StatusIcon", "" };
+            string[] subfolders = { "Stats_Icon", "StatusIcon", "Card_Icon", "" };
 #if UNITY_EDITOR
             foreach (var sub in subfolders)
             {

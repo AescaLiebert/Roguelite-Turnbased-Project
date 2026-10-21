@@ -20,10 +20,24 @@ MonoBehaviour:
   traitIds:
   - trait.fatal-fury
   - trait.series-kof
-  passiveSourceDescription: Increases Blue attribute allies Defense by 60%
+  passiveSourceDescription: Increases Blue attribute allies' Defense by 60%.
   passiveSourceType: 2
   passiveRestriction: 0
   passiveDefinition: {fileID: 11400000, guid: 151f8e0d0d00a2548b98089c769e56e5, type: 2}
+  studioSchema: 1
+  studioMetadataJson: '{"CategoryId":1316,"SchemaVersion":1,"RuntimeReady":true,"Id":"fighter.joe96","SourceId":"fighter.joe96","SourceRecord":0,"DisplayName":"Joe
+    Higashi 96","FamilyId":"family.joe","Role":"4th Slot Support (Sub)","SeriesId":"series.kof","AttributeId":"attribute.blue","RarityId":"rarity.sr","TraitIds":["trait.fatal-fury","trait.series-kof"],"BaseStats":{"Attack":250,"Defense":200,"MaxHealth":4500,"CombatClass":2750,"HasDerivedCombatClass":false,"CombatClassReferenceValue":0,"CombatClassFlatBonus":0,"CombatClassReferenceScore":0,"CombatClassGrowthScore":0,"PierceBp":500,"ResistanceBp":0,"RegenerationBp":1000,"CritChanceBp":1500,"CritDamageBp":12000,"CritResistanceBp":0,"CritDefenseBp":3000,"RecoveryBp":13000,"BlockChanceBp":3000,"BlockPowerBp":2000,"LifeStealBp":0,"EvadeBp":0,"PerceptionBp":10000,"ControlBp":10000,"AvoidanceBp":10000,"ReflectDamageBp":0,"DamageOverTimeDealtBp":0,"DamageDealtBp":0,"AdditionalDamageDealtBp":0,"ElementalModifiers":[]},"StatGrowth":{"AttackBp":2135,"DefenseBp":2135,"HealthBp":2135,"CombatClassBp":0},"ArtifactLoadout":[],"Skills":[],"PassiveId":"fighter.joe96.passive.source","PassiveSource":{"SourceType":"SUB","Description":"Increases
+    Blue attribute allies'' Defense by 60%.","Restriction":"","Provenance":"CharacterObject"},"Passive":null,"HolyRelicSource":null,"ReviewNotes":[],"SourceTraits":[],"SourceStats":[],"UltimateTiers":[],"StatsProvenance":0}'
+  studioBundleHash: studio-bundle-v1:c0ee7cd42b21ceeaa3abad54d9eb954c66e5ef88c4fab906f88754234517deae
+  studioAuthoringJson: '{"SchemaVersion":4,"Id":"studio.102b896e6cec45b592fa186e139f3fae","Name":"Joe
+    Higashi 96","SourceCharacterId":"fighter.joe96","LegacyCharacter":null,"AuthoredCharacter":null,"OwnsOpeningGauge":false,"Parameters":[],"Rules":[],"Conditions":[],"Actions":[],"Modules":[],"Resources":[],"Statuses":[],"Policies":[],"AbilityVariants":[],"AbilityOverrides":[],"Description":{"SchemaVersion":1,"Id":"description.default","OwnerId":"studio.102b896e6cec45b592fa186e139f3fae","DefaultLocale":"en","Locales":[{"Locale":"en","ReviewState":"Draft","ReviewedTextHash":"","ReviewedGameplayHash":"","Blocks":[{"Id":"paragraph.main","Kind":0,"StyleId":"","Source":"Increases
+    Blue attribute allies Defense by 60%.","MechanicIds":[],"HasFallback":true,"Branches":[],"DetachedSnippetOrigins":[]}]}],"Bindings":[]},"Presentation":{"Id":"presentation.default","ActorAssetGuid":null,"ActionClipGuid":null,"ReactionClipGuid":null,"DurationMilliseconds":1000}}'
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
   id: 1316
   fighterName: Joe Higashi 96
   fighterPic: {fileID: 21300000, guid: 03b9dd8a241fcb44791e9e9fa89da75c, type: 3}

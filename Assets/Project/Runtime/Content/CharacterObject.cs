@@ -31,7 +31,7 @@ public enum PassiveSourceType
 {
         Unknown,
         [InspectorName("On-Field")] OnField,
-        [InspectorName("SUB")] Sub,
+        [InspectorName("Off-Field")] Sub,
         [InspectorName("SUB, PVP-Only")] SubPvpOnly
 }
 
@@ -42,7 +42,9 @@ public enum PassiveRestriction
         Own,
         [InspectorName("Green attribute")] GreenAttribute,
         [InspectorName("Red attribute")] RedAttribute,
-        Women
+        Women,
+        [InspectorName("PVP")] PvP,
+        [InspectorName("PVE")] PvE
 }
 
 public static class CharacterPassiveMetadata
@@ -53,6 +55,7 @@ public static class CharacterPassiveMetadata
                 {
                         case "ON-FIELD": return PassiveSourceType.OnField;
                         case "SUB": return PassiveSourceType.Sub;
+                        case "OFF-FIELD": return PassiveSourceType.Sub;
                         case "SUB, PVP-ONLY": return PassiveSourceType.SubPvpOnly;
                         default: return PassiveSourceType.Unknown;
                 }
@@ -67,6 +70,8 @@ public static class CharacterPassiveMetadata
                         case "GREEN ATTRIBUTE": return PassiveRestriction.GreenAttribute;
                         case "RED ATTRIBUTE": return PassiveRestriction.RedAttribute;
                         case "WOMEN": return PassiveRestriction.Women;
+                        case "PVP": return PassiveRestriction.PvP;
+                        case "PVE": return PassiveRestriction.PvE;
                         default: return PassiveRestriction.Unknown;
                 }
         }
@@ -74,7 +79,7 @@ public static class CharacterPassiveMetadata
         public static string SourceTypeLabel(PassiveSourceType value) => value switch
         {
                 PassiveSourceType.OnField => "On-Field",
-                PassiveSourceType.Sub => "SUB",
+                PassiveSourceType.Sub => "Off-Field",
                 PassiveSourceType.SubPvpOnly => "SUB, PVP-Only",
                 _ => string.Empty
         };
@@ -86,6 +91,8 @@ public static class CharacterPassiveMetadata
                 PassiveRestriction.GreenAttribute => "Green attribute",
                 PassiveRestriction.RedAttribute => "Red attribute",
                 PassiveRestriction.Women => "Women",
+                PassiveRestriction.PvP => "PVP",
+                PassiveRestriction.PvE => "PVE",
                 _ => string.Empty
         };
 }
@@ -106,6 +113,28 @@ public static class CharacterPassiveMetadata
         [SerializeField] private PassiveRestriction passiveRestriction;
         [Header("Passive")]
         [SerializeField] private PassiveDefinitionSO passiveDefinition;
+        [SerializeField, HideInInspector] private int studioSchema;
+        [SerializeField, HideInInspector] private string studioMetadataJson;
+        [SerializeField, HideInInspector] private string studioBundleHash;
+        [SerializeField, HideInInspector] private string studioAuthoringJson, studioLibraryJson;
+        public string StudioAuthoringJson => studioAuthoringJson;
+        public string StudioLibraryJson => studioLibraryJson;
+        public void SetStudioAuthoring(string authoring, string library)
+        { studioAuthoringJson = authoring; studioLibraryJson = library; }
+        public bool StudioOwned => studioSchema != 0;
+        public string StudioBundleHash => studioBundleHash;
+        public void SetStudioMetadata(CharacterDefinition value, string bundleHash)
+        {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                var metadata = value.Clone(); metadata.Skills.Clear(); metadata.UltimateTiers.Clear(); metadata.Passive = null;
+                studioMetadataJson = SnapshotJson.Serialize(metadata); studioSchema = 1; studioBundleHash = bundleHash;
+        }
+        public CharacterDefinition CreateStudioMetadata()
+        {
+                if (!StudioOwned) return null;
+                if (studioSchema != 1) throw new InvalidOperationException("Unsupported Studio character schema: " + studioSchema);
+                return SnapshotJson.Deserialize<CharacterDefinition>(studioMetadataJson) ?? throw new InvalidOperationException("Studio character metadata is missing.");
+        }
 
         [Header("Basic Information")]
         [SerializeField] private int id;

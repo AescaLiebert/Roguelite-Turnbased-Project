@@ -32,6 +32,7 @@ namespace FightingAllstar.Core.Content
     public sealed class TriggeredElementalAttackDefinition
     {
         public ElementId Element;
+        public int DamageBonusBp;
         public int AttackCoefficientBp;
         public int ReceivedDamageCoefficientBp;
         public bool Explosion;
@@ -39,7 +40,7 @@ namespace FightingAllstar.Core.Content
         public int StatusDuration;
         public int StatusStackCount = 1;
         public int SelfHealDamageBp;
-        public bool IsConfigured => Element != ElementId.None || AttackCoefficientBp != 0 || ReceivedDamageCoefficientBp != 0 ||
+        public bool IsConfigured => Element != ElementId.None || DamageBonusBp != 0 || AttackCoefficientBp != 0 || ReceivedDamageCoefficientBp != 0 ||
             Explosion || !string.IsNullOrEmpty(StatusRecipeId) || StatusDuration != 0 || StatusStackCount != 1 || SelfHealDamageBp != 0;
         public TriggeredElementalAttackDefinition Clone() => (TriggeredElementalAttackDefinition)MemberwiseClone();
     }

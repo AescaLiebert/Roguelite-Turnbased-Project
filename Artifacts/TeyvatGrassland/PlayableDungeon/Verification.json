@@ -1,0 +1,39 @@
+{
+  "checkedAt": "2026-10-19T12:59:57.7016250+07:00",
+  "target": "Windows PC",
+  "editorCombatSmoke": "Passed",
+  "bakedProbes": 45,
+  "meadowPlacements": 27737,
+  "windowsPipelineDiscovery": "Passed",
+  "accountSaveWritesDuringSmoke": false,
+  "originalSceneAndGlobalSettings": [
+    {
+      "path": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\Assets\\Project\\Scenes\\Battle.unity",
+      "before": "8A366B81BA4567C5D1ABCBCE337F76B14726B976835FA44DEAD43DD9E6A878BF",
+      "after": "8A366B81BA4567C5D1ABCBCE337F76B14726B976835FA44DEAD43DD9E6A878BF",
+      "unchanged": true
+    },
+    {
+      "path": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ProjectSettings\\GraphicsSettings.asset",
+      "before": "45A5EFB13F776B05200D4DBE225DD150B5765E3DF55D5570D0540D8F125D02D9",
+      "after": "45A5EFB13F776B05200D4DBE225DD150B5765E3DF55D5570D0540D8F125D02D9",
+      "unchanged": true
+    },
+    {
+      "path": "E:\\Program Files\\Unity\\RogueliteTurnbasedProject\\ProjectSettings\\ProjectSettings.asset",
+      "before": "A45D9D41A89435C6D081E4986BE2C85DBB47241632B38250927C695A85DAF8E6",
+      "after": "A45D9D41A89435C6D081E4986BE2C85DBB47241632B38250927C695A85DAF8E6",
+      "unchanged": true
+    }
+  ],
+  "mainColorSpace": "Gamma",
+  "referencePreviewColorSpace": "Linear",
+  "windowsPlayerBuild": "Not run",
+  "evidence": [
+    "BuildPassed.txt",
+    "PlayPassed.txt",
+    "01-planning.png",
+    "02-card-execution.png",
+    "03-result.png"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "entity": "JadeScreen",
+  "source": "Blender 5.1",
+  "fps": 30,
+  "units": "meters",
+  "clips": {
+    "Spawn": 0.9,
+    "Idle": 2.0,
+    "AbsorbHit": 0.42,
+    "Break": 0.85,
+    "Despawn": 0.65
+  },
+  "markers": {
+    "Reveal": 0.28,
+    "Emit": 0.48,
+    "Impact": 0.1
+  },
+  "sockets": {
+    "Impact": [
+      0,
+      -0.06,
+      1.25
+    ],
+    "Center": [
+      0,
+      0,
+      1.3
+    ],
+    "Placement": [
+      0,
+      0,
+      0
+    ]
+  },
+  "bones": 5,
+  "vertices": 1406,
+  "triangles": 2684,
+  "boundsMin": [
+    -2.120000123977661,
+    -0.23000000417232513,
+    0.014999985694885254
+  ],
+  "boundsMax": [
+    2.120000123977661,
+    0.23000000417232513,
+    2.8432064056396484
+  ],
+  "fbxSha256": "8ff20f0f7dacfd2e8b0b5225355222abb37532cc5a64b5f6488a7e7e60da0a22",
+  "atlasSize": 1024,
+  "maskChannels": {
+    "R": "emission",
+    "G": "opacity"
+  },
+  "budgetPolicy": "Starting values. Compare simultaneous set against scene without entities; reduce hidden geometry/passes/atlas if frame cost fails; enlarge visible markings if unreadable.",
+  "backside": "Artist interpretation; no reference background or watermark in textures."
+}

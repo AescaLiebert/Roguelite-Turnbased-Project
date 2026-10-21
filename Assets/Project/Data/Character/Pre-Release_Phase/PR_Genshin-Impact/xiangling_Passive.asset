@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: xiangling_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Policies: []
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.pre-release.xiangling.passive
+    Auras: []
+    Reactions: []
+    Triggers: []
+  studioSchema: 1
+  studioDefinitionJson: "{\"Policies\":[],\"Support\":null,\"Id\":\"fighter.pre-release.xiangling.passive\",\"Auras\":[],\"Reactions\":[{\"ExecutionVersion\":1,\"Phase\":1,\"Priority\":0,\"EventResourceKey\":null,\"EventStatusRecipeId\":null,\"FilterRemovalReason\":false,\"RemovalReason\":0,\"Id\":\"fighter.pre-release.xiangling.status.passive-pyro.opening\",\"Gate\":{\"MinimumTier\":0,\"MaximumTier\":5,\"Modes\":3,\"Presence\":0,\"AllowDefeatedOwner\":false},\"Trigger\":0,\"DamageTiming\":0,\"OwnTeamTurnOnly\":false,\"ActorRelation\":0,\"TargetRelation\":0,\"CardOriginOnly\":false,\"ExcludeUltimate\":false,\"RequireGaugeLoss\":false,\"RequireCritical\":false,\"RequireBlocked\":false,\"AllowReactionOrigin\":false,\"FilterDamageFamily\":false,\"RequiredDamageElement\":0,\"DamageFamily\":0,\"FilterCategory\":false,\"Category\":0,\"MinimumRank\":0,\"LimitScope\":0,\"MaximumActivations\":1,\"CooldownOwnerTurns\":0,\"Conditions\":[],\"Commands\":[{\"Kind\":2,\"CounterKey\":null,\"CounterCap\":2147483647,\"ValueSource\":0,\"ValueBinding\":null,\"EffectBinding\":0,\"Amount\":1,\"ScalingStat\":0,\"ScalingCoefficientBp\":10000,\"Effect\":{\"TargetQuery\":null,\"Id\":\"fighter.pre-release.xiangling.status.passive-pyro.apply\",\"Order\":0,\"Window\":0,\"Kind\":1,\"Target\":0,\"Conditions\":[],\"Damage\":null,\"Status\":{\"StatusRecipeId\":\"fighter.pre-release.xiangling.status.passive-pyro\",\"DurationOverride\":1,\"StackCount\":1,\"PotencySource\":0,\"PotencySourceRecipeId\":null,\"PotencyBp\":0,\"ProcChanceBp\":10000,\"InlineRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[{\"Element\":1,\"DamageDealtBp\":2000,\"ResistanceBp\":0}],\"Id\":\"fighter.pre-release.xiangling.status.passive-pyro\",\"NameKey\":\"Pyro Damage\",\"Polarity\":0,\"Color\":1,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":4,\"DefaultDuration\":1,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]}},\"StatTransfer\":null,\"RemovePolarity\":0,\"RemoveRecipeId\":null,\"RemoveAll\":true,\"Magnitude\":0,\"StatusDurationOverride\":0,\"Value\":null,\"Summon\":null},\"SkillId\":null,\"VariantId\":null,\"VariantUnlocked\":false}],\"ElseCommands\":[],\"Actions\":[]}],\"Triggers\":[]}"

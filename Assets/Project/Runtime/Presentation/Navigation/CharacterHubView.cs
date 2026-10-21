@@ -231,7 +231,7 @@ namespace FightingAllstar.Presentation.Navigation
             {
                 var level = _character.Ultimate?.levels?.ElementAtOrDefault(tier);
                 return level == null ? "Details have not been authored for this fighter yet." :
-                    Combat.CardDescriptionText.Format(level.description, level.runtimeEffect);
+                    Combat.CardDescriptionText.Format(level.description, level.runtimeEffect, level.Wording, level.level);
             }
             private void Click(string name, Action action) { var button = _panel.Q<Button>(name); if (button != null) button.clicked += action; }
             private void Text(string name, string value) { var label = _panel.Q<Label>(name); if (label != null) label.text = value ?? string.Empty; }

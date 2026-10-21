@@ -89,7 +89,7 @@ namespace FightingAllstar.Core.Combat
             new CardEffectContext { Battle = source.Battle, EffectOwner = effectOwner, Actor = source.Actor,
                 SelectedTarget = source.SelectedTarget, RootActionId = source.RootActionId,
                 CardCategory = source.CardCategory, CardRank = source.CardRank, IsUltimate = source.IsUltimate,
-                WasCritical = source.WasCritical, WasBlocked = source.WasBlocked,
+                WasCritical = source.WasCritical, ActionCritChanceBp = source.ActionCritChanceBp, WasBlocked = source.WasBlocked,
                 ActualHealthDamage = source.ActualHealthDamage, ActualShieldDamage = source.ActualShieldDamage,
                 DamageFamily = source.DamageFamily };
 

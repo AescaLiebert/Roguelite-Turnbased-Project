@@ -1,0 +1,230 @@
+.studio-shell { flex-grow: 1; background-color: rgb(21, 27, 37); color: rgb(231, 237, 247); }
+.studio-topbar { flex-direction: row; align-items: center; flex-wrap: wrap; flex-shrink: 0; min-height: 48px; padding: 10px 12px; background-color: rgb(29, 38, 52); border-bottom-width: 1px; border-bottom-color: rgb(61, 77, 100); }
+.studio-title { font-size: 19px; -unity-font-style: bold; margin-right: 18px; }
+.studio-grow { flex-grow: 1; }
+.studio-subtle { color: rgb(163, 180, 205); white-space: normal; }
+.studio-toolbar { flex-direction: row; align-items: center; flex-wrap: wrap; flex-shrink: 0; min-height: 34px; padding: 6px 12px; background-color: rgb(25, 33, 46); }
+.studio-workspace { flex-direction: row; flex-grow: 1; min-height: 0; }
+.studio-outline { min-width: 170px; flex-grow: 1; padding: 12px 8px; border-right-width: 1px; border-right-color: rgb(54, 68, 91); }
+.studio-main { flex-grow: 1; flex-basis: 0; min-width: 420px; }
+.studio-tabs { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; min-height: 36px; padding: 8px; border-bottom-width: 1px; border-bottom-color: rgb(54, 68, 91); }
+.studio-document-host { flex-grow: 1; padding: 16px; }
+.studio-inspector { min-width: 280px; flex-grow: 1; padding: 16px; border-left-width: 1px; border-left-color: rgb(54, 68, 91); }
+.studio-inspector TextField { flex-direction: column; }
+.studio-inspector TextField > .unity-base-field__label { min-width: 0; width: auto; white-space: normal; }
+.studio-evidence { min-height: 100px; flex-grow: 1; padding: 8px 12px; border-top-width: 1px; border-top-color: rgb(67, 86, 111); background-color: rgb(16, 22, 31); }
+.studio-problems { flex-grow: 1; }
+.studio-section-label { font-size: 11px; -unity-font-style: bold; color: rgb(161, 181, 208); margin-top: 6px; margin-bottom: 8px; }
+.studio-heading { font-size: 21px; -unity-font-style: bold; white-space: normal; margin-bottom: 10px; }
+.studio-body { white-space: normal; margin-bottom: 8px; }
+.studio-row { flex-direction: row; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.studio-node { margin-top: 8px; margin-bottom: 8px; padding: 10px; border-left-width: 3px; border-left-color: rgb(153, 184, 235); background-color: rgb(29, 38, 52); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+.studio-node .studio-node { background-color: rgb(35, 45, 61); }
+.studio-error { color: rgb(255, 153, 158); white-space: normal; }
+.studio-warning { color: rgb(242, 204, 141); white-space: normal; }
+.studio-success { color: rgb(164, 218, 183); white-space: normal; }
+.studio-status { flex-shrink: 0; padding: 6px 12px; white-space: normal; color: rgb(181, 199, 223); background-color: rgb(25, 33, 46); }
+.studio-shell Button { min-height: 27px; margin: 3px; padding-left: 10px; padding-right: 10px; }
+.studio-shell .studio-primary { background-color: rgb(171, 198, 237); color: rgb(20, 33, 52); -unity-font-style: bold; }
+.studio-shell .studio-save-button { min-width: 112px; }
+.studio-shell .studio-active { border-bottom-width: 2px; border-bottom-color: rgb(176, 205, 248); background-color: rgb(49, 66, 91); }
+.studio-shell TextField, .studio-shell IntegerField, .studio-shell LongField, .studio-shell EnumField, .studio-shell PopupField, .studio-shell DropdownField { margin-top: 5px; margin-bottom: 5px; }
+.studio-source { flex-direction: column; min-height: 150px; margin-top: 8px; margin-bottom: 8px; }
+.studio-source > .unity-base-field__label { min-width: 0; width: auto; margin-bottom: 6px; white-space: normal; }
+.studio-source .unity-text-input { white-space: normal; padding: 8px; }
+.studio-preview { padding: 12px; margin-top: 8px; margin-bottom: 12px; background-color: rgb(31, 41, 57); white-space: normal; font-size: 17px; }
+.studio-code { white-space: normal; color: rgb(174, 199, 231); font-size: 12px; margin-bottom: 7px; }
+.studio-library-item { margin-top: 8px; padding: 10px; background-color: rgb(29, 38, 52); }
+.studio-event { padding: 6px; margin-bottom: 3px; background-color: rgb(29, 38, 52); white-space: normal; }
+.studio-kit-title { font-size: 17px; white-space: normal; margin-bottom: 14px; }
+.studio-nav { -unity-text-align: middle-left; white-space: normal; background-color: transparent; border-width: 0; padding-top: 6px; padding-bottom: 6px; }
+.studio-nav-active { background-color: rgb(39, 55, 77); border-left-width: 3px; border-left-color: rgb(175, 204, 249); }
+.studio-breadcrumb { color: rgb(152, 171, 196); font-size: 11px; margin-bottom: 12px; }
+.studio-rule-card { flex-direction: row; align-items: flex-start; white-space: normal; margin-top: 7px; margin-bottom: 7px; padding: 16px; border-width: 1px; border-color: rgb(49, 62, 80); border-left-width: 4px; border-radius: 5px; background-color: rgb(27, 36, 49); }
+.studio-card-tag { min-width: 65px; font-size: 11px; -unity-font-style: bold; padding-top: 3px; -unity-text-align: upper-left; }
+.studio-card-sentence { flex-grow: 1; flex-shrink: 1; white-space: normal; font-size: 15px; -unity-text-align: upper-left; }
+.studio-tone-when { border-left-color: rgb(167, 196, 241); }
+.studio-tone-to { border-left-color: rgb(150, 205, 188); }
+.studio-tone-if { border-left-color: rgb(207, 176, 236); }
+.studio-tone-do { border-left-color: rgb(230, 197, 154); }
+.studio-card-selected { background-color: rgb(38, 51, 70); border-top-color: rgb(117, 144, 184); }
+.studio-action-children { border-left-width: 1px; border-left-color: rgb(72, 88, 111); margin-left: 20px; padding-left: 16px; }
+.studio-inspector .unity-base-field { flex-direction: column; margin-bottom: 9px; }
+.studio-inspector .unity-base-field__label { min-width: 0; white-space: normal; margin-bottom: 4px; }
+.studio-inspector .studio-node { padding: 7px; margin-top: 0; }
+#studio-outline-search { flex-direction: column; }
+#studio-outline-search > .unity-base-field__label { min-width: 0; font-size: 11px; color: rgb(159, 179, 205); }
+.studio-event { -unity-text-align: middle-left; }
+.studio-description-config { padding: 8px; margin-bottom: 8px; background-color: rgb(27,36,49); }
+.studio-description-config .unity-base-field { margin-top: 2px; margin-bottom: 2px; }
+.studio-source { min-height: 120px; }
+.studio-profile-banner { flex-direction: row; align-items: center; flex-wrap: wrap; margin-top: 10px; margin-bottom: 14px; padding: 12px; border-width: 1px; border-color: rgb(67, 86, 111); border-radius: 6px; background-color: rgb(26, 35, 49); }
+.studio-profile-portrait { width: 96px; height: 124px; flex-shrink: 0; margin-right: 14px; background-color: rgb(18, 24, 34); }
+.studio-profile-details { flex-grow: 1; flex-basis: 180px; min-width: 150px; }
+.studio-profile-name { font-size: 22px; -unity-font-style: bold; margin-bottom: 3px; white-space: normal; }
+.studio-profile-meta { color: rgb(170, 188, 212); font-size: 13px; margin-bottom: 8px; white-space: normal; }
+.studio-profile-tags { flex-direction: row; flex-wrap: wrap; }
+.studio-profile-tag { padding: 4px 8px; margin-right: 5px; margin-top: 3px; border-radius: 4px; background-color: rgb(43, 58, 79); color: rgb(205, 219, 239); font-size: 11px; }
+.studio-profile-icon { width: 78px; height: 78px; flex-shrink: 0; margin-left: 8px; margin-right: 14px; border-width: 2px; border-color: rgb(135, 164, 207); border-radius: 5px; background-color: rgb(18, 24, 34); }
+.studio-profile-stats { flex-direction: row; flex-wrap: wrap; flex-grow: 1; flex-basis: 260px; justify-content: space-around; padding-top: 8px; border-top-width: 1px; border-top-color: rgb(57, 73, 96); margin-top: 10px; }
+.studio-profile-stat { min-width: 62px; margin: 4px 8px; }
+.studio-profile-stat-label { color: rgb(151, 174, 204); font-size: 10px; -unity-font-style: bold; }
+.studio-profile-stat-value { font-size: 16px; -unity-font-style: bold; }
+.studio-profile-summary { font-size: 13px; white-space: normal; margin-bottom: 5px; }
+.studio-art-grid { flex-direction: row; flex-wrap: wrap; margin-left: -4px; margin-right: -4px; margin-bottom: 8px; }
+.studio-art-tile { flex-grow: 1; flex-basis: 180px; min-width: 140px; margin: 4px; padding: 9px; border-width: 1px; border-color: rgb(53, 69, 91); border-radius: 5px; background-color: rgb(27, 36, 50); }
+.studio-art-title { color: rgb(203, 216, 237); font-size: 12px; -unity-font-style: bold; margin-bottom: 6px; }
+.studio-art-image { width: 100%; height: 108px; margin-bottom: 7px; background-color: rgb(18, 24, 34); border-radius: 4px; }
+.studio-art-caption { color: rgb(218, 227, 241); font-size: 11px; white-space: normal; margin-bottom: 3px; }
+.studio-art-source { color: rgb(143, 165, 194); font-size: 10px; white-space: normal; }
+.studio-art-missing { background-color: rgb(20, 27, 38); }
+.studio-art-grid-compact .studio-art-tile { flex-basis: 130px; min-width: 112px; padding: 7px; }
+.studio-art-grid-compact .studio-art-image { height: 82px; }
+.studio-preview-grid { flex-direction: row; flex-wrap: wrap; margin-left: -4px; margin-right: -4px; }
+.studio-live-card { flex-grow: 1; flex-basis: 44%; min-width: 280px; margin: 4px; padding: 12px; border-width: 1px; border-color: rgb(59, 76, 100); border-radius: 6px; background-color: rgb(28, 38, 53); }
+.studio-passive-preview { flex-basis: 100%; }
+.studio-live-card-heading { flex-direction: row; align-items: center; margin-bottom: 6px; }
+.studio-live-card-icon { width: 54px; height: 54px; flex-shrink: 0; margin-right: 10px; border-width: 1px; border-color: rgb(101, 126, 161); border-radius: 4px; background-color: rgb(18, 24, 34); }
+.studio-live-card-title-group { flex-grow: 1; }
+.studio-live-card-title { color: rgb(223, 231, 244); font-size: 14px; -unity-font-style: bold; white-space: normal; }
+.studio-rank-preview-row { flex-direction: row; align-items: center; margin: 2px 0 5px; }
+.studio-rank-preview { min-width: 38px; min-height: 23px; margin: 1px 4px 1px 0; padding-left: 7px; padding-right: 7px; font-size: 11px; }
+.studio-rank-preview-active { background-color: rgb(58, 78, 105); border-bottom-width: 2px; border-bottom-color: rgb(176, 205, 248); }
+.studio-live-description { min-height: 72px; margin-top: 3px; margin-bottom: 7px; padding: 11px; background-color: rgb(22, 30, 42); border-left-width: 3px; border-left-color: rgb(113, 152, 204); border-radius: 3px; color: rgb(228, 234, 244); font-size: 14px; white-space: normal; }
+.studio-passive-preview .studio-live-description { border-left-color: rgb(180, 151, 207); }
+.studio-kit-columns { flex-direction: row; flex-wrap: wrap; margin-left: -4px; margin-right: -4px; }
+.studio-kit-column { flex-grow: 1; flex-basis: 46%; min-width: 280px; margin-left: 4px; margin-right: 4px; }
+.studio-kit-column .studio-art-tile { min-width: 0; flex-basis: auto; }
+.studio-stat-grid { flex-direction: row; flex-wrap: wrap; margin-left: -4px; margin-right: -4px; }
+.studio-stat-tile { flex-grow: 1; flex-basis: 20%; min-width: 145px; margin: 4px; padding: 9px; border-width: 1px; border-color: rgb(53, 69, 91); border-radius: 5px; background-color: rgb(27, 36, 50); }
+.studio-stat-short { color: rgb(153, 177, 207); font-size: 10px; -unity-font-style: bold; }
+.studio-stat-value { color: rgb(231, 237, 247); font-size: 21px; -unity-font-style: bold; margin: 3px 0 5px; }
+.studio-stat-tile IntegerField { flex-direction: column; margin-top: 2px; }
+.studio-stat-tile IntegerField > .unity-base-field__label { width: auto; min-width: 0; margin-bottom: 3px; color: rgb(158, 178, 205); font-size: 10px; }
+
+/* Keep scroll content measured by its children; only the ScrollView should consume viewport height. */
+.studio-workspace, .studio-main { min-width: 0; min-height: 0; }
+.studio-document-host { flex-basis: 0; flex-shrink: 1; min-width: 0; min-height: 0; }
+.studio-document-host .unity-scroll-view__content-viewport { min-width: 0; min-height: 0; }
+.studio-document-host .unity-scroll-view__content-container { width: 100%; min-width: 0; }
+
+/* The same layered character card anchors both Overview and Identity editing. */
+.studio-profile-banner { flex-direction: column; flex-wrap: nowrap; align-items: stretch; min-width: 0; flex-shrink: 0; }
+.studio-profile-main-row { flex-direction: row; flex-wrap: nowrap; align-items: center; width: 100%; min-width: 0; }
+.studio-profile-portrait { width: 78px; height: 100px; margin-right: 12px; flex-shrink: 0; }
+.studio-profile-details { flex-grow: 1; flex-shrink: 1; flex-basis: 0; min-width: 0; }
+.studio-profile-icon { width: 132px; height: 132px; margin-right: 18px; flex-shrink: 0; }
+.studio-profile-stats { width: 100%; min-width: 0; flex-grow: 0; flex-shrink: 0; flex-basis: auto; justify-content: space-between; }
+.studio-profile-stat { min-width: 52px; margin-left: 4px; margin-right: 4px; }
+.studio-profile-actions { width: 100%; flex-direction: row; justify-content: flex-end; margin-top: 4px; }
+.studio-trait-editor { min-width: 0; }
+.studio-trait-tags { flex-direction: row; flex-wrap: wrap; min-width: 0; margin-bottom: 5px; padding: 6px; border-width: 1px; border-color: rgb(62, 78, 101); border-radius: 4px; background-color: rgb(19, 26, 37); }
+.studio-trait-chip { flex-direction: row; align-items: center; margin: 3px; padding: 2px 4px 2px 8px; border-width: 1px; border-color: rgb(91, 116, 151); border-radius: 14px; background-color: rgb(45, 62, 84); }
+.studio-trait-chip-label { color: rgb(219, 229, 245); font-size: 11px; -unity-text-align: middle-left; }
+.studio-trait-chip-action { min-width: 20px; width: 20px; min-height: 20px; margin: 1px; padding: 0; font-size: 10px; }
+.studio-shell .studio-trait-chip-action { width: 20px; height: 20px; min-height: 20px; margin: 1px; padding: 0; }
+.studio-trait-suggestions { flex-direction: row; flex-wrap: wrap; min-width: 0; max-height: 140px; overflow: hidden; }
+.studio-trait-suggestion { min-width: 0; max-width: 100%; font-size: 10px; }
+.studio-sprite-wire-field { min-width: 0; margin-top: 4px; }
+.studio-art-tile ObjectField { flex-direction: column; min-width: 0; }
+.studio-art-tile ObjectField > .unity-base-field__label { width: auto; min-width: 0; margin-bottom: 3px; white-space: normal; }
+.studio-art-tile .unity-object-field__input { min-width: 0; }
+.studio-art-portrait-preview { width: 105px; min-width: 105px; height: 140px; min-height: 140px; flex-shrink: 0; align-self: center; }
+.studio-art-square-preview { width: 112px; min-width: 112px; height: 112px; min-height: 112px; flex-shrink: 0; align-self: center; }
+
+/* Artwork tiles have a stable preview area so flex wrapping cannot collapse images to a strip. */
+.studio-art-grid { width: 100%; min-width: 0; align-items: stretch; margin-left: 0; margin-right: 0; }
+.studio-art-tile { min-width: 0; flex-grow: 1; flex-shrink: 1; flex-basis: 180px; }
+.studio-art-image { width: 100%; min-width: 0; min-height: 108px; flex-shrink: 0; align-self: stretch; }
+.studio-art-grid-compact .studio-art-tile { flex-basis: 128px; }
+.studio-art-grid-compact .studio-art-image { min-height: 82px; }
+.studio-kit-column .studio-art-image { min-height: 82px; }
+
+/* Skill previews wrap as cards; the full-width passive card never expands into blank space. */
+.studio-preview-grid { width: 100%; min-width: 0; align-items: stretch; margin-left: 0; margin-right: 0; }
+.studio-live-card { flex-grow: 1; flex-shrink: 1; flex-basis: 320px; min-width: 0; }
+.studio-passive-preview { min-width: 0; flex-grow: 0; flex-shrink: 0; flex-basis: auto; align-self: stretch; }
+.studio-live-card-heading { min-width: 0; flex-shrink: 0; }
+.studio-live-card-icon { width: 68px; height: 68px; flex-shrink: 0; margin-right: 12px; }
+.studio-live-card-icon-portrait { width: 75px; height: 100px; }
+.studio-live-card-title-group { flex-grow: 1; flex-shrink: 1; min-width: 0; }
+.studio-live-card-badges { flex-direction: row; align-items: center; justify-content: flex-end; flex-wrap: wrap; flex-shrink: 0; max-width: 110px; min-width: 0; }
+.studio-live-card-badge { width: 22px; height: 22px; min-width: 22px; min-height: 22px; margin: 2px; }
+.studio-live-card-title, .studio-live-description { min-width: 0; }
+.studio-rank-preview-row { flex-wrap: wrap; flex-shrink: 0; }
+.studio-live-description { align-self: stretch; }
+.studio-live-keywords { align-self: stretch; margin-top: 2px; margin-bottom: 7px; padding: 8px 10px; border-left-width: 2px; border-left-color: rgb(56, 189, 248); border-radius: 3px; background-color: rgb(19, 29, 42); color: rgb(56, 189, 248); font-size: 11px; white-space: normal; }
+.studio-passive-preview .studio-live-description { -unity-text-align: middle-center; }
+.studio-kit-columns { width: 100%; min-width: 0; margin-left: 0; margin-right: 0; align-items: flex-start; }
+.studio-kit-column { flex-basis: 46%; min-width: 260px; margin-left: 4px; margin-right: 4px; }
+.studio-stat-grid { width: 100%; min-width: 0; margin-left: 0; margin-right: 0; }
+
+/* The game card uses the independently scrolling inspector beside the action flow. */
+.studio-ability-inspector { padding: 12px; }
+.studio-ability-preview { flex-shrink: 0; min-width: 0; width: 100%; margin-bottom: 12px; border-radius: 7px; overflow: hidden; background-color: rgb(81, 70, 51); }
+.studio-ability-editor { flex-shrink: 0; min-width: 0; width: 100%; margin-bottom: 12px; }
+.studio-ability-editor .unity-base-field { min-width: 0; flex-shrink: 0; margin-top: 5px; margin-bottom: 5px; }
+.studio-ability-editor .unity-base-field__label { min-width: 120px; width: 42%; white-space: normal; }
+.studio-ability-editor .studio-source > .unity-base-field__label, .studio-ability-wording > .unity-base-field__label { width: auto; }
+.studio-ability-showcase { background-color: rgb(248, 231, 188); padding: 12px 10px 14px; flex-shrink: 0; }
+.studio-ability-showcase-title { color: rgb(83, 67, 45); font-size: 15px; -unity-font-style: normal; -unity-text-align: middle-center; margin-bottom: 14px; }
+.studio-ability-rank-choices { flex-direction: row; align-items: center; justify-content: center; min-width: 0; flex-shrink: 0; }
+.studio-shell .studio-ability-rank-choice { flex-direction: column; align-items: center; background-color: rgba(0, 0, 0, 0); padding: 4px 3px 0; margin: 0; border-width: 2px; border-color: rgba(0, 0, 0, 0); border-radius: 6px; }
+.studio-shell .studio-ability-rank-selected { border-color: rgb(47, 166, 168); background-color: rgba(47, 166, 168, 0.13); }
+.studio-ability-card-face { position: relative; width: 64px; height: 116px; min-width: 64px; min-height: 116px; flex-shrink: 0; }
+.studio-ability-card-art { position: absolute; left: 3px; right: 3px; top: 4px; bottom: 13px; }
+.studio-ability-card-frame { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.studio-ability-card-type { position: absolute; right: 3px; top: 3px; width: 18px; height: 18px; }
+.studio-ability-rank-caption { color: rgb(83, 67, 45); -unity-font-style: bold; font-size: 11px; -unity-text-align: middle-center; margin: 5px 0 3px; }
+.studio-ability-rank-arrow { color: rgb(193, 137, 39); font-size: 18px; margin: 0 4px 12px; }
+.studio-ability-showcase-compact .studio-ability-card-face { width: 50px; height: 91px; min-width: 50px; min-height: 91px; }
+.studio-ability-showcase-compact .studio-ability-rank-arrow { font-size: 14px; margin-left: 2px; margin-right: 2px; }
+.studio-ability-tier-choices { flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.studio-ability-game-copy { padding: 12px 14px; flex-shrink: 0; }
+.studio-ability-game-header { flex-direction: row; align-items: center; min-width: 0; margin-bottom: 10px; }
+.studio-ability-game-title { flex-grow: 1; flex-shrink: 1; min-width: 0; white-space: normal; font-size: 12px; color: rgb(241, 231, 212); margin: 0 8px; }
+.studio-ability-game-description { flex-shrink: 0; min-width: 0; font-size: 14px; color: rgb(241, 235, 219); -unity-font-style: normal; white-space: normal; -unity-text-align: middle-center; border-top-width: 1px; border-top-color: rgb(143, 125, 96); padding-top: 12px; padding-bottom: 8px; }
+.studio-ability-game-keywords { flex-shrink: 0; min-width: 0; font-size: 11px; white-space: normal; color: rgb(100, 210, 229); padding-top: 6px; }
+.studio-ability-settings { margin-top: 0; border-left-color: rgb(124, 161, 212); }
+.studio-ability-flow { min-width: 0; margin-left: 8px; padding-left: 12px; border-left-width: 2px; border-left-color: rgb(76, 101, 131); }
+.studio-ability-flow-node { min-width: 0; margin-top: 2px; margin-bottom: 2px; border-width: 1px; border-left-width: 4px; border-color: rgb(63, 83, 109); border-radius: 6px; }
+.studio-ability-flow-main { border-left-color: rgb(230, 182, 103); }
+.studio-ability-flow-followup { border-left-color: rgb(134, 192, 180); }
+.studio-ability-flow-arrow { font-size: 18px; color: rgb(134, 166, 197); margin: 0 0 0 12px; }
+.studio-ability-action-summary { font-size: 13px; color: rgb(220, 230, 243); white-space: normal; margin-bottom: 6px; }
+.studio-ability-status-name { font-size: 12px; color: rgb(127, 211, 222); white-space: normal; margin-bottom: 5px; }
+.studio-ability-animation-summary { white-space: normal; font-size: 11px; color: rgb(171, 192, 219); margin-top: 5px; }
+.studio-ability-wording { flex-direction: column; min-height: 84px; }
+.studio-ability-wording .unity-base-text-field__input--multiline { min-width: 0; white-space: normal; overflow: hidden; }
+.studio-ability-wording .unity-base-text-field__multiline-container { min-width: 0; white-space: normal; }
+.studio-ability-wording .unity-text-element--inner-input-field-component { white-space: normal; overflow: hidden; }
+.studio-ability-action-fold > .unity-foldout__toggle { min-height: 30px; margin: 0; }
+.studio-ability-action-fold > .unity-foldout__toggle .unity-toggle__text { white-space: normal; -unity-font-style: bold; color: rgb(218, 230, 245); }
+.studio-native-passive-showcase { width: 100%; padding: 8px 10px 10px; flex-shrink: 0; }
+.studio-native-passive-titlebar { position: relative; min-height: 34px; flex-direction: row; align-items: center; justify-content: center; margin-bottom: 8px; padding-left: 26px; padding-right: 26px; border-bottom-width: 1px; border-bottom-color: rgb(219, 199, 154); }
+.studio-native-passive-titlebar .studio-ability-showcase-title { margin: 0; font-size: 20px; }
+.studio-shell .studio-native-passive-close { position: absolute; right: 0; top: 3px; width: 22px; min-width: 22px; height: 22px; min-height: 22px; margin: 0; padding: 0; border-width: 0; border-radius: 11px; background-color: rgb(171, 34, 30); color: rgb(255, 228, 180); font-size: 16px; -unity-font-style: bold; -unity-text-align: middle-center; }
+.studio-native-passive-art-stage { width: 100%; height: 148px; min-height: 148px; flex-shrink: 0; align-items: center; justify-content: center; background-color: rgb(248, 231, 188); }
+.studio-native-passive-art { width: 132px; height: 138px; min-width: 132px; min-height: 138px; flex-shrink: 0; align-self: center; }
+.studio-native-passive-copy { background-color: rgb(83, 72, 57); }
+.studio-native-passive-entry { align-items: center; min-width: 0; margin-bottom: 8px; padding-bottom: 8px; border-bottom-width: 1px; border-bottom-color: rgb(143, 125, 96); }
+.studio-native-passive-entry .studio-ability-game-title { margin-left: 0; font-size: 12px; }
+.studio-native-passive-badges { width: auto; max-width: 92px; flex-grow: 0; justify-content: flex-end; }
+.studio-native-passive-copy .studio-ability-game-description { border-top-width: 0; padding-top: 2px; }
+#studio-passive-availability { width: 100%; white-space: normal; }
+#studio-native-wording-editor { min-width: 0; }
+#studio-native-wording-editor .unity-base-field { flex-direction: column; min-width: 0; }
+#studio-native-wording-editor .unity-base-field__label { width: auto; min-width: 0; white-space: normal; }
+
+/* Passive mechanics stay compact in the overview and expand in place for editing. */
+.studio-passive-grid, .studio-passive-editor-grid { flex-direction: row; flex-wrap: wrap; align-items: flex-start; min-width: 0; width: 100%; }
+.studio-passive-grid > .studio-passive-card, .studio-passive-editor-grid > .studio-node { flex-grow: 0; flex-shrink: 0; flex-basis: 48%; min-width: 0; margin-left: 0; margin-right: 2%; margin-top: 6px; margin-bottom: 8px; }
+.studio-passive-grid > .studio-passive-card-open, .studio-passive-grid-narrow > .studio-passive-card, .studio-passive-grid-narrow > .studio-node { flex-basis: 100%; margin-right: 0; }
+.studio-passive-card-title { min-width: 0; font-size: 14px; -unity-font-style: bold; white-space: normal; color: rgb(224, 233, 247); margin-bottom: 8px; }
+.studio-passive-mechanic-fold { min-width: 0; margin-top: 10px; }
+.studio-passive-mechanic-fold > .unity-foldout__toggle { min-height: 28px; background-color: rgb(39, 53, 73); border-radius: 4px; }
+.studio-passive-mechanic-fold > .unity-foldout__content { margin-left: 0; min-width: 0; }
+.studio-passive-editor-grid .unity-base-field, #studio-passive-availability-settings .unity-base-field { flex-direction: column; min-width: 0; margin-bottom: 8px; }
+.studio-passive-editor-grid .unity-base-field__label, #studio-passive-availability-settings .unity-base-field__label { width: auto; min-width: 0; white-space: normal; margin-bottom: 4px; }
+.studio-passive-availability-controls { flex-direction: row; flex-wrap: wrap; min-width: 0; }
+.studio-passive-availability-controls > .unity-base-field { flex-grow: 1; flex-shrink: 1; flex-basis: 220px; margin-right: 10px; }

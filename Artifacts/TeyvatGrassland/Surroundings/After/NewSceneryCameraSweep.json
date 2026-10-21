@@ -1,0 +1,8 @@
+{
+    "passed": true,
+    "samples": 264,
+    "opaqueHeadHits": 0,
+    "cameraGroundViolations": 0,
+    "blockers": [],
+    "method": "8 authored orbit transition legs x33 positions; only newly added opaque renderer bounds, all six actor head rays, native floor clearance. Conservative bounds include every tree LOD. No backdrop gameplay colliders."
+}

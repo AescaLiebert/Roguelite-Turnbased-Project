@@ -12,29 +12,77 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490f307fcf853f5409e974c8521bfb46, type: 3}
   m_Name: sciii-sophitia_skilldata1
   m_EditorClassIdentifier: Assembly-CSharp::SkillCardSO
-  cardName: "SCII Sophitia \xB7 Aegis Blade"
+  cardName: "[Soul Calibur II] Sophitia \xB7 Skill 1"
   cardIcon: {fileID: 21300000, guid: 05734c98ee363d94395d210da3fb980c, type: 3}
   statusVisuals: []
   ranks:
-  - description: Deals 200% ATK Flood damage to single target.
+  - Wording:
+      rid: -2
+    description: Inflict Flood damage equal to 200% of the hero's Attack on one enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.skill.1.rank.1
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 20000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.flood
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -47,6 +95,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -56,6 +105,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -122,25 +172,73 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - description: Deals 360% ATK Flood damage to single target.
+  - Wording:
+      rid: -2
+    description: Inflict Flood damage equal to 360% of the hero's Attack on one enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
-        Reaction: 3
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.skill.1.rank.2
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 36000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.flood
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -153,6 +251,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -162,6 +261,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -228,25 +328,73 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - description: Deals 500% ATK Flood damage to single target.
+  - Wording:
+      rid: -2
+    description: Inflict Flood damage equal to 500% of the hero's Attack on one enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
-        Reaction: 3
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.skill.1.rank.3
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 50000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.flood
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -259,6 +407,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -268,6 +417,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -334,3 +484,16 @@ MonoBehaviour:
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Id":"fighter.sciii-sophitia.skill.1","Slot":1,"Category":0,"TargetScope":1,"SourceTarget":"SelectedEnemy","SourceType":"Attack","SourceEffectTags":null,"Ranks":[{"Rank":1,"HasCardKind":true,"Category":0,"TargetScope":1,"Effect":{"AttributeAdvantageDamageBonusBp":0,"Batches":[],"Sequence":[],"DamageProfile":{"Id":"","ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassDamageCap":false,"BypassFatalSave":false},"Explosion":false,"ConsumeTargetRecipeId":"","DamagePerConsumedStackBp":0,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":1,"Range":0,"Reaction":4,"ReactionTiming":0,"ResolvedHitCount":1},"Id":"fighter.sciii-sophitia.skill.1.rank.1","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":20000,"KeywordFactorBp":10000,"KeywordId":"attack.flood","Conditions":[],"StatusRecipe":{"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"","NameKey":"","Polarity":0,"Color":0,"Behavior":0,"Stacking":0,"Identity":0,"DurationClock":1,"DefaultDuration":2,"MaxStacks":1,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":[],"Modifiers":[],"PeriodicDamage":{"Element":0,"Family":3,"Timing":2,"Scaling":1,"CoefficientBp":10000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":{"Timing":1,"Scaling":0,"CoefficientBp":10000,"FixedAmount":0},"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":{"Sequence":[],"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Kind":0,"Target":1,"Family":0,"Scaling":0,"CoefficientBp":10000,"Magnitude":0,"KeywordId":"","Timing":3,"HealSource":3,"HealAmount":0,"HealCoefficientBp":10000,"StatusRecipeId":"","StatusPolarity":1,"StatusApplyChanceBp":10000,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"PowerGaugeAmount":0},"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]},"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageHitCount":1},"DescriptionKey":null,"Description":"Inflict
+    Flood damage equal to 200% of the hero''s Attack on one enemy.","SourceDescription":"Deals
+    200% ATK Flood damage to single target.","Provenance":0,"Wording":null},{"Rank":2,"HasCardKind":true,"Category":0,"TargetScope":1,"Effect":{"AttributeAdvantageDamageBonusBp":0,"Batches":[],"Sequence":[],"DamageProfile":{"Id":"","ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassDamageCap":false,"BypassFatalSave":false},"Explosion":false,"ConsumeTargetRecipeId":"","DamagePerConsumedStackBp":0,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":1,"Range":0,"Reaction":4,"ReactionTiming":0,"ResolvedHitCount":1},"Id":"fighter.sciii-sophitia.skill.1.rank.2","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":36000,"KeywordFactorBp":10000,"KeywordId":"attack.flood","Conditions":[],"StatusRecipe":{"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"","NameKey":"","Polarity":0,"Color":0,"Behavior":0,"Stacking":0,"Identity":0,"DurationClock":1,"DefaultDuration":2,"MaxStacks":1,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":[],"Modifiers":[],"PeriodicDamage":{"Element":0,"Family":3,"Timing":2,"Scaling":1,"CoefficientBp":10000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":{"Timing":1,"Scaling":0,"CoefficientBp":10000,"FixedAmount":0},"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":{"Sequence":[],"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Kind":0,"Target":1,"Family":0,"Scaling":0,"CoefficientBp":10000,"Magnitude":0,"KeywordId":"","Timing":3,"HealSource":3,"HealAmount":0,"HealCoefficientBp":10000,"StatusRecipeId":"","StatusPolarity":1,"StatusApplyChanceBp":10000,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"PowerGaugeAmount":0},"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]},"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageHitCount":1},"DescriptionKey":null,"Description":"Inflict
+    Flood damage equal to 360% of the hero''s Attack on one enemy.","SourceDescription":"Deals
+    360% ATK Flood damage to single target.","Provenance":0,"Wording":null},{"Rank":3,"HasCardKind":true,"Category":0,"TargetScope":1,"Effect":{"AttributeAdvantageDamageBonusBp":0,"Batches":[],"Sequence":[],"DamageProfile":{"Id":"","ExplicitTrueDamage":false,"TrueDamageBonusBp":2000,"BypassDefense":false,"BypassResistance":false,"BypassGenericReduction":false,"BypassFinalReduction":false,"BypassFlatReduction":false,"BypassShield":false,"BypassDamageCap":false,"BypassFatalSave":false},"Explosion":false,"ConsumeTargetRecipeId":"","DamagePerConsumedStackBp":0,"OnKillSelfHealMaxHealthBp":0,"DamageElement":0,"ElementalApplication":null,"Attack":{"HitCount":1,"Range":0,"Reaction":4,"ReactionTiming":0,"ResolvedHitCount":1},"Id":"fighter.sciii-sophitia.skill.1.rank.3","Kind":0,"Family":0,"Scaling":0,"ScalingStat":0,"Magnitude":0,"CoefficientBp":50000,"KeywordFactorBp":10000,"KeywordId":"attack.flood","Conditions":[],"StatusRecipe":{"PowerGaugeGainBp":0,"EndTurnPowerGaugeLoss":0,"PhysicalDamageReceivedBp":0,"SourceOnlyDamageReductionBp":0,"SkipApplyingTurnEnd":false,"NaturalExpiryAttack":null,"Retaliation":null,"ElementalModifiers":[],"Id":"","NameKey":"","Polarity":0,"Color":0,"Behavior":0,"Stacking":0,"Identity":0,"DurationClock":1,"DefaultDuration":2,"MaxStacks":1,"DefaultPotencyBp":0,"BarrierCoefficientBp":0,"BarrierMaxHealthCapBp":0,"BarrierSourceStat":0,"BarrierDurationPolicy":0,"BarrierAmountPolicy":0,"BypassDebuffImmunity":false,"BreakRule":0,"DisableMask":0,"Tags":[],"Modifiers":[],"PeriodicDamage":{"Element":0,"Family":3,"Timing":2,"Scaling":1,"CoefficientBp":10000,"FixedAmount":0,"ConsumeOnTrigger":false},"PeriodicHealing":{"Timing":1,"Scaling":0,"CoefficientBp":10000,"FixedAmount":0},"DebuffImmunity":false,"AdditionalDamageImmunity":false,"Taunt":false,"EvadeAttacks":false,"StanceChildren":[],"RecoverDamageTakenBp":0,"CounterEnabled":false,"CounterCategory":0,"CounterTarget":1,"CounterConditions":[],"CounterEffect":{"Sequence":[],"Attack":{"HitCount":1,"Range":0,"Reaction":0,"ReactionTiming":0,"ResolvedHitCount":1},"Kind":0,"Target":1,"Family":0,"Scaling":0,"CoefficientBp":10000,"Magnitude":0,"KeywordId":"","Timing":3,"HealSource":3,"HealAmount":0,"HealCoefficientBp":10000,"StatusRecipeId":"","StatusPolarity":1,"StatusApplyChanceBp":10000,"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"PowerGaugeAmount":0},"SurviveLethalCharges":0,"IgnoreCritResistanceBp":0,"IgnoreCritDefenseBp":0,"ImmuneStatusTags":[],"HasTaunt":false,"Reactions":[]},"StatusDurationOverride":0,"StatusStackCount":1,"StatusPotencyBp":0,"StatusApplyChanceBp":10000,"HealValue":null,"HealScalingStat":0,"HealCoefficientBp":0,"PowerGaugeAmount":0,"Target":1,"DamageHitCount":1},"DescriptionKey":null,"Description":"Inflict
+    Flood damage equal to 500% of the hero''s Attack on one enemy.","SourceDescription":"Deals
+    500% ATK Flood damage to single target.","Provenance":0,"Wording":null}],"Variants":[],"ValueOverrides":[]}'
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

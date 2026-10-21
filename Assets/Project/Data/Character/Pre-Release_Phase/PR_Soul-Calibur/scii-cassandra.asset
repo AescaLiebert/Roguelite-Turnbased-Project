@@ -30,6 +30,26 @@ MonoBehaviour:
   passiveSourceType: 1
   passiveRestriction: 2
   passiveDefinition: {fileID: 11400000, guid: 8c6f65b29ec126844a2b37183e9e5484, type: 2}
+  studioSchema: 1
+  studioMetadataJson: '{"CategoryId":2301,"SchemaVersion":1,"RuntimeReady":true,"Id":"fighter.scii-cassandra","SourceId":"fighter.scii-cassandra","SourceRecord":0,"DisplayName":"[Soul
+    Calibur II] Cassandra","FamilyId":"family.cassandra","Role":"Glass Attacker","SeriesId":"series.sc","AttributeId":"attribute.blue","RarityId":"rarity.ssr","TraitIds":["trait.women","trait.soul-calibur"],"BaseStats":{"Attack":310,"Defense":450,"MaxHealth":6500,"CombatClass":3750,"HasDerivedCombatClass":false,"CombatClassReferenceValue":0,"CombatClassFlatBonus":0,"CombatClassReferenceScore":0,"CombatClassGrowthScore":0,"PierceBp":700,"ResistanceBp":4000,"RegenerationBp":500,"CritChanceBp":1500,"CritDamageBp":13000,"CritResistanceBp":4000,"CritDefenseBp":3000,"RecoveryBp":11000,"BlockChanceBp":3000,"BlockPowerBp":0,"LifeStealBp":300,"EvadeBp":0,"PerceptionBp":10000,"ControlBp":10000,"AvoidanceBp":10000,"ReflectDamageBp":0,"DamageOverTimeDealtBp":0,"DamageDealtBp":0,"AdditionalDamageDealtBp":0,"ElementalModifiers":[]},"StatGrowth":{"AttackBp":1935,"DefenseBp":2035,"HealthBp":2135,"CombatClassBp":0},"ArtifactLoadout":[],"Skills":[],"PassiveId":"fighter.scii-cassandra.passive.source","PassiveSource":{"SourceType":"On-Field","Description":"After
+    the hero attacks, increase the hero''s Attack by an amount equal to 50% of the
+    hero''s current Defense for 2 turns.\n\n[Soul Calibur: increases the hero''s
+    Max HP and Crit Defense by 10%. When attacking, increases the hero''s Attack
+    by 12%.]","Restriction":"Own","Provenance":"CharacterObject","Wording":null},"Passive":null,"HolyRelicSource":null,"ReviewNotes":[],"SourceTraits":[],"SourceStats":[],"UltimateTiers":[],"StatsProvenance":0}'
+  studioBundleHash: studio-bundle-v1:19132c944be94c4710777fac59c2268ec4f193b484eabe50e2b9eba8ee476dbe
+  studioAuthoringJson: '{"SchemaVersion":4,"Id":"studio.native.6e464a4620e5be749b063f6add7ad3b5","Name":"[Soul
+    Calibur II] Cassandra","SourceCharacterId":"fighter.scii-cassandra","LegacyCharacter":null,"AuthoredCharacter":null,"OwnsOpeningGauge":false,"Parameters":[],"Rules":[],"Conditions":[],"Actions":[],"Modules":[],"Resources":[],"Statuses":[],"Policies":[],"AbilityVariants":[],"AbilityOverrides":[],"Description":{"SchemaVersion":1,"Id":"description.default","OwnerId":"studio.native.6e464a4620e5be749b063f6add7ad3b5","DefaultLocale":"en","Locales":[{"Locale":"en","ReviewState":"Draft","ReviewedTextHash":"","ReviewedGameplayHash":"","Blocks":[{"Id":"paragraph.main","Kind":0,"StyleId":"","Source":"After
+    the hero attacks, increase the hero''s Attack by an amount equal to 50% of the
+    hero''s current Defense for 2 turns.\n\n[Soul Calibur: increases the hero''s
+    Max HP and Crit Defense by 10%. When attacking, increases the hero''s Attack
+    by 12%.].","MechanicIds":[],"HasFallback":true,"Branches":[],"DetachedSnippetOrigins":[]}]}],"Bindings":[]},"Presentation":{"Id":"presentation.default","ActorAssetGuid":null,"ActionClipGuid":null,"ReactionClipGuid":null,"DurationMilliseconds":1000}}'
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":2,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":true},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
   id: 2301
   fighterName: '[Soul Calibur II] Cassandra'
   fighterPic: {fileID: 21300000, guid: d24795cb9d4be0d47912aea153c1c11b, type: 3}

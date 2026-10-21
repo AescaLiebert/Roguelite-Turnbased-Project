@@ -17,6 +17,7 @@ internal static partial class BattlePlaybackChecks
 
     public static void Main(string[] args)
     {
+        if (args.Contains("--skill-effects")) { SkillEffectOwnershipChecks(); return; }
         if (args.Contains("--elemental-ai")) { ElementalAiChecks(); ElementalAcceptanceChecks(); EnemyAiPlannerTacticalChecks(); Console.WriteLine("PASS: " + _assertions + " total G–H and existing tactical AI assertions."); return; }
         if (args.Contains("--elemental")) { ElementalSliceChecks(); ElementalExpansionChecks(); GenshinKitChecks(); return; }
         if (args.Contains("--standard-dot")) { YuriUltShockTriggeringDamageChecks(); ElementalExpansionChecks(); Console.WriteLine("PASS: centralized DOT regression checks."); return; }

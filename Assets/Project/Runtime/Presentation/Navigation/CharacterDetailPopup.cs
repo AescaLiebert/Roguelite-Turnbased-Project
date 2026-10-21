@@ -120,7 +120,7 @@ namespace FightingAllstar.Presentation.Navigation
             icon.AddToClassList("hub-passive-preview"); preview.Add(icon);
             var copy = new VisualElement(); copy.AddToClassList("hub-reference-copy"); body.Add(copy);
             var art = Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt");
-            Header(copy, details.Title, details.Statuses, null, art?.PassiveConditions(details.SourceType));
+            Header(copy, details.Title, details.Statuses, null, art?.PassiveConditions(details.SourceType, details.Restriction, details.Availability));
             copy.Add(Label(details.FormattedDescription, "hub-tooltip-description", true));
             if (!string.IsNullOrEmpty(details.Keywords)) copy.Add(Label(details.Keywords, "hub-tooltip-keywords", true));
         }

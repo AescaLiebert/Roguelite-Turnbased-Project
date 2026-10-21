@@ -1,0 +1,973 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9ad1cdb4878bd4787c7185e9af84d4, type: 3}
+  m_Name: fischl_ultdata1
+  m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
+  ultimateName: "Fischl \xB7 Ultimate"
+  icon: {fileID: 0}
+  statusVisuals: []
+  levels:
+  - Wording:
+      rid: -2
+    level: 0
+    description: "\u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08 Electro 400% \u0E40\u0E40\u0E25\u0E30
+      Summon Oz\u2019s \u0E2D\u0E2D\u0E01\u0E21\u0E32 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    level: 1
+    description: "\u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08 Electro 400% \u0E40\u0E40\u0E25\u0E30
+      Summon Oz\u2019s \u0E2D\u0E2D\u0E01\u0E21\u0E32 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    level: 2
+    description: "\u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08 Electro 400% \u0E40\u0E40\u0E25\u0E30
+      Summon Oz\u2019s \u0E2D\u0E2D\u0E01\u0E21\u0E32 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    level: 3
+    description: "\u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08 Electro 400% \u0E40\u0E40\u0E25\u0E30
+      Summon Oz\u2019s \u0E2D\u0E2D\u0E01\u0E21\u0E32 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    level: 4
+    description: "\u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08 Electro 400% \u0E40\u0E40\u0E25\u0E30
+      Summon Oz\u2019s \u0E2D\u0E2D\u0E01\u0E21\u0E32 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  - Wording:
+      rid: -2
+    level: 5
+    description: "\u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08 Electro 400% \u0E40\u0E40\u0E25\u0E30
+      Summon Oz\u2019s \u0E2D\u0E2D\u0E01\u0E21\u0E32 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19"
+    skillType: 0
+    runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
+      Attack:
+        HitCount: 1
+        Range: 0
+        Reaction: 0
+        ReactionTiming: 0
+      Id: 
+      Kind: 0
+      Family: 0
+      Scaling: 0
+      ScalingStat: 0
+      Magnitude: 0
+      CoefficientBp: 10000
+      KeywordFactorBp: 10000
+      KeywordId: 
+      Conditions: []
+      StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
+        Id: 
+        NameKey: 
+        Polarity: 0
+        Color: 0
+        Behavior: 0
+        Stacking: 0
+        Identity: 0
+        DurationClock: 1
+        DefaultDuration: 2
+        MaxStacks: 1
+        DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
+        BypassDebuffImmunity: 0
+        BreakRule: 0
+        DisableMask: 0
+        Tags: []
+        Modifiers: []
+        PeriodicDamage:
+          Element: 0
+          Family: 3
+          Timing: 2
+          Scaling: 1
+          CoefficientBp: 10000
+          FixedAmount: 0
+          ConsumeOnTrigger: 0
+        PeriodicHealing:
+          Timing: 1
+          Scaling: 0
+          CoefficientBp: 10000
+          FixedAmount: 0
+        DebuffImmunity: 0
+        AdditionalDamageImmunity: 0
+        Taunt: 0
+        EvadeAttacks: 0
+        StanceChildren: []
+        RecoverDamageTakenBp: 0
+        CounterEnabled: 0
+        CounterCategory: 0
+        CounterTarget: 1
+        CounterConditions: []
+        CounterEffect:
+          Attack:
+            HitCount: 1
+            Range: 0
+            Reaction: 0
+            ReactionTiming: 0
+          Kind: 0
+          Target: 1
+          Family: 0
+          Scaling: 0
+          CoefficientBp: 10000
+          Magnitude: 0
+          KeywordId: 
+          Timing: 3
+          HealSource: 3
+          HealAmount: 0
+          HealCoefficientBp: 10000
+          StatusRecipeId: 
+          StatusPolarity: 1
+          StatusApplyChanceBp: 10000
+          StatusDurationOverride: 0
+          StatusStackCount: 1
+          StatusPotencyBp: 0
+          PowerGaugeAmount: 0
+          Sequence: []
+        SurviveLethalCharges: 0
+        IgnoreCritResistanceBp: 0
+        IgnoreCritDefenseBp: 0
+        ImmuneStatusTags: []
+      StatusDurationOverride: 0
+      StatusStackCount: 1
+      StatusPotencyBp: 0
+      StatusApplyChanceBp: 10000
+      HealValue:
+        Source: 0
+        FixedAmount: 0
+        CoefficientBp: 10000
+        MaximumAmount: 2147483647
+      HealScalingStat: 0
+      HealCoefficientBp: 0
+      PowerGaugeAmount: 0
+      Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
+      Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: "[{\"Category\":0,\"Tier\":0,\"SourceLabel\":\"Fischl \u00b7 Ultimate\",\"Description\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"SourceDescription\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c0.oz\",\"Kind\":10,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":0,\"DamageHitCount\":1,\"Summon\":{\"SchemaVersion\":1,\"Id\":\"summon.oz\",\"NameKey\":\"Oz\",\"PresentationKey\":\"summon.oz\",\"Category\":0,\"Duration\":2,\"MarkerRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"summon.oz.marker\",\"NameKey\":\"Oz\",\"Polarity\":0,\"Color\":1,\"Behavior\":16,\"Stacking\":4,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"summon.oz\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"TurnEndAttack\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":25000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true},\"ActionTarget\":3,\"ActOnBothSidesTurnEnd\":false,\"AttackCoefficientPerDotDealtBp\":0,\"OnHitStatuses\":[],\"Auras\":[],\"CapacityCoefficientBp\":0,\"CapacitySourceStat\":2,\"ProtectionPriority\":0,\"DepletedStatus\":null,\"DepletedTargets\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":false,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"ReactionFollowUp\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":8000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true}}}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":3,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c0\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":1,\"SourceLabel\":\"Fischl \u00b7 Ultimate\",\"Description\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"SourceDescription\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c1.oz\",\"Kind\":10,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":0,\"DamageHitCount\":1,\"Summon\":{\"SchemaVersion\":1,\"Id\":\"summon.oz\",\"NameKey\":\"Oz\",\"PresentationKey\":\"summon.oz\",\"Category\":0,\"Duration\":2,\"MarkerRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"summon.oz.marker\",\"NameKey\":\"Oz\",\"Polarity\":0,\"Color\":1,\"Behavior\":16,\"Stacking\":4,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"summon.oz\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"TurnEndAttack\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":25000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true},\"ActionTarget\":3,\"ActOnBothSidesTurnEnd\":false,\"AttackCoefficientPerDotDealtBp\":0,\"OnHitStatuses\":[],\"Auras\":[],\"CapacityCoefficientBp\":0,\"CapacitySourceStat\":2,\"ProtectionPriority\":0,\"DepletedStatus\":null,\"DepletedTargets\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":false,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"ReactionFollowUp\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":8000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true}}}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":3,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c1\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":2,\"SourceLabel\":\"Fischl \u00b7 Ultimate\",\"Description\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"SourceDescription\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c2.oz\",\"Kind\":10,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":0,\"DamageHitCount\":1,\"Summon\":{\"SchemaVersion\":1,\"Id\":\"summon.oz\",\"NameKey\":\"Oz\",\"PresentationKey\":\"summon.oz\",\"Category\":0,\"Duration\":2,\"MarkerRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"summon.oz.marker\",\"NameKey\":\"Oz\",\"Polarity\":0,\"Color\":1,\"Behavior\":16,\"Stacking\":4,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"summon.oz\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"TurnEndAttack\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":25000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true},\"ActionTarget\":3,\"ActOnBothSidesTurnEnd\":false,\"AttackCoefficientPerDotDealtBp\":0,\"OnHitStatuses\":[],\"Auras\":[],\"CapacityCoefficientBp\":0,\"CapacitySourceStat\":2,\"ProtectionPriority\":0,\"DepletedStatus\":null,\"DepletedTargets\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":false,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"ReactionFollowUp\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":8000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true}}}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":3,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c2\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":3,\"SourceLabel\":\"Fischl \u00b7 Ultimate\",\"Description\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"SourceDescription\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c3.oz\",\"Kind\":10,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":0,\"DamageHitCount\":1,\"Summon\":{\"SchemaVersion\":1,\"Id\":\"summon.oz\",\"NameKey\":\"Oz\",\"PresentationKey\":\"summon.oz\",\"Category\":0,\"Duration\":2,\"MarkerRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"summon.oz.marker\",\"NameKey\":\"Oz\",\"Polarity\":0,\"Color\":1,\"Behavior\":16,\"Stacking\":4,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"summon.oz\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"TurnEndAttack\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":25000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true},\"ActionTarget\":3,\"ActOnBothSidesTurnEnd\":false,\"AttackCoefficientPerDotDealtBp\":0,\"OnHitStatuses\":[],\"Auras\":[],\"CapacityCoefficientBp\":0,\"CapacitySourceStat\":2,\"ProtectionPriority\":0,\"DepletedStatus\":null,\"DepletedTargets\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":false,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"ReactionFollowUp\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":8000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true}}}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":3,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c3\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":4,\"SourceLabel\":\"Fischl \u00b7 Ultimate\",\"Description\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"SourceDescription\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c4.oz\",\"Kind\":10,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":0,\"DamageHitCount\":1,\"Summon\":{\"SchemaVersion\":1,\"Id\":\"summon.oz\",\"NameKey\":\"Oz\",\"PresentationKey\":\"summon.oz\",\"Category\":0,\"Duration\":2,\"MarkerRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"summon.oz.marker\",\"NameKey\":\"Oz\",\"Polarity\":0,\"Color\":1,\"Behavior\":16,\"Stacking\":4,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"summon.oz\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"TurnEndAttack\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":25000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true},\"ActionTarget\":3,\"ActOnBothSidesTurnEnd\":false,\"AttackCoefficientPerDotDealtBp\":0,\"OnHitStatuses\":[],\"Auras\":[],\"CapacityCoefficientBp\":0,\"CapacitySourceStat\":2,\"ProtectionPriority\":0,\"DepletedStatus\":null,\"DepletedTargets\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":false,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"ReactionFollowUp\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":8000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true}}}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":3,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c4\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":5,\"SourceLabel\":\"Fischl \u00b7 Ultimate\",\"Description\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"SourceDescription\":\"\u0e17\u0e33\u0e14\u0e32\u0e40\u0e21\u0e08 Electro 400% \u0e40\u0e40\u0e25\u0e30 Summon Oz\u2019s \u0e2d\u0e2d\u0e01\u0e21\u0e32 2 \u0e40\u0e17\u0e34\u0e23\u0e4c\u0e19\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[{\"Timing\":2,\"BatchId\":null,\"Effect\":{\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c5.oz\",\"Kind\":10,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":10000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":0,\"DamageHitCount\":1,\"Summon\":{\"SchemaVersion\":1,\"Id\":\"summon.oz\",\"NameKey\":\"Oz\",\"PresentationKey\":\"summon.oz\",\"Category\":0,\"Duration\":2,\"MarkerRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"summon.oz.marker\",\"NameKey\":\"Oz\",\"Polarity\":0,\"Color\":1,\"Behavior\":16,\"Stacking\":4,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[\"summon.oz\"],\"Modifiers\":[],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"TurnEndAttack\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":25000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true},\"ActionTarget\":3,\"ActOnBothSidesTurnEnd\":false,\"AttackCoefficientPerDotDealtBp\":0,\"OnHitStatuses\":[],\"Auras\":[],\"CapacityCoefficientBp\":0,\"CapacitySourceStat\":2,\"ProtectionPriority\":0,\"DepletedStatus\":null,\"DepletedTargets\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":false,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"ReactionFollowUp\":{\"Element\":3,\"DamageBonusBp\":0,\"AttackCoefficientBp\":8000,\"ReceivedDamageCoefficientBp\":0,\"Explosion\":false,\"StatusRecipeId\":null,\"StatusDuration\":0,\"StatusStackCount\":1,\"SelfHealDamageBp\":0,\"IsConfigured\":true}}}}],\"DamageProfile\":null,\"Explosion\":false,\"ConsumeTargetRecipeId\":null,\"DamagePerConsumedStackBp\":0,\"SourceStackRecipeId\":null,\"SourceStackDamageBp\":0,\"SourceStackDotScaleBp\":0,\"ConsumeSourceStacks\":false,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":3,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"fighter.pre-release.fischl.ultimate.c5\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":null,\"Conditions\":[],\"StatusRecipe\":null,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1,\"Summon\":null},\"Provenance\":0,\"Wording\":null}]"
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

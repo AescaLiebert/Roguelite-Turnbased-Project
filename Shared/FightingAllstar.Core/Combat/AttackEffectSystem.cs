@@ -87,6 +87,7 @@ namespace FightingAllstar.Core.Combat
             if (statuses == null) return count;
             foreach (var status in statuses)
                 if (status?.Recipe != null && status.Recipe.Polarity == StatusPolarity.Buff &&
+                    !status.Recipe.StructuralEntityMarker &&
                     status.Recipe.Color == StatusColor.Normal) count++;
             return count;
         }

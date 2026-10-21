@@ -11,6 +11,14 @@ namespace FightingAllstar.Core.Combat
             var display = initial.Clone();
             display.Player.Hand.Clear();
             display.Opponent.Hand.Clear();
+            foreach (var entity in display.Entities)
+            {
+                var owner = display.Player.FindFighter(entity.OwnerFighterId) ?? display.Opponent.FindFighter(entity.OwnerFighterId);
+                owner?.Statuses?.Instances.RemoveAll(status => status.InstanceId == entity.MarkerStatusInstanceId);
+            }
+            display.Entities.Clear();
+            BattleEntitySystem.SuppressUnavailableAuras(display);
+            display.EntitySequence = display.EntityTurnOccurrence = 0;
             foreach (var fighter in display.Player.Fighters)
             { fighter.PowerGauge = 0; fighter.PowerGaugeRemainderBp = 0; }
             foreach (var fighter in display.Opponent.Fighters)
@@ -24,9 +32,12 @@ namespace FightingAllstar.Core.Combat
             var source = display.Player.FindFighter(item.SourceId) ?? display.Opponent.FindFighter(item.SourceId);
             var target = display.Player.FindFighter(item.TargetId) ?? display.Opponent.FindFighter(item.TargetId);
             var team = source == null ? null : display.Team(source.Side);
+            ApplyEntityFact(display, item);
             ApplyQueueProgress(display.Execution, item);
             if (target != null && item.ElementStatusesAfter != null)
                 target.ElementStatuses.Instances = item.ElementStatusesAfter.ConvertAll(status => status.Clone());
+            if (target != null && item.ElementalReactionStatusesAfter != null)
+                target.ElementStatuses.ReactionStatuses = item.ElementalReactionStatusesAfter.ConvertAll(status => status.Clone());
             if (target != null && item.ShieldChanged) target.Shield = item.ShieldAfter;
             if (source != null && item.PowerGaugeAfter >= 0 && item.Kind != BattleEventKind.PowerGaugeChanged)
                 source.PowerGauge = item.PowerGaugeAfter;
@@ -185,6 +196,40 @@ namespace FightingAllstar.Core.Combat
                             target.Statuses.Instances.RemoveAll(x => x.RecipeId == item.Message.Substring("Status expired: ".Length));
                     }
                     break;
+            }
+        }
+
+        private static void ApplyEntityFact(BattleState display, BattleEvent item)
+        {
+            display.EntityTurnOccurrence = System.Math.Max(display.EntityTurnOccurrence, item.EntityOccurrence);
+            if (item.Kind != BattleEventKind.EntityCreated && item.Kind != BattleEventKind.EntityActionStarted &&
+                item.Kind != BattleEventKind.EntityActionEnded && item.Kind != BattleEventKind.EntityAbsorbedDamage &&
+                item.Kind != BattleEventKind.EntityRemoved) return;
+            var entityId = item.EntityId ?? item.Entity?.Id;
+            if (string.IsNullOrEmpty(entityId)) return;
+            if (item.Entity != null) display.EntitySequence = System.Math.Max(display.EntitySequence, item.Entity.SpawnOrder);
+            if (item.Kind == BattleEventKind.EntityRemoved)
+            {
+                var removed = display.Entities.Find(entity => entity.Id == entityId) ?? item.Entity;
+                if (removed != null)
+                {
+                    var owner = display.Player.FindFighter(removed.OwnerFighterId) ?? display.Opponent.FindFighter(removed.OwnerFighterId);
+                    owner?.Statuses?.Instances.RemoveAll(status => status.InstanceId == removed.MarkerStatusInstanceId);
+                }
+                display.Entities.RemoveAll(entity => entity.Id == entityId);
+                return;
+            }
+            if (item.Entity != null)
+            {
+                var index = display.Entities.FindIndex(entity => entity.Id == entityId);
+                if (index < 0) display.Entities.Add(item.Entity.Clone());
+                else display.Entities[index] = item.Entity.Clone();
+            }
+            else if (item.Kind == BattleEventKind.EntityAbsorbedDamage)
+            {
+                var entity = display.Entities.Find(candidate => candidate.Id == entityId);
+                if (entity != null)
+                { entity.Capacity = item.EntityCapacityAfter; entity.MaximumCapacity = item.EntityMaximumCapacity; }
             }
         }
 

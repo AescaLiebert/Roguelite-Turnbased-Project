@@ -160,7 +160,7 @@ namespace FightingAllstar.Presentation.Combat
             passiveIcon.sizeDelta = new Vector2(110, 110); passiveIcon.anchoredPosition = Vector2.zero;
             var row = Box(content, "Own passive", new Color(.325f, .282f, .224f));
             Height(row, 112);
-            var conditions = Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt")?.PassiveConditions(passive.SourceType).Where(c => c.icon != null).ToList();
+            var conditions = Resources.Load<CharacterKitArtSO>("UI/CharacterKitArt")?.PassiveConditions(passive.SourceType, passive.Restriction, passive.Availability).Where(c => c.icon != null).ToList();
             var badgeCount = (passive.Statuses?.Count ?? 0) + (conditions?.Count ?? 0);
             var badgeIndex = 0;
             if (conditions != null)
@@ -207,18 +207,41 @@ namespace FightingAllstar.Presentation.Combat
                 string duration=status.Recipe?.DurationClock==StatusDurationClock.Permanent?"Permanent":status.RemainingDuration+" turn"+(status.RemainingDuration==1?"":"s");
                 var metadata=duration+(status.StackCount>1?"  ·  "+status.StackCount+" stacks":"");
                 var desc=Describe(status);
+                if(status.Recipe?.StructuralEntityMarker==true)
+                {
+                    var entity=state.Entities.Find(e=>e.Id==status.EntityInstanceId);
+                    metadata+="  ·  LOCKED "+(entity?.Definition.Category==BattleEntityCategory.GeoConstruct?"GEO CONSTRUCT":"SUMMON");
+                    desc="Cannot be dispelled. Removed when the owner is defeated.";
+                    if(entity?.Definition.TurnEndAttack!=null)desc+=" Acts at the end of "+(entity.Definition.ActOnBothSidesTurnEnd?"either team's turn.":"the owner's turn.");
+                    if(entity!=null&&entity.MaximumCapacity>0)desc+=" Shared team capacity: "+entity.Capacity.ToString("N0")+" / "+entity.MaximumCapacity.ToString("N0")+". Excess damage reaches the protected ally.";
+                }
                 if(string.IsNullOrWhiteSpace(desc))desc=visual?.Description;
                 if(string.IsNullOrWhiteSpace(desc))desc="Active combat effect.";
                 EffectRow(content,"Status "+status.RecipeId,StatusVisualData.GetDisplayName(status.RecipeId,polarity),metadata,desc,Find(status.SourceFighterId),status,polarity==StatusPolarity.Debuff);
             }
-            Heading(content,"ELEMENTAL AURAS  ·  "+selected.ElementStatuses.Instances.Count);
-            if(selected.ElementStatuses.Instances.Count==0)Empty(content,"No elemental auras");
+            var elementalCount=selected.ElementStatuses.Instances.Count+selected.ElementStatuses.ReactionStatuses.Count;
+            Heading(content,"ELEMENTAL STATUSES  ·  "+elementalCount);
+            if(elementalCount==0)Empty(content,"No elemental statuses");
             foreach(var aura in selected.ElementStatuses.Instances)
             {
                 var status=aura.ToDisplayStatus();
                 EffectRow(content,"Element "+aura.Element,aura.Element.ToString(),aura.RemainingDuration+" target turn ends  ·  Neutral",
                     "No negative effect. Unique per element; cannot refresh. Expires after 3 target turn ends or is consumed by a reaction.",
                     Find(aura.SourceFighterId),status,false);
+            }
+            foreach(var reaction in selected.ElementStatuses.ReactionStatuses)
+            {
+                var status=reaction.ToDisplayStatus();
+                var description=reaction.Reaction switch
+                {
+                    ElementalReactionId.Superconduct=>"Increases non-elemental damage taken by 40%. Cannot be cleansed or refreshed.",
+                    ElementalReactionId.ElectroCharged=>"Deals Electro reaction damage at target turn end. Cannot be cleansed or refreshed.",
+                    ElementalReactionId.Burning=>"Deals Pyro damage from snapshotted Attack at target turn end. Cannot be cleansed or refreshed.",
+                    _=>"Elemental reaction condition. Cannot be cleansed or refreshed."
+                };
+                EffectRow(content,"Element reaction "+reaction.Reaction,reaction.Reaction.ToString(),
+                    reaction.RemainingDuration+" target turn ends  ·  Neutral",description,
+                    Find(reaction.SourceFighterId),status,false);
             }
             Heading(content,"PASSIVE EFFECTS");
             var groups=selected.PassiveContributions.GroupBy(c=>c.OwnerId+"|"+c.RuleId).ToList();
@@ -368,6 +391,7 @@ namespace FightingAllstar.Presentation.Combat
             if (r.DisableMask != CardCategoryMask.None) parts.Add("Disables: " + Label(r.DisableMask.ToString()) + ".");
             if (r.RecoverDamageTakenBp != 0) parts.Add("Recovers " + (r.RecoverDamageTakenBp / 100d).ToString("0.##") + "% of damage received at own turn start.");
             if (r.CounterEnabled) parts.Add("Counters after the attack finishes: " + Label(r.CounterCategory.ToString()) + ".");
+            parts.AddRange(StatusReactionText.Describe(r));
             if (r.SurviveLethalCharges > 0) parts.Add("Survives lethal damage " + r.SurviveLethalCharges + " time(s).");
             if (r.ImmuneStatusTags.Count > 0) parts.Add("Immune to: " + string.Join(", ", r.ImmuneStatusTags) + ".");
             if (!string.IsNullOrEmpty(status.ParentInstanceId)) parts.Add("Ends with its parent stance.");

@@ -103,10 +103,12 @@ namespace FightingAllstar.Presentation.Combat
 
         private void Start()
         {
-            _trainingMode = SceneManager.GetActiveScene().name == "Training";
+            _battleLab = BattleLabContext.IsReady && SceneManager.GetActiveScene().name == "Training";
+            if (_battleLab) EnableLabBackgroundSimulation();
+            _trainingMode = _battleLab ? BattleLabContext.Mode == FightingAllstar.Core.Studio.BattleLabMode.TrainingBattle : SceneManager.GetActiveScene().name == "Training";
             FightingAllstar.Core.Combat.AI.EnemyAiPlanner.LogCallback = msg => Debug.Log(msg, this);
             BindBattleHud();
-            if (_trainingMode) BindTrainingControls();
+            if (_battleLab) BindLabControls(); else if (_trainingMode) BindTrainingControls();
             if (damageTotalPanel != null) damageTotalPanel.SetActive(false);
             if (damageTotalValue != null)
             {
@@ -116,10 +118,11 @@ namespace FightingAllstar.Presentation.Combat
                 damageTotalValue.textWrappingMode = TextWrappingModes.NoWrap;
                 damageTotalValue.overflowMode = TextOverflowModes.Truncate;
             }
-            EncounterProjection encounter;
-            ulong seed;
-            var hasEncounter = _trainingMode ? TrainingContext.TryCreateEncounter(out encounter, out seed) :
+            EncounterProjection encounter = null;
+            ulong seed = 0;
+            var hasEncounter = _battleLab ? true : _trainingMode ? TrainingContext.TryCreateEncounter(out encounter, out seed) :
                 LocalEncounterContext.TryConsumeEncounter(out encounter, out seed);
+            if (_battleLab) { encounter = null; seed = BattleLabContext.Seed; }
             if (!hasEncounter)
             {
                 Debug.LogWarning("No battle encounter is pending. Open Gacha, set CharacterLoadOut, then enter a Dungeon.", this);
@@ -129,21 +132,23 @@ namespace FightingAllstar.Presentation.Combat
 
             try
             {
+                var labInitial = _battleLab ? FightingAllstar.Core.Studio.BattleLabSimulation.Create(BattleLabContext.Snapshot, out encounter) : null;
                 EnsureFighterAttributes(encounter);
                 var playerCC = encounter.PlayerTeam.Sum(fighter => fighter.Stats == null ? 0 : fighter.Stats.CombatClass);
                 var opponentCC = encounter.EnemyTeam.Sum(fighter => fighter.Stats == null ? 0 : fighter.Stats.CombatClass);
-                var playerFirst = _trainingMode || playerCC >= opponentCC;
+                var playerFirst = _battleLab ? labInitial.ActingSide == TeamSide.Player : _trainingMode || playerCC >= opponentCC;
                 var firstSide = playerFirst ? TeamSide.Player : TeamSide.Opponent;
-                var initialState = _trainingMode || LocalEncounterContext.IsPreview
+                var initialState = labInitial ?? (_trainingMode || LocalEncounterContext.IsPreview
                     ? RunBattleBridge.CreateLocalBattle(encounter, seed, firstSide, training: _trainingMode)
-                    : RunBattleBridge.CreateLocalBattle(encounter, firstSide);
-                _session = new LocalBattleSession(initialState);
+                    : RunBattleBridge.CreateLocalBattle(encounter, firstSide));
+                _session = new LocalBattleSession(initialState, passiveOpponent: _battleLab && _trainingMode);
                 // LocalBattleSession may already have resolved an enemy-first turn. Display the opening state first.
                 _snapshot = initialState.Clone();
                 _displayState = BattlePlaybackState.BeforeOpeningDeal(initialState);
                 SpawnFighterViews(_snapshot, encounter);
                 _stage = gameObject.AddComponent<BattleStagePresenter>();
                 _stage.Initialize(_fighterViews, _snapshot);
+                InitializeProfilePlayback();
                 SetBattleHudVisible(false);
                 RefreshView();
                 PlayOpeningSequence(playerCC, opponentCC, playerFirst, encounter);
@@ -231,10 +236,15 @@ namespace FightingAllstar.Presentation.Combat
                 var anchor = GameObject.Find(anchorName + (Mathf.Clamp(slot, 0, 2) + 1));
                 var position = anchor == null ? new Vector3(anchorPrefix == "Hero" ? -3f : 3f, 0f, 0f) : anchor.transform.position;
                 var rotation = BattleFighterView.FormationRotation(fighter.Side);
-                var view = character != null && character.Fighter3DPrefab != null
-                    ? BattleFighterView.Create(character.Fighter3DPrefab, position, rotation,
-                        character.FighterModelYawOffset, character.Fighter3DMesh, character.Fighter3DMaterial)
+                var labVisual = _battleLab ? BattleLabContext.VisualFor(fighter.Id) : null;
+                var prefab = labVisual?.Profile?.Prefab != null ? labVisual.Profile.Prefab : labVisual?.Prefab != null ? labVisual.Prefab : character?.Fighter3DPrefab;
+                var view = prefab != null
+                    ? BattleFighterView.Create(prefab, position, rotation,
+                        (labVisual?.Profile != null ? labVisual.Profile.Yaw : character?.FighterModelYawOffset ?? 0) + (labVisual?.Yaw ?? 0), labVisual?.Profile?.Prefab != null || labVisual?.Prefab != null ? null : character?.Fighter3DMesh, labVisual?.Profile?.Prefab != null || labVisual?.Prefab != null ? null : character?.Fighter3DMaterial)
                     : CreatePlaceholder(fighter, position, rotation);
+                if (labVisual != null) view.transform.localScale *= labVisual.Scale;
+                if (labVisual?.Profile != null) view.transform.localScale *= Mathf.Max(.01f,labVisual.Profile.Scale);
+                FightingAllstar.Rendering.MapRenderContext.Active?.PrepareActor(view);
                 var groundOffset = CalculateGroundOffset(view, position.y);
                 view.transform.position += Vector3.up * groundOffset;
                 _fighterGroundOffsets[fighter.Id] = groundOffset;
@@ -769,10 +779,12 @@ namespace FightingAllstar.Presentation.Combat
                     while (index + 1 < events.Count && IsSimultaneousFeedback(events[index + 1].Kind))
                         batch.Add(events[++index]);
                     yield return PresentFeedbackBatch(batch);
+                    foreach (var presented in batch) RecordLabPresented(presented);
                     continue;
                 }
 
                 yield return PresentEvent(item);
+                RecordLabPresented(item);
             }
             yield return FinishActionVisual();
             yield return _stage.Turn(TeamSide.Player);
@@ -789,6 +801,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void FinishBattle()
         {
+            if (_battleLab) { BattleLabContext.Exit(); return; }
             if (_trainingMode) { ExitTraining(); return; }
             if (ExitPreview()) return;
             LocalEncounterContext.StoreResult(_session.GetSnapshot());
@@ -797,6 +810,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void SurrenderRun()
         {
+            if (_battleLab) { BattleLabContext.Exit(); return; }
             if (_trainingMode) { ExitTraining(); return; }
             if (ExitPreview()) return;
             var store = new LocalRunStateStore();
@@ -852,9 +866,10 @@ namespace FightingAllstar.Presentation.Combat
                         ? (_draft.Preview.FindFighter(fighter.Id)?.PowerGaugeRemainderBp ?? fighter.PowerGaugeRemainderBp)
                         : fighter.PowerGaugeRemainderBp);
                     billboard.SetStatuses(CoreFighterHud.DisplayStatuses(fighter));
-                    billboard.SetElementStatuses(fighter.ElementStatuses.Instances);
+                    billboard.SetElementStatuses(fighter.ElementStatuses.Instances, fighter.ElementStatuses.ReactionStatuses);
                 }
             }
+            _stage?.Entities?.Sync(display);
         }
 
         private void PositionView(FighterState fighter, GameObject view)
@@ -1497,8 +1512,17 @@ namespace FightingAllstar.Presentation.Combat
             var sprite = StatusVisualData.GetSprite(recipeOrStatusId, polarity);
             if (sprite == null)
             {
-                var fallbackKey = StatusLibrary.GetIconKey(recipeOrStatusId, polarity);
-                sprite = LoadSpriteByName(fallbackKey);
+                var isElemental = recipeOrStatusId.StartsWith("status.element.", StringComparison.OrdinalIgnoreCase);
+                if (isElemental)
+                {
+                    sprite = StatusVisualData.GetSprite("stat_down", StatusPolarity.Debuff);
+                    if (sprite == null) sprite = LoadSpriteByName("icon_buff_eternal_all_stat_dec_per");
+                }
+                if (sprite == null)
+                {
+                    var fallbackKey = StatusLibrary.GetIconKey(recipeOrStatusId, isElemental ? StatusPolarity.Debuff : polarity);
+                    sprite = LoadSpriteByName(fallbackKey);
+                }
             }
 
             if (sprite != null)
@@ -1512,8 +1536,8 @@ namespace FightingAllstar.Presentation.Combat
             if (string.IsNullOrEmpty(fileName)) return null;
 
             string[] subfolders = subfolder == "UI"
-                ? new[] { "UI/Stats_Icon", "UI/StatusIcon", "UI" }
-                : new[] { subfolder, "UI/Stats_Icon", "UI/StatusIcon", "UI" };
+                ? new[] { "UI/Stats_Icon", "UI/StatusIcon", "UI/Card_Icon", "UI" }
+                : new[] { subfolder, "UI/Stats_Icon", "UI/StatusIcon", "UI/Card_Icon", "UI" };
 
 #if UNITY_EDITOR
             foreach (var sub in subfolders)

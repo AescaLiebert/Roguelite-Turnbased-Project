@@ -48,6 +48,13 @@ namespace FightingAllstar.Presentation.Combat
         public IEnumerator ReactMultiple(IReadOnlyList<BattleEvent> impacts, float durationScale = 1f)
         {
             if (impacts == null || impacts.Count == 0) yield break;
+            if (ProfilePlayback?.LiveActive == true)
+            {
+                _sfxPlayer.PlayHit(System.Linq.Enumerable.Any(impacts, fact=>fact.WasCritical));
+                foreach (var fact in impacts) ProfilePlayback.Record(fact);
+                yield return null;
+                yield break;
+            }
             var facts = new Dictionary<string, BattleEvent>();
             foreach (var item in impacts)
             {

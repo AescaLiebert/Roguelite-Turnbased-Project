@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5834ee8ab58d11d45914f67451f074f9, type: 3}
+  m_Name: BattleEntityPresentationCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.BattleEntityPresentationCatalog
+  profiles:
+  - {fileID: 11400000, guid: 3bc2a2189259ef440ab40a50138a2e0f, type: 2}
+  - {fileID: 11400000, guid: fdcb21dae635b9d4ea1b45b4eb2e845d, type: 2}
+  - {fileID: 11400000, guid: 2cea9b601bde7d647a9eaf5d79770e46, type: 2}

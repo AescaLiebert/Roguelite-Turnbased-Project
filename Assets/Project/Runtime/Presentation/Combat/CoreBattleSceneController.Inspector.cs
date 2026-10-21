@@ -30,6 +30,11 @@ namespace FightingAllstar.Presentation.Combat
             if (!held || Input.touchCount > 1 || Vector2.Distance(position, _inspectStart) > 24f) { _inspectHeldId = null; return; }
             if (_inspectHeldId == null || Time.unscaledTime - _inspectStartedAt < characterInspectHoldSeconds) return;
             var id = _inspectHeldId; _inspectHeldId = null;
+            OpenFighterInspector(id);
+        }
+
+        private void OpenFighterInspector(string id)
+        {
             HideTooltip();
             _inspector = new GameObject("Battle Character Inspector").AddComponent<BattleCharacterInspector>();
             _inspector.Open(_snapshot.Clone(), id, key => {

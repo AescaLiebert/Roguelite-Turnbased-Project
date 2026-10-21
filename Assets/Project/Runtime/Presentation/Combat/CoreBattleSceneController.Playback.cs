@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace FightingAllstar.Presentation.Combat
 {
-    public enum BattlePresentationPhase { ComparingCC, OpeningDeal, Planning, CardExecution, TurnSwitch, Complete, ResolvingStatus, EnemyPlanning }
+    public enum BattlePresentationPhase { ComparingCC, OpeningDeal, Planning, CardExecution, TurnSwitch, Complete, ResolvingStatus, EnemyPlanning, ResolvingSummon }
 
     public sealed partial class CoreBattleSceneController
     {
@@ -23,6 +23,7 @@ namespace FightingAllstar.Presentation.Combat
         private readonly List<BattleEvent> _executionEvents = new List<BattleEvent>();
         private HitReaction _actionFramingReaction;
         private BattleEvent _pendingActionMotion;
+        private readonly Stack<BattlePresentationPhase> _entityPhaseStack = new Stack<BattlePresentationPhase>();
 
         private static HitReaction SnapshotActionReaction(IReadOnlyList<BattleEvent> events, int start)
         {
@@ -146,6 +147,7 @@ namespace FightingAllstar.Presentation.Combat
                 BattlePresentationPhase.CardExecution => "CARD EXECUTION",
                 BattlePresentationPhase.TurnSwitch => "TURN CHANGE",
                 BattlePresentationPhase.ResolvingStatus => "RESOLVING STATUS",
+                BattlePresentationPhase.ResolvingSummon => "RESOLVING SUMMON",
                 _ => "BATTLE COMPLETE"
             };
         }
@@ -415,7 +417,8 @@ namespace FightingAllstar.Presentation.Combat
 
         private bool ShouldPresentPassiveActivation(BattleEvent item)
         {
-            if (item == null) return false;
+            if (item == null || item.EffectOrigin == EffectOrigin.SkillGrantedStatus ||
+                item.Message == "BeforeDefeat" || item.Message == "DamageCapReached") return false;
             var actionId = string.IsNullOrEmpty(item.RootActionId) ? item.CardId : item.RootActionId;
             if (string.IsNullOrEmpty(actionId)) return true;
             return _passiveActivationActionsPresented.Add(actionId);
@@ -486,7 +489,7 @@ namespace FightingAllstar.Presentation.Combat
                         if (ShouldPresentPassiveActivation(item))
                         {
                             visible = true;
-                            FloatText(item.SourceId, "Active Unique", "passive");
+                            if (item.EffectOrigin != EffectOrigin.SkillGrantedStatus) FloatText(item.SourceId, "Active Unique", "passive");
                             _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
                         }
                         break;
@@ -537,6 +540,7 @@ namespace FightingAllstar.Presentation.Combat
             var action = _pendingActionMotion;
             _pendingActionMotion = null;
             if (action == null) yield break;
+            if (_profilePlayback?.CanPlay(action) == true) { yield return _profilePlayback.BeginAction(action); yield break; }
             var targetIds = action.TargetIds != null && action.TargetIds.Count > 0
                 ? action.TargetIds : new List<string> { action.TargetId };
             var category = CardRules.GetEffectCategory(action.Card);
@@ -557,12 +561,42 @@ namespace FightingAllstar.Presentation.Combat
         {
             switch (item.Kind)
             {
+                case BattleEventKind.EntityCreated:
+                {
+                    var previous = PresentationPhase;
+                    SetPhase(BattlePresentationPhase.ResolvingSummon);
+                    BattlePlaybackState.Apply(_displayState, item);
+                    yield return _stage.Entities.Create(item, _displayState);
+                    SetPhase(previous);
+                    yield break;
+                }
+                case BattleEventKind.EntityActionStarted:
+                    _entityPhaseStack.Push(PresentationPhase);
+                    SetPhase(BattlePresentationPhase.ResolvingSummon);
+                    BattlePlaybackState.Apply(_displayState, item);
+                    yield return _stage.Entities.BeginAction(item, _displayState);
+                    yield break;
+                case BattleEventKind.EntityActionEnded:
+                    BattlePlaybackState.Apply(_displayState, item);
+                    yield return _stage.Entities.EndAction(item);
+                    SetPhase(_entityPhaseStack.Count > 0 ? _entityPhaseStack.Pop() : BattlePresentationPhase.ResolvingStatus);
+                    yield break;
+                case BattleEventKind.EntityAbsorbedDamage:
+                    BattlePlaybackState.Apply(_displayState, item);
+                    FloatText(item.TargetId, "SCREEN  −" + item.EntityAbsorbedAmount.ToString("N0"), "shield");
+                    yield return _stage.Entities.Absorb(item);
+                    yield break;
+                case BattleEventKind.EntityRemoved:
+                    BattlePlaybackState.Apply(_displayState, item);
+                    yield return _stage.Entities.Remove(item);
+                    yield break;
                 case BattleEventKind.ElementalReactionTriggered:
                     StartCoroutine(PresentReactionFeedback(item));
                     yield break;
                 case BattleEventKind.BattleStarted: yield break;
                 case BattleEventKind.HitStarted:
                     _hitWindow = true;
+                    if (_profilePlayback?.LiveActive == true) { yield return _profilePlayback.WaitContact(item.HitIndex); yield break; }
                     yield return _stage.DamageHit(item.HitIndex, item.TargetIds);
                     yield break;
                 case BattleEventKind.ActionTiming:
@@ -676,7 +710,7 @@ namespace FightingAllstar.Presentation.Combat
                 case BattleEventKind.PassiveTriggered:
                     if (ShouldPresentPassiveActivation(item))
                     {
-                        FloatText(item.SourceId, "Active Unique", "passive");
+                        if (item.EffectOrigin != EffectOrigin.SkillGrantedStatus) FloatText(item.SourceId, "Active Unique", "passive");
                         _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
                         _stage.PlayCue(3);
                         yield return new WaitForSecondsRealtime(.35f);
@@ -853,6 +887,7 @@ namespace FightingAllstar.Presentation.Combat
                     FloatText(item.TargetId, rankedUp ? "RANK UP" : "RANK DOWN", "status");
                     yield break;
                 case BattleEventKind.FighterDefeated:
+                    _profilePlayback?.Record(item);
                     if (_fighterBillboards.TryGetValue(item.SourceId, out var hud) && hud != null) hud.gameObject.SetActive(false);
                     if (_targetReticle != null) _targetReticle.SetVisible(false);
                     FloatText(item.SourceId, "DEFEATED", "status");
@@ -983,7 +1018,7 @@ namespace FightingAllstar.Presentation.Combat
             foreach (var item in batch)
             {
                 if (!ShouldPresentPassiveActivation(item)) continue;
-                FloatText(item.SourceId, "Active Unique", "passive");
+                if (item.EffectOrigin != EffectOrigin.SkillGrantedStatus) FloatText(item.SourceId, "Active Unique", "passive");
                 _stage.Pulse(item.SourceId, new Color(1f, .85f, .25f));
             }
             _stage.PlayCue(3);
@@ -1019,7 +1054,7 @@ namespace FightingAllstar.Presentation.Combat
                 status.Recipe.DefaultDuration = parent.Recipe.DefaultDuration;
             }
             hud.SetStatuses(shownStatuses);
-            hud.SetElementStatuses(fighter.ElementStatuses.Instances);
+            hud.SetElementStatuses(fighter.ElementStatuses.Instances, fighter.ElementStatuses.ReactionStatuses);
 
             var isPlayerDraft = fighter.Side == TeamSide.Player && _draft != null && !_isPlayingEvents;
             if (isPlayerDraft)
@@ -1451,6 +1486,7 @@ namespace FightingAllstar.Presentation.Combat
 
         private void SkipAnimations()
         {
+            _profilePlayback?.Cancel();
             if (_inspector != null || _session == null || _isAnimatingCards || PresentationPhase == BattlePresentationPhase.Complete || CanPlan) return;
             StopAllCoroutines();
             ClearHandDrag();
@@ -1476,6 +1512,8 @@ namespace FightingAllstar.Presentation.Combat
             SetBattleHudVisible(true);
             SetPhase(BattlePresentationPhase.Planning);
             RefreshView();
+            _entityPhaseStack.Clear();
+            _stage?.Entities?.CancelAndSync(_displayState);
             if (_snapshot.Phase == BattlePhase.Complete) ShowBattleResult();
         }
 
@@ -1496,6 +1534,10 @@ namespace FightingAllstar.Presentation.Combat
 
         private void OnDisable()
         {
+            _profilePlayback?.Dispose(); _profilePlayback=null;
+            _entityPhaseStack.Clear();
+            _stage?.Entities?.Clear();
+            RestoreLabBackgroundSimulation();
             if (_inspector != null) Destroy(_inspector.gameObject);
             _inspector = null;
             _inspectHeldId = null;

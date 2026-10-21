@@ -1,0 +1,481 @@
+{
+  "Audit": "Character Creator Studio production creation readiness",
+  "CapturedUtc": "2026-10-20T08:59:33.8958464Z",
+  "Verdict": "NOT READY FOR COMPLETE CHARACTER CREATION THROUGH STUDIO",
+  "RegisteredCharacters": 39,
+  "RuntimeReadyCharacters": 39,
+  "ProductionCatalogValidationErrors": [],
+  "StudioImportsAccepted": 1,
+  "StudioImportsRejected": 38,
+  "Imports": [
+    {
+      "DefinitionId": "fighter.scii-cassandra",
+      "Path": "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-cassandra.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.sciii-sophitia",
+      "Path": "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.scii-ivy",
+      "Path": "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-lvy.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.scii-seong",
+      "Path": "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-seong.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.scii-taki",
+      "Path": "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-taki.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.andy94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/andy94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.athena94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/athena94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.benimaru94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/benimaru94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.benimaru99",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/benimaru99.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.brian94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/brian94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.chang94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/chang94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.chin94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/chin94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.choi94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/choi94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.clark94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/clark94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.goro94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/goro94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.heavyd94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/heavyd94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.iori95",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/iori95.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.joe94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/joe94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.joe96",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/joe96.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.kensou94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/kensou94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.king94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/king94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.kyo94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/kyo94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.kyo98",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/kyo98.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.leona96",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/leona96.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.lucky94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/lucky94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.mai94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/mai94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.mai95",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/mai95.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.ralf94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/ralf94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.robert94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/robert94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.ryo94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/ryo94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.shingo97",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/shingo97.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.terry96",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/terry96.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.amber",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.barbara",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/barbara.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.kaeya",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/kaeya.asset",
+      "Imported": true,
+      "Error": null
+    },
+    {
+      "DefinitionId": "fighter.lisa",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lisa.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.lumine-anemo",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.yuri94",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/yuri94.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    },
+    {
+      "DefinitionId": "fighter.yuri98",
+      "Path": "Assets/Project/Data/Character/WIP_Phase/yuri98.asset",
+      "Imported": false,
+      "Error": "The source has no executable opening team gauge capability.\r\nParameter name: source"
+    }
+  ],
+  "DuplicateKeepsCharacterIdentity": true,
+  "DraftRenameChangesRuntimeName": false,
+  "AuthoredDescription": "AUDIT_STUDIO_WORDING_ONLY",
+  "RuntimePassiveDescriptionContainsAuthoredMarker": false,
+  "MalformedCharacter": {
+    "StudioSuccess": true,
+    "StudioErrors": [],
+    "RuntimeRejections": [
+      "fighter.kaeya has invalid base stats.",
+      "fighter.kaeya skill must define ranks 1-3.",
+      "fighter.kaeya must define all six C0-C5 ultimate tiers."
+    ]
+  },
+  "NativePassiveSerialization": {
+    "BeforeActions": 1,
+    "AfterActions": 0,
+    "BeforeNestedConditions": 1,
+    "AfterNestedConditions": 0,
+    "CoreJsonRetainsActions": 1,
+    "CoreJsonRetainsNestedConditions": 1,
+    "ValidationAfter": [
+      "audit.rule: commands or composed actions required."
+    ]
+  },
+  "SkillSOProjection": {
+    "CompiledVariantCount": 1,
+    "CompiledOverrideCount": 1,
+    "NativeBuilderVariantCount": 0,
+    "NativeBuilderOverrideCount": 0,
+    "Note": "Reconstructed a transient SO using all available rank effect fields; there is no Studio exporter and no SO fields for these metadata."
+  },
+  "AssetFilesChecked": 196,
+  "AssetFilesUnchanged": true,
+  "SourceHashes": {
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-cassandra.asset": "fQyTdMerOBf7XN61G+eBEW0Ge2KEvqFeuiSewQcc1Qw=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-cassandra_skilldata1.asset": "HNuf50JWbg17Y0rBOWcL9fY2PwtDVmrdoCU8+u8K4lg=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-cassandra_skilldata2.asset": "6JDgJEYOAB9SokTyM/6SSBTupEEGJmDZQSUUD0pKR7Y=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-cassandra_ultdata1.asset": "6ir817VLfSW93d+pSaEU5l9siHtQUXymYLthaeNSswk=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-cassandra_Passive.asset": "U3y1s8wlghApWl5Z75CaPO/mJSiWxVPp1OiJH+Qr3+c=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia.asset": "KCLl+0BFqB+L0RlgyvjxrYqPDox8pbxNFQgTKLwfA4A=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia_skilldata1.asset": "nB+EyHxPPd/NbAoLDk+/FpMRNpABURHTNmaF5CFlEDE=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia_skilldata2.asset": "r4FQApem8ACKw59+wR/cKtUuQApGl6jzSLyQhNvypO0=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia_ultdata1.asset": "7k7nLby0WBFA4Tye6LkiHy6v5cFlh0/0/QZs+EstdW8=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/sciii-sophitia_Passive.asset": "E1jEwEb3ypihc2mY6BF7c9P84CC/Mp/QBnFqNH/k03w=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-lvy.asset": "ky+q3nv5LPwCfZT6bDoHESovP6H1Q7Q5yloHgJFbqwE=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-lvy_skilldata1.asset": "wmjvLCT5+W66nHNm7K/bjmam+HyBWl8FAUELiVn4p0M=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-lvy_skilldata2.asset": "DIZ5AKaixKCHL314UuE5liWXxOQMpoHcD3aiPyir/YE=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-lvy_ultdata1.asset": "GgZfgutYk7xHH1RJG+WdhLke3YcnVKz15rsMer2DFPs=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-lvy_Passive.asset": "kZApoLI9ngryaz3PcisUhsKFWeC544o5B2gHk5yPl2k=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-seong.asset": "4b0yP7tJpujDWcYF+OUuXvE5ddE4bZ3S+IvpewV3KsI=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-seong_skilldata1.asset": "NfWaxh9KmzyhfsNpuO8NitXjGDyknxJ0bZysUB0Bz5o=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-seong_skilldata2.asset": "K5eYAHRDYlTPURFQSbQhgPFKQ9fhPOhUfnTitlyOfxA=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-seong_ultdata1.asset": "bD3+4NLRA5ssA7IKr3iy9vJ5QZVKzseF0XUdPkxZKbA=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-seong_Passive.asset": "ejdZwIYv902CvXbXIEMCaBEs3q8L5aDMoQK9slQx01g=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-taki.asset": "ugMLHrMdSfe+/J+otOhAp/QHuNH4dT87R/aBZX2k7eU=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-taki_skilldata1.asset": "AiAoXEUXLtWbjlcHSGcQ/vIPxtp1dsCYJy4MsIUCPLU=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-taki_skilldata2.asset": "fOmmPGsSshCaA45que/MBJ5pXFFjq5usAw8jnJ+ma9w=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-taki_ultdata1.asset": "xKn5fPLqyYjMX6yq+C/S5Cj+eDgZfs/pvzcjmFxQj/Q=",
+    "Assets/Project/Data/Character/Pre-Release_Phase/PR_Soul-Calibur/scii-taki_Passive.asset": "g8BJ+T1sEvBNjPfRsYUBt15KCa5FVaqKjt8UPYM0UyE=",
+    "Assets/Project/Data/Character/WIP_Phase/andy94.asset": "UnzTrKGdRwfy7tUse+rvkleNPGLMCGTE+wDDcPMI+u8=",
+    "Assets/Project/Data/Character/WIP_Phase/andy94_skilldata1.asset": "636PKDGnS0Qa8THvWVDh4jriMtCAMG50QqxQ5CSRjTM=",
+    "Assets/Project/Data/Character/WIP_Phase/andy94_skilldata2.asset": "04AYAiNmlh91s5fIVizoMTDIsGeKupLVwDOeEasyGLs=",
+    "Assets/Project/Data/Character/WIP_Phase/andy94_ultdata1.asset": "B8xND5sikS92jkZZRjovE2olaAfrnmXfwNJmtS/5c00=",
+    "Assets/Project/Data/Character/WIP_Phase/andy94_Passive.asset": "Sq4+taFtgTHYYcOb/WRlLtCYk4nJnfiUdBKurcof2IM=",
+    "Assets/Project/Data/Character/WIP_Phase/athena94.asset": "hm2Ojvt9Vbi+/hIrIhMcbZEcpR8cRkmWyqZzy+OlFRU=",
+    "Assets/Project/Data/Character/WIP_Phase/athena94_Skill1.asset": "ORUs2pv0G5nVue3GvdI+YtM+yc3jW2Kn2SNddKUIhQo=",
+    "Assets/Project/Data/Character/WIP_Phase/athena94_Skill2.asset": "nFM1c0kuX2ntw2iguLnNSZ4HgQDbjrd1/cJZAIaFvlE=",
+    "Assets/Project/Data/Character/WIP_Phase/athena94_Ultimate.asset": "F7TbqV0yuMpvPh08w+eTSH3GTxewuaBYZKFpOMd99ts=",
+    "Assets/Project/Data/Character/WIP_Phase/athena94_Passive.asset": "g03AaAMbQctsD++gqA49ebJOmEXe3rGBBO8GoiwrsaI=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru94.asset": "32xHu+MyvqKZYZpmwGbToGDG89MAZZf5wFbAp5S8/48=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru94_Skill1.asset": "87LaqBBlMCRWYqErF8xYcyCVkB4VhQaqmLkJPU47bek=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru94_Skill2.asset": "iyf9vP8h9ski4yC+v/yaTZjCiRMvcrYwUULwSY8ud/U=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru94_Ultimate.asset": "T/8dS/kpNRIREHTKZcyg/znztoS8Gu+S7OsAYjDROzQ=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru94_Passive.asset": "KFYPOgoo00jBBpVED2RYTGkkkksDC2r8CQDNWgYMtR4=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru99.asset": "nK1hE4S63NSSisMJdXPQSwsxcZoYQXcXvfzxlAt5dW4=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru99_skilldata1.asset": "urrTQix+uEKQZOwi9XIGFZK57GIgfzkObxL+k9PBg+Q=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru99_skilldata2.asset": "C7Qu/tiOn3rRggmN5gslMFt/fT3Sf+PupgZXn2rzF+8=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru99_ultdata1.asset": "Xxl3Vc/mVricqT+9/NyQui05izewpjcI7XJUap0MhR0=",
+    "Assets/Project/Data/Character/WIP_Phase/benimaru99_Passive.asset": "o0w7xwLHgs7j5akqwmu+uZ7S7IZ4yLvgXAu2WTyBiIc=",
+    "Assets/Project/Data/Character/WIP_Phase/brian94.asset": "OH+Du3UKFIC4xKDpIBIftbCpR0VcLn/mO0kgunFnymU=",
+    "Assets/Project/Data/Character/WIP_Phase/brian94_skilldata1.asset": "imCVc4sZLpwBLm7a2eIigV2lMjOwepigqf54+QeWV7A=",
+    "Assets/Project/Data/Character/WIP_Phase/brian94_skilldata2.asset": "fF4f+hBblsisnPMUNAtUVBvmbtKFr4qijrFgGR9NEYI=",
+    "Assets/Project/Data/Character/WIP_Phase/brian94_ultdata1.asset": "3XZ9Lf59AeS7XCugKtDxVObm4/SQHlBs/ns/qe8v87Q=",
+    "Assets/Project/Data/Character/WIP_Phase/brian94_Passive.asset": "nsQsAK3TDmyVX23jiwiCrMsGAg9VaWDhCnu0Y9ZLmjU=",
+    "Assets/Project/Data/Character/WIP_Phase/chang94.asset": "L5HcKkqDUkl1oeJyz/bQP5KS+I2310+f48XxmH1Lwro=",
+    "Assets/Project/Data/Character/WIP_Phase/chang94_skilldata1.asset": "AGF+QNd0uID4obv35DIxh96PpGAf51S6hagOBLjyc1Y=",
+    "Assets/Project/Data/Character/WIP_Phase/chang94_skilldata2.asset": "GYVeNAfWKENOA/mWeAD0amzvecGQQMTGqE/4cwLW+9g=",
+    "Assets/Project/Data/Character/WIP_Phase/chang94_ultdata1.asset": "mW40G1OQt3618F5G9TMF1QrCK6BcNtTKK/8naXiibUw=",
+    "Assets/Project/Data/Character/WIP_Phase/chang94_Passive.asset": "hPE7by7el0VK2TEAIoIghkzUIbPzwiDx3nxPprpamN0=",
+    "Assets/Project/Data/Character/WIP_Phase/chin94.asset": "XZe/FAupW4cJcPy5HthYV/nC68kneUWmrKXyTUfaCe8=",
+    "Assets/Project/Data/Character/WIP_Phase/chin94_Skill1.asset": "Y9QADfyATufpsrn+O2kGfzqMh7HZSPNA2frTcKdvGZs=",
+    "Assets/Project/Data/Character/WIP_Phase/chin94_Skill2.asset": "ftTFdaIgnoZNFW2O4euh8XoTm+rYzioEotum/AMjDc4=",
+    "Assets/Project/Data/Character/WIP_Phase/chin94_Ultimate.asset": "2f7tY01mnUpY+nMcxK3FK+MMeZHJh6tAMfNJjJW7g2g=",
+    "Assets/Project/Data/Character/WIP_Phase/chin94_Passive.asset": "4Pic6dLl2kQsgQis1hxrcazEdg/2Mq11jtZG9TrnQ28=",
+    "Assets/Project/Data/Character/WIP_Phase/choi94.asset": "ivgLxhWFSE/bnlr0fO9w7A+3EzPOa1orWPpS/N1kGzM=",
+    "Assets/Project/Data/Character/WIP_Phase/choi94_skilldata1.asset": "pIiKQ38IdysTNUnY+jTnAytbY1eAZbqPeABQ/HcGRoE=",
+    "Assets/Project/Data/Character/WIP_Phase/choi94_skilldata2.asset": "rl18FqZkMvciRpCkXAqFfv32OPule0mKBbguIR0zLFM=",
+    "Assets/Project/Data/Character/WIP_Phase/choi94_ultdata1.asset": "YqXMK9kClS7W2d6JfdU0bpJc/j+rsNBu+yIRsWrfXJc=",
+    "Assets/Project/Data/Character/WIP_Phase/choi94_Passive.asset": "3sP7stDmeCDKkRcWXDUlw54xby7RzQEhXdDKGdIk03I=",
+    "Assets/Project/Data/Character/WIP_Phase/clark94.asset": "jolQiah03qlBob1gXTbeInhxCCq1iDo5s+8ukSzI9Z8=",
+    "Assets/Project/Data/Character/WIP_Phase/clark94_skilldata1.asset": "4KfFcpLb0DPQPGbh11SelN/McorN6vfRPAHRd1jZ0IU=",
+    "Assets/Project/Data/Character/WIP_Phase/clark94_skilldata2.asset": "jlzk3ijNd6ljl6/7q+2kJeag8dt+qNO7xYtXQuChbCE=",
+    "Assets/Project/Data/Character/WIP_Phase/clark94_ultdata1.asset": "LzG3mIzB98oTraufe/uypATj9WSeQS9a0iC7udvPVpM=",
+    "Assets/Project/Data/Character/WIP_Phase/clark94_Passive.asset": "gvEvWwLa7Dv0PerZsFLuXFAZb/76cbXuFhn6S6O4wwY=",
+    "Assets/Project/Data/Character/WIP_Phase/goro94.asset": "lL08OZx4I93BYhlHo8UskptehOrsyfP2305kM7x9n3E=",
+    "Assets/Project/Data/Character/WIP_Phase/goro94_skilldata1.asset": "ukYMEFjfG/mlTqfEbadyTU7Dm53dx+MrVy0U89n1Cn8=",
+    "Assets/Project/Data/Character/WIP_Phase/goro94_skilldata2.asset": "T0dDxVrBdE9YgbNyRYPsdAdy14bw3cC282EbZJ/w6Vw=",
+    "Assets/Project/Data/Character/WIP_Phase/goro94_ultdata1.asset": "ND+8CIbXCqnNFmSzj7fwMXrzOBevmdnfTumWCA2pXRI=",
+    "Assets/Project/Data/Character/WIP_Phase/goro94_Passive.asset": "sjs6kPyKpzrR6jAQvpLMUVaQFhzB516hZsE0DaZv/sc=",
+    "Assets/Project/Data/Character/WIP_Phase/heavyd94.asset": "QghckQKO1VqXg4Syqp9Nf8ZIVvcTJ7JZWuKkQysXdnk=",
+    "Assets/Project/Data/Character/WIP_Phase/heavyd94_skilldata1.asset": "LXpwXIxj2eeGu+D3s62ogPJoX8hg2yA3Z3/uEZWPPtw=",
+    "Assets/Project/Data/Character/WIP_Phase/heavyd94_skilldata2.asset": "wE+htx9+/QncfRMbcy0bALWORK5tsoefjpUDPesg16I=",
+    "Assets/Project/Data/Character/WIP_Phase/heavyd94_ultdata1.asset": "w4IXK+PaLWSjCg9odcdArarFnB/YbBB+rloPBxaeKvw=",
+    "Assets/Project/Data/Character/WIP_Phase/heavyd94_Passive.asset": "oedAN4lFFe+2+kOK1Z3BfYEqZwtWeMqLDX399vzArqk=",
+    "Assets/Project/Data/Character/WIP_Phase/iori95.asset": "g1aBO5snmNMySL+UfaRksL8RrkiISD+dGuZb48nGff8=",
+    "Assets/Project/Data/Character/WIP_Phase/iori95_skilldata1.asset": "jK8eyPivjT2YArl7pGSYODtoMGpGuB9QpMylhXm2kO4=",
+    "Assets/Project/Data/Character/WIP_Phase/iori95_skilldata2.asset": "R6pDzHbDpK5AM9iX3SytHBWY8Au65BoxVkOBKtRZgv0=",
+    "Assets/Project/Data/Character/WIP_Phase/iori95_ultdata1.asset": "GRcz9boExiLI8J9UZaHMLc6z4trcvOFX2JJ416K4+PQ=",
+    "Assets/Project/Data/Character/WIP_Phase/iori95_Passive.asset": "Ls1lW/Vx1c2v8h+CiEkiIXHZ+XclJdyfmxAX6Pqdf2c=",
+    "Assets/Project/Data/Character/WIP_Phase/joe94.asset": "rpmIQFPoKtBA/kA9dDE5ln0sELzcg5orudokDHOR1Ug=",
+    "Assets/Project/Data/Character/WIP_Phase/joe94_skilldata1.asset": "hC0GkFtJnoOC/fWoKd5BL1xDzGhJy7dHnn6Vsa1aj3s=",
+    "Assets/Project/Data/Character/WIP_Phase/joe94_skilldata2.asset": "BOhTS+9c45funI3gG4fQ8sP2uqTqORSsqFRgd7ELyqA=",
+    "Assets/Project/Data/Character/WIP_Phase/joe94_ultdata1.asset": "S3EoAHMFVUoMiU2uM9d2jeZupPOTDpQ8L64qV11OUx4=",
+    "Assets/Project/Data/Character/WIP_Phase/joe94_Passive.asset": "SVupfxH9ZblTQhFxxHyR/5WBSXq0irgkF8XbnNRaZFo=",
+    "Assets/Project/Data/Character/WIP_Phase/joe96.asset": "w6u0GmhKL4ceoNPQNeUomNmLygYUAg3mXAbiGD2YyBQ=",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_skilldata1.asset": "0+XWwCjRBYKuArp0TKeqF9Fr7in/UmsrCwsu/5N+kpg=",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_skilldata2.asset": "XfvBKf+PdOLTvTlZSaiMTWlK7OLBdfRXyYdw6DF9H7c=",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_ultdata1.asset": "Oq6AEbcB6aU7Wz6PwbDi0lzHQVFpQrZhI49gGJCyk68=",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_Passive.asset": "c+7h4HGu865ZAqA08PiEZFrPXpKEwe8vMPwMAtxZ+0k=",
+    "Assets/Project/Data/Character/WIP_Phase/kensou94.asset": "H/KQFGCmW14up/kMlrAxKuGpdSKh63C+NLp3IWoPh1o=",
+    "Assets/Project/Data/Character/WIP_Phase/kensou94_Skill1.asset": "/E6YNotZhQD+4/HtS9L/wQhS6qpVqEwsF4nIm/+BSuQ=",
+    "Assets/Project/Data/Character/WIP_Phase/kensou94_Skill2.asset": "FEpJ1KQa4IwCgLjNXmvHOv65rMnXJEgKCAgsoEOa9Go=",
+    "Assets/Project/Data/Character/WIP_Phase/kensou94_Ultimate.asset": "yQXn5R8ONDyAndznf0fb6YWCk0kcyZUr7zxWYE6ZyGY=",
+    "Assets/Project/Data/Character/WIP_Phase/kensou94_Passive.asset": "mPY5+4/Und4D7LwYwfPfHEP4ALti7ZlaI4Io68l3lY4=",
+    "Assets/Project/Data/Character/WIP_Phase/king94.asset": "daERP3iUE9uaoRc4XZI3Km+xlcmQ41BN+9SeBLce/W4=",
+    "Assets/Project/Data/Character/WIP_Phase/king94_Skill1.asset": "jxIo6owQqbhE1noG9KCE9dcuSR53614jWiYUbZkJy3o=",
+    "Assets/Project/Data/Character/WIP_Phase/king94_Skill2.asset": "iIpV0AdgBKfYqlTJtG0dwlopOXz0i1mJ1DO8ENZ9zI8=",
+    "Assets/Project/Data/Character/WIP_Phase/king94_Ultimate.asset": "Gr3mqIydz6+kuYmWRoMD1QILOY2mXRcMQopJGAjwSP8=",
+    "Assets/Project/Data/Character/WIP_Phase/king94_Passive.asset": "BqOaNBbU6M5EuPHk5v72Te7wUhhXd8xZpT8MYw6B8ZE=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo94.asset": "1zE23DnkuizEtIIiIZuhiqW5i2c7krTPNcgZQvqgvIY=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo94_Skill1.asset": "eH2x3NORw6GOJwSQJdnhSdKoTFZuLETfrL1J8VK5Iu8=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo94_Skill2.asset": "gmx6nvHFjE5ArWpaQ6t0HgHtaC7Ek6zxXzuRnPlKDQ4=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo94_Ultimate.asset": "9a2IGb4DrZDxlsZv9yi1O9yQt9y3jOEpm20c16l1lws=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo94_Passive.asset": "tJjOuWFENWy4ncG901ULFYEjFOAbH1pSJ6N+nHG7z1A=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo98.asset": "cJBxdxSHOF9Bzudk7vtwwWFu7kZNhrurCuBAbgLjyqg=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo98_skilldata1.asset": "HPX/a0kSgoiqh951Y/mK/esxbK2b7RRYutORecrRKhY=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo98_skilldata2.asset": "mXLhBGH5E5Gm/3mxRJwXgQfufz/mPAUPCYued8g2cYk=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo98_ultdata1.asset": "x6bI6tkBV4SD3hPMDCMMQmLid2pfJ5D7ELQ04o5lxPs=",
+    "Assets/Project/Data/Character/WIP_Phase/kyo98_Passive.asset": "606TRCx4vfqJmZBP3a89crDnZwrrhihNUljncUhyeuI=",
+    "Assets/Project/Data/Character/WIP_Phase/leona96.asset": "x8ts5wSkQC/oGBcq2uwdZfM5VtpOPPwYECluYP5D3M0=",
+    "Assets/Project/Data/Character/WIP_Phase/leona96_skilldata1.asset": "27rpJ5aHd/6AS/QtqW6K0axNjQGrL2Qx2LMF3hVsyMY=",
+    "Assets/Project/Data/Character/WIP_Phase/leona96_skilldata2.asset": "PdyA68LChnHUJr6bkVEG/DxOAoTjzBqSTagp7ypmGHY=",
+    "Assets/Project/Data/Character/WIP_Phase/leona96_ultdata1.asset": "LIu3aWuestkY/dkv/88eDDjDjxGOTF3qsehiS+EXF7o=",
+    "Assets/Project/Data/Character/WIP_Phase/leona96_Passive.asset": "DokGgHhvLozQAAAqKFbPkY9eOwBFhYeAycSFpZDSXSw=",
+    "Assets/Project/Data/Character/WIP_Phase/lucky94.asset": "KhPR+HN9q7osFJ7rxXSG9huQoJxbQh+bKG4rFOOIGPk=",
+    "Assets/Project/Data/Character/WIP_Phase/lucky94_skilldata1.asset": "LSNtLzMrMD77/2mMEvMbQ2d6BmM0ovNImp1/bnal4A8=",
+    "Assets/Project/Data/Character/WIP_Phase/lucky94_skilldata2.asset": "Asv6uv1BnnNBRJ9dkNMZu4Bt8G7fZsiRQf466gYESs8=",
+    "Assets/Project/Data/Character/WIP_Phase/lucky94_ultdata1.asset": "FbTH03Zaa2IYcAccz2PeitjnDvwd0j14VLeOYt7CAvc=",
+    "Assets/Project/Data/Character/WIP_Phase/lucky94_Passive.asset": "JEy9bqY8eJbPC8O8ryYMj5nPxJdRnrdfbOZXYe3+egc=",
+    "Assets/Project/Data/Character/WIP_Phase/mai94.asset": "oUNrCkGoI6FZRfPTfUROm3YdR+ulxkrlJS2Vz5LUazc=",
+    "Assets/Project/Data/Character/WIP_Phase/mai94_Skill1.asset": "hKHTkpM6qmiHi4YjbCLQUdsqiCehMA6c+ZRu5NtblFY=",
+    "Assets/Project/Data/Character/WIP_Phase/mai94_Skill2.asset": "i56YEn+kh0tLxxFsSAcp8PidHxCu70sb72UsaSiWh5M=",
+    "Assets/Project/Data/Character/WIP_Phase/mai94_Ultimate.asset": "tQ4RPfB/7YaMQslNIbG2W+u4yGO0IKEZ6bI5duxKATo=",
+    "Assets/Project/Data/Character/WIP_Phase/mai94_Passive.asset": "WyKulvsvY3euRKn6YYFuu1RPX2KbCVPvga0uT25Ekj8=",
+    "Assets/Project/Data/Character/WIP_Phase/mai95.asset": "4Rd/h+9ZAEEnN1LgNwVY6VqCByoaentBTbSGSRne2D0=",
+    "Assets/Project/Data/Character/WIP_Phase/mai95_skilldata1.asset": "GEZiHMrrhu0k9JWnW9SD8j/geHI1mnkob6SklHckMF8=",
+    "Assets/Project/Data/Character/WIP_Phase/mai95_skilldata2.asset": "iEk3QXdBjWEru4tzAgUplomeM8NI7c2hcR/ucrRV8+E=",
+    "Assets/Project/Data/Character/WIP_Phase/mai95_Ultimate.asset": "pd5Do/W6kkf7ijnWWtMeLi+T4o7uF8FjadyMIWMH7MA=",
+    "Assets/Project/Data/Character/WIP_Phase/mai95_Passive.asset": "ODHEBNan4URfKKK+no3eL5Zk8ee+pFBFX1ToxBG3nkM=",
+    "Assets/Project/Data/Character/WIP_Phase/ralf94.asset": "Wd8ar6LFTgbIHvj71ov33/7eZxn5S1R2LhFKEZ/Vrbo=",
+    "Assets/Project/Data/Character/WIP_Phase/ralf94_skilldata1.asset": "mePwfFASmizRL3ZqJnzd08MJJhTy0+/fE7NeQrPN9Ts=",
+    "Assets/Project/Data/Character/WIP_Phase/ralf94_skilldata2.asset": "8k7oV+lTQ/wKXAUKZXM46go5OIMN00Fj/25j95JnyRg=",
+    "Assets/Project/Data/Character/WIP_Phase/ralf94_ultdata1.asset": "JqWC2uXUF38mYDgyyDKeMIfHCgiX3z06TVZzytyOCzs=",
+    "Assets/Project/Data/Character/WIP_Phase/ralf94_Passive.asset": "tK+69GOzbQJaf+1Ww/NN8EGgym7f+ud1pRYtOtT89sI=",
+    "Assets/Project/Data/Character/WIP_Phase/robert94.asset": "cT8CQcenJf36P+3Gwll6a/0eF31PBZS29Y3NkX/NKR0=",
+    "Assets/Project/Data/Character/WIP_Phase/robert94_skilldata1.asset": "dw2Vs8QWkW1T2p9x5IAnYjk3IM1v4xlEBippjS+YPlY=",
+    "Assets/Project/Data/Character/WIP_Phase/robert94_skilldata2.asset": "Y1AmB7XruhH60zxqtWxHMQn5YhhJi0q7hAp7+cEtuyw=",
+    "Assets/Project/Data/Character/WIP_Phase/robert94_ultdata1.asset": "VcdUhhsFEqG3EVSmDSWHXP29yYstTC2tBuJsvbID1x0=",
+    "Assets/Project/Data/Character/WIP_Phase/robert94_Passive.asset": "W3u3WNCbHMSsDeuTM0CRwGnu4rzZdulk7muVBCM0iXc=",
+    "Assets/Project/Data/Character/WIP_Phase/ryo94.asset": "CbfuXMpA3vhIkSmdMwqK9+kfANNryqMAZUC45bsJ/aE=",
+    "Assets/Project/Data/Character/WIP_Phase/ryo94_skilldata1.asset": "81/txLnwevPhMUCUHL85DhLExw5k9F/ZknZ0gGjuQjo=",
+    "Assets/Project/Data/Character/WIP_Phase/ryo94_skilldata2.asset": "vVr3RLyIq7Idq+jgRIidTOYZ+7iBnR043wMcaQcc2ls=",
+    "Assets/Project/Data/Character/WIP_Phase/ryo94_ultdata1.asset": "7yZlehcZR1IVJEKPaZONmdbXadUv0dhIM6G1mqSIL+Q=",
+    "Assets/Project/Data/Character/WIP_Phase/ryo94_Passive.asset": "gWnsOuTAt5zof9vCsMOjxKfZ/g3IgtmFa47kjlMOM60=",
+    "Assets/Project/Data/Character/WIP_Phase/shingo97.asset": "04vjRBdaEZ+SoBTbURjtTL2eiGu07X7KZhMINQJ5Xiw=",
+    "Assets/Project/Data/Character/WIP_Phase/shingo97_Skill1.asset": "rrcp3BxW1xTbhpuhFkOXU0pSOy109Pc8MlB/hI4iy0o=",
+    "Assets/Project/Data/Character/WIP_Phase/shingo97_Skill2.asset": "RVa2aiJGxcQa16YtoraWU5k0svxUjru75eEwzvzQ76k=",
+    "Assets/Project/Data/Character/WIP_Phase/shingo97_Ultimate.asset": "ZDnjZKGb9C46Yer+SmaEEiajJW44kK6fj2aC+/5PtHE=",
+    "Assets/Project/Data/Character/WIP_Phase/shingo97_Passive.asset": "zDFjNT/VfGx+mYFTVB3B8P+moUcaJ2Mp1bK9dc1Sl3o=",
+    "Assets/Project/Data/Character/WIP_Phase/terry96.asset": "zJ2nDHPrRA3lFDmUI8s0D4QZ++mWmuIYhYi8HXvxP74=",
+    "Assets/Project/Data/Character/WIP_Phase/terry96_skilldata1.asset": "4/v8LP2HchlzCirh045qJpsq2ArmanrdC1zHoAvNqYg=",
+    "Assets/Project/Data/Character/WIP_Phase/terry96_skilldata2.asset": "SSxGU1lHrmvyuwgLvogJCrUgXh3U/Xp3awm4jr7inb8=",
+    "Assets/Project/Data/Character/WIP_Phase/terry96_ultdata1.asset": "5yljOnoBqcTfhU1+/Pqd7XgJDhPVRqqt4z/sovCT7AA=",
+    "Assets/Project/Data/Character/WIP_Phase/terry96_Passive.asset": "zOYH0AqBV47qms2u3wKtMc1fXT4VNPuS/8NrF6eyvEQ=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber.asset": "qTGtedJA+ZCI5RCpjUJ4vlr0ctQdOizmycw1wdwbxMY=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber_Skill1.asset": "xd9V/mheMtBkdxB1KoxZ/p32A81733u2E6XcUyrTO5w=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber_Skill2.asset": "XtRn5URF1wsWvhNUClAyCKiAoAX7Ve4QcfVg5llbvRY=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber_Ultimate.asset": "gIinXUamIDNyevVdaYDSd0HcvgwUsHD9WRqJtTEJzyM=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/amber_Passive.asset": "SPWd9tAiah8ybgsBpexq0OJPD/Km+v+Ih7sM9yo/Vdc=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/barbara.asset": "gsoZKk3PnL6K49HMitSDjP7OZr4I/T7ayPG0KJGkQz8=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/barbara_Skill1.asset": "tV1iBbPlL5kH+7XUUZbgHNDXBWTTGMA3RGfKxPCTZJA=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/barbara_Skill2.asset": "vl++OVPFgwyTp2jJFU2x4QZiklTD80WTpXDl9PDgZpM=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/barbara_Ultimate.asset": "xJkjPfzZlSblVzENRZ9qjIfT2ADiVIColtgSTm5vikI=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/barbara_Passive.asset": "+WeNkR4L+zjkJYk3TXmaYMxo8fuNgdwj80Uotpx4PKU=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/kaeya.asset": "rpszyXpSrleOHUtSZuekau1VrmSH0jWjzB8pboKEBkY=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/kaeya_Skill1.asset": "FCNVTaFoL2L5gnOcb4j+DKju4pORFY7mmSrlKiHeK8w=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/kaeya_Skill2.asset": "l/PpD+hjYjHTmiMPaZFMuVLT31sU24bGDfwVP+7vEuU=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/kaeya_Ultimate.asset": "Eeu+AGQxSudUQWf5kQsTGi6admuaa/e2BYgBOHug+Jc=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/kaeya_Passive.asset": "ogUU2DQpwhp4YOTipJLL5ynJCtqQfBU+khCk8hfo/Nc=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lisa.asset": "EAdcEkwaWot+ndUF+BGbDEpCyfAiC7IT63HPgD3imoI=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lisa_Skill1.asset": "Xt/RRznVEuNsbGYbeLmwDIh/uknqFvb7y3WpcWjBwfg=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lisa_Skill2.asset": "PhVEJ1GC9wEerZVgJ0JrWrGjDK/PLH+bWuv9JheIn7c=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lisa_Ultimate.asset": "WF5u1LyDx7rtoNP45qruG7X/6PQAim54WesXWEJPO0M=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lisa_Passive.asset": "/kMrJco+ia8lDUI6n2GetYF0KzoQIPcunXqqx7/e2OM=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo.asset": "jI+gDmmOkGvGCoICyIV3LC5ykFtUL0+WanpTTIGq9yk=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo_Skill1.asset": "5c0mDGyQX3PZiQy5vMkwW363DpW+qMkGNiR6peAjcko=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo_Skill2.asset": "2Vxb4ctZ/V6+wFTGLiPHOPrUqc3xUvPXnN2RDbCgfM8=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo_Ultimate.asset": "b+9lfdhZ6e0MIWqC50x0kAlGbIeyhtmvUFuvbrgfz4E=",
+    "Assets/Project/Data/Character/WIP_Phase/WIP_GenshinImpact/lumine-anemo_Passive.asset": "3St2LocrZjg7zf539D7jUUX+WAPx15PttO6L+SNoyBM=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri94.asset": "Wr2VHEYWL8g1p8pAVSyoBbB7aFWB9ttTz6xs0mASZr4=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri94_skilldata1.asset": "Fw5ASVWM9eA0nmFlGdRYrTtfQ5y1UEWg9Ja275/vm40=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri94_skilldata2.asset": "910Mp9yyZlQSnqx54mM9NNoKdOg/t5ix3S1b+6lBT/k=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri94_ultdata1.asset": "DpAdZBPxx0tgW7slReQA6OpgP+Ywh5MRWhWxt98gdEE=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri94_Passive.asset": "5YC4TaML/7Bg7B+9MZV209Rn81j+y1uVZAAMe6Fme9s=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri98.asset": "x4UsHaLAmf4iDxY9alYe7/asJ979Y2ZXb9lGFLzYCro=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri98_skilldata1.asset": "82wJIwGvdrsqlrjLCd5LQjtYYbIJsbx4y76HY8N34bo=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri98_skilldata2.asset": "rHRa+XR/CvTUD0wDaZ6t2dnKoXP1H7Ov61biER8GFTY=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri98_ultdata1.asset": "owURq9mK0LrkriHHXXLuvaPW2gZJoBpNfvUFDAaE/IY=",
+    "Assets/Project/Data/Character/WIP_Phase/yuri98_Passive.asset": "k8HqcNbCvc7NzaQ127exYsF6tHofTzYI43GZhibguPo=",
+    "Assets/Resources/CharacterObjectRegistry.asset": "ZPWKjevZXGSyFfjKt2NpjXv5ueOzWhsWy/rGpPDwfmQ="
+  },
+  "PlayModeStopped": true,
+  "Scene": "Assets/Project/Scenes/MainMenu.unity",
+  "SceneDirty": false,
+  "Scope": "Read-only inspection plus transient in-memory cloning/serialization probes; only this audit artifact was written. No character asset, draft, code or registry was edited."
+}

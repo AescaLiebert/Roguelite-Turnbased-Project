@@ -12,8 +12,9 @@ namespace FightingAllstar.Presentation.Combat
         private const string GeneratedRosterPlaceholder =
             "Genshin starter kit; generated starting stats. See the GDD roster specification.";
 
-        public static string Format(string authored, PassiveDefinition passive)
+        public static string Format(string authored, PassiveDefinition passive, AuthoredDescription wording = null, int tier = 0)
         {
+            if (wording != null) return AuthoredCombatText.Render(wording, null, tier, passive);
             var authoredText = CardDescriptionText.NormalizeProse(authored);
             if (!string.IsNullOrWhiteSpace(authoredText) &&
                 !string.Equals(authoredText, GeneratedRosterPlaceholder, StringComparison.OrdinalIgnoreCase))
@@ -32,14 +33,14 @@ namespace FightingAllstar.Presentation.Combat
                     aura.Gate.MinimumTier != 0 || aura.Gate.MaximumTier != 5)
                     return Finish(fallbackAuthored);
                 var target = Target(aura.Targets);
-                foreach (var group in aura.Modifiers.Where(m => m != null).GroupBy(m => new { m.Amount, m.ResolvedTarget }))
+                foreach (var group in aura.Modifiers.Where(m => m != null).GroupBy(m => new { m.Amount, m.ResolvedTarget, m.ResolvedOperation, m.ResolvedFamily, m.ResolvedBundle }))
                 {
                     var modifier = group.First();
                     // Stat bundles choose their operation per stat at runtime. Their
                     // serialized operation is ignored, so format the shared basis
                     // points as a percentage instead of exposing the raw 1000 value.
-                    var delta = modifier.ResolvedTarget == ModifierTarget.StatBundle ? modifier.Amount :
-                        modifier.ResolvedOperation == ModifierOperation.Multiplier ? (long)modifier.Amount - 10000 : modifier.Amount;
+                    var delta = modifier.ResolvedTarget == ModifierTarget.Stat && modifier.ResolvedOperation == ModifierOperation.Multiplier
+                        ? (long)modifier.Amount - 10000 : modifier.Amount;
                     var amount = Math.Abs(delta);
                     var verb = delta >= 0 ? "Increases " : "Decreases ";
                     var names = group.Select(m => m.ResolvedTarget == ModifierTarget.Stat ? CombatTextCatalog.StatName(m.ResolvedStat) :
@@ -53,7 +54,7 @@ namespace FightingAllstar.Presentation.Combat
                     else
                     {
                         var value = aura.Scaling == PassiveScaling.OwnerStat ? Percent(amount) + " of the hero's " + CombatTextCatalog.StatName(aura.SourceStat) :
-                            modifier.ResolvedTarget != ModifierTarget.StatBundle && modifier.ResolvedOperation == ModifierOperation.Flat
+                            (modifier.ResolvedTarget == ModifierTarget.Stat && modifier.ResolvedOperation == ModifierOperation.Flat || modifier.ResolvedTarget == ModifierTarget.FlatDamageReduction)
                                 ? amount.ToString(CultureInfo.InvariantCulture) : Percent(amount);
                         switch (modifier.ResolvedTarget)
                         {
@@ -63,6 +64,9 @@ namespace FightingAllstar.Presentation.Combat
                             case ModifierTarget.AnyDamageReceived: sentence = verb + "damage taken by " + target + " by " + value; break;
                             case ModifierTarget.FinalDamageReduction: sentence = verb + "damage reduction for " + target + " by " + value; break;
                             case ModifierTarget.UltimateDamageDealt: sentence = verb + "Ultimate damage dealt by " + target + " by " + value; break;
+                            case ModifierTarget.FamilyDamageDealt: sentence = verb + Family(modifier.ResolvedFamily) + " damage dealt by " + target + " by " + value; break;
+                            case ModifierTarget.FamilyDamageReceived: sentence = verb + Family(modifier.ResolvedFamily) + " damage taken by " + target + " by " + value; break;
+                            case ModifierTarget.FlatDamageReduction: sentence = verb + "flat damage reduction for " + target + " by " + value; break;
                             default: return Finish(fallbackAuthored);
                         }
                     }
@@ -111,6 +115,8 @@ namespace FightingAllstar.Presentation.Combat
             StatBundleKind.AllStats => "All Stats", _ => "Stats"
         };
         private static string Possessive(string target) => target == "the hero" ? "the hero's" : target.EndsWith("s", StringComparison.Ordinal) ? target + "'" : target + "'s";
+        private static string Family(DamageFamily family) => family == DamageFamily.DamageOverTime ? "DOT" :
+            family == DamageFamily.ElementalReaction ? "Elemental Reaction" : family.ToString();
         private static string Join(string[] names) => names.Length < 2 ? names.FirstOrDefault() ?? "" : string.Join(", ", names.Take(names.Length - 1)) + " and " + names.Last();
         private static string Percent(long value) => (value / 100d).ToString("0.##", CultureInfo.InvariantCulture) + "%";
         private static string Finish(string text) => string.IsNullOrWhiteSpace(text) ? "" :

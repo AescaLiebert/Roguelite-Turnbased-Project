@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using FightingAllstar.Core.Combat;
@@ -46,6 +47,27 @@ public static class CombatTextChecks
             var ordered = CardDescriptionText.Format("Removes Buffs, then deals 300% ATK damage to one enemy, then decreases their Power Gauge.", beforeDamage);
             Check(ordered.StartsWith("Remove Buffs from ") && ordered.Contains(", then inflict damage equal to 300% of the hero's Attack on one enemy"), "Pre-action effects must lead attacking cards.");
             Check(ordered.Contains(", then decrease "), "After-action effects must follow damage.");
+            var sharedTargetSkill = new SkillDefinition { Id = "shared-target", Slot = 1, TargetScope = EffectTargetScope.AllEnemies };
+            sharedTargetSkill.Ranks.Add(new SkillRankDefinition { Rank = 1, TargetScope = EffectTargetScope.AllEnemies,
+                Effect = new EffectDefinition { Kind = EffectKind.Damage, Target = EffectTargetScope.AllEnemies, Scaling = StatScaling.Attack, CoefficientBp = 16000 } });
+            sharedTargetSkill.Ranks.Add(new SkillRankDefinition { Rank = 2, TargetScope = EffectTargetScope.SelectedEnemy,
+                Description = "Deals 240% Attack damage to one enemy.",
+                Effect = new EffectDefinition { Kind = EffectKind.Damage, Target = EffectTargetScope.SelectedEnemy, Scaling = StatScaling.Attack, CoefficientBp = 24000 } });
+            sharedTargetSkill.Ranks.Add(new SkillRankDefinition { Rank = 3, TargetScope = EffectTargetScope.SelectedEnemy,
+                Description = "Deals 325% Attack damage to one enemy.",
+                Effect = new EffectDefinition { Kind = EffectKind.Damage, Target = EffectTargetScope.SelectedEnemy, Scaling = StatScaling.Attack, CoefficientBp = 32500 } });
+            var sharedTargetOwner = new FighterState { Definition = new CharacterDefinition { Skills = new List<SkillDefinition> { sharedTargetSkill } } };
+            foreach (var rank in sharedTargetSkill.Ranks.Where(r => r.Rank > 1))
+            {
+                var details = CombatDetailFormatter.ExtractCardDetails(new CardState { Kind = CardKind.Skill, SkillId = sharedTargetSkill.Id, Rank = rank.Rank }, sharedTargetOwner, null);
+                var text = Plain(details.desc);
+                Check(text.Contains("on all enemies") && !text.Contains("on one enemy"), "Skill root target must replace stale R" + rank.Rank + " target wording.");
+                Check(rank.Effect.Target == EffectTargetScope.SelectedEnemy, "Description formatting must not mutate the authored rank effect.");
+            }
+            var normalizedSharedTarget = sharedTargetSkill.Clone();
+            CardRules.ApplySharedSkillSettings(normalizedSharedTarget);
+            Check(normalizedSharedTarget.Ranks.Where(r => r.Rank > 1).All(r => r.TargetScope == EffectTargetScope.AllEnemies && r.Effect.Target == EffectTargetScope.AllEnemies),
+                "Normalizing a skill must synchronize every rank to the skill-root target.");
             var mentioned = new FighterState { Definition = new CharacterDefinition { Skills = new List<SkillDefinition> {
                 new SkillDefinition { Id = "test", Ranks = new List<SkillRankDefinition> { new SkillRankDefinition { Rank = 1,
                     Description = "Deals 100% ATK damage. Removes Ignite from the target.", Effect = new EffectDefinition { CoefficientBp = 10000 } } } } } } };
@@ -65,6 +87,29 @@ public static class CombatTextChecks
             Check(StatusVisualData.GetSprite("Increase Recovery Rate", StatusPolarity.Buff) != down?.Icon, "Recovery up/down sprite fallback must differ.");
             var rejuvenation = StatusVisualData.Get("status.buff.rejuvenation", StatusPolarity.Neutral);
             Check(rejuvenation != null && rejuvenation.Polarity == StatusPolarity.Neutral && rejuvenation.Icon != null, "Neutral Rejuvenation art must remain exact.");
+            var missingElementIcon = ScriptableObject.CreateInstance<StatusVisualData>();
+            missingElementIcon.SetData("status.element.missing-icon-check", "Missing Element Icon", null, StatusPolarity.Neutral, Array.Empty<string>());
+            StatusVisualData.Register(missingElementIcon);
+            var statDown = StatusVisualData.Get("stat_down", StatusPolarity.Debuff);
+            Check(statDown?.Icon != null && StatusVisualData.GetSprite("status.element.missing-icon-check", StatusPolarity.Neutral) == statDown.Icon,
+                "Elemental statuses without dedicated art must use the normal StatDown debuff icon.");
+            UnityEngine.Object.DestroyImmediate(missingElementIcon);
+            StatusVisualData.ResetRegistry();
+            StatusVisualData.InitializeRegistry();
+            var captionRule = typeof(CoreBattleSceneController).GetMethod("ShouldShowReactionCaption", BindingFlags.NonPublic | BindingFlags.Static);
+            Check(captionRule != null, "Reaction caption rule is missing.");
+            foreach (var reaction in new[] { ElementalReactionId.Superconduct, ElementalReactionId.ElectroCharged, ElementalReactionId.Burning })
+            {
+                var repeated = new BattleEvent { ElementalReaction = reaction };
+                Check(!(bool)captionRule.Invoke(null, new object[] { repeated }), reaction + " should hide its caption when no condition was added.");
+                repeated.ElementalReactionStatusApplied = true;
+                Check((bool)captionRule.Invoke(null, new object[] { repeated }), reaction + " should show its caption when a condition was added.");
+            }
+            Check(!(bool)captionRule.Invoke(null, new object[] { new BattleEvent { ElementalReaction = ElementalReactionId.Burning,
+                ElementalReactionStatusApplied = true, ElementalReactionStatusAlreadyActive = true } }),
+                "An added Burning stack must not repeat the caption while Burning is already active.");
+            Check((bool)captionRule.Invoke(null, new object[] { new BattleEvent { ElementalReaction = ElementalReactionId.Vaporize } }),
+                "One-shot reaction captions must remain visible.");
 
             void CheckStatusIcon(StatusRecipeDefinition recipe, string artAsset, int potency = 0)
             {
@@ -122,9 +167,14 @@ public static class CombatTextChecks
                 foreach (var skill in definition.Skills)
                     foreach (var rank in skill.Ranks)
                     {
-                        Check(CardDescriptionText.Format(rank.Description, rank.Effect) == rank.Description,
+                        var sharedEffect = CardRules.TryGetSkill(definition, skill.Id, rank.Rank, out var resolvedSkillEffect) ? resolvedSkillEffect : rank.Effect;
+                        var formatted = CardDescriptionText.Format(rank.Description, sharedEffect, rank.Wording);
+                        Check(CardDescriptionText.Format(formatted, sharedEffect, rank.Wording) == formatted,
                             definition.Id + " R" + rank.Rank + ": repeated catalog/card formatting changed the sentence.");
-                        Audit(new CardState { Kind = CardKind.Skill, SkillId = skill.Id, Rank = rank.Rank }, rank.Effect,
+                        if (definition.Id == "fighter.pre-release.billy97" && skill.Slot == 1 && rank.Rank > 1)
+                            Check(rank.TargetScope == EffectTargetScope.AllEnemies && Plain(formatted).Contains("on all enemies") && !Plain(formatted).Contains("on one enemy"),
+                                "Billy97 Skill 1 R" + rank.Rank + ": rank preview must inherit the shared all-enemy target.");
+                        Audit(new CardState { Kind = CardKind.Skill, SkillId = skill.Id, Rank = rank.Rank }, sharedEffect,
                             "Skill " + skill.Slot + " R" + rank.Rank);
                     }
                 foreach (var tier in definition.UltimateTiers)

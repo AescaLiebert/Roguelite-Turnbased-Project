@@ -20,6 +20,7 @@ namespace FightingAllstar.Presentation.Combat
         private readonly Dictionary<string, Vector3> _scales = new Dictionary<string, Vector3>();
         private readonly List<Coroutine> _defeatAnimations = new List<Coroutine>();
         private string _attacker;
+        public BattlePlaybackDriver ProfilePlayback { get; set; }
 
         public void Initialize(Dictionary<string, GameObject> views, BattleState state = null)
         {
@@ -41,6 +42,7 @@ namespace FightingAllstar.Presentation.Combat
                 _planningRotation = _camera.transform.rotation;
             }
             foreach (var pair in views) RememberPose(pair.Key);
+            InitializeEntities();
             var playerAnchor = GameObject.Find("CharHeroPosition2");
             var enemyAnchor = GameObject.Find("EnemyHeroPosition2");
             if (playerAnchor != null && enemyAnchor != null)
@@ -199,6 +201,7 @@ namespace FightingAllstar.Presentation.Combat
 
         public IEnumerator RecoverAttacker()
         {
+            if (ProfilePlayback?.LiveActive == true) yield return ProfilePlayback.FinishAction();
             yield return WaitForTargetReactions();
             var deadline = Time.realtimeSinceStartup + 8f;
             while (!_actionMotionDone && Time.realtimeSinceStartup < deadline) yield return null;

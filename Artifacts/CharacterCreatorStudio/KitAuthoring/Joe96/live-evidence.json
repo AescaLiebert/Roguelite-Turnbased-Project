@@ -1,0 +1,19 @@
+{
+  "Success": true,
+  "Error": null,
+  "Checks": [
+    "Actual 3D battle spawns native Joe96 and target across domain reload.",
+    "Native battle uses the saved SOs rather than unsaved Studio preview edits.",
+    "Blue-ally passive raises native opening Defense from 200 to 320.",
+    "Native rank-three Skill 2 resolves four authoritative damage contacts.",
+    "Native team protection raises Defense to 440 and Block Chance to 90 percent.",
+    "Native editing session restores after leaving Play Mode without a draft asset.",
+    "Unsaved authoring edits survive the Play Mode round trip.",
+    "Domain reload recovery never writes pending edits into native assets.",
+    "Original scene and volatile lab context restore after the check."
+  ],
+  "OriginalScene": "Assets/Project/Scenes/MainMenu.unity",
+  "OriginalSceneDirty": true,
+  "CapturedUtc": "2026-10-20T10:15:06.4489912Z",
+  "Scope": "Actual 3D actors and committed native damage/status results, plus unsaved editor session recovery; no complete animation-cycle or FCT assertion."
+}

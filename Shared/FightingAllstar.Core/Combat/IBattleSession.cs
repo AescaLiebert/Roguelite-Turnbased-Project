@@ -17,11 +17,14 @@ namespace FightingAllstar.Core.Combat
     public sealed class LocalBattleSession : IBattleSession
     {
         private BattleState _state;
+        private readonly bool _passiveOpponent;
         private readonly Dictionary<string, Receipt> _receipts = new Dictionary<string, Receipt>();
 
-        public LocalBattleSession(BattleState initialState)
+        public LocalBattleSession(BattleState initialState, bool passiveOpponent = false)
         {
+            _passiveOpponent = passiveOpponent;
             _state = initialState?.Clone();
+            BattleEntitySystem.ValidateSnapshot(_state);
             if (!AdvanceOpponentTurns(out var error))
                 throw new System.InvalidOperationException("Local opponent could not resolve its opening turn: " + error);
         }
@@ -57,7 +60,8 @@ namespace FightingAllstar.Core.Combat
             error = null;
             while (_state != null && _state.Phase == BattlePhase.Planning && _state.ActingSide == TeamSide.Opponent)
             {
-                var aiPlan = _state.IsTraining ? LegalAi.CreatePlan(_state) : AI.EnemyAiPlanner.CreatePlan(_state) ?? LegalAi.CreatePlan(_state);
+                var aiPlan = _passiveOpponent ? new TurnPlan { RequestId = _state.MatchId + ":dummy:" + _state.Revision, ExpectedRevision = _state.Revision }
+                    : _state.IsTraining ? LegalAi.CreatePlan(_state) : AI.EnemyAiPlanner.CreatePlan(_state) ?? LegalAi.CreatePlan(_state);
                 if (!BattleEngine.TryResolvePlan(_state, aiPlan, out var next, out error)) return false;
                 _state = next;
             }

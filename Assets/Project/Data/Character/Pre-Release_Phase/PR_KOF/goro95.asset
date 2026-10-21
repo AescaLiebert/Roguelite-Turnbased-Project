@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: goro95
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.pre-release.goro95
+  runtimeReady: 1
+  familyId: family.goro
+  seriesId: series.kof
+  role: 
+  traitIds:
+  - trait.hero-team
+  - trait.japan
+  - trait.series-kof
+  - trait.male
+  passiveSourceDescription: "\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48
+    \"\u0E17\u0E35\u0E21\u0E0D\u0E35\u0E48\u0E1B\u0E38\u0E48\u0E19\" \u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    20%"
+  passiveSourceType: 0
+  passiveRestriction: 0
+  passiveDefinition: {fileID: 11400000, guid: 5bd594eb4d0a0f04ba85ae9f09aa8495, type: 2}
+  studioSchema: 1
+  studioMetadataJson: "{\"CategoryId\":9102,\"SchemaVersion\":1,\"RuntimeReady\":true,\"Id\":\"fighter.pre-release.goro95\",\"SourceId\":\"pre-release-character.csv#row-3\",\"SourceRecord\":3,\"DisplayName\":\"Goro
+    Daimon95\",\"FamilyId\":\"family.goro\",\"Role\":\"\",\"SeriesId\":\"series.kof\",\"AttributeId\":\"attribute.red\",\"RarityId\":\"rarity.ssr\",\"TraitIds\":[\"trait.hero-team\",\"trait.japan\",\"trait.series-kof\",\"trait.male\"],\"BaseStats\":{\"Attack\":510,\"Defense\":350,\"MaxHealth\":7000,\"CombatClass\":3690,\"HasDerivedCombatClass\":false,\"CombatClassReferenceValue\":0,\"CombatClassFlatBonus\":0,\"CombatClassReferenceScore\":0,\"CombatClassGrowthScore\":0,\"PierceBp\":4000,\"ResistanceBp\":0,\"RegenerationBp\":0,\"CritChanceBp\":1500,\"CritDamageBp\":15000,\"CritResistanceBp\":3000,\"CritDefenseBp\":2000,\"RecoveryBp\":11000,\"BlockChanceBp\":0,\"BlockPowerBp\":0,\"LifeStealBp\":1500,\"EvadeBp\":0,\"PerceptionBp\":10000,\"ControlBp\":10000,\"AvoidanceBp\":10000,\"ReflectDamageBp\":0,\"DamageOverTimeDealtBp\":0,\"DamageDealtBp\":0,\"AdditionalDamageDealtBp\":0,\"ElementalModifiers\":[]},\"StatGrowth\":{\"AttackBp\":100,\"DefenseBp\":100,\"HealthBp\":100,\"CombatClassBp\":0},\"ArtifactLoadout\":[],\"Skills\":[],\"PassiveId\":\"fighter.pre-release.goro95.passive\",\"PassiveSource\":{\"SourceType\":\"\",\"Description\":\"\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48
+    \\\"\u0E17\u0E35\u0E21\u0E0D\u0E35\u0E48\u0E1B\u0E38\u0E48\u0E19\\\" \u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    20%\",\"Restriction\":\"\",\"Provenance\":\"ArtDirection/Character Database/Pre-Release-Character.csv\",\"Wording\":null},\"Passive\":null,\"HolyRelicSource\":null,\"ReviewNotes\":[\"Source:
+    ArtDirection/Character Database/Pre-Release-Character.csv, CSV row 3; release
+    label: Pre-Lunch.\",\"The source provides one value per Skill and Ultimate. That
+    value is preserved across ranks 1-3 and Ultimate tiers C0-C5 until progression
+    data is supplied.\",\"The source omits Evade, Perception, Control, Avoidance,
+    and level growth. The four secondary fields use the project neutral defaults;
+    growth uses CharacterStatGrowth defaults.\"],\"SourceTraits\":[\"Hero Team\",\"Japan\",\"KOF\",\"Male\"],\"SourceStats\":[{\"StatId\":\"Attack\",\"SourceField\":\"ATK\",\"SourceValue\":510.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":510.0},{\"StatId\":\"Defense\",\"SourceField\":\"DEF\",\"SourceValue\":350.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":350.0},{\"StatId\":\"MaxHealth\",\"SourceField\":\"HP\",\"SourceValue\":7000.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":7000.0},{\"StatId\":\"CombatClass\",\"SourceField\":\"Class
+    Power\",\"SourceValue\":3690.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3690.0},{\"StatId\":\"Pierce\",\"SourceField\":\"Pierce
+    Rate\",\"SourceValue\":40.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":4000.0},{\"StatId\":\"Resistance\",\"SourceField\":\"Resistence\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"Regeneration\",\"SourceField\":\"Regenerate\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"CritChance\",\"SourceField\":\"Crit
+    Chance\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"CritDamage\",\"SourceField\":\"Crit
+    Damage\",\"SourceValue\":150.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":15000.0},{\"StatId\":\"CritResistance\",\"SourceField\":\"Crit
+    Resistence\",\"SourceValue\":30.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3000.0},{\"StatId\":\"CritDefense\",\"SourceField\":\"Crit
+    Defense\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"Recovery\",\"SourceField\":\"Recovery
+    Rate\",\"SourceValue\":110.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":11000.0},{\"StatId\":\"BlockChance\",\"SourceField\":\"Block
+    Chance\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"BlockPower\",\"SourceField\":\"Block
+    Power\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"LifeSteal\",\"SourceField\":\"Lifesteal\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Evade\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":0.0,\"Unit\":\"basis-points\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":0.0},{\"StatId\":\"Perception\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Control\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Avoidance\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0}],\"UltimateTiers\":[],\"StatsProvenance\":0}"
+  studioBundleHash: studio-bundle-v1:595fc052f0151972053edab795f48b758041fa976fe2999ff8af32773b4ddb43
+  studioAuthoringJson: "{\"SchemaVersion\":5,\"Id\":\"studio.pre-release.goro95\",\"Name\":\"Goro
+    Daimon95\",\"SourceCharacterId\":\"fighter.pre-release.goro95\",\"LegacyCharacter\":null,\"AuthoredCharacter\":null,\"OwnsOpeningGauge\":false,\"ReplacedNativeReactionIds\":[],\"NativeReactionOrder\":[],\"CompatibilityReasons\":{},\"Parameters\":[],\"Rules\":[],\"Conditions\":[],\"Actions\":[],\"Modules\":[],\"Resources\":[],\"Statuses\":[],\"Policies\":[],\"AbilityVariants\":[],\"AbilityOverrides\":[],\"Description\":{\"SchemaVersion\":1,\"Id\":\"description.default\",\"OwnerId\":\"studio.pre-release.goro95\",\"DefaultLocale\":\"en\",\"Locales\":[{\"Locale\":\"en\",\"ReviewState\":\"Draft\",\"ReviewedTextHash\":\"\",\"ReviewedGameplayHash\":\"\",\"Blocks\":[{\"Id\":\"paragraph.main\",\"Kind\":0,\"StyleId\":\"\",\"Source\":\"\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48
+    \\\"\u0E17\u0E35\u0E21\u0E0D\u0E35\u0E48\u0E1B\u0E38\u0E48\u0E19\\\" \u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    20%\",\"MechanicIds\":[],\"HasFallback\":true,\"Branches\":[],\"DetachedSnippetOrigins\":[]}]}],\"Bindings\":[]},\"Presentation\":{\"Id\":\"presentation.default\",\"ActorAssetGuid\":null,\"ActionClipGuid\":null,\"ReactionClipGuid\":null,\"DurationMilliseconds\":1000}}"
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
+  id: 9102
+  fighterName: Goro Daimon95
+  fighterPic: {fileID: 21300000, guid: 4b427a10a08d3534da886dd0b177a48f, type: 3}
+  fighterIcon: {fileID: 21300000, guid: f6109f76fa2dbe6408c4190bf257c00c, type: 3}
+  fighterFull: {fileID: 21300000, guid: 4b427a10a08d3534da886dd0b177a48f, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 413966902510188558, guid: e90363883aa40f44caa193cce3ffdb5b, type: 3}
+  fighter3DMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  fighter3DMaterial: {fileID: 2100000, guid: 56847f4e7a1225f478214194111b1883, type: 2}
+  fighterModelYawOffset: 0
+  Skill1: {fileID: 11400000, guid: 08d4c9f962a07c64d959393d442dc1d8, type: 2}
+  Skill2: {fileID: 11400000, guid: 4d8ed679b22210f47b76fe0ebed852c6, type: 2}
+  Ultimate: {fileID: 11400000, guid: ffd4adbc2f2e0d349a2cf8fc4cc339e2, type: 2}
+  FighterAttribute: 0
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 1
+  LevelGrowth:
+    AttackBp: 100
+    DefenseBp: 100
+    HealthBp: 100
+  Classpower: 3690
+  attack: 510
+  defense: 350
+  health: 7000
+  SecondaryStats:
+    PierceRate: 40
+    Resistance: 0
+    Regenerate: 0
+    CritChance: 15
+    CritDmg: 150
+    CritResistance: 30
+    CritDefense: 20
+    RecoveryRate: 110
+    BlockChance: 0
+    BlockPower: 0
+    LifeSteal: 15
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

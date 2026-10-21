@@ -67,6 +67,10 @@ sysinfo.txt
 *.unitypackage.meta
 *.app
 
+# Reproducible local map profiling players; keep reports and captures reviewable.
+/Artifacts/MapOptimization/Windows/
+/Artifacts/MapOptimization/WindowsBaseline/
+
 # Crashlytics generated file
 crashlytics-build.properties
 

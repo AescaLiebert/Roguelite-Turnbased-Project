@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FightingAllstar.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:FightingAllstar.Contracts.Persistence.DocumentSnapshot">
+            <summary>Opaque document data keeps provider SDK types outside Core, Contracts, and the Unity client.</summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Persistence.ITransactionalDocumentStore">
+            <summary>
+            Provider adapter must atomically compare all expected versions and apply all writes. It must not call remote
+            services from inside a transaction callback; callers prepare deterministic outcomes before committing.
+            </summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Projections.BattleView">
+            <summary>Recipient-specific battle view. Opponent cards and private RNG state have no fields in this contract.</summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Protocol.CommandFingerprint">
+            <summary>Canonical request binding used by durable idempotency records.</summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Protocol.CommandEnvelope`1">
+            <summary>Transport metadata. Subject identity is deliberately supplied by verified authentication, never the body.</summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Protocol.CommandReceipt`1">
+            <summary>Stored with a successful command so a retry returns the original result without applying it again.</summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Security.ITokenIdentityValidator">
+            <summary>Server adapter validates issuer, audience, signature, and lifetime; invalid tokens return null.</summary>
+        </member>
+        <member name="T:FightingAllstar.Contracts.Security.VerifiedIdentity">
+            <summary>Identity output produced only after a trusted server adapter validates a provider token.</summary>
+        </member>
+    </members>
+</doc>

@@ -33,6 +33,16 @@ namespace FightingAllstar.Core.Content
             new StatusRecipeDefinition { Id = "status.debuff.freeze", NameKey = "Freeze", Polarity = StatusPolarity.Debuff,
                 Behavior = StatusBehavior.Disable | StatusBehavior.PreventsRecovery, DisableMask = CardCategoryMask.AllCards, DefaultDuration = 1,
                 Stacking = StatusStackingPolicy.RefreshDuration, Tags = new List<string> { "status.freeze", "status.disable" } },
+            new StatusRecipeDefinition { Id = "status.reaction.crystallize", NameKey = "Crystallize", Polarity = StatusPolarity.Buff,
+                Behavior = StatusBehavior.Barrier, DefaultDuration = 2, Stacking = StatusStackingPolicy.RefreshDuration,
+                BarrierCoefficientBp = 3000, BarrierSourceStat = BarrierSourceStat.Attack,
+                BarrierMaxHealthCapBp = 10000, BarrierAmountPolicy = BarrierAmountPolicy.Accumulate,
+                BarrierDurationPolicy = BarrierDurationPolicy.Refresh }
+        };
+
+        // Read-only compatibility data for migrating snapshots created before elemental
+        // reaction conditions moved out of StatusContainer.
+        public static List<StatusRecipeDefinition> CreateLegacyReactionStatusRecipes() => new List<StatusRecipeDefinition> {
             new StatusRecipeDefinition { Id = "status.reaction.superconduct", NameKey = "Superconduct", Polarity = StatusPolarity.Debuff,
                 Behavior = StatusBehavior.Stat, PhysicalDamageReceivedBp = 4000, DefaultDuration = 2,
                 Stacking = StatusStackingPolicy.IgnoreExisting },
@@ -46,12 +56,7 @@ namespace FightingAllstar.Core.Content
                 MaxStacks = 3, Identity = StatusIdentityScope.Recipe,
                 PeriodicDamage = new PeriodicDamageDefinition { Family = DamageFamily.ElementalReaction,
                     Element = ElementId.Pyro, CoefficientBp = 30000, Scaling = StatusSnapshotScaling.SourceAttack,
-                    Timing = StatusTickTiming.TargetTurnEnd } },
-            new StatusRecipeDefinition { Id = "status.reaction.crystallize", NameKey = "Crystallize", Polarity = StatusPolarity.Buff,
-                Behavior = StatusBehavior.Barrier, DefaultDuration = 2, Stacking = StatusStackingPolicy.RefreshDuration,
-                BarrierCoefficientBp = 3000, BarrierSourceStat = BarrierSourceStat.Attack,
-                BarrierMaxHealthCapBp = 10000, BarrierAmountPolicy = BarrierAmountPolicy.Accumulate,
-                BarrierDurationPolicy = BarrierDurationPolicy.Refresh }
+                    Timing = StatusTickTiming.TargetTurnEnd } }
         };
 
         public static List<StatusRecipeDefinition> CreateOrdinaryDebuffs() => new List<StatusRecipeDefinition> {

@@ -1,0 +1,27 @@
+{
+  "Success": true,
+  "Error": null,
+  "Checks": [
+    "Review UI validates the native package without writing source assets.",
+    "The actual Publish button creates an active native CharacterObject package.",
+    "Normal runtime catalog loading receives published description text.",
+    "Published composed actions survive the Play Mode domain reload.",
+    "Actual 3D battle spawns the registered native character, without the compiled-draft override.",
+    "The persisted composed passive executes at runtime battle start.",
+    "The native character's card resolves real runtime damage.",
+    "Native character actions use normal 3D FCT and impact audio.",
+    "The actual runtime character inspector opens for the published character.",
+    "The actual runtime inspector displays the authored published passive wording.",
+    "Rollback removes the disposable published character from normal runtime discovery.",
+    "All original native source and registry files remain byte-for-byte unchanged.",
+    "The original editor scene/dirty state is restored and volatile lab context is cleared."
+  ],
+  "SawFct": true,
+  "SawAudio": true,
+  "SourceFiles": 196,
+  "Scene": "Assets/Project/Scenes/MainMenu.unity",
+  "RuntimeAssemblyHash": "KLxUWGTFCy5gXEXXCesck70+TOtE38ojMYDUeSsBnwM=",
+  "EditorAssemblyHash": "yBpEbhR9U/mf6AGZkZocbxKTycwWlWFRKVZQXMtoSIo=",
+  "CoreAssemblyHash": "HKn0asKDZ3is1li7SX+kSUJTPJWXJm/NBv5RNrGOvPQ=",
+  "CapturedUtc": "2026-10-20T09:29:20.2687911Z"
+}

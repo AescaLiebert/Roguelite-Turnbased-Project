@@ -1,0 +1,21 @@
+{
+  "MissingTargetBindingCompiles": true,
+  "Diagnostics": [],
+  "Visits": 0,
+  "Trace": [
+    {
+      "FactSequence": 1,
+      "Trigger": "BattleStarted",
+      "OwnerId": "Player:0:fighter.kaeya",
+      "RuleId": "fighter.kaeya.passive.source:studio.opening-team-gauge",
+      "RootActionId": null,
+      "ActionNodeId": "audit.loop",
+      "ConditionsPassed": true,
+      "Fired": false,
+      "Reason": "ForEachTarget: completed.",
+      "FirstEventIndex": 1,
+      "EventCount": 0,
+      "Conditions": []
+    }
+  ]
+}

@@ -12,30 +12,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9ad1cdb4878bd4787c7185e9af84d4, type: 3}
   m_Name: sciii-sophitia_ultdata1
   m_EditorClassIdentifier: Assembly-CSharp::UltimateCardSO
-  ultimateName: "SCII Sophitia \xB7 Celestial Cross"
+  ultimateName: "[Soul Calibur II] Sophitia \xB7 Ultimate"
   icon: {fileID: 21300000, guid: 05734c98ee363d94395d210da3fb980c, type: 3}
   statusVisuals: []
   levels:
-  - level: 0
-    description: Deals 400% ATK Spike damage to all enemies.
-    skillType: 6
+  - Wording:
+      rid: -2
+    level: 0
+    description: Inflict Spike damage equal to 400% of the hero's Attack on all enemies.
+    skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 5
+        HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.ultimate.c0
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 40000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.spike
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -48,6 +96,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -57,6 +106,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -119,30 +169,78 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 3
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - level: 1
-    description: Deals 460% ATK Spike damage to all enemies.
-    skillType: 6
+  - Wording:
+      rid: -2
+    level: 1
+    description: Inflict Spike damage equal to 460% of the hero's Attack on all enemies.
+    skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 5
+        HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.ultimate.c1
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 46000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.spike
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -155,6 +253,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -164,6 +263,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -226,30 +326,78 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 3
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - level: 2
-    description: Deals 520% ATK Spike damage to all enemies.
-    skillType: 6
+  - Wording:
+      rid: -2
+    level: 2
+    description: Inflict Spike damage equal to 520% of the hero's Attack on all enemies.
+    skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 5
+        HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.ultimate.c2
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 52000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.spike
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -262,6 +410,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -271,6 +420,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -333,30 +483,78 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 3
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - level: 3
-    description: Deals 580% ATK Spike damage to all enemies.
-    skillType: 6
+  - Wording:
+      rid: -2
+    level: 3
+    description: Inflict Spike damage equal to 580% of the hero's Attack on all enemies.
+    skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 5
+        HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.ultimate.c3
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 58000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.spike
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -369,6 +567,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -378,6 +577,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -440,30 +640,78 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 3
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - level: 4
-    description: Deals 640% ATK Spike damage to all enemies.
-    skillType: 6
+  - Wording:
+      rid: -2
+    level: 4
+    description: Inflict Spike damage equal to 640% of the hero's Attack on all enemies.
+    skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 5
+        HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.ultimate.c4
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 64000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.spike
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -476,6 +724,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -485,6 +734,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -547,30 +797,78 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 3
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
-  - level: 5
-    description: Deals 700% ATK Spike damage to all enemies.
-    skillType: 6
+  - Wording:
+      rid: -2
+    level: 5
+    description: Inflict Spike damage equal to 700% of the hero's Attack on all enemies.
+    skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
-        HitCount: 5
+        HitCount: 1
         Range: 0
-        Reaction: 4
+        Reaction: 0
         ReactionTiming: 0
-      Id: fighter.sciii-sophitia.ultimate.c5
+      Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 70000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.spike
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -583,6 +881,7 @@ MonoBehaviour:
         MaxStacks: 1
         DefaultPotencyBp: 0
         BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
         BarrierSourceStat: 0
         BarrierDurationPolicy: 0
         BarrierAmountPolicy: 0
@@ -592,6 +891,7 @@ MonoBehaviour:
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -654,7 +954,32 @@ MonoBehaviour:
       HealScalingStat: 0
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
-      Target: 3
+      Target: 1
       AttributeAdvantageDamageBonusBp: 0
       Batches: []
       Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: "[{\"Category\":0,\"Tier\":0,\"SourceLabel\":\"SCII Sophitia
+    \xB7 Celestial Cross\",\"Description\":\"Inflict Spike damage equal to 400% of
+    the hero's Attack on all enemies.\",\"SourceDescription\":\"Deals 400% ATK Spike
+    damage to all enemies.\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":5,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":5},\"Id\":\"fighter.sciii-sophitia.ultimate.c0\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":40000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.spike\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":3,\"DamageHitCount\":5},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":1,\"SourceLabel\":\"SCII
+    Sophitia \xB7 Celestial Cross\",\"Description\":\"Inflict Spike damage equal
+    to 460% of the hero's Attack on all enemies.\",\"SourceDescription\":\"Deals
+    460% ATK Spike damage to all enemies.\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":5,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":5},\"Id\":\"fighter.sciii-sophitia.ultimate.c1\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":46000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.spike\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":3,\"DamageHitCount\":5},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":2,\"SourceLabel\":\"SCII
+    Sophitia \xB7 Celestial Cross\",\"Description\":\"Inflict Spike damage equal
+    to 520% of the hero's Attack on all enemies.\",\"SourceDescription\":\"Deals
+    520% ATK Spike damage to all enemies.\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":5,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":5},\"Id\":\"fighter.sciii-sophitia.ultimate.c2\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":52000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.spike\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":3,\"DamageHitCount\":5},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":3,\"SourceLabel\":\"SCII
+    Sophitia \xB7 Celestial Cross\",\"Description\":\"Inflict Spike damage equal
+    to 580% of the hero's Attack on all enemies.\",\"SourceDescription\":\"Deals
+    580% ATK Spike damage to all enemies.\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":5,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":5},\"Id\":\"fighter.sciii-sophitia.ultimate.c3\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":58000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.spike\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":3,\"DamageHitCount\":5},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":4,\"SourceLabel\":\"SCII
+    Sophitia \xB7 Celestial Cross\",\"Description\":\"Inflict Spike damage equal
+    to 640% of the hero's Attack on all enemies.\",\"SourceDescription\":\"Deals
+    640% ATK Spike damage to all enemies.\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":5,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":5},\"Id\":\"fighter.sciii-sophitia.ultimate.c4\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":64000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.spike\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":3,\"DamageHitCount\":5},\"Provenance\":0,\"Wording\":null},{\"Category\":0,\"Tier\":5,\"SourceLabel\":\"SCII
+    Sophitia \xB7 Celestial Cross\",\"Description\":\"Inflict Spike damage equal
+    to 700% of the hero's Attack on all enemies.\",\"SourceDescription\":\"Deals
+    700% ATK Spike damage to all enemies.\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":5,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":5},\"Id\":\"fighter.sciii-sophitia.ultimate.c5\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":70000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.spike\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":3,\"DamageHitCount\":5},\"Provenance\":0,\"Wording\":null}]"
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

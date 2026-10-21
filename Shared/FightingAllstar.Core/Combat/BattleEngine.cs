@@ -14,6 +14,10 @@ namespace FightingAllstar.Core.Combat
         private sealed class ActionResolutionContext
         {
             public int EventStart;
+            public CardState Card;
+            public readonly HashSet<string> CriticalTargets = new HashSet<string>();
+            public readonly Dictionary<string, int> CritChanceByCriticalTarget = new Dictionary<string, int>(StringComparer.Ordinal);
+            public readonly HashSet<string> BlockedTargets = new HashSet<string>();
             public readonly ElementalActionContext Elemental = new ElementalActionContext();
             public bool RequiresSuccessfulHit;
             public bool HitsResolved;
@@ -45,13 +49,21 @@ namespace FightingAllstar.Core.Combat
             ulong seed, TeamSide firstSide = TeamSide.Player, IReadOnlyList<RunBoonDefinition> runBoons = null,
             IReadOnlyList<int> playerHealth = null, IReadOnlyList<int> opponentHealth = null,
             BattleModeMask mode = BattleModeMask.PvE, ulong? cardDrawSeed = null, bool training = false,
-            ElementalRuleSet elementalRules = null)
+            ElementalRuleSet elementalRules = null, bool capturePassiveTrace = false,
+            IReadOnlyList<int> playerLevels = null, IReadOnlyList<int> opponentLevels = null)
         {
             if (string.IsNullOrWhiteSpace(matchId)) throw new ArgumentException("A stable match id is required.", nameof(matchId));
             if (mode != BattleModeMask.PvE && mode != BattleModeMask.PvP) throw new ArgumentOutOfRangeException(nameof(mode));
-            var state = new BattleState { MatchId = matchId, Revision = 1, TurnNumber = 1, ActingSide = firstSide, Phase = BattlePhase.Setup, Mode = mode };
+            var state = new BattleState { MatchId = matchId, Revision = 1, TurnNumber = 1, ActingSide = firstSide, Phase = BattlePhase.Setup, Mode = mode,
+                CapturePassiveTrace = capturePassiveTrace };
+            using var openingResolution = CharacterPassiveRuntime.BeginRootResolution(state, matchId + ":opening");
             AddTeam(state.Player, player, playerTiers, playerHealth);
             AddTeam(state.Opponent, opponent, opponentTiers, opponentHealth);
+            foreach (var fighter in state.Player.Fighters) fighter.Level = playerLevels != null && fighter.TeamIndex < playerLevels.Count ? Math.Max(1, playerLevels[fighter.TeamIndex]) : 1;
+            foreach (var fighter in state.Opponent.Fighters) fighter.Level = opponentLevels != null && fighter.TeamIndex < opponentLevels.Count ? Math.Max(1, opponentLevels[fighter.TeamIndex]) : 1;
+            var rng = new DeterministicRandom(seed);
+            state.ActiveRandom = rng;
+            state.RngState = rng.State;
             InitializeElementalRules(state, elementalRules ?? ElementalRuleSet.CreateDefault());
             if (training)
             {
@@ -97,7 +109,6 @@ namespace FightingAllstar.Core.Combat
                         state.Events[state.Events.Count - 1].PowerGaugeAfter = first.PowerGauge;
                     }
                 }
-            var rng = new DeterministicRandom(seed);
             var cardRng = new DeterministicRandom(cardDrawSeed ?? seed);
             DrawOpeningHand(state, state.Player, cardRng);
             DrawOpeningHand(state, state.Opponent, cardRng);
@@ -106,14 +117,26 @@ namespace FightingAllstar.Core.Combat
             state.RngDrawCount = rng.DrawCount;
             state.CardRngState = cardRng.State;
             state.CardRngDrawCount = cardRng.DrawCount;
+            AbilityVariantSystem.RefreshCards(state);
+            state.ActiveRandom = null;
             return state;
         }
 
         public static bool TryResolvePlan(BattleState current, TurnPlan plan, out BattleState next, out string error)
         {
+            try { return TryResolvePlanCore(current, plan, out next, out error); }
+            catch (PassiveExecutionException exception)
+            { next = null; error = "Rule resolution rejected atomically: " + exception.Message; return false; }
+        }
+
+        private static bool TryResolvePlanCore(BattleState current, TurnPlan plan, out BattleState next, out string error)
+        {
             next = null;
             error = null;
             if (current == null || plan == null) { error = "Battle or plan is missing."; return false; }
+            try { BattleEntitySystem.ValidateSnapshot(current); }
+            catch (InvalidOperationException exception)
+            { error = "Invalid entity snapshot: " + exception.Message; return false; }
             if (current.ElementalSchemaVersion == 1 && current.ElementalRules != null)
             {
                 current = current.Clone();
@@ -143,7 +166,10 @@ namespace FightingAllstar.Core.Combat
             var elementalErrors = ElementalContentValidator.Validate(current.ElementalRules);
             foreach (var elementalTeam in new[] { current.Player, current.Opponent })
                 foreach (var fighter in elementalTeam.Fighters)
+                {
                     elementalErrors.AddRange(ElementalContentValidator.Validate(fighter.Definition, current.ElementalRules));
+                    elementalErrors.AddRange(AbilityVariantValidator.Validate(fighter.Definition));
+                }
             if (elementalErrors.Count > 0) { error = string.Join("; ", elementalErrors); return false; }
             if (current.Phase != BattlePhase.Planning || current.Winner.HasValue || current.IsDraw) { error = "The battle is not accepting a plan."; return false; }
             if (plan.ExpectedRevision != current.Revision) { error = "Battle revision is stale."; return false; }
@@ -152,12 +178,15 @@ namespace FightingAllstar.Core.Combat
             if (!TurnExecutionState.TryCreate(current, plan, out var execution, out error)) return false;
 
             var work = current.Clone();
+            using var ruleResolution = CharacterPassiveRuntime.BeginRootResolution(work, plan.RequestId);
+            MigrateLegacyElementalReactionStatuses(work);
             CharacterPassiveRuntime.Refresh(work);
             var team = work.Team(work.ActingSide);
             var plannedOwners = new Dictionary<string, string>(StringComparer.Ordinal);
             foreach (var card in team.Hand)
                 if (card != null && !string.IsNullOrEmpty(card.Id)) plannedOwners[card.Id] = card.OwnerFighterId;
             var rng = DeterministicRandom.Restore(work.RngState, work.RngDrawCount);
+            work.ActiveRandom = rng;
             var cardRng = work.CardRngState == 0 && work.CardRngDrawCount == 0
                 ? new DeterministicRandom(BattleEntropy.CreateSeed())
                 : DeterministicRandom.Restore(work.CardRngState, work.CardRngDrawCount);
@@ -189,6 +218,7 @@ namespace FightingAllstar.Core.Combat
             work.RngDrawCount = rng.DrawCount;
             work.CardRngState = cardRng.State;
             work.CardRngDrawCount = cardRng.DrawCount;
+            work.ActiveRandom = null;
             next = work;
             return true;
         }
@@ -223,9 +253,7 @@ namespace FightingAllstar.Core.Combat
             }
 
             EffectDefinition effect;
-            var found = card.Kind == CardKind.Skill
-                ? CardRules.TryGetSkill(owner.Definition, card.SkillId, card.Rank, out effect)
-                : CardRules.TryGetUltimate(owner.Definition, card.UltimateTier, out effect);
+            var found = AbilityVariantSystem.TryResolve(owner, card, out effect);
             if (!found) { Fizzle(state, action, owner.Id, "The planned card has no runtime effect definition."); return true; }
             var category = CardRules.GetEffectCategory(card);
             var disabled = StatusSystem.IsCardUseBlocked(owner, category, card.Rank, card.Kind == CardKind.Ultimate,
@@ -253,11 +281,13 @@ namespace FightingAllstar.Core.Combat
             if (targets.Count == 0) { Fizzle(state, action, owner.Id, "No living active target remained."); return true; }
             var target = targets[0];
             var resolution = new ActionResolutionContext {
-                EventStart = state.Events.Count,
+                EventStart = state.Events.Count, Card = card,
                 RequiresSuccessfulHit = effect.Kind == EffectKind.Damage && IsAttack(category) };
             var deferStanceGroup = HasDeferredStanceGroup(effect);
             var stanceRootsByTarget = deferStanceGroup ? new Dictionary<string, string>(StringComparer.Ordinal) : null;
             resolution.AttackTargets.UnionWith(targets.ConvertAll(item => item.Id));
+            if (!AbilityVariantSystem.CommitUse(state, owner, card))
+            { Fizzle(state, action, owner.Id, "The selected ability variant lost its resource readiness."); return true; }
             PrepareSupportAction(state, owner, card, effect, targets, resolution, rng);
             team.Hand.RemoveAt(index);
             if (card.Kind == CardKind.Ultimate) PowerGaugeRules.SpendUltimate(owner);
@@ -328,7 +358,10 @@ namespace FightingAllstar.Core.Combat
             FinishSupportAction(state, owner, card, effect, targets, rng, resolution);
             CharacterPassiveRuntime.ResolveActionDamageReactions(state, card.Id);
             ResolvePendingPassiveEffects(state, card.Id);
+            ConsumeSourceStackLayers(state, owner, effect, card.Id);
             AddEvent(state, BattleEventKind.ActionCompleted, owner.Id, null, card.Id, 0, "Action complete.");
+            foreach (var recipient in targets)
+                if (recipient.IsAlive && recipient.Health <= 0 && !pendingDefeats.Contains(recipient)) pendingDefeats.Add(recipient);
             ApplyPendingDefeats(state, pendingDefeats, card.Id, owner, card);
             ResolveAuthoredRetaliations(state, owner, targets, card, rng);
             ResolveActionReflect(state, resolution, card.Id);
@@ -343,6 +376,29 @@ namespace FightingAllstar.Core.Combat
         {
             AddEvent(state, BattleEventKind.ActionTiming, owner.Id, null, card.Id, 0, timing.ToString());
             state.Events[state.Events.Count - 1].Timing = timing;
+            if (timing == CardEffectTiming.BeforeAction || timing == CardEffectTiming.AfterAction)
+            {
+                var committed = state.Events.FindLast(e => (e.Kind == BattleEventKind.CardPlayed || e.Kind == BattleEventKind.CounterStarted) && e.CardId == card.Id);
+                if (timing == CardEffectTiming.BeforeAction && committed?.Kind == BattleEventKind.CardPlayed)
+                {
+                    var before = owner.Statuses.Instances.ConvertAll(s => s.Clone());
+                    foreach (var status in before)
+                        if (status.Recipe?.BreakRule == StatusBreakRule.OnCardUsed) owner.Statuses.RemoveInstance(status.InstanceId);
+                    if (before.Count != owner.Statuses.Instances.Count)
+                    {
+                        var shieldRemoved = RemoveExpiredBarrierShield(owner, before);
+                        AddEvent(state, BattleEventKind.StatusRemoved, owner.Id, owner.Id, card.Id,
+                            before.Count - owner.Statuses.Instances.Count, "Statuses broken by card use.");
+                        var removal = state.Events[state.Events.Count - 1];
+                        removal.StatusesAfter = owner.Statuses.Instances.ConvertAll(s => s.Clone());
+                        if (shieldRemoved > 0) { removal.ShieldAfter = owner.Shield; removal.ShieldChanged = true; }
+                        CharacterPassiveRuntime.RecordStatusRemovals(state, owner, owner, before, StatusRemovalReason.Broken, card.Id, true);
+                    }
+                }
+                CharacterPassiveRuntime.NotifyAction(state, timing == CardEffectTiming.BeforeAction ? PassiveEventKind.BeforeAction : PassiveEventKind.AfterAction,
+                    owner, FindFighter(state, committed?.TargetId), card.Id, !card.Id.Contains(":counter:"),
+                    card.Kind == CardKind.Ultimate, CardRules.GetEffectCategory(card), card.Rank);
+            }
         }
 
         private static bool IsAttack(CardCategory category) => category == CardCategory.Attack || category == CardCategory.AttackDebuff;
@@ -543,11 +599,13 @@ namespace FightingAllstar.Core.Combat
                 _ => effect.Magnitude
             };
             if (effect.Scaling == StatScaling.Fixed) baseAmount = effect.Magnitude;
+            var damageStatusesBefore = target.Statuses.Instances.ConvertAll(s => s.Clone());
             var freezeBroken = StatusSystem.BreakFreezeOnAttack(target);
             var keywordFactor = (int)Math.Min(int.MaxValue,
                 (long)Math.Max(0, effect.KeywordFactorBp) * Math.Max(0, calculation.KeywordFactorBp) / 10000);
-            var packet = new DamagePacket { BaseAmount = baseAmount, CoefficientBp = effect.CoefficientBp,
+            var packet = new DamagePacket { BaseAmount = baseAmount, CoefficientBp = SourceStackCoefficient(owner, effect, resolution),
                 KeywordFactorBp = keywordFactor, Policy = calculation.Policy, HitIndex = hitIndex, HitCount = hitCount };
+            CombatPolicySystem.ApplyProfile(packet.Policy, effect.DamageProfile);
             var critRoll = -1;
             var blockRoll = -1;
             if (effect.Family != DamageFamily.Destructive)
@@ -557,9 +615,16 @@ namespace FightingAllstar.Core.Combat
                 if (calculation.Policy.CannotCrit || critRoll >= critChance) blockRoll = rng.NextBasisPoints();
             }
             var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
+            if (damage.WasCritical && resolution != null)
+            {
+                resolution.CriticalTargets.Add(target.Id);
+                resolution.CritChanceByCriticalTarget[target.Id] = attacker.CritChanceBp;
+            }
+            if (damage.WasBlocked) resolution?.BlockedTargets.Add(target.Id);
             var elementalContact = PrepareElementalContact(state, owner, target, effect, resolution, packet, attacker, hitIndex);
             if (effect.DamageElement != ElementId.None || effect.ElementalApplication != null)
                 damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
+            var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, owner, target, damage, packet.Policy, card.Id);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
             var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
@@ -572,6 +637,8 @@ namespace FightingAllstar.Core.Combat
             state.Events[state.Events.Count - 1].WasEndured = damage.WasEndured;
             state.Events[state.Events.Count - 1].Affinity = AttributeRules.GetAffinity(owner.Definition?.AttributeId, target.Definition?.AttributeId);
             state.Events[state.Events.Count - 1].ShieldLost = damage.ShieldLost;
+            state.Events[state.Events.Count - 1].FormulaDamage = damage.FormulaDamage;
+            state.Events[state.Events.Count - 1].ConstructAbsorbed = damage.ConstructAbsorbed;
             state.Events[state.Events.Count - 1].HealthLost = target.CannotDie ? 0 : damage.HealthLost;
             if (barrierBroken || freezeBroken)
                 state.Events[state.Events.Count - 1].StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
@@ -583,8 +650,10 @@ namespace FightingAllstar.Core.Combat
             hitEvent.DamageOrigin = ElementalDamageOrigin.Card;
             hitEvent.DamageElement = effect.DamageElement;
             if (effect.DamageElement != ElementId.None) hitEvent.RootActionId = card.Id;
-            if (elementalContact != null)
+            if (elementalContact != null && damage.CalculatedDamage > 0 && resolution?.Elemental != null &&
+                resolution.Elemental.Applications.Add(target.Id))
             {
+                resolution.Elemental.AmplificationByTarget[target.Id] = packet.Policy.AmplificationBp;
                 hitEvent.RootActionId = card.Id;
                 hitEvent.ElementalReaction = elementalContact.Decision?.Reaction.Id ?? ElementalReactionId.None;
                 elementalContact.ParentEventId = hitEvent.Id;
@@ -597,6 +666,9 @@ namespace FightingAllstar.Core.Combat
             hitEvent.Reaction = HitReactionRules.Resolve(effect.Attack, inStance, hitIndex, hitCount,
                 damage.WasEndured, WasStanceCancelledThisAction(state, card.Id, target.Id));
             hitEvent.WasReactionResisted = inStance && !damage.WasEndured && effect.Attack?.Reaction != HitReaction.None;
+            CharacterPassiveRuntime.RecordStatusRemovals(state, owner, target, damageStatusesBefore,
+                StatusRemovalReason.Broken, card.Id);
+            CombatPolicySystem.NotifyDamageCommitted(state, owner, target, damage, policyReceipt, card.Id);
             foreach (var status in target.Statuses.Instances)
                 if (status.Recipe?.RecoverDamageTakenBp > 0)
                     status.DamageTaken = (int)Math.Min(int.MaxValue, (long)status.DamageTaken + damage.HealthLost);
@@ -640,10 +712,33 @@ namespace FightingAllstar.Core.Combat
             foreach (var target in pendingDefeats)
             {
                 if (target == null || !target.IsAlive || target.Health > 0 || target.CannotDie) continue;
+                BattleEvent entityLethalContact = null;
+                // A deferred defeat may have been caused by an allied entity rather than this card's caster.
+                // Stop at the latest real lethal contact so an earlier summon hit cannot steal later card credit.
+                for (var eventIndex = state.Events.Count - 1; eventIndex >= 0; eventIndex--)
+                {
+                    var fact = state.Events[eventIndex];
+                    if (fact.Kind != BattleEventKind.DamageApplied || fact.TargetId != target.Id ||
+                        fact.HealthAfter != 0 || fact.HealthLost <= 0) continue;
+                    if (!string.IsNullOrEmpty(fact.EntityId) && fact.SourceId == fact.EntityOwnerFighterId)
+                        entityLethalContact = fact;
+                    break;
+                }
                 target.Health = 0;
                 target.IsAlive = false;
                 target.PowerGauge = 0;
-                ApplyFighterDefeat(state, target, cardId, source, card);
+                if (entityLethalContact == null) ApplyFighterDefeat(state, target, cardId, source, card);
+                else
+                {
+                    var defeatEventIndex = state.Events.Count;
+                    ApplyFighterDefeat(state, target, entityLethalContact.RootActionId ?? entityLethalContact.CardId,
+                        FindFighter(state, entityLethalContact.SourceId));
+                    var defeat = state.Events[defeatEventIndex];
+                    defeat.EntityId = entityLethalContact.EntityId;
+                    defeat.EntityOwnerFighterId = entityLethalContact.EntityOwnerFighterId;
+                    defeat.EntityDefinitionId = entityLethalContact.EntityDefinitionId;
+                    defeat.ParentEventId = entityLethalContact.Id;
+                }
                 defeatedAny = true;
             }
             if (defeatedAny) CharacterPassiveRuntime.Refresh(state);
@@ -740,7 +835,7 @@ namespace FightingAllstar.Core.Combat
             }
             foreach (var step in rootEffect.Sequence)
             {
-                if (step?.Effect == null || step.Effect.Kind == EffectKind.Damage) continue;
+                if (step?.Effect == null) continue;
                 var isStanceChildStep = deferStanceGroup && IsStanceStatus(step.Effect);
                 if (step.Timing != timing && !(isStanceChildStep && timing == stanceGroupTiming)) continue;
                 if (!includeGroupEffects && (step.Effect.Target == EffectTargetScope.AllAllies ||
@@ -753,7 +848,7 @@ namespace FightingAllstar.Core.Combat
                     member?.BatchId == batch.Id && IsHarmfulEffect(member.Effect) &&
                     member.Effect.Target != EffectTargetScope.Self && member.Effect.Target != EffectTargetScope.AllAllies &&
                     member.Effect.Target != EffectTargetScope.SelectedAlly);
-                foreach (var effectTarget in ResolveUtilityTargets(state, owner, target, resolvedEffect.Target))
+                foreach (var effectTarget in SequenceTargets(state, owner, target, resolvedEffect, resolution))
                 {
                     string parentStanceInstanceId = null;
                     if (isStanceChildStep && stanceRootsByTarget != null &&
@@ -774,9 +869,27 @@ namespace FightingAllstar.Core.Combat
                         (IsHarmfulEffect(resolvedEffect) && effectTarget.Side != owner.Side || hostileBatch);
                     void ApplyStep()
                     {
-                        if (!effectTarget.IsAlive || effectTarget.Health <= 0 ||
+                        if (!effectTarget.IsAlive || effectTarget.Health <= 0 && resolvedEffect.Kind != EffectKind.Damage ||
                             requiresHit && (hitTarget == null || !resolution.SuccessfulHitTargets.Contains(hitTarget.Id))) return;
-                        if (!EffectConditionsPass(state, owner, effectTarget, resolvedEffect, cardId, isUltimate)) return;
+                        var stepContext = CreateSequenceContext(state, owner, effectTarget, cardId, isUltimate, resolution);
+                        stepContext.Phase = timing;
+                        if (state.CapturePassiveTrace) stepContext.ConditionTrace = new List<PassiveConditionTrace>();
+                        var conditionsPassed = CardEffectSystem.ConditionsPass(resolvedEffect.Conditions, stepContext, effectTarget);
+                        var stepTrace = state.CapturePassiveTrace ? new PassiveRuleTrace {
+                            Trigger = timing.ToString(), OwnerId = owner.Id, ActorId = owner.Id, EventTargetId = target?.Id,
+                            OperationTargetId = effectTarget.Id, RuleId = resolvedEffect.Id, RootActionId = cardId,
+                            ConditionsPassed = conditionsPassed, Fired = false, Outcome = conditionsPassed ? "Eligible" : "Skipped",
+                            Reason = "Skill " + stepContext.SkillId + " rank " + stepContext.CardRank + " tier " + stepContext.UltimateTier,
+                            FirstEventIndex = state.Events.Count, Conditions = stepContext.ConditionTrace } : null;
+                        if (stepTrace != null) state.PassiveTrace.Add(stepTrace);
+                        void CompleteTrace()
+                        {
+                            if (stepTrace == null) return;
+                            stepTrace.EventCount = state.Events.Count - stepTrace.FirstEventIndex;
+                            stepTrace.Fired = stepTrace.EventCount > 0;
+                            stepTrace.Outcome = stepTrace.Fired ? "Executed" : "No applied effect";
+                        }
+                        if (!conditionsPassed) return;
                         if (batch != null)
                         {
                             // Batch chance belongs to the recipient, independently of the hit trigger.
@@ -791,14 +904,22 @@ namespace FightingAllstar.Core.Combat
                                 won = chance >= 10000 || chance > 0 && rng != null && rng.NextBasisPoints() < chance;
                                 resolution.BatchRolls.Add(key, won);
                             }
-                            if (!won) return;
+                            if (!won) { if (stepTrace != null) stepTrace.Outcome = "Batch chance failed"; return; }
+                        }
+                        if (resolvedEffect.Kind == EffectKind.Damage)
+                        {
+                            ApplyPassiveDamageOperation(state, owner, effectTarget, SequenceDamage(resolvedEffect), cardId,
+                                finalizeDefeat: resolution == null, origin: stepContext, effectId: resolvedEffect.Id);
+                            CompleteTrace();
+                            return;
                         }
                         var damageTarget = requiresHit ? hitTarget : effectTarget;
                         ApplyCardUtilityEffectSingle(state, rng, owner, effectTarget, resolvedEffect, cardId, isUltimate,
                             resolution?.HitsResolved == true ? CardHealthDamageTotal(state, cardId, damageTarget.Id) : triggeringDamage,
                             resolution?.HitsResolved == true
                                 ? (int)Math.Min(int.MaxValue, resolution.HealthDamageBySource.GetValueOrDefault(owner.Id)) : actualHealthDamage,
-                            skipApplyChance: batch != null, parentStanceInstanceId: parentStanceInstanceId);
+                            skipApplyChance: batch != null, parentStanceInstanceId: parentStanceInstanceId, actionContext: stepContext);
+                        CompleteTrace();
                     }
                     // Contact effects authored before damage wait for a successful damage hit.
                     if (requiresHit && !resolution.HitsResolved) resolution.DeferredHitEffects.Add(ApplyStep);
@@ -808,7 +929,7 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static bool IsHarmfulEffect(EffectOperationDefinition effect) => effect != null &&
-            (effect.Kind == EffectKind.ApplyStatus && effect.StatusRecipe?.Polarity == StatusPolarity.Debuff ||
+            (effect.Kind == EffectKind.Damage || effect.Kind == EffectKind.ApplyStatus && effect.StatusRecipe?.Polarity == StatusPolarity.Debuff ||
              effect.Kind == EffectKind.RemoveBuffs || effect.Kind == EffectKind.RemoveStance ||
              effect.Kind == EffectKind.ChangePowerGauge && effect.PowerGaugeAmount < 0 ||
              effect.Kind == EffectKind.ModifyCardRank && effect.Magnitude < 0);
@@ -868,10 +989,12 @@ namespace FightingAllstar.Core.Combat
 
         private static void ApplyCardUtilityEffectSingle(BattleState state, DeterministicRandom rng, FighterState owner, FighterState effectTarget,
             EffectDefinition effect, string cardId, bool isUltimate, int triggeringDamage = 0, int actualHealthDamage = 0,
-            bool skipApplyChance = false, int? contactSnapshotDamage = null, string parentStanceInstanceId = null)
+            bool skipApplyChance = false, int? contactSnapshotDamage = null, string parentStanceInstanceId = null,
+            bool allowPendingDefeat = false, bool cardOrigin = true, CardEffectContext actionContext = null)
         {
-            if (effectTarget == null || !effectTarget.IsAlive || effectTarget.Health <= 0) return;
-            if (!EffectConditionsPass(state, owner, effectTarget, effect, cardId, isUltimate)) return;
+            if (effectTarget == null || !effectTarget.IsAlive || effectTarget.Health <= 0 && !allowPendingDefeat) return;
+            actionContext = actionContext ?? CreateSequenceContext(state, owner, effectTarget, cardId, isUltimate, null);
+            if (!CardEffectSystem.ConditionsPass(effect.Conditions, actionContext, effectTarget)) return;
             var targetStats = StatusSystem.GetEffectiveStats(effectTarget);
             var previousMaxHealth = new Dictionary<string, int>(StringComparer.Ordinal);
             if (effect.Kind == EffectKind.ApplyStatus || effect.Kind == EffectKind.Cleanse ||
@@ -880,6 +1003,9 @@ namespace FightingAllstar.Core.Combat
                 previousMaxHealth[effectTarget.Id] = targetStats.MaxHealth;
             switch (effect.Kind)
             {
+                case EffectKind.Summon:
+                    BattleEntitySystem.CreateOrReplace(state, owner, effect.Summon, cardId);
+                    break;
                 case EffectKind.ApplyStatus:
                     var statusInstanceId = state.MatchId + ":status:" + (state.Events.Count + 1);
                     var ownerStats = owner != null ? StatusSystem.GetEffectiveStats(owner) : new StatBlock();
@@ -898,6 +1024,9 @@ namespace FightingAllstar.Core.Combat
                         (targetHealthDamage > 0 ? targetHealthDamage : Math.Max(0, triggeringDamage));
                     var snapshot = new StatusSnapshot
                     {
+                        GrantingAbilityId = actionContext.Provenance?.AbilityId ?? actionContext.SkillId,
+                        GrantingRank = actionContext.Provenance?.Rank ?? actionContext.CardRank,
+                        GrantingTier = actionContext.Provenance?.Tier ?? actionContext.UltimateTier,
                         SourceAttack = ownerStats.Attack,
                         SourceDefense = ownerStats.Defense,
                         SourceMaxHealth = ownerStats.MaxHealth,
@@ -916,13 +1045,24 @@ namespace FightingAllstar.Core.Combat
                         }
                         break;
                     }
-                    var applyChanceBp = ResolveStatusApplyChanceBp(effect.StatusApplyChanceBp, ownerStats.ControlBp,
+                    var authoredApplyChanceBp = effect.StatusApplyChanceBp;
+                    if (effect.StatusApplyChanceBonusCoefficientBp != 0)
+                    {
+                        var sourceStat = effect.StatusApplyChanceBonusStat == StatId.CritChance && actionContext.ActionCritChanceBp.HasValue
+                            ? actionContext.ActionCritChanceBp.Value : ownerStats.Get(effect.StatusApplyChanceBonusStat);
+                        var bonusStat = Math.Max(0, sourceStat);
+                        var bonusBp = (BigInteger)bonusStat * effect.StatusApplyChanceBonusCoefficientBp / 10000;
+                        authoredApplyChanceBp = (int)BigInteger.Min(10000,
+                            BigInteger.Max(0, (BigInteger)authoredApplyChanceBp + bonusBp));
+                    }
+                    var applyChanceBp = ResolveStatusApplyChanceBp(authoredApplyChanceBp, ownerStats.ControlBp,
                         targetStats.AvoidanceBp, isDebuff);
                     if (!skipApplyChance && applyChanceBp < 10000 &&
                         (applyChanceBp <= 0 || rng == null || rng.NextBasisPoints() >= applyChanceBp))
                         break;
 
                     var shieldBeforeStatus = effectTarget.Shield;
+                    var statusesBeforeApplication = effectTarget.Statuses.Instances.ConvertAll(s => s.Clone());
                     var applyResult = appliedRecipe != null
                         ? StatusSystem.Apply(effectTarget, owner?.Id, owner?.Side ?? TeamSide.Player, appliedRecipe, statusInstanceId,
                             cardId, state.Events.Count + 1, snapshot: snapshot, potencyBp: effect.StatusPotencyBp,
@@ -949,6 +1089,9 @@ namespace FightingAllstar.Core.Combat
                             statusEvt.ShieldAfter = effectTarget.Shield;
                             statusEvt.ShieldChanged = true;
                         }
+                        CharacterPassiveRuntime.RecordStatusRemovals(state, owner, effectTarget, statusesBeforeApplication,
+                            StatusRemovalReason.Replaced, cardId, cardOrigin);
+                        CharacterPassiveRuntime.NotifyStatusApplied(state, owner, effectTarget, applyResult.Instance, cardId, cardOrigin);
                     }
                     else if (applyResult?.Outcome == StatusApplyOutcome.IgnoredWeaker)
                     {
@@ -968,13 +1111,13 @@ namespace FightingAllstar.Core.Combat
                     break;
                 case EffectKind.Cleanse:
                 case EffectKind.RemoveDebuffs:
-                    EmitStatusRemoval(state, owner, effectTarget, StatusPolarity.Debuff, true, cardId);
+                    EmitStatusRemoval(state, owner, effectTarget, StatusPolarity.Debuff, true, cardId, cardOrigin: cardOrigin);
                     break;
                 case EffectKind.RemoveStance:
-                    RemoveStances(state, owner, effectTarget, cardId);
+                    RemoveStances(state, owner, effectTarget, cardId, cardOrigin);
                     break;
                 case EffectKind.RemoveBuffs:
-                    EmitStatusRemoval(state, owner, effectTarget, StatusPolarity.Buff, true, cardId);
+                    EmitStatusRemoval(state, owner, effectTarget, StatusPolarity.Buff, true, cardId, cardOrigin: cardOrigin);
                     break;
                 case EffectKind.Heal:
                     // targetStats is already computed at method scope
@@ -994,7 +1137,7 @@ namespace FightingAllstar.Core.Combat
                             BigInteger.Divide(new BigInteger(Math.Max(0, sourceValue)) * Math.Max(0, effect.HealCoefficientBp) *
                                 Math.Max(0, targetStats.RecoveryBp), 100000000));
                     }
-                    TryApplyRecovery(state, owner, effectTarget, requested, targetStats.MaxHealth, cardId, "Card effect.");
+                    TryApplyRecovery(state, owner, effectTarget, requested, targetStats.MaxHealth, cardId, "Card effect.", allowPendingDefeat, cardOrigin);
                     break;
                 case EffectKind.ChangePowerGauge:
                     CharacterPassiveRuntime.ChangePowerGauge(state, owner, effectTarget, effect.PowerGaugeAmount,
@@ -1021,32 +1164,47 @@ namespace FightingAllstar.Core.Combat
             CharacterPassiveRuntime.Refresh(state, previousMaxHealthOverrides: previousMaxHealth);
         }
 
+        private static CardEffectContext CreateSequenceContext(BattleState state, FighterState owner, FighterState target,
+            string cardId, bool isUltimate, ActionResolutionContext resolution)
+        {
+            var card = resolution?.Card ?? state.Events.FindLast(e => e.CardId == cardId &&
+                (e.Kind == BattleEventKind.CardPlayed || e.Kind == BattleEventKind.CounterStarted))?.Card;
+            int? actionCritChanceBp = null;
+            if (target != null && resolution?.CritChanceByCriticalTarget.TryGetValue(target.Id, out var resolvedCritChanceBp) == true)
+                actionCritChanceBp = resolvedCritChanceBp;
+            return new CardEffectContext { Battle = state, EffectOwner = owner, Actor = owner,
+                SelectedTarget = target, RootActionId = cardId, SkillId = card?.SkillId ?? (isUltimate ? owner.Definition.Id + ".ultimate" : null),
+                CardRank = card?.Rank ?? 0, UltimateTier = card?.UltimateTier ?? 0,
+                CardCategory = card == null ? CardCategory.Attack : CardRules.GetEffectCategory(card), IsUltimate = isUltimate,
+                ActionCritChanceBp = actionCritChanceBp,
+                WasCritical = target != null && resolution?.CriticalTargets.Contains(target.Id) == true,
+                WasBlocked = target != null && resolution?.BlockedTargets.Contains(target.Id) == true };
+        }
+
         private static bool EffectConditionsPass(BattleState state, FighterState owner, FighterState target,
             EffectDefinition effect, string rootActionId, bool isUltimate, CardCategory category = CardCategory.Attack,
             int cardRank = 0)
         {
-            if (effect?.Conditions == null || effect.Conditions.Count == 0) return true;
-            var context = new CardEffectContext
-            {
-                Battle = state,
-                EffectOwner = owner,
-                Actor = owner,
-                SelectedTarget = target,
-                RootActionId = rootActionId,
-                CardCategory = category,
-                CardRank = cardRank,
-                IsUltimate = isUltimate
-            };
-            for (var i = state.Events.Count - 1; i >= 0; i--)
-            {
-                var evt = state.Events[i];
-                if (evt.CardId != rootActionId) continue;
-                if (evt.Kind == BattleEventKind.CardPlayed || evt.Kind == BattleEventKind.CounterStarted) break;
-                if (evt.Kind == BattleEventKind.DamageApplied && evt.DamageOrigin == ElementalDamageOrigin.Card && evt.TargetId == target?.Id)
-                { context.WasCritical |= evt.WasCritical; context.WasBlocked |= evt.WasBlocked; }
-            }
-            return CardEffectSystem.ConditionsPass(effect.Conditions, context, target);
+            var context = CreateSequenceContext(state, owner, target, rootActionId, isUltimate, null);
+            context.CardCategory = category; context.CardRank = cardRank;
+            return CardEffectSystem.ConditionsPass(effect?.Conditions, context, target);
         }
+
+        private static List<FighterState> SequenceTargets(BattleState state, FighterState owner, FighterState target,
+            EffectDefinition effect, ActionResolutionContext resolution)
+        {
+            if (effect.Kind == EffectKind.Damage && target != null && target.IsAlive &&
+                (effect.Target == EffectTargetScope.SelectedEnemy || effect.Target == EffectTargetScope.OperationTarget))
+                return new List<FighterState> { target };
+            if (effect.Kind == EffectKind.Damage && effect.Target == EffectTargetScope.AllEnemies && resolution != null)
+                return state.OtherTeam(owner.Side).Fighters.FindAll(f => f.IsAlive && (f.Health > 0 || resolution.AttackTargets.Contains(f.Id)));
+            return ResolveUtilityTargets(state, owner, target, effect.Target);
+        }
+
+        private static DamageEffectRecipe SequenceDamage(EffectOperationDefinition effect) => effect.DamageRecipe ??
+            new DamageEffectRecipe { Family = effect.Family, Scaling = effect.Scaling, ScalingStat = effect.ScalingStat,
+                FixedAmount = effect.Magnitude, CoefficientBp = effect.CoefficientBp, Profile = effect.DamageProfile,
+                KeywordFactorBp = effect.KeywordFactorBp, AttackEffectId = effect.KeywordId };
 
         /// <summary>Resolves supported effect operations emitted by passive reactions against their authored targets.</summary>
         internal static void ExecutePassiveOperation(BattleState state, FighterState effectOwner,
@@ -1057,11 +1215,12 @@ namespace FightingAllstar.Core.Combat
             rootActionId = rootActionId ?? triggerContext.RootActionId;
             var isAdditionalDamageOnFinalHit = operation.Kind == CardEffectOperationKind.Damage &&
                 operation.Damage?.Family == DamageFamily.Additional && triggerContext.IsFinalHit;
-            if (operation.Window == CardEffectWindow.AfterAction && !isAdditionalDamageOnFinalHit &&
+            if (triggerContext.ExecutionVersion == 0 && operation.Window == CardEffectWindow.AfterAction && !isAdditionalDamageOnFinalHit &&
                 !string.IsNullOrEmpty(rootActionId))
             {
                 if (state.PendingPassiveEffects == null) state.PendingPassiveEffects = new List<PendingPassiveEffect>();
                 var pending = new PendingPassiveEffect {
+                    Provenance = triggerContext.Provenance?.Clone(),
                     EffectOwnerId = effectOwner.Id, ActorId = triggerContext.Actor?.Id,
                     SelectedTargetId = triggerContext.SelectedTarget?.Id, RootActionId = rootActionId,
                     CardCategory = triggerContext.CardCategory, CardRank = triggerContext.CardRank,
@@ -1091,12 +1250,13 @@ namespace FightingAllstar.Core.Combat
                 var index = state.PendingPassiveEffects.FindIndex(item => item != null && item.RootActionId == rootActionId);
                 if (index < 0) break;
                 if (++processed > 256)
-                    throw new InvalidOperationException("Deferred passive effect chain exceeds the deterministic event budget.");
+                    throw new PassiveExecutionException("Deferred passive effect chain exceeds the deterministic event budget.");
                 var pending = state.PendingPassiveEffects[index];
                 state.PendingPassiveEffects.RemoveAt(index);
                 var effectOwner = FindFighter(state, pending.EffectOwnerId);
                 if (effectOwner == null || !effectOwner.IsAlive || pending.Operation == null) continue;
                 var context = new CardEffectContext {
+                    Provenance = pending.Provenance?.Clone(),
                     Battle = state, EffectOwner = effectOwner, Actor = FindFighter(state, pending.ActorId) ?? effectOwner,
                     SelectedTarget = FindFighter(state, pending.SelectedTargetId) ?? effectOwner,
                     RootActionId = pending.RootActionId, CardCategory = pending.CardCategory,
@@ -1110,18 +1270,20 @@ namespace FightingAllstar.Core.Combat
         private static void ExecutePassiveOperationNow(BattleState state, FighterState effectOwner,
             CardEffectContext triggerContext, CardEffectOperationDefinition operation, string rootActionId)
         {
+            var eventStart = state.Events.Count;
             var recipe = new CardEffectRecipeDefinition { Id = "passive:" + operation.Id };
             recipe.Operations.Add(operation);
             List<ResolvedCardEffect> resolved;
+            var triggeringTarget = CardEffectSystem.EventTarget(triggerContext);
             if (operation.Kind == CardEffectOperationKind.Damage &&
-                operation.Target == EffectTargetScope.TriggerTarget && triggerContext.SelectedTarget != null)
+                operation.Target == EffectTargetScope.TriggerTarget && triggeringTarget != null)
             {
                 // A damage reaction follows the hit that triggered it. Keep that target even
                 // when the primary hit reduced HP to zero so uncapped follow-up damage resolves.
                 resolved = CardEffectSystem.ConditionsPass(operation.Conditions, triggerContext,
-                    triggerContext.SelectedTarget)
+                    triggeringTarget)
                     ? new List<ResolvedCardEffect> { new ResolvedCardEffect {
-                        Operation = operation.Clone(), Target = triggerContext.SelectedTarget } }
+                        Operation = operation.Clone(), Target = triggeringTarget } }
                     : new List<ResolvedCardEffect>();
             }
             else
@@ -1131,11 +1293,16 @@ namespace FightingAllstar.Core.Combat
             foreach (var item in resolved)
             {
                 var target = item.Target;
+                var pendingDefeat = triggerContext.EventFact?.Kind == PassiveEventKind.BeforeDefeat &&
+                    target?.Id == triggerContext.EventFact.TargetId;
                 if (target == null || !target.IsAlive && item.Operation.Kind != CardEffectOperationKind.Damage ||
-                    target.Health <= 0 && item.Operation.Kind != CardEffectOperationKind.Damage) continue;
+                    target.Health <= 0 && item.Operation.Kind != CardEffectOperationKind.Damage && !pendingDefeat) continue;
                 var effect = new EffectDefinition { Target = EffectTargetScope.Self };
                 switch (item.Operation.Kind)
                 {
+                    case CardEffectOperationKind.Summon:
+                        BattleEntitySystem.CreateOrReplace(state, effectOwner, item.Operation.Summon, rootActionId);
+                        continue;
                     case CardEffectOperationKind.TransferStats:
                         ApplyPassiveStatTransfer(state, effectOwner, target, item.Operation.StatTransfer, rootActionId);
                         continue;
@@ -1160,17 +1327,20 @@ namespace FightingAllstar.Core.Combat
                         effect.Kind = EffectKind.Cleanse;
                         break;
                     case CardEffectOperationKind.RemoveStatus:
-                        effect.Kind = item.Operation.RemovePolarity == StatusPolarity.Buff
-                            ? EffectKind.RemoveBuffs : EffectKind.RemoveDebuffs;
-                        break;
+                        EmitStatusRemoval(state, effectOwner, target, item.Operation.RemovePolarity,
+                            item.Operation.RemoveAll, rootActionId, item.Operation.RemoveRecipeId, false);
+                        continue;
                     case CardEffectOperationKind.Heal:
                         effect.Kind = EffectKind.Heal;
                         effect.HealValue = item.Operation.Value?.Clone();
                         break;
                     case CardEffectOperationKind.ChangePowerGauge:
-                        effect.Kind = EffectKind.ChangePowerGauge;
-                        effect.PowerGaugeAmount = item.Operation.Magnitude;
-                        break;
+                        // A passive operation is not a card-origin gauge change. Preserve the
+                        // origin boundary used by gauge-loss reactions and by legacy support.
+                        CharacterPassiveRuntime.ChangePowerGauge(state, effectOwner, target,
+                            item.Operation.Magnitude, rootActionId, cardOrigin: false,
+                            isUltimate: triggerContext.IsUltimate);
+                        continue;
                     case CardEffectOperationKind.ModifyCardRank:
                         effect.Kind = EffectKind.ModifyCardRank;
                         effect.Magnitude = item.Operation.Magnitude;
@@ -1178,9 +1348,10 @@ namespace FightingAllstar.Core.Combat
                     default:
                         continue;
                 }
-                ApplyCardUtilityEffectSingle(state, null, effectOwner, target, effect, rootActionId,
-                    isUltimate: triggerContext.IsUltimate);
+                ApplyCardUtilityEffectSingle(state, state.ActiveRandom, effectOwner, target, effect, rootActionId,
+                    isUltimate: triggerContext.IsUltimate, allowPendingDefeat: pendingDefeat, cardOrigin: false, actionContext: triggerContext);
             }
+            StampEffectEvents(state, eventStart, triggerContext.Provenance);
         }
 
         private static void ApplyPassiveStatTransfer(BattleState state, FighterState source,
@@ -1253,23 +1424,39 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static void ApplyPassiveDamageOperation(BattleState state, FighterState source,
-            FighterState target, DamageEffectRecipe recipe, string rootActionId, int hitIndex = 0, int hitCount = 0)
+            FighterState target, DamageEffectRecipe recipe, string rootActionId, int hitIndex = 0, int hitCount = 0,
+            bool finalizeDefeat = true, CardEffectContext origin = null, string effectId = null)
         {
             if (state == null || source == null || target == null || recipe == null ||
                 !source.IsAlive) return;
 
-            var calculation = AttackEffectSystem.Prepare(null, state, source, target, recipe.Family);
+            var calculation = AttackEffectSystem.Prepare(origin == null ? null : FindAttackEffect(recipe.AttackEffectId), state, source, target, recipe.Family);
             var attacker = calculation.Attacker;
             var defender = calculation.Defender;
             var packet = CardEffectSystem.CreateDamagePacket(recipe, calculation);
-            var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, -1, -1);
+            if (recipe.Family == DamageFamily.Additional && target.Statuses.Instances.Exists(s => s.Recipe?.AdditionalDamageImmunity == true))
+                packet.BaseAmount = 0;
+            var critRoll = origin != null && !packet.Policy.CannotCrit ? state.ActiveRandom.NextBasisPoints() : -1;
+            var critChance = Math.Max(0, Math.Min(10000, attacker.CritChanceBp - defender.CritResistanceBp));
+            var blockRoll = origin != null && !packet.Policy.CannotBlock && (critRoll < 0 || critRoll >= critChance)
+                ? state.ActiveRandom.NextBasisPoints() : -1;
+            var damage = DamageResolver.Resolve(packet, attacker, defender, target.Health, target.Shield, critRoll, blockRoll);
+            var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, source, target, damage, packet.Policy, rootActionId);
+            var damageStatusesBefore = target.Statuses.Instances.ConvertAll(s => s.Clone());
             var freezeBroken = StatusSystem.BreakFreezeOnAttack(target);
             if (!target.CannotDie) target.Health = damage.RemainingHealth;
             target.Shield = damage.RemainingShield;
             var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
             AddEvent(state, BattleEventKind.DamageApplied, source.Id, target.Id, rootActionId,
-                damage.CalculatedDamage, "Passive additional damage.");
+                damage.CalculatedDamage, origin == null ? "Passive additional damage." : "Skill follow-up damage.");
             var damageEvent = state.Events[state.Events.Count - 1];
+            if (origin != null)
+            {
+                damageEvent.EffectOrigin = EffectOrigin.Skill; damageEvent.EffectId = effectId;
+                damageEvent.GrantingAbilityId = origin.SkillId; damageEvent.GrantingRank = origin.CardRank;
+                damageEvent.GrantingTier = origin.UltimateTier;
+                damageEvent.WasCritical = damage.WasCritical; damageEvent.WasBlocked = damage.WasBlocked;
+            }
             if (hitIndex > 0 && hitCount > 0)
             {
                 damageEvent.HitIndex = hitIndex;
@@ -1278,12 +1465,17 @@ namespace FightingAllstar.Core.Combat
             damageEvent.HealthAfter = target.Health;
             damageEvent.ShieldAfter = target.Shield;
             damageEvent.ShieldLost = damage.ShieldLost;
+            damageEvent.FormulaDamage = damage.FormulaDamage;
+            damageEvent.ConstructAbsorbed = damage.ConstructAbsorbed;
             damageEvent.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
             if (barrierBroken || freezeBroken)
                 damageEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
             damageEvent.WasEndured = damage.WasEndured;
             damageEvent.Affinity = AttributeRules.GetAffinity(source.Definition?.AttributeId,
                 target.Definition?.AttributeId);
+            CharacterPassiveRuntime.RecordStatusRemovals(state, source, target, damageStatusesBefore,
+                StatusRemovalReason.Broken, rootActionId);
+            CombatPolicySystem.NotifyDamageCommitted(state, source, target, damage, policyReceipt, rootActionId);
             if (freezeBroken)
             {
                 var shatterContext = new ElementalActionContext();
@@ -1294,7 +1486,7 @@ namespace FightingAllstar.Core.Combat
             CharacterPassiveRuntime.NotifyDamageResolved(state, source, target, damage.CalculatedDamage,
                 rootActionId, cardOrigin: false, family: recipe.Family);
 
-            if (!target.CannotDie && target.Health <= 0 && target.IsAlive)
+            if (finalizeDefeat && !target.CannotDie && target.Health <= 0 && target.IsAlive)
             {
                 target.Health = 0;
                 target.IsAlive = false;
@@ -1346,7 +1538,7 @@ namespace FightingAllstar.Core.Combat
             return (int)BigInteger.Min(10000, BigInteger.Max(0, chance));
         }
 
-        private static void RemoveStances(BattleState state, FighterState owner, FighterState target, string cardId)
+        private static void RemoveStances(BattleState state, FighterState owner, FighterState target, string cardId, bool cardOrigin = true)
         {
             var statuses = new List<StatusInstance>(target.Statuses.Instances);
             foreach (var status in statuses)
@@ -1360,6 +1552,7 @@ namespace FightingAllstar.Core.Combat
             cancelled.HasHitReaction = true;
             cancelled.Reaction = HitReaction.KnockBack;
             cancelled.WasStanceCancelled = true;
+            CharacterPassiveRuntime.RecordStatusRemovals(state, owner, target, statuses, StatusRemovalReason.Dispelled, cardId, cardOrigin);
         }
 
         private static bool WasStanceCancelledThisAction(BattleState state, string cardId, string targetId)
@@ -1375,7 +1568,7 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static void EmitStatusRemoval(BattleState state, FighterState owner, FighterState target,
-            StatusPolarity polarity, bool removeAll, string cardId, string recipeId = null)
+            StatusPolarity polarity, bool removeAll, string cardId, string recipeId = null, bool cardOrigin = true)
         {
             var previous = new List<StatusInstance>(target.Statuses.Instances);
             var removed = StatusSystem.Remove(target, polarity, removeAll, recipeId);
@@ -1391,6 +1584,8 @@ namespace FightingAllstar.Core.Combat
                     statusEvent.ShieldAfter = target.Shield;
                     statusEvent.ShieldChanged = true;
                 }
+                CharacterPassiveRuntime.RecordStatusRemovals(state, owner, target, previous,
+                    polarity == StatusPolarity.Debuff ? StatusRemovalReason.Cleansed : StatusRemovalReason.Dispelled, cardId, cardOrigin);
             }
         }
 
@@ -1464,21 +1659,31 @@ namespace FightingAllstar.Core.Combat
                 var reflected = (int)Math.Min(int.MaxValue, entry.Value / 10000);
                 if (reflected <= 0) continue;
                 var shieldLost = Math.Min(Math.Max(0, source.Shield), reflected);
-                source.Shield -= shieldLost;
-                var barrierBroken = ConsumeBarrierShield(source, shieldLost);
                 var healthLost = source.CannotDie ? 0 : Math.Min(Math.Max(0, source.Health), reflected - shieldLost);
-                source.Health -= healthLost;
-                AddEvent(state, BattleEventKind.DamageApplied, reflector.Id, source.Id, rootActionId, reflected,
+                var damage = new DamageResult { CalculatedDamage = reflected, ShieldLost = shieldLost, HealthLost = healthLost,
+                    RemainingShield = source.Shield - shieldLost, RemainingHealth = source.Health - healthLost };
+                var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, reflector, source, damage,
+                    new DamagePolicy(), rootActionId);
+                source.Shield = damage.RemainingShield;
+                if (!source.CannotDie) source.Health = damage.RemainingHealth;
+                var damageStatusesBefore = source.Statuses.Instances.ConvertAll(s => s.Clone());
+                var barrierBroken = ConsumeBarrierShield(source, damage.ShieldLost);
+                AddEvent(state, BattleEventKind.DamageApplied, reflector.Id, source.Id, rootActionId, damage.CalculatedDamage,
                     "Reflected damage.");
                 var evt = state.Events[state.Events.Count - 1];
                 evt.DamageOrigin = ElementalDamageOrigin.Reflection;
                 evt.HealthAfter = source.Health;
                 evt.ShieldAfter = source.Shield;
-                evt.ShieldLost = shieldLost;
-                evt.HealthLost = healthLost;
+                evt.ShieldLost = damage.ShieldLost;
+                evt.FormulaDamage = damage.FormulaDamage;
+                evt.ConstructAbsorbed = damage.ConstructAbsorbed;
+                evt.HealthLost = source.CannotDie ? 0 : damage.HealthLost;
                 if (barrierBroken)
                     evt.StatusesAfter = source.Statuses.Instances.ConvertAll(s => s.Clone());
-                CharacterPassiveRuntime.NotifyDamageResolved(state, reflector, source, reflected, rootActionId);
+                CharacterPassiveRuntime.RecordStatusRemovals(state, reflector, source, damageStatusesBefore,
+                    StatusRemovalReason.Broken, rootActionId);
+                CombatPolicySystem.NotifyDamageCommitted(state, reflector, source, damage, policyReceipt, rootActionId);
+                CharacterPassiveRuntime.NotifyDamageResolved(state, reflector, source, damage.CalculatedDamage, rootActionId);
                 if (source.Health <= 0 && source.IsAlive && !source.CannotDie)
                 {
                     source.Health = 0;
@@ -1510,9 +1715,9 @@ namespace FightingAllstar.Core.Combat
         }
 
         private static bool TryApplyRecovery(BattleState state, FighterState source, FighterState target,
-            int requestedAmount, int maximumHealth, string cardId, string message)
+            int requestedAmount, int maximumHealth, string cardId, string message, bool allowPendingDefeat = false, bool cardOrigin = false)
         {
-            if (target == null || !target.IsAlive || target.Health <= 0 || requestedAmount < 0) return false;
+            if (target == null || !target.IsAlive || target.Health <= 0 && !allowPendingDefeat || requestedAmount < 0) return false;
             if (StatusSystem.IsRecoveryBlocked(target))
             {
                 AddEvent(state, BattleEventKind.RecoveryBlocked, source?.Id, target.Id, cardId, 0,
@@ -1520,9 +1725,11 @@ namespace FightingAllstar.Core.Combat
                 return false;
             }
 
+            var healthBeforeRecovery = target.Health;
             target.Health = (int)Math.Min(Math.Max(1, maximumHealth), (long)target.Health + requestedAmount);
             AddEvent(state, BattleEventKind.HealApplied, source?.Id, target.Id, cardId, requestedAmount, message);
             state.Events[state.Events.Count - 1].HealthAfter = target.Health;
+            CharacterPassiveRuntime.NotifyHealed(state, source, target, target.Health - healthBeforeRecovery, cardId, cardOrigin);
             return true;
         }
 
@@ -1548,6 +1755,8 @@ namespace FightingAllstar.Core.Combat
             {
                 item.Id = state.Events.Count + 1;
                 state.Events.Add(item);
+                if (item.Kind == BattleEventKind.ReserveEntered)
+                    CharacterPassiveRuntime.NotifyReserveEntered(state, FindFighter(state, item.SourceId));
             }
         }
 
@@ -1565,6 +1774,7 @@ namespace FightingAllstar.Core.Combat
                 var initialHealth = health != null && i < health.Count ? health[i] : definition.BaseStats.MaxHealth;
                 var frozen = definition.Clone();
                 var passiveErrors = PassiveRuleValidator.Validate(frozen.Passive);
+                passiveErrors.AddRange(AbilityVariantValidator.Validate(frozen));
                 if (passiveErrors.Count > 0) throw new ArgumentException(string.Join("; ", passiveErrors), nameof(characters));
                 team.Fighters.Add(new FighterState { Id = team.Side + ":" + i + ":" + definition.Id, Side = team.Side, Definition = frozen,
                     TeamIndex = i, FormationSlot = Math.Min(i, 2), IsReserve = i >= 3,
@@ -1682,6 +1892,8 @@ namespace FightingAllstar.Core.Combat
                 statusEvent.ShieldAfter = fighter.Shield;
                 statusEvent.ShieldChanged = true;
             }
+            if (expired.Count > 0)
+                CharacterPassiveRuntime.RecordStatusRemovals(state, FindFighter(state, source), fighter, expired, StatusRemovalReason.Expired);
         }
 
         private static void ApplyTurnStartRecovery(BattleState state, BattleTeamState team)
@@ -1742,6 +1954,7 @@ namespace FightingAllstar.Core.Combat
         private static void EndTurn(BattleState state, DeterministicRandom cardRng, DeterministicRandom rng)
         {
             state.Phase = BattlePhase.TurnEnd;
+            state.EntityTurnOccurrence++;
             var actingTeam = state.Team(state.ActingSide);
             AddEvent(state, BattleEventKind.StatusResolutionStarted, state.ActingSide.ToString(), null, null, 0, "Turn-end status resolution.");
             ApplyStatusTicks(state, actingTeam, StatusTickTiming.TargetTurnEnd);
@@ -1754,7 +1967,14 @@ namespace FightingAllstar.Core.Combat
                 AddEvent(state, BattleEventKind.StatusResolutionEnded, state.ActingSide.ToString(), null, null, 0, "Statuses settled.");
                 return;
             }
+            var entityJobs = BattleEntitySystem.CollectTurnEndJobs(state, state.ActingSide, state.EntityTurnOccurrence);
             CharacterPassiveRuntime.Notify(state, PassiveEventKind.TeamTurnEnded);
+            ResolveTurnEndEntities(state, entityJobs, rng);
+            if (state.Winner.HasValue || state.IsDraw)
+            {
+                AddEvent(state, BattleEventKind.StatusResolutionEnded, state.ActingSide.ToString(), null, null, 0, "Statuses settled.");
+                return;
+            }
             var naturalExpiryAttacks = new List<StatusInstance>();
             var previousMaxHealth = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (var fighter in actingTeam.Fighters)
@@ -1772,6 +1992,7 @@ namespace FightingAllstar.Core.Combat
                 foreach (var target in state.Opponent.Fighters)
                     AdvanceStatuses(state, target, StatusDurationClock.SourceTurnEnd, source.Id, previousMaxHealth, naturalExpiryAttacks);
             }
+            BattleEntitySystem.Reconcile(state);
             ResolveNaturalExpiryAttacks(state, naturalExpiryAttacks, rng);
             CheckOutcome(state);
             if (state.Winner.HasValue || state.IsDraw)
@@ -1789,6 +2010,7 @@ namespace FightingAllstar.Core.Combat
             {
                 state.Phase = BattlePhase.Complete;
                 state.IsDraw = true;
+                BattleEntitySystem.RemoveAll(state);
                 state.ActionBudget = 0;
                 AddEvent(state, BattleEventKind.BattleCompleted, null, null, null, 0, "Battle reached the 40-turn limit and ended in a draw.");
                 return;
@@ -1825,6 +2047,20 @@ namespace FightingAllstar.Core.Combat
                 if (target == null || !target.IsAlive || target.Statuses == null) continue;
                 var ticks = target.Statuses.CollectTicks(timing);
                 foreach (var tick in ticks) allTicks.Add((target, tick));
+                if (timing != StatusTickTiming.TargetTurnEnd || target.ElementStatuses?.ReactionStatuses == null) continue;
+                foreach (var status in target.ElementStatuses.ReactionStatuses)
+                {
+                    if (status == null || status.RemainingDuration <= 0 ||
+                        (status.Reaction != ElementalReactionId.ElectroCharged && status.Reaction != ElementalReactionId.Burning)) continue;
+                    var basis = status.Reaction == ElementalReactionId.Burning
+                        ? status.SourceAttackSnapshot : status.FixedDamageSnapshot;
+                    var amount = (int)Math.Min(int.MaxValue, (long)Math.Max(0, basis) * Math.Max(0, status.DamageCoefficientBp) / 10000);
+                    if (amount <= 0) continue;
+                    allTicks.Add((target, new StatusTick { StatusInstanceId = status.InstanceId,
+                        RecipeId = status.RecipeId, SourceFighterId = status.SourceFighterId,
+                        TargetFighterId = target.Id, Family = DamageFamily.ElementalReaction,
+                        Element = status.DamageElement, Amount = amount }));
+                }
             }
 
             var defeatedFromTicks = new List<(FighterState target, StatusTick tick)>();
@@ -1846,8 +2082,10 @@ namespace FightingAllstar.Core.Combat
                 if (tick.RecipeId == "status.reaction.charged") ElementalReactionRules.ApplyOwnReactionBonus(policy, source);
                 var damage = DamageResolver.Resolve(new DamagePacket { BaseAmount = tick.Amount, Policy = policy },
                     attacker, defender, target.Health, target.Shield, -1, -1);
+                var policyReceipt = CombatPolicySystem.PrepareIncomingDamage(state, source, target, damage, policy);
                 if (!target.CannotDie) target.Health = damage.RemainingHealth;
                 target.Shield = damage.RemainingShield;
+                var damageStatusesBefore = target.Statuses.Instances.ConvertAll(s => s.Clone());
                 var barrierBroken = ConsumeBarrierShield(target, damage.ShieldLost);
                 foreach (var status in target.Statuses.Instances)
                     if (status.Recipe?.RecoverDamageTakenBp > 0)
@@ -1862,6 +2100,8 @@ namespace FightingAllstar.Core.Combat
                 battleEvent.HealthAfter = target.Health;
                 battleEvent.ShieldAfter = target.Shield;
                 battleEvent.ShieldLost = damage.ShieldLost;
+                battleEvent.FormulaDamage = damage.FormulaDamage;
+                battleEvent.ConstructAbsorbed = damage.ConstructAbsorbed;
                 battleEvent.HealthLost = target.CannotDie ? 0 : damage.HealthLost;
                 if (tick.RecipeId == "status.reaction.charged" && source != null && target.Health > 0)
                     SpreadElectroCharged(state, source, target, new CardState { Id = "charged:" + tick.StatusInstanceId },
@@ -1870,16 +2110,23 @@ namespace FightingAllstar.Core.Combat
                 if (barrierBroken)
                     battleEvent.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
                 battleEvent.WasEndured = damage.WasEndured;
+                CharacterPassiveRuntime.RecordStatusRemovals(state, source, target, damageStatusesBefore,
+                    StatusRemovalReason.Broken);
+                CombatPolicySystem.NotifyDamageCommitted(state, source, target, damage, policyReceipt);
                 CharacterPassiveRuntime.NotifyDamageResolved(state, source, target, damage.CalculatedDamage,
                     family: tick.Family);
                 if (tick.ConsumeOnTrigger)
                 {
+                    var consumedStatusesBefore = target.Statuses.Instances.ConvertAll(s => s.Clone());
                     target.Statuses.RemoveInstance(tick.StatusInstanceId);
                     AddEvent(state, BattleEventKind.StatusRemoved, tick.SourceFighterId, target.Id, null, 1,
                         "Status expired: " + tick.RecipeId);
                     var removeEvt = state.Events[state.Events.Count - 1];
                     removeEvt.StatusInstanceId = tick.StatusInstanceId;
                     removeEvt.StatusRecipeId = tick.RecipeId;
+                    removeEvt.StatusesAfter = target.Statuses.Instances.ConvertAll(s => s.Clone());
+                    CharacterPassiveRuntime.RecordStatusRemovals(state, source, target, consumedStatusesBefore,
+                        StatusRemovalReason.Consumed);
                 }
                 if (target.Health <= 0 && !target.CannotDie && !defeatedFromTicks.Exists(d => d.target.Id == target.Id))
                     defeatedFromTicks.Add((target, tick));
@@ -1954,6 +2201,7 @@ namespace FightingAllstar.Core.Combat
             state.Phase = BattlePhase.Complete;
             if (!playerAlive && !opponentAlive) state.IsDraw = true;
             else state.Winner = playerAlive ? TeamSide.Player : TeamSide.Opponent;
+            BattleEntitySystem.RemoveAll(state);
             AddEvent(state, BattleEventKind.BattleCompleted, null, null, null, 0,
                 state.IsDraw ? "Battle ended in a draw." : "Battle completed.");
         }
@@ -1961,7 +2209,7 @@ namespace FightingAllstar.Core.Combat
         private static void AddEvent(BattleState state, BattleEventKind kind, string source, string target, string card, int amount, string message)
         {
             state.Events.Add(new BattleEvent { Id = state.Events.Count + 1, Kind = kind, SourceId = source,
-                TargetId = target, CardId = card, Amount = amount, Message = message });
+                TargetId = target, CardId = card, Amount = amount, Message = message, EntityOccurrence = state.EntityTurnOccurrence });
         }
     }
 }

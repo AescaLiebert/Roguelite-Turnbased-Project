@@ -28,7 +28,9 @@ namespace FightingAllstar.EditorTools
             try
             {
                 camera.targetTexture = world;
-                camera.Render();
+                if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline == null) camera.Render();
+                else UnityEngine.Rendering.RenderPipeline.SubmitRenderRequest(camera,
+                    new UnityEngine.Rendering.RenderPipeline.StandardRequest { destination = world });
                 RenderTexture.active = world;
                 pixels = new Texture2D(width, height, TextureFormat.RGBA32, false);
                 pixels.ReadPixels(new Rect(0, 0, width, height), 0, 0);

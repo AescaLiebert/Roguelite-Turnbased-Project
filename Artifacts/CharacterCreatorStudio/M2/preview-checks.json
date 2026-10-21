@@ -1,0 +1,7 @@
+[
+  "PASS ActorReplayCopiesCommittedFactsAndMissingClipsAreDeterministic",
+  "PASS ActorPlaybackWithoutDamageDoesNotInventAReactionOrHealthChange",
+  "PASS OpeningGaugeTargetDoesNotReplaceTheCommittedDamageTarget",
+  "PASS ActualTmpParsesApprovedMarkupAndUsesAnOwnedAtlas",
+  "PASS DefaultEditorFontRendersThaiAndProfileSwitchesPreserveSourceWithoutLeakingAtlases"
+]

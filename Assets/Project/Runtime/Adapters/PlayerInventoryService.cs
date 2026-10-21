@@ -387,6 +387,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Bootstrap()
     {
+        if (FightingAllstar.Presentation.Combat.BattleLabContext.IsReady) return;
         if (_instance != null) return;
         var root = new GameObject("PlayerInventoryService");
         root.AddComponent<PlayerInventoryService>();
@@ -776,6 +777,7 @@ public sealed class PlayerInventoryService : MonoBehaviour
 
     public void SaveCurrent()
     {
+        if (FightingAllstar.Presentation.Combat.BattleLabContext.IsReady) return;
         if (snapshot == null || string.IsNullOrWhiteSpace(_loadedSubjectId)) return;
         snapshot.subjectId = _loadedSubjectId;
         var path = GetPath(_loadedSubjectId);

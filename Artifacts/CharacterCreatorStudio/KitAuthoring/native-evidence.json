@@ -1,0 +1,25 @@
+{
+  "Success": true,
+  "Checks": [
+    "Normal character editing uses an in-memory buffer, not a draft asset.",
+    "Kit navigator exposes identity/stats, both skills, ultimate and passive.",
+    "Identity/stat widget changes the compiled native kit.",
+    "Rank navigation preserves independent rank effects.",
+    "Passive widgets edit effective imported modifier mirrors.",
+    "Dedicated passive wording is part of the native definition.",
+    "Save character writes all five native SOs through actual UI callbacks.",
+    "Direct save preserves the five native GUIDs.",
+    "A new editing session reconstructs saved kit data from native assets.",
+    "Embedded authoring metadata stores no duplicate character snapshots.",
+    "Save/reopen/save never duplicates embedded Studio rules.",
+    "Partial direct-save failure restores the original five files.",
+    "A failed save can be retried without stale native state.",
+    "Native save participates in Unity Undo.",
+    "Native save participates in Unity Redo.",
+    "Opening, authoring and saving creates no StudioDraft asset.",
+    "The original Joe96 assets remain unchanged by disposable verification.",
+    "Editor scene and Play Mode remain unchanged."
+  ],
+  "DraftAssetsCreated": 0,
+  "CapturedUtc": "2026-10-20T14:13:57.3699357Z"
+}

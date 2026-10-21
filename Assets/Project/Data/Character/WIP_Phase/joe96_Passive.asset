@@ -14,40 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
   statusVisuals: []
   definition:
+    Policies: []
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
     Id: fighter.joe96.passive.source
-    Auras:
-    - Id: blue-def
-      Gate:
-        MinimumTier: 0
-        MaximumTier: 5
-        Modes: -1
-        Presence: 0
-        AllowDefeatedOwner: 0
-      Targets:
-        Relation: 2
-        IncludeOwner: 1
-        IncludeReserve: 1
-        AttributeId: attribute.blue
-        TraitId: 
-        SeriesId: 
-      Scaling: 0
-      ScalingKey: 
-      ScalingRelation: 0
-      SourceStat: 0
-      MaximumUnits: 0
-      Modifiers:
-      - Target: 0
-        Stat: 0
-        Bundle: 0
-        Family: 0
-        Operation: 0
-        Amount: 6000
-        ScaleByStatusPotency: 0
-        PotencyCoefficientBp: 0
-        SerializedTarget: 0
-        SerializedStat: 1
-        SerializedBundle: 0
-        SerializedFamily: 0
-        SerializedOperation: 1
+    Auras: []
     Reactions: []
     Triggers: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Policies":[],"Support":null,"Id":"fighter.joe96.passive.source","Auras":[{"Id":"blue-def","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":-1,"Presence":0,"AllowDefeatedOwner":false},"Targets":{"Relation":2,"IncludeOwner":true,"IncludeReserve":true,"AttributeId":"attribute.blue","TraitId":"","SeriesId":""},"Scaling":0,"ScalingKey":"","ScalingRelation":0,"SourceStat":0,"MaximumUnits":0,"Modifiers":[{"Target":0,"Stat":1,"Bundle":0,"Family":0,"Operation":1,"Amount":6000,"ScaleByStatusPotency":false,"PotencyCoefficientBp":0,"SerializedTarget":0,"SerializedStat":-1,"SerializedBundle":0,"SerializedFamily":0,"SerializedOperation":-1,"ResolvedTarget":0,"ResolvedStat":1,"ResolvedBundle":0,"ResolvedFamily":0,"ResolvedOperation":1}]}],"Reactions":[],"Triggers":[]}'

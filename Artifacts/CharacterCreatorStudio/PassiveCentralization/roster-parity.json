@@ -1,0 +1,1881 @@
+{
+  "Success": true,
+  "ImportedReactions": 22,
+  "CompatibilityReactions": 6,
+  "Cases": 234,
+  "Failures": [],
+  "Rows": [
+    {
+      "Id": "fighter.scii-cassandra",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-cassandra",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-cassandra",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-cassandra",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-cassandra",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-cassandra",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.sciii-sophitia",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.sciii-sophitia",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.sciii-sophitia",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.sciii-sophitia",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.sciii-sophitia",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.sciii-sophitia",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-ivy",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-ivy",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-ivy",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-ivy",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-ivy",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-ivy",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-seong",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-seong",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-seong",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-seong",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-seong",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-seong",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-taki",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-taki",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-taki",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-taki",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-taki",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.scii-taki",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.andy94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.andy94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.andy94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.andy94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.andy94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.andy94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.athena94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.athena94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.athena94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.athena94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.athena94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.athena94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru99",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru99",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru99",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru99",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru99",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.benimaru99",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.brian94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.brian94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.brian94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.brian94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.brian94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.brian94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chang94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chang94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chang94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chang94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chang94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chang94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chin94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chin94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chin94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chin94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chin94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.chin94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.choi94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.choi94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.choi94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.choi94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.choi94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.choi94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.clark94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.clark94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.clark94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.clark94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.clark94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.clark94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.goro94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.goro94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.goro94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.goro94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.goro94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.goro94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.heavyd94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.heavyd94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.heavyd94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.heavyd94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.heavyd94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.heavyd94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.iori95",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.iori95",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.iori95",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.iori95",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.iori95",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.iori95",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe96",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe96",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe96",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe96",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe96",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.joe96",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kensou94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kensou94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kensou94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kensou94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kensou94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kensou94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.king94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.king94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.king94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.king94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.king94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.king94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo98",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo98",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo98",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo98",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo98",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kyo98",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.leona96",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.leona96",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.leona96",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.leona96",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.leona96",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.leona96",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lucky94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lucky94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lucky94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lucky94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lucky94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lucky94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai95",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai95",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai95",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai95",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai95",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.mai95",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ralf94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ralf94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ralf94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ralf94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ralf94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ralf94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.robert94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.robert94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.robert94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.robert94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.robert94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.robert94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ryo94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ryo94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ryo94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ryo94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ryo94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.ryo94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.shingo97",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.shingo97",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.shingo97",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.shingo97",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.shingo97",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.shingo97",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.terry96",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.terry96",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.terry96",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.terry96",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.terry96",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.terry96",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.amber",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.amber",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.amber",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.amber",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.amber",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.amber",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.barbara",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.barbara",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.barbara",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.barbara",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.barbara",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.barbara",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kaeya",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kaeya",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kaeya",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kaeya",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kaeya",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.kaeya",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lisa",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lisa",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lisa",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lisa",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lisa",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lisa",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lumine-anemo",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lumine-anemo",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lumine-anemo",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lumine-anemo",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lumine-anemo",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.lumine-anemo",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri94",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri94",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri94",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri94",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri98",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri98",
+      "Seed": 12345,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri98",
+      "Seed": 12345,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri98",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri98",
+      "Seed": 98765,
+      "Tier": 5,
+      "Rank": 3,
+      "Reserve": false,
+      "Parity": true
+    },
+    {
+      "Id": "fighter.yuri98",
+      "Seed": 98765,
+      "Tier": 0,
+      "Rank": 1,
+      "Reserve": true,
+      "Parity": true
+    }
+  ]
+}

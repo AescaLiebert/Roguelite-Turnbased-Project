@@ -32,6 +32,10 @@ namespace FightingAllstar.Core.Combat
                 OpponentHandSize = opponent.Hand == null ? 0 : opponent.Hand.Count
             };
 
+            if (state.Entities != null)
+                foreach (var entity in state.Entities)
+                    if (entity != null) view.Entities.Add(BuildEntity(state, entity));
+
             if (state.Events != null)
                 foreach (var battleEvent in state.Events)
                 {
@@ -73,10 +77,17 @@ namespace FightingAllstar.Core.Combat
                     foreach (var status in fighter.Statuses.Instances)
                         fighterView.Statuses.Add(new PublicStatusView { InstanceId = status.InstanceId, RecipeId = status.RecipeId,
                             Name = status.Recipe?.NameKey, Element = Content.ElementId.None.ToString(), EligibleFuel = false,
-                            StackCount = status.StackCount, RemainingDuration = status.RemainingDuration });
+                            StackCount = status.StackCount, RemainingDuration = status.RemainingDuration,
+                            LinkedEntityId = status.EntityInstanceId,
+                            Polarity = status.Recipe?.Polarity.ToString(), Color = status.Recipe?.Color.ToString(),
+                            IsRemovable = status.Recipe?.StructuralEntityMarker != true && status.Recipe?.Color != Content.StatusColor.Grey });
                     foreach (var aura in fighter.ElementStatuses.Instances)
                         fighterView.ElementStatuses.Add(new PublicElementStatusView { InstanceId = aura.InstanceId,
                             Element = aura.Element.ToString(), RemainingDuration = aura.RemainingDuration });
+                    foreach (var status in fighter.ElementStatuses.ReactionStatuses)
+                        fighterView.ElementalReactionStatuses.Add(new PublicElementalReactionStatusView {
+                            InstanceId = status.InstanceId, Reaction = status.Reaction.ToString(),
+                            RemainingDuration = status.RemainingDuration });
                     view.Fighters.Add(fighterView);
                 }
             if (includeHand && team.Hand != null)
@@ -105,16 +116,33 @@ namespace FightingAllstar.Core.Combat
             var privateCardDraw = battleEvent.Kind == BattleEventKind.CardDrawn && source != null && source.Side != recipientSide;
             return new BattleEventView
             {
+                Entity = battleEvent.Entity == null ? null : BuildEntity(state, battleEvent.Entity, battleEvent.EntityRemainingDuration),
+                EntityId = battleEvent.EntityId,
+                EntityOwnerFighterId = battleEvent.EntityOwnerFighterId,
+                EntityDefinitionId = battleEvent.EntityDefinitionId,
+                EntityRemovalCause = battleEvent.EntityRemovalCause.ToString(),
+                EntityOccurrence = battleEvent.EntityOccurrence,
+                EntityCapacityAfter = battleEvent.EntityCapacityAfter,
+                EntityMaximumCapacity = battleEvent.EntityMaximumCapacity,
+                EntityAbsorbedAmount = battleEvent.EntityAbsorbedAmount,
+                EntityRemainingDuration = battleEvent.EntityRemainingDuration,
                 DamageElement = battleEvent.DamageElement.ToString(),
                 TriggerElement = battleEvent.TriggerElement.ToString(),
                 ReactionOutputBlocked = battleEvent.ReactionOutputBlocked,
+                ElementalReactionStatusApplied = battleEvent.ElementalReactionStatusApplied,
+                ElementalReactionStatusAlreadyActive = battleEvent.ElementalReactionStatusAlreadyActive,
                 ElementalReaction = battleEvent.ElementalReaction.ToString(),
                 DamageOrigin = battleEvent.DamageOrigin.ToString(),
+                EffectOrigin = battleEvent.EffectOrigin.ToString(), EffectId = battleEvent.EffectId,
+                GrantingAbilityId = battleEvent.GrantingAbilityId, GrantingRank = battleEvent.GrantingRank, GrantingTier = battleEvent.GrantingTier,
                 ParentEventId = battleEvent.ParentEventId,
                 ConsumedStatusInstanceIds = battleEvent.ConsumedStatusInstanceIds == null ? new System.Collections.Generic.List<string>() :
                     new System.Collections.Generic.List<string>(battleEvent.ConsumedStatusInstanceIds),
                 ElementStatusesAfter = battleEvent.ElementStatusesAfter?.ConvertAll(aura => new PublicElementStatusView {
                     InstanceId = aura.InstanceId, Element = aura.Element.ToString(), RemainingDuration = aura.RemainingDuration }),
+                ElementalReactionStatusesAfter = battleEvent.ElementalReactionStatusesAfter?.ConvertAll(status =>
+                    new PublicElementalReactionStatusView { InstanceId = status.InstanceId,
+                        Reaction = status.Reaction.ToString(), RemainingDuration = status.RemainingDuration }),
                 EventId = battleEvent.Id,
                 HitIndex = battleEvent.HitIndex,
                 HitCount = battleEvent.HitCount,
@@ -130,6 +158,8 @@ namespace FightingAllstar.Core.Combat
                     new System.Collections.Generic.List<string>(battleEvent.TargetIds),
                 CardId = privateCardDraw ? null : battleEvent.CardId,
                 Amount = battleEvent.Amount,
+                FormulaDamage = battleEvent.FormulaDamage,
+                ConstructAbsorbed = battleEvent.ConstructAbsorbed,
                 HealthAfter = battleEvent.HealthAfter,
                 ShieldAfter = battleEvent.ShieldAfter,
                 ShieldLost = battleEvent.ShieldLost,
@@ -142,6 +172,20 @@ namespace FightingAllstar.Core.Combat
                 WasBlocked = battleEvent.WasBlocked,
                 WasEndured = battleEvent.WasEndured,
                 Message = battleEvent.Message
+            };
+        }
+
+        private static BattleEntityView BuildEntity(BattleState state, BattleEntityInstance entity, int? remainingDuration = null)
+        {
+            var owner = FindFighter(state, entity.OwnerFighterId);
+            var marker = owner?.Statuses?.Instances.Find(status => status.InstanceId == entity.MarkerStatusInstanceId);
+            return new BattleEntityView {
+                EntityId = entity.Id, DefinitionId = entity.Definition?.Id, OwnerFighterId = entity.OwnerFighterId,
+                MarkerStatusInstanceId = entity.MarkerStatusInstanceId, Name = entity.Definition?.NameKey,
+                Category = entity.Definition?.Category.ToString(), PresentationKey = entity.Definition?.PresentationKey,
+                Side = entity.Side.ToString(), SpawnOrder = entity.SpawnOrder,
+                RemainingDuration = remainingDuration ?? marker?.RemainingDuration ?? 0,
+                Capacity = entity.Capacity, MaximumCapacity = entity.MaximumCapacity
             };
         }
 

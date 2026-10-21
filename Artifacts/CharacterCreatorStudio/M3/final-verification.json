@@ -1,0 +1,34 @@
+{
+  "SchemaVersion": 1,
+  "CapturedUtc": "2026-10-20T04:49:58.7171338Z",
+  "SharedAssertions": {
+    "Core": 71,
+    "Description": 51,
+    "Variants": 19,
+    "QueriesAndPolicies": 80,
+    "RuntimeExecution": 56,
+    "StudioCompiler": 47,
+    "ImmutableEventContext": 9,
+    "Total": 333
+  },
+  "CombatRegressionAssertions": 873,
+  "UnityEditorChecks": 15,
+  "PreviewChecks": 5,
+  "UIRemovesLegacyRuleDependency": true,
+  "SavedScenarioReplayMatchesState": true,
+  "BuildWarnings": 0,
+  "BuildErrors": 0,
+  "UnityCSharpCompilerErrors": 0,
+  "CaseStudy": "Mian is a design case study only; no playable kit or roster entry implemented.",
+  "Evidence": {
+    "Core": "core-evidence.json",
+    "Editor": "editor-evidence.json",
+    "Previews": "preview-checks.json",
+    "DesignerWorkflow": "designer-workflow.json",
+    "UIRemovesLegacyRuleDependencyEvidence": "ui-workflow.json",
+    "RuleScreen": "studio-rule.png",
+    "ActionsScreen": "studio-actions.png",
+    "ScenarioScreen": "studio-scenario.png",
+    "DescriptionScreen": "studio-description.png"
+  }
+}

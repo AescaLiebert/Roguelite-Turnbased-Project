@@ -274,16 +274,20 @@ namespace FightingAllstar.Presentation.Route
             if (d != null)
             {
                 var passive = new Foldout { text = "PASSIVE", value = false }; scroll.Add(passive);
-                passive.Add(new Label(Combat.PassiveDescriptionText.Format(d.PassiveSource?.Description, d.Passive)));
+                passive.Add(new Label(Combat.PassiveDescriptionText.Format(d.PassiveSource?.Description, d.Passive, d.PassiveSource?.Wording, fighter.ConstellationTier)));
                 foreach (var skill in d.Skills)
                 {
                     var skillInfo = new Foldout { text = "SKILL " + skill.Slot, value = false }; scroll.Add(skillInfo);
-                    foreach (var rank in skill.Ranks) skillInfo.Add(new Label("R" + rank.Rank + " · " + rank.Category + "\n" +
-                        Combat.CardDescriptionText.Format(rank.Description ?? rank.SourceDescription, rank.Effect)));
+                    foreach (var rank in skill.Ranks)
+                    {
+                        var effect = CardRules.TryGetSkill(d, skill.Id, rank.Rank, out var sharedEffect) ? sharedEffect : rank.Effect;
+                        skillInfo.Add(new Label("R" + rank.Rank + " · " + rank.Category + "\n" +
+                            Combat.CardDescriptionText.Format(rank.Description ?? rank.SourceDescription, effect, rank.Wording)));
+                    }
                 }
                 var ultimate = d.UltimateTiers.Find(t => t.Tier == fighter.ConstellationTier);
                 var ultimateInfo = new Foldout { text = "ULTIMATE · C" + fighter.ConstellationTier, value = false }; scroll.Add(ultimateInfo);
-                ultimateInfo.Add(new Label(Combat.CardDescriptionText.Format(ultimate?.Description ?? ultimate?.SourceDescription, ultimate?.Effect)));
+                ultimateInfo.Add(new Label(Combat.CardDescriptionText.Format(ultimate?.Description ?? ultimate?.SourceDescription, ultimate?.Effect, ultimate?.Wording, fighter.ConstellationTier)));
             }
             root.Add(overlay); ScreenMotion.ShowModal(overlay, dialog);
             overlay.RegisterCallback<ClickEvent>(evt => { evt.StopPropagation(); if (evt.target == overlay) close(); });

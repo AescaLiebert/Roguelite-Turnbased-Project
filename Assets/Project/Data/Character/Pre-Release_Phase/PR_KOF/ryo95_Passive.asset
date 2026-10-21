@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dff930a7384ce2a32f7c75b849d0c4, type: 3}
+  m_Name: ryo95_Passive
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveDefinitionSO
+  statusVisuals: []
+  definition:
+    Policies: []
+    Support:
+      Presence: 1
+      ExplosionMultiplierBp: 10000
+      SwirlStrengthBp: 0
+      SwirlPresence: 2
+      OpeningTeamGauge: 0
+      DamageHealLowestAllyBp: 0
+      BonusAgainstRecipeId: 
+      BonusCritChanceBp: 0
+      BonusDamageBp: 0
+      AttackerGaugeAgainstRecipeId: 
+      AttackerGaugeGainBp: 0
+      AfterAttackStatusRecipeId: 
+      RequiresElementalTeam: 0
+      AttackCadence: 0
+      CadenceDamageBp: 0
+      CadenceDotBp: 0
+    Id: fighter.pre-release.ryo95.passive
+    Auras: []
+    Reactions: []
+    Triggers: []
+  studioSchema: 1
+  studioDefinitionJson: '{"Policies":[],"Support":null,"Id":"fighter.pre-release.ryo95.passive","Auras":[{"Id":"fighter.pre-release.ryo95.passive.reflection-resistance","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":1,"AllowDefeatedOwner":false},"Targets":{"Relation":1,"IncludeOwner":true,"IncludeReserve":true,"AttributeId":null,"TraitId":null,"SeriesId":null},"Scaling":2,"ScalingKey":"reflection-count","ScalingRelation":0,"SourceStat":0,"MaximumUnits":5,"Modifiers":[{"Target":0,"Stat":5,"Bundle":0,"Family":0,"Operation":2,"Amount":1200,"ScaleByStatusPotency":false,"PotencyCoefficientBp":10000,"SerializedTarget":-1,"SerializedStat":-1,"SerializedBundle":-1,"SerializedFamily":-1,"SerializedOperation":-1,"ResolvedTarget":0,"ResolvedStat":5,"ResolvedBundle":0,"ResolvedFamily":0,"ResolvedOperation":2}]}],"Reactions":[{"ExecutionVersion":0,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":"fighter.pre-release.ryo95.reflection-counter","Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":7,"DamageTiming":0,"OwnTeamTurnOnly":false,"ActorRelation":1,"TargetRelation":3,"CardOriginOnly":true,"ExcludeUltimate":true,"RequireGaugeLoss":false,"RequireCritical":false,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"DamageFamily":0,"FilterCategory":true,"Category":0,"MinimumRank":0,"LimitScope":0,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[{"Kind":1,"RecipeId":null,"Tag":"status.ryo.reflect","StringValue":null,"Threshold":0,"Negate":false,"Logic":0,"Subject":0,"RosterFilter":null,"InitialRoster":false,"Children":[]}],"Commands":[{"Kind":0,"CounterKey":"reflection-count","CounterCap":5,"ValueSource":0,"ValueBinding":null,"EffectBinding":0,"Amount":1,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":null,"SkillId":null,"VariantId":null,"VariantUnlocked":false}],"ElseCommands":[],"Actions":[]}],"Triggers":[]}'

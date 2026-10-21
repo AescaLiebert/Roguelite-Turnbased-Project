@@ -9,14 +9,17 @@ namespace FightingAllstar.Core.Content
     public enum PassiveRelation { Any, Self, Allies, Enemies }
     public enum PassiveScaling { Constant, FieldStatusStacks, OwnerCounter, OwnerStat }
     public enum PassiveEventKind { BattleStarted, TeamTurnStarted, TeamTurnEnded, GaugeChanged,
-        BeforeAction, BeforeDamage, DamageResolved, AfterAction, FighterDefeated, StatusApplied, StatusRemoved, Healed, ReserveEntered }
+        BeforeAction, BeforeDamage, DamageResolved, AfterAction, FighterDefeated, StatusApplied, StatusRemoved, Healed, ReserveEntered,
+        ResourceChanged, BeforeDefeat, DamageCapReached }
     public enum PassiveCommandKind
     {
         IncrementCounter, ChangePowerGauge, ExecuteEffect, SetCounter,
         IncreaseCurrentAttackPercent, IncreaseCurrentDamageDealtPercent,
-        IgnoreCurrentTargetCritDefensePercent, IncreaseCurrentDamageDealtByBaseStatPercent
+        IgnoreCurrentTargetCritDefensePercent, IncreaseCurrentDamageDealtByBaseStatPercent, SetAbilityVariant,
+        IncreaseCurrentCritChancePercent
     }
-    public enum PassiveValueSource { Fixed, ActualGaugeLost }
+    public enum PassiveValueSource { Fixed, ActualGaugeLost, RemovedStatusLayers, EventDamage, EventHealing, Binding, OwnerMissingHealthPercent }
+    public enum PassiveEffectBindingField { None, Magnitude, DamageCoefficientBp, DamageFixedAmount, HealFixedAmount, HealCoefficientBp }
     public enum PassiveLimitScope { None, Battle, OwnerTurn, RootAction, RootActionTarget, Event }
     public enum PassiveDamageTiming { EachHit, FinalHit }
 
@@ -74,10 +77,15 @@ namespace FightingAllstar.Core.Content
         public string CounterKey;
         public int CounterCap = int.MaxValue;
         public PassiveValueSource ValueSource;
+        public string ValueBinding;
+        public PassiveEffectBindingField EffectBinding;
         public int Amount = 1;
         public StatId ScalingStat;
         public int ScalingCoefficientBp = 10000;
         public CardEffectOperationDefinition Effect;
+        public string SkillId;
+        public string VariantId;
+        public bool VariantUnlocked;
         public PassiveCommandDefinition Clone()
         {
             var copy = (PassiveCommandDefinition)MemberwiseClone();
@@ -87,7 +95,7 @@ namespace FightingAllstar.Core.Content
     }
 
     [Serializable]
-    public sealed class PassiveReactionDefinition
+    public sealed partial class PassiveReactionDefinition
     {
         public string Id;
         public PassiveGate Gate = new PassiveGate();
@@ -103,6 +111,7 @@ namespace FightingAllstar.Core.Content
         public bool RequireBlocked;
         public bool AllowReactionOrigin;
         public bool FilterDamageFamily;
+        public ElementId RequiredDamageElement;
         public DamageFamily DamageFamily;
         public bool FilterCategory;
         public CardCategory Category;
@@ -122,6 +131,7 @@ namespace FightingAllstar.Core.Content
             if (ElseCommands != null) foreach (var command in ElseCommands) copy.ElseCommands.Add(command?.Clone());
             copy.Conditions = new List<EffectConditionDefinition>();
             if (Conditions != null) foreach (var condition in Conditions) copy.Conditions.Add(condition?.Clone());
+            copy.Actions = Actions?.ConvertAll(a => a?.Clone()) ?? new List<PassiveActionDefinition>();
             return copy;
         }
     }
@@ -149,16 +159,46 @@ namespace FightingAllstar.Core.Content
             {
                 if (rule == null) { errors.Add("Null passive reaction."); continue; }
                 ValidateRule(rule.Id, rule.Gate, ids, errors);
+                if (!Enum.IsDefined(typeof(ElementId), rule.RequiredDamageElement) ||
+                    rule.RequiredDamageElement != ElementId.None && rule.Trigger != PassiveEventKind.DamageResolved)
+                    errors.Add(rule.Id + ": element filters require a damage-resolved trigger.");
                 if (!Enum.IsDefined(typeof(PassiveEventKind), rule.Trigger) ||
                     !Enum.IsDefined(typeof(PassiveDamageTiming), rule.DamageTiming) ||
                     !Enum.IsDefined(typeof(PassiveRelation), rule.ActorRelation) ||
                     !Enum.IsDefined(typeof(PassiveRelation), rule.TargetRelation)) errors.Add(rule.Id + ": invalid trigger/filter.");
                 if ((rule.Commands == null || rule.Commands.Count == 0) &&
-                    (rule.ElseCommands == null || rule.ElseCommands.Count == 0)) errors.Add(rule.Id + ": commands required.");
+                    (rule.ElseCommands == null || rule.ElseCommands.Count == 0) &&
+                    (rule.Actions == null || rule.Actions.Count == 0)) errors.Add(rule.Id + ": commands or composed actions required.");
+                if (rule.ExecutionVersion < 0 || rule.ExecutionVersion > 1)
+                    errors.Add(rule.Id + ": unsupported execution version.");
+                if (rule.Actions?.Count > 0 && rule.ExecutionVersion != 1)
+                    errors.Add(rule.Id + ": action composition requires execution version one.");
+                if (rule.ExecutionVersion == 1)
+                {
+                    if (!Enum.IsDefined(typeof(PassiveExecutionPhase), rule.Phase) ||
+                        !Enum.IsDefined(typeof(PassiveLimitScope), rule.LimitScope) ||
+                        rule.LimitScope != PassiveLimitScope.None && rule.MaximumActivations < 1 ||
+                        rule.CooldownOwnerTurns < 0)
+                        errors.Add(rule.Id + ": invalid execution phase, activation limit, or cooldown.");
+                    if (rule.FilterRemovalReason && (rule.Trigger != PassiveEventKind.StatusRemoved ||
+                        !Enum.IsDefined(typeof(StatusRemovalReason), rule.RemovalReason)))
+                        errors.Add(rule.Id + ": removal reason requires a status-removal trigger.");
+                    if (!string.IsNullOrEmpty(rule.EventResourceKey) && rule.Trigger != PassiveEventKind.ResourceChanged)
+                        errors.Add(rule.Id + ": resource filter requires a resource-change trigger.");
+                    if (!string.IsNullOrEmpty(rule.EventStatusRecipeId) && rule.Trigger != PassiveEventKind.StatusApplied &&
+                        rule.Trigger != PassiveEventKind.StatusRemoved)
+                        errors.Add(rule.Id + ": status filter requires a status lifecycle trigger.");
+                    if (rule.Trigger == PassiveEventKind.BeforeDamage && rule.Actions?.Count > 0)
+                        errors.Add(rule.Id + ": BeforeDamage accepts synchronous fixed local modifiers, not composed side effects.");
+                    if (rule.Trigger == PassiveEventKind.BeforeDamage && (rule.RequireCritical || rule.RequireBlocked || rule.ElseCommands?.Count > 0))
+                        errors.Add(rule.Id + ": BeforeDamage cannot inspect unresolved critical/block outcomes or execute an else program.");
+                }
                 if (rule.Commands != null)
                     foreach (var command in rule.Commands) ValidateCommand(rule, command, counters, errors);
                 if (rule.ElseCommands != null)
                     foreach (var command in rule.ElseCommands) ValidateCommand(rule, command, counters, errors);
+                var actionCount = 0;
+                ValidateActions(rule, rule.Actions, counters, errors, new HashSet<PassiveActionDefinition>(), 0, ref actionCount);
             }
             if (passive.Auras != null) foreach (var rule in passive.Auras)
             {
@@ -206,16 +246,45 @@ namespace FightingAllstar.Core.Content
             HashSet<string> counters, List<string> errors)
         {
             if (command == null || !Enum.IsDefined(typeof(PassiveCommandKind), command.Kind) ||
-                !Enum.IsDefined(typeof(PassiveValueSource), command.ValueSource) || command.Amount < 0)
+                !Enum.IsDefined(typeof(PassiveValueSource), command.ValueSource) || command.Amount < 0 ||
+                !Enum.IsDefined(typeof(PassiveEffectBindingField), command.EffectBinding))
             { errors.Add(rule.Id + ": invalid command."); return; }
+            if (rule.ExecutionVersion == 1 && command.ScalingCoefficientBp < 0)
+                errors.Add(rule.Id + ": computed value scale cannot be negative.");
+            if (command.ValueSource == PassiveValueSource.Binding &&
+                (rule.ExecutionVersion != 1 || string.IsNullOrWhiteSpace(command.ValueBinding)))
+                errors.Add(rule.Id + ": a typed value source requires execution version one and a binding key.");
+            if (command.EffectBinding != PassiveEffectBindingField.None &&
+                (rule.ExecutionVersion != 1 || command.Kind != PassiveCommandKind.ExecuteEffect))
+                errors.Add(rule.Id + ": computed effect fields require a version-one effect command.");
+            if ((command.EffectBinding == PassiveEffectBindingField.DamageCoefficientBp ||
+                command.EffectBinding == PassiveEffectBindingField.DamageFixedAmount) &&
+                (command.Effect?.Kind != CardEffectOperationKind.Damage || command.Effect.Damage == null))
+                errors.Add(rule.Id + ": damage value binding requires a damage recipe.");
+            if ((command.EffectBinding == PassiveEffectBindingField.HealCoefficientBp ||
+                command.EffectBinding == PassiveEffectBindingField.HealFixedAmount) && command.Effect?.Kind != CardEffectOperationKind.Heal)
+                errors.Add(rule.Id + ": healing value binding requires a heal operation.");
+            if (rule.ExecutionVersion == 1 && rule.Trigger == PassiveEventKind.BeforeDamage &&
+                command.Kind != PassiveCommandKind.IncreaseCurrentAttackPercent &&
+                command.Kind != PassiveCommandKind.IncreaseCurrentDamageDealtPercent &&
+                command.Kind != PassiveCommandKind.IgnoreCurrentTargetCritDefensePercent &&
+                command.Kind != PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent && command.Kind != PassiveCommandKind.IncreaseCurrentCritChancePercent)
+                errors.Add(rule.Id + ": BeforeDamage command cannot mutate authoritative state while calculating a hit.");
             if (command.ValueSource == PassiveValueSource.ActualGaugeLost &&
                 (rule.Trigger != PassiveEventKind.GaugeChanged || !rule.RequireGaugeLoss))
                 errors.Add(rule.Id + ": gauge-loss values require a gauge-loss trigger.");
+            var critChanceFromMissingHealth = command.Kind == PassiveCommandKind.IncreaseCurrentCritChancePercent &&
+                command.ValueSource == PassiveValueSource.OwnerMissingHealthPercent;
+            if (command.ValueSource == PassiveValueSource.OwnerMissingHealthPercent &&
+                (!critChanceFromMissingHealth || rule.Trigger != PassiveEventKind.BeforeDamage ||
+                 rule.ActorRelation != PassiveRelation.Self || command.Amount > 10000))
+                errors.Add(rule.Id + ": owner missing-health values require a self-owned Before Damage crit chance bonus capped at 100%.");
             if ((command.Kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
                  command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent ||
                  command.Kind == PassiveCommandKind.IgnoreCurrentTargetCritDefensePercent ||
-                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent) &&
-                (rule.Trigger != PassiveEventKind.BeforeDamage || command.ValueSource != PassiveValueSource.Fixed))
+                 command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent || command.Kind == PassiveCommandKind.IncreaseCurrentCritChancePercent) &&
+                (rule.Trigger != PassiveEventKind.BeforeDamage ||
+                 command.ValueSource != PassiveValueSource.Fixed && !critChanceFromMissingHealth))
                 errors.Add(rule.Id + ": current damage modifiers require a fixed-value Before Damage reaction.");
             if (command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent &&
                 !Enum.IsDefined(typeof(StatId), command.ScalingStat))
@@ -227,6 +296,16 @@ namespace FightingAllstar.Core.Content
                 errors.Add(rule.Id + ": crit-defense ignore cannot exceed 100%.");
             if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect == null)
                 errors.Add(rule.Id + ": effect command requires an operation.");
+            if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect?.Kind == CardEffectOperationKind.Summon)
+            {
+                if (command.Effect.Summon == null) errors.Add(rule.Id + ": Summon requires an entity definition.");
+                else errors.AddRange(command.Effect.Summon.Validate());
+                if (command.Effect.Target != EffectTargetScope.Self)
+                    errors.Add(rule.Id + ": Summon must target its effect owner.");
+            }
+            if (command.Kind == PassiveCommandKind.SetAbilityVariant &&
+                (string.IsNullOrWhiteSpace(command.SkillId) || string.IsNullOrWhiteSpace(command.VariantId)))
+                errors.Add(rule.Id + ": variant command requires stable skill and variant ids.");
             if (command.Kind == PassiveCommandKind.ExecuteEffect && command.Effect?.Kind == CardEffectOperationKind.TransferStats)
                 foreach (var error in EffectRecipeValidator.ValidateStatTransfer(command.Effect.StatTransfer))
                     errors.Add(rule.Id + ": " + error);
@@ -235,6 +314,49 @@ namespace FightingAllstar.Core.Content
                 if (string.IsNullOrWhiteSpace(command.CounterKey) || command.CounterCap <= 0)
                     errors.Add(rule.Id + ": invalid counter key/cap.");
                 else counters.Add(command.CounterKey);
+            }
+        }
+
+        private static void ValidateActions(PassiveReactionDefinition rule, List<PassiveActionDefinition> actions,
+            HashSet<string> counters, List<string> errors, HashSet<PassiveActionDefinition> path,
+            int depth, ref int count)
+        {
+            if (actions == null) return;
+            if (depth > 64) { errors.Add(rule.Id + ": composed action depth exceeds 64."); return; }
+            foreach (var action in actions)
+            {
+                if (++count > 4096) { errors.Add(rule.Id + ": composed action expansion exceeds 4096."); return; }
+                if (action == null || string.IsNullOrWhiteSpace(action.Id) || !Enum.IsDefined(typeof(PassiveActionKind), action.Kind))
+                { errors.Add(rule.Id + ": composed action requires an id and supported kind."); continue; }
+                if (!path.Add(action)) { errors.Add(rule.Id + ": composed action cycle at " + action.Id); continue; }
+                if (action.Kind == PassiveActionKind.ForEachTarget && (action.MaximumTargets < 1 || action.MaximumTargets > 32))
+                    errors.Add(rule.Id + "/" + action.Id + ": target loop bound must be between 1 and 32.");
+                var query = action.Query;
+                if (query != null && (!Enum.IsDefined(typeof(EffectTargetScope), query.BaseScope) ||
+                    !Enum.IsDefined(typeof(TargetQuerySort), query.Sort) || query.Limit < 0 || query.Limit > 32 ||
+                    query.SampleCount < 0 || query.SampleCount > 32 || query.Filter != null &&
+                    !Enum.IsDefined(typeof(PassiveRelation), query.Filter.Relation)))
+                    errors.Add(rule.Id + "/" + action.Id + ": invalid bounded target query.");
+                if ((action.Kind == PassiveActionKind.SpendResource || action.Kind == PassiveActionKind.TransferResource) &&
+                    (string.IsNullOrWhiteSpace(action.ResourceKey) || action.Amount < 1 || action.ResourceCap < 0))
+                    errors.Add(rule.Id + "/" + action.Id + ": resource operation requires key, positive amount, and nonnegative cap.");
+                if (action.Kind == PassiveActionKind.ConsumeStatusLayers &&
+                    (string.IsNullOrWhiteSpace(action.StatusRecipeId) || action.Amount < 1 ||
+                    !Enum.IsDefined(typeof(StatusRemovalReason), action.RemovalReason)))
+                    errors.Add(rule.Id + "/" + action.Id + ": layer consumption requires recipe, positive amount, and removal reason.");
+                if (action.Kind == PassiveActionKind.Command)
+                    foreach (var command in action.Commands ?? new List<PassiveCommandDefinition>())
+                    {
+                        ValidateCommand(rule, command, counters, errors);
+                        if (command != null && (command.Kind == PassiveCommandKind.IncreaseCurrentAttackPercent ||
+                            command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtPercent ||
+                            command.Kind == PassiveCommandKind.IgnoreCurrentTargetCritDefensePercent ||
+                            command.Kind == PassiveCommandKind.IncreaseCurrentDamageDealtByBaseStatPercent || command.Kind == PassiveCommandKind.IncreaseCurrentCritChancePercent))
+                            errors.Add(rule.Id + "/" + action.Id + ": local hit modifiers belong to synchronous BeforeDamage commands.");
+                    }
+                ValidateActions(rule, action.Children, counters, errors, path, depth + 1, ref count);
+                ValidateActions(rule, action.ElseChildren, counters, errors, path, depth + 1, ref count);
+                path.Remove(action);
             }
         }
 

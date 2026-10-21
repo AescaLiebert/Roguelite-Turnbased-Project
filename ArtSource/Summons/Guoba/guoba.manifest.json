@@ -1,0 +1,55 @@
+{
+  "entity": "Guoba",
+  "source": "Blender 5.1",
+  "fps": 30,
+  "units": "meters",
+  "clips": {
+    "Spawn": 0.8,
+    "Idle": 2.0,
+    "Attack": 1.25,
+    "Despawn": 0.65
+  },
+  "markers": {
+    "Reveal": 0.28,
+    "Emit": 0.48,
+    "Impact": 0.1
+  },
+  "sockets": {
+    "Emit": [
+      0,
+      -0.49,
+      1.08
+    ],
+    "Center": [
+      0,
+      0,
+      0.9
+    ],
+    "Placement": [
+      0,
+      0,
+      0
+    ]
+  },
+  "bones": 8,
+  "vertices": 5554,
+  "triangles": 11044,
+  "boundsMin": [
+    -0.5812914371490479,
+    -0.5399999618530273,
+    0.004999995231628418
+  ],
+  "boundsMax": [
+    0.6213892698287964,
+    0.4799998998641968,
+    1.8149999380111694
+  ],
+  "fbxSha256": "7d6358a843099b2079648f5a0638b0c605f2d76e6adabe3fa1e27ac96b0540ff",
+  "atlasSize": 1024,
+  "maskChannels": {
+    "R": "emission",
+    "G": "opacity"
+  },
+  "budgetPolicy": "Starting values. Compare simultaneous set against scene without entities; reduce hidden geometry/passes/atlas if frame cost fails; enlarge visible markings if unreadable.",
+  "backside": "Artist interpretation; no reference background or watermark in textures."
+}

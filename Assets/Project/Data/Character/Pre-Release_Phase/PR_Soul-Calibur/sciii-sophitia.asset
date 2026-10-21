@@ -21,15 +21,42 @@ MonoBehaviour:
   - trait.women
   - trait.soul-calibur
   passiveSourceDescription: 'Increases all Blue allies'' Basic Stats by 12%. When
-    the hero''s attack does not critically hit, increases damage dealt based on the
+    the hero''s Attack does not critically hit, increases Damage Dealt based on the
     hero''s Crit Chance.
 
 
     [Soul Calibur: increases the hero''s Max HP and Crit
-    Defense by 10%. When attacking, increases the hero''s Attack by 12%.]'
+    Defense by 10%. When attacking, increases the hero''s Attack by 12%.].'
   passiveSourceType: 2
   passiveRestriction: 1
   passiveDefinition: {fileID: 11400000, guid: c7e3e0ef983e8794dad5e1614a803380, type: 2}
+  studioSchema: 1
+  studioMetadataJson: '{"CategoryId":2306,"SchemaVersion":1,"RuntimeReady":true,"Id":"fighter.sciii-sophitia","SourceId":"fighter.sciii-sophitia","SourceRecord":0,"DisplayName":"[Soul
+    Calibur II] Sophitia","FamilyId":"family.sophitia","Role":"Defender","SeriesId":"series.sc","AttributeId":"attribute.blue","RarityId":"rarity.ssr","TraitIds":["trait.women","trait.soul-calibur"],"BaseStats":{"Attack":380,"Defense":330,"MaxHealth":7300,"CombatClass":3805,"HasDerivedCombatClass":false,"CombatClassReferenceValue":0,"CombatClassFlatBonus":0,"CombatClassReferenceScore":0,"CombatClassGrowthScore":0,"PierceBp":1500,"ResistanceBp":500,"RegenerationBp":1000,"CritChanceBp":4000,"CritDamageBp":13000,"CritResistanceBp":4000,"CritDefenseBp":3000,"RecoveryBp":11000,"BlockChanceBp":2000,"BlockPowerBp":2500,"LifeStealBp":800,"EvadeBp":0,"PerceptionBp":10000,"ControlBp":10000,"AvoidanceBp":10000,"ReflectDamageBp":0,"DamageOverTimeDealtBp":0,"DamageDealtBp":0,"AdditionalDamageDealtBp":0,"ElementalModifiers":[]},"StatGrowth":{"AttackBp":1935,"DefenseBp":2035,"HealthBp":2135,"CombatClassBp":0},"ArtifactLoadout":[],"Skills":[],"PassiveId":"fighter.sciii-sophitia.passive.source","PassiveSource":{"SourceType":"SUB","Description":"Increases
+    all Blue allies'' Basic Stats by 12%. When the hero''s Attack does not critically
+    hit, increases Damage Dealt based on the hero''s Crit Chance.\n\n[Soul Calibur:
+    increases the hero''s Max HP and Crit Defense by 10%. When attacking, increases
+    the hero''s Attack by 12%.].","Restriction":"All","Provenance":"CharacterObject","Wording":{"Text":"Increases
+    <color=#60A5FA><b>Blue Attribute</b></color> allies''s Basic Stats by <color=#fbbf24><b>12%</b></color>\n\nWhen
+    the hero''s Attack does not critically hit, Increases <color=#60a5fa><b>Damage
+    Dealt</b></color> based on <color=#60A5FA><b>half</b></color> of the hero''s
+    <color=#60a5fa><b>Crit Chance</b></color>\n\n[Soul Calibur: increases the hero''s
+    Max HP and Crit Defense by <color=#fbbf24><b>10%</b></color>. When attacking,
+    increases the hero''s Attack by <color=#fbbf24><b>12%</b></color>.]","AutoHighlight":false,"AutomaticKeywords":true,"KeywordNotes":"","Highlights":[]}},"Passive":null,"HolyRelicSource":null,"ReviewNotes":[],"SourceTraits":[],"SourceStats":[],"UltimateTiers":[],"StatsProvenance":0}'
+  studioBundleHash: studio-bundle-v1:51e299617a603c44155bfee6f007d9f17b1b949739d643a2e728c1847370894e
+  studioAuthoringJson: '{"SchemaVersion":4,"Id":"studio.native.db18138b7482db24d82db5d1b8c3622a","Name":"[Soul
+    Calibur II] Sophitia","SourceCharacterId":"fighter.sciii-sophitia","LegacyCharacter":null,"AuthoredCharacter":null,"OwnsOpeningGauge":false,"Parameters":[],"Rules":[{"Id":"rule.1967c6bb5ab04b06a00913e6f4063e85","Name":"New
+    combat rule","Enabled":true,"Trigger":0,"Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"ConditionRootId":"condition.2bbb60866cb8421ba040edfa5f0223b8","Target":4,"AmountParameterId":null,"ActionRootId":"action.7ffada3c4a0447c1903e6b67ddb18215","StatusId":null,"Settings":{"ExecutionVersion":0,"Phase":1,"Priority":0,"EventResourceKey":null,"EventStatusRecipeId":null,"FilterRemovalReason":false,"RemovalReason":0,"Id":null,"Gate":{"MinimumTier":0,"MaximumTier":5,"Modes":3,"Presence":0,"AllowDefeatedOwner":false},"Trigger":0,"DamageTiming":0,"OwnTeamTurnOnly":false,"ActorRelation":0,"TargetRelation":0,"CardOriginOnly":false,"ExcludeUltimate":false,"RequireGaugeLoss":false,"RequireCritical":false,"RequireBlocked":false,"AllowReactionOrigin":false,"FilterDamageFamily":false,"DamageFamily":0,"FilterCategory":false,"Category":0,"MinimumRank":0,"LimitScope":3,"MaximumActivations":1,"CooldownOwnerTurns":0,"Conditions":[],"Commands":[],"ElseCommands":[],"Actions":[]}}],"Conditions":[{"Id":"condition.2bbb60866cb8421ba040edfa5f0223b8","Logic":0,"Kind":0,"Subject":1,"Threshold":0,"ThresholdParameterId":null,"StringValue":null,"RecipeId":null,"Tag":null,"RosterFilter":{"Relation":2,"IncludeOwner":true,"IncludeReserve":true,"AttributeId":null,"TraitId":null,"SeriesId":null},"InitialRoster":false,"Children":[]}],"Actions":[{"Id":"action.7ffada3c4a0447c1903e6b67ddb18215","Name":"Sequence","Kind":0,"ConditionRootId":null,"Children":[],"ElseChildren":[],"ModuleId":null,"Command":{"Kind":2,"CounterKey":null,"CounterCap":2147483647,"ValueSource":0,"ValueBinding":null,"EffectBinding":0,"Amount":1,"ScalingStat":0,"ScalingCoefficientBp":10000,"Effect":{"TargetQuery":null,"Id":null,"Order":0,"Window":0,"Kind":5,"Target":0,"Conditions":[],"Damage":null,"Status":null,"StatTransfer":null,"RemovePolarity":0,"RemoveRecipeId":null,"RemoveAll":true,"Magnitude":1,"StatusDurationOverride":0,"Value":null},"SkillId":null,"VariantId":null,"VariantUnlocked":false},"AmountParameterId":null,"CoefficientParameterId":null,"MultiplierParameterId":null,"Target":0,"MaximumTargets":16,"Query":null,"ResourceKey":"resource.new","Amount":1,"ResourceCap":2147483647,"StatusRecipeId":"status.new","StatusOwnerOnly":true,"RequireFullAmount":true,"RemovalReason":5,"ResultBinding":null}],"Modules":[],"Resources":[],"Statuses":[],"Policies":[],"AbilityVariants":[],"AbilityOverrides":[],"Description":{"SchemaVersion":1,"Id":"description.default","OwnerId":"studio.native.db18138b7482db24d82db5d1b8c3622a","DefaultLocale":"en","Locales":[{"Locale":"en","ReviewState":"Draft","ReviewedTextHash":"","ReviewedGameplayHash":"","Blocks":[{"Id":"paragraph.main","Kind":0,"StyleId":"","Source":"Increases
+    all Blue allies'' Basic Stats by 12%. When the hero''s Attack does not critically
+    hit, increases Damage Dealt based on the hero''s Crit Chance.\n\n[Soul Calibur:
+    increases the hero''s Max HP and Crit Defense by 10%. When attacking, increases
+    the hero''s Attack by 12%.].","MechanicIds":[],"HasFallback":true,"Branches":[],"DetachedSnippetOrigins":[]}]}],"Bindings":[]},"Presentation":{"Id":"presentation.default","ActorAssetGuid":null,"ActionClipGuid":null,"ReactionClipGuid":null,"DurationMilliseconds":1000}}'
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
   id: 2306
   fighterName: '[Soul Calibur II] Sophitia'
   fighterPic: {fileID: 21300000, guid: 381fbcb1e6078fa4d99004e7ad6b262c, type: 3}

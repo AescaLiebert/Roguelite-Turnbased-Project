@@ -54,6 +54,7 @@ namespace FightingAllstar.EditorTools
             AssetDatabase.SaveAssets();
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
+            MapOptimizationLab.ApplyStandardToOpenMap();
             Selection.activeGameObject = root.gameObject;
             var sv = SceneView.lastActiveSceneView;
             if (sv != null) sv.LookAt(center + Vector3.up * 3,

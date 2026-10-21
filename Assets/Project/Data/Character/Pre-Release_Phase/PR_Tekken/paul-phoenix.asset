@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: paul-phoenix
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.pre-release.paul-phoenix
+  runtimeReady: 1
+  familyId: family.paul-phoenix
+  seriesId: series.tekken
+  role: 
+  traitIds:
+  - trait.male
+  - trait.tekken
+  passiveSourceDescription: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E14\u0E32\u0E40\u0E21\u0E08\u0E2A\u0E01\u0E34\u0E25\u0E15\u0E35\u0E40\u0E14\u0E35\u0E48\u0E22\u0E27
+    50% \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E42\u0E08\u0E21\u0E15\u0E35\u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E31\u0E27\u0E40\u0E14\u0E34\u0E21\u0E43\u0E19\u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\u0E40\u0E14\u0E35\u0E22\u0E27\u0E01\u0E31\u0E19
+    \u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08\u0E08\u0E32\u0E01 Max HP 16% \u0E1F\u0E37\u0E49\u0E19\u0E1F\u0E39\u0E40\u0E25\u0E37\u0E2D\u0E14\u0E15\u0E19\u0E40\u0E2D\u0E07
+    16% \u0E40\u0E40\u0E25\u0E30\u0E08\u0E30\u0E21\u0E2D\u0E1A\u0E1A\u0E31\u0E1E\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E49\u0E32\u0E19\u0E1E\u0E25\u0E31\u0E07\u0E1B\u0E49\u0E2D\u0E07\u0E01\u0E31\u0E19
+    10% \u0E01\u0E31\u0E1A\u0E17\u0E35\u0E21 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\n[Rage
+    Art : \u0E40\u0E21\u0E37\u0E48\u0E2D HP \u0E15\u0E48\u0E33\u0E01\u0E27\u0E48\u0E32
+    40% \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E1E\u0E25\u0E31\u0E07\u0E42\u0E08\u0E21\u0E15\u0E35
+    30%]"
+  passiveSourceType: 0
+  passiveRestriction: 0
+  passiveDefinition: {fileID: 11400000, guid: ea1bef70b7c60464cb3f8c351453704e, type: 2}
+  studioSchema: 1
+  studioMetadataJson: "{\"CategoryId\":9126,\"SchemaVersion\":1,\"RuntimeReady\":true,\"Id\":\"fighter.pre-release.paul-phoenix\",\"SourceId\":\"pre-release-character.csv#row-27\",\"SourceRecord\":27,\"DisplayName\":\"Paul
+    Phoenix\",\"FamilyId\":\"family.paul-phoenix\",\"Role\":\"\",\"SeriesId\":\"series.tekken\",\"AttributeId\":\"attribute.green\",\"RarityId\":\"rarity.ssr\",\"TraitIds\":[\"trait.male\",\"trait.tekken\"],\"BaseStats\":{\"Attack\":520,\"Defense\":350,\"MaxHealth\":6500,\"CombatClass\":3710,\"HasDerivedCombatClass\":false,\"CombatClassReferenceValue\":0,\"CombatClassFlatBonus\":0,\"CombatClassReferenceScore\":0,\"CombatClassGrowthScore\":0,\"PierceBp\":7000,\"ResistanceBp\":2500,\"RegenerationBp\":1000,\"CritChanceBp\":1000,\"CritDamageBp\":13000,\"CritResistanceBp\":1500,\"CritDefenseBp\":1500,\"RecoveryBp\":12000,\"BlockChanceBp\":1000,\"BlockPowerBp\":1000,\"LifeStealBp\":500,\"EvadeBp\":0,\"PerceptionBp\":10000,\"ControlBp\":10000,\"AvoidanceBp\":10000,\"ReflectDamageBp\":0,\"DamageOverTimeDealtBp\":0,\"DamageDealtBp\":0,\"AdditionalDamageDealtBp\":0,\"ElementalModifiers\":[]},\"StatGrowth\":{\"AttackBp\":100,\"DefenseBp\":100,\"HealthBp\":100,\"CombatClassBp\":0},\"ArtifactLoadout\":[],\"Skills\":[],\"PassiveId\":\"fighter.pre-release.paul-phoenix.passive\",\"PassiveSource\":{\"SourceType\":\"\",\"Description\":\"\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E14\u0E32\u0E40\u0E21\u0E08\u0E2A\u0E01\u0E34\u0E25\u0E15\u0E35\u0E40\u0E14\u0E35\u0E48\u0E22\u0E27
+    50% \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E42\u0E08\u0E21\u0E15\u0E35\u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E31\u0E27\u0E40\u0E14\u0E34\u0E21\u0E43\u0E19\u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\u0E40\u0E14\u0E35\u0E22\u0E27\u0E01\u0E31\u0E19
+    \u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08\u0E08\u0E32\u0E01 Max HP 16% \u0E1F\u0E37\u0E49\u0E19\u0E1F\u0E39\u0E40\u0E25\u0E37\u0E2D\u0E14\u0E15\u0E19\u0E40\u0E2D\u0E07
+    16% \u0E40\u0E40\u0E25\u0E30\u0E08\u0E30\u0E21\u0E2D\u0E1A\u0E1A\u0E31\u0E1E\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E49\u0E32\u0E19\u0E1E\u0E25\u0E31\u0E07\u0E1B\u0E49\u0E2D\u0E07\u0E01\u0E31\u0E19
+    10% \u0E01\u0E31\u0E1A\u0E17\u0E35\u0E21 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\\n[Rage
+    Art : \u0E40\u0E21\u0E37\u0E48\u0E2D HP \u0E15\u0E48\u0E33\u0E01\u0E27\u0E48\u0E32
+    40% \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E1E\u0E25\u0E31\u0E07\u0E42\u0E08\u0E21\u0E15\u0E35
+    30%]\",\"Restriction\":\"\",\"Provenance\":\"ArtDirection/Character Database/Pre-Release-Character.csv\",\"Wording\":null},\"Passive\":null,\"HolyRelicSource\":null,\"ReviewNotes\":[\"Source:
+    ArtDirection/Character Database/Pre-Release-Character.csv, CSV row 27; release
+    label: Pre-End.\",\"The source provides one value per Skill and Ultimate. That
+    value is preserved across ranks 1-3 and Ultimate tiers C0-C5 until progression
+    data is supplied.\",\"The source omits Evade, Perception, Control, Avoidance,
+    and level growth. The four secondary fields use the project neutral defaults;
+    growth uses CharacterStatGrowth defaults.\",\"The current passive approximates
+    the repeat-target condition as a once-per-turn bonus after the second Attack-category
+    card; the runtime does not track whether both cards selected the same target.\"],\"SourceTraits\":[\"Male\",\"Tekken\"],\"SourceStats\":[{\"StatId\":\"Attack\",\"SourceField\":\"ATK\",\"SourceValue\":520.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":520.0},{\"StatId\":\"Defense\",\"SourceField\":\"DEF\",\"SourceValue\":350.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":350.0},{\"StatId\":\"MaxHealth\",\"SourceField\":\"HP\",\"SourceValue\":6500.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":6500.0},{\"StatId\":\"CombatClass\",\"SourceField\":\"Class
+    Power\",\"SourceValue\":3710.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3710.0},{\"StatId\":\"Pierce\",\"SourceField\":\"Pierce
+    Rate\",\"SourceValue\":70.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":7000.0},{\"StatId\":\"Resistance\",\"SourceField\":\"Resistence\",\"SourceValue\":25.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2500.0},{\"StatId\":\"Regeneration\",\"SourceField\":\"Regenerate\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"CritChance\",\"SourceField\":\"Crit
+    Chance\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"CritDamage\",\"SourceField\":\"Crit
+    Damage\",\"SourceValue\":130.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":13000.0},{\"StatId\":\"CritResistance\",\"SourceField\":\"Crit
+    Resistence\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"CritDefense\",\"SourceField\":\"Crit
+    Defense\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Recovery\",\"SourceField\":\"Recovery
+    Rate\",\"SourceValue\":120.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":12000.0},{\"StatId\":\"BlockChance\",\"SourceField\":\"Block
+    Chance\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"BlockPower\",\"SourceField\":\"Block
+    Power\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"LifeSteal\",\"SourceField\":\"Lifesteal\",\"SourceValue\":5.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":500.0},{\"StatId\":\"Evade\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":0.0,\"Unit\":\"basis-points\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":0.0},{\"StatId\":\"Perception\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Control\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Avoidance\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0}],\"UltimateTiers\":[],\"StatsProvenance\":0}"
+  studioBundleHash: studio-bundle-v1:fdb69bb1958bc63bf83737b6a54a6c543a5331a3fe233e10e8339b688e1ab4be
+  studioAuthoringJson: "{\"SchemaVersion\":5,\"Id\":\"studio.pre-release.paul-phoenix\",\"Name\":\"Paul
+    Phoenix\",\"SourceCharacterId\":\"fighter.pre-release.paul-phoenix\",\"LegacyCharacter\":null,\"AuthoredCharacter\":null,\"OwnsOpeningGauge\":false,\"ReplacedNativeReactionIds\":[],\"NativeReactionOrder\":[],\"CompatibilityReasons\":{},\"Parameters\":[],\"Rules\":[],\"Conditions\":[],\"Actions\":[],\"Modules\":[],\"Resources\":[],\"Statuses\":[],\"Policies\":[],\"AbilityVariants\":[],\"AbilityOverrides\":[],\"Description\":{\"SchemaVersion\":1,\"Id\":\"description.default\",\"OwnerId\":\"studio.pre-release.paul-phoenix\",\"DefaultLocale\":\"en\",\"Locales\":[{\"Locale\":\"en\",\"ReviewState\":\"Draft\",\"ReviewedTextHash\":\"\",\"ReviewedGameplayHash\":\"\",\"Blocks\":[{\"Id\":\"paragraph.main\",\"Kind\":0,\"StyleId\":\"\",\"Source\":\"\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E14\u0E32\u0E40\u0E21\u0E08\u0E2A\u0E01\u0E34\u0E25\u0E15\u0E35\u0E40\u0E14\u0E35\u0E48\u0E22\u0E27
+    50% \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E42\u0E08\u0E21\u0E15\u0E35\u0E28\u0E31\u0E15\u0E23\u0E39\u0E15\u0E31\u0E27\u0E40\u0E14\u0E34\u0E21\u0E43\u0E19\u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\u0E40\u0E14\u0E35\u0E22\u0E27\u0E01\u0E31\u0E19
+    \u0E17\u0E33\u0E14\u0E32\u0E40\u0E21\u0E08\u0E08\u0E32\u0E01 Max HP 16% \u0E1F\u0E37\u0E49\u0E19\u0E1F\u0E39\u0E40\u0E25\u0E37\u0E2D\u0E14\u0E15\u0E19\u0E40\u0E2D\u0E07
+    16% \u0E40\u0E40\u0E25\u0E30\u0E08\u0E30\u0E21\u0E2D\u0E1A\u0E1A\u0E31\u0E1E\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E49\u0E32\u0E19\u0E1E\u0E25\u0E31\u0E07\u0E1B\u0E49\u0E2D\u0E07\u0E01\u0E31\u0E19
+    10% \u0E01\u0E31\u0E1A\u0E17\u0E35\u0E21 2 \u0E40\u0E17\u0E34\u0E23\u0E4C\u0E19\\n[Rage
+    Art : \u0E40\u0E21\u0E37\u0E48\u0E2D HP \u0E15\u0E48\u0E33\u0E01\u0E27\u0E48\u0E32
+    40% \u0E40\u0E1E\u0E34\u0E48\u0E21\u0E1E\u0E25\u0E31\u0E07\u0E42\u0E08\u0E21\u0E15\u0E35
+    30%]\",\"MechanicIds\":[],\"HasFallback\":true,\"Branches\":[],\"DetachedSnippetOrigins\":[]}]}],\"Bindings\":[]},\"Presentation\":{\"Id\":\"presentation.default\",\"ActorAssetGuid\":null,\"ActionClipGuid\":null,\"ReactionClipGuid\":null,\"DurationMilliseconds\":1000}}"
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
+  id: 9126
+  fighterName: Paul Phoenix
+  fighterPic: {fileID: 21300000, guid: 7236902187914fd4aaaf9ae6f3480081, type: 3}
+  fighterIcon: {fileID: 21300000, guid: 7236902187914fd4aaaf9ae6f3480081, type: 3}
+  fighterFull: {fileID: 21300000, guid: 7236902187914fd4aaaf9ae6f3480081, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 0}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 0}
+  fighterModelYawOffset: 180
+  Skill1: {fileID: 11400000, guid: 69aef5ecc58c0db40aec2bb6d6d91271, type: 2}
+  Skill2: {fileID: 11400000, guid: 2fde41e3b6b87fd44ba1de5851bf7c46, type: 2}
+  Ultimate: {fileID: 11400000, guid: a04337aeb8d1c104c93f375e42419297, type: 2}
+  FighterAttribute: 1
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 1
+  LevelGrowth:
+    AttackBp: 100
+    DefenseBp: 100
+    HealthBp: 100
+  Classpower: 3710
+  attack: 520
+  defense: 350
+  health: 6500
+  SecondaryStats:
+    PierceRate: 70
+    Resistance: 25
+    Regenerate: 10
+    CritChance: 10
+    CritDmg: 130
+    CritResistance: 15
+    CritDefense: 15
+    RecoveryRate: 120
+    BlockChance: 10
+    BlockPower: 10
+    LifeSteal: 5
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

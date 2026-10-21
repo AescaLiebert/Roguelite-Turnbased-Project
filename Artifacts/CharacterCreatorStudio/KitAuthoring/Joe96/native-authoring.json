@@ -1,0 +1,33 @@
+{
+  "Success": true,
+  "Checks": [
+    "Joe96 is authored in his existing CharacterObject and four data SOs.",
+    "All five existing Joe96 GUIDs and references are preserved.",
+    "Native Joe96 identity/stats are saved through Studio fields.",
+    "Skill 1 retains all-enemy damage 120/120/180 percent and two hits.",
+    "Skill 1 retains rank-dependent Disable Debuff/Disable Buff steps.",
+    "Skill 2 retains single-target damage 200/360/450 percent and four hits.",
+    "Skill 2 retains team protection steps; rank-three wording displays 60 percent instead of raw 6000.",
+    "Ultimate C0–C5 retains 500/530/560/590/620/650 percent and the imported Rupture recipe.",
+    "Joe96 passive grants Blue allies 60 percent Defense.",
+    "Actual Joe96 authoring creates no separate draft asset.",
+    "Joe96 reopens and compiles directly from his native assets.",
+    "Normal game loading discovers the existing Joe96 identity exactly once."
+  ],
+  "Paths": [
+    "Assets/Project/Data/Character/WIP_Phase/joe96.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_skilldata1.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_skilldata2.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_ultdata1.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_Passive.asset"
+  ],
+  "Guids": [
+    "3e9cc42fac6e9a840b6f34b07404821e",
+    "21724b0ef4927bd409cade28b356e445",
+    "7b381cc5bbb64a844a93a684dddb8b3d",
+    "5a77605c43e3b934bb8fc8c2db770ee2",
+    "151f8e0d0d00a2548b98089c769e56e5"
+  ],
+  "DraftAssetsCreated": 0,
+  "CapturedUtc": "2026-10-20T10:03:57.8916759Z"
+}

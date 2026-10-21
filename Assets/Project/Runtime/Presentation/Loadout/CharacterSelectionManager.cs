@@ -615,7 +615,7 @@ public class CharacterSelectionManager : MonoBehaviour
             new LocalRunStateStore().Save(candidate);
             DungeonFlowContext.BeginDungeonFlowForEncounter(DungeonFlowContext.ActiveProfile, candidate, encounter);
             LocalEncounterContext.Begin(encounter);
-            FightingAllstar.Presentation.ScreenMotion.LoadScene("Battle");
+            FightingAllstar.Presentation.ScreenMotion.LoadScene(DungeonBattleScene.ForProfile(DungeonFlowContext.ActiveProfile));
         }
         catch (Exception ex)
         {

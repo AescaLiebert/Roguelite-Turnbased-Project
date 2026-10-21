@@ -1,0 +1,45 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="studio-shell" class="studio-shell">
+        <ui:VisualElement class="studio-topbar">
+            <ui:Label text="Character Creator Studio" class="studio-title"/>
+            <ui:Label name="studio-save-state" class="studio-subtle studio-grow"/>
+            <ui:Button name="studio-undo" text="Undo"/>
+            <ui:Button name="studio-redo" text="Redo"/>
+            <ui:Button name="studio-save" text="Save character" class="studio-primary studio-save-button" tooltip="Save changes to the CharacterObject and its referenced data assets (Ctrl+S)"/>
+            <ui:Button name="studio-duplicate" text="Create new character"/>
+            <ui:Button name="studio-validate" text="Validate"/>
+            <ui:Button name="studio-run" text="Battle Lab" class="studio-primary"/>
+            <ui:Button name="studio-collapse-evidence" text="Console (Execution Evidence) ▾" tooltip="Collapse or restore the execution evidence panel"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="studio-document-bar" class="studio-toolbar"/>
+        <ui:TwoPaneSplitView name="studio-vertical-split" orientation="Vertical" fixed-pane-index="1" fixed-pane-initial-dimension="200" view-data-key="studio-evidence-height" class="studio-grow">
+        <ui:TwoPaneSplitView name="studio-navigation-split" fixed-pane-index="0" fixed-pane-initial-dimension="215" view-data-key="studio-navigation-width" class="studio-workspace">
+            <ui:ScrollView name="studio-outline" class="studio-outline"/>
+            <ui:TwoPaneSplitView name="studio-inspector-split" fixed-pane-index="1" fixed-pane-initial-dimension="340" view-data-key="studio-inspector-width" class="studio-grow">
+            <ui:VisualElement class="studio-main">
+                <ui:VisualElement class="studio-tabs">
+                    <ui:Button name="studio-tab-rules" text="Trigger rules"/>
+                    <ui:Button name="studio-tab-descriptions" text="Descriptions"/>
+                    <ui:Button name="studio-tab-scenario" text="Battle Lab"/>
+                    <ui:Button name="studio-tab-presentation" text="Actor lab"/>
+                    <ui:Button name="studio-tab-capabilities" text="Capabilities"/>
+                    <ui:Button name="studio-tab-bundle" text="Bundle review"/>
+                </ui:VisualElement>
+                <ui:ScrollView name="studio-document-host" class="studio-document-host"/>
+            </ui:VisualElement>
+            <ui:ScrollView name="studio-inspector" class="studio-inspector"/>
+            </ui:TwoPaneSplitView>
+        </ui:TwoPaneSplitView>
+        <ui:VisualElement class="studio-evidence">
+            <ui:VisualElement class="studio-row">
+                <ui:Button name="studio-evidence-trace" text="Trace"/>
+                <ui:Button name="studio-evidence-problems" text="Problems"/>
+                <ui:Button name="studio-evidence-state" text="State diff"/>
+            </ui:VisualElement>
+            <ui:ScrollView name="studio-problems" class="studio-problems"/>
+        </ui:VisualElement>
+        </ui:TwoPaneSplitView>
+        <ui:Label name="studio-status" class="studio-status"/>
+    </ui:VisualElement>
+</ui:UXML>
+

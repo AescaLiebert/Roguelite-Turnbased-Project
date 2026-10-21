@@ -1,0 +1,14 @@
+{
+  "Success": true,
+  "Error": null,
+  "Checks": [
+    "Passive icon is top right above the wording editor.",
+    "Missing Unity Sprite reference correctly falls back to the actual native character icon.",
+    "Kaeya opening gauge is owned by exactly one rule with support gauge disabled.",
+    "Kaeya remaining Frost Bite compatibility effects are preserved.",
+    "Remove compatibility support removes the compiled support payload.",
+    "Support removal preserves separately owned trigger rules.",
+    "Native Kaeya assets remain unchanged."
+  ],
+  "CapturedUtc": "2026-10-20T13:27:57.3178938Z"
+}

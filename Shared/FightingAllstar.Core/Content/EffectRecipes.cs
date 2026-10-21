@@ -78,8 +78,8 @@ namespace FightingAllstar.Core.Content
     }
 
     public enum CardCategory { Attack, Debuff, Buff, Recovery, Stance, AttackDebuff, Ultimate }
-    public enum EffectTargetScope { Self, SelectedEnemy, SelectedAlly, AllEnemies, AllAllies, TriggerActor, TriggerTarget, StatusOwner }
-    public enum CardEffectOperationKind { Damage, ApplyStatus, RemoveStatus, Cleanse, Heal, ChangePowerGauge, RemoveCard, ModifyCardRank, TransferStats }
+    public enum EffectTargetScope { Self, SelectedEnemy, SelectedAlly, AllEnemies, AllAllies, TriggerActor, TriggerTarget, StatusOwner, OperationTarget }
+    public enum CardEffectOperationKind { Damage, ApplyStatus, RemoveStatus, Cleanse, Heal, ChangePowerGauge, RemoveCard, ModifyCardRank, TransferStats, Summon }
     public enum CardEffectWindow { BeforeAction, Damaging, Damage, AfterDamage, AfterAction }
     public enum EffectConditionKind
     {
@@ -106,7 +106,10 @@ namespace FightingAllstar.Core.Content
         ActorWasNotDamagedDuringPreviousEnemyTurn,
         TargetIsLowestHealthEnemy,
         ActorHasAttributeAdvantage,
-        ActorHasAttributeDisadvantage
+        ActorHasAttributeDisadvantage,
+        ResourceEnteredAtLeast, ResourceExitedBelow, RemovedLayersAtLeast, BindingValueAtLeast,
+        OwnerCardsPlayedThisTurnAtLeast, OwnerCardsPlayedPreviousTurnAtLeast, OwnerLevelAtLeast,
+        OwnerTierAtLeast, CardRankAtLeast, RemovedStatusFromEffectOwner
     }
     public enum ConditionLogic { Leaf, All, Any, Not }
     public enum ConditionSubject { OperationTarget, Owner, Actor, EventTarget }
@@ -169,6 +172,8 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class StanceChildDefinition
     {
+        [field: NonSerialized]
+        public List<PassiveReactionDefinition> Reactions { get; set; } = new List<PassiveReactionDefinition>();
         public string Id;
         public string NameKey;
         public bool DebuffImmunity;
@@ -185,6 +190,7 @@ namespace FightingAllstar.Core.Content
         public StanceChildDefinition Clone()
         {
             var copy = (StanceChildDefinition)MemberwiseClone();
+            copy.Reactions = Reactions?.ConvertAll(r => r?.Clone()) ?? new List<PassiveReactionDefinition>();
             copy.Modifiers = Modifiers?.ConvertAll(m => m?.Clone()) ?? new List<StatModifierDefinition>();
             copy.CounterConditions = CounterConditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
             copy.CounterEffect = CounterEffect?.Clone();
@@ -199,7 +205,8 @@ namespace FightingAllstar.Core.Content
             Modifiers = Modifiers?.ConvertAll(m => m?.Clone()) ?? new List<StatModifierDefinition>(),
             CounterEnabled = CounterEnabled, CounterCategory = CounterCategory, CounterTarget = CounterTarget,
             CounterConditions = CounterConditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>(),
-            CounterEffect = CounterEffect?.Clone() };
+            CounterEffect = CounterEffect?.Clone(),
+            Reactions = Reactions?.ConvertAll(r => r?.Clone()) ?? new List<PassiveReactionDefinition>() };
     }
 
     [Serializable]
@@ -266,6 +273,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class StatusRecipeDefinition
     {
+        public bool StructuralEntityMarker;
         public int PowerGaugeGainBp;
         public int EndTurnPowerGaugeLoss;
         public int PhysicalDamageReceivedBp;
@@ -363,6 +371,11 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class EffectConditionDefinition
     {
+        // Studio source provenance is diagnostic-only. It survives Clone but never enters
+        // serialized runtime bundles or changes combat/hash semantics.
+        [field: NonSerialized]
+        [Newtonsoft.Json.JsonIgnore]
+        public string StudioNodeId { get; set; }
         public EffectConditionKind Kind;
         public string RecipeId;
         public string Tag;
@@ -404,6 +417,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class DamageEffectRecipe
     {
+        public DamageProfileDefinition Profile;
         public DamageFamily Family;
         public StatScaling Scaling = StatScaling.Attack;
         public DamageStatSource StatSource;
@@ -416,7 +430,12 @@ namespace FightingAllstar.Core.Content
         public bool CannotBlock;
         // Compatibility for old recipes. New authoring uses StatSource + Scaling.
         public bool ScaleFromTargetMaxHealth;
-        public DamageEffectRecipe Clone() => (DamageEffectRecipe)MemberwiseClone();
+        public DamageEffectRecipe Clone()
+        {
+            var copy = (DamageEffectRecipe)MemberwiseClone();
+            copy.Profile = Profile?.Clone();
+            return copy;
+        }
     }
 
     [Serializable]
@@ -468,6 +487,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class CardEffectOperationDefinition
     {
+        public TargetQueryDefinition TargetQuery;
         public string Id;
         public int Order;
         public CardEffectWindow Window;
@@ -475,6 +495,8 @@ namespace FightingAllstar.Core.Content
         public EffectTargetScope Target;
         public List<EffectConditionDefinition> Conditions = new List<EffectConditionDefinition>();
         public DamageEffectRecipe Damage;
+        [field: NonSerialized]
+        public BattleEntityDefinition Summon { get; set; }
         public StatusApplicationRecipe Status;
         public StatTransferRecipeDefinition StatTransfer;
         public StatusPolarity RemovePolarity;
@@ -487,9 +509,11 @@ namespace FightingAllstar.Core.Content
         public CardEffectOperationDefinition Clone()
         {
             var copy = (CardEffectOperationDefinition)MemberwiseClone();
+            copy.TargetQuery = TargetQuery?.Clone();
             copy.Conditions = new List<EffectConditionDefinition>();
             if (Conditions != null) foreach (var condition in Conditions) copy.Conditions.Add(condition?.Clone());
             copy.Damage = Damage?.Clone();
+            copy.Summon = Summon?.Clone();
             copy.Status = Status?.Clone();
             copy.StatTransfer = StatTransfer?.Clone();
             copy.Value = Value?.Clone();
@@ -600,6 +624,13 @@ namespace FightingAllstar.Core.Content
                         if (!orders.Add(operation.Order)) errors.Add(card.Id + " has duplicate operation order: " + operation.Order);
                         if (operation.Kind == CardEffectOperationKind.Damage && operation.Damage == null)
                             errors.Add(card.Id + "/" + operation.Id + " is Damage but has no damage recipe.");
+                        if (operation.Kind == CardEffectOperationKind.Summon)
+                        {
+                            if (operation.Summon == null) errors.Add(card.Id + "/" + operation.Id + " is Summon but has no entity definition.");
+                            else errors.AddRange(operation.Summon.Validate());
+                            if (operation.Target != EffectTargetScope.Self || operation.TargetQuery != null)
+                                errors.Add(card.Id + "/" + operation.Id + " must summon once for its effect owner.");
+                        }
                         if (operation.Kind == CardEffectOperationKind.TransferStats)
                             foreach (var error in ValidateStatTransfer(operation.StatTransfer))
                                 errors.Add(card.Id + "/" + operation.Id + ": " + error);

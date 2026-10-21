@@ -18,7 +18,9 @@ namespace FightingAllstar.Core.Content
 
         public static T Deserialize<T>(string json)
         {
-            return JsonConvert.DeserializeObject<T>(json, Settings);
+            var value = JsonConvert.DeserializeObject<T>(json, Settings);
+            if (value is Combat.BattleState battle) Combat.BattleEntitySystem.ValidateSnapshot(battle);
+            return value;
         }
     }
 }

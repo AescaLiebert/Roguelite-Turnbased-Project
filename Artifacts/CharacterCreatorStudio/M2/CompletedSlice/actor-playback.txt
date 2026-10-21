@@ -1,0 +1,4 @@
+Rest: 52 committed events copied. Ready to replay.
+action at 0.45s: Event #29 · CardPlayed · Player:0:fighter.kaeya → Opponent:0:studio.enemy.1 · amount 1 · deterministic fallback · 0.45s
+reaction at 1.05s: Event #33 · DamageApplied · Player:0:fighter.kaeya → Opponent:0:studio.enemy.1 · amount 134 · HP after 99866 · deterministic fallback · 1.05s
+Final: Event #51 · HealApplied · Opponent:0:studio.enemy.1 → Opponent:0:studio.enemy.1 · amount 8 · HP after 99557 · deterministic fallback · 4.25s

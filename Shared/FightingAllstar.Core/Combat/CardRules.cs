@@ -132,8 +132,23 @@ namespace FightingAllstar.Core.Combat
             var skill = definition.Skills.Find(x => x.Id == skillId);
             var data = skill?.Ranks?.Find(x => x.Rank == rank);
             if (data == null) return false;
-            effect = data.Effect;
+            if (data.Effect == null) return false;
+            effect = data.Effect.Clone();
+            ApplySharedDamageSettings(effect, ResolveTargetScope(skill), skill.DamageAnimation);
             return effect != null;
+        }
+
+        /// <summary>Normalizes every rank to the skill-root target and damage animation.</summary>
+        public static void ApplySharedSkillSettings(SkillDefinition skill)
+        {
+            if (skill?.Ranks == null) return;
+            var target = ResolveTargetScope(skill);
+            foreach (var rank in skill.Ranks)
+            {
+                if (rank == null) continue;
+                rank.TargetScope = target;
+                ApplySharedDamageSettings(rank.Effect, target, skill.DamageAnimation);
+            }
         }
 
         public static bool TryGetUltimate(CharacterDefinition definition, int tier, out EffectDefinition effect)
@@ -141,8 +156,30 @@ namespace FightingAllstar.Core.Combat
             effect = null;
             var entry = definition?.UltimateTiers?.Find(x => x.Tier == tier);
             if (entry == null) return false;
+            if (entry.Effect == null) return false;
             effect = entry.Effect;
+            if (definition.HasUltimateCardSettings)
+            {
+                effect = entry.Effect.Clone();
+                ApplySharedDamageSettings(effect, definition.UltimateTargetScope, definition.UltimateDamageAnimation);
+            }
             return effect != null;
+        }
+
+        /// <summary>Applies card-root targeting and optional shared choreography to each top-level damage action.</summary>
+        public static void ApplySharedDamageSettings(EffectDefinition effect, EffectTargetScope target, DamageAttackDefinition animation)
+        {
+            if (effect == null) return;
+            ApplySharedDamageSettings((EffectOperationDefinition)effect, target, animation);
+            foreach (var step in effect.Sequence ?? new List<CardEffectStep>())
+                if (step?.Effect != null) ApplySharedDamageSettings(step.Effect, target, animation);
+        }
+
+        private static void ApplySharedDamageSettings(EffectOperationDefinition operation, EffectTargetScope target, DamageAttackDefinition animation)
+        {
+            if (operation?.Kind != EffectKind.Damage || operation.DamageRecipe != null) return;
+            operation.Target = target;
+            if (animation != null) operation.Attack = animation.Clone();
         }
 
         private static void DealTrainingHand(BattleTeamState team, List<CardState> drawnCards, List<BattleEvent> timeline)
@@ -193,11 +230,12 @@ namespace FightingAllstar.Core.Combat
         private static CardState AddCard(BattleTeamState team, FighterState fighter, SkillDefinition skill, int rank,
             CardKind kind, int tier)
         {
-            var ultimateScope = EffectTargetScope.SelectedEnemy;
-            if (kind == CardKind.Ultimate && fighter != null && TryGetUltimate(fighter.Definition, tier, out var ultimateEffect))
-                ultimateScope = ultimateEffect.Target;
+            var ultimate = kind == CardKind.Ultimate ? fighter?.Definition : null;
+            var ultimateTier = ultimate?.UltimateTiers?.Find(t => t.Tier == tier);
+            var ultimateScope = ultimate == null ? EffectTargetScope.SelectedEnemy : ultimate.HasUltimateCardSettings
+                ? ultimate.UltimateTargetScope : ultimateTier?.Effect?.Target ?? EffectTargetScope.SelectedEnemy;
             var effectCategory = kind == CardKind.Ultimate
-                ? fighter?.Definition?.UltimateTiers?.Find(t => t.Tier == tier)?.Category ?? CardCategory.Attack
+                ? ultimate == null ? CardCategory.Attack : ultimate.HasUltimateCardSettings ? ultimate.UltimateCategory : ultimateTier?.Category ?? CardCategory.Attack
                 : skill == null ? CardCategory.Attack : ResolveCategory(skill);
             var card = new CardState { Id = team.Side + ":card:" + team.NextCardSequence++,
                 OwnerFighterId = fighter.Id, SkillId = skill?.Id, Rank = rank, Kind = kind,
@@ -215,10 +253,11 @@ namespace FightingAllstar.Core.Combat
             if (card == null || card.Kind != CardKind.Skill) return;
             var skill = definition?.Skills?.Find(s => s.Id == card.SkillId);
             var rank = skill?.Ranks?.Find(r => r.Rank == card.Rank);
-            if (rank?.HasCardKind != true) return;
-            card.Category = rank.Category;
-            card.EffectCategory = rank.Category;
-            card.TargetScope = rank.TargetScope;
+            if (skill == null) return;
+            var category = rank?.HasCardKind == true ? rank.Category : ResolveCategory(skill);
+            card.Category = category;
+            card.EffectCategory = category;
+            card.TargetScope = ResolveTargetScope(skill);
         }
 
         public static CardCategory GetEffectCategory(CardState card)

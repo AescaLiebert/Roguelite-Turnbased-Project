@@ -1,0 +1,32 @@
+{
+  "Success": true,
+  "Checks": [
+    "Widget checks use an attached Unity panel.",
+    "Preview close button collapses the preview and leaves an expand control.",
+    "Preview can be reopened without navigating away.",
+    "Overview includes imported event and continuous mechanics in one inventory.",
+    "Compatibility controls appear only for the selected mechanic.",
+    "Imported version-zero frequency fields are disabled with an explanation.",
+    "WHEN and WHO have unique selection identities.",
+    "WHEN refreshes immediately when the trigger changes.",
+    "WHO exposes event filters in a distinct contextual inspector.",
+    "Actual widgets change the executable opening-rule filters and frequency.",
+    "WHO and execution summaries refresh without navigation or rebuilding the window.",
+    "WHO opens its contextual inspector.",
+    "Native variant with colliding passive ID survives save and reopen.",
+    "Opening controls survive native persistence.",
+    "Imported native event uses the shared rule representation after reload.",
+    "Removing imported event remains removed after repeated save/reopen.",
+    "Continuous mechanic expands inside its own card.",
+    "Expanded mechanic can be collapsed without leaving Passive Overview.",
+    "Overview availability refreshes when an individual mechanic diverges.",
+    "Continuous-rule inventory availability refreshes immediately.",
+    "Preview badges include the executable off-field composition.",
+    "Bundle modifiers show only applicable target fields.",
+    "Changing target hides bundle fields and refreshes the family-damage preview.",
+    "All original character and native data assets remain byte-for-byte unchanged.",
+    "The active scene and Play Mode remain unchanged."
+  ],
+  "NativeFilesPreserved": 345,
+  "CapturedUtc": "2026-10-20T17:07:42.4480501Z"
+}

@@ -1,0 +1,36 @@
+{
+  "ImportedRule": {
+    "UIActor": "Enemies",
+    "UITarget": "Self",
+    "UIScope": "Battle",
+    "UICooldown": 3,
+    "ExecutionVersion": 0,
+    "CompiledActor": "Any",
+    "CompiledTarget": "Any",
+    "CompiledScope": "None",
+    "CooldownOwnerTurns": 0,
+    "InitialTo": "Actor: Any · event target: Any",
+    "AfterTo": "Actor: Any · event target: Any"
+  },
+  "Completed": true,
+  "ComposedRule": {
+    "ExecutionVersion": 1,
+    "UIActor": "Enemies",
+    "CompiledActor": "Enemies",
+    "BeforeTo": "Actor: Any · event target: Any",
+    "AfterTo": "Actor: Any · event target: Any",
+    "CompiledRecipient": "Self"
+  },
+  "RepeatedRuleCardNames": [
+    "card.studio.opening-team-gauge",
+    "card.studio.opening-team-gauge"
+  ],
+  "TriggerEdit": {
+    "When": "Before Action",
+    "Valid": true,
+    "CompiledTrigger": "BeforeAction"
+  },
+  "CapturedUtc": "2026-10-20T13:39:44.5210542Z",
+  "OriginalFilesUnchanged": true,
+  "OriginalFilesChecked": 196
+}

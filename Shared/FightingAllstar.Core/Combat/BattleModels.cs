@@ -9,7 +9,8 @@ namespace FightingAllstar.Core.Combat
     public enum TeamSide { Player, Opponent }
     public enum CardKind { Skill, Ultimate }
     public enum BattleEventKind { BattleStarted, TurnStarted, CardDrawn, CardsMerged, CardMoved, CardPlayed, DamageApplied, HealApplied, StatusApplied, StatusRemoved, FighterDefeated, ReserveEntered, TurnEnded, BattleCompleted, ActionFizzled,
-        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted, ElementalReactionTriggered, ElementStatusApplied, ElementStatusesChanged }
+        PassiveStatsChanged, PassiveTriggered, PowerGaugeChanged, CardRemoved, CardRankChanged, CounterStarted, CounterEnded, AttackEvaded, StatusesChanged, ActionTiming, ActionCompleted, StatusResolutionStarted, StatusResolutionEnded, StatusImmuned, RecoveryBlocked, HitStarted, StatusWeaker, TurnPlanCommitted, ElementalReactionTriggered, ElementStatusApplied, ElementStatusesChanged, AbilityVariantChanged,
+        EntityCreated, EntityActionStarted, EntityActionEnded, EntityAbsorbedDamage, EntityRemoved }
 
     [Serializable]
     public sealed class FighterState
@@ -35,6 +36,7 @@ namespace FightingAllstar.Core.Combat
         public int FreezeRecoveryUntilOwnerTurn;
         public StatusContainer Statuses = new StatusContainer();
         public List<PassiveCounterState> PassiveCounters = new List<PassiveCounterState>();
+        public List<AbilityVariantState> AbilityVariants = new List<AbilityVariantState>();
         public List<PassiveStatContribution> PassiveContributions = new List<PassiveStatContribution>();
 
         public FighterState Clone()
@@ -47,6 +49,7 @@ namespace FightingAllstar.Core.Combat
             FreezeRecoveryUntilOwnerTurn = FreezeRecoveryUntilOwnerTurn,
             Statuses = Statuses?.Clone() ?? new StatusContainer() };
             foreach (var counter in PassiveCounters) copy.PassiveCounters.Add(counter.Clone());
+            foreach (var variant in AbilityVariants) copy.AbilityVariants.Add(variant.Clone());
             foreach (var contribution in PassiveContributions) copy.PassiveContributions.Add(contribution.Clone());
             return copy;
         }
@@ -56,6 +59,7 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class CardState
     {
+        public string VariantId;
         public string Id;
         public string OwnerFighterId;
         public string SkillId;
@@ -100,7 +104,7 @@ namespace FightingAllstar.Core.Combat
     }
 
     [Serializable]
-    public sealed class BattleState
+    public sealed partial class BattleState
     {
         // Zero/null loads legacy snapshots with elemental behavior disabled, rather than inferring new rules.
         public int ElementalSchemaVersion;
@@ -118,6 +122,8 @@ namespace FightingAllstar.Core.Combat
         public bool IsTraining;
         public BattleModeMask Mode = BattleModeMask.PvE;
         public long PassiveEventSequence;
+        public bool CapturePassiveTrace;
+        public List<PassiveRuleTrace> PassiveTrace = new List<PassiveRuleTrace>();
         public BattleTeamState Player = new BattleTeamState { Side = TeamSide.Player };
         public BattleTeamState Opponent = new BattleTeamState { Side = TeamSide.Opponent };
         public ulong RngState;
@@ -125,6 +131,9 @@ namespace FightingAllstar.Core.Combat
         public ulong CardRngState;
         public ulong CardRngDrawCount;
         public List<BattleEvent> Events = new List<BattleEvent>();
+        public List<BattleEntityInstance> Entities = new List<BattleEntityInstance>();
+        public long EntitySequence;
+        public long EntityTurnOccurrence;
         public List<RunBoonDefinition> RunBoons = new List<RunBoonDefinition>();
         public List<string> ActivePassiveAuras = new List<string>();
         public List<PendingPassiveEffect> PendingPassiveEffects = new List<PendingPassiveEffect>();
@@ -136,9 +145,11 @@ namespace FightingAllstar.Core.Combat
             var copy = new BattleState { ElementalSchemaVersion = ElementalSchemaVersion, ElementalRules = ElementalRules?.Clone(),
                 MatchId = MatchId, Revision = Revision, TurnNumber = TurnNumber, CompletedTurnCount = CompletedTurnCount,
                 ActingSide = ActingSide, Phase = Phase, ActionBudget = ActionBudget, Execution = Execution?.Clone(), Winner = Winner, IsDraw = IsDraw,
-                Mode = Mode, IsTraining = IsTraining, PassiveEventSequence = PassiveEventSequence,
+                Mode = Mode, IsTraining = IsTraining, PassiveEventSequence = PassiveEventSequence, CapturePassiveTrace = CapturePassiveTrace,
                 Player = Player.Clone(), Opponent = Opponent.Clone(), RngState = RngState, RngDrawCount = RngDrawCount,
-                CardRngState = CardRngState, CardRngDrawCount = CardRngDrawCount };
+                CardRngState = CardRngState, CardRngDrawCount = CardRngDrawCount,
+                EntitySequence = EntitySequence, EntityTurnOccurrence = EntityTurnOccurrence };
+            if (Entities != null) foreach (var entity in Entities) if (entity != null) copy.Entities.Add(entity.Clone());
             foreach (var e in Events) copy.Events.Add(e.Clone());
             foreach (var boon in RunBoons) copy.RunBoons.Add(boon.Clone());
             foreach (var aura in ActivePassiveAuras) copy.ActivePassiveAuras.Add(aura);
@@ -146,6 +157,8 @@ namespace FightingAllstar.Core.Combat
                 copy.PendingPassiveEffects.Add(pending?.Clone());
             foreach (var fact in PendingPassiveDamageFacts) copy.PendingPassiveDamageFacts.Add(fact.Clone());
             copy.PassiveDamageReactionReceipts.AddRange(PassiveDamageReactionReceipts);
+            if (PassiveTrace != null) foreach (var trace in PassiveTrace) copy.PassiveTrace.Add(trace.Clone());
+            copy.PassiveActivations = PassiveActivations?.ConvertAll(r => r.Clone()) ?? new List<PassiveActivationReceipt>();
             return copy;
         }
         public BattleTeamState Team(TeamSide side) => side == TeamSide.Player ? Player : Opponent;
@@ -155,6 +168,7 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class PendingPassiveEffect
     {
+        public EffectProvenance Provenance;
         public string EffectOwnerId;
         public string ActorId;
         public string SelectedTargetId;
@@ -169,6 +183,7 @@ namespace FightingAllstar.Core.Combat
         public CardEffectOperationDefinition Operation;
 
         public PendingPassiveEffect Clone() => new PendingPassiveEffect {
+            Provenance = Provenance?.Clone(),
             EffectOwnerId = EffectOwnerId, ActorId = ActorId, SelectedTargetId = SelectedTargetId,
             RootActionId = RootActionId, ReactionId = ReactionId,
             CardCategory = CardCategory, CardRank = CardRank,
@@ -177,11 +192,42 @@ namespace FightingAllstar.Core.Combat
     }
 
     [Serializable]
+    public sealed class EffectProvenance
+    {
+        public EffectOrigin Origin;
+        public string AbilityId;
+        public int Rank;
+        public int Tier;
+        public string EffectId;
+        public string StatusInstanceId;
+        public EffectProvenance Clone() => (EffectProvenance)MemberwiseClone();
+    }
+
+    public enum EffectOrigin { Unspecified, Skill, SkillGrantedStatus, CharacterPassive }
+
+    [Serializable]
     public sealed class BattleEvent
     {
+        public EffectOrigin EffectOrigin;
+        public string EffectId;
+        public string GrantingAbilityId;
+        public int GrantingRank;
+        public int GrantingTier;
+        public BattleEntityInstance Entity;
+        public string EntityId;
+        public string EntityOwnerFighterId;
+        public string EntityDefinitionId;
+        public BattleEntityRemovalCause EntityRemovalCause;
+        public long EntityOccurrence;
+        public int EntityCapacityAfter;
+        public int EntityMaximumCapacity;
+        public int EntityAbsorbedAmount;
+        public int EntityRemainingDuration;
         public ElementId DamageElement;
         public ElementId TriggerElement;
         public bool ReactionOutputBlocked;
+        public bool ElementalReactionStatusApplied;
+        public bool ElementalReactionStatusAlreadyActive;
         public ElementalReactionId ElementalReaction;
         public ElementalDamageOrigin DamageOrigin;
         public long ParentEventId;
@@ -202,10 +248,13 @@ namespace FightingAllstar.Core.Combat
         public string RootActionId;
         public List<StatusInstance> StatusesAfter;
         public List<ElementStatusInstance> ElementStatusesAfter;
+        public List<ElementalReactionStatusInstance> ElementalReactionStatusesAfter;
         public string StatusInstanceId;
         public string StatusRecipeId;
         public StatusApplyOutcome StatusOutcome;
         public int Amount;
+        public int FormulaDamage;
+        public int ConstructAbsorbed;
         public int HealthAfter;
         public int ShieldAfter;
         public bool ShieldChanged;
@@ -230,9 +279,11 @@ namespace FightingAllstar.Core.Combat
         public BattleEvent Clone()
         {
             var copy = (BattleEvent)MemberwiseClone();
+            copy.Entity = Entity?.Clone();
             copy.ConsumedStatusInstanceIds = ConsumedStatusInstanceIds == null ? new List<string>() : new List<string>(ConsumedStatusInstanceIds);
             copy.StatusesAfter = StatusesAfter?.ConvertAll(status => status.Clone());
             copy.ElementStatusesAfter = ElementStatusesAfter?.ConvertAll(status => status.Clone());
+            copy.ElementalReactionStatusesAfter = ElementalReactionStatusesAfter?.ConvertAll(status => status.Clone());
             copy.Card = Card?.Clone();
             copy.Plan = Plan?.Clone();
             copy.TargetIds = TargetIds == null ? new List<string>() : new List<string>(TargetIds);

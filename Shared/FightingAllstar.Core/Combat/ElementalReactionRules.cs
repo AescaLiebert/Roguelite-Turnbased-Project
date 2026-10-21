@@ -30,8 +30,6 @@ namespace FightingAllstar.Core.Combat
             ElementalReactionDefinition selected = null;
             foreach (var reaction in rules.Reactions)
             {
-                if (reaction.Id == ElementalReactionId.Superconduct && target.Statuses.Instances.Exists(s => s.RecipeId == "status.reaction.superconduct") ||
-                    reaction.Id == ElementalReactionId.ElectroCharged && target.Statuses.Instances.Exists(s => s.RecipeId == "status.reaction.charged")) continue;
                 if (reaction.IncomingElement != incoming || !target.ElementStatuses.Has(reaction.ExistingElement)) continue;
                 if (selected == null || reaction.Priority < selected.Priority ||
                     reaction.Priority == selected.Priority && reaction.Id < selected.Id) selected = reaction;

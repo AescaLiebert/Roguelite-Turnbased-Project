@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18464f9867b6e1449cc0bab9451b8c0, type: 3}
+  m_Name: OzPresentation
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Presentation.Combat.BattleEntityPresentationProfile
+  definitionId: summon.oz
+  prefab: {fileID: 5651157792104642946, guid: 9381300a8ea0910489f60b9878c2d1b5, type: 3}
+  portrait: {fileID: 21300000, guid: 24f78f71cc1eb544fafdf4356bbfcd22, type: 3}
+  teamFront: 0
+  followFormation: 1
+  placementOffset: {x: -1.1, y: 1.2, z: 0.1}
+  modelScale: 0.75
+  modelYaw: 180
+  presentationBounds:
+    m_Center: {x: 0, y: 0.9164656, z: -0.0717181}
+    m_Extent: {x: 1.5677072, y: 0.91640544, z: 0.746645}
+  spawn: {fileID: -4293841215451705315, guid: 1bb424b424ff1de4fb76486f0c1bf059, type: 3}
+  idle: {fileID: -429512112410174799, guid: 1bb424b424ff1de4fb76486f0c1bf059, type: 3}
+  attack: {fileID: -3510217540682870009, guid: 1bb424b424ff1de4fb76486f0c1bf059, type: 3}
+  absorbHit: {fileID: 0}
+  capacityBreak: {fileID: 0}
+  despawn: {fileID: 5359323258221492143, guid: 1bb424b424ff1de4fb76486f0c1bf059, type: 3}
+  revealTime: 0.28
+  emitTime: 0.48
+  effectColor: {r: 0.61, g: 0.3, b: 1, a: 1}
+  spawnSound: {fileID: 8300000, guid: 28a15377e6e75de47949079805d67cfd, type: 3}
+  attackSound: {fileID: 8300000, guid: f856b94b0a2222644b16fcaf3e5181b0, type: 3}
+  absorbSound: {fileID: 8300000, guid: 9fe10a0917aae034a8296801989f5296, type: 3}
+  breakSound: {fileID: 8300000, guid: eee240cd12a7c534bae5b9bc40020491, type: 3}
+  despawnSound: {fileID: 8300000, guid: 8aa8f03d504501c40a071cdcb470dc21, type: 3}

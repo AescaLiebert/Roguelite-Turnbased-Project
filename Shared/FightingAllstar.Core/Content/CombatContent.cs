@@ -15,7 +15,7 @@ namespace FightingAllstar.Core.Content
         // Append new values to keep numeric IDs in saved stat lines and authored content stable.
         DamageOverTimeDealt, DamageDealt, AdditionalDamageDealt
     }
-    public enum EffectKind { Damage, ApplyStatus, Heal, Cleanse, RemoveBuffs, RemoveDebuffs, ChangePowerGauge, ModifyCardRank, RemoveStance, None }
+    public enum EffectKind { Damage, ApplyStatus, Heal, Cleanse, RemoveBuffs, RemoveDebuffs, ChangePowerGauge, ModifyCardRank, RemoveStance, None, Summon }
     public enum StatusPolarity { Buff, Debuff, Neutral }
     public enum StatusColor { Normal, Grey }
     public enum ModifierOperation { Flat, PercentOfBase, PercentagePoints, Multiplier }
@@ -146,6 +146,9 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class DamagePolicy
     {
+        public DamageProfileDefinition AuthoredProfile;
+        public bool BypassIncomingCap;
+        public bool BypassFatalSave;
         public int PhysicalReceivedIncreaseBp;
         public int ShieldEfficiencyBp = 10000;
         public int ExplosionFactorBp = 10000;
@@ -175,10 +178,16 @@ namespace FightingAllstar.Core.Content
         public bool BypassGenericReduction;
         public bool BypassDamageCap;
         public bool BypassShield;
+        public bool BypassConstruct;
         public bool BypassSurviveAtOne;
         public bool CannotCrit;
         public bool CannotBlock;
-        public DamagePolicy Clone() => (DamagePolicy)MemberwiseClone();
+        public DamagePolicy Clone()
+        {
+            var copy = (DamagePolicy)MemberwiseClone();
+            copy.AuthoredProfile = AuthoredProfile?.Clone();
+            return copy;
+        }
     }
 
     [Serializable]
@@ -199,6 +208,11 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class DamageResult
     {
+        public int FormulaDamage;
+        public int ConstructAbsorbed;
+        public int ShieldAbsorbed;
+        public int HpDirectedDamage;
+        public bool AllocationSurviveAtOne;
         public int CalculatedDamage;
         public int ShieldLost;
         public int HealthLost;
@@ -215,9 +229,19 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public class EffectOperationDefinition
     {
+        /// <summary>Optional packet payload for sequence damage; primary attacks keep their legacy fields.</summary>
+        [field: NonSerialized]
+        public DamageEffectRecipe DamageRecipe { get; set; }
+        public DamageProfileDefinition DamageProfile;
         public bool Explosion;
         public string ConsumeTargetRecipeId;
         public int DamagePerConsumedStackBp;
+        /// <summary>Snapshot the owner's layers at the first hit, after BeforeAction effects.</summary>
+        public string SourceStackRecipeId;
+        public int SourceStackDamageBp;
+        /// <summary>Zero leaves the per-stack coefficient unscaled; otherwise multiplies by explicit DOT Dealt.</summary>
+        public int SourceStackDotScaleBp;
+        public bool ConsumeSourceStacks;
         public int OnKillSelfHealMaxHealthBp;
         public ElementId DamageElement;
         public ElementalApplicationDefinition ElementalApplication;
@@ -234,11 +258,17 @@ namespace FightingAllstar.Core.Content
         public string KeywordId;
         public List<EffectConditionDefinition> Conditions = new List<EffectConditionDefinition>();
         public StatusRecipeDefinition StatusRecipe;
+        // Native assets persist the authoritative entity graph in their Studio JSON payload.
+        [field: NonSerialized]
+        public BattleEntityDefinition Summon { get; set; }
         public int StatusDurationOverride;
         public int StatusStackCount = 1;
         public int StatusPotencyBp;
         /// <summary>Authored status proc chance in basis points; 10000 is 100% and zero is 0%.</summary>
         public int StatusApplyChanceBp = 10000;
+        /// <summary>Adds a fraction of the effect owner's current stat to the authored status proc chance.</summary>
+        public StatId StatusApplyChanceBonusStat = StatId.CritChance;
+        public int StatusApplyChanceBonusCoefficientBp;
         public EffectValueDefinition HealValue;
         public StatId HealScalingStat = StatId.Attack;
         public int HealCoefficientBp;
@@ -247,9 +277,15 @@ namespace FightingAllstar.Core.Content
 
         internal void CopyOperationTo(EffectOperationDefinition copy)
         {
+            copy.DamageRecipe = DamageRecipe?.Clone();
+            copy.DamageProfile = DamageProfile?.Clone();
             copy.Explosion = Explosion;
             copy.ConsumeTargetRecipeId = ConsumeTargetRecipeId;
             copy.DamagePerConsumedStackBp = DamagePerConsumedStackBp;
+            copy.SourceStackRecipeId = SourceStackRecipeId;
+            copy.SourceStackDamageBp = SourceStackDamageBp;
+            copy.SourceStackDotScaleBp = SourceStackDotScaleBp;
+            copy.ConsumeSourceStacks = ConsumeSourceStacks;
             copy.OnKillSelfHealMaxHealthBp = OnKillSelfHealMaxHealthBp;
             copy.DamageElement = DamageElement;
             copy.ElementalApplication = ElementalApplication?.IsConfigured == true ? ElementalApplication.Clone() : null;
@@ -265,10 +301,13 @@ namespace FightingAllstar.Core.Content
             copy.KeywordId = KeywordId;
             copy.Conditions = Conditions?.ConvertAll(c => c?.Clone()) ?? new List<EffectConditionDefinition>();
             copy.StatusRecipe = StatusRecipe?.Clone();
+            copy.Summon = Summon?.Clone();
             copy.StatusDurationOverride = StatusDurationOverride;
             copy.StatusStackCount = StatusStackCount;
             copy.StatusPotencyBp = StatusPotencyBp;
             copy.StatusApplyChanceBp = StatusApplyChanceBp;
+            copy.StatusApplyChanceBonusStat = StatusApplyChanceBonusStat;
+            copy.StatusApplyChanceBonusCoefficientBp = StatusApplyChanceBonusCoefficientBp;
             copy.HealValue = HealValue?.IsConfigured == true ? HealValue.Clone() : null;
             copy.HealScalingStat = HealScalingStat;
             copy.HealCoefficientBp = HealCoefficientBp;
@@ -435,6 +474,7 @@ namespace FightingAllstar.Core.Content
     [Serializable]
     public sealed class PassiveDefinition
     {
+        public List<CombatPolicyDefinition> Policies = new List<CombatPolicyDefinition>();
         public CombatSupportDefinition Support;
         public string Id;
         public List<PassiveAuraDefinition> Auras = new List<PassiveAuraDefinition>();
@@ -443,6 +483,7 @@ namespace FightingAllstar.Core.Content
         public PassiveDefinition Clone()
         {
             var copy = new PassiveDefinition { Id = Id, Support = Support?.IsConfigured == true ? Support.Clone() : null };
+            if (Policies != null) foreach (var policy in Policies) copy.Policies.Add(policy?.Clone());
             if (Auras != null) foreach (var aura in Auras) copy.Auras.Add(aura?.Clone());
             if (Reactions != null) foreach (var reaction in Reactions) copy.Reactions.Add(reaction?.Clone());
             if (Triggers != null) foreach (var trigger in Triggers) copy.Triggers.Add(trigger == null ? null : trigger.Clone());
@@ -462,8 +503,9 @@ namespace FightingAllstar.Core.Content
         public string Description;
         public string SourceDescription;
         public SourceProvenance Provenance;
+        public AuthoredDescription Wording;
         public SkillRankDefinition Clone() => new SkillRankDefinition { Rank = Rank, HasCardKind = HasCardKind, Category = Category, TargetScope = TargetScope, Effect = Effect == null ? null : Effect.Clone(),
-            DescriptionKey = DescriptionKey, Description = Description, SourceDescription = SourceDescription, Provenance = Provenance };
+            DescriptionKey = DescriptionKey, Description = Description, SourceDescription = SourceDescription, Provenance = Provenance, Wording = Wording?.Clone() };
     }
 
     [Serializable]
@@ -473,15 +515,22 @@ namespace FightingAllstar.Core.Content
         public int Slot;
         public CardCategory Category;
         public EffectTargetScope TargetScope = EffectTargetScope.SelectedEnemy;
+        /// <summary>Shared hit choreography and damage target for every rank and damage step in this skill.</summary>
+        public DamageAttackDefinition DamageAnimation;
         public string SourceTarget;
         public string SourceType;
         public string SourceEffectTags;
         public List<SkillRankDefinition> Ranks = new List<SkillRankDefinition>();
+        public List<AbilityVariantDefinition> Variants = new List<AbilityVariantDefinition>();
+        public List<AbilityValueOverride> ValueOverrides = new List<AbilityValueOverride>();
         public SkillDefinition Clone()
         {
             var copy = new SkillDefinition { Id = Id, Slot = Slot, Category = Category, TargetScope = TargetScope,
+                DamageAnimation = DamageAnimation?.Clone(),
                 SourceTarget = SourceTarget, SourceType = SourceType, SourceEffectTags = SourceEffectTags };
             if (Ranks != null) foreach (var rank in Ranks) copy.Ranks.Add(rank == null ? null : rank.Clone());
+            if (Variants != null) foreach (var variant in Variants) copy.Variants.Add(variant?.Clone());
+            if (ValueOverrides != null) foreach (var value in ValueOverrides) copy.ValueOverrides.Add(value?.Clone());
             return copy;
         }
     }
@@ -496,8 +545,9 @@ namespace FightingAllstar.Core.Content
         public string SourceDescription;
         public EffectDefinition Effect;
         public SourceProvenance Provenance;
+        public AuthoredDescription Wording;
         public UltimateTierDefinition Clone() => new UltimateTierDefinition { Tier = Tier, SourceLabel = SourceLabel, Category = Category,
-            Description = Description, SourceDescription = SourceDescription, Effect = Effect == null ? null : Effect.Clone(), Provenance = Provenance };
+            Description = Description, SourceDescription = SourceDescription, Effect = Effect == null ? null : Effect.Clone(), Provenance = Provenance, Wording = Wording?.Clone() };
     }
 
     [Serializable]
@@ -519,7 +569,8 @@ namespace FightingAllstar.Core.Content
         public string Description;
         public string Restriction;
         public string Provenance;
-        public PassiveSourceDefinition Clone() => (PassiveSourceDefinition)MemberwiseClone();
+        public AuthoredDescription Wording;
+        public PassiveSourceDefinition Clone() { var copy = (PassiveSourceDefinition)MemberwiseClone(); copy.Wording = Wording?.Clone(); return copy; }
     }
 
     [Serializable]
@@ -559,13 +610,20 @@ namespace FightingAllstar.Core.Content
         public List<string> SourceTraits = new List<string>();
         public List<SourceStatField> SourceStats = new List<SourceStatField>();
         public List<UltimateTierDefinition> UltimateTiers = new List<UltimateTierDefinition>();
+        /// <summary>Shared card settings for the Ultimate C0–C5 progression.</summary>
+        public bool HasUltimateCardSettings;
+        public CardCategory UltimateCategory = CardCategory.Attack;
+        public EffectTargetScope UltimateTargetScope = EffectTargetScope.SelectedEnemy;
+        public DamageAttackDefinition UltimateDamageAnimation;
         public SourceProvenance StatsProvenance;
         public CharacterDefinition Clone()
         {
             var copy = new CharacterDefinition { SchemaVersion = SchemaVersion, RuntimeReady = RuntimeReady, Id = Id, SourceId = SourceId,
                 CategoryId = CategoryId, SourceRecord = SourceRecord, DisplayName = DisplayName, FamilyId = FamilyId, Role = Role,
                 SeriesId = SeriesId, AttributeId = AttributeId, RarityId = RarityId, BaseStats = BaseStats == null ? null : BaseStats.Clone(),
-                PassiveId = PassiveId, StatsProvenance = StatsProvenance, StatGrowth = StatGrowth?.Clone() };
+                PassiveId = PassiveId, StatsProvenance = StatsProvenance, StatGrowth = StatGrowth?.Clone(),
+                HasUltimateCardSettings = HasUltimateCardSettings, UltimateCategory = UltimateCategory,
+                UltimateTargetScope = UltimateTargetScope, UltimateDamageAnimation = UltimateDamageAnimation?.Clone() };
             if (TraitIds != null) copy.TraitIds.AddRange(TraitIds);
             if (ArtifactLoadout != null) foreach (var artifact in ArtifactLoadout) copy.ArtifactLoadout.Add(artifact?.Clone());
             if (SourceTraits != null) copy.SourceTraits.AddRange(SourceTraits);
@@ -609,6 +667,7 @@ namespace FightingAllstar.Core.Content
             {
                 if (fighter == null) { errors.Add("Catalog contains a null character."); continue; }
                 errors.AddRange(PassiveRuleValidator.Validate(fighter.Passive));
+                errors.AddRange(SkillEffectValidator.Validate(fighter));
                 errors.AddRange(ElementalContentValidator.Validate(fighter, catalog.ElementalRules));
                 if (string.IsNullOrWhiteSpace(fighter.Id)) errors.Add("Character has no stable definition id.");
                 else if (!ids.Add(fighter.Id)) errors.Add("Duplicate character id: " + fighter.Id);

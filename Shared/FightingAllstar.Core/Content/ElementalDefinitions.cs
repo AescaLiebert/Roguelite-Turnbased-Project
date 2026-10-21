@@ -5,7 +5,7 @@ namespace FightingAllstar.Core.Content
 {
     public enum ElementId { None, Pyro, Hydro, Electro, Cryo, Dendro, Anemo, Geo }
     public enum ElementalReactionId { None, Melt, Vaporize, ReverseMelt, ReverseVaporize, Overload, Swirl, Crystallize, Superconduct, ElectroCharged, Freeze, Burning, Shatter }
-    public enum ElementalDamageOrigin { Unspecified, Card, Reaction, DamageOverTime, Reflection, TriggeredAttack }
+    public enum ElementalDamageOrigin { Unspecified, Card, Reaction, DamageOverTime, Reflection, TriggeredAttack, Summon }
 
     [Serializable]
     public sealed class ElementalModifierDefinition

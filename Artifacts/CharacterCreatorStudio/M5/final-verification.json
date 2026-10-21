@@ -1,0 +1,38 @@
+{
+  "Status": "PASS",
+  "CapturedUtc": "2026-10-20T07:58:12.0656829Z",
+  "SharedAssertions": 446,
+  "M5BattleLabAssertions": 36,
+  "NativePlayModeAssertions": 23,
+  "ExistingTrainingAssertions": 2383,
+  "ExistingElementalAssertions": 873,
+  "ObservedFct": true,
+  "ObservedAudio": true,
+  "ObservedMotion": true,
+  "LogicalContacts": 4,
+  "SourceAndTrainingSceneBytesUnchanged": true,
+  "AccountAndRunJsonNeitherCreatedNorChanged": true,
+  "ScenarioAssetsRequired": false,
+  "MianCaseStudyOnly": true,
+  "PlayModeStopped": true,
+  "CurrentScene": "Assets/Project/Scenes/MainMenu.unity",
+  "SceneDirty": false,
+  "BackgroundRestored": true,
+  "LabContextCleared": true,
+  "PendingHandoffCleared": true,
+  "PreviousPlayModeStartSceneRestored": true,
+  "UnityCSharpErrors": 0,
+  "AssembliesMatchNativeTrial": true,
+  "AssemblyHashes": {
+    "RuntimeAssemblyHash": "COFLvfEuNcKdQtSF2qbezzAUuexjwkxzonYCAEn9Qag=",
+    "EditorAssemblyHash": "oa35f+rcq3OAm6CBwWfq10x4zqCFuFw2MEPBsXyCIL0=",
+    "PresentationAssemblyHash": "l2ToOCuUHnFVR3k096MGTiC9V8URFFYT3aoVQgJMSko="
+  },
+  "Screenshots": [
+    "lab-setup.png",
+    "lab-live.png",
+    "real-battle.png",
+    "runtime-inspector.png"
+  ],
+  "Scope": "Revised quick 3D Battle Lab. Existing runtime scene, actor assets and presentation pipeline. Full rig/profile/timeline authoring remains M6. Relevant regression subsets passed; unrelated repository suites were not claimed."
+}

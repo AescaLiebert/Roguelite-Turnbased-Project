@@ -1,6 +1,6 @@
 # Architecture Decision Records Index
 
-> Last updated: 2026-10-15
+> Last updated: 2026-10-21
 
 ## Dependency Order
 
@@ -8,7 +8,10 @@
 graph TD
     ADR001["ADR-001: Authoritative shared combat core"]
     ADR002["ADR-002: Elemental contact resolution proposal"]
+    ADR003["ADR-003: Owner-linked battle entities"]
     ADR001 --> ADR002
+    ADR001 --> ADR003
+    ADR002 --> ADR003
 ```
 
 The dependency expresses architecture compatibility; it does not change either record's approval status.
@@ -19,6 +22,7 @@ The dependency expresses architecture compatibility; it does not change either r
 |---|-------|--------|-------|-------------|
 | [001](001-authoritative-combat-core.md) | Shared deterministic C# combat core with authoritative online services | **Proposed** | Shared-core foundation | Historical record remains `needs-human`; current implementation evidence lives in the relevant specs/code. |
 | [002](002-elemental-reaction-resolution.md) | Shared-core elemental contact resolution with bounded child events | **Accepted direction** | Elemental feature | Owner approved the documented baseline on 2026-10-15; dependent E/K decisions and new detailed kit proposals remain explicit; runtime not implemented. |
+| [003](003-owner-linked-battle-entities.md) | Owner-linked battle entities and shared damage interception | **Accepted direction** | Summon backend | Owner approved plans and requested backend on 2026-10-21; Fischl/Xiangling/Ningguang integrated; visuals remain next phase. |
 
 ## Phase Mapping
 

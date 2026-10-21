@@ -49,8 +49,9 @@ namespace FightingAllstar.Presentation.Combat
             return text.Length == 0 ? string.Empty : char.ToUpperInvariant(text[0]) + text.Substring(1);
         }
 
-        public static string Format(string authoredText, EffectDefinition effect)
+        public static string Format(string authoredText, EffectDefinition effect, AuthoredDescription wording = null, int tier = 0)
         {
+            if (wording != null) return AuthoredCombatText.Render(wording, effect, tier);
             var text = NormalizeProse(authoredText);
             if (effect == null) return Finish(text);
             if (CardEffectText.TryFormat(effect, text, out var generated)) return Finish(generated);

@@ -1,0 +1,25 @@
+{
+  "openingScreens": 2,
+  "entityActions": 5,
+  "absorbedDamage": 1584,
+  "serializedEntities": 3,
+  "events": 135,
+  "phase": "Planning",
+  "contactResults": [
+    {
+      "scenario": "endured",
+      "formulaDamage": 0,
+      "absorbed": 0,
+      "healthLost": 0,
+      "ignite": 0
+    },
+    {
+      "scenario": "construct-absorbed",
+      "formulaDamage": 2473,
+      "absorbed": 2473,
+      "healthLost": 0,
+      "ignite": 2
+    }
+  ],
+  "unityPlaying": false
+}

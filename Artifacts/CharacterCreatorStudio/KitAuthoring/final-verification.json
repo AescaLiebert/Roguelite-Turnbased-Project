@@ -1,0 +1,40 @@
+{
+  "Success": true,
+  "CapturedUtc": "2026-10-20T10:17:12.8448383Z",
+  "SharedAssertions": 491,
+  "DirectSaveChecks": 18,
+  "Joe96AuthoringChecks": 12,
+  "NativePublisherRegressionChecks": 26,
+  "LiveNativeAndReloadChecks": 9,
+  "DraftAssetsCreated": 0,
+  "NativeCharacter": "Assets/Project/Data/Character/WIP_Phase/joe96.asset",
+  "NativeSourceAssets": [
+    "Assets/Project/Data/Character/WIP_Phase/joe96.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_skilldata1.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_skilldata2.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_ultdata1.asset",
+    "Assets/Project/Data/Character/WIP_Phase/joe96_Passive.asset"
+  ],
+  "NativeSourceGuids": [
+    "3e9cc42fac6e9a840b6f34b07404821e",
+    "21724b0ef4927bd409cade28b356e445",
+    "7b381cc5bbb64a844a93a684dddb8b3d",
+    "5a77605c43e3b934bb8fc8c2db770ee2",
+    "151f8e0d0d00a2548b98089c769e56e5"
+  ],
+  "RegisteredCharacters": 39,
+  "EditorPlaying": false,
+  "EditorCompiling": false,
+  "Scene": "Assets/Project/Scenes/MainMenu.unity",
+  "SceneDirty": true,
+  "OriginalReloadTrialSceneDirty": true,
+  "LabContext": false,
+  "ActiveSessionHasAssetPath": false,
+  "ActiveKitValid": true,
+  "AssemblyHashes": {
+    "Library/ScriptAssemblies/Assembly-CSharp.dll": "7D4438168E37E006BBFCA18B13AD65D17C181AB9231D76B2E25D0BFF73E36A77",
+    "Library/ScriptAssemblies/Assembly-CSharp-Editor.dll": "79804D31DF0510676D6FB4161DE5B442F53ED177B132EF922AFF0C11105F398E",
+    "Assets/Project/Plugins/FightingAllstar.Core.dll": "CF6F92D489131DB3D748761032671E6C92B820862377A2B65F187130553229E4"
+  },
+  "Scope": "Direct native kit editing and existing Joe96 acceptance; blank creation, art replacement and dynamic runtime wording routing remain open; M6 stays paused."
+}

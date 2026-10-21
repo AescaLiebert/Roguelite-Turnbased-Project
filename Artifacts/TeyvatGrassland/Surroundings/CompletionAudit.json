@@ -1,0 +1,116 @@
+{
+  "checkedAt": "2026-10-19T15:30:33.1724392+07:00",
+  "status": "Complete",
+  "placements": {
+    "seed": 194731,
+    "addedTrees": 547,
+    "addedRocks": 248,
+    "stage": "Assets/Project/Art/Environment/TeyvatGrassland/Surroundings/Prefabs/TG_SurroundedBattleStage.prefab",
+    "scope": "left, right, rear middle-to-farland and cliff groves"
+  },
+  "requirements": [
+    {
+      "result": "Great Tree sanctuary, pilgrim markers and woodland terraces",
+      "requirement": "Fill left middle-to-farland with a readable story landmark",
+      "evidence": [
+        "After/Compass_Left.png",
+        "After/GreatTree_Valley.png"
+      ]
+    },
+    {
+      "result": "Framed coastal valley, sea stacks, ruined beacon and continuous outer water",
+      "requirement": "Fill right middle-to-farland with coastal scenery",
+      "evidence": [
+        "After/Compass_Right.png",
+        "After/Tidewatch_Coast.png"
+      ]
+    },
+    {
+      "result": "Copses, wooded shoulder ridges, conifer foothills and snowy massif",
+      "requirement": "Fill rear middle-to-farland",
+      "evidence": [
+        "After/Compass_Rear.png",
+        "After/ReverseOverview.png",
+        "After/EnemyAttack.png"
+      ]
+    },
+    {
+      "result": "Added groves and rock groups including both upper cliff flanks",
+      "requirement": "Denser trees and rocks on cliff terrain",
+      "evidence": [
+        "Build.json",
+        "After/ReferenceFrontLeft.png",
+        "After/ReferenceFrontRight.png",
+        "After/ReferenceSide.png"
+      ]
+    },
+    {
+      "result": "Irregular coastal extensions and outer sea replace exposed slab borders. Shaped ridges replace flat blue strips. Tessellated ocean removes fog panels.",
+      "requirement": "Avoid visible void and improve elevated pic4-style layout",
+      "evidence": [
+        "After/Layout_Overview.png",
+        "After/World_Overview.png",
+        "Comparison.png"
+      ]
+    },
+    {
+      "result": "Saved simple meshes and existing tree LODs; all17 authored shots rendered, 264 sweep samples clear, real combat passed",
+      "requirement": "Keep far scenery simple and preserve combat readability",
+      "evidence": [
+        "BattleCameraSheet.png",
+        "After/NewSceneryCameraSweep.json",
+        "CombatSmoke.txt"
+      ]
+    }
+  ],
+  "cameraSweep": {
+    "passed": true,
+    "samples": 264,
+    "opaqueHeadHits": 0,
+    "cameraGroundViolations": 0,
+    "blockers": [],
+    "method": "8 authored orbit transition legs x33 positions; only newly added opaque renderer bounds, all six actor head rays, native floor clearance. Conservative bounds include every tree LOD. No backdrop gameplay colliders."
+  },
+  "directionalCaptures": 25,
+  "combatSmokeAt": "2026-10-19T15:29:36.7780945+07:00",
+  "originalAssets": [
+    {
+      "path": "Assets/Project/Scenes/Battle.unity",
+      "before": "8A366B81BA4567C5D1ABCBCE337F76B14726B976835FA44DEAD43DD9E6A878BF",
+      "after": "8A366B81BA4567C5D1ABCBCE337F76B14726B976835FA44DEAD43DD9E6A878BF",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/GraphicsSettings.asset",
+      "before": "45A5EFB13F776B05200D4DBE225DD150B5765E3DF55D5570D0540D8F125D02D9",
+      "after": "45A5EFB13F776B05200D4DBE225DD150B5765E3DF55D5570D0540D8F125D02D9",
+      "unchanged": true
+    },
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "before": "A45D9D41A89435C6D081E4986BE2C85DBB47241632B38250927C695A85DAF8E6",
+      "after": "A45D9D41A89435C6D081E4986BE2C85DBB47241632B38250927C695A85DAF8E6",
+      "unchanged": true
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Prefabs/TG_LitBattleStage_r2.prefab",
+      "before": "58A782D56E98DCEA79ED8AB77BDE2893A86E7BAE278075CB5ABEC49FD772A013",
+      "after": "58A782D56E98DCEA79ED8AB77BDE2893A86E7BAE278075CB5ABEC49FD772A013",
+      "unchanged": true
+    },
+    {
+      "path": "Assets/Project/Art/Environment/TeyvatGrassland/Lighting/Data/TG_LitMeadowPlacement.asset",
+      "before": "250504FC03E22CACFD5778171EF80D4EEBE5D746304509B1B76B737A6B20D578",
+      "after": "250504FC03E22CACFD5778171EF80D4EEBE5D746304509B1B76B737A6B20D578",
+      "unchanged": true
+    }
+  ],
+  "finalScene": "Assets/Project/Scenes/BattleTeyvat.unity",
+  "finalPrefab": "Assets/Project/Art/Environment/TeyvatGrassland/Surroundings/Prefabs/TG_SurroundedBattleStage.prefab",
+  "reviewScene": "Assets/Project/Scenes/EnvironmentReview/TeyvatGrassland/TG_SurroundingsReview.unity",
+  "limitations": [
+    "Visual improvement assessed from rendered camera studies; not an explorable open world.",
+    "Windows player build and performance profiling not run.",
+    "Main Gamma lighting retained; no lighting migration in this pass."
+  ]
+}

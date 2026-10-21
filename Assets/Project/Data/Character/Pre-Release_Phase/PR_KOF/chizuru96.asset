@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee29a43cb258c704eb29ebc05fba9245, type: 3}
+  m_Name: chizuru96
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterObject
+  definitionId: fighter.pre-release.chizuru96
+  runtimeReady: 1
+  familyId: family.chizuru96
+  seriesId: series.kof
+  role: 
+  traitIds:
+  - trait.women
+  - trait.japan
+  - trait.series-kof
+  - trait.sacred-treasure
+  - trait.women-fighter-team
+  passiveSourceDescription: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E1A\u0E25\u0E4A\u0E2D\u0E01\u0E15\u0E19\u0E40\u0E2D\u0E07
+    20% \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E1A\u0E25\u0E4A\u0E2D\u0E01\u0E44\u0E14\u0E49\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48\u0E15\u0E19\u0E40\u0E2D\u0E07\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    45%"
+  passiveSourceType: 0
+  passiveRestriction: 0
+  passiveDefinition: {fileID: 11400000, guid: 5d3d506a4af175c47a946a6a004713b8, type: 2}
+  studioSchema: 1
+  studioMetadataJson: "{\"CategoryId\":9109,\"SchemaVersion\":1,\"RuntimeReady\":true,\"Id\":\"fighter.pre-release.chizuru96\",\"SourceId\":\"pre-release-character.csv#row-10\",\"SourceRecord\":10,\"DisplayName\":\"Chizuru96\",\"FamilyId\":\"family.chizuru96\",\"Role\":\"\",\"SeriesId\":\"series.kof\",\"AttributeId\":\"attribute.blue\",\"RarityId\":\"rarity.ssr\",\"TraitIds\":[\"trait.women\",\"trait.japan\",\"trait.series-kof\",\"trait.sacred-treasure\",\"trait.women-fighter-team\"],\"BaseStats\":{\"Attack\":420,\"Defense\":370,\"MaxHealth\":6800,\"CombatClass\":3590,\"HasDerivedCombatClass\":false,\"CombatClassReferenceValue\":0,\"CombatClassFlatBonus\":0,\"CombatClassReferenceScore\":0,\"CombatClassGrowthScore\":0,\"PierceBp\":1000,\"ResistanceBp\":3000,\"RegenerationBp\":0,\"CritChanceBp\":1500,\"CritDamageBp\":12000,\"CritResistanceBp\":1500,\"CritDefenseBp\":1500,\"RecoveryBp\":15000,\"BlockChanceBp\":2000,\"BlockPowerBp\":1500,\"LifeStealBp\":1500,\"EvadeBp\":0,\"PerceptionBp\":10000,\"ControlBp\":10000,\"AvoidanceBp\":10000,\"ReflectDamageBp\":0,\"DamageOverTimeDealtBp\":0,\"DamageDealtBp\":0,\"AdditionalDamageDealtBp\":0,\"ElementalModifiers\":[]},\"StatGrowth\":{\"AttackBp\":100,\"DefenseBp\":100,\"HealthBp\":100,\"CombatClassBp\":0},\"ArtifactLoadout\":[],\"Skills\":[],\"PassiveId\":\"fighter.pre-release.chizuru96.passive\",\"PassiveSource\":{\"SourceType\":\"\",\"Description\":\"\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E1A\u0E25\u0E4A\u0E2D\u0E01\u0E15\u0E19\u0E40\u0E2D\u0E07
+    20% \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E1A\u0E25\u0E4A\u0E2D\u0E01\u0E44\u0E14\u0E49\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48\u0E15\u0E19\u0E40\u0E2D\u0E07\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    45%\",\"Restriction\":\"\",\"Provenance\":\"ArtDirection/Character Database/Pre-Release-Character.csv\",\"Wording\":null},\"Passive\":null,\"HolyRelicSource\":null,\"ReviewNotes\":[\"Source:
+    ArtDirection/Character Database/Pre-Release-Character.csv, CSV row 10; release
+    label: Pre-Begin.\",\"The source provides one value per Skill and Ultimate. That
+    value is preserved across ranks 1-3 and Ultimate tiers C0-C5 until progression
+    data is supplied.\",\"The source omits Evade, Perception, Control, Avoidance,
+    and level growth. The four secondary fields use the project neutral defaults;
+    growth uses CharacterStatGrowth defaults.\",\"The source applies 45% damage reduction
+    when a block succeeds. The current reaction grants a one-turn reduction status
+    after a blocked hit, so it affects subsequent damage.\"],\"SourceTraits\":[\"Female\",\"Japan\",\"KOF\",\"Three
+    Sacred Treasures\",\"Women Fighter Team\"],\"SourceStats\":[{\"StatId\":\"Attack\",\"SourceField\":\"ATK\",\"SourceValue\":420.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":420.0},{\"StatId\":\"Defense\",\"SourceField\":\"DEF\",\"SourceValue\":370.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":370.0},{\"StatId\":\"MaxHealth\",\"SourceField\":\"HP\",\"SourceValue\":6800.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":6800.0},{\"StatId\":\"CombatClass\",\"SourceField\":\"Class
+    Power\",\"SourceValue\":3590.0,\"Unit\":\"stat\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3590.0},{\"StatId\":\"Pierce\",\"SourceField\":\"Pierce
+    Rate\",\"SourceValue\":10.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1000.0},{\"StatId\":\"Resistance\",\"SourceField\":\"Resistence\",\"SourceValue\":30.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":3000.0},{\"StatId\":\"Regeneration\",\"SourceField\":\"Regenerate\",\"SourceValue\":0.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":0.0},{\"StatId\":\"CritChance\",\"SourceField\":\"Crit
+    Chance\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"CritDamage\",\"SourceField\":\"Crit
+    Damage\",\"SourceValue\":120.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":12000.0},{\"StatId\":\"CritResistance\",\"SourceField\":\"Crit
+    Resistence\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"CritDefense\",\"SourceField\":\"Crit
+    Defense\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Recovery\",\"SourceField\":\"Recovery
+    Rate\",\"SourceValue\":150.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":15000.0},{\"StatId\":\"BlockChance\",\"SourceField\":\"Block
+    Chance\",\"SourceValue\":20.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":2000.0},{\"StatId\":\"BlockPower\",\"SourceField\":\"Block
+    Power\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"LifeSteal\",\"SourceField\":\"Lifesteal\",\"SourceValue\":15.0,\"Unit\":\"percent\",\"Provenance\":\"ArtDirection/Character
+    Database/Pre-Release-Character.csv\",\"Value\":1500.0},{\"StatId\":\"Evade\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":0.0,\"Unit\":\"basis-points\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":0.0},{\"StatId\":\"Perception\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Control\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0},{\"StatId\":\"Avoidance\",\"SourceField\":\"Not
+    supplied\",\"SourceValue\":100.0,\"Unit\":\"percent\",\"Provenance\":\"Project
+    neutral default; absent from CSV\",\"Value\":10000.0}],\"UltimateTiers\":[],\"HasUltimateCardSettings\":true,\"UltimateCategory\":5,\"UltimateTargetScope\":1,\"UltimateDamageAnimation\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"StatsProvenance\":0}"
+  studioBundleHash: studio-bundle-v1:11e2beac23ed424288715893d80ec8a5291bd8f1af1a5ad7303d892ed0349806
+  studioAuthoringJson: "{\"SchemaVersion\":5,\"Id\":\"studio.pre-release.chizuru96\",\"Name\":\"Chizuru96\",\"SourceCharacterId\":\"fighter.pre-release.chizuru96\",\"LegacyCharacter\":null,\"AuthoredCharacter\":null,\"OwnsOpeningGauge\":false,\"ReplacedNativeReactionIds\":[\"fighter.pre-release.chizuru96.blocked-damage-reduction\"],\"NativeReactionOrder\":[\"fighter.pre-release.chizuru96.blocked-damage-reduction\"],\"CompatibilityReasons\":{},\"Parameters\":[],\"Rules\":[{\"Id\":\"fighter.pre-release.chizuru96.blocked-damage-reduction\",\"Name\":\"fighter.pre-release.chizuru96.blocked-damage-reduction\",\"Enabled\":true,\"Trigger\":6,\"Gate\":{\"MinimumTier\":0,\"MaximumTier\":5,\"Modes\":3,\"Presence\":0,\"AllowDefeatedOwner\":false},\"ConditionRootId\":\"fighter.pre-release.chizuru96.blocked-damage-reduction.eligibility\",\"Target\":4,\"AmountParameterId\":null,\"ActionRootId\":\"fighter.pre-release.chizuru96.blocked-damage-reduction.commands\",\"ElseActionRootId\":null,\"RuntimeVersion\":0,\"Imported\":true,\"StatusId\":null,\"Settings\":{\"ExecutionVersion\":0,\"Phase\":1,\"Priority\":0,\"EventResourceKey\":null,\"EventStatusRecipeId\":null,\"FilterRemovalReason\":false,\"RemovalReason\":0,\"Id\":\"fighter.pre-release.chizuru96.blocked-damage-reduction\",\"Gate\":{\"MinimumTier\":0,\"MaximumTier\":5,\"Modes\":3,\"Presence\":0,\"AllowDefeatedOwner\":false},\"Trigger\":6,\"DamageTiming\":0,\"OwnTeamTurnOnly\":false,\"ActorRelation\":3,\"TargetRelation\":1,\"CardOriginOnly\":false,\"ExcludeUltimate\":false,\"RequireGaugeLoss\":false,\"RequireCritical\":false,\"RequireBlocked\":true,\"AllowReactionOrigin\":false,\"FilterDamageFamily\":false,\"RequiredDamageElement\":0,\"DamageFamily\":0,\"FilterCategory\":false,\"Category\":0,\"MinimumRank\":0,\"LimitScope\":0,\"MaximumActivations\":1,\"CooldownOwnerTurns\":0,\"Conditions\":[],\"Commands\":[{\"Kind\":2,\"CounterKey\":null,\"CounterCap\":2147483647,\"ValueSource\":0,\"ValueBinding\":null,\"EffectBinding\":0,\"Amount\":1,\"ScalingStat\":0,\"ScalingCoefficientBp\":10000,\"Effect\":{\"TargetQuery\":null,\"Id\":\"fighter.pre-release.chizuru96.passive-block-reduction\",\"Order\":0,\"Window\":4,\"Kind\":1,\"Target\":0,\"Conditions\":[],\"Damage\":null,\"Status\":{\"StatusRecipeId\":\"fighter.pre-release.chizuru96.status.passive-block-reduction\",\"DurationOverride\":1,\"StackCount\":1,\"PotencySource\":0,\"PotencySourceRecipeId\":null,\"PotencyBp\":0,\"ProcChanceBp\":10000,\"InlineRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"fighter.pre-release.chizuru96.status.passive-block-reduction\",\"NameKey\":\"Damage
+    Reduction\",\"Polarity\":0,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":1,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":5,\"Stat\":0,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":4500,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":5,\"ResolvedStat\":0,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]}},\"StatTransfer\":null,\"RemovePolarity\":0,\"RemoveRecipeId\":null,\"RemoveAll\":true,\"Magnitude\":0,\"StatusDurationOverride\":0,\"Value\":null,\"Summon\":null},\"SkillId\":null,\"VariantId\":null,\"VariantUnlocked\":false}],\"ElseCommands\":[],\"Actions\":[]}}],\"Conditions\":[{\"Id\":\"fighter.pre-release.chizuru96.blocked-damage-reduction.eligibility\",\"Logic\":0,\"Kind\":0,\"Subject\":0,\"Threshold\":0,\"ThresholdParameterId\":null,\"StringValue\":null,\"RecipeId\":null,\"Tag\":null,\"RosterFilter\":{\"Relation\":2,\"IncludeOwner\":true,\"IncludeReserve\":true,\"AttributeId\":null,\"TraitId\":null,\"SeriesId\":null},\"InitialRoster\":false,\"Negate\":false,\"Children\":[]}],\"Actions\":[{\"Id\":\"fighter.pre-release.chizuru96.blocked-damage-reduction.commands\",\"Name\":null,\"Kind\":0,\"ConditionRootId\":null,\"Children\":[\"fighter.pre-release.chizuru96.blocked-damage-reduction.commands.command\"],\"ElseChildren\":[],\"ModuleId\":null,\"Command\":{\"Kind\":2,\"CounterKey\":null,\"CounterCap\":2147483647,\"ValueSource\":0,\"ValueBinding\":null,\"EffectBinding\":0,\"Amount\":1,\"ScalingStat\":0,\"ScalingCoefficientBp\":10000,\"Effect\":{\"TargetQuery\":null,\"Id\":null,\"Order\":0,\"Window\":0,\"Kind\":5,\"Target\":0,\"Conditions\":[],\"Damage\":null,\"Status\":null,\"StatTransfer\":null,\"RemovePolarity\":0,\"RemoveRecipeId\":null,\"RemoveAll\":true,\"Magnitude\":1,\"StatusDurationOverride\":0,\"Value\":null,\"Summon\":null},\"SkillId\":null,\"VariantId\":null,\"VariantUnlocked\":false},\"AmountParameterId\":null,\"CoefficientParameterId\":null,\"MultiplierParameterId\":null,\"Target\":0,\"MaximumTargets\":16,\"Query\":null,\"ResourceKey\":null,\"Amount\":1,\"ResourceCap\":2147483647,\"StatusRecipeId\":null,\"StatusOwnerOnly\":true,\"RequireFullAmount\":true,\"RemovalReason\":5,\"ResultBinding\":null},{\"Id\":\"fighter.pre-release.chizuru96.blocked-damage-reduction.commands.command\",\"Name\":null,\"Kind\":3,\"ConditionRootId\":null,\"Children\":[],\"ElseChildren\":[],\"ModuleId\":null,\"Command\":{\"Kind\":2,\"CounterKey\":null,\"CounterCap\":2147483647,\"ValueSource\":0,\"ValueBinding\":null,\"EffectBinding\":0,\"Amount\":1,\"ScalingStat\":0,\"ScalingCoefficientBp\":10000,\"Effect\":{\"TargetQuery\":null,\"Id\":\"fighter.pre-release.chizuru96.passive-block-reduction\",\"Order\":0,\"Window\":4,\"Kind\":1,\"Target\":0,\"Conditions\":[],\"Damage\":null,\"Status\":{\"StatusRecipeId\":\"fighter.pre-release.chizuru96.status.passive-block-reduction\",\"DurationOverride\":1,\"StackCount\":1,\"PotencySource\":0,\"PotencySourceRecipeId\":null,\"PotencyBp\":0,\"ProcChanceBp\":10000,\"InlineRecipe\":{\"StructuralEntityMarker\":false,\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"fighter.pre-release.chizuru96.status.passive-block-reduction\",\"NameKey\":\"Damage
+    Reduction\",\"Polarity\":0,\"Color\":0,\"Behavior\":1,\"Stacking\":1,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":1,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[{\"Target\":5,\"Stat\":0,\"Bundle\":0,\"Family\":0,\"Operation\":2,\"Amount\":4500,\"ScaleByStatusPotency\":false,\"PotencyCoefficientBp\":10000,\"SerializedTarget\":-1,\"SerializedStat\":-1,\"SerializedBundle\":-1,\"SerializedFamily\":-1,\"SerializedOperation\":-1,\"ResolvedTarget\":5,\"ResolvedStat\":0,\"ResolvedBundle\":0,\"ResolvedFamily\":0,\"ResolvedOperation\":2}],\"PeriodicDamage\":null,\"PeriodicHealing\":null,\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":null,\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]}},\"StatTransfer\":null,\"RemovePolarity\":0,\"RemoveRecipeId\":null,\"RemoveAll\":true,\"Magnitude\":0,\"StatusDurationOverride\":0,\"Value\":null,\"Summon\":null},\"SkillId\":null,\"VariantId\":null,\"VariantUnlocked\":false},\"AmountParameterId\":null,\"CoefficientParameterId\":null,\"MultiplierParameterId\":null,\"Target\":0,\"MaximumTargets\":16,\"Query\":null,\"ResourceKey\":null,\"Amount\":1,\"ResourceCap\":2147483647,\"StatusRecipeId\":null,\"StatusOwnerOnly\":true,\"RequireFullAmount\":true,\"RemovalReason\":5,\"ResultBinding\":null}],\"Modules\":[],\"Resources\":[],\"Statuses\":[],\"Policies\":[],\"AbilityVariants\":[],\"AbilityOverrides\":[],\"Description\":{\"SchemaVersion\":1,\"Id\":\"description.default\",\"OwnerId\":\"studio.pre-release.chizuru96\",\"DefaultLocale\":\"en\",\"Locales\":[{\"Locale\":\"en\",\"ReviewState\":\"Draft\",\"ReviewedTextHash\":\"\",\"ReviewedGameplayHash\":\"\",\"Blocks\":[{\"Id\":\"paragraph.main\",\"Kind\":0,\"StyleId\":\"\",\"Source\":\"\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E1A\u0E25\u0E4A\u0E2D\u0E01\u0E15\u0E19\u0E40\u0E2D\u0E07
+    20% \u0E40\u0E21\u0E37\u0E48\u0E2D\u0E1A\u0E25\u0E4A\u0E2D\u0E01\u0E44\u0E14\u0E49\u0E25\u0E14\u0E14\u0E32\u0E40\u0E21\u0E08\u0E17\u0E35\u0E48\u0E15\u0E19\u0E40\u0E2D\u0E07\u0E44\u0E14\u0E49\u0E23\u0E31\u0E1A
+    45%\",\"MechanicIds\":[],\"HasFallback\":true,\"Branches\":[],\"DetachedSnippetOrigins\":[]}]}],\"Bindings\":[]},\"Presentation\":{\"Id\":\"presentation.default\",\"ActorAssetGuid\":null,\"ActionClipGuid\":null,\"ReactionClipGuid\":null,\"DurationMilliseconds\":1000}}"
+  studioLibraryJson: "{\"SchemaVersion\":1,\"Terms\":[{\"Id\":\"keyword.power-gauge\",\"Revision\":1,\"Category\":\"Resource\",\"GameplayDefinitionId\":\"\",\"StyleId\":\"style.keyword\",\"Names\":[{\"Locale\":\"en\",\"Text\":\"Power
+    Gauge\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E01\u0E08\u0E1E\u0E25\u0E31\u0E07\"}],\"Definitions\":[{\"Locale\":\"en\",\"Text\":\"Resource
+    used to activate an ultimate.\"},{\"Locale\":\"th\",\"Text\":\"\u0E17\u0E23\u0E31\u0E1E\u0E22\u0E32\u0E01\u0E23\u0E17\u0E35\u0E48\u0E43\u0E0A\u0E49\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E2D\u0E2D\u0E01\u0E17\u0E48\u0E32\u0E44\u0E21\u0E49\u0E15\u0E32\u0E22\"}],\"Aliases\":[],\"Deprecated\":false,\"Tooltip\":null}],\"Styles\":[{\"Id\":\"style.keyword\",\"Revision\":1,\"Name\":\"Keyword\",\"Color\":\"#70D6FF\",\"Bold\":true,\"Italic\":false},{\"Id\":\"style.value\",\"Revision\":1,\"Name\":\"Bound
+    value\",\"Color\":\"#FFD580\",\"Bold\":true,\"Italic\":false}],\"Snippets\":[{\"Id\":\"snippet.opening-gauge\",\"Name\":\"\",\"Category\":\"Wording\",\"UsageNotes\":\"\",\"Revision\":1,\"Inputs\":[{\"Id\":\"amount\",\"Kind\":0},{\"Id\":\"resource\",\"Kind\":1}],\"Templates\":[{\"Locale\":\"en\",\"Text\":\"At
+    battle start, active allies gain {{value:$amount|integer}} {{term:$resource}}.\"},{\"Locale\":\"th\",\"Text\":\"\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E40\u0E23\u0E34\u0E48\u0E21\u0E15\u0E48\u0E2D\u0E2A\u0E39\u0E49
+    \u0E40\u0E1E\u0E34\u0E48\u0E21{{term:$resource}} {{value:$amount|integer}} \u0E08\u0E38\u0E14\u0E43\u0E2B\u0E49\u0E1E\u0E31\u0E19\u0E18\u0E21\u0E34\u0E15\u0E23\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E2A\u0E19\u0E32\u0E21\u0E41\u0E25\u0E30\u0E22\u0E31\u0E07\u0E21\u0E35\u0E0A\u0E35\u0E27\u0E34\u0E15\"}]}]}"
+  id: 9109
+  fighterName: Chizuru96
+  fighterPic: {fileID: 21300000, guid: 4f9b604cc55b7fa4998e0cd278dbbe33, type: 3}
+  fighterIcon: {fileID: 21300000, guid: e9168bb40f0dbb14da704f699fae0f6d, type: 3}
+  fighterFull: {fileID: 21300000, guid: 4f9b604cc55b7fa4998e0cd278dbbe33, type: 3}
+  fighterPassive: {fileID: 0}
+  fighterCard1: {fileID: 0}
+  fighterCard2: {fileID: 0}
+  fighterUltimate: {fileID: 0}
+  fighter3DPrefab: {fileID: 0}
+  fighter3DMesh: {fileID: 0}
+  fighter3DMaterial: {fileID: 0}
+  fighterModelYawOffset: 180
+  Skill1: {fileID: 11400000, guid: ef367e5937955a146bd373ec6fa6a232, type: 2}
+  Skill2: {fileID: 11400000, guid: 7b588acb15fd50f49a11ac955c2aa828, type: 2}
+  Ultimate: {fileID: 11400000, guid: 113195c162514cc4ea0e014e2608a5f5, type: 2}
+  FighterAttribute: 2
+  FighterRarity: 2
+  fighterLevel: 1
+  fighterAwakening: 0
+  fighterUltimateLevel: 1
+  LevelGrowth:
+    AttackBp: 100
+    DefenseBp: 100
+    HealthBp: 100
+  Classpower: 3590
+  attack: 420
+  defense: 370
+  health: 6800
+  SecondaryStats:
+    PierceRate: 10
+    Resistance: 30
+    Regenerate: 0
+    CritChance: 15
+    CritDmg: 120
+    CritResistance: 15
+    CritDefense: 15
+    RecoveryRate: 150
+    BlockChance: 20
+    BlockPower: 15
+    LifeSteal: 15
+    AvoidanceRate: 100
+    EvadeRate: 0
+    ControlRate: 100
+    PerceptionRate: 100

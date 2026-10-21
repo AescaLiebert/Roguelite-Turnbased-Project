@@ -63,43 +63,6 @@ public static class ConfigureTakiKit
         });
         definition.Reactions.Add(attackBonus);
 
-        var skill2Bonus = new PassiveReactionDefinition
-        {
-            Id = "skill-2-target-max-health-damage",
-            Trigger = PassiveEventKind.DamageResolved,
-            DamageTiming = PassiveDamageTiming.FinalHit,
-            ActorRelation = PassiveRelation.Self,
-            TargetRelation = PassiveRelation.Enemies,
-            CardOriginOnly = true,
-            ExcludeUltimate = true,
-            FilterCategory = true,
-            Category = CardCategory.Attack,
-            MinimumRank = 1,
-            LimitScope = PassiveLimitScope.RootActionTarget,
-            MaximumActivations = 1
-        };
-        skill2Bonus.Commands.Add(new PassiveCommandDefinition
-        {
-            Kind = PassiveCommandKind.ExecuteEffect,
-            Effect = new CardEffectOperationDefinition
-            {
-                Id = "skill-2-max-health-hit",
-                Window = CardEffectWindow.AfterDamage,
-                Kind = CardEffectOperationKind.Damage,
-                Target = EffectTargetScope.TriggerTarget,
-                Damage = new DamageEffectRecipe
-                {
-                    Family = DamageFamily.Additional,
-                    Scaling = StatScaling.MaxHealth,
-                    StatSource = DamageStatSource.Target,
-                    CoefficientBp = 2000,
-                    CannotCrit = true,
-                    CannotBlock = true
-                }
-            }
-        });
-        definition.Reactions.Add(skill2Bonus);
-
         var passiveErrors = PassiveRuleValidator.Validate(definition);
         if (passiveErrors.Count > 0) throw new InvalidOperationException(string.Join("\n", passiveErrors));
         passive.SetDefinition(definition);
@@ -134,9 +97,13 @@ public static class ConfigureTakiKit
         for (var rank = 1; rank <= skill2Coefficients.Length; rank++)
         {
             var coefficient = skill2Coefficients[rank - 1];
+            var effect = Damage(Id + ".skill.2.rank." + rank, EffectTargetScope.SelectedEnemy, coefficient);
+            effect.Sequence.Add(new CardEffectStep { Timing = CardEffectTiming.AfterDamage, Effect = new EffectStepDefinition {
+                Id = Id + ".skill.2.rank." + rank + ".additional", Kind = EffectKind.Damage, Target = EffectTargetScope.SelectedEnemy,
+                DamageRecipe = new DamageEffectRecipe { Family = DamageFamily.Additional, Scaling = StatScaling.MaxHealth,
+                    StatSource = DamageStatSource.Target, CoefficientBp = 2000, CannotCrit = true, CannotBlock = true } } });
             skill2.ranks.Add(new CardRankData { skillType = SkillType.Attack,
-                description = $"Deals {coefficient / 100}% ATK damage to one enemy, plus additional damage equal to 20% of the target's Max HP.",
-                runtimeEffect = Damage(Id + ".skill.2.rank." + rank, EffectTargetScope.SelectedEnemy, coefficient) });
+                description = $"Deals {coefficient / 100}% ATK damage to one enemy, plus additional damage equal to 20% of the target's Max HP.", runtimeEffect = effect });
         }
 
         ultimateCard.ultimateName = "SCII Taki · Severing Slash";
@@ -186,6 +153,10 @@ public static class ConfigureTakiKit
         data.ApplyModifiedPropertiesWithoutUndo();
         EditorUtility.SetDirty(character);
 
+        var skillDefinition = new SkillDefinition { Id = Id + ".skill.2", Slot = 2, Category = CardCategory.Attack };
+        for (var i = 0; i < skill2.ranks.Count; i++) skillDefinition.Ranks.Add(new SkillRankDefinition {
+            Rank = i + 1, Description = skill2.ranks[i].description, Effect = skill2.ranks[i].runtimeEffect.Clone() });
+        skill2.SetStudioDefinition(skillDefinition);
         EditorUtility.SetDirty(skill1);
         EditorUtility.SetDirty(skill2);
         EditorUtility.SetDirty(ultimateCard);

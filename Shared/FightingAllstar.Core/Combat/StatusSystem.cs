@@ -8,6 +8,9 @@ namespace FightingAllstar.Core.Combat
     [Serializable]
     public sealed class StatusSnapshot
     {
+        public string GrantingAbilityId;
+        public int GrantingRank;
+        public int GrantingTier;
         public int TriggeringHealthDamage;
         public int SourceAttack;
         public int SourceDefense;
@@ -22,6 +25,7 @@ namespace FightingAllstar.Core.Combat
     {
         public string InstanceId;
         public string ParentInstanceId;
+        public string EntityInstanceId;
         public int DamageTaken;
         public string RecipeId;
         public string SourceFighterId;
@@ -39,7 +43,7 @@ namespace FightingAllstar.Core.Combat
 
         public StatusInstance Clone() => new StatusInstance { InstanceId = InstanceId, RecipeId = RecipeId,
             SourceFighterId = SourceFighterId, SourceSide = SourceSide, TargetFighterId = TargetFighterId,
-            ParentInstanceId = ParentInstanceId, DamageTaken = DamageTaken,
+            ParentInstanceId = ParentInstanceId, EntityInstanceId = EntityInstanceId, DamageTaken = DamageTaken,
             RootActionId = RootActionId, Recipe = Recipe?.Clone(), Snapshot = Snapshot?.Clone(), PotencyBp = PotencyBp,
             StackCount = StackCount, RemainingDuration = RemainingDuration,
             ShieldRemaining = ShieldRemaining,
@@ -86,7 +90,7 @@ namespace FightingAllstar.Core.Combat
 
     /// <summary>Owns all mutable status instances for one fighter.</summary>
     [Serializable]
-    public sealed class StatusContainer
+    public sealed partial class StatusContainer
     {
         public List<StatusInstance> Instances = new List<StatusInstance>();
 
@@ -135,6 +139,9 @@ namespace FightingAllstar.Core.Combat
             switch (recipe.Stacking)
             {
                 case StatusStackingPolicy.RefreshDuration:
+                    if ((incoming.Recipe.Reactions.Count > 0 || incoming.Recipe.StanceChildren.Exists(c => c?.Reactions?.Count > 0)) &&
+                        !string.IsNullOrEmpty(incoming.Snapshot.GrantingAbilityId))
+                        ReplacePayload(current, incoming);
                     RefreshDuration(current, incoming);
                     return Result(StatusApplyOutcome.Refreshed, current);
                 case StatusStackingPolicy.AddStacks:
@@ -181,6 +188,7 @@ namespace FightingAllstar.Core.Combat
             {
                 var instance = Instances[i];
                 if (instance?.Recipe == null ||
+                    instance.Recipe.StructuralEntityMarker ||
                     (instance.Recipe.Color == StatusColor.Grey && string.IsNullOrEmpty(recipeId)) ||
                     instance.Recipe.Polarity != polarity) continue;
                 if (!string.IsNullOrEmpty(recipeId) && instance.RecipeId != recipeId) continue;
@@ -268,6 +276,7 @@ namespace FightingAllstar.Core.Combat
             foreach (var instance in Instances)
             {
                 if (instance?.Recipe == null || (polarity.HasValue && instance.Recipe.Polarity != polarity.Value)) continue;
+                if (instance.Recipe.StructuralEntityMarker && string.IsNullOrEmpty(requiredTag) && string.IsNullOrEmpty(recipeId)) continue;
                 if (!string.IsNullOrEmpty(recipeId) && instance.RecipeId != recipeId) continue;
                 if (!string.IsNullOrEmpty(sourceFighterId) && instance.SourceFighterId != sourceFighterId) continue;
                 if (!string.IsNullOrEmpty(requiredTag) &&
@@ -730,6 +739,10 @@ namespace FightingAllstar.Core.Combat
                 policy.PhysicalReceivedIncreaseBp += status?.Recipe?.PhysicalDamageReceivedBp ?? 0;
                 if (status?.SourceFighterId == defender.Id) policy.FinalReductionBp += status.Recipe?.SourceOnlyDamageReductionBp ?? 0;
             }
+            if (defender?.ElementStatuses?.ReactionStatuses != null)
+                foreach (var status in defender.ElementStatuses.ReactionStatuses)
+                    if (status?.Reaction == ElementalReactionId.Superconduct)
+                        policy.PhysicalReceivedIncreaseBp += status.NonElementalDamageTakenBp;
             if (ArtifactRules.ActiveSets(attacker).Contains(ArtifactSet.Striker))
             {
                 // Artifact Damage Dealt applies to every family. Additional/DOT use the family

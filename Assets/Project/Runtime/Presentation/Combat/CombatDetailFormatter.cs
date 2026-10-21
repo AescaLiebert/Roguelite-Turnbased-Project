@@ -58,6 +58,7 @@ namespace FightingAllstar.Presentation.Combat
         public string Keywords;
         public List<CombatStatusBadgeData> Statuses;
         public Sprite Icon;
+        public List<PassiveGate> Availability = new List<PassiveGate>();
     }
 
     /// <summary>
@@ -140,8 +141,8 @@ namespace FightingAllstar.Presentation.Combat
             CharacterObject character,
             Func<string, StatusPolarity, Sprite> statusSpriteResolver = null)
         {
-            var rawDesc = ResolveCardDescription(card, owner, character, out var runtimeEffect);
-            rawDesc = CardDescriptionText.Format(rawDesc, runtimeEffect);
+            var rawDesc = ResolveCardDescription(card, owner, character, out var runtimeEffect, out var wording);
+            rawDesc = CardDescriptionText.Format(rawDesc, runtimeEffect, wording, card?.Kind == CardKind.Ultimate ? card.UltimateTier : owner?.ConstellationTier ?? 0);
             var damageKeyword = runtimeEffect?.KeywordId;
 
             var statuses = new List<CombatStatusBadgeData>();
@@ -165,11 +166,11 @@ namespace FightingAllstar.Presentation.Combat
             }
 
             AddEffectBadges(runtimeEffect, AddBadge);
-            AddCardStatusVisualBadges(card, owner, character, AddBadge);
 
 
-            var highlightedDesc = HighlightKeywords(rawDesc);
-            var keywordsExplanation = BuildKeywordsExplanation(rawDesc, damageKeyword, statuses);
+
+            var highlightedDesc = wording == null ? HighlightKeywords(rawDesc) : rawDesc;
+            var keywordsExplanation = wording?.AutomaticKeywords == false ? wording.KeywordNotes ?? "" : BuildKeywordsExplanation(rawDesc, damageKeyword, statuses);
 
             return (highlightedDesc, keywordsExplanation, statuses);
         }
@@ -193,16 +194,16 @@ namespace FightingAllstar.Presentation.Combat
             var title = charName + " Passive";
 
             string sourceType = "Character passive";
-            if (character != null && character.PassiveSourceType != PassiveSourceType.Unknown)
-                sourceType = CharacterPassiveMetadata.SourceTypeLabel(character.PassiveSourceType);
-            else if (!string.IsNullOrWhiteSpace(owner?.Definition?.PassiveSource?.SourceType))
+            if (!string.IsNullOrWhiteSpace(owner?.Definition?.PassiveSource?.SourceType))
                 sourceType = owner.Definition.PassiveSource.SourceType;
+            else if (character != null && character.PassiveSourceType != PassiveSourceType.Unknown)
+                sourceType = CharacterPassiveMetadata.SourceTypeLabel(character.PassiveSourceType);
 
             string restriction = string.Empty;
-            if (character != null && character.PassiveRestriction != PassiveRestriction.Unknown)
-                restriction = CharacterPassiveMetadata.RestrictionLabel(character.PassiveRestriction);
-            else if (!string.IsNullOrWhiteSpace(owner?.Definition?.PassiveSource?.Restriction))
+            if (!string.IsNullOrWhiteSpace(owner?.Definition?.PassiveSource?.Restriction))
                 restriction = owner.Definition.PassiveSource.Restriction;
+            else if (character != null && character.PassiveRestriction != PassiveRestriction.Unknown)
+                restriction = CharacterPassiveMetadata.RestrictionLabel(character.PassiveRestriction);
 
             var statuses = new List<CombatStatusBadgeData>();
             var seenStatuses = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -237,12 +238,24 @@ namespace FightingAllstar.Presentation.Combat
 
             // Aura contributions are passive rules, not applied status effects.
             // Their description, passive portrait and restriction icons carry this information.
-            rawDesc = PassiveDescriptionText.Format(rawDesc, owner?.Definition?.Passive);
+            var wording = owner?.Definition?.PassiveSource?.Wording;
+            rawDesc = PassiveDescriptionText.Format(rawDesc, owner?.Definition?.Passive, wording, owner?.ConstellationTier ?? 0);
 
-            var highlightedDesc = HighlightKeywords(rawDesc);
-            var keywordsExplanation = BuildKeywordsExplanation(rawDesc, null, statuses);
+            var highlightedDesc = wording == null ? HighlightKeywords(rawDesc) : rawDesc;
+            var keywordsExplanation = wording?.AutomaticKeywords == false ? wording.KeywordNotes ?? "" : BuildKeywordsExplanation(rawDesc, null, statuses);
 
             Sprite passiveIcon = character?.FighterPassive;
+            var passive = owner?.Definition?.Passive;
+            var availability = new List<PassiveGate>();
+            if (passive != null)
+            {
+                availability.AddRange(passive.Auras.Select(a => a.Gate).Concat(passive.Reactions.Select(r => r.Gate)).Concat(passive.Policies.Select(p => p.Gate)).Where(g => g != null).Select(g => g.Clone()));
+                if (passive.Support?.IsConfigured == true)
+                {
+                    availability.Add(new PassiveGate { Presence = passive.Support.Presence });
+                    if (passive.Support.SwirlStrengthBp != 0) availability.Add(new PassiveGate { Presence = passive.Support.SwirlPresence });
+                }
+            }
 
             return new PassiveDetailData
             {
@@ -253,13 +266,15 @@ namespace FightingAllstar.Presentation.Combat
                 FormattedDescription = highlightedDesc,
                 Keywords = keywordsExplanation,
                 Statuses = statuses,
-                Icon = passiveIcon
+                Icon = passiveIcon,
+                Availability = availability
             };
         }
 
-        private static string ResolveCardDescription(CardState card, FighterState owner, CharacterObject character, out EffectDefinition runtimeEffect)
+        private static string ResolveCardDescription(CardState card, FighterState owner, CharacterObject character, out EffectDefinition runtimeEffect, out AuthoredDescription wording)
         {
             runtimeEffect = null;
+            wording = null;
             if (card == null || owner?.Definition == null) return "No effect description available.";
 
             if (card.Kind == CardKind.Ultimate)
@@ -267,6 +282,7 @@ namespace FightingAllstar.Presentation.Combat
                 var ultTier = owner.Definition.UltimateTiers?.FirstOrDefault(t => t.Tier == card.UltimateTier)
                            ?? owner.Definition.UltimateTiers?.FirstOrDefault();
                 runtimeEffect = ultTier?.Effect;
+                wording = ultTier?.Wording;
                 return ultTier?.Description ?? string.Empty;
             }
 
@@ -275,6 +291,9 @@ namespace FightingAllstar.Presentation.Combat
             var skillRank = skill?.Ranks?.FirstOrDefault(r => r.Rank == card.Rank)
                          ?? skill?.Ranks?.FirstOrDefault();
             runtimeEffect = skillRank?.Effect;
+            if (skill != null && skillRank != null && CardRules.TryGetSkill(owner.Definition, skill.Id, skillRank.Rank, out var sharedEffect))
+                runtimeEffect = sharedEffect;
+            wording = skillRank?.Wording;
             return skillRank?.Description ?? string.Empty;
         }
 
@@ -287,36 +306,11 @@ namespace FightingAllstar.Presentation.Combat
                 if (step?.Effect != null) AddEffectBadge(step.Effect, addBadge);
         }
 
-        private static void AddCardStatusVisualBadges(CardState card, FighterState owner, CharacterObject character,
-            Action<string, StatusPolarity, string> addBadge)
-        {
-            if (card == null || character == null || addBadge == null) return;
-
-            // Some effects are executed by a passive reaction tied to a card (for
-            // example Ivy's Ultimate stat transfer), so they are not represented in
-            // the card's root/sequence EffectDefinition. The card's own visual list is
-            // the authored source of truth for those status badges.
-            List<StatusVisualData> visuals = null;
-            if (card.Kind == CardKind.Ultimate)
-            {
-                visuals = character.Ultimate?.statusVisuals;
-            }
-            else
-            {
-                var slot = owner?.Definition?.Skills?.FirstOrDefault(skill => skill != null && skill.Id == card.SkillId)?.Slot;
-                var skillCard = slot == 2 ? character.Skill2 : character.Skill1;
-                visuals = skillCard?.statusVisuals;
-            }
-
-            if (visuals == null) return;
-            foreach (var visual in visuals)
-                if (visual != null)
-                    addBadge(visual.DisplayName, visual.Polarity, visual.Id);
-        }
-
         private static void AddEffectBadge(EffectOperationDefinition effect, Action<string, StatusPolarity, string> addBadge)
         {
             if (effect == null || effect.Kind != EffectKind.ApplyStatus || effect.StatusRecipe == null) return;
+            // Description badges represent direct skill applications. Conditional outputs stay in the action editor.
+            if (effect.Conditions?.Any(c => c != null && (c.Negate || c.Logic != ConditionLogic.Leaf || c.Kind != EffectConditionKind.Always)) == true) return;
             AddStatusRecipeBadges(effect.StatusRecipe, addBadge, effect.StatusPotencyBp != 0 ? (int?)effect.StatusPotencyBp : null);
         }
 

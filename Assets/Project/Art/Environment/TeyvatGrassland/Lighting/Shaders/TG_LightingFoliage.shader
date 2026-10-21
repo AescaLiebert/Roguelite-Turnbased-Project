@@ -194,6 +194,7 @@ Shader "Teyvat/URP/LightingFoliage"
             Tags { "LightMode" = "UniversalForward" }
             HLSLPROGRAM
             #pragma target 3.5
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
             #pragma vertex TGFoliageVertex
             #pragma fragment TGFoliageFragment
             #pragma multi_compile_instancing
@@ -211,6 +212,7 @@ Shader "Teyvat/URP/LightingFoliage"
             ColorMask 0
             HLSLPROGRAM
             #pragma target 3.5
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
             #pragma vertex TGFoliageShadowVertex
             #pragma fragment TGFoliageDepthFragment
             #pragma multi_compile_instancing
@@ -225,6 +227,7 @@ Shader "Teyvat/URP/LightingFoliage"
             ColorMask 0
             HLSLPROGRAM
             #pragma target 3.5
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
             #pragma vertex TGFoliageDepthVertex
             #pragma fragment TGFoliageDepthFragment
             #pragma multi_compile_instancing

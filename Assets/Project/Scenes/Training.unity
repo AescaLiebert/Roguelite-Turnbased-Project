@@ -1289,6 +1289,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402394965}
   m_CullTransparentMesh: 1
+--- !u!1 &416733155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 416733157}
+  - component: {fileID: 416733156}
+  m_Layer: 0
+  m_Name: Shared map rendering
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &416733156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416733155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0b7843c8b581642a88c37fb841d654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FightingAllstar.Rendering.MapRenderContext
+  pipeline: {fileID: 11400000, guid: 1353391c42b9f584fb3ac88c7b30c3d0, type: 2}
+  actorShader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  qualityTier: Map Standard URP
+  farClipMinimum: 0
+  postProcessing: 0
+  rendererIndex: 0
+  adaptSceneStandardMaterials: 1
+  lightingRig: {fileID: 0}
+--- !u!4 &416733157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416733155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &426893956
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,3 +3857,4 @@ SceneRoots:
   - {fileID: 1264416702}
   - {fileID: 634767383}
   - {fileID: 2110000011}
+  - {fileID: 416733157}

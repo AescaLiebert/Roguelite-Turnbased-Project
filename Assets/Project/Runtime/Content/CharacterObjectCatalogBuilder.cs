@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Content;
 using FightingAllstar.Presentation.Combat;
 using UnityEngine;
@@ -99,6 +100,17 @@ namespace FightingAllstar.Presentation.Content
                 Skills = new List<SkillDefinition>(),
                 UltimateTiers = new List<UltimateTierDefinition>()
             };
+            var studio = character.CreateStudioMetadata();
+            if (studio != null)
+            {
+                if (studio.Id != character.DefinitionId) throw new InvalidOperationException("Studio character identity differs from its native asset.");
+                definition.SourceId = studio.SourceId; definition.SourceRecord = studio.SourceRecord;
+                definition.BaseStats = studio.BaseStats.Clone(); definition.StatGrowth = studio.StatGrowth?.Clone();
+                definition.StatsProvenance = studio.StatsProvenance; definition.HolyRelicSource = studio.HolyRelicSource;
+                definition.ArtifactLoadout = studio.ArtifactLoadout; definition.ReviewNotes = studio.ReviewNotes;
+                definition.SourceTraits = studio.SourceTraits; definition.SourceStats = studio.SourceStats;
+                if (studio.PassiveSource != null) definition.PassiveSource = studio.PassiveSource.Clone();
+            }
             if (character.TraitIds != null) definition.TraitIds.AddRange(character.TraitIds);
             if (character.PassiveDefinition != null && character.PassiveDefinition.statusVisuals != null)
             {
@@ -107,12 +119,21 @@ namespace FightingAllstar.Presentation.Content
             }
             definition.Skills.Add(CreateSkill(character, character.Skill1, 1));
             definition.Skills.Add(CreateSkill(character, character.Skill2, 2));
-            CreateUltimate(character, character.Ultimate, definition.UltimateTiers);
+            CreateUltimate(character, character.Ultimate, definition);
             return definition;
         }
 
         private static SkillDefinition CreateSkill(CharacterObject character, SkillCardSO card, int slot)
         {
+            if (card.StudioOwned)
+            {
+                var authored = card.CreateStudioDefinition();
+                if (authored.Slot != slot || authored.Id != character.DefinitionId + ".skill." + slot)
+                    throw new InvalidOperationException("Studio skill identity/slot does not match its character: " + authored.Id);
+                if (authored.DamageAnimation == null) authored.DamageAnimation = FirstDamageAnimation(authored.Ranks);
+                CardRules.ApplySharedSkillSettings(authored);
+                return authored;
+            }
             if (card.statusVisuals != null)
             {
                 foreach (var visual in card.statusVisuals)
@@ -128,6 +149,7 @@ namespace FightingAllstar.Presentation.Content
                 Slot = slot,
                 Category = Category(card.ranks[0].skillType),
                 TargetScope = Target(card.ranks[0].runtimeEffect),
+                DamageAnimation = FirstDamageAnimation(card.ranks),
                 SourceTarget = card.ranks[0].runtimeEffect?.Target.ToString(),
                 SourceType = card.ranks[0].skillType.ToString()
             };
@@ -143,40 +165,97 @@ namespace FightingAllstar.Presentation.Content
                     Rank = i + 1,
                     HasCardKind = true, Category = Category(rank.skillType), TargetScope = Target(effect),
                     Effect = effect,
-                    Description = CardDescriptionText.Format(rank.description, effect),
+                    Description = CardDescriptionText.Format(rank.description, effect, rank.Wording),
+                    Wording = rank.Wording?.Clone(),
                     SourceDescription = rank.description,
                     Provenance = SourceProvenance.Supplied
                 });
             }
+            CardRules.ApplySharedSkillSettings(skill);
             return skill;
         }
 
-        private static void CreateUltimate(CharacterObject character, UltimateCardSO card, List<UltimateTierDefinition> tiers)
+        private static void CreateUltimate(CharacterObject character, UltimateCardSO card, CharacterDefinition definition)
         {
-            if (card.statusVisuals != null)
+            var tiers = definition.UltimateTiers;
+            if (card.StudioOwned) tiers.AddRange(card.CreateStudioDefinition());
+            else
             {
-                foreach (var visual in card.statusVisuals)
-                    FightingAllstar.Presentation.Combat.StatusVisualData.Register(visual);
-            }
-            if (card.levels == null || card.levels.Count != 6)
-                throw new InvalidOperationException(card.ultimateName + " must define C0-C5.");
-            for (var i = 0; i < card.levels.Count; i++)
-            {
-                var level = card.levels[i];
-                if (level == null || level.level != i)
-                    throw new InvalidOperationException(card.ultimateName + " has invalid constellation tier data at tier " + i + ".");
-                var effect = BuildRuntimeEffect(level.runtimeEffect,
-                    character.DefinitionId + " Ultimate tier " + level.level);
-                tiers.Add(new UltimateTierDefinition
+                if (card.statusVisuals != null)
                 {
-                    Tier = level.level, Category = Category(level.skillType),
-                    SourceLabel = card.ultimateName,
-                    Description = CardDescriptionText.Format(level.description, effect),
-                    SourceDescription = level.description,
-                    Effect = effect,
-                    Provenance = SourceProvenance.Supplied
-                });
+                    foreach (var visual in card.statusVisuals)
+                        FightingAllstar.Presentation.Combat.StatusVisualData.Register(visual);
+                }
+                if (card.levels == null || card.levels.Count != 6)
+                    throw new InvalidOperationException(card.ultimateName + " must define C0-C5.");
+                for (var i = 0; i < card.levels.Count; i++)
+                {
+                    var level = card.levels[i];
+                    if (level == null || level.level != i)
+                        throw new InvalidOperationException(card.ultimateName + " has invalid constellation tier data at tier " + i + ".");
+                    var effect = BuildRuntimeEffect(level.runtimeEffect,
+                        character.DefinitionId + " Ultimate tier " + level.level);
+                    tiers.Add(new UltimateTierDefinition
+                    {
+                        Tier = level.level, Category = Category(level.skillType),
+                        SourceLabel = card.ultimateName,
+                        Description = CardDescriptionText.Format(level.description, effect, level.Wording, level.level),
+                        Wording = level.Wording?.Clone(),
+                        SourceDescription = level.description,
+                        Effect = effect,
+                        Provenance = SourceProvenance.Supplied
+                    });
+                }
             }
+
+            if (card.HasStudioCardSettings)
+            {
+                definition.HasUltimateCardSettings = true;
+                definition.UltimateCategory = card.StudioCategory;
+                definition.UltimateTargetScope = card.StudioTargetScope;
+                definition.UltimateDamageAnimation = card.StudioDamageAnimation?.Clone();
+            }
+            else
+            {
+                var baseTier = tiers.Find(t => t?.Tier == 0) ?? tiers.Find(t => t != null);
+                if (baseTier == null) return;
+                definition.UltimateCategory = baseTier.Category;
+                definition.UltimateTargetScope = baseTier.Effect?.Target ?? EffectTargetScope.SelectedEnemy;
+                definition.UltimateDamageAnimation = FirstDamageAnimation(baseTier.Effect);
+            }
+        }
+
+        private static DamageAttackDefinition FirstDamageAnimation(List<CardRankData> ranks)
+        {
+            if (ranks == null) return null;
+            foreach (var rank in ranks)
+            {
+                var attack = FirstDamageAnimation(rank?.runtimeEffect);
+                if (attack != null) return attack;
+            }
+            return null;
+        }
+
+        private static DamageAttackDefinition FirstDamageAnimation(List<SkillRankDefinition> ranks)
+        {
+            if (ranks == null) return null;
+            foreach (var rank in ranks)
+            {
+                var attack = FirstDamageAnimation(rank?.Effect);
+                if (attack != null) return attack;
+            }
+            return null;
+        }
+
+        private static DamageAttackDefinition FirstDamageAnimation(EffectDefinition root)
+        {
+            if (root == null) return null;
+            if (root.Kind == EffectKind.Damage && root.Attack != null) return root.Attack.Clone();
+            if (root.Sequence != null)
+                foreach (var step in root.Sequence)
+                    if (step?.Effect?.Kind == EffectKind.Damage && step.Effect.Attack != null)
+                        return step.Effect.Attack.Clone();
+            return null;
         }
 
         private static void CopySecondaryStats(CharacterSecondaryStats source, StatBlock target)

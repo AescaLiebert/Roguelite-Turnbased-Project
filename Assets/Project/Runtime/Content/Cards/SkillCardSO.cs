@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using FightingAllstar.Core.Combat;
 using FightingAllstar.Core.Content;
 
 [CreateAssetMenu(fileName = "New Skill Card", menuName = "Card System/Skill Card")]
@@ -16,6 +17,27 @@ public class SkillCardSO : ScriptableObject
     [Header("Rank Effects")]
     [Tooltip("Card art is shared by every rank. This list stores only the description, category, and runtime effect that can change by rank.")]
     public List<CardRankData> ranks = new List<CardRankData>();
+    [SerializeField, HideInInspector] private int studioSchema;
+    [SerializeField, HideInInspector] private string studioDefinitionJson;
+    public bool StudioOwned => studioSchema != 0;
+    public SkillDefinition CreateStudioDefinition()
+    {
+        if (!StudioOwned) return null;
+        if (studioSchema != 1) throw new InvalidOperationException("Unsupported Studio skill schema: " + studioSchema);
+        var definition = SnapshotJson.Deserialize<SkillDefinition>(studioDefinitionJson) ?? throw new InvalidOperationException("Studio skill payload is missing.");
+        CardRules.ApplySharedSkillSettings(definition);
+        return definition;
+    }
+    public void SetStudioDefinition(SkillDefinition value)
+    {
+        if (value == null) throw new ArgumentNullException(nameof(value));
+        var definition = value.Clone();
+        CardRules.ApplySharedSkillSettings(definition);
+        studioDefinitionJson = SnapshotJson.Serialize(definition); studioSchema = 1;
+        ranks = new List<CardRankData>(); // Inspector mirrors are not a second gameplay authority.
+        foreach (var rank in definition.Ranks) ranks.Add(new CardRankData { description = rank.Description, Wording = rank.Wording?.Clone(),
+            skillType = StudioAssetCategories.Native(rank.HasCardKind ? rank.Category : definition.Category) });
+    }
 
     [ContextMenu("Stance Examples/Immunity, Evade, 80% Recovery")]
     private void ConfigureRecoveryStance()
@@ -71,6 +93,12 @@ public class SkillCardSO : ScriptableObject
 
     public CardRankData GetRankData(int rank)
     {
+        if (StudioOwned)
+        {
+            var skill = CreateStudioDefinition(); var item = skill.Ranks.Find(r => r.Rank == Mathf.Clamp(rank, 1, 3));
+            return item == null ? null : new CardRankData { description = item.Description, Wording = item.Wording?.Clone(),
+                skillType = StudioAssetCategories.Native(item.HasCardKind ? item.Category : skill.Category), runtimeEffect = item.Effect?.Clone() };
+        }
         // Ranks are usually 1, 2, 3. Adjust index accordingly (rank-1).
         if (ranks == null || ranks.Count == 0) return null;
         
@@ -101,6 +129,7 @@ public enum SkillTargetType
 [Serializable]
 public class CardRankData
 {
+    [SerializeReference] public AuthoredDescription Wording;
     [TextArea]
     public string description;
     [Tooltip("The category may change by rank, for example when a higher rank adds a debuff.")]

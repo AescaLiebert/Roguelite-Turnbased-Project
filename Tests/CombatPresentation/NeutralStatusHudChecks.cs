@@ -163,6 +163,16 @@ public static class NeutralStatusHudChecks
             fighter.ElementStatuses.AdvanceTargetTurnEnd();
             hud.SetElementStatuses(fighter.ElementStatuses.Instances);
             Check(!elementPanel.activeSelf && Order().SequenceEqual(ordinaryOrder), "Expired auras remain visible or alter ordinary statuses.");
+            Check(fighter.ElementStatuses.ApplyReaction(ElementalReactionId.Superconduct, fighter.Id, "reaction-superconduct", 20, 0),
+                "Elemental reaction status fixture could not be applied.");
+            hud.SetElementStatuses(fighter.ElementStatuses.Instances, fighter.ElementStatuses.ReactionStatuses);
+            hud.SetStatuses(statuses);
+            Check(elementPanel.activeSelf && elementPanel.transform.childCount == 1 &&
+                elementPanel.transform.GetChild(0).name.Contains("Superconduct") && Order().SequenceEqual(ordinaryOrder),
+                "Elemental reaction status appeared in the buff/debuff row or was hidden from the elemental row.");
+            hud.SetElementStatuses(fighter.ElementStatuses.Instances);
+            Check(!elementPanel.activeSelf && Order().SequenceEqual(ordinaryOrder),
+                "Clearing elemental conditions changed ordinary statuses.");
 
             var sanitize = typeof(FightingAllstar.Presentation.Content.CharacterObjectCatalogBuilder).GetMethod("SanitizeRecipe", BindingFlags.NonPublic | BindingFlags.Static);
             foreach (var id in new[] { "status.buff.neutral", "status.debuff.neutral", "status.increase.neutral" })

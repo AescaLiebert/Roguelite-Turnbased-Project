@@ -22,7 +22,25 @@ namespace FightingAllstar.Contracts.Projections
         public BattleTeamView OwnTeam;
         public BattleTeamView OpponentTeam;
         public int OpponentHandSize;
+        public List<BattleEntityView> Entities = new List<BattleEntityView>();
         public List<BattleEventView> Events = new List<BattleEventView>();
+    }
+
+    [Serializable]
+    public sealed class BattleEntityView
+    {
+        public string EntityId;
+        public string DefinitionId;
+        public string OwnerFighterId;
+        public string MarkerStatusInstanceId;
+        public string Name;
+        public string Category;
+        public string PresentationKey;
+        public string Side;
+        public long SpawnOrder;
+        public int RemainingDuration;
+        public int Capacity;
+        public int MaximumCapacity;
     }
 
     [Serializable]
@@ -54,6 +72,7 @@ namespace FightingAllstar.Contracts.Projections
         public bool FreezeImmune;
         public int Level = 1;
         public List<PublicElementStatusView> ElementStatuses = new List<PublicElementStatusView>();
+        public List<PublicElementalReactionStatusView> ElementalReactionStatuses = new List<PublicElementalReactionStatusView>();
         public List<PublicStatusView> Statuses = new List<PublicStatusView>();
     }
 
@@ -62,6 +81,15 @@ namespace FightingAllstar.Contracts.Projections
     {
         public string InstanceId;
         public string Element;
+        public int RemainingDuration;
+        public string Polarity = "Neutral";
+    }
+
+    [Serializable]
+    public sealed class PublicElementalReactionStatusView
+    {
+        public string InstanceId;
+        public string Reaction;
         public int RemainingDuration;
         public string Polarity = "Neutral";
     }
@@ -76,6 +104,10 @@ namespace FightingAllstar.Contracts.Projections
         public bool EligibleFuel;
         public int StackCount;
         public int RemainingDuration;
+        public string LinkedEntityId;
+        public bool IsRemovable = true;
+        public string Polarity;
+        public string Color;
     }
 
     [Serializable]
@@ -95,14 +127,32 @@ namespace FightingAllstar.Contracts.Projections
     [Serializable]
     public sealed class BattleEventView
     {
+        public BattleEntityView Entity;
+        public string EntityId;
+        public string EntityOwnerFighterId;
+        public string EntityDefinitionId;
+        public string EntityRemovalCause;
+        public long EntityOccurrence;
+        public int EntityCapacityAfter;
+        public int EntityMaximumCapacity;
+        public int EntityAbsorbedAmount;
+        public int EntityRemainingDuration;
         public string DamageElement;
         public string TriggerElement;
         public bool ReactionOutputBlocked;
+        public bool ElementalReactionStatusApplied;
+        public bool ElementalReactionStatusAlreadyActive;
         public string ElementalReaction;
         public string DamageOrigin;
+        public string EffectOrigin;
+        public string EffectId;
+        public string GrantingAbilityId;
+        public int GrantingRank;
+        public int GrantingTier;
         public long ParentEventId;
         public List<string> ConsumedStatusInstanceIds = new List<string>();
         public List<PublicElementStatusView> ElementStatusesAfter;
+        public List<PublicElementalReactionStatusView> ElementalReactionStatusesAfter;
         public long EventId;
         public int HitIndex;
         public int HitCount;
@@ -117,6 +167,8 @@ namespace FightingAllstar.Contracts.Projections
         public string CardId;
         public List<string> TargetIds = new List<string>();
         public int Amount;
+        public int FormulaDamage;
+        public int ConstructAbsorbed;
         public int HealthAfter;
         public int ShieldAfter;
         public int ShieldLost;

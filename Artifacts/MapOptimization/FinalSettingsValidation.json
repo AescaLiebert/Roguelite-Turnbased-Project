@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "unity": "6000.3.4f1",
+  "pipeline": "Assets/Project/Art/Environment/MapStandard/Settings/MapStandardURP.asset",
+  "drawer": 1,
+  "gpuOcclusion": true,
+  "msaa": 4,
+  "renderScale": 1.0,
+  "shadowDistance": 150.0,
+  "colorSpace": "Gamma",
+  "background": false,
+  "frameTiming": false,
+  "shippingScenes": [
+    "Assets/Project/Scenes/MainMenu.unity",
+    "Assets/Project/Scenes/Scene-CharacterLoadOut.unity",
+    "Assets/Project/Scenes/Battle.unity",
+    "Assets/Project/Scenes/Combat.unity",
+    "Assets/Project/Scenes/Scene-Gacha.unity",
+    "Assets/Project/Scenes/Training.unity",
+    "Assets/Project/Scenes/BattleTeyvat.unity"
+  ]
+}

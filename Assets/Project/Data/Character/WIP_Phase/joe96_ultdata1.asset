@@ -17,23 +17,72 @@ MonoBehaviour:
   statusVisuals: []
   levels:
   - level: 0
-    description: Inflict Rupture damage equal to 500% of ATK
+    description: Inflict Rupture damage equal to 500% of the hero's Attack on one
+      enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 50000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.rupture
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -45,12 +94,18 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -76,6 +131,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -112,25 +169,76 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - level: 1
-    description: Inflict Rupture damage equal to 530% of ATK
+    description: Inflict Rupture damage equal to 530% of the hero's Attack on one
+      enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 53000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.rupture
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -142,12 +250,18 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -173,6 +287,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -209,25 +325,76 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - level: 2
-    description: Inflict Rupture damage equal to 560% of ATK
+    description: Inflict Rupture damage equal to 560% of the hero's Attack on one
+      enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 56000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.rupture
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -239,12 +406,18 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -270,6 +443,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -306,25 +481,76 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - level: 3
-    description: Inflict Rupture damage equal to 590% of ATK
+    description: Inflict Rupture damage equal to 590% of the hero's Attack on one
+      enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 59000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.rupture
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -336,12 +562,18 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -367,6 +599,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -403,25 +637,76 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - level: 4
-    description: Inflict Rupture damage equal to 620% of ATK
+    description: Inflict Rupture damage equal to 620% of the hero's Attack on one
+      enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 62000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.rupture
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -433,12 +718,18 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -464,6 +755,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -500,25 +793,76 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
   - level: 5
-    description: Inflict Rupture damage equal to 650% of ATK
+    description: Inflict Rupture damage equal to 650% of the hero's Attack on one
+      enemy.
     skillType: 0
     runtimeEffect:
+      DamageProfile:
+        Id: 
+        ExplicitTrueDamage: 0
+        TrueDamageBonusBp: 2000
+        BypassDefense: 0
+        BypassResistance: 0
+        BypassGenericReduction: 0
+        BypassFinalReduction: 0
+        BypassFlatReduction: 0
+        BypassShield: 0
+        BypassDamageCap: 0
+        BypassFatalSave: 0
+      Explosion: 0
+      ConsumeTargetRecipeId: 
+      DamagePerConsumedStackBp: 0
+      OnKillSelfHealMaxHealthBp: 0
+      DamageElement: 0
+      ElementalApplication:
+        Element: 0
+        HitIndex: 1
+        StatusEffectId: 
+        RequiresCritical: 0
       Attack:
         HitCount: 1
         Range: 0
+        Reaction: 0
+        ReactionTiming: 0
       Id: 
       Kind: 0
       Family: 0
       Scaling: 0
       ScalingStat: 0
       Magnitude: 0
-      CoefficientBp: 65000
+      CoefficientBp: 10000
       KeywordFactorBp: 10000
-      KeywordId: attack.rupture
+      KeywordId: 
       Conditions: []
       StatusRecipe:
+        PowerGaugeGainBp: 0
+        EndTurnPowerGaugeLoss: 0
+        PhysicalDamageReceivedBp: 0
+        SourceOnlyDamageReductionBp: 0
+        SkipApplyingTurnEnd: 0
+        NaturalExpiryAttack:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        Retaliation:
+          Element: 0
+          AttackCoefficientBp: 0
+          ReceivedDamageCoefficientBp: 0
+          Explosion: 0
+          StatusRecipeId: 
+          StatusDuration: 0
+          StatusStackCount: 1
+          SelfHealDamageBp: 0
+        ElementalModifiers: []
         Id: 
         NameKey: 
         Polarity: 0
@@ -530,12 +874,18 @@ MonoBehaviour:
         DefaultDuration: 2
         MaxStacks: 1
         DefaultPotencyBp: 0
+        BarrierCoefficientBp: 0
+        BarrierMaxHealthCapBp: 0
+        BarrierSourceStat: 0
+        BarrierDurationPolicy: 0
+        BarrierAmountPolicy: 0
         BypassDebuffImmunity: 0
         BreakRule: 0
         DisableMask: 0
         Tags: []
         Modifiers: []
         PeriodicDamage:
+          Element: 0
           Family: 3
           Timing: 2
           Scaling: 1
@@ -561,6 +911,8 @@ MonoBehaviour:
           Attack:
             HitCount: 1
             Range: 0
+            Reaction: 0
+            ReactionTiming: 0
           Kind: 0
           Target: 1
           Family: 0
@@ -597,4 +949,26 @@ MonoBehaviour:
       HealCoefficientBp: 0
       PowerGaugeAmount: 0
       Target: 1
+      AttributeAdvantageDamageBonusBp: 0
+      Batches: []
       Sequence: []
+  studioSchema: 1
+  studioDefinitionJson: "[{\"Category\":0,\"Tier\":0,\"SourceLabel\":\"Joe Higashi
+    96 \xB7 Ultimate\",\"Description\":\"Inflict Rupture damage equal to 500% of
+    the hero's Attack on one enemy.\",\"SourceDescription\":\"Inflict Rupture damage
+    equal to 500% of ATK\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":50000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.rupture\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"Provenance\":0},{\"Category\":0,\"Tier\":1,\"SourceLabel\":\"Joe
+    Higashi 96 \xB7 Ultimate\",\"Description\":\"Inflict Rupture damage equal to
+    530% of the hero's Attack on one enemy.\",\"SourceDescription\":\"Inflict Rupture
+    damage equal to 530% of ATK\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":53000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.rupture\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"Provenance\":0},{\"Category\":0,\"Tier\":2,\"SourceLabel\":\"Joe
+    Higashi 96 \xB7 Ultimate\",\"Description\":\"Inflict Rupture damage equal to
+    560% of the hero's Attack on one enemy.\",\"SourceDescription\":\"Inflict Rupture
+    damage equal to 560% of ATK\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":56000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.rupture\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"Provenance\":0},{\"Category\":0,\"Tier\":3,\"SourceLabel\":\"Joe
+    Higashi 96 \xB7 Ultimate\",\"Description\":\"Inflict Rupture damage equal to
+    590% of the hero's Attack on one enemy.\",\"SourceDescription\":\"Inflict Rupture
+    damage equal to 590% of ATK\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":59000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.rupture\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"Provenance\":0},{\"Category\":0,\"Tier\":4,\"SourceLabel\":\"Joe
+    Higashi 96 \xB7 Ultimate\",\"Description\":\"Inflict Rupture damage equal to
+    620% of the hero's Attack on one enemy.\",\"SourceDescription\":\"Inflict Rupture
+    damage equal to 620% of ATK\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":62000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.rupture\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"Provenance\":0},{\"Category\":0,\"Tier\":5,\"SourceLabel\":\"Joe
+    Higashi 96 \xB7 Ultimate\",\"Description\":\"Inflict Rupture damage equal to
+    650% of the hero's Attack on one enemy.\",\"SourceDescription\":\"Inflict Rupture
+    damage equal to 650% of ATK\",\"Effect\":{\"AttributeAdvantageDamageBonusBp\":0,\"Batches\":[],\"Sequence\":[],\"DamageProfile\":{\"Id\":\"\",\"ExplicitTrueDamage\":false,\"TrueDamageBonusBp\":2000,\"BypassDefense\":false,\"BypassResistance\":false,\"BypassGenericReduction\":false,\"BypassFinalReduction\":false,\"BypassFlatReduction\":false,\"BypassShield\":false,\"BypassDamageCap\":false,\"BypassFatalSave\":false},\"Explosion\":false,\"ConsumeTargetRecipeId\":\"\",\"DamagePerConsumedStackBp\":0,\"OnKillSelfHealMaxHealthBp\":0,\"DamageElement\":0,\"ElementalApplication\":null,\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":4,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Id\":\"\",\"Kind\":0,\"Family\":0,\"Scaling\":0,\"ScalingStat\":0,\"Magnitude\":0,\"CoefficientBp\":65000,\"KeywordFactorBp\":10000,\"KeywordId\":\"attack.rupture\",\"Conditions\":[],\"StatusRecipe\":{\"PowerGaugeGainBp\":0,\"EndTurnPowerGaugeLoss\":0,\"PhysicalDamageReceivedBp\":0,\"SourceOnlyDamageReductionBp\":0,\"SkipApplyingTurnEnd\":false,\"NaturalExpiryAttack\":null,\"Retaliation\":null,\"ElementalModifiers\":[],\"Id\":\"\",\"NameKey\":\"\",\"Polarity\":0,\"Color\":0,\"Behavior\":0,\"Stacking\":0,\"Identity\":0,\"DurationClock\":1,\"DefaultDuration\":2,\"MaxStacks\":1,\"DefaultPotencyBp\":0,\"BarrierCoefficientBp\":0,\"BarrierMaxHealthCapBp\":0,\"BarrierSourceStat\":0,\"BarrierDurationPolicy\":0,\"BarrierAmountPolicy\":0,\"BypassDebuffImmunity\":false,\"BreakRule\":0,\"DisableMask\":0,\"Tags\":[],\"Modifiers\":[],\"PeriodicDamage\":{\"Element\":0,\"Family\":3,\"Timing\":2,\"Scaling\":1,\"CoefficientBp\":10000,\"FixedAmount\":0,\"ConsumeOnTrigger\":false},\"PeriodicHealing\":{\"Timing\":1,\"Scaling\":0,\"CoefficientBp\":10000,\"FixedAmount\":0},\"DebuffImmunity\":false,\"AdditionalDamageImmunity\":false,\"Taunt\":false,\"EvadeAttacks\":false,\"StanceChildren\":[],\"RecoverDamageTakenBp\":0,\"CounterEnabled\":false,\"CounterCategory\":0,\"CounterTarget\":1,\"CounterConditions\":[],\"CounterEffect\":{\"Sequence\":[],\"Attack\":{\"HitCount\":1,\"Range\":0,\"Reaction\":0,\"ReactionTiming\":0,\"ResolvedHitCount\":1},\"Kind\":0,\"Target\":1,\"Family\":0,\"Scaling\":0,\"CoefficientBp\":10000,\"Magnitude\":0,\"KeywordId\":\"\",\"Timing\":3,\"HealSource\":3,\"HealAmount\":0,\"HealCoefficientBp\":10000,\"StatusRecipeId\":\"\",\"StatusPolarity\":1,\"StatusApplyChanceBp\":10000,\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"PowerGaugeAmount\":0},\"SurviveLethalCharges\":0,\"IgnoreCritResistanceBp\":0,\"IgnoreCritDefenseBp\":0,\"ImmuneStatusTags\":[],\"HasTaunt\":false,\"Reactions\":[]},\"StatusDurationOverride\":0,\"StatusStackCount\":1,\"StatusPotencyBp\":0,\"StatusApplyChanceBp\":10000,\"HealValue\":null,\"HealScalingStat\":0,\"HealCoefficientBp\":0,\"PowerGaugeAmount\":0,\"Target\":1,\"DamageHitCount\":1},\"Provenance\":0}]"

@@ -23,6 +23,8 @@ namespace FightingAllstar.EnvironmentArt
         [Range(0, 31)] public int renderLayer;
         [Min(0)] public float windBoundsPadding = .8f;
         [Min(0)] public float frustumShadowPadding = 3;
+        [Tooltip("Preserve every selected plant while packing nearby camera-depth cells first. Benchmark before enabling by default.")]
+        public bool frontToBack;
 
         [NonSerialized] public int visibleInstances;
         [NonSerialized] public int visibleLOD0;
@@ -43,6 +45,8 @@ namespace FightingAllstar.EnvironmentArt
             public Matrix4x4[] matrices;
             public int count;
             public Bounds worldBounds;
+            internal float sortDepth;
+            internal int sortOrdinal;
         }
 
         sealed class Chunk
@@ -75,6 +79,26 @@ namespace FightingAllstar.EnvironmentArt
         {
             public Bounds worldBounds;
             public CachedPlacement[] placements;
+            public float sortDepth;
+            public int sourceIndex;
+        }
+
+        sealed class CellDepthComparer : IComparer<CachedCell>
+        {
+            public int Compare(CachedCell a, CachedCell b)
+            {
+                var result = a.sortDepth.CompareTo(b.sortDepth);
+                return result != 0 ? result : a.sourceIndex.CompareTo(b.sourceIndex);
+            }
+        }
+
+        sealed class DrawDepthComparer : IComparer<DrawGroup>
+        {
+            public int Compare(DrawGroup a, DrawGroup b)
+            {
+                var result = a.sortDepth.CompareTo(b.sortDepth);
+                return result != 0 ? result : a.sortOrdinal.CompareTo(b.sortOrdinal);
+            }
         }
 
         readonly Plane[] frustumPlanes = new Plane[6];
@@ -84,6 +108,9 @@ namespace FightingAllstar.EnvironmentArt
         TeyvatMeadowData.Species[] cachedSpecies;
         TeyvatMeadowData.Cell[] cachedCells;
         CachedCell[] placementCells = Array.Empty<CachedCell>();
+        CachedCell[] visibleCellOrder = Array.Empty<CachedCell>();
+        readonly CellDepthComparer cellDepthComparer = new CellDepthComparer();
+        readonly DrawDepthComparer drawDepthComparer = new DrawDepthComparer();
         float cachedWindPadding;
         bool searchedGlobals;
         double nextGlobalsSearch;
@@ -154,6 +181,7 @@ namespace FightingAllstar.EnvironmentArt
             cachedSpecies = null;
             cachedCells = null;
             placementCells = Array.Empty<CachedCell>();
+            visibleCellOrder = Array.Empty<CachedCell>();
         }
 
         void EnsureFamiliesAndPlacementCache()
@@ -175,11 +203,12 @@ namespace FightingAllstar.EnvironmentArt
                 meshBounds[speciesIndex * 2 + 1] = species.meshLOD1 == null ? meshBounds[speciesIndex * 2] : species.meshLOD1.bounds;
             }
             placementCells = new CachedCell[data.cells.Length];
+            visibleCellOrder = new CachedCell[data.cells.Length];
             for (var cellIndex = 0; cellIndex < data.cells.Length; cellIndex++)
             {
                 var source = data.cells[cellIndex];
                 if (source == null || source.placements == null) continue;
-                var cell = new CachedCell { worldBounds = source.worldBounds, placements = new CachedPlacement[source.placements.Length] };
+                var cell = new CachedCell { worldBounds = source.worldBounds, placements = new CachedPlacement[source.placements.Length], sourceIndex = cellIndex };
                 for (var placementIndex = 0; placementIndex < source.placements.Length; placementIndex++)
                 {
                     var sourcePlacement = source.placements[placementIndex];
@@ -237,6 +266,8 @@ namespace FightingAllstar.EnvironmentArt
             }
             GeometryUtility.CalculateFrustumPlanes(camera, frustumPlanes);
             var cameraPosition = camera.transform.position;
+            var cameraForward = camera.transform.forward;
+            var absoluteForward = new Vector3(Mathf.Abs(cameraForward.x), Mathf.Abs(cameraForward.y), Mathf.Abs(cameraForward.z));
             const float maximumDistanceSquared = FadeEndMetres * FadeEndMetres;
             for (var cellIndex = 0; cellIndex < placementCells.Length; cellIndex++)
             {
@@ -248,7 +279,18 @@ namespace FightingAllstar.EnvironmentArt
                 var cullingBounds = cell.worldBounds;
                 cullingBounds.Expand(frustumShadowPadding * 2);
                 if (!GeometryUtility.TestPlanesAABB(frustumPlanes, cullingBounds)) continue;
-                visibleCells++;
+                if (frontToBack) cell.sortDepth = NearDepth(cell.worldBounds, cameraPosition, cameraForward, absoluteForward);
+                visibleCellOrder[visibleCells++] = cell;
+            }
+            // Reorder accepted cells only. Culling, per-placement selection, LOD,
+            // fading and shadow-caster retention below are identical in both modes.
+            // Repacking families through this order also improves depth locality
+            // inside their unchanged 500-instance submissions.
+            if (frontToBack && visibleCells > 1)
+                SortInPlace(visibleCellOrder, visibleCells, cellDepthComparer);
+            for (var cellIndex = 0; cellIndex < visibleCells; cellIndex++)
+            {
+                var cell = visibleCellOrder[cellIndex];
                 for (var placementIndex = 0; placementIndex < cell.placements.Length; placementIndex++)
                 {
                     ref var placement = ref cell.placements[placementIndex];
@@ -308,13 +350,103 @@ namespace FightingAllstar.EnvironmentArt
                             group.speciesIndex = speciesIndex; group.lod = lod; group.submeshIndex = submesh;
                             group.mesh = mesh; group.material = slots[submesh]; group.matrices = chunk.matrices;
                             group.count = chunk.count; group.worldBounds = chunk.bounds;
+                            group.sortOrdinal = drawGroups.Count;
+                            if (frontToBack) group.sortDepth = NearDepth(chunk.bounds, cameraPosition, cameraForward, absoluteForward);
                             drawGroups.Add(group);
                             submittedTriangles += (long)(mesh.GetIndexCount(submesh) / 3) * chunk.count;
                         }
                     }
                 }
             }
+            if (frontToBack && drawGroups.Count > 1) SortInPlace(drawGroups, drawGroups.Count, drawDepthComparer);
             prepareMilliseconds = (Stopwatch.GetTimestamp() - started) * 1000.0 / Stopwatch.Frequency;
+        }
+
+        static float NearDepth(Bounds bounds, Vector3 cameraPosition, Vector3 cameraForward, Vector3 absoluteForward)
+        {
+            return Vector3.Dot(bounds.center - cameraPosition, cameraForward) - Vector3.Dot(bounds.extents, absoluteForward);
+        }
+
+        // Explicit heap sort avoids runtime-specific Array.Sort comparer-delegate
+        // allocations. Storage and comparer instances are reused across frames.
+        static void SortInPlace<T>(IList<T> values, int count, IComparer<T> comparer)
+        {
+            for (var root = count / 2 - 1; root >= 0; root--) SiftDown(values, root, count, comparer);
+            for (var end = count - 1; end > 0; end--)
+            {
+                var swap = values[0]; values[0] = values[end]; values[end] = swap;
+                SiftDown(values, 0, end, comparer);
+            }
+        }
+
+        static void SiftDown<T>(IList<T> values, int root, int count, IComparer<T> comparer)
+        {
+            while (root * 2 + 1 < count)
+            {
+                var child = root * 2 + 1;
+                if (child + 1 < count && comparer.Compare(values[child], values[child + 1]) < 0) child++;
+                if (comparer.Compare(values[root], values[child]) >= 0) return;
+                var swap = values[root]; values[root] = values[child]; values[child] = swap;
+                root = child;
+            }
+        }
+
+        /// <summary>
+        /// Diagnostic only: compare after Prepare at the same fixed camera with
+        /// frontToBack false/true. Includes mesh/material/submesh, LOD and every
+        /// matrix bit; aggregation ignores submission order. The three hashes are
+        /// order-independent diagnostics, not an exact multiset proof. For an
+        /// exact test, snapshot DrawGroups' used matrices and sort full records.
+        /// </summary>
+        public SelectionSignature CaptureSelectionSignature()
+        {
+            var result = new SelectionSignature
+            {
+                instances = visibleInstances, lod0 = visibleLOD0, lod1 = visibleLOD1,
+                cells = visibleCells, groups = drawGroups.Count, triangles = submittedTriangles,
+            };
+            unchecked
+            {
+                for (var groupIndex = 0; groupIndex < drawGroups.Count; groupIndex++)
+                {
+                    var group = drawGroups[groupIndex];
+                    var prefix = 14695981039346656037UL;
+                    prefix = (prefix ^ (uint)group.speciesIndex) * 1099511628211UL;
+                    prefix = (prefix ^ (uint)group.lod) * 1099511628211UL;
+                    prefix = (prefix ^ (uint)group.submeshIndex) * 1099511628211UL;
+                    prefix = (prefix ^ (uint)group.mesh.GetInstanceID()) * 1099511628211UL;
+                    prefix = (prefix ^ (uint)group.material.GetInstanceID()) * 1099511628211UL;
+                    for (var index = 0; index < group.count; index++)
+                    {
+                        var hash = prefix;
+                        var matrix = group.matrices[index];
+                        for (var element = 0; element < 16; element++)
+                            hash = (hash ^ (uint)BitConverter.SingleToInt32Bits(matrix[element])) * 1099511628211UL;
+                        result.drawInstances++;
+                        result.hashSum += hash;
+                        result.hashSquaredSum += hash * hash;
+                        result.hashXor ^= hash;
+                    }
+                }
+            }
+            return result;
+        }
+
+        [Serializable]
+        public struct SelectionSignature : IEquatable<SelectionSignature>
+        {
+            public int instances, lod0, lod1, cells, groups, drawInstances;
+            public long triangles;
+            public ulong hashSum, hashSquaredSum, hashXor;
+            public bool Equals(SelectionSignature other)
+            {
+                return instances == other.instances && lod0 == other.lod0 && lod1 == other.lod1
+                    && cells == other.cells && groups == other.groups && drawInstances == other.drawInstances
+                    && triangles == other.triangles && hashSum == other.hashSum
+                    && hashSquaredSum == other.hashSquaredSum && hashXor == other.hashXor;
+            }
+            public override bool Equals(object obj) { return obj is SelectionSignature other && Equals(other); }
+            public override int GetHashCode() { return instances ^ groups ^ hashSum.GetHashCode(); }
         }
 
         static Bounds TransformBounds(Bounds source, Matrix4x4 matrix)

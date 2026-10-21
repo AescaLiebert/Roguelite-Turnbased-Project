@@ -1,0 +1,17 @@
+{
+  "UnityVersion": "6000.3.4f1",
+  "CapturedUtc": "2026-10-20T04:29:35.6912012Z",
+  "VerificationDraft": "Assets/Project/Editor/CharacterCreatorStudio/Drafts/kaeyaStudio 6.asset",
+  "GameplayHash": null,
+  "BundleHash": null,
+  "Passed": [
+    "Same-frame edit/save Undo restores the prior canonical document.",
+    "Undo retains the actual saved revision instead of restoring an obsolete baseline.",
+    "Undo after Save correctly reports an unsaved draft.",
+    "Recovery restores the unsaved Undo against the current disk revision: Recovered pending draft. Save to persist it into the asset.",
+    "The focused save/Undo probe preserves the production character bytes.",
+    "The focused save/Undo probe leaves the current scene and Play Mode unchanged."
+  ],
+  "Failed": [],
+  "Success": true
+}

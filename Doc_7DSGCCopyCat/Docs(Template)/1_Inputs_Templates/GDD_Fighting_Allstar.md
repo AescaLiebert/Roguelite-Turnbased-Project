@@ -366,6 +366,15 @@ Batch damage is simultaneous for its target set. Lifesteal uses actual HP remove
 
 This authoritative resolution timeline is distinct from the [actor/camera presentation state machine](#actor-and-camera-state-architecture), `@tag:actor-camera`. Presentation waits at recorded hit/clip/reaction barriers but cannot use those callbacks to decide combat outcomes.
 
+<!-- @tag:summon-entities -->
+### Summon and Geo Construct entities
+
+Approved by the owner on 2026-10-21. Summon is a generic typed battle effect that creates an owner-linked entity and a grey, non-dispellable structural status. Geo Construct is an entity category; damage absorption is optional. Entities have no fighter slot, card hand, or independent action budget. Owner defeat removes the entity; finite owner-side end clocks, replacement, depletion, and battle completion are distinct lifecycle causes.
+
+Guoba and Oz activate at their owner's team turn end, before lifetime expiry, including the creation turn. Pyronado explicitly activates at both teams' turn ends while its lifetime still advances on its owner's side. Existing entities remain autonomous through owner crowd control but require a living owner. Jade Screen starts with active Ningguang at battle start and protects the active team through one capacity pool; target damage is calculated first, then capacity is spent before personal shields and HP. Excess damage reaches the original ally. Category alone never grants interception.
+
+The [design](../3_Outputs/Specs/summon-geo-construct-design-spec.md), [architecture](../3_Outputs/Specs/summon-geo-construct-arch-plan.md), and [ADR-003](../3_Outputs/ADRs/003-owner-linked-battle-entities.md) record the approved rules and retained source interpretations. The backend and source character packages are implemented; entity models, animation, feedback, and play-feel verification remain the next phase.
+
 <!-- @tag:elemental-reactions -->
 ## Genshin-inspired elemental reactions
 
